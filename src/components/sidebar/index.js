@@ -10,6 +10,7 @@ import PricingIcon from "@/icons/pricingIcon";
 import SettingsIcon from "@/icons/settingsIcon";
 import AiIcon from "@/icons/aiIcon";
 import BrokerIcon from "@/icons/brokerIcon";
+import AnalyticsIcon from "@/icons/analyticsIcon";
 import { clearAuthSession, getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
 import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -68,6 +69,7 @@ const getMainNav = (t) => [
     ]
   },
   { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
+  { label: t('nav.aiTradeAnalysis', 'AI Trade Analysis'), href: "/ai-trade-analysis", icon: AnalyticsIcon },
   { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
   { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerIcon },
   { label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
@@ -354,6 +356,7 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
     '/economic-calendar': 'Economic Calendar',
+    '/ai-trade-analysis': 'AI Trade Analysis',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',

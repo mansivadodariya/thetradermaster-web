@@ -22,6 +22,7 @@ const ROUTE_TAB_MAP = {
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
     '/economic-calendar': 'Economic Calendar',
+    '/ai-trade-analysis': 'AI Trade Analysis',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',

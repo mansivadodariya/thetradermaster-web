@@ -1,0 +1,134 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.faqSection {
+    padding: 100px 0;
+    background: #FAFBFF;
+
+    @include respond-to('md') {
+        padding: 80px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+
+    .title {
+        text-align: center;
+        margin: 20px 0 60px 0;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @include respond-to('sm') {
+            margin: 16px 0 40px 0;
+        }
+
+        h2 {
+            color: #1A1A1A;
+            font-size: 40px;
+            font-weight: 700;
+            font-family: var(--font-plus-jakarta);
+            margin-bottom: 16px;
+
+            @include respond-to('md') {
+                font-size: 34px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 28px;
+            }
+        }
+
+        p {
+            color: #5F5F5F;
+            font-size: 18px;
+            line-height: 1.7;
+
+            @include respond-to('sm') {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .faqList {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .faqItem {
+        background: #FFF;
+        border: 1px solid #EAEEF6;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+
+        &.active {
+            border-color: rgba(11, 86, 219, 0.3);
+            box-shadow: 0 8px 24px rgba(11, 86, 219, 0.04);
+        }
+    }
+
+    .faqQuestion {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        color: #1A1A1A;
+        font-size: 17px;
+        font-weight: 600;
+        font-family: var(--font-plus-jakarta);
+        transition: color 0.2s ease;
+
+        @include respond-to('sm') {
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        &:hover {
+            color: #0B56DB;
+        }
+
+        span {
+            padding-right: 20px;
+        }
+    }
+
+    .faqIcon {
+        color: #0B56DB;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+    }
+
+    .faqAnswer {
+        padding: 0 24px 24px 24px;
+        overflow: hidden;
+
+        @include respond-to('sm') {
+            padding: 0 20px 20px 20px;
+        }
+
+        p {
+            color: #5F5F5F;
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 14px;
+            }
+        }
+    }
+}

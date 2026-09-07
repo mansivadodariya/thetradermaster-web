@@ -1,0 +1,107 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.statsSection {
+    padding: 60px 0;
+
+    @include respond-to('md') {
+        padding: 50px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 40px 0;
+    }
+
+    .statsGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        background: #FFF;
+        border: 1px solid #EAEEF6;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 30px rgba(11, 86, 219, 0.04);
+
+        @include respond-to('md') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .statItem {
+        text-align: center;
+        padding: 48px 24px;
+        position: relative;
+        transition: background 0.3s ease;
+
+        &:not(:last-child) {
+            border-right: 1px solid #EAEEF6;
+
+            @include respond-to('md') {
+                border-right: none;
+            }
+        }
+
+        @include respond-to('md') {
+            border-bottom: 1px solid #EAEEF6;
+
+            &:nth-child(odd) {
+                border-right: 1px solid #EAEEF6;
+            }
+
+            &:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+        }
+
+        @include respond-to('sm') {
+            padding: 32px 24px;
+
+            &:nth-child(odd) {
+                border-right: none;
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #EAEEF6;
+            }
+        }
+
+        &:hover {
+            background: rgba(11, 86, 219, 0.02);
+        }
+    }
+
+    .statNumber {
+        margin-bottom: 8px;
+    }
+
+    .counterValue {
+        color: #0B56DB;
+        font-size: 48px;
+        font-weight: 800;
+        font-family: var(--font-plus-jakarta);
+        letter-spacing: -1px;
+
+        @include respond-to('md') {
+            font-size: 42px;
+        }
+
+        @include respond-to('sm') {
+            font-size: 36px;
+        }
+    }
+
+    .statLabel {
+        color: #5F5F5F;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.5;
+
+        @include respond-to('sm') {
+            font-size: 14px;
+        }
+    }
+}

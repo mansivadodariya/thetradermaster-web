@@ -37,6 +37,78 @@
             }
         }
 
+        .profileWrapper {
+            position: relative;
+
+            .profileButton {
+                width: 52px;
+                height: 52px;
+                border-radius: 50%;
+                background: linear-gradient(180deg, rgba(11, 86, 219, 0.10) 0%, rgba(255, 255, 255, 0.10) 49.65%, rgba(11, 86, 219, 0.10) 100%);
+                border: 1px solid #0B56DB;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+
+                &:hover {
+                    background: linear-gradient(180deg, rgba(11, 86, 219, 0.20) 0%, rgba(255, 255, 255, 0.20) 49.65%, rgba(11, 86, 219, 0.20) 100%);
+                }
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            .profileDropdown {
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                background: #fff;
+                border: 1px solid #D8D8D8;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                min-width: 200px;
+                z-index: 1000;
+                overflow: hidden;
+
+                a, button {
+                    display: block;
+                    width: 100%;
+                    padding: 12px 20px;
+                    text-decoration: none;
+                    color: #0f0f0f;
+                    font-size: 16px;
+                    font-weight: 400;
+                    background: none;
+                    border: none;
+                    text-align: left;
+                    cursor: pointer;
+                    transition: 0.2s ease-in-out;
+
+                    &:hover {
+                        background: linear-gradient(180deg, rgba(11, 86, 219, 0.10) 0%, rgba(255, 255, 255, 0.10) 49.65%, rgba(11, 86, 219, 0.10) 100%);
+                        color: #0B56DB;
+                    }
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid #f0f0f0;
+                    }
+                }
+
+                .logoutButton {
+                    color: #dc2626;
+
+                    &:hover {
+                        background: rgba(220, 38, 38, 0.1);
+                        color: #dc2626;
+                    }
+                }
+            }
+        }
+
         .headerLangToggle {
             button {
                 height: 52px;

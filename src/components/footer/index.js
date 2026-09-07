@@ -109,7 +109,11 @@ export default function Footer() {
                             <img src={FooterLogo} alt="Trader Master Logo" />
                         </Link>
                         <p>
-                            {t('footer.description', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the Newera brokerage stack.')}
+                            {t('footer.descPart1', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the ')}
+                            <a href="https://newera365.com/en" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
+                                Newera
+                            </a>
+                            {t('footer.descPart2', ' brokerage stack.')}
                         </p>
                         <form className={styles.newsletter} onSubmit={handleSubscribe}>
                             <input
@@ -138,22 +142,23 @@ export default function Footer() {
                                 <li><Link href="/tradesnap">{t('nav.aiTrade', 'AI Trade')}</Link></li>
                                 <li><Link href="/ai-chat">{t('nav.aiChat', 'AI Chat')}</Link></li>
                                 <li><Link href="/ai-strategy">{t('nav.aiStrategy', 'AI Strategy')}</Link></li>
+                               
                             </ul>
                         </div>
 
                         <div className={styles.linkCol}>
-                            <h4>{t('footer.company', 'Company')}</h4>
+                            <h4>{t('footer.quickLinks', 'Quick Links')}</h4>
                             <ul>
-                                <li>
-                                    <Link
-                                        href="https://www.edufins.com/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="Edufins"
-                                    >
-                                        {t('nav.edufins', 'Edufins')}
-                                    </Link>
-                                </li>
+                                <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
+                                <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>
+                                <li><Link href="/contact">{t('nav.contactUs', 'Contact Us')}</Link></li>
+                                <li><Link href="/#faq">{t('nav.faq', 'FAQ')}</Link></li>
+                            </ul>
+                        </div>
+
+                        <div className={styles.linkCol}>
+                            <h4>{t('footer.partners', 'Company')}</h4>
+                            <ul>
                                 <li>
                                     <Link
                                         href="https://fundedmaster.com/"
@@ -180,8 +185,14 @@ export default function Footer() {
                 <div className={styles.bottomSection}>
                     <div className={styles.warningBlock}>
                         <h5>© {new Date().getFullYear()} Trader Master. {t('footer.allRightsReserved', 'All rights reserved.')}</h5>
+                        <p>{t('footer.riskPara1', 'Trading and investing in leveraged financial markets—including Foreign Exchange (Forex), commodities, and global indices—involves substantial risk and can result in the loss of your invested capital. Leveraged trading magnifies both potential gains and potential losses. All automated chart evaluations, AI-generated technical scores, pattern detection models, market commentary, and analytical toolsets provided across Trader Master are engineered strictly for informational and educational research purposes. Nothing on this platform constitutes or should be interpreted as financial, investment, legal, or trading advice. You are solely responsible for evaluating your risk tolerance and financial condition, and we strongly recommend consulting a certified, independent financial advisor before executing any trades. Past performance does not guarantee or predict future results.')}</p>
+                        <p>{t('footer.riskPara2', 'Hypothetical, backtested, and simulated algorithmic outputs have inherent limitations. Unlike real-world trading records, simulated outcomes do not represent live market transactions or actual account executions. Because simulated trades are not executed in live order books, results may not account for real-time market dynamics such as liquidity gaps, spread expansion, execution slippage, or sudden macroeconomic volatility. All historical backtests, neural pattern overlays, and quantitative metrics are modeled with historical datasets and should never be viewed as a promise or guarantee that any account will achieve comparable gains or avoid losses.')}</p>
+                        <p>{t('footer.riskPara3', 'Any user testimonials, case studies, or feedback presented on this platform depict individual experiences. Individual trading results vary widely based on risk parameters, personal discipline, market conditions, and experience. Past user experiences do not constitute a guarantee of future success or profitability.')}</p>
+                        <p>{t('footer.riskPara4', 'Trader Master operates exclusively as an artificial intelligence technology and market research platform. Trader Master is not a registered broker-dealer, financial custodian, exchange, or investment advisor. We do not hold client deposits, manage user capital, or execute orders on financial exchanges. We do not access individual user brokerage accounts, and we make no claims or representations regarding the comparative profitability or performance of users utilizing our platform features.')}</p>
+                        <p>{t('footer.riskPara5', 'All interactive candlestick charts, multi-timeframe pattern recognition overlays, and technical indicator engines accessible on the platform are powered by Trader Master’s proprietary visual analytics architecture. Market telemetry and price data across currencies, digital assets, and commodities are sourced from institutional data feeds for analytical screening. Data is delivered on an "as-is" basis for technical research and should be independently validated prior to making trading decisions.')}</p>
                         <p>
-                            {t('footer.riskWarning', 'Risk warning: Forex trading carries substantial risk. Trader Master provides analytical tools and does not handle deposits or withdrawals. All funds are managed by Newera.')}
+                            {t('footer.riskPara6', 'This statement serves as a summary notice and does not replace our complete legal framework. For exhaustive details on our operating terms and risk warnings, please review our full ')}
+                            <Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link> {t('common.and', 'and')} <Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link>.
                         </p>
                     </div>
 

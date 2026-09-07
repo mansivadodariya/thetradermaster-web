@@ -20,8 +20,8 @@
 
     .topSection {
         display: grid;
-        grid-template-columns: 495px 1fr;
-        gap: 200px;
+        grid-template-columns: 400px 1fr;
+        gap: 120px;
         padding: 0 0 60px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.20);
 
@@ -37,12 +37,17 @@
         }
 
         .linkcol {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+
+            @include respond-to('md') {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
 
             @include respond-to('sm') {
-                flex-direction: column;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 32px;
             }
         }
@@ -72,6 +77,16 @@
                 font-weight: 400;
                 line-height: 28px;
                 margin: 30px 0;
+
+                a {
+                    color: #FFF;
+                    text-decoration: underline;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: #aac9ca; /* A distinct green instead of blue */
+                    }
+                }
 
                 @include respond-to('md') {
                     margin: 20px 0;
@@ -235,21 +250,36 @@
             }
 
             p {
-                color: rgba(255, 255, 255, 0.80);
-                font-size: 16px;
+                color: rgba(255, 255, 255, 0.50);
+                font-size: 11px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 28px;
-                max-width: 800px;
+                line-height: 18px;
+                max-width: 100%;
+                margin-bottom: 10px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    color: rgba(255, 255, 255, 0.80);
+                    text-decoration: underline;
+                    transition: color 0.3s;
+
+                    &:hover {
+                        color: #FFF;
+                    }
+                }
 
                 @include respond-to('md') {
-                    font-size: 14px;
-                    line-height: 24px;
+                    font-size: 11px;
+                    line-height: 16px;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 10px;
+                    line-height: 15px;
                 }
             }
         }

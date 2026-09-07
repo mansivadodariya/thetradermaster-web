@@ -1,0 +1,119 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.whyChooseUs {
+    padding: 100px 0;
+
+    @include respond-to('md') {
+        padding: 80px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+
+    .title {
+        text-align: center;
+        margin: 20px 0 60px 0;
+
+        @include respond-to('sm') {
+            margin: 16px 0 40px 0;
+        }
+
+        h2 {
+            color: #1A1A1A;
+            font-size: 40px;
+            font-weight: 700;
+            font-family: var(--font-plus-jakarta);
+            margin-bottom: 16px;
+
+            @include respond-to('md') {
+                font-size: 34px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 28px;
+            }
+        }
+
+        p {
+            color: #5F5F5F;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+
+            @include respond-to('sm') {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+
+        @include respond-to('md') {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+    }
+
+    .card {
+        background: #FFF;
+        border: 1px solid #EAEEF6;
+        border-radius: 16px;
+        padding: 32px;
+        transition: all 0.3s ease;
+        cursor: default;
+
+        @include respond-to('sm') {
+            padding: 24px;
+        }
+
+        .iconWrap {
+            width: 56px;
+            height: 56px;
+            background: rgba(11, 86, 219, 0.06);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        &:hover .iconWrap {
+            background: rgba(11, 86, 219, 0.12);
+        }
+
+        h3 {
+            color: #1A1A1A;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('sm') {
+                font-size: 17px;
+            }
+        }
+
+        p {
+            color: #5F5F5F;
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 14px;
+            }
+        }
+    }
+}

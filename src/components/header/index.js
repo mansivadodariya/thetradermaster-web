@@ -1,11 +1,11 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Button from '../button';
 import LanguageToggle from '../languageToggle';
 import { useRouter, usePathname } from 'next/navigation';
-import { authNavigate, getAuthHref } from '@/lib/authRedirect';
+import { getAuthHref } from '@/lib/authRedirect';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -17,6 +17,13 @@ export default function Header() {
     const pathname = usePathname()
     const { t } = useLanguage();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Check if user is logged in by checking for auth token
+        const token = localStorage.getItem('access_token') || localStorage.getItem('user_id') || localStorage.getItem('user');
+        setIsLoggedIn(!!token);
+    }, []);
 
     const navClass = (href) =>
         pathname === href || (href !== '/' && pathname?.startsWith(href))
@@ -59,7 +66,11 @@ export default function Header() {
                         </div>
                         <div className={styles.buttonHide}>
                             <LanguageToggle light className={styles.headerLangToggle} />
-                            <Button text={t('nav.getStarted', 'Get Started')} icon={ArrowIcon} onClick={() => authNavigate(router, '/dashboard')} />
+                            <Button 
+                                text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
+                                icon={ArrowIcon} 
+                                onClick={() => router.push('/dashboard')} 
+                            />
                         </div>
                         <div className={styles.mobilemenu} onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +128,14 @@ export default function Header() {
                             </div>
                         </div>
                         <div className={styles.headerFooter}>
-                            <Button text={t('nav.getStarted', 'Get Started')} icon={ArrowIcon} onClick={() => { authNavigate(router, '/dashboard'); setIsMobileMenuOpen(false); }} />
+                            <Button 
+                                text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
+                                icon={ArrowIcon} 
+                                onClick={() => { 
+                                    router.push('/dashboard'); 
+                                    setIsMobileMenuOpen(false); 
+                                }} 
+                            />
                         </div>
                     </motion.div>
                 )}

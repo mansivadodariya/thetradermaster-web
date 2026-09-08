@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import styles from './philippines.module.scss'
@@ -7,7 +7,12 @@ import { supabase } from '@/lib/supabaseClient'
 import { toast } from '@/components/toast'
 import Loader from '@/components/loader'
 import Button from '@/components/button'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-fade'
+import 'swiper/css/pagination'
 
 export default function Philippines() {
     const [formData, setFormData] = useState({
@@ -20,6 +25,25 @@ export default function Philippines() {
         tradeReliance: ''
     })
     const [submitting, setSubmitting] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+
+    // Auto-open modal after 2 seconds on page load
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowModal(true)
+        }, 1500)
+        return () => clearTimeout(timer)
+    }, [])
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (showModal) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        return () => { document.body.style.overflow = '' }
+    }, [showModal])
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
@@ -97,6 +121,7 @@ export default function Philippines() {
                     isForexTrader: '',
                     tradeReliance: ''
                 })
+                setShowModal(false)
             }
         } catch (err) {
             toast.error(err.message || 'An unexpected error occurred.')
@@ -105,8 +130,8 @@ export default function Philippines() {
         }
     }
 
-    const scrollToForm = () => {
-        document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })
+    const openModal = () => {
+        setShowModal(true)
     }
 
     return (
@@ -138,13 +163,15 @@ export default function Philippines() {
                                 In this highly interactive live session, you will learn practical risk management frameworks, identify psychological trading triggers, and see firsthand how to effectively leverage the Trader Master platform to gain a sustainable edge.
                             </p>
                             <ul>
-                                <li>Mastering AI-driven Execution Strategies</li>
-                                <li>Building a Resilient Trading Psychology</li>
-                                <li>Live Q&A: Ask the Master Anything</li>
-                                <li>Exclusive Access to Proprietary Tools</li>
+                                <li> AI Auto Chart Analysis</li>
+                                <li> AI Past Trade Analysis</li>
+                                <li> AI Trading Assistance</li>
+                                <li> AI Chat for Traders</li>
+                                <li> Trading Signals</li>
+                                <li> Live Platform Demonstration</li>
                             </ul>
                             <div className={styles.actionBtn}>
-                                <Button text="Join Webinar" onClick={scrollToForm} icon="/assets/icons/arrow.svg" />
+                                <Button text="Join Webinar" onClick={openModal} icon="/assets/icons/arrow.svg" />
                             </div>
                         </motion.div>
                     </div>
@@ -157,7 +184,27 @@ export default function Philippines() {
                             viewport={{ once: true, amount: 0.3 }}
                             variants={fadeInRight}
                         >
-                            <img src="/assets/images/liveWebinar.jpeg" alt="Live Webinar - Claim Credits" />
+                            <Swiper
+                                modules={[Autoplay, EffectFade, Pagination]}
+                                effect="fade"
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                loop={true}
+                                speed={800}
+                                className={styles.webinarSwiper}
+                            >
+                                <SwiperSlide>
+                                    <img src="/assets/images/liveWebinar2.jpeg" alt="Live Webinar Preview 1" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img src="/assets/images/liveWebinar4.jpeg" alt="Live Webinar Preview 2" />
+                                </SwiperSlide>
+                            </Swiper>
                         </motion.div>
                         <motion.div 
                             className={styles.webinarContent}
@@ -180,13 +227,13 @@ export default function Philippines() {
                                 <li>Limited Seats Available for Optimal Interaction</li>
                             </ul>
                             <div className={styles.actionBtn}>
-                                <Button text="Join Webinar" onClick={scrollToForm} icon="/assets/icons/arrow.svg" />
+                                <Button text="Join Webinar" onClick={openModal} icon="/assets/icons/arrow.svg" />
                             </div>
                         </motion.div>
                     </div>
                 </div>
 
-                <div className={styles.mainGrid} id="registration-form">
+                <div className={styles.mainGrid}>
                     <motion.div 
                         className={styles.contentCol}
                         initial="hidden"
@@ -274,176 +321,213 @@ export default function Philippines() {
                         viewport={{ once: true, amount: 0.2 }}
                         variants={fadeInUp}
                     >
-                        <div className={styles.formCard}>
-                            <div className={styles.formHeader}>
-                                <h2>Let's Connect with us</h2>
-                            </div>
-
-                            <form className={styles.enquiryForm} onSubmit={handleSubmit}>
-                                <div className={styles.formGroup}>
-                                    <label>Name <span>*</span></label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder="Enter your name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        disabled={submitting}
-                                        required
-                                    />
-                                </div>
-
-                                <div className={styles.formGroup}>
-                                    <label>Email <span>*</span></label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        placeholder="Enter your email address"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        disabled={submitting}
-                                        required
-                                    />
-                                </div>
-
-                                <div className={styles.formGroup}>
-                                    <label>Phone <span>*</span></label>
-                                    <div className={styles.phoneWrapper}>
-                                        <PhoneInput
-                                            international
-                                            defaultCountry="PH" // Set Philippines flag by default
-                                            value={formData.phone}
-                                            onChange={(val) => setFormData(prev => ({ ...prev, phone: val || '' }))}
-                                            onCountryChange={(country) => setFormData(prev => ({ ...prev, countryCode: country || 'PH' }))}
-                                            disabled={submitting}
-                                            className={styles.phoneInputComponent}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className={styles.formGroup}>
-                                    <label>Current Equity <span>*</span></label>
-                                    <div className={styles.radioGroup}>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="equity"
-                                                value="$100 to $500"
-                                                checked={formData.equity === '$100 to $500'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            $100 to $500
-                                        </label>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="equity"
-                                                value="$500 to $1000"
-                                                checked={formData.equity === '$500 to $1000'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            $500 to $1000
-                                        </label>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="equity"
-                                                value="$1000 +"
-                                                checked={formData.equity === '$1000 +'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            $1000 +
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className={styles.formGroup}>
-                                    <label>Are you a Forex Trader? <span>*</span></label>
-                                    <div className={styles.radioGroup}>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="isForexTrader"
-                                                value="Yes"
-                                                checked={formData.isForexTrader === 'Yes'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            Yes
-                                        </label>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="isForexTrader"
-                                                value="No"
-                                                checked={formData.isForexTrader === 'No'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            No
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className={styles.formGroup}>
-                                    <label>Do you rely on trading signals from others, or do your own Trade? <span>*</span></label>
-                                    <div className={styles.radioGroup}>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="tradeReliance"
-                                                value="Signals"
-                                                checked={formData.tradeReliance === 'Signals'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            Signals
-                                        </label>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="tradeReliance"
-                                                value="Own Trade"
-                                                checked={formData.tradeReliance === 'Own Trade'}
-                                                onChange={handleChange}
-                                                disabled={submitting}
-                                                required
-                                            />
-                                            <span className={styles.radioBox}></span>
-                                            Own Trade
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className={styles.btnWrapper}>
-                                    <Button
-                                        text={submitting ? 'Submitting...' : 'Submit'}
-                                        type="submit"
-                                        disabled={submitting}
-                                        fullWidth
-                                        icon="/assets/icons/arrow.svg"
-                                    />
-                                </div>
-                            </form>
+                        <div className={styles.webinarImageWrapper}>
+                            <img src="/assets/images/liveWebinar3.jpeg" alt="Live Webinar - Trading" />
                         </div>
                     </motion.div>
                 </div>
             </div>
+
+            {/* Form Modal */}
+            <AnimatePresence>
+                {showModal && (
+                    <motion.div 
+                        className={styles.modalOverlay}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={(e) => { if (e.target === e.currentTarget) setShowModal(false) }}
+                    >
+                        <motion.div 
+                            className={styles.modalContent}
+                            initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            <button 
+                                className={styles.modalClose} 
+                                onClick={() => setShowModal(false)}
+                                aria-label="Close modal"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+
+                            <div className={styles.formCard}>
+                                <div className={styles.formHeader}>
+                                    <h2>Let's Connect with us</h2>
+                                </div>
+
+                                <form className={styles.enquiryForm} onSubmit={handleSubmit}>
+                                    <div className={styles.formGroup}>
+                                        <label>Name <span>*</span></label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Enter your name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            disabled={submitting}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label>Email <span>*</span></label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder="Enter your email address"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            disabled={submitting}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label>Phone <span>*</span></label>
+                                        <div className={styles.phoneWrapper}>
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="PH"
+                                                value={formData.phone}
+                                                onChange={(val) => setFormData(prev => ({ ...prev, phone: val || '' }))}
+                                                onCountryChange={(country) => setFormData(prev => ({ ...prev, countryCode: country || 'PH' }))}
+                                                disabled={submitting}
+                                                className={styles.phoneInputComponent}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label>Current Equity <span>*</span></label>
+                                        <div className={styles.radioGroup}>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="equity"
+                                                    value="$100 to $500"
+                                                    checked={formData.equity === '$100 to $500'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                $100 to $500
+                                            </label>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="equity"
+                                                    value="$500 to $1000"
+                                                    checked={formData.equity === '$500 to $1000'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                $500 to $1000
+                                            </label>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="equity"
+                                                    value="$1000 +"
+                                                    checked={formData.equity === '$1000 +'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                $1000 +
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label>Are you a Forex Trader? <span>*</span></label>
+                                        <div className={styles.radioGroup}>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="isForexTrader"
+                                                    value="Yes"
+                                                    checked={formData.isForexTrader === 'Yes'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                Yes
+                                            </label>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="isForexTrader"
+                                                    value="No"
+                                                    checked={formData.isForexTrader === 'No'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label>Do you rely on trading signals from others, or do your own Trade? <span>*</span></label>
+                                        <div className={styles.radioGroup}>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="tradeReliance"
+                                                    value="Signals"
+                                                    checked={formData.tradeReliance === 'Signals'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                Signals
+                                            </label>
+                                            <label className={styles.radioLabel}>
+                                                <input
+                                                    type="radio"
+                                                    name="tradeReliance"
+                                                    value="Own Trade"
+                                                    checked={formData.tradeReliance === 'Own Trade'}
+                                                    onChange={handleChange}
+                                                    disabled={submitting}
+                                                    required
+                                                />
+                                                <span className={styles.radioBox}></span>
+                                                Own Trade
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.btnWrapper}>
+                                        <Button
+                                            text={submitting ? 'Submitting...' : 'Submit'}
+                                            type="submit"
+                                            disabled={submitting}
+                                            fullWidth
+                                            icon="/assets/icons/arrow.svg"
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

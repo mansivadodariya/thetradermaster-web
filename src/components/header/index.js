@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Button from '../button';
@@ -17,6 +17,13 @@ export default function Header() {
     const pathname = usePathname()
     const { t } = useLanguage();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Check if user is logged in by checking for auth token
+        const token = localStorage.getItem('access_token') || localStorage.getItem('user_id') || localStorage.getItem('user');
+        setIsLoggedIn(!!token);
+    }, []);
 
     const navClass = (href) =>
         pathname === href || (href !== '/' && pathname?.startsWith(href))

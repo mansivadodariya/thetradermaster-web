@@ -125,20 +125,83 @@ $danger: #FF5757;
     }
 }
 
-.formCol {
+// Modal Styles
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modalContent {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+    }
+
     .formCard {
-        background: #fff;
-        border-radius: 20px;
-        border: 1px solid $border;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
         padding: 40px;
-        position: relative;
 
         @include respond-to('sm') {
             padding: 24px;
         }
     }
+}
 
+.modalClose {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.12);
+        transform: rotate(90deg);
+    }
+}
+
+// Form styles (now inside modal)
+.formCard {
     .formHeader {
         margin-bottom: 32px;
 
@@ -398,6 +461,44 @@ $danger: #FF5757;
     }
 }
 
+// Swiper styles
+.webinarSwiper {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+
+    :global(.swiper-slide) {
+        img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 3 / 4;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid $border;
+            object-fit: cover;
+        }
+    }
+
+    :global(.swiper-pagination) {
+        bottom: 12px !important;
+    }
+
+    :global(.swiper-pagination-bullet) {
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.6);
+        opacity: 1;
+        transition: all 0.3s ease;
+    }
+
+    :global(.swiper-pagination-bullet-active) {
+        background: $primary;
+        width: 28px;
+        border-radius: 5px;
+    }
+}
+
 .webinarContent {
     h2 {
         
@@ -470,13 +571,29 @@ $danger: #FF5757;
         }
     }
 
-    .formCol {
-        .formCard {
-            background: #0f0f11;
-            border-color: #2d2d34;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
+    .modalOverlay {
+        background: rgba(0, 0, 0, 0.75);
+    }
 
+    .modalContent {
+        background: #0f0f11;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+
+        .formCard {
+            background: transparent;
+        }
+    }
+
+    .modalClose {
+        background: rgba(255, 255, 255, 0.1);
+        color: #f3f4f6;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    .formCard {
         .formHeader h2 {
             color: #fff;
         }
@@ -536,5 +653,14 @@ $danger: #FF5757;
     .webinarImageWrapper img {
         border-color: #2d2d34;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .webinarSwiper {
+        :global(.swiper-pagination-bullet) {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        :global(.swiper-pagination-bullet-active) {
+            background: $primary;
+        }
     }
 }

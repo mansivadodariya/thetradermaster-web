@@ -33,39 +33,53 @@ export default function Header() {
                                 <img src={Logo} alt='Logo' />
                             </Link>
                         </div>
-                        <div className={styles.menuAlignment}>
-                            <Link href="/" aria-label='Home' className={navClass('/')}>{t('nav.home', 'Home')}</Link>
-                            <Link href="/tradesnap" aria-label='AI Trade' className={navClass('/tradesnap')}>{t('nav.aiTrade', 'AI Trade')}</Link>
-                            <Link href="/ai-chat" aria-label='AI Chat' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Chat')}</Link>
-                            <Link href="/ai-strategy" aria-label='AI Strategy' className={navClass('/ai-strategy')}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
-                            <Link
-                                href="https://www.edufins.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Edufins"
-                                className={styles.navLink}
-                            >
-                                {t('nav.edufins', 'Edufins')}
-                            </Link>
-                            <Link
-                                href="https://fundedmaster.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Funded Master"
-                                className={styles.navLink}
-                            >
-                                {t('nav.fundedMaster', 'Funded Master')}
-                            </Link>
-                        </div>
-                        <div className={styles.buttonHide}>
-                            <LanguageToggle light className={styles.headerLangToggle} />
-                            <Button text={t('nav.getStarted', 'Get Started')} icon={ArrowIcon} onClick={() => authNavigate(router, '/dashboard')} />
-                        </div>
-                        <div className={styles.mobilemenu} onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer' }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 6H20M4 12H20M4 18H20" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </div>
+                        {pathname === '/philippines' ? (
+                            <div className={styles.menuAlignment} style={{ flex: 1, display: 'flex', justifyContent: 'center', fontSize: '30px', fontWeight: '900', color: '#000000' }}>
+                                Trader Master Webinar- 25 September 2026
+                            </div>
+                        ) : (
+                            <div className={styles.menuAlignment}>
+                                <Link href="/" aria-label='Home' className={navClass('/')}>{t('nav.home', 'Home')}</Link>
+                                <Link href="/tradesnap" aria-label='AI Trade' className={navClass('/tradesnap')}>{t('nav.aiTrade', 'AI Trade')}</Link>
+                                <Link href="/ai-chat" aria-label='AI Chat' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Chat')}</Link>
+                                <Link href="/ai-strategy" aria-label='AI Strategy' className={navClass('/ai-strategy')}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
+                                <Link
+                                    href="https://www.edufins.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Edufins"
+                                    className={styles.navLink}
+                                >
+                                    {t('nav.edufins', 'Edufins')}
+                                </Link>
+                                <Link
+                                    href="https://fundedmaster.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Funded Master"
+                                    className={styles.navLink}
+                                >
+                                    {t('nav.fundedMaster', 'Funded Master')}
+                                </Link>
+                            </div>
+                        )}
+                        {pathname !== '/philippines' && (
+                            <>
+                                <div className={styles.buttonHide}>
+                                    <LanguageToggle light className={styles.headerLangToggle} />
+                                    <Button 
+                                        text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
+                                        icon={ArrowIcon} 
+                                        onClick={() => router.push('/dashboard')} 
+                                    />
+                                </div>
+                                <div className={styles.mobilemenu} onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer' }}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ export default function Header() {
                             </Link>
                         </div>
                         {pathname === '/philippines' ? (
-                            <div className={styles.menuAlignment} style={{ flex: 1, display: 'flex', justifyContent: 'center', fontSize: '30px', fontWeight: '900', color: '#000000' }}>
+                            <div className={styles.webinarTitle}>
                                 Trader Master Webinar- 25 September 2026
                             </div>
                         ) : (

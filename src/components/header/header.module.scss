@@ -85,6 +85,25 @@
             }
         }
 
+        .webinarTitle {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 900;
+            color: #000000;
+            text-align: center;
+
+            @include respond-to('md') {
+                font-size: 24px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+        }
+
         .menuAlignment {
             display: flex;
             align-items: center;

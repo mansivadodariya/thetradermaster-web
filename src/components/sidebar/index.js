@@ -342,8 +342,13 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   };
 
   const doLogout = () => {
+    setConfirmOpen(false);
     clearAuthSession();
-    router.replace('/login');
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
+    } else {
+      router.replace('/login');
+    }
   };
 
   const ROUTE_TAB_MAP = {

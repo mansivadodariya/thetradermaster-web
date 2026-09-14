@@ -87,8 +87,13 @@ const Topbar = ({ onMenuClick }) => {
     const profilePicture = user?.picture || '';
 
     const doLogout = () => {
+        setConfirmOpen(false);
         clearAuthSession();
-        router.push('/login');
+        if (typeof window !== 'undefined') {
+            window.location.href = '/login';
+        } else {
+            router.replace('/login');
+        }
     };
 
     if (loading) {

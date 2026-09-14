@@ -240,8 +240,12 @@ export function clearAuthSession() {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
+    try {
+        sessionStorage.clear();
+    } catch (_) {}
     document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
     document.cookie = 'has_phone=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    window.dispatchEvent(new CustomEvent('user:updated'));
 }
 
 export function setPhoneVerifiedInSession(phoneNumber) {

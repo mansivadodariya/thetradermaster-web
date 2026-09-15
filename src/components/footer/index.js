@@ -141,7 +141,7 @@ export default function Footer() {
                             </ul>
                         </div>
 
-                        <div className={styles.linkCol}>
+                        {/* <div className={styles.linkCol}>
                             <h4>{t('footer.company', 'Company')}</h4>
                             <ul>
                                 <li>
@@ -165,7 +165,7 @@ export default function Footer() {
                                     </Link>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
 
                         <div className={styles.linkCol}>
                             <h4>{t('footer.legal', 'Legal')}</h4>

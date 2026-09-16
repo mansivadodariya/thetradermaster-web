@@ -20,14 +20,14 @@ const ChevronRightIcon = () => (
 );
 
 const LinkHighlightIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </svg>
 );
 
 const ServerHighlightIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
         <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
         <line x1="6" y1="6" x2="6.01" y2="6" strokeWidth="3" />
@@ -36,7 +36,7 @@ const ServerHighlightIcon = () => (
 );
 
 const ShieldHighlightIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path d="M9 12l2 2 4-4" />
     </svg>
@@ -93,16 +93,16 @@ export default function BrokerCard({ broker, detailHref }) {
                     <rect x="340" y="35" width="4" height="30" fill="#818CF8" opacity="0.8" />
                     <line x1="342" y1="25" x2="342" y2="75" stroke="#818CF8" strokeWidth="1.5" opacity="0.8" />
 
-                    <rect x="360" y="15" width="4" height="50" fill="#60A5FA" opacity="0.95" />
-                    <line x1="362" y1="5" x2="362" y2="75" stroke="#60A5FA" strokeWidth="1.5" opacity="0.95" />
+                    <rect x="360" y="15" width="4" height="50" fill="#F0FDF4" opacity="0.95" />
+                    <line x1="362" y1="5" x2="362" y2="75" stroke="#F0FDF4" strokeWidth="1.5" opacity="0.95" />
 
-                    <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10" fill="none" stroke="#60A5FA" strokeWidth="2.5" />
+                    <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10" fill="none" stroke="#F0FDF4" strokeWidth="2.5" />
                     <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10 L 380 120 L 200 120 Z" fill="url(#chartGrad)" opacity="0.25" />
                     
                     <defs>
                         <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stopColor="#38BDF8" />
-                            <stop offset="100%" stopColor="#0B56DB" stopOpacity="0" />
+                            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
                         </linearGradient>
                     </defs>
                 </svg>

@@ -22,7 +22,7 @@
     }
 
     .loading {
-        color: #0b56db;
+        color: $primary;
         font-size: 13px;
         text-align: center;
         margin: 0 0 10px;
@@ -46,13 +46,15 @@
         justify-content: center;
         gap: 10px;
         pointer-events: none;
-        color: var(--Color, #25292b);
-        font-size: 18px;
-        font-weight: 500;
+        color: #FFFFFF;
+        font-size: 15px;
+        font-weight: 600;
         line-height: normal;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        background: #fff;
-        border-radius: 8px;
+        border: 1px solid rgba(0, 255, 136, 0.35);
+        background: rgba(4, 24, 16, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 
         img {
             width: 20px;

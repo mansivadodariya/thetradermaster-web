@@ -36,7 +36,7 @@
 
 .topGlowLayer {
     border-radius: 442px;
-    background: #0B56DB;
+    background: $primary;
     filter: blur(46.8px);
     width: 90%;
     height: 18px;
@@ -112,7 +112,7 @@
     max-width: 380px;
 
     strong {
-        color: #0B56DB;
+        color: $primary;
         font-weight: 700;
     }
 }
@@ -134,8 +134,8 @@
     transition: all 0.2s ease;
 
     &:focus-within {
-        border-color: #0B56DB;
-        box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.15);
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
         background: #FFFFFF;
     }
 
@@ -182,16 +182,16 @@
     transition: all 0.2s ease;
 
     &:focus {
-        border-color: #0B56DB;
-        box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.15);
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
         background: #FFFFFF;
         transform: translateY(-1px);
     }
 
     &.filled {
         background: #EBF2FC;
-        border-color: #0B56DB;
-        color: #0B56DB;
+        border-color: $primary;
+        color: $primary;
     }
 }
 
@@ -217,14 +217,14 @@
     color: #64748B;
 
     strong {
-        color: #0B56DB;
+        color: $primary;
     }
 }
 
 .resendBtn {
     background: none;
     border: none;
-    color: #0B56DB;
+    color: $primary;
     font-weight: 700;
     font-size: 13px;
     cursor: pointer;

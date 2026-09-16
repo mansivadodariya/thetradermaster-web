@@ -16,31 +16,31 @@
 
     button {
         border: none;
-        background: linear-gradient(90deg, rgba(11, 86, 219, 0.24) 0%, rgba(255, 255, 255, 0.00) 49.15%, rgba(11, 86, 219, 0.24) 100%);
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.24) 0%, rgba(255, 255, 255, 0.00) 49.15%, rgba(16, 185, 129, 0.24) 100%);
         display: flex;
         align-items: center;
         gap: 5px;
-        color: #0B56DB;
+        color: $primary;
         text-align: center;
         font-size: 16px;
         font-style: normal;
         padding: 7px 26px;
-        border-left: 3px solid #0B56DB;
-        border-right: 3px solid #0B56DB;
+        border-left: 3px solid $primary;
+        border-right: 3px solid $primary;
         font-weight: 500;
         line-height: normal;
 
         @include respond-to("sm") {
-            border-left: 2px solid #0B56DB;
-            border-right: 2px solid #0B56DB;
+            border-left: 2px solid $primary;
+            border-right: 2px solid $primary;
             padding: 7px 20px;
             font-size: 14px;
         }
 
-        .dot {
+            .dot {
             width: 8px;
             height: 8px;
-            background-color: #0B56DB;
+            background-color: $primary;
             border-radius: 8px;
         }
     }
@@ -50,9 +50,9 @@
     .lineText {
         button {
             color: #FFFFFF;
-            background: linear-gradient(90deg, rgba(11, 86, 219, 0.4) 0%, rgba(15, 23, 42, 0.00) 49.15%, rgba(11, 86, 219, 0.4) 100%);
-            border-left-color: #0B56DB;
-            border-right-color: #0B56DB;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.4) 0%, rgba(15, 23, 42, 0.00) 49.15%, rgba(16, 185, 129, 0.4) 100%);
+            border-left-color: $primary;
+            border-right-color: $primary;
 
             .dot {
                 background-color: #FFFFFF;

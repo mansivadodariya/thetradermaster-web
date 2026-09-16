@@ -40,38 +40,13 @@ p:last-child {
   font-family: var(--font-plus-jakarta);
 }
 
-.container-xs {
-  max-width: calc(1360px + 40px);
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
-.container-xl {
-  max-width: calc(1474px + 40px);
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
-.container {
-  max-width: calc(1640px + 40px);
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
-.container-xs2 {
-  max-width: calc(1240px + 40px);
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
-.container-xs4 {
-  max-width: calc(1185px + 40px);
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
+.container-xs,
+.container-xl,
+.container,
+.container-xs2,
+.container-xs4,
 .container-xs3 {
-  max-width: calc(1588px + 40px);
+  max-width: calc(1360px + 40px);
   padding: 0 20px;
   margin: 0 auto;
 }

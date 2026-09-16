@@ -21,8 +21,8 @@
 
         .badge {
             display: inline-block;
-            background: rgba(11, 86, 219, 0.08);
-            color: #0B56DB;
+            background: rgba(16, 185, 129, 0.15);
+            color: $primary;
             font-size: 14px;
             font-weight: 600;
             padding: 6px 18px;
@@ -91,8 +91,8 @@
         transition: border-color 0.3s, box-shadow 0.3s;
 
         &:hover {
-            border-color: rgba(11, 86, 219, 0.25);
-            box-shadow: 0 4px 20px rgba(11, 86, 219, 0.06);
+            border-color: rgba(16, 185, 129, 0.15);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
         }
 
         @include respond-to('sm') {
@@ -104,7 +104,7 @@
         width: 44px;
         height: 44px;
         min-width: 44px;
-        background: rgba(11, 86, 219, 0.08);
+        background: rgba(16, 185, 129, 0.15);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -128,7 +128,7 @@
         }
 
         a {
-            color: #0B56DB;
+            color: $primary;
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
@@ -207,8 +207,8 @@
             }
 
             &:focus {
-                border-color: #0B56DB;
-                box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.08);
+                border-color: $primary;
+                box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
             }
 
             &:disabled {
@@ -226,7 +226,7 @@
     .submitBtn {
         width: 100%;
         padding: 14px 24px;
-        background: #0B56DB;
+        background: $primary;
         color: #FFF;
         border: none;
         border-radius: 10px;

@@ -2,18 +2,46 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .aiStrategyPage {
-    background-image: url('/assets/images/hero.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #030E09;
     width: 100%;
-    padding: 180px 0 80px 0;
+    min-height: 100dvh;
+    position: relative;
+    overflow: hidden;
+    padding: 160px 0 90px 0;
 
     @include respond-to('md') {
-        padding: 140px 0 60px 0;
+        padding: 130px 0 70px 0;
     }
-    
+
     @include respond-to('sm') {
-        padding: 100px 0 40px 0;
+        padding: 100px 0 50px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/images/hero-new.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top;
+        opacity: 0.20;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 25%, rgba(0, 255, 136, 0.08) 0%, rgba(3, 16, 11, 0.75) 55%, rgba(2, 10, 7, 0.95) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    :global(.container-xs) {
+        position: relative;
+        z-index: 2;
     }
 
     .titleWrapper {
@@ -22,10 +50,22 @@
         align-items: center;
         max-width: 955px;
         margin: 0 auto;
-        
+
         @include respond-to('md') {
             padding: 0 16px;
         }
+
+        :global(.lineText button) {
+            background: rgba(0, 26, 18, 0.85);
+            border: 1px solid rgba(0, 255, 136, 0.5);
+            color: #00FF88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+    }
+
+    .neonText {
+        color: #00FF88;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
     }
 
     .title {
@@ -40,16 +80,17 @@
         }
 
         h1 {
-            color: #1A1A1A;
+            color: #FFFFFF;
             text-align: center;
             font-size: 56px;
             font-family: var(--font-plus-jakarta);
             margin: 0 0 16px 0;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 800;
             line-height: 1.15;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
 
             @include respond-to('md') {
                 font-size: 42px;
@@ -62,17 +103,18 @@
         }
 
         p {
-            color: #5F5F5F;
+            color: rgba(255, 255, 255, 0.95);
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             font-style: normal;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 28px;
             margin: 0 auto;
             max-width: 840px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
 
             @include respond-to('md') {
-                font-size: 18px;
+                font-size: 16px;
                 line-height: 26px;
             }
 
@@ -86,177 +128,38 @@
     .promptWrapper {
         display: flex;
         flex-direction: column;
-        gap: 32px;
-    }
-
-    .textbox {
-        background: rgba(11, 86, 219, 0.05);
-        backdrop-filter: blur(10.85px);
-        padding: 20px;
-
-        @include respond-to('sm') {
-            padding: 12px;
-        }
-    }
-
-    .promptContainer {
-        background: #fff;
-        border: 1px solid #0047FF;
-        border-radius: 2px;
-        padding: 32px 24px 24px 24px;
-        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
-
-        @include respond-to('sm') {
-            padding: 20px 16px 16px 16px;
-        }
-
-        .inputWrapper {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            gap: 16px;
-
-            @include respond-to('sm') {
-                margin-bottom: 16px;
-            }
-
-            .promptInput {
-                flex-grow: 1;
-                border: none;
-                outline: none;
-                resize: none;
-                font-size: 18px;
-                color: #333;
-                background: transparent;
-                font-family: inherit;
-
-                @include respond-to('sm') {
-                    font-size: 15px;
-                }
-
-                &::placeholder {
-                    color: #999;
-                }
-            }
-
-            .sendButton {
-                background: #0047FF;
-                color: #fff;
-                border: none;
-                width: 44px;
-                height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                border-radius: 2px;
-                transition: background 0.3s ease;
-                flex-shrink: 0;
-
-                @include respond-to('sm') {
-                    width: 36px;
-                    height: 36px;
-                }
-
-                &:hover {
-                    background: #0036CC;
-                }
-            }
-        }
-
-        .presetsWrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-
-            .presetsLabel {
-                font-size: 14px;
-                font-weight: 600;
-                color: #5F5F5F;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .presets {
-                display: flex;
-                gap: 12px;
-                flex-wrap: wrap;
-
-                @include respond-to('sm') {
-                    gap: 8px;
-                }
-
-                button {
-                    background: linear-gradient(90deg, #EAF1FF 0%, #FFF 53.85%, #EAF1FF 100%);
-                    color: #1A1A1A;
-                    border: 1px solid rgba(0, 71, 255, 0.15);
-                    padding: 8px 16px;
-                    border-radius: 2px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    font-family: inherit;
-
-                    @include respond-to('sm') {
-                        padding: 6px 12px;
-                        font-size: 12px;
-                    }
-
-                    &:hover {
-                        background: #0047FF;
-                        color: #FFF;
-                        border-color: #0047FF;
-                    }
-                }
-            }
-        }
-    }
-
-    /* Hero Showcase Image Wrapper: ai-strategy.png */
-    .heroShowcaseImageWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .showcaseCard {
-            background: rgba(255, 255, 255, 0.40);
-            box-shadow: 0 0 41.5px 0 rgba(11, 86, 219, 0.15);
-            backdrop-filter: blur(8.4px);
-            border: 1px solid rgba(0, 71, 255, 0.15);
-            border-radius: 6px;
-            padding: 12px;
-
-            .showcaseImg {
-                width: 100%;
-                height: auto;
-                display: block;
-                border-radius: 4px;
-            }
-        }
+        gap: 40px;
+        max-width: 960px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     /* Showcase Box Banner: stratagyImage.png */
     .bannerBox {
-        background: linear-gradient(270deg, rgba(11, 86, 219, 0.20) 0%, rgba(255, 255, 255, 0.00) 48.72%, rgba(11, 86, 219, 0.20) 100%);
-        padding: 60px 48px;
+        background: rgba(4, 28, 19, 0.88);
+        border: 1px solid rgba(0, 255, 136, 0.35);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 136, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        padding: 50px 44px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 32px;
         position: relative;
         align-items: center;
-        border-radius: 4px;
+        border-radius: 24px;
+        overflow: hidden;
 
         @include respond-to('md') {
             grid-template-columns: 1fr;
-            padding: 40px 24px;
-            gap: 32px;
+            padding: 36px 24px;
+            gap: 28px;
             text-align: center;
-            overflow: hidden;
         }
 
         .boxContent {
+            z-index: 2;
+
             @include respond-to('md') {
                 display: flex;
                 flex-direction: column;
@@ -264,46 +167,46 @@
             }
 
             h3 {
-                color: #1A1A1A;
-                font-size: 36px;
-                font-weight: 700;
-                line-height: normal;
-                letter-spacing: 1px;
-                margin: 20px 0 16px 0;
+                color: #FFFFFF;
+                font-size: 32px;
+                font-weight: 800;
+                line-height: 1.25;
+                letter-spacing: -0.5px;
+                margin: 18px 0 14px 0;
                 font-family: var(--font-plus-jakarta);
 
                 @include respond-to('md') {
-                    font-size: 28px;
-                    margin: 16px auto;
+                    font-size: 26px;
                 }
             }
 
             p {
-                color: #5F5F5F;
-                font-size: 17px;
-                font-weight: 500;
-                line-height: 26px;
-                margin: 0 0 28px 0;
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 1.65;
+                margin: 0 0 26px 0;
 
                 @include respond-to('md') {
-                    margin: 0 auto 24px auto;
+                    margin: 0 auto 20px auto;
                 }
             }
         }
 
         .boxImage {
-            background: rgba(255, 255, 255, 0.40);
-            box-shadow: 0 0 41.5px 0 rgba(11, 86, 219, 0.20);
-            backdrop-filter: blur(8.4px);
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 136, 0.2);
+            backdrop-filter: blur(12px);
             position: relative;
-            z-index: 1;
-            border-radius: 4px;
+            z-index: 2;
+            border-radius: 16px;
             padding: 8px;
 
             img {
                 display: block;
                 width: 100%;
-                border-radius: 2px;
+                border-radius: 10px;
             }
         }
 
@@ -312,13 +215,399 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
+            opacity: 0.15;
+            pointer-events: none;
 
             img {
                 max-width: 400px;
                 display: block;
+            }
+        }
+    }
+
+    /* Cards Grid */
+    .cardsGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+        @include respond-to('md') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 255, 136, 0.35);
+            background: rgba(6, 32, 22, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 255, 136, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+
+            &:hover {
+                transform: translateY(-6px);
+                border-color: rgba(0, 255, 136, 0.7);
+                background: rgba(8, 42, 28, 0.95);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+
+            .cardHeader {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                margin-bottom: 14px;
+                border-bottom: 1px solid rgba(0, 255, 136, 0.25);
+                padding-bottom: 16px;
+
+                .iconBox {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 12px;
+                    background: rgba(0, 255, 136, 0.15);
+                    border: 1px solid rgba(0, 255, 136, 0.35);
+                    color: #00FF88;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
+                    flex-shrink: 0;
+
+                    svg {
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 20px;
+                    font-family: var(--font-plus-jakarta), sans-serif;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: -0.01em;
+
+                    @include respond-to('sm') {
+                        font-size: 18px;
+                    }
+                }
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.92);
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.65;
+                margin: 0 0 16px 0;
 
                 @include respond-to('sm') {
-                    max-width: 250px;
+                    font-size: 14px;
+                    line-height: 1.55;
+                }
+            }
+
+            .arrowLink {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #00FF88;
+                font-size: 13.5px;
+                font-weight: 700;
+                font-family: var(--font-plus-jakarta);
+                transition: gap 0.25s ease;
+            }
+
+            &:hover .arrowLink {
+                gap: 10px;
+            }
+        }
+    }
+
+    /* Workflow 4-Step Grid */
+    .workflowSection {
+        margin-top: 40px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(0, 255, 136, 0.25);
+
+        .sectionHeader {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 40px auto;
+
+            h2 {
+                color: #FFFFFF;
+                font-size: 34px;
+                font-weight: 800;
+                font-family: var(--font-plus-jakarta);
+                margin: 0 0 12px 0;
+                line-height: 1.25;
+
+                @include respond-to('sm') {
+                    font-size: 26px;
+                }
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 16px;
+                line-height: 1.6;
+                font-family: var(--font-plus-jakarta);
+                margin: 0;
+            }
+        }
+
+        .workflowGrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+
+            @include respond-to('md') {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include respond-to('sm') {
+                grid-template-columns: 1fr;
+            }
+
+            .stepCard {
+                background: rgba(6, 32, 22, 0.88);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+                border-radius: 20px;
+                padding: 24px;
+                backdrop-filter: blur(14px);
+                position: relative;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    border-color: rgba(0, 255, 136, 0.65);
+                    background: rgba(8, 42, 28, 0.95);
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 136, 0.25);
+                }
+
+                .stepNum {
+                    font-size: 32px;
+                    font-weight: 800;
+                    color: #00FF88;
+                    font-family: var(--font-plus-jakarta);
+                    margin-bottom: 12px;
+                    text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+                }
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 18px;
+                    font-weight: 700;
+                    font-family: var(--font-plus-jakarta);
+                    margin: 0 0 8px 0;
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.88);
+                    font-size: 14px;
+                    line-height: 1.6;
+                    font-family: var(--font-plus-jakarta);
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    /* Sample Strategy Performance Card */
+    .sampleStrategySection {
+        margin-top: 40px;
+
+        .sectionHeader {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 36px auto;
+
+            h2 {
+                color: #FFFFFF;
+                font-size: 34px;
+                font-weight: 800;
+                font-family: var(--font-plus-jakarta);
+                margin: 0 0 12px 0;
+
+                @include respond-to('sm') {
+                    font-size: 26px;
+                }
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 16px;
+                font-family: var(--font-plus-jakarta);
+                margin: 0;
+            }
+        }
+
+        .strategyMetricsCard {
+            background: rgba(5, 24, 17, 0.92);
+            border: 1px solid rgba(0, 255, 136, 0.35);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+
+            @include respond-to('sm') {
+                padding: 20px;
+            }
+
+            .cardTopRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+                border-bottom: 1px solid rgba(0, 255, 136, 0.25);
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 16px;
+
+                .pairBadge {
+                    color: #00FF88;
+                    font-size: 12px;
+                    font-weight: 800;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    display: block;
+                    margin-bottom: 6px;
+                }
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 24px;
+                    font-weight: 800;
+                    margin: 0;
+                    font-family: var(--font-plus-jakarta);
+                }
+
+                .scorePill {
+                    background: rgba(0, 255, 136, 0.15);
+                    border: 1px solid rgba(0, 255, 136, 0.4);
+                    border-radius: 50px;
+                    padding: 8px 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .scoreVal {
+                        color: #00FF88;
+                        font-size: 20px;
+                        font-weight: 800;
+                    }
+
+                    .scoreLabel {
+                        color: #FFFFFF;
+                        font-size: 12px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+            .metricsGrid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+
+                @include respond-to('sm') {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .metricItem {
+                    background: rgba(0, 255, 136, 0.08);
+                    border: 1px solid rgba(0, 255, 136, 0.25);
+                    border-radius: 16px;
+                    padding: 18px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+
+                    .mLabel {
+                        color: rgba(255, 255, 255, 0.75);
+                        font-size: 13px;
+                        font-weight: 600;
+                        font-family: var(--font-plus-jakarta);
+                    }
+
+                    .mVal {
+                        color: #FFFFFF;
+                        font-size: 22px;
+                        font-weight: 800;
+                        font-family: var(--font-plus-jakarta);
+
+                        &.green {
+                            color: #00FF88;
+                            text-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* CTA Card */
+    .ctaCard {
+        margin-top: 50px;
+        background: linear-gradient(135deg, rgba(6, 36, 25, 0.98) 0%, rgba(10, 52, 35, 0.95) 100%);
+        border: 1px solid rgba(0, 255, 136, 0.45);
+        border-radius: 28px;
+        padding: 45px 35px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 136, 0.25);
+
+        .ctaContent {
+            max-width: 620px;
+            margin: 0 auto;
+
+            h2 {
+                color: #FFFFFF;
+                font-size: 32px;
+                font-weight: 800;
+                font-family: var(--font-plus-jakarta);
+                margin: 0 0 12px 0;
+
+                @include respond-to('sm') {
+                    font-size: 24px;
+                }
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 16px;
+                line-height: 1.6;
+                margin: 0 0 26px 0;
+                font-family: var(--font-plus-jakarta);
+            }
+
+            .ctaBtn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 15px 32px;
+                background: linear-gradient(135deg, #00FF88 0%, #00CC6A 100%);
+                color: #04100B;
+                font-family: var(--font-plus-jakarta);
+                font-weight: 800;
+                font-size: 15px;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 4px 15px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    box-shadow: 0 0 35px rgba(0, 255, 136, 0.75), 0 6px 20px rgba(0, 0, 0, 0.4);
+                    transform: translateY(-2px);
                 }
             }
         }
@@ -775,7 +1064,8 @@
     .cardsGrid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 24px;
+        margin-top: 40px;
 
         @include respond-to('md') {
             grid-template-columns: repeat(2, 1fr);
@@ -787,49 +1077,89 @@
         }
 
         .card {
-            border: 1px solid rgba(0, 0, 0, 0.10);
-            background: rgba(255, 255, 255, 0.50);
-            backdrop-filter: blur(17.65px);
-            padding: 24px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            background: linear-gradient(145deg, rgba(8, 40, 28, 0.85) 0%, rgba(4, 24, 16, 0.90) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.45), 0 0 15px rgba(0, 255, 136, 0.08);
+            transition: all 0.35 ease;
+            cursor: pointer;
 
             &:hover {
-                transform: translateY(-4px);
-                box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+                transform: translateY(-5px);
+                border-color: rgba(0, 255, 136, 0.60);
+                box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.60), 0 0 25px rgba(0, 255, 136, 0.25);
+
+                .arrowLink {
+                    color: #FFFFFF;
+                    svg {
+                        transform: translateX(4px);
+                    }
+                }
             }
 
             .cardHeader {
                 display: flex;
                 align-items: center;
-                gap: 16px;
-                margin-bottom: 12px;
-                border-bottom: 1px solid #EAEAEA;
+                gap: 14px;
+                margin-bottom: 16px;
+                border-bottom: 1px solid rgba(0, 255, 136, 0.15);
                 padding-bottom: 16px;
 
+                .iconBox {
+                    width: 44px;
+                    height: 44px;
+                    background: rgba(0, 255, 136, 0.12);
+                    border: 1px solid rgba(0, 255, 136, 0.35);
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
                 h3 {
-                    color: #1A1A1A;
-                    font-size: 20px;
+                    color: #FFFFFF;
+                    font-size: 19px;
                     font-style: normal;
                     font-weight: 700;
-                    line-height: normal;
+                    line-height: 1.3;
+                    font-family: var(--font-plus-jakarta);
 
                     @include respond-to('sm') {
-                        font-size: 18px;
+                        font-size: 17px;
                     }
                 }
             }
 
             p {
-                color: rgba(26, 26, 26, 0.70);
-                font-size: 15px;
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 26px;
+                line-height: 24px;
+                margin: 0 0 20px 0;
+                font-family: var(--font-plus-jakarta);
 
                 @include respond-to('sm') {
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+            }
+
+            .arrowLink {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                color: #00FF88;
+                font-weight: 700;
+                font-size: 14px;
+                font-family: var(--font-plus-jakarta);
+                transition: all 0.25s ease;
+
+                svg {
+                    transition: transform 0.25s ease;
                 }
             }
         }

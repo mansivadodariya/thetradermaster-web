@@ -216,7 +216,7 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'light' }) => {
         title: {
             text: `${symbol} Price Action`,
             align: 'left', margin: 10, offsetX: 10,
-            style: { color: isDark ? '#60a5fa' : '#0f5cf2', fontSize: '16px', fontWeight: 700 }
+            style: { color: isDark ? '#F0FDF4' : '#0f5cf2', fontSize: '16px', fontWeight: 700 }
         },
         legend: {
             show: true, position: 'top', horizontalAlign: 'right',
@@ -314,7 +314,7 @@ const Gauge = ({ value, title, theme = 'light' }) => {
                 hollow: { size: '65%', background: isDark ? '#1a1a1e' : '#f8fafc' },
                 track: { background: isDark ? '#2d2d34' : '#e2e8f0', strokeWidth: '100%', margin: 5 },
                 dataLabels: {
-                    name: { show: true, color: isDark ? '#60a5fa' : '#0f5cf2', offsetY: -10, fontSize: '12px', fontWeight: 600 },
+                    name: { show: true, color: isDark ? '#F0FDF4' : '#0f5cf2', offsetY: -10, fontSize: '12px', fontWeight: 600 },
                     value: { show: true, fontSize: '22px', fontWeight: 700, color: isDark ? '#ffffff' : '#121212', offsetY: 0, formatter: (val) => val.toFixed(1) }
                 }
             }

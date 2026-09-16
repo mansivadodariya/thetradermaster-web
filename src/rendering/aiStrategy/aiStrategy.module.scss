@@ -1,10 +1,10 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #0B56DB;
-$primaryHover: #0b57e3;
+$primary: #10B981;
+$primaryHover: #047857;
 $border: rgba(18, 18, 18, 0.10);
-$bgSoft: #F5F8FE;
+$bgSoft: #F0FFF4;
 
 .aiStrategyWrapper {
     display: flex;
@@ -79,12 +79,12 @@ $bgSoft: #F5F8FE;
     }
 
     &.connecting {
-        color: #3b82f6;
+        color: $primary;
         border-color: rgba(59, 130, 246, 0.2);
         background: rgba(59, 130, 246, 0.04);
 
         .statusDot {
-            background-color: #3b82f6;
+            background-color: $primary;
             box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
             animation: pulse 1.5s infinite;
         }
@@ -498,7 +498,7 @@ $bgSoft: #F5F8FE;
     }
 
     &.neutralFill {
-        background: #3b82f6;
+        background: $primary;
     }
 }
 
@@ -569,7 +569,7 @@ $bgSoft: #F5F8FE;
     &.momentumBadge {
         background: rgba(59, 130, 246, 0.05);
         border-color: rgba(59, 130, 246, 0.15);
-        color: #3b82f6;
+        color: $primary;
     }
 
     &.rsiBadge {
@@ -613,7 +613,7 @@ $bgSoft: #F5F8FE;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #3b82f6;
+        color: $primary;
         position: relative;
 
         &::before {
@@ -622,7 +622,7 @@ $bgSoft: #F5F8FE;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1px solid #3b82f6;
+            border: 1px solid $primary;
             animation: radarPulse 2s infinite linear;
             opacity: 0;
         }
@@ -1110,8 +1110,8 @@ $bgSoft: #F5F8FE;
 
         &.active {
             color: #ffffff;
-            background: #0B56DB;
-            box-shadow: 0 4px 12px rgba(11, 86, 219, 0.25);
+            background: $primary;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
         }
     }
 }
@@ -1196,7 +1196,7 @@ $bgSoft: #F5F8FE;
         }
 
         &.connecting {
-            color: #0B56DB;
+            color: $primary;
         }
     }
 
@@ -1463,12 +1463,12 @@ $bgSoft: #F5F8FE;
 
         &:hover {
             background: #f1f5f9;
-            color: #0b56db;
+            color: $primary;
         }
 
         &.itemSelected {
-            background: rgba(11, 86, 219, 0.06);
-            color: #0b56db;
+            background: rgba(16, 185, 129, 0.06);
+            color: $primary;
             font-weight: 700;
         }
     }
@@ -1476,14 +1476,14 @@ $bgSoft: #F5F8FE;
     .checkmarkIcon {
         font-size: 11px;
         font-weight: 700;
-        color: #0b56db;
+        color: $primary;
     }
 
     .dropdownSpinner {
         width: 14px;
         height: 14px;
-        border: 2px solid rgba(11, 86, 219, 0.2);
-        border-top-color: #0B56DB;
+        border: 2px solid rgba(16, 185, 129, 0.2);
+        border-top-color: $primary;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
         position: absolute;
@@ -1628,11 +1628,11 @@ $bgSoft: #F5F8FE;
     }
 
     &.activeItem {
-        background: rgba(11, 86, 219, 0.05);
-        border-color: rgba(11, 86, 219, 0.15);
+        background: rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.15);
 
         .itemSymbolName {
-            color: #0B56DB;
+            color: $primary;
         }
     }
 }
@@ -1796,9 +1796,9 @@ $bgSoft: #F5F8FE;
     }
 
     .chartTimeframeBadge {
-        background: rgba(11, 86, 219, 0.06);
-        border: 1px solid rgba(11, 86, 219, 0.15);
-        color: #0B56DB;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.15);
+        color: $primary;
         padding: 2px 6px;
         border-radius: 4px;
         font-size: 10px;
@@ -1924,8 +1924,8 @@ $bgSoft: #F5F8FE;
 .chartSpinner {
     width: 32px;
     height: 32px;
-    border: 3px solid rgba(11, 86, 219, 0.1);
-    border-top-color: #0B56DB;
+    border: 3px solid rgba(16, 185, 129, 0.15);
+    border-top-color: $primary;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -1936,7 +1936,7 @@ $bgSoft: #F5F8FE;
 }
 
 .chartRetryBtn {
-    background: #0B56DB;
+    background: $primary;
     color: #ffffff;
     border: none;
     padding: 6px 16px;
@@ -1944,7 +1944,7 @@ $bgSoft: #F5F8FE;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(11, 86, 219, 0.2);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
 
     &:hover {
         background: #0b57e3;
@@ -2011,8 +2011,8 @@ $bgSoft: #F5F8FE;
 .analysisSpinner {
     width: 32px;
     height: 32px;
-    border: 3px solid rgba(11, 86, 219, 0.1);
-    border-top-color: #0B56DB;
+    border: 3px solid rgba(16, 185, 129, 0.15);
+    border-top-color: $primary;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -2023,7 +2023,7 @@ $bgSoft: #F5F8FE;
 }
 
 .analysisRetryBtn {
-    background: #0B56DB;
+    background: $primary;
     color: #ffffff;
     border: none;
     padding: 6px 14px;
@@ -2078,7 +2078,7 @@ $bgSoft: #F5F8FE;
         font-size: 16px;
         font-weight: 700;
         font-family: monospace;
-        color: #0B56DB;
+        color: $primary;
     }
 }
 
@@ -2189,8 +2189,8 @@ $bgSoft: #F5F8FE;
 
 /* AI Summary Kicker */
 .aiSummaryCard {
-    border: 1px solid rgba(11, 86, 219, 0.15);
-    background: rgba(11, 86, 219, 0.03);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    background: rgba(16, 185, 129, 0.15);
     border-radius: 12px;
     padding: 12px;
     display: flex;
@@ -2201,7 +2201,7 @@ $bgSoft: #F5F8FE;
         display: flex;
         align-items: center;
         gap: 6px;
-        color: #0B56DB;
+        color: $primary;
 
         h5 {
             font-size: 12px;
@@ -2285,11 +2285,11 @@ $bgSoft: #F5F8FE;
     }
 
     &.pivot {
-        border-color: rgba(11, 86, 219, 0.2);
-        background: rgba(11, 86, 219, 0.02);
+        border-color: rgba(16, 185, 129, 0.15);
+        background: rgba(16, 185, 129, 0.15);
 
         .levelCardValue {
-            color: #0B56DB;
+            color: $primary;
         }
     }
 }
@@ -2449,9 +2449,9 @@ $bgSoft: #F5F8FE;
     }
 
     .pivotCenter {
-        background: rgba(11, 86, 219, 0.02);
+        background: rgba(16, 185, 129, 0.15);
         font-weight: 700;
-        color: #0B56DB;
+        color: $primary;
     }
 }
 
@@ -2524,8 +2524,8 @@ $bgSoft: #F5F8FE;
     gap: 12px;
 
     &.focused {
-        border: 2.5px solid #0B56DB;
-        box-shadow: 0 10px 25px rgba(11, 86, 219, 0.12);
+        border: 2.5px solid $primary;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
         opacity: 1;
         transform: scale(1.01);
     }
@@ -2604,7 +2604,7 @@ $bgSoft: #F5F8FE;
 
 .focusedText {
     font-size: 10px;
-    color: #0B56DB;
+    color: $primary;
     font-weight: 800;
 }
 
@@ -2664,7 +2664,7 @@ $bgSoft: #F5F8FE;
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background: #0B56DB;
+    background: $primary;
     color: #ffffff;
     font-weight: 700;
     transition: background-color 0.2s ease;
@@ -2703,8 +2703,8 @@ $bgSoft: #F5F8FE;
 .analysisSpinner {
     width: 32px;
     height: 32px;
-    border: 3px solid rgba(11, 86, 219, 0.2);
-    border-top-color: #0B56DB;
+    border: 3px solid rgba(16, 185, 129, 0.15);
+    border-top-color: $primary;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin: 0 auto 16px;
@@ -2722,7 +2722,7 @@ $bgSoft: #F5F8FE;
     }
 
     &.ema50 {
-        background-color: #3b82f6;
+        background-color: $primary;
     }
 
     &.ema200 {
@@ -2800,8 +2800,8 @@ $bgSoft: #F5F8FE;
     align-items: center;
     padding: 2px 8px;
     border-radius: 20px;
-    background: rgba(11, 86, 219, 0.08);
-    color: #0B56DB;
+    background: rgba(16, 185, 129, 0.15);
+    color: $primary;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.3px;
@@ -2821,7 +2821,7 @@ $bgSoft: #F5F8FE;
     }
 
     &.connecting {
-        color: #3b82f6;
+        color: $primary;
         background: rgba(59, 130, 246, 0.08);
         border-color: rgba(59, 130, 246, 0.2);
     }
@@ -3222,7 +3222,7 @@ $bgSoft: #F5F8FE;
     }
 
     &.trend {
-        border-left: 3px solid #3b82f6;
+        border-left: 3px solid $primary;
         background: linear-gradient(to right, rgba(59, 130, 246, 0.03), transparent);
     }
 
@@ -3384,7 +3384,7 @@ $bgSoft: #F5F8FE;
         }
 
         &.ema50 {
-            background-color: #3b82f6;
+            background-color: $primary;
         }
 
         &.supertrend {
@@ -3478,7 +3478,7 @@ $bgSoft: #F5F8FE;
 
 .gradientTrackBg {
     height: 6px;
-    background: linear-gradient(to right, #ef4444 0%, #cbd5e1 30%, #3b82f6 50%, #cbd5e1 70%, #ef4444 100%);
+    background: linear-gradient(to right, #ef4444 0%, #cbd5e1 30%, $primary 50%, #cbd5e1 70%, #ef4444 100%);
     border-radius: 3px;
     position: relative;
     margin: 10px 0 16px 0;
@@ -3810,7 +3810,7 @@ $bgSoft: #F5F8FE;
 
 // 7. AI Intelligence Summary Sub-elements
 .purpleAiSummaryCard {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, rgba(11, 86, 219, 0.06) 100%);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, rgba(16, 185, 129, 0.15) 100%);
     border: 1px solid rgba(168, 85, 247, 0.2);
     border-radius: 12px;
     padding: 16px;
@@ -3895,7 +3895,7 @@ $bgSoft: #F5F8FE;
             }
 
             &.connecting {
-                color: #60a5fa;
+                color: $very-light-green;
                 border-color: rgba(96, 165, 250, 0.3);
                 background: rgba(96, 165, 250, 0.1);
             }
@@ -3937,7 +3937,7 @@ $bgSoft: #F5F8FE;
 
             &.activeTab {
                 background: #1a1a1e;
-                color: #60a5fa;
+                color: $very-light-green;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
         }
@@ -3977,17 +3977,17 @@ $bgSoft: #F5F8FE;
 
                 &:hover {
                     background: #2d2d34;
-                    color: #60a5fa;
+                    color: $very-light-green;
                 }
 
                 &.itemSelected {
                     background: rgba(96, 165, 250, 0.15);
-                    color: #60a5fa;
+                    color: $very-light-green;
                 }
             }
 
             .checkmarkIcon {
-                color: #60a5fa;
+                color: $very-light-green;
             }
         }
 
@@ -4044,11 +4044,11 @@ $bgSoft: #F5F8FE;
             }
 
             &.activeItem {
-                background: rgba(11, 86, 219, 0.15);
-                border-color: rgba(11, 86, 219, 0.3);
+                background: rgba(16, 185, 129, 0.15);
+                border-color: rgba(16, 185, 129, 0.15);
 
                 .itemSymbolName {
-                    color: #60a5fa;
+                    color: $very-light-green;
                 }
             }
 
@@ -4437,7 +4437,7 @@ $bgSoft: #F5F8FE;
                 }
 
                 &.tfActive {
-                    background: #0B56DB;
+                    background: $primary;
                     color: #ffffff;
                 }
             }
@@ -4624,7 +4624,7 @@ $bgSoft: #F5F8FE;
 
         .accordionBadge {
             background: rgba(96, 165, 250, 0.15);
-            color: #60a5fa;
+            color: $very-light-green;
         }
 
         .accordionWsBadge {
@@ -4635,7 +4635,7 @@ $bgSoft: #F5F8FE;
             }
 
             &.connecting {
-                color: #3b82f6;
+                color: $primary;
                 background: rgba(59, 130, 246, 0.08);
                 border-color: rgba(59, 130, 246, 0.2);
             }

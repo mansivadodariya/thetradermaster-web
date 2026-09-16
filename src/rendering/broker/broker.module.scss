@@ -8,13 +8,13 @@
     gap: 24px;
 
     .heroBanner {
-        background: linear-gradient(135deg, #0B56DB 0%, #063995 100%);
+        background: linear-gradient(135deg, $primary 0%, #063995 100%);
         border-radius: 16px;
         padding: 32px 28px;
         color: #FFFFFF;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(11, 86, 219, 0.2);
+        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
 
         &::before {
             content: '';
@@ -198,12 +198,12 @@
                 }
 
                 &:hover {
-                    color: #0B56DB;
+                    color: $primary;
                 }
 
                 &.active {
                     background: #FFFFFF;
-                    color: #0B56DB;
+                    color: $primary;
                     font-weight: 600;
                     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 }
@@ -231,8 +231,8 @@
                 transition: all 0.2s ease;
 
                 &:focus {
-                    border-color: #0B56DB;
-                    box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.1);
+                    border-color: $primary;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
                 }
             }
 
@@ -292,7 +292,7 @@
             bottom: 0;
             right: 0;
             content: '';
-            background: #0B56DB;
+            background: $primary;
             width: 100px;
             height: 100px;
             opacity: 0.12;
@@ -303,8 +303,8 @@
 
         &:hover {
             transform: translateY(-6px);
-            border-color: rgba(11, 86, 219, 0.35);
-            box-shadow: 0 20px 45px rgba(11, 86, 219, 0.12);
+            border-color: rgba(16, 185, 129, 0.15);
+            box-shadow: 0 20px 45px rgba(16, 185, 129, 0.15);
 
             &::before {
                 opacity: 0.25;
@@ -351,11 +351,11 @@
                 flex-shrink: 0;
 
                 &:hover {
-                    background: #0B56DB;
-                    border-color: #0B56DB;
+                    background: $primary;
+                    border-color: $primary;
                     color: #FFFFFF;
                     transform: scale(1.08);
-                    box-shadow: 0 4px 12px rgba(11, 86, 219, 0.4);
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
                 }
             }
 
@@ -457,7 +457,7 @@
 
                 &:hover {
                     background: #E5E7EB;
-                    color: #0B56DB;
+                    color: $primary;
                     transform: translateY(-1px);
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
                 }
@@ -479,7 +479,7 @@
                 justify-content: center;
                 gap: 6px;
                 padding: 10px 12px;
-                background: linear-gradient(135deg, #0B56DB 0%, #063995 100%);
+                background: linear-gradient(135deg, $primary 0%, #063995 100%);
                 color: #FFFFFF;
                 border-radius: 10px;
                 font-size: 13px;
@@ -488,7 +488,7 @@
                 border: none;
                 cursor: pointer;
                 transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
+                box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
 
                 @include respond-to(sm) {
                     padding: 9px 8px;
@@ -499,7 +499,7 @@
                     background: linear-gradient(135deg, #0843AD 0%, #042B75 100%);
                     color: #FFFFFF;
                     transform: translateY(-2px);
-                    box-shadow: 0 6px 18px rgba(11, 86, 219, 0.38);
+                    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
                 }
 
                 span {
@@ -569,11 +569,11 @@
                     color: #9CA3AF;
 
                     &:hover {
-                        color: #60A5FA;
+                        color: $very-light-green;
                     }
 
                     &.active {
-                        background: #0B56DB;
+                        background: $primary;
                         color: #FFFFFF;
                     }
                 }
@@ -586,7 +586,7 @@
                     color: #FFFFFF;
 
                     &:focus {
-                        border-color: #60A5FA;
+                        border-color: $very-light-green;
                     }
                 }
 
@@ -601,7 +601,7 @@
             border-color: #2D2D34;
 
             &:hover {
-                border-color: #0B56DB;
+                border-color: $primary;
                 box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             }
 
@@ -612,7 +612,7 @@
                 }
 
                 .subtitle {
-                    color: #60A5FA;
+                    color: $very-light-green;
                 }
 
                 .description {
@@ -634,19 +634,19 @@
 
                     &:hover {
                         background: #374151;
-                        color: #60A5FA;
+                        color: $very-light-green;
                     }
                 }
 
                 .detailBtn {
-                    background: linear-gradient(135deg, #0B56DB 0%, #063995 100%);
+                    background: linear-gradient(135deg, $primary 0%, #063995 100%);
                     color: #FFFFFF;
-                    box-shadow: 0 4px 14px rgba(11, 86, 219, 0.35);
+                    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
 
                     &:hover {
-                        background: linear-gradient(135deg, #2563EB 0%, #0B56DB 100%);
+                        background: linear-gradient(135deg, $primary 0%, $primary 100%);
                         color: #FFFFFF;
-                        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+                        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
                     }
                 }
             }

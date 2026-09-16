@@ -427,7 +427,7 @@ $newera-border: #E2E8F0;
 .recheckBtn {
     background: rgba(59, 130, 246, 0.1);
     border: 1px solid rgba(59, 130, 246, 0.25);
-    color: #2563EB;
+    color: $primary;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -438,7 +438,7 @@ $newera-border: #E2E8F0;
 
     &:hover:not(:disabled) {
         background: rgba(59, 130, 246, 0.2);
-        color: #1D4ED8;
+        color: $primary-dark;
     }
 
     &:disabled {
@@ -451,7 +451,7 @@ $newera-border: #E2E8F0;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #3B82F6;
+    background-color: $primary;
     animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -548,10 +548,10 @@ $newera-border: #E2E8F0;
     .accountInfoBadge {
         background: rgba(255, 255, 255, 0.08);
         border-color: rgba(255, 255, 255, 0.15);
-        color: #60A5FA;
+        color: $very-light-green;
 
         svg {
-            color: #60A5FA;
+            color: $very-light-green;
         }
     }
 
@@ -577,7 +577,7 @@ $newera-border: #E2E8F0;
 
     .spinnerLarge {
         border-color: rgba(255, 255, 255, 0.15);
-        border-top-color: #60A5FA;
+        border-top-color: $very-light-green;
     }
 
     .inputWrapper {

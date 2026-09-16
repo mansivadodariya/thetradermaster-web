@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext'
 
 const CheckIcon = () => (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16.6667 5L7.50001 14.1667L3.33334 10" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16.6667 5L7.50001 14.1667L3.33334 10" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
 

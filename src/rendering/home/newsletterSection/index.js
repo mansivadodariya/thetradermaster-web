@@ -66,7 +66,7 @@ export default function NewsletterSection() {
 
     return (
         <section className={styles.newsletterSection}>
-            <div className="container">
+            <div className="container-xs">
                 <motion.div
                     className={styles.banner}
                     initial={{ opacity: 0, y: 30 }}
@@ -75,7 +75,12 @@ export default function NewsletterSection() {
                     transition={{ duration: 0.6 }}
                 >
                     <div className={styles.content}>
-                        <h2>{t('home.newsletterTitle', 'Stay updated with trading insights')}</h2>
+                        <h2>
+                            {t('home.newsletterTitlePart1', 'Stay Updated With')}{' '}
+                            <span className={styles.neonText}>
+                                {t('home.newsletterTitlePart2', 'Trading Insights')}
+                            </span>
+                        </h2>
                         <p>{t('home.newsletterSubtitle', 'Join thousands of traders receiving our latest AI updates, feature releases, and market strategies directly in their inbox.')}</p>
                     </div>
 

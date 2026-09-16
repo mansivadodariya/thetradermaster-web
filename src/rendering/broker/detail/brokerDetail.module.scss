@@ -38,8 +38,8 @@
             transition: all 0.2s ease;
 
             &:hover {
-                background: #0B56DB;
-                border-color: #0B56DB;
+                background: $primary;
+                border-color: $primary;
                 color: #FFFFFF;
                 transform: translateX(-2px);
             }
@@ -231,7 +231,7 @@
                     padding: 10px 14px;
                     border-radius: 10px;
                     font-size: 13px;
-                    color: #0B56DB;
+                    color: $primary;
                     font-weight: 600;
                     word-break: break-all;
                     font-family: monospace;
@@ -249,14 +249,14 @@
                     justify-content: center;
                     gap: 10px;
                     padding: 13px 20px;
-                    background: #0B56DB;
+                    background: $primary;
                     color: #FFFFFF;
                     border-radius: 12px;
                     font-size: 15px;
                     font-weight: 600;
                     text-decoration: none;
                     transition: all 0.2s ease;
-                    box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
+                    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
 
                     svg {
                         :global([dir="rtl"]) & {
@@ -267,7 +267,7 @@
                     &:hover {
                         background: #0843AD;
                         transform: translateY(-2px);
-                        box-shadow: 0 6px 18px rgba(11, 86, 219, 0.35);
+                        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
                     }
                 }
 
@@ -312,7 +312,7 @@
         align-items: center;
         gap: 8px;
         padding: 10px 20px;
-        background: #0B56DB;
+        background: $primary;
         color: #FFFFFF;
         border-radius: 10px;
         text-decoration: none;
@@ -329,8 +329,8 @@
                 color: #E2E8F0;
 
                 &:hover {
-                    background: #0B56DB;
-                    border-color: #0B56DB;
+                    background: $primary;
+                    border-color: $primary;
                     color: #FFFFFF;
                 }
             }
@@ -380,15 +380,15 @@
                     .urlBox {
                         background: #0F172A;
                         border-color: #1E293B;
-                        color: #60A5FA;
+                        color: $very-light-green;
                     }
 
                     .visitOfficialBtn {
-                        background: #0B56DB;
+                        background: $primary;
                         color: #FFFFFF;
 
                         &:hover {
-                            background: #2563EB;
+                            background: $primary;
                         }
                     }
 

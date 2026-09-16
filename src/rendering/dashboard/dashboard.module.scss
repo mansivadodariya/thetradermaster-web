@@ -1,8 +1,8 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #0B56DB;
-$bgSoft: #F5F8FE;
+$primary: #10B981;
+$bgSoft: #F0FFF4;
 $border: rgba(18, 18, 18, 0.10);
 
 .dashboard {
@@ -30,7 +30,7 @@ $border: rgba(18, 18, 18, 0.10);
     padding: 18px 20px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(90deg, #0B56DB 0%, #2072ff 45%, #5da8ff 60%, #2072ff 75%, #0B56DB 100%);
+    background: linear-gradient(90deg, $primary 0%, #34d399 45%, #7ee7c7 60%, #34d399 75%, $primary 100%);
 
     color: #fff;
 }
@@ -208,11 +208,10 @@ $border: rgba(18, 18, 18, 0.10);
         overflow: hidden;
         min-height: calc(1.45em * 2);
     }
-    .dividerLine {
+        .dividerLine {
         width: 100%;
         height: 1px;
-        background: linear-gradient(90deg, #FFFFFF 0%, #0b57db5e 57%, #FFFFFF 100%);
-
+        background: linear-gradient(90deg, #FFFFFF 0%, rgba(16,185,129,0.37) 57%, #FFFFFF 100%);
 
     }
     .qaFooter {
@@ -222,7 +221,7 @@ $border: rgba(18, 18, 18, 0.10);
         margin: 20px 0 14px;
         padding: 6px;
         text-decoration: none;
-        color: #0B56DB;
+        color: $primary;
         background: #F1F5FC;
         font-weight: 500;
         font-size: 16px;
@@ -258,7 +257,7 @@ $border: rgba(18, 18, 18, 0.10);
 
 .qaBlue {
     .qaFooter {
-        background: rgba(11, 86, 219, 0.08);
+        background: rgba(16, 185, 129, 0.15);
     }
 }
 .qaPurple {
@@ -318,7 +317,7 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     &:hover {
-        background: rgba(11, 86, 219, 0.03);
+        background: rgba(16, 185, 129, 0.15);
     }
 }
 
@@ -336,9 +335,9 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .badgeChat {
-    background: rgba(11, 86, 219, 0.10);
+    background: rgba(16, 185, 129, 0.15);
     color: $primary;
-    border-color: rgba(11, 86, 219, 0.18);
+    border-color: rgba(16, 185, 129, 0.15);
 }
 .badgeBlog {
     background: rgba(16, 185, 129, 0.12);
@@ -678,7 +677,7 @@ $border: rgba(18, 18, 18, 0.10);
 
                 .qaFooter {
                     background: #252529;
-                    color: #60a5fa;
+                    color: $very-light-green;
 
                     .icon {
                         background: #2d2d34;

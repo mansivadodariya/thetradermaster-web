@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import styles from './sliderSection.module.scss';
 const MetaIcon = '/assets/icons/Img2.svg';
 const EdufinsIcon = '/assets/icons/edufins.svg';
-const MatchIcon = '/assets/icons/Img1.svg';
+const MatchIcon = '/assets/images/logo-light.webp';
 const AsicIcon = '/assets/icons/asic.svg';
 const AlgomaticIcon = '/assets/icons/algomaticIcon.svg';
 
@@ -15,20 +15,22 @@ const duplicatedImages = [...images, ...images, ...images, ...images];
 export default function SliderSection() {
     return (
         <div className={styles.sliderSection}>
-            <div className={styles.sliderWrapper}>
-                <motion.div 
-                    className={styles.sliderTrack}
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{
-                        repeat: Infinity,
-                        ease: "linear",
-                        duration: 30
-                    }}
-                >
-                    {duplicatedImages.map((img, index) => (
-                        <img key={index} src={img} alt={`brand-icon-${index}`} />
-                    ))}
-                </motion.div>
+            <div className="container-xs">
+                <div className={styles.sliderWrapper}>
+                    <motion.div 
+                        className={styles.sliderTrack}
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{
+                            repeat: Infinity,
+                            ease: "linear",
+                            duration: 30
+                        }}
+                    >
+                        {duplicatedImages.map((img, index) => (
+                            <img key={index} src={img} alt={`brand-icon-${index}`} />
+                        ))}
+                    </motion.div>
+                </div>
             </div>
         </div>
     );

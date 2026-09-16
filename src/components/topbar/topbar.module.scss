@@ -46,7 +46,7 @@
             min-height: 40px;
             box-sizing: border-box;
             gap: 6px;
-            background: #0b56db;
+            background: $primary;
             padding: 0 14px;
             color: #fff;
             font-size: 15px;
@@ -94,7 +94,7 @@
 
         .profileSection {
             position: relative;
-            background-color: #0b57db17;
+            background-color: rgba(16,185,129,0.09);
             padding: 8px 18px 8px 8px;
         }
 
@@ -395,7 +395,7 @@
 
 .cancelBtn {
     background: #F1F5FC;
-    color: #0B56DB;
+    color: $primary;
 }
 
 .logoutBtn {
@@ -415,14 +415,14 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #4A7CFF;
+    color: $primary;
     padding: 0;
     flex-shrink: 0;
 
-    &:hover {
+        &:hover {
         background: #E8F0FE;
         transform: scale(1.05) rotate(15deg);
-        box-shadow: 0 4px 12px rgba(11, 86, 219, 0.1);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
     }
 
     svg {

@@ -8,23 +8,23 @@ import { useLanguage } from '@/context/LanguageContext'
 
 const MailIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M22 6L12 13L2 6" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M22 6L12 13L2 6" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
 
 const ClockIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="#0B56DB" strokeWidth="2" />
-        <path d="M12 6V12L16 14" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="10" stroke="#10B981" strokeWidth="2" />
+        <path d="M12 6V12L16 14" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
 
 const GlobeIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="#0B56DB" strokeWidth="2" />
-        <path d="M2 12H22" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" />
-        <path d="M12 2C14.5 4.73 15.94 8.28 16 12C15.94 15.72 14.5 19.27 12 22C9.5 19.27 8.06 15.72 8 12C8.06 8.28 9.5 4.73 12 2Z" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="10" stroke="#10B981" strokeWidth="2" />
+        <path d="M2 12H22" stroke="#10B981" strokeWidth="2" strokeLinecap="round" />
+        <path d="M12 2C14.5 4.73 15.94 8.28 16 12C15.94 15.72 14.5 19.27 12 22C9.5 19.27 8.06 15.72 8 12C8.06 8.28 9.5 4.73 12 2Z" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
 

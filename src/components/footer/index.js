@@ -10,9 +10,9 @@ import { useLanguage } from '@/context/LanguageContext';
 const FooterLogo = '/assets/logo/logoWhite.svg';
 
 const ArrowUpIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
         <g clipPath="url(#clip0_5885_2914)">
-            <path d="M21.4264 8.79752L21.4182 8.78939L13.0278 0.387937C12.9611 0.321633 12.8875 0.262725 12.8081 0.212237L12.5666 0.0804497L12.4018 0.0255211H12.281C12.0958 -0.00850704 11.906 -0.00850704 11.7209 0.0255211H11.4793L11.2926 0.124362C11.1885 0.180884 11.0925 0.251054 11.007 0.333008L2.58365 8.78939C2.01959 9.34897 2.01593 10.2599 2.57551 10.824L2.58365 10.8321C3.15224 11.3746 4.04675 11.3746 4.61539 10.8321L9.63428 5.82417C9.8508 5.61187 10.1985 5.61527 10.4108 5.83184C10.5096 5.93258 10.5658 6.06749 10.5678 6.20857V22.5612C10.5677 23.3558 11.2118 23.9999 12.0064 24C12.8009 24 13.445 23.356 13.4452 22.5614V6.20857C13.4494 5.90535 13.6987 5.66294 14.0019 5.66721C14.143 5.66922 14.2779 5.72538 14.3786 5.82417L19.3756 10.8321C19.9456 11.3816 20.8483 11.3816 21.4183 10.8321C21.9824 10.2725 21.986 9.36158 21.4264 8.79752Z" fill="#0B56DB" />
+            <path d="M21.4264 8.79752L21.4182 8.78939L13.0278 0.387937C12.9611 0.321633 12.8875 0.262725 12.8081 0.212237L12.5666 0.0804497L12.4018 0.0255211H12.281C12.0958 -0.00850704 11.906 -0.00850704 11.7209 0.0255211H11.4793L11.2926 0.124362C11.1885 0.180884 11.0925 0.251054 11.007 0.333008L2.58365 8.78939C2.01959 9.34897 2.01593 10.2599 2.57551 10.824L2.58365 10.8321C3.15224 11.3746 4.04675 11.3746 4.61539 10.8321L9.63428 5.82417C9.8508 5.61187 10.1985 5.61527 10.4108 5.83184C10.5096 5.93258 10.5658 6.06749 10.5678 6.20857V22.5612C10.5677 23.3558 11.2118 23.9999 12.0064 24C12.8009 24 13.445 23.356 13.4452 22.5614V6.20857C13.4494 5.90535 13.6987 5.66294 14.0019 5.66721C14.143 5.66922 14.2779 5.72538 14.3786 5.82417L19.3756 10.8321C19.9456 11.3816 20.8483 11.3816 21.4183 10.8321C21.9824 10.2725 21.986 9.36158 21.4264 8.79752Z" fill="currentColor" />
         </g>
         <defs>
             <clipPath id="clip0_5885_2914">
@@ -101,7 +101,7 @@ export default function Footer() {
 
     return (
         <footer className={styles.footer}>
-            <div className='container-xl'>
+            <div className='container-xs'>
                 <div className={styles.topSection}>
                     {/* Brand/Logo column */}
                     <div className={styles.brandCol}>
@@ -156,7 +156,7 @@ export default function Footer() {
                             </ul>
                         </div>
 
-                        <div className={styles.linkCol}>
+                        {/* <div className={styles.linkCol}>
                             <h4>{t('footer.partners', 'Company')}</h4>
                             <ul>
                                 <li>
@@ -170,7 +170,7 @@ export default function Footer() {
                                     </Link>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
 
                         <div className={styles.linkCol}>
                             <h4>{t('footer.legal', 'Legal')}</h4>
@@ -197,18 +197,18 @@ export default function Footer() {
                     </div>
 
                     <div className={styles.socialLinks}>
-                        <a href="#" className={styles.socialIcon} aria-label="Facebook">
+                        {/* <a href="#" className={styles.socialIcon} aria-label="Facebook">
                             <FacebookIcon />
-                        </a>
-                        <a href="#" className={styles.socialIcon} aria-label="Pinterest">
+                        </a> */}
+                        {/* <a href="#" className={styles.socialIcon} aria-label="Pinterest">
                             <PinterestIcon />
-                        </a>
+                        </a> */}
                         <a href="#" className={styles.socialIcon} aria-label="Instagram">
                             <InstagramIcon />
                         </a>
-                        <a href="#" className={styles.socialIcon} aria-label="Website">
+                        {/* <a href="#" className={styles.socialIcon} aria-label="Website">
                             <DribbbleIcon />
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             </div>

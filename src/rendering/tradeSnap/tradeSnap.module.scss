@@ -1,12 +1,12 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #0B56DB;
-$text: #1A1A1A;
-$muted: #8D8D8D;
-$border: rgba(18, 18, 18, 0.12);
+$primary: #00FF88;
+$text: #FFFFFF;
+$muted: rgba(255, 255, 255, 0.75);
+$border: rgba(0, 255, 136, 0.25);
 $danger: #FF5757;
-$success: #10b981;
+$success: #00FF88;
 
 .tradeSnap {
     .title {
@@ -19,21 +19,22 @@ $success: #10b981;
             gap: 12px;
         }
 
-
         h2 {
-            color: $text;
-            font-size: 22px;
-            margin: 0 0 6px;
-            font-weight: 600;
+            color: #FFFFFF;
+            font-size: 26px;
+            margin: 0 0 8px;
+            font-weight: 700;
+            font-family: var(--font-plus-jakarta), sans-serif;
         }
 
         p {
-            color: $muted;
+            color: rgba(255, 255, 255, 0.75);
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 400;
             margin: 0;
             max-width: 720px;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-family: var(--font-plus-jakarta), sans-serif;
         }
     }
 
@@ -43,35 +44,48 @@ $success: #10b981;
 
     .tabSwitcher {
         display: grid;
-        grid-template-columns: 1fr 1fr ;
-        gap: 4px;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
         padding: 6px;
-        background: #F1F5FC;
-        max-width: 720px;
-        margin-bottom: 24px;
+        background: rgba(4, 28, 19, 0.85);
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        border-radius: 14px;
+        max-width: 520px;
+        margin-bottom: 28px;
+        backdrop-filter: blur(16px);
 
         button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             background: transparent;
-            color: $muted;
+            color: rgba(255, 255, 255, 0.75);
             font-size: 15px;
             font-weight: 600;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
+            font-family: var(--font-plus-jakarta), sans-serif;
 
             svg {
                 flex-shrink: 0;
+                color: currentColor;
+            }
+
+            &:hover {
+                color: #00FF88;
+                background: rgba(0, 255, 136, 0.08);
             }
 
             &.tabActive {
-                background: $primary;
-                color: #fff;
-                box-shadow: 0 4px 12px rgba(11, 86, 219, 0.25);
+                background: linear-gradient(135deg, rgba(0, 255, 136, 0.25) 0%, rgba(0, 204, 106, 0.15) 100%);
+                border: 1px solid rgba(0, 255, 136, 0.45);
+                color: #00FF88;
+                font-weight: 700;
+                box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
             }
         }
     }
@@ -116,9 +130,11 @@ $success: #10b981;
     }
 
     .panel {
-        border: 1px solid $border;
-        background: #fff;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        background: linear-gradient(145deg, rgba(8, 40, 28, 0.85) 0%, rgba(4, 24, 16, 0.90) 100%);
+        backdrop-filter: blur(20px);
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 15px rgba(0, 255, 136, 0.08);
         overflow: hidden;
     }
 
@@ -129,7 +145,7 @@ $success: #10b981;
         flex-wrap: wrap;
         gap: 12px;
         padding: 16px 20px;
-        border-bottom: 1px solid $border;
+        border-bottom: 1px solid rgba(0, 255, 136, 0.15);
 
         h3 {
             display: flex;
@@ -138,7 +154,7 @@ $success: #10b981;
             margin: 0;
             font-size: 18px;
             font-weight: 600;
-            color: $text;
+            color: #FFFFFF;
         }
     }
 
@@ -245,7 +261,7 @@ $success: #10b981;
         color: #fff;
 
         &:hover:not(:disabled) {
-            background: #0948b8;
+            background: #065f46;
         }
 
         &:disabled {
@@ -265,7 +281,7 @@ $success: #10b981;
         padding: 10px 20px;
         background: #F1F5FC;
         color: $primary;
-        border: 1px solid rgba(11, 86, 219, 0.2);
+        border: 1px solid rgba(16, 185, 129, 0.2);
 
         &:hover:not(:disabled) {
             background: #e8effc;
@@ -406,7 +422,7 @@ $success: #10b981;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: rgba(11, 86, 219, 0.2);
+            background: rgba(16, 185, 129, 0.2);
             border-radius: 3px;
         }
     }
@@ -455,7 +471,7 @@ $success: #10b981;
         transition: box-shadow 0.2s ease;
 
         &:hover {
-            box-shadow: 0 6px 20px rgba(11, 86, 219, 0.08);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.08);
         }
     }
 
@@ -638,9 +654,9 @@ $success: #10b981;
 
     .targetsBox {
         padding: 12px;
-        background: rgba(11, 86, 219, 0.06);
+        background: rgba(16, 185, 129, 0.06);
         border-radius: 8px;
-        border: 1px solid rgba(11, 86, 219, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.1);
     }
 
     .targetsLabel {
@@ -708,7 +724,7 @@ $success: #10b981;
             color: $primary;
             padding: 4px 10px;
             background: #fff;
-            border: 1px solid rgba(11, 86, 219, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: 6px;
         }
     }
@@ -758,7 +774,7 @@ $success: #10b981;
         border: 1px solid $border;
         border-radius: 16px;
         background: #fff;
-        box-shadow: 0 8px 32px rgba(11, 86, 219, 0.08);
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.08);
 
         h3 {
             margin: 16px 0 8px;
@@ -780,7 +796,7 @@ $success: #10b981;
         height: 72px;
         margin: 0 auto;
         border-radius: 50%;
-        background: linear-gradient(135deg, #F1F5FC, rgba(11, 86, 219, 0.15));
+        background: linear-gradient(135deg, #F1F5FC, rgba(16, 185, 129, 0.15));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -885,7 +901,7 @@ $success: #10b981;
     &:hover,
     &:focus-visible {
         border-color: $primary;
-        background: rgba(11, 86, 219, 0.03);
+        background: rgba(16, 185, 129, 0.03);
         outline: none;
     }
 }
@@ -960,9 +976,9 @@ $success: #10b981;
                 color: #94a3b8;
 
                 &.tabActive {
-                    background: #0B56DB;
+                    background: $primary;
                     color: #fff;
-                    box-shadow: 0 4px 12px rgba(11, 86, 219, 0.4);
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
                 }
             }
         }
@@ -1068,12 +1084,12 @@ $success: #10b981;
         }
 
         .targetsBox {
-            background: rgba(11, 86, 219, 0.15);
-            border-color: rgba(11, 86, 219, 0.25);
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.25);
         }
 
         .targetsLabel {
-            color: #60a5fa;
+            color: $primary;
         }
 
         .targetRow {
@@ -1092,7 +1108,7 @@ $success: #10b981;
             strong {
                 background: #252529;
                 border-color: #2d2d34;
-                color: #60a5fa;
+                color: $primary;
             }
         }
 
@@ -1139,7 +1155,7 @@ $success: #10b981;
         .btnSecondary {
             background: #252529;
             border-color: #2d2d34;
-            color: #60a5fa;
+            color: $primary;
 
             &:hover:not(:disabled) {
                 background: #2d2d34;
@@ -1191,7 +1207,7 @@ $success: #10b981;
         color: #ffffff;
         &:hover {
             background: #2d2d34;
-            color: #60a5fa;
+            color: $primary;
         }
     }
 

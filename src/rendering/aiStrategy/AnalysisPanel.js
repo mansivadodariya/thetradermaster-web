@@ -731,7 +731,7 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                             <div className={styles.purpleAiBulletsList}>
                                 {ai_summary.trend && (
                                     <div className={styles.aiBulletSection}>
-                                        <span className={styles.sectionLabel} style={{ color: '#0B56DB' }}>TREND</span>
+                                        <span className={styles.sectionLabel} style={{ color: '#10B981' }}>TREND</span>
                                         <p {...getBidiProps(ai_summary.trend)}>{ai_summary.trend}</p>
                                     </div>
                                 )}

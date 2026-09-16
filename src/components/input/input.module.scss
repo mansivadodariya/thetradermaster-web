@@ -1,6 +1,9 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
+$bgSoft: #FAFAFA !default;
+$primary: #10B981 !default;
+
 .input {
     width: 100%;
 
@@ -28,10 +31,10 @@
             object-fit: contain;
         }
 
-        input {
+            input {
             width: 100%;
             border: 1px solid rgba(26, 26, 26, 0.14);
-            background: #FFF;
+            background: $bgSoft;
             height: 50px;
             padding: 0 16px; // base padding: 16px left/right
             color: #1A1A1A;
@@ -42,8 +45,8 @@
             transition: all 0.2s ease-in-out;
 
             &:focus {
-                border-color: #0B56DB;
-                box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.15);
+                border-color: $primary;
+                box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
             }
         }
 
@@ -72,8 +75,8 @@
             outline: none !important;
             box-shadow: none !important;
 
-            &:hover {
-                color: #0B56DB !important;
+                &:hover {
+                color: $primary !important;
             }
 
             svg {
@@ -125,8 +128,8 @@
                 color: #ffffff;
 
                 &:focus {
-                    border-color: #0b56db;
-                    box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.3);
+                    border-color: $primary;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
                 }
             }
 
@@ -134,7 +137,7 @@
                 color: rgba(255, 255, 255, 0.5) !important;
 
                 &:hover {
-                    color: #60a5fa !important;
+                    color: $primary !important;
                 }
             }
         }

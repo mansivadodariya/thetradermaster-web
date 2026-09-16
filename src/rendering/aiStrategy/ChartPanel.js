@@ -316,8 +316,8 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 horzLines: { color: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 18, 18, 0.04)' },
             },
             crosshair: {
-                vertLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#0B56DB30', width: 1 },
-                horzLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#0B56DB30', width: 1 },
+                vertLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#10B98130', width: 1 },
+                horzLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#10B98130', width: 1 },
             },
             timeScale: {
                 borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 18, 18, 0.08)',
@@ -359,7 +359,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         });
 
         const ema50Series = chart.addSeries(LineSeries, {
-            color: '#3b82f6',
+            color: '#10B981',
             lineWidth: 1.5,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -459,7 +459,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     }
                     if (ema50 !== undefined && ema50 !== null) {
                         const y = seriesInstance.ema50.priceToCoordinate(ema50);
-                        if (y !== null) positions.ema50 = { x, y, color: '#3b82f6' };
+                        if (y !== null) positions.ema50 = { x, y, color: '#10B981' };
                     }
                     if (supertrendObj?.value !== undefined && supertrendObj?.value !== null) {
                         const y = seriesInstance.supertrend.priceToCoordinate(supertrendObj.value);

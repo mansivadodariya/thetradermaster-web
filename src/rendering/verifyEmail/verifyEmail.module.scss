@@ -20,9 +20,9 @@
         background: #FFF;
         box-shadow: 0 0 84.9px 0 rgba(0, 0, 0, 0.08);
 
-        .layer {
+            .layer {
             border-radius: 442px;
-            background: #0B56DB;
+            background: #10B981;
             filter: blur(46.8px);
             width: 90%;
             height: 20px;
@@ -113,8 +113,8 @@
         .spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(11, 86, 219, 0.15);
-            border-top-color: #0B56DB;
+            border: 3px solid rgba(16, 185, 129, 0.15);
+            border-top-color: #10B981;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 16px auto 24px;
@@ -122,7 +122,7 @@
 
         .cta {
             display: inline-block;
-            background: #0B56DB;
+            background: #10B981;
             color: #fff;
             font-size: 15px;
             font-weight: 500;

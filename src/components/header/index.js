@@ -73,7 +73,7 @@ export default function Header() {
                         {pathname !== '/philippines' && (
                             <>
                                 <div className={styles.buttonHide}>
-                                    <LanguageToggle light className={styles.headerLangToggle} />
+                                    <LanguageToggle className={styles.headerLangToggle} />
                                     <Button 
                                         text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
                                         icon={ArrowIcon} 
@@ -82,7 +82,7 @@ export default function Header() {
                                 </div>
                                 <div className={styles.mobilemenu} onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer' }}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#0B56DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
                                 </div>
                             </>

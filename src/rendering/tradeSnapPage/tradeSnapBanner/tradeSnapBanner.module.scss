@@ -2,34 +2,57 @@
 @use '../../../scss/breakpoints/breakpoints.scss' as *;
 
 .tradeSnapBanner {
-    background-image: url('/assets/images/hero.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #030E09;
     width: 100%;
-    height: 100dvh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-position: bottom;
+    position: relative;
+    overflow: hidden;
+    padding: 140px 0 80px 0;
 
     @include respond-to('md') {
-        height: auto;
-        padding: 120px 0 80px 0;
+        min-height: auto;
+        padding: 120px 0 60px 0;
     }
 
     @include respond-to('sm') {
-        height: auto;
-        padding: 100px 0 60px 0;
+        padding: 100px 0 40px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/images/ai-trade-bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top;
+        opacity: 0.32;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 25% 45%, rgba(0, 255, 136, 0.10) 0%, rgba(3, 16, 11, 0.75) 55%, rgba(2, 10, 7, 0.95) 100%);
+        pointer-events: none;
+        z-index: 1;
     }
 
     .widthFull {
         width: 100%;
+        position: relative;
+        z-index: 2;
     }
 
     .grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 32px;
         align-items: center;
 
         @include respond-to('md') {
@@ -42,11 +65,84 @@
             gap: 24px;
         }
 
+        .leftContent {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badgeWrapper {
+            margin-bottom: 8px;
+
+            @include respond-to('md') {
+                display: flex;
+                justify-content: center;
+            }
+
+            :global(.lineText button) {
+                background: rgba(0, 26, 18, 0.75);
+                border: 1px solid rgba(34, 197, 94, 0.4);
+                color: #A7F3D0;
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+            }
+        }
+
+        .title {
+            padding: 16px 0 32px 0;
+
+            @include respond-to('sm') {
+                padding: 12px 0 24px 0;
+            }
+
+            h1 {
+                color: #FFFFFF;
+                font-size: 58px;
+                font-weight: 800;
+                line-height: 1.12;
+                letter-spacing: -0.02em;
+                font-family: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
+                text-transform: uppercase;
+                margin: 0 0 18px 0;
+                text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
+
+                @include respond-to('md') {
+                    font-size: 42px;
+                    letter-spacing: -0.01em;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 32px;
+                    line-height: 1.2;
+                }
+            }
+
+            p {
+                max-width: 580px;
+                color: rgba(255, 255, 255, 0.90);
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 1.65;
+                letter-spacing: 0.1px;
+                margin: 0;
+                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+
+                @include respond-to('md') {
+                    margin: 0 auto;
+                    font-size: 16px;
+                    line-height: 1.6;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 15px;
+                    line-height: 1.5;
+                }
+            }
+        }
+
         .buttonAlignment {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 0 0 32px 0;
+            padding: 0 0 36px 0;
 
             @include respond-to('md') {
                 justify-content: center;
@@ -54,7 +150,7 @@
 
             @include respond-to('sm') {
                 gap: 12px;
-                padding: 0 0 24px 0;
+                padding: 0 0 28px 0;
                 width: 100%;
                 display: grid;
                 grid-template-columns: 1fr;
@@ -65,99 +161,175 @@
                     width: 100%;
                 }
             }
-        }
 
-        .image {
-            img {
-                display: block;
-                width: 100%;
-                max-width: 600px;
-                margin: 0 auto;
+            :global(.button.outline button),
+            :global(.button.outline .linkBtn) {
+                color: #FFFFFF !important;
+                border-color: rgba(34, 197, 94, 0.6) !important;
+                background: rgba(4, 30, 20, 0.7) !important;
+                backdrop-filter: blur(12px) !important;
+                box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+
+                &:hover {
+                    background: rgba(16, 185, 129, 0.25) !important;
+                    border-color: #22C55E !important;
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4) !important;
+                }
             }
         }
 
         .tagAlignment {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
+            flex-wrap: wrap;
 
             @include respond-to('md') {
                 justify-content: center;
-                flex-wrap: wrap;
             }
 
             @include respond-to('sm') {
-                gap: 10px;
+                gap: 8px;
             }
 
-            button {
-                border: 1px solid rgba(11, 86, 219, 0.10);
-                background: rgba(11, 86, 219, 0.04);
-                backdrop-filter: blur(18.299999237060547px);
-                display: flex;
+            .tagBtn {
+                border: 1px solid rgba(34, 197, 94, 0.35);
+                background: rgba(4, 28, 19, 0.75);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                display: inline-flex;
                 align-items: center;
-                color: var(--P-Color, #0B56DB);
-                font-size: 16px;
+                gap: 9px;
+                color: #FFFFFF;
+                font-family: var(--font-plus-jakarta), sans-serif;
+                font-size: 13.5px;
                 font-style: normal;
-                font-weight: 500;
-                line-height: 28px;
-                gap: 8px;
-                padding: 6px 12px;
+                font-weight: 600;
+                line-height: 1;
+                padding: 9px 18px;
+                border-radius: 9999px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                cursor: default;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+                .tagIcon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #22C55E;
+                    filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.5));
+
+                    svg {
+                        width: 17px;
+                        height: 17px;
+                    }
+                }
+
+                &:hover {
+                    border-color: rgba(34, 197, 94, 0.8);
+                    background: rgba(16, 185, 129, 0.22);
+                    color: #FFFFFF;
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                }
 
                 @include respond-to('sm') {
                     font-size: 12px;
-                    padding: 4px 10px;
-                    line-height: 24px;
+                    padding: 7px 13px;
+                    gap: 6px;
+
+                    .tagIcon svg {
+                        width: 14px;
+                        height: 14px;
+                    }
                 }
             }
-
         }
 
-        .title {
-            padding: 24px 0 32px 0;
+        .imageColumn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+
+            .imageCard {
+                position: relative;
+                width: 100%;
+                max-width: 780px;
+                border: none;
+                background: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                padding: 0;
+                box-shadow: none;
+                transition: transform 0.35s ease;
+
+                &:hover {
+                    transform: scale(1.02);
+                }
+
+                .tradeImage {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    border-radius: 0;
+                    object-fit: contain;
+                    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 35px rgba(0, 255, 136, 0.25));
+                }
+
+                .imageGlow {
+                    position: absolute;
+                    inset: -30px;
+                    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.22) 0%, transparent 70%);
+                    z-index: -1;
+                    pointer-events: none;
+                    filter: blur(35px);
+                }
+
+                .floatingBuyBadge {
+                    position: absolute;
+                    z-index: 10;
+                    padding: 8px 18px;
+                    background: rgba(4, 28, 19, 0.88);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border: 1.5px solid #00FF88;
+                    border-radius: 12px;
+                    box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 10px 25px rgba(0, 0, 0, 0.6);
+
+                    span {
+                        color: #00FF88;
+                        font-size: 14px;
+                        font-weight: 800;
+                        letter-spacing: 1.5px;
+                        font-family: var(--font-plus-jakarta);
+                        text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+                    }
+                }
+
+                .buyPos1 {
+                    top: 15%;
+                    left: 20%;
+                }
+
+                .buyPos2 {
+                    top: 52%;
+                    left: 10%;
+                }
+            }
+
+            @include respond-to('md') {
+                margin: 20px auto 0;
+            }
 
             @include respond-to('sm') {
-                padding: 16px 0 24px 0;
-            }
+                .imageCard {
+                    border-radius: 16px;
+                    padding: 6px;
 
-            p {
-                max-width: 644px;
-                color: #5F5F5F;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 30px;
-
-                @include respond-to('md') {
-                    margin: 0 auto;
-                    font-size: 18px;
-                    line-height: 28px;
-                }
-
-                @include respond-to('sm') {
-                    font-size: 16px;
-                    line-height: 24px;
-                }
-            }
-
-            h1 {
-                color: #1A1A1A;
-                font-size: 62px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                letter-spacing: 1.86px;
-                font-family: var(--font-plus-jakarta);
-                text-transform: uppercase;
-
-                @include respond-to('md') {
-                    font-size: 48px;
-                    letter-spacing: 1.2px;
-                }
-
-                @include respond-to('sm') {
-                    font-size: 32px;
-                    letter-spacing: 0.8px;
+                    .tradeImage {
+                        border-radius: 12px;
+                    }
                 }
             }
         }

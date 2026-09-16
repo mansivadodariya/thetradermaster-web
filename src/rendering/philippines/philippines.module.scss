@@ -1,7 +1,7 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #0B56DB;
+$primary: #10B981;
 $text: #1A1A1A;
 $muted: #8D8D8D;
 $border: rgba(18, 18, 18, 0.12);
@@ -62,7 +62,7 @@ $danger: #FF5757;
     .badge {
         display: inline-block;
         padding: 6px 12px;
-        background: rgba(11, 86, 219, 0.1);
+        background: rgba(16, 185, 129, 0.1);
         color: $primary;
         border-radius: 100px;
         font-size: 13px;
@@ -374,7 +374,7 @@ $danger: #FF5757;
 
                 &:focus {
                     border-color: $primary;
-                    box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.1);
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
                 }
 
                 &:disabled {
@@ -456,7 +456,7 @@ $danger: #FF5757;
 
                 &:focus {
                     border-color: $primary;
-                    box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.1);
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
                 }
             }
         }
@@ -835,7 +835,7 @@ $danger: #FF5757;
 
         .benefits .benefitItem {
             .iconBox {
-                background: rgba(11, 86, 219, 0.15);
+                background: rgba(16, 185, 129, 0.15);
             }
 
             h4 {

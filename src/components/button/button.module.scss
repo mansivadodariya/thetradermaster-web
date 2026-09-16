@@ -2,6 +2,8 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .button {
+    display: inline-block;
+
     &.fullWidth {
         width: 100%;
 
@@ -15,44 +17,61 @@
 
     &.light {
         button {
-            background: #F1F5FC;
-            border: 1px solid #F1F5FC;
-            color: #0B56DB;
+            background: #F0FDF4;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: $primary;
         }
     }
 
     &.outline {
-        button {
-            border: 1px solid #0B56DB;
-            background-color: #fff;
-            color: #0B56DB;
+        button,
+        .linkBtn {
+            border: 1.5px solid rgba(16, 185, 129, 0.6);
+            background: rgba(4, 30, 20, 0.7);
+            backdrop-filter: blur(12px);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 
             .icon {
-                background-color: #0B56DB;
+                background: rgba(16, 185, 129, 0.3);
+                border: 1px solid rgba(16, 185, 129, 0.5);
+                img {
+                    filter: brightness(0) invert(1);
+                }
             }
 
+            &:hover {
+                background: rgba(16, 185, 129, 0.25);
+                border-color: $accent-neon;
+                color: #FFFFFF;
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
         }
     }
 
     button {
-        padding: 6px 6px 6px 29px;
-        background: #0B56DB;
+        padding: 6px 6px 6px 24px;
+        background: linear-gradient(135deg, $primary, $primary-dark);
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
+        gap: 16px;
         position: relative;
         color: #FFF;
-        font-size: 16px;
+        font-family: var(--font-plus-jakarta), sans-serif;
+        font-size: 15px;
         font-style: normal;
-        font-weight: 500;
-        border: 1px solid #0B56DB;
+        font-weight: 600;
+        border: none;
+        border-radius: 9999px;
         cursor: pointer;
         text-decoration: none;
         line-height: normal;
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        transition: all 0.3s ease;
 
         :global([dir="rtl"]) & {
-            padding: 6px 29px 6px 6px;
+            padding: 6px 24px 6px 6px;
         }
 
         &:disabled {
@@ -61,6 +80,10 @@
         }
 
         &:hover {
+            background: linear-gradient(135deg, $neon, $primary);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            transform: translateY(-2px);
+
             .icon {
                 img {
                     transform: rotate(45deg);
@@ -69,9 +92,10 @@
         }
 
         .icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: #FFF;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -85,25 +109,33 @@
     }
 
     .linkBtn {
-        padding: 6px 6px 6px 29px;
-        background: #0B56DB;
+        padding: 6px 6px 6px 24px;
+        background: linear-gradient(135deg, $primary, $primary-dark);
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
+        gap: 16px;
         color: #fff;
-        font-size: 16px;
-        font-weight: 500;
-        border: 1px solid #0B56DB;
+        font-family: var(--font-plus-jakarta), sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: 9999px;
         cursor: pointer;
         text-decoration: none;
         line-height: normal;
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        transition: all 0.3s ease;
 
         :global([dir="rtl"]) & {
-            padding: 6px 29px 6px 6px;
+            padding: 6px 24px 6px 6px;
         }
 
         &:hover {
+            background: linear-gradient(135deg, $neon, $primary);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            transform: translateY(-2px);
+
             .icon {
                 img {
                     transform: rotate(45deg);
@@ -116,13 +148,14 @@
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
+        gap: 16px;
         width: 100%;
 
         .icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: #FFF;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;

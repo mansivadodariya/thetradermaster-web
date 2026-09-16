@@ -1,11 +1,10 @@
 import React from 'react'
 import TradeSnapBanner from './tradeSnapBanner'
-import HowitWorks from '../home/howitWorks'
 import TradeSetup from '../home/tradeSetup'
 
 export default function TradeSnapPage() {
     return (
-        <div>
+        <div style={{ backgroundColor: '#030E09' }}>
             <TradeSnapBanner />
             <TradeSetup />
         </div>

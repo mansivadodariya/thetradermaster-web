@@ -13,35 +13,35 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const UploadIcon = '/assets/icons/upload-xs.svg';
 const PlayIcon = '/assets/icons/play.svg';
-const SnapImage = '/assets/images/snap.png';
+const SnapImage = '/assets/images/ai-trade-main.png';
 
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.15,
+            staggerChildren: 0.12,
             delayChildren: 0.1
         }
     }
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
+    hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
     visible: {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
         transition: {
             type: "spring",
-            stiffness: 120,
+            stiffness: 110,
             damping: 18
         }
     }
 };
 
 const imageVariants = {
-    hidden: { opacity: 0, x: 40, scale: 0.95, filter: "blur(12px)" },
+    hidden: { opacity: 0, x: 30, scale: 0.95, filter: "blur(8px)" },
     visible: {
         opacity: 1,
         x: 0,
@@ -51,7 +51,7 @@ const imageVariants = {
             type: "spring",
             stiffness: 90,
             damping: 20,
-            delay: 0.3
+            delay: 0.25
         }
     }
 };
@@ -60,79 +60,86 @@ export default function TradeSnapBanner() {
     const router = useRouter();
     const { t } = useLanguage();
 
+    const handleAnalyzeClick = () => {
+        authNavigate(router, '/trade-snap');
+    };
+
+    const handleLearnMoreClick = () => {
+        const el = document.getElementById('how-it-works');
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            authNavigate(router, '/trade-snap');
+        }
+    };
+
     return (
         <div className={styles.tradeSnapBanner}>
             <div className={styles.widthFull}>
-                <div className='container-xs3'>
+                <div className='container-xs'>
                     <div className={styles.grid}>
                         <motion.div
-                            className={styles.items}
+                            className={styles.leftContent}
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            <motion.div variants={itemVariants}>
+                            <motion.div variants={itemVariants} className={styles.badgeWrapper}>
                                 <LineText text={t('nav.aiTrade', 'AI Trade')} start />
                             </motion.div>
                             <motion.div className={styles.title} variants={itemVariants}>
                                 <h1>
-                                    {t('tradeSnap.title', 'Snap a chart. Read the trade.')}
+                                    {t('tradeSnap.title', 'AI TRADE')}
                                 </h1>
                                 <p>
-                                    {t('tradeSnap.subtitle', 'Drag any chart screenshot into AI Trade and let Trader Master identify structure, mark levels, and grade the setup against your risk profile.')}
+                                    {t('tradeSnap.subtitle', 'Capture your screen, analyze chart movements, and get AI trade insights with single or multi-timeframe views.')}
                                 </p>
                             </motion.div>
                             <motion.div className={styles.buttonAlignment} variants={itemVariants}>
-                                <Button text={t('tradeSnap.analyzeBtn', 'Upload Chart')} icon={UploadIcon} onClick={() => authNavigate(router, '/trade-snap')} />
-                                <Button outline text={t('common.learnMore', 'View Demo')} icon={PlayIcon} onClick={() => authNavigate(router, '/trade-snap')} />
+                                <Button text={t('tradeSnap.analyzeBtn', 'Analyze Chart')} icon={UploadIcon} onClick={handleAnalyzeClick} />
+                                <Button outline text={t('common.learnMore', 'Learn More')} icon={PlayIcon} onClick={handleLearnMoreClick} />
                             </motion.div>
                             <motion.div className={styles.tagAlignment} variants={itemVariants}>
                                 <motion.button
-                                    whileHover={{ scale: 1.05, y: -2, backgroundColor: "rgba(11, 86, 219, 0.08)" }}
+                                    className={styles.tagBtn}
+                                    whileHover={{ scale: 1.04, y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                                 >
-                                    <AiIcon />
-                                    {t('tradeSnap.aiAnalysisTag', 'AI Powered Analysis')}
+                                    <span className={styles.tagIcon}><AiIcon /></span>
+                                    <span>{t('tradeSnap.aiAnalysisTag', 'AI Powered Analysis')}</span>
                                 </motion.button>
                                 <motion.button
-                                    whileHover={{ scale: 1.05, y: -2, backgroundColor: "rgba(11, 86, 219, 0.08)" }}
+                                    className={styles.tagBtn}
+                                    whileHover={{ scale: 1.04, y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                                 >
-                                    <WinIcon />
-                                    {t('tradeSnap.riskTag', 'Smart Risk Detection')}
+                                    <span className={styles.tagIcon}><WinIcon /></span>
+                                    <span>{t('tradeSnap.riskTag', 'Smart Risk Detection')}</span>
                                 </motion.button>
                                 <motion.button
-                                    whileHover={{ scale: 1.05, y: -2, backgroundColor: "rgba(11, 86, 219, 0.08)" }}
+                                    className={styles.tagBtn}
+                                    whileHover={{ scale: 1.04, y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                                 >
-                                    <StructureIcon />
-                                    {t('tradeSnap.structureTag', 'Structure & Liquidity')}
+                                    <span className={styles.tagIcon}><StructureIcon /></span>
+                                    <span>{t('tradeSnap.structureTag', 'Structure & Liquidity')}</span>
                                 </motion.button>
                             </motion.div>
                         </motion.div>
+
                         <motion.div
-                            className={styles.items}
+                            className={styles.imageColumn}
                             variants={imageVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            <motion.div
-                                className={styles.image}
-                                animate={{ y: [0, -12, 0] }}
-                                transition={{
-                                    y: {
-                                        duration: 4,
-                                        repeat: Infinity,
-                                        repeatType: "reverse",
-                                        ease: "easeInOut"
-                                    }
-                                }}
-                            >
-                                <img src={SnapImage} alt='SnapImage' />
-                            </motion.div>
+                            <div className={styles.imageCard}>
+                                <img src={SnapImage} alt="AI Trade Showcase" className={styles.tradeImage} />
+                                <div className={styles.imageGlow} />
+                            </div>
                         </motion.div>
                     </div>
                 </div>
@@ -140,4 +147,5 @@ export default function TradeSnapBanner() {
         </div>
     )
 }
+
 

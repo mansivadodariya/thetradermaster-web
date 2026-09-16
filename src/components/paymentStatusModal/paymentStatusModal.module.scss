@@ -209,7 +209,7 @@
 .primaryBtn {
     width: 100%;
     padding: 13px 20px;
-    background: #0B56DB;
+    background: $primary;
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 700;
@@ -222,12 +222,12 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
 
     &:hover {
-        background: #0947B8;
+        background: $primary-hover;
         transform: translateY(-1px);
-        box-shadow: 0 6px 18px rgba(11, 86, 219, 0.35);
+        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
     }
 }
 

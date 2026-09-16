@@ -19,10 +19,16 @@ export default function EcosystemSection() {
             try {
                 const data = await fetchBrokers();
                 if (isMounted) {
-                    setBrokers(data && data.length > 0 ? data : brokerList);
+                    let displayList = data && data.length > 0 ? [...data] : [...brokerList];
+                    if (displayList.length < 3) {
+                        const existingIds = new Set(displayList.map(b => b.id));
+                        const additional = brokerList.filter(b => !existingIds.has(b.id));
+                        displayList = [...displayList, ...additional].slice(0, 3);
+                    }
+                    setBrokers(displayList);
                 }
             } catch (_) {
-                if (isMounted) setBrokers(brokerList);
+                if (isMounted) setBrokers(brokerList.slice(0, 3));
             } finally {
                 if (isMounted) setIsLoading(false);
             }
@@ -50,7 +56,7 @@ export default function EcosystemSection() {
 
     return (
         <section className={styles.ecosystemSection} id="ecosystem">
-            <div className="container">
+            <div className="container-xs">
                 <LineText text={t('home.ecosystemLine', 'Ecosystem & Partners')} />
                 <div className={styles.title}>
                     <motion.h2
@@ -75,6 +81,7 @@ export default function EcosystemSection() {
                     <div className={styles.grid}>
                         <BrokerCardSkeleton />
                         <BrokerCardSkeleton />
+                        <BrokerCardSkeleton />
                     </div>
                 ) : (
                     <motion.div
@@ -97,6 +104,35 @@ export default function EcosystemSection() {
                         ))}
                     </motion.div>
                 )}
+
+                {/* Ecosystem Stats Footer Strip */}
+                <motion.div 
+                    className={styles.ecosystemStats}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                    <div className={styles.statItem}>
+                        <span className={styles.statNumber}>1</span>
+                        <span className={styles.statLabel}>{t('home.ecoStat1', 'Regulated Partners')}</span>
+                    </div>
+                    <div className={styles.statDivider}></div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statNumber}>&lt; 100ms</span>
+                        <span className={styles.statLabel}>{t('home.ecoStat2', 'Execution Latency')}</span>
+                    </div>
+                    <div className={styles.statDivider}></div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statNumber}>MT4 / MT5</span>
+                        <span className={styles.statLabel}>{t('home.ecoStat3', 'Native AI Bridge')}</span>
+                    </div>
+                    <div className={styles.statDivider}></div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statNumber}>$50M+</span>
+                        <span className={styles.statLabel}>{t('home.ecoStat4', 'Monthly Volume')}</span>
+                    </div>
+                </motion.div>
             </div>
         </section>
     );

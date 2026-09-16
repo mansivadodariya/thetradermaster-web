@@ -5,7 +5,11 @@ import styles from './clientSection.module.scss';
 import LineText from '@/components/lineText';
 import { useLanguage } from '@/context/LanguageContext';
 
-const ProfileImage = '/assets/images/profile.png';
+const ProfileImage1 = '/assets/images/profile1.png';
+const ProfileImage2 = '/assets/images/profile2.png';
+const ProfileImage3 = '/assets/images/profile3.png';
+const ProfileImage4 = '/assets/images/profile4.png';
+const ProfileImage5 = '/assets/images/profile5.png';
 
 const StarIcon = () => (
     <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,14 +19,15 @@ const StarIcon = () => (
 
 const QuoteIcon = () => (
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 11.4286C0 5.11429 4.38857 0.942857 10.2857 0L10.9714 1.71429C7.88571 3.25714 6 5.82857 5.82857 8.22857C7.2 8.22857 8.57143 9.08571 8.57143 10.9714C8.57143 12.8571 7.02857 14.4 5.14286 14.4C2.05714 14.4 0 11.8286 0 11.4286ZM13.0286 11.4286C13.0286 5.11429 17.4171 0.942857 23.3143 0L24 1.71429C20.9143 3.25714 19.0286 5.82857 18.8571 8.22857C20.2286 8.22857 21.6 9.08571 21.6 10.9714C21.6 12.8571 20.0571 14.4 18.1714 14.4C15.0857 14.4 13.0286 11.8286 13.0286 11.4286Z" fill="#0B56DB" />
+        <path d="M0 11.4286C0 5.11429 4.38857 0.942857 10.2857 0L10.9714 1.71429C7.88571 3.25714 6 5.82857 5.82857 8.22857C7.2 8.22857 8.57143 9.08571 8.57143 10.9714C8.57143 12.8571 7.02857 14.4 5.14286 14.4C2.05714 14.4 0 11.8286 0 11.4286ZM13.0286 11.4286C13.0286 5.11429 17.4171 0.942857 23.3143 0L24 1.71429C20.9143 3.25714 19.0286 5.82857 18.8571 8.22857C20.2286 8.22857 21.6 9.08571 21.6 10.9714C21.6 12.8571 20.0571 14.4 18.1714 14.4C15.0857 14.4 13.0286 11.8286 13.0286 11.4286Z" fill="#10B981" />
     </svg>
 );
 
 export default function ClientSection() {
     const { t } = useLanguage();
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleCards, setVisibleCards] = useState(3);
+    const [isPaused, setIsPaused] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(true);
 
     const testimonials = [
         {
@@ -31,7 +36,7 @@ export default function ClientSection() {
             quote: t('home.testimonial1Quote', "The chart reads are scarily accurate. I use AI Trade before every London open it catches structure I'd miss half-asleep."),
             author: t('home.testimonial1Author', "Marcus Okafor"),
             role: t('home.testimonial1Role', "MT5 day trader, London"),
-            avatar: ProfileImage
+            avatar: ProfileImage1
         },
         {
             id: 2,
@@ -39,7 +44,7 @@ export default function ClientSection() {
             quote: t('home.testimonial2Quote', "AI Strategy gave me a mean-reversion system I actually trust. The backtest matched my live results within 4%."),
             author: t('home.testimonial2Author', "Michael T., Texas"),
             role: t('home.testimonial2Role', "Swing trader"),
-            avatar: ProfileImage
+            avatar: ProfileImage2
         },
         {
             id: 3,
@@ -47,7 +52,7 @@ export default function ClientSection() {
             quote: t('home.testimonial3Quote', "Best part: it's tied to my MT5. No bots, no noise. Every conversation is with someone who's actually trading."),
             author: t('home.testimonial3Author', "Daniel Reyes"),
             role: t('home.testimonial3Role', "Prop firm trader"),
-            avatar: ProfileImage
+            avatar: ProfileImage3
         },
         {
             id: 4,
@@ -55,7 +60,7 @@ export default function ClientSection() {
             quote: t('home.testimonial4Quote', "No subscription fees. Paying with trading volume credits is a game-changer. Finally, tools made for real day traders."),
             author: t('home.testimonial4Author', "Sarah L., Sydney"),
             role: t('home.testimonial4Role', "Full-time Scalper"),
-            avatar: ProfileImage
+            avatar: ProfileImage4
         },
         {
             id: 5,
@@ -63,9 +68,13 @@ export default function ClientSection() {
             quote: t('home.testimonial5Quote', "The support structures identified by Trader Master saved me from at least three bad setups this week alone. Incredible math."),
             author: t('home.testimonial5Author', "Kenji Sato"),
             role: t('home.testimonial5Role', "Risk Manager, Tokyo"),
-            avatar: ProfileImage
+            avatar: ProfileImage5
         }
     ];
+
+    const displayTestimonials = [...testimonials, ...testimonials, ...testimonials];
+    const N = testimonials.length;
+    const [currentIndex, setCurrentIndex] = useState(N);
 
     useEffect(() => {
         const updateVisible = () => {
@@ -82,33 +91,43 @@ export default function ClientSection() {
         return () => window.removeEventListener('resize', updateVisible);
     }, []);
 
-    const maxIndex = testimonials.length - visibleCards;
-    const clampedIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
+    // Handle silent seamless reset when reaching duplicated boundaries
+    useEffect(() => {
+        let timer;
+        if (currentIndex >= N * 2) {
+            timer = setTimeout(() => {
+                setIsTransitioning(false);
+                setCurrentIndex(N);
+                setTimeout(() => setIsTransitioning(true), 50);
+            }, 500);
+        } else if (currentIndex <= 0) {
+            timer = setTimeout(() => {
+                setIsTransitioning(false);
+                setCurrentIndex(N);
+                setTimeout(() => setIsTransitioning(true), 50);
+            }, 500);
+        }
+        return () => clearTimeout(timer);
+    }, [currentIndex, N]);
+
+    // Auto-rotate effect with pause on hover/touch
+    useEffect(() => {
+        if (isPaused) return;
+        const interval = setInterval(() => {
+            setIsTransitioning(true);
+            setCurrentIndex((prev) => prev + 1);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [isPaused]);
 
     const handleNext = () => {
-        if (currentIndex < maxIndex) {
-            setCurrentIndex(prev => prev + 1);
-        } else {
-            setCurrentIndex(0);
-        }
+        setIsTransitioning(true);
+        setCurrentIndex(prev => prev + 1);
     };
 
     const handlePrev = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(prev => prev - 1);
-        } else {
-            setCurrentIndex(maxIndex);
-        }
-    };
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15
-            }
-        }
+        setIsTransitioning(true);
+        setCurrentIndex(prev => prev - 1);
     };
 
     const cardVariants = {
@@ -119,16 +138,16 @@ export default function ClientSection() {
             transition: { type: "spring", stiffness: 100, damping: 15 }
         },
         hover: {
-            y: -8,
-            borderColor: "rgba(11, 86, 219, 0.2)",
-            boxShadow: "0 15px 35px 0 rgba(11, 86, 219, 0.06)",
+            y: 0,
+            borderColor: "rgba(16, 185, 129, 0.15)",
+            boxShadow: "0 15px 35px 0 rgba(16, 185, 129, 0.15)",
             transition: { duration: 0.3 }
         }
     };
 
     return (
         <div className={styles.clientSection}>
-            <div className='container'>
+            <div className='container-xs'>
                 <LineText text={t('home.tradersTalkingLine', 'Traders talking')} />
                 <div className={styles.title}>
                     <motion.h2
@@ -137,7 +156,10 @@ export default function ClientSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        {t('home.tradersTalkingTitle', 'Used by serious Forex traders')}
+                        {t('home.tradersTalkingTitlePart1', 'Used By')}{' '}
+                        <span className={styles.neonText}>
+                            {t('home.tradersTalkingTitlePart2', 'Serious Forex Traders')}
+                        </span>
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -149,16 +171,22 @@ export default function ClientSection() {
                     </motion.p>
                 </div>
 
-                <div className={styles.sliderWrapper}>
+                <div 
+                    className={styles.sliderWrapper}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                    onTouchStart={() => setIsPaused(true)}
+                    onTouchEnd={() => setIsPaused(false)}
+                >
                     <div className={styles.sliderContainer}>
                         <motion.div
                             className={styles.sliderTrack}
-                            animate={{ x: `calc(-${clampedIndex} * (100% / ${visibleCards} + ${24 / visibleCards}px))` }}
-                            transition={{ type: "spring", stiffness: 100, damping: 18 }}
+                            animate={{ x: `calc(-${currentIndex} * (100% / ${visibleCards} + ${24 / visibleCards}px))` }}
+                            transition={isTransitioning ? { type: "spring", stiffness: 100, damping: 18 } : { duration: 0 }}
                         >
-                            {testimonials.map((item) => (
+                            {displayTestimonials.map((item, index) => (
                                 <motion.div
-                                    key={item.id}
+                                    key={`${item.id}-${index}`}
                                     className={styles.slide}
                                     variants={cardVariants}
                                     initial="hidden"
@@ -207,8 +235,8 @@ export default function ClientSection() {
                             aria-label="Previous testimonials"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M9.57031 5.92969L3.50031 11.9997L9.57031 18.0697" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M20.5 12H3.67" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M9.57031 5.92969L3.50031 11.9997L9.57031 18.0697" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.5 12H3.67" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                         <button
@@ -217,8 +245,8 @@ export default function ClientSection() {
                             aria-label="Next testimonials"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M3.5 12H20.33" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M3.5 12H20.33" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>

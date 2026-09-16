@@ -16,12 +16,15 @@ export default function ReadyTostart() {
 
     return (
         <div className={styles.readyTostart}>
-            <div className='container'>
+            <div className='container-xs'>
                 <div className={styles.box}>
                     <LineText text={t('home.readyDeskLine', 'Trading Desk')} />
                     <div className={styles.title}>
                         <h2>
-                            {t('home.readyDeskTitle', 'Ready to put an AI in your trading desk?')}
+                            {t('home.readyDeskTitlePart1', 'Ready To Put An AI In Your')}{' '}
+                            <span className={styles.neonText}>
+                                {t('home.readyDeskTitlePart2', 'Trading Desk?')}
+                            </span>
                         </h2>
                         <p>
                             {t('home.readyDeskSubtitle', 'Claim credits, and start asking Trader Master in under five minutes.')}

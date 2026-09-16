@@ -2,34 +2,60 @@
 @use '../../../scss/breakpoints/breakpoints.scss' as *;
 
 .faqSection {
-    padding: 100px 0;
-    background: #FAFBFF;
+    padding: 40px 0 90px 0;
+    background-color: #050d09;
+    position: relative;
+    overflow: hidden;
 
     @include respond-to('md') {
-        padding: 80px 0;
+        padding: 30px 0 70px 0;
     }
 
     @include respond-to('sm') {
-        padding: 60px 0;
+        padding: 20px 0 50px 0;
+    }
+
+    /* Ambient cyber glow background */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, rgba(16, 185, 129, 0.02) 50%, transparent 75%);
+        filter: blur(100px);
+        pointer-events: none;
+        z-index: 0;
     }
 
     .title {
         text-align: center;
-        margin: 20px 0 60px 0;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+        padding: 20px 0 50px 0;
+        max-width: 620px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
 
         @include respond-to('sm') {
-            margin: 16px 0 40px 0;
+            padding: 16px 0 35px 0;
         }
 
         h2 {
-            color: #1A1A1A;
-            font-size: 40px;
-            font-weight: 700;
+            color: #FFFFFF;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin: 0 0 16px 0;
             font-family: var(--font-plus-jakarta);
-            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+
+            .neonText {
+                color: #00FF88;
+                text-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.15);
+            }
 
             @include respond-to('md') {
                 font-size: 34px;
@@ -41,34 +67,64 @@
         }
 
         p {
-            color: #5F5F5F;
+            color: rgba(255, 255, 255, 0.75);
             font-size: 18px;
-            line-height: 1.7;
+            font-weight: 500;
+            line-height: 28px;
+            margin: 0;
+            font-family: var(--font-plus-jakarta);
 
             @include respond-to('sm') {
-                font-size: 16px;
+                font-size: 15px;
+                line-height: 24px;
             }
         }
     }
 
     .faqList {
-        max-width: 800px;
+        max-width: 860px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        position: relative;
+        z-index: 2;
     }
 
     .faqItem {
-        background: #FFF;
-        border: 1px solid #EAEEF6;
-        border-radius: 12px;
+        background: rgba(8, 24, 17, 0.8);
+        border: 1px solid rgba(0, 255, 136, 0.18);
+        border-radius: 20px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.08);
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            background: rgba(10, 30, 21, 0.85);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.1);
+        }
 
         &.active {
-            border-color: rgba(11, 86, 219, 0.3);
-            box-shadow: 0 8px 24px rgba(11, 86, 219, 0.04);
+            border-color: rgba(0, 255, 136, 0.6);
+            background: rgba(12, 36, 25, 0.9);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.18);
+
+            .faqQuestion {
+                span {
+                    color: #00FF88;
+                    text-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+                }
+            }
+
+            .faqIcon {
+                background: #00FF88;
+                color: #050d09;
+                border-color: #00FF88;
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            }
         }
     }
 
@@ -77,43 +133,51 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 24px;
+        padding: 24px 28px;
         background: none;
         border: none;
         cursor: pointer;
         text-align: left;
-        color: #1A1A1A;
-        font-size: 17px;
-        font-weight: 600;
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 700;
         font-family: var(--font-plus-jakarta);
-        transition: color 0.2s ease;
+        transition: color 0.3s ease;
 
         @include respond-to('sm') {
-            padding: 20px;
+            padding: 18px 20px;
             font-size: 16px;
-        }
-
-        &:hover {
-            color: #0B56DB;
         }
 
         span {
             padding-right: 20px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
         }
     }
 
     .faqIcon {
-        color: #0B56DB;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        border-radius: 50%;
+        background: rgba(0, 255, 136, 0.12);
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        color: #00FF88;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
-        height: 24px;
-        min-width: 24px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
     }
 
     .faqAnswer {
-        padding: 0 24px 24px 24px;
+        padding: 0 28px 24px 28px;
         overflow: hidden;
 
         @include respond-to('sm') {
@@ -121,13 +185,17 @@
         }
 
         p {
-            color: #5F5F5F;
+            color: rgba(255, 255, 255, 0.78);
             font-size: 15px;
             line-height: 1.7;
             margin: 0;
+            border-top: 1px solid rgba(0, 255, 136, 0.15);
+            padding-top: 16px;
+            font-family: var(--font-plus-jakarta);
 
             @include respond-to('sm') {
                 font-size: 14px;
+                line-height: 1.6;
             }
         }
     }

@@ -199,7 +199,7 @@ const layout = ({ children }) => {
                         <h1 style={{ fontSize: '5rem', marginBottom: '0.5rem', color: '#ef4444', fontWeight: '800' }}>404</h1>
                         <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>Tab Disabled / Access Denied</h2>
                         <p style={{ color: '#9ca3af', marginBottom: '1.5rem' }}>This page has been turned off by administrator.</p>
-                        <a href="/dashboard" style={{ padding: '10px 24px', background: '#2563eb', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600' }}>
+                        <a href="/dashboard" style={{ padding: '10px 24px', background: '#10B981', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600' }}>
                             Back to Dashboard
                         </a>
                     </div>

@@ -62,7 +62,7 @@ export default function FaqSection() {
 
     return (
         <section className={styles.faqSection} id="faq">
-            <div className="container">
+            <div className="container-xs">
                 <LineText text={t('home.faqLine', 'FAQ')} />
                 <div className={styles.title}>
                     <motion.h2
@@ -71,7 +71,10 @@ export default function FaqSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        {t('home.faqTitle', 'Frequently asked questions')}
+                        {t('home.faqTitlePart1', 'Frequently Asked')}{' '}
+                        <span className={styles.neonText}>
+                            {t('home.faqTitlePart2', 'Questions')}
+                        </span>
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}

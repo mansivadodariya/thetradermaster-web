@@ -18,7 +18,7 @@ const EdufinsIcon = '/assets/icons/edufins.svg';
 const MetaIcon = '/assets/icons/Img2.svg';
 const AlgomaticIcon = '/assets/icons/algomaticIcon.svg';
 const AsicIcon = '/assets/icons/asic.svg';
-const NeweraLogo = '/assets/icons/Img1.svg';
+const NeweraLogo = '/assets/images/logo-light.webp';
 const FundedMasterLogo = '/assets/icons/Img2.svg';
 
 const SearchIcon = () => (

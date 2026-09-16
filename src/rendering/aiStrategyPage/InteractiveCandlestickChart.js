@@ -181,7 +181,7 @@ export default function InteractiveCandlestickChart() {
 
         // EMA 20 Series
         const ema20Series = chart.addSeries(LineSeries, {
-            color: '#2563EB',
+            color: '#10B981',
             lineWidth: 2,
             title: 'EMA 20',
         });
@@ -363,7 +363,7 @@ export default function InteractiveCandlestickChart() {
                     <span>Bearish Candle</span>
                 </div>
                 <div className={styles.legendItem}>
-                    <span className={styles.colorDot} style={{ background: '#2563EB' }} />
+                    <span className={styles.colorDot} style={{ background: '#10B981' }} />
                     <span>EMA 20</span>
                 </div>
                 <div className={styles.legendItem}>

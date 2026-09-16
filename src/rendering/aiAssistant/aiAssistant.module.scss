@@ -757,7 +757,7 @@
     font-size: 12px;
     font-weight: 700;
     color: #0f5cf2;
-    background: #eff6ff;
+    background: $very-light-green;
     border-bottom: 1px solid rgba(15, 92, 242, 0.12);
     padding: 8px 12px;
 }
@@ -803,7 +803,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: #dbeafe;
+        background: $very-light-green;
         border-color: rgba(15, 92, 242, 0.45);
     }
 }
@@ -1706,7 +1706,7 @@
                     background: #252529;
 
                     svg {
-                        color: #60a5fa;
+                        color: $very-light-green;
                     }
                 }
 
@@ -1741,7 +1741,7 @@
                 .messageRow {
                     .pairBadge {
                         background: rgba(96, 165, 250, 0.15);
-                        color: #60a5fa;
+                        color: $very-light-green;
                     }
 
                     .assistantMessage {
@@ -1770,7 +1770,7 @@
 
                     .blogTypeBadge {
                         background: rgba(96, 165, 250, 0.15);
-                        color: #60a5fa;
+                        color: $very-light-green;
                     }
 
                     .blogContent {
@@ -1784,7 +1784,7 @@
                         .blogLoadingState {
                             .spinner {
                                 border-color: rgba(96, 165, 250, 0.1);
-                                border-top-color: #60a5fa;
+                                border-top-color: $very-light-green;
                             }
 
                             p {
@@ -1804,7 +1804,7 @@
 
             .chip {
                 background: #252529;
-                color: #60a5fa;
+                color: $very-light-green;
 
                 &:hover {
                     background: #0f5cf2;
@@ -1856,16 +1856,16 @@
 
                                 &:hover {
                                     background: #2d2d34;
-                                    color: #60a5fa;
+                                    color: $very-light-green;
                                 }
 
                                 &.activePair {
                                     background: #2d2d34;
-                                    color: #60a5fa;
+                                    color: $very-light-green;
                                 }
 
                                 .checkmark {
-                                    color: #60a5fa;
+                                    color: $very-light-green;
                                 }
                             }
                         }
@@ -2031,7 +2031,7 @@
     }
 
     .mdChartTitle {
-        color: #60a5fa;
+        color: $very-light-green;
         background: #252529;
         border-bottom-color: #2d2d34;
     }
@@ -2075,7 +2075,7 @@
                     border-color: #0f5cf2;
 
                     p {
-                        color: #60a5fa;
+                        color: $very-light-green;
                         font-weight: 600;
                     }
                 }

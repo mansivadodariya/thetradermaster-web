@@ -7,7 +7,7 @@ export const brokerList = [
         name_ar: 'وساطة نيو ايرا',
         subtitle: 'Liquidity Gateway',
         subtitle_ar: 'بوابة السيولة',
-        logo: '/assets/icons/Img1.svg',
+        logo: '/assets/images/logo-light.webp',
         category: 'Brokers',
         description: 'Native volume-to-credit integration engine powering your Trader Master AI usage credits directly through MT5 trading volume.',
         description_ar: 'محرك متكامل لتحويل حجم التداول إلى رصيد ذكاء اصطناعي مباشرة من خلال تداولك على منصة MT5.',
@@ -30,39 +30,15 @@ export const brokerList = [
         ],
         websiteUrl: 'https://trade.newera365.com/client/register/6a68798de0aaa'
     },
-    {
-        id: 'algomatic',
-        name: 'Algomatic Quant',
-        name_ar: 'الخوارزمية الكمية',
-        subtitle: 'Algo Execution Engine',
-        subtitle_ar: 'محرك تنفيذ الخوارزميات',
-        logo: '/assets/icons/algomaticIcon.svg',
-        category: 'Algo Brokers',
-        description: 'High-performance quantitative brokerage infrastructure offering direct FIX API access, strategy hosting, and automated risk engines.',
-        description_ar: 'بنية تحتية عالية الأداء للوساطة الكمية توفر وصولاً مباشراً عبر FIX API واستضافة الاستراتيجيات.',
-        features: [
-            'Quantitative model hosting & execution',
-            'Direct FIX API & webhooks connectivity',
-            'Automated risk management & drawdown limits',
-            'Institutional grade liquidity pools'
-        ],
-        features_ar: [
-            'استضافة وتنفيذ النماذج الكمية',
-            'اتصال مباشر بـ FIX API والويب هوك',
-            'إدارة مخاطر مؤتمتة وحدود التراجع',
-            'مجمعات سيولة بمستوى مؤسسي'
-        ],
-        highlights: [
-            { id: '1', type: 'link', title: '24/5 Automated Trading', title_ar: 'تداول مؤتمت 24/5', sub: 'Non-stop algo execution', sub_ar: 'تنفيذ خوارزمي غير متوقف' },
-            { id: '2', type: 'server', title: 'Price Gap Arbitrage Engine', title_ar: 'محرك مراجحة الفجوات السعرية', sub: 'Real-time gap detection', sub_ar: 'كشف فوري للفجوات' },
-            { id: '3', type: 'shield', title: 'Broker Agnostic', title_ar: 'مستقل عن الوسيط', sub: 'Universal MT4/MT5 compatibility', sub_ar: 'توافق شامل مع MT4/MT5' }
-        ],
-        websiteUrl: 'https://algomaticbot.com/'
-    }
+ 
 ];
 
 export function formatBroker(item) {
     if (!item) return null;
+    let logoUrl = item.logo || '';
+    if (item.id === 'newera' || logoUrl.includes('Img1.svg')) {
+        logoUrl = '/assets/images/logo-light.webp';
+    }
     return {
         id: item.id,
         name: item.name,
@@ -71,7 +47,7 @@ export function formatBroker(item) {
         subtitle: item.subtitle || '',
         subtitle_ar: item.subtitle_ar || item.subtitle || '',
         subtitle_ph: item.subtitle_ph || item.subtitle || '',
-        logo: item.logo || '',
+        logo: logoUrl,
         category: item.category || 'Brokers',
         description: item.description || '',
         description_ar: item.description_ar || item.description || '',

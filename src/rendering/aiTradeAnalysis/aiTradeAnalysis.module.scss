@@ -1,0 +1,528 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+$primary: #10B981;
+$text: #ffffff;
+$muted: #8D8D8D;
+$border: rgba(16, 185, 129, 0.2);
+
+.container {
+    padding: 5px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+// Hero Section
+.hero {
+    background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 16px 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.2), transparent);
+    }
+
+    .heroTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: $primary;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: $text;
+        }
+
+        p {
+            color: $muted;
+            font-size: 13px;
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .historyBtn {
+            background: transparent;
+            border: 1px solid $border;
+            color: $text;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+                background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+                border-color: rgba(16, 185, 129, 0.2);
+                color: $primary;
+            }
+        }
+    }
+}
+
+// Stepper
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $border;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: $border;
+        z-index: 0;
+        transform: translateY(-50%);
+    }
+
+    .step {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+        padding: 0 12px;
+        position: relative;
+        z-index: 1;
+
+        .num {
+            font-size: 20px;
+            font-weight: 700;
+            color: rgba(26, 26, 26, 0.1);
+        }
+
+        &.active .num {
+            color: $primary;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+
+            strong {
+                font-size: 13px;
+                color: $text;
+            }
+
+            span {
+                font-size: 11px;
+                color: $muted;
+            }
+        }
+    }
+}
+
+// Main Content
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Upload Card
+.uploadCard {
+    background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px dashed rgba(18, 18, 18, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+    &:hover, &.dragActive {
+        border-color: $primary;
+        background: rgba(16, 185, 129, 0.02);
+    }
+
+    .uploadIcon {
+        width: 48px;
+        height: 48px;
+        background: rgba(16, 185, 129, 0.08);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        color: $primary;
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    h3 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: $text;
+    }
+
+    p {
+        color: $muted;
+        font-size: 13px;
+        margin-bottom: 16px;
+        max-width: 360px;
+    }
+
+    .chooseBtn {
+        background: rgba(16, 185, 129, 0.1);
+        color: $primary;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        padding: 8px 16px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 16px;
+
+        &:hover {
+            background: rgba(16, 185, 129, 0.15);
+        }
+    }
+
+    .formats {
+        font-size: 11px;
+        color: $muted;
+        margin-bottom: 10px;
+    }
+
+    .security {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        color: rgba(26, 26, 26, 0.5);
+
+        svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
+}
+
+// Features Panel
+.featuresPanel {
+    background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+    .featuresHeader {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        .iconBox {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $primary;
+            flex-shrink: 0;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: $text;
+            margin-bottom: 2px;
+            margin-top: 0;
+        }
+
+        p {
+            color: $muted;
+            font-size: 12px;
+            margin: 0;
+        }
+    }
+
+    .featuresGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .featureItem {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            padding: 10px 12px;
+            border-radius: 8px;
+
+            svg {
+                color: $primary;
+                width: 14px;
+                height: 14px;
+                flex-shrink: 0;
+            }
+
+            span {
+                color: $text;
+                font-size: 12.5px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+// Bottom Cards
+.bottomSection {
+    background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+    .bottomHeader {
+        margin-bottom: 16px;
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: $text;
+            margin-bottom: 4px;
+            margin-top: 0;
+        }
+
+        p {
+            color: $muted;
+            font-size: 13px;
+            margin: 0;
+        }
+    }
+
+    .cardsGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+
+        @include respond-to('lg') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+            border: 1px solid $border;
+            padding: 16px;
+            border-radius: 10px;
+            transition: all 0.2s;
+
+            &:hover {
+                background: #FAFBFF;
+                border-color: rgba(16, 185, 129, 0.2);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(16, 185, 129, 0.06);
+            }
+
+            .iconBox {
+                width: 32px;
+                height: 32px;
+                background: rgba(16, 185, 129, 0.08);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $primary;
+                margin-bottom: 12px;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+
+            h4 {
+                font-size: 14px;
+                font-weight: 600;
+                color: $text;
+                margin-bottom: 6px;
+                margin-top: 0;
+            }
+
+            p {
+                color: $muted;
+                font-size: 12px;
+                line-height: 1.4;
+                margin: 0;
+            }
+        }
+    }
+}
+
+:global(.dark) {
+    .hero,
+    .stepper .step,
+    .uploadCard,
+    .featuresPanel,
+    .bottomSection,
+    .bottomSection .card {
+        background: #0f0f11;
+        border-color: #ffffff;
+        box-shadow: none;
+    }
+
+    .stepper {
+        border-top-color: #ffffff;
+        &::after {
+            background: #2d2d34;
+        }
+    }
+
+    .hero .heroTop h2,
+    .stepper .step .text strong,
+    .uploadCard h3,
+    .featuresPanel .featuresHeader h3,
+    .featuresPanel .featureItem span,
+    .bottomSection .bottomHeader h3,
+    .bottomSection .card h4 {
+        color: #f3f4f6;
+    }
+
+    .hero .heroTop p,
+    .stepper .step .text span,
+    .uploadCard p,
+    .uploadCard .formats,
+    .featuresPanel .featuresHeader p,
+    .bottomSection .bottomHeader p,
+    .bottomSection .card p {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .hero .heroTop .historyBtn {
+        border-color: #ffffff;
+        color: #f3f4f6;
+
+        &:hover {
+            background: #252529;
+            color: $primary;
+            border-color: #ffffff;
+        }
+    }
+
+    .stepper .step .num {
+        color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .stepper .step.active .num {
+        color: $primary;
+    }
+
+    .uploadCard {
+        border-color: rgba(255, 255, 255, 0.15);
+
+        &:hover, &.dragActive {
+            border-color: $primary;
+            background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(12px);
+        }
+    }
+
+    .uploadCard .security {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .featuresPanel .featureItem {
+        background: #1a1a1e;
+        border-color: #ffffff;
+    }
+
+    .bottomSection .card {
+        &:hover {
+            background: #1a1a1e;
+            border-color: $primary;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.1);
+        }
+    }
+
+    .uploadIcon,
+    .featuresPanel .iconBox,
+    .bottomSection .iconBox {
+        background: rgba(16, 185, 129, 0.15);
+    }
+
+    .hero .badge,
+    .uploadCard .chooseBtn {
+        color: $primary;
+        background: rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.25);
+    }
+}

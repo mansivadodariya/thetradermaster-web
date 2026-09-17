@@ -9,9 +9,8 @@ import { getAuthHref } from '@/lib/authRedirect';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 
-const Logo = '/assets/logo/logo.svg';
+const Logo = '/assets/logo/logoWhite.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
-
 export default function Header() {
     const router = useRouter()
     const pathname = usePathname()
@@ -46,10 +45,10 @@ export default function Header() {
                             </div>
                         ) : (
                             <div className={styles.menuAlignment}>
-                                <Link href="/" aria-label='Home' className={navClass('/')}>{t('nav.home', 'Home')}</Link>
                                 <Link href="/tradesnap" aria-label='AI Trade' className={navClass('/tradesnap')}>{t('nav.aiTrade', 'AI Trade')}</Link>
                                 <Link href="/ai-chat" aria-label='AI Chat' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Chat')}</Link>
                                 <Link href="/ai-strategy" aria-label='AI Strategy' className={navClass('/ai-strategy')}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
+                                <Link href="/past-trade-analyzer" aria-label='Past Trade Analyzer' className={navClass('/past-trade-analyzer')}>{t('nav.pastTradeAnalyzer', 'Past Trade Analyzer')}</Link>
                                 <Link
                                     href="https://www.edufins.com/"
                                     target="_blank"
@@ -74,15 +73,15 @@ export default function Header() {
                             <>
                                 <div className={styles.buttonHide}>
                                     <LanguageToggle className={styles.headerLangToggle} />
-                                    <Button 
-                                        text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
-                                        icon={ArrowIcon} 
-                                        onClick={() => router.push('/dashboard')} 
+                                    <Button
+                                        text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')}
+                                        icon={ArrowIcon}
+                                        onClick={() => router.push('/dashboard')}
                                     />
                                 </div>
                                 <div className={styles.mobilemenu} onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer' }}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </div>
                             </>
@@ -138,13 +137,13 @@ export default function Header() {
                             </div>
                         </div>
                         <div className={styles.headerFooter}>
-                            <Button 
-                                text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')} 
-                                icon={ArrowIcon} 
-                                onClick={() => { 
-                                    router.push('/dashboard'); 
-                                    setIsMobileMenuOpen(false); 
-                                }} 
+                            <Button
+                                text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')}
+                                icon={ArrowIcon}
+                                onClick={() => {
+                                    router.push('/dashboard');
+                                    setIsMobileMenuOpen(false);
+                                }}
                             />
                         </div>
                     </motion.div>

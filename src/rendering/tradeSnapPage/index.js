@@ -7,6 +7,9 @@ export default function TradeSnapPage() {
         <div style={{ backgroundColor: '#030E09' }}>
             <TradeSnapBanner />
             <TradeSetup />
+            <div>
+                
+            </div>
         </div>
     )
 }

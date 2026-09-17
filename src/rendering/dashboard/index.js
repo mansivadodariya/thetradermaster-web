@@ -83,7 +83,6 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
-
     useEffect(() => {
         const syncUser = () => {
             setUserId(getStoredUserId());

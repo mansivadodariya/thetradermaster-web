@@ -1,0 +1,282 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.bannerSection {
+    padding: 140px 0 90px 0;
+    position: relative;
+    overflow: hidden;
+    background-color: #030E09;
+
+    @include respond-to('md') {
+        padding: 110px 0 70px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 90px 0 50px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/images/hero-new.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 15%, rgba(0, 255, 136, 0.09) 0%, rgba(3, 14, 9, 0.85) 60%, rgba(2, 10, 7, 0.98) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    :global(.container-xs) {
+        position: relative;
+        z-index: 2;
+    }
+
+    .neonText {
+        color: #00FF88;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.15);
+        display: inline-block;
+    }
+
+    .heroGrid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 48px;
+        align-items: center;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+
+    .heroContent {
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.18;
+            color: #FFFFFF;
+            margin-top: 18px;
+            letter-spacing: -0.02em;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('md') {
+                font-size: 38px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 28px;
+            }
+        }
+
+        .heroSub {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00FF88;
+            margin-top: 14px;
+            line-height: 1.4;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+
+            @include respond-to('sm') {
+                font-size: 16px;
+            }
+        }
+
+        .heroDesc {
+            font-size: 15px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.75);
+            margin-top: 16px;
+
+            p {
+                margin-bottom: 12px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .flowPill {
+            margin-top: 24px;
+            padding: 16px 22px;
+            background: rgba(8, 24, 17, 0.85);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 16px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+            .flowTitle {
+                font-weight: 700;
+                color: #FFFFFF;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                width: 100%;
+                margin-bottom: 4px;
+            }
+
+            .flowStep {
+                font-size: 13px;
+                font-weight: 600;
+                color: #00FF88;
+                background: rgba(0, 255, 136, 0.12);
+                padding: 4px 10px;
+                border-radius: 6px;
+                border: 1px solid rgba(0, 255, 136, 0.2);
+
+                @include respond-to('sm') {
+                    font-size: 12px;
+                    padding: 3px 8px;
+                }
+            }
+
+            .flowArrow {
+                color: #64748B;
+                font-size: 12px;
+            }
+        }
+
+        .heroActions {
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+    }
+
+    .heroVisual {
+        position: relative;
+
+        .glassCard {
+            background: rgba(8, 24, 17, 0.85);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+
+            .cardTopBar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding-bottom: 16px;
+                margin-bottom: 20px;
+
+                .dotGroup {
+                    display: flex;
+                    gap: 8px;
+
+                    span {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        display: inline-block;
+                    }
+                    .red { background: #FF5F56; }
+                    .yellow { background: #FFBD2E; }
+                    .green { background: #27C93F; }
+                }
+
+                .barTitle {
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: rgba(255, 255, 255, 0.6);
+                    letter-spacing: 0.06em;
+                    text-transform: uppercase;
+                }
+            }
+
+            .visualMock {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+
+                .mockHeader {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: rgba(0, 255, 136, 0.06);
+                    padding: 12px 16px;
+                    border-radius: 10px;
+                    border: 1px solid rgba(0, 255, 136, 0.15);
+
+                    .pair {
+                        font-weight: 700;
+                        font-size: 15px;
+                        color: #FFFFFF;
+                    }
+
+                    .resultBadge {
+                        background: rgba(0, 255, 136, 0.2);
+                        color: #00FF88;
+                        font-weight: 700;
+                        font-size: 12px;
+                        padding: 4px 10px;
+                        border-radius: 20px;
+                        border: 1px solid rgba(0, 255, 136, 0.4);
+                        box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+                    }
+                }
+
+                .metricsGrid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+
+                    .metricBox {
+                        background: rgba(5, 18, 12, 0.8);
+                        padding: 12px;
+                        border-radius: 10px;
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+
+                        .lbl {
+                            font-size: 11px;
+                            color: rgba(255, 255, 255, 0.5);
+                            display: block;
+                        }
+
+                        .val {
+                            font-size: 14px;
+                            font-weight: 700;
+                            color: #00FF88;
+                            margin-top: 2px;
+                            display: block;
+                        }
+                    }
+                }
+
+                .insightPill {
+                    background: rgba(5, 18, 12, 0.9);
+                    border-left: 3px solid #00FF88;
+                    padding: 12px 14px;
+                    border-radius: 6px;
+                    font-size: 13px;
+                    color: rgba(255, 255, 255, 0.8);
+                    line-height: 1.45;
+
+                    strong {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}

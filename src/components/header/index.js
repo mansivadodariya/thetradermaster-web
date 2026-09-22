@@ -115,7 +115,7 @@ export default function Header() {
                             <Link href={getAuthHref('/trade-snap')} aria-label='AI Trade' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiTrade', 'AI Trade')}</Link>
                             <Link href={getAuthHref('/ai-assistant')} aria-label='AI Chat' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiChat', 'AI Chat')}</Link>
                             <Link href="/ai-strategy" aria-label='AI Strategy' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
-                            <Link
+                            {/* <Link
                                 href="https://www.edufins.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -132,7 +132,7 @@ export default function Header() {
                                 className={styles.navLink}
                             >
                                 {t('nav.fundedMaster', 'Funded Master')}
-                            </Link>
+                            </Link> */}
                             <div style={{ marginTop: '12px' }}>
                                 <LanguageToggle light />
                             </div>

@@ -107,7 +107,7 @@
         .menuAlignment {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
 
             @include respond-to('md') {
                 gap: 4px;

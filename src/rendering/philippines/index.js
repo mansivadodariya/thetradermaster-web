@@ -104,7 +104,9 @@ export default function Philippines() {
                     country_code: formData.countryCode,
                     equity: formData.equity,
                     is_forex_trader: formData.isForexTrader,
-                    trade_reliance: formData.tradeReliance
+                    trade_reliance: formData.tradeReliance,
+                    status: 'NEW',
+                    enquiry_from: 'philippine'
                 }])
 
             if (error) {

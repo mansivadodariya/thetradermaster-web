@@ -147,7 +147,7 @@ export default function Footer() {
                         </div>
 
                         <div className={styles.linkCol}>
-                            <h4>{t('footer.quickLinks', 'Quick Links')}</h4>
+                            <h4>{t('footer.company', 'Company')}</h4>
                             <ul>
                                 <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
                                 <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>

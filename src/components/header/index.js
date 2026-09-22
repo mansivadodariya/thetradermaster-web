@@ -49,7 +49,7 @@ export default function Header() {
                                 <Link href="/ai-chat" aria-label='AI Chat' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Chat')}</Link>
                                 <Link href="/ai-strategy" aria-label='AI Strategy' className={navClass('/ai-strategy')}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
                                 <Link href="/past-trade-analyzer" aria-label='Past Trade Analyzer' className={navClass('/past-trade-analyzer')}>{t('nav.pastTradeAnalyzer', 'Past Trade Analyzer')}</Link>
-                                <Link
+                                {/* <Link
                                     href="https://www.edufins.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -66,7 +66,7 @@ export default function Header() {
                                     className={styles.navLink}
                                 >
                                     {t('nav.fundedMaster', 'Funded Master')}
-                                </Link>
+                                </Link>  */}
                             </div>
                         )}
                         {pathname !== '/philippines' && (

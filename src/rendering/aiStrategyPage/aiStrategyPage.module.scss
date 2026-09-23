@@ -4,17 +4,21 @@
 .aiStrategyPage {
     background-color: #030E09;
     width: 100%;
-    min-height: 100dvh;
+    min-height: auto;
     position: relative;
     overflow: hidden;
     padding: 160px 0 90px 0;
 
+    @include respond-to('lg') {
+        padding: 130px 0 75px 0;
+    }
+
     @include respond-to('md') {
-        padding: 130px 0 70px 0;
+        padding: 110px 0 60px 0;
     }
 
     @include respond-to('sm') {
-        padding: 100px 0 50px 0;
+        padding: 85px 0 40px 0;
     }
 
     &::after {
@@ -56,6 +60,10 @@
             padding: 0 16px;
         }
 
+        @include respond-to('sm') {
+            padding: 0 8px;
+        }
+
         :global(.lineText button) {
             background: rgba(0, 26, 18, 0.85);
             border: 1px solid rgba(0, 255, 136, 0.5);
@@ -72,18 +80,22 @@
     .title {
         padding: 24px 0 40px 0;
 
+        @include respond-to('lg') {
+            padding: 20px 0 34px 0;
+        }
+
         @include respond-to('md') {
-            padding: 16px 0 32px 0;
+            padding: 16px 0 28px 0;
         }
 
         @include respond-to('sm') {
-            padding: 16px 0 24px 0;
+            padding: 12px 0 20px 0;
         }
 
         h1 {
             color: #FFFFFF;
             text-align: center;
-            font-size: 56px;
+            font-size: 54px;
             font-family: var(--font-plus-jakarta);
             margin: 0 0 16px 0;
             font-style: normal;
@@ -93,13 +105,20 @@
             text-transform: uppercase;
             text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
 
+            @include respond-to('lg') {
+                font-size: 44px;
+            }
+
             @include respond-to('md') {
-                font-size: 42px;
+                font-size: 34px;
+                letter-spacing: 1px;
             }
 
             @include respond-to('sm') {
-                font-size: 28px;
-                letter-spacing: 0.8px;
+                font-size: 26px;
+                line-height: 1.25;
+                letter-spacing: 0.5px;
+                margin-bottom: 12px;
             }
         }
 
@@ -116,11 +135,11 @@
 
             @include respond-to('md') {
                 font-size: 16px;
-                line-height: 26px;
+                line-height: 25px;
             }
 
             @include respond-to('sm') {
-                font-size: 15px;
+                font-size: 14px;
                 line-height: 22px;
             }
         }
@@ -133,6 +152,10 @@
         max-width: 100%;
         margin: 0 auto;
         width: 100%;
+
+        @include respond-to('sm') {
+            gap: 24px;
+        }
     }
 
     /* Showcase Box Banner: stratagyImage.png */
@@ -151,11 +174,22 @@
         border-radius: 24px;
         overflow: hidden;
 
+        @include respond-to('lg') {
+            padding: 40px 32px;
+            gap: 24px;
+        }
+
         @include respond-to('md') {
             grid-template-columns: 1fr;
-            padding: 36px 24px;
-            gap: 28px;
+            padding: 32px 24px;
+            gap: 24px;
             text-align: center;
+        }
+
+        @include respond-to('sm') {
+            padding: 20px 14px;
+            gap: 18px;
+            border-radius: 16px;
         }
 
         .boxContent {
@@ -176,8 +210,17 @@
                 margin: 18px 0 14px 0;
                 font-family: var(--font-plus-jakarta);
 
-                @include respond-to('md') {
+                @include respond-to('lg') {
                     font-size: 26px;
+                }
+
+                @include respond-to('md') {
+                    font-size: 22px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 18px;
+                    margin: 12px 0 10px 0;
                 }
             }
 
@@ -190,6 +233,13 @@
 
                 @include respond-to('md') {
                     margin: 0 auto 20px auto;
+                    font-size: 15px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.55;
+                    margin-bottom: 16px;
                 }
             }
         }
@@ -203,6 +253,11 @@
             z-index: 2;
             border-radius: 16px;
             padding: 8px;
+
+            @include respond-to('sm') {
+                padding: 4px;
+                border-radius: 12px;
+            }
 
             img {
                 display: block;
@@ -222,6 +277,10 @@
             img {
                 max-width: 400px;
                 display: block;
+
+                @include respond-to('sm') {
+                    max-width: 260px;
+                }
             }
         }
     }
@@ -232,13 +291,18 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
 
+        @include respond-to('lg') {
+            gap: 16px;
+        }
+
         @include respond-to('md') {
             grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
 
         @include respond-to('sm') {
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 14px;
         }
 
         .card {
@@ -251,6 +315,15 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 255, 136, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+
+            @include respond-to('lg') {
+                padding: 20px;
+            }
+
+            @include respond-to('sm') {
+                padding: 16px 14px;
+                border-radius: 14px;
+            }
 
             &:hover {
                 transform: translateY(-6px);
@@ -267,6 +340,12 @@
                 border-bottom: 1px solid rgba(0, 255, 136, 0.25);
                 padding-bottom: 16px;
 
+                @include respond-to('sm') {
+                    gap: 12px;
+                    margin-bottom: 10px;
+                    padding-bottom: 12px;
+                }
+
                 .iconBox {
                     width: 44px;
                     height: 44px;
@@ -279,6 +358,17 @@
                     justify-content: center;
                     box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
                     flex-shrink: 0;
+
+                    @include respond-to('sm') {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 10px;
+
+                        svg {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
 
                     svg {
                         width: 22px;
@@ -295,8 +385,12 @@
                     line-height: normal;
                     letter-spacing: -0.01em;
 
-                    @include respond-to('sm') {
+                    @include respond-to('md') {
                         font-size: 18px;
+                    }
+
+                    @include respond-to('sm') {
+                        font-size: 16px;
                     }
                 }
             }
@@ -310,8 +404,9 @@
                 margin: 0 0 16px 0;
 
                 @include respond-to('sm') {
-                    font-size: 14px;
+                    font-size: 13.5px;
                     line-height: 1.55;
+                    margin-bottom: 12px;
                 }
             }
 
@@ -324,6 +419,10 @@
                 font-weight: 700;
                 font-family: var(--font-plus-jakarta);
                 transition: gap 0.25s ease;
+
+                @include respond-to('sm') {
+                    font-size: 12.5px;
+                }
             }
 
             &:hover .arrowLink {
@@ -338,10 +437,28 @@
         padding-top: 40px;
         border-top: 1px solid rgba(0, 255, 136, 0.25);
 
+        @include respond-to('md') {
+            margin-top: 32px;
+            padding-top: 32px;
+        }
+
+        @include respond-to('sm') {
+            margin-top: 24px;
+            padding-top: 24px;
+        }
+
         .sectionHeader {
             text-align: center;
             max-width: 680px;
             margin: 0 auto 40px auto;
+
+            @include respond-to('md') {
+                margin-bottom: 28px;
+            }
+
+            @include respond-to('sm') {
+                margin-bottom: 20px;
+            }
 
             h2 {
                 color: #FFFFFF;
@@ -351,8 +468,18 @@
                 margin: 0 0 12px 0;
                 line-height: 1.25;
 
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
+                    font-size: 24px;
+                }
+
                 @include respond-to('sm') {
-                    font-size: 26px;
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -362,6 +489,15 @@
                 line-height: 1.6;
                 font-family: var(--font-plus-jakarta);
                 margin: 0;
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.5;
+                }
             }
         }
 
@@ -376,6 +512,7 @@
 
             @include respond-to('sm') {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .stepCard {
@@ -386,6 +523,15 @@
                 backdrop-filter: blur(14px);
                 position: relative;
                 transition: all 0.3s ease;
+
+                @include respond-to('lg') {
+                    padding: 20px;
+                }
+
+                @include respond-to('sm') {
+                    padding: 16px 14px;
+                    border-radius: 14px;
+                }
 
                 &:hover {
                     border-color: rgba(0, 255, 136, 0.65);
@@ -401,6 +547,11 @@
                     font-family: var(--font-plus-jakarta);
                     margin-bottom: 12px;
                     text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+
+                    @include respond-to('sm') {
+                        font-size: 24px;
+                        margin-bottom: 8px;
+                    }
                 }
 
                 h3 {
@@ -409,6 +560,10 @@
                     font-weight: 700;
                     font-family: var(--font-plus-jakarta);
                     margin: 0 0 8px 0;
+
+                    @include respond-to('sm') {
+                        font-size: 16px;
+                    }
                 }
 
                 p {
@@ -417,6 +572,11 @@
                     line-height: 1.6;
                     font-family: var(--font-plus-jakarta);
                     margin: 0;
+
+                    @include respond-to('sm') {
+                        font-size: 13px;
+                        line-height: 1.5;
+                    }
                 }
             }
         }
@@ -426,10 +586,18 @@
     .sampleStrategySection {
         margin-top: 40px;
 
+        @include respond-to('sm') {
+            margin-top: 28px;
+        }
+
         .sectionHeader {
             text-align: center;
             max-width: 680px;
             margin: 0 auto 36px auto;
+
+            @include respond-to('sm') {
+                margin-bottom: 20px;
+            }
 
             h2 {
                 color: #FFFFFF;
@@ -438,8 +606,18 @@
                 font-family: var(--font-plus-jakarta);
                 margin: 0 0 12px 0;
 
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
+                    font-size: 24px;
+                }
+
                 @include respond-to('sm') {
-                    font-size: 26px;
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -448,6 +626,14 @@
                 font-size: 16px;
                 font-family: var(--font-plus-jakarta);
                 margin: 0;
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                }
             }
         }
 
@@ -459,8 +645,13 @@
             backdrop-filter: blur(16px);
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 
+            @include respond-to('lg') {
+                padding: 24px;
+            }
+
             @include respond-to('sm') {
-                padding: 20px;
+                padding: 16px 12px;
+                border-radius: 16px;
             }
 
             .cardTopRow {
@@ -473,6 +664,12 @@
                 flex-wrap: wrap;
                 gap: 16px;
 
+                @include respond-to('sm') {
+                    margin-bottom: 16px;
+                    padding-bottom: 14px;
+                    gap: 10px;
+                }
+
                 .pairBadge {
                     color: #00FF88;
                     font-size: 12px;
@@ -481,6 +678,10 @@
                     text-transform: uppercase;
                     display: block;
                     margin-bottom: 6px;
+
+                    @include respond-to('sm') {
+                        font-size: 11px;
+                    }
                 }
 
                 h3 {
@@ -489,6 +690,14 @@
                     font-weight: 800;
                     margin: 0;
                     font-family: var(--font-plus-jakarta);
+
+                    @include respond-to('md') {
+                        font-size: 20px;
+                    }
+
+                    @include respond-to('sm') {
+                        font-size: 17px;
+                    }
                 }
 
                 .scorePill {
@@ -500,10 +709,19 @@
                     align-items: center;
                     gap: 10px;
 
+                    @include respond-to('sm') {
+                        padding: 6px 14px;
+                        gap: 6px;
+                    }
+
                     .scoreVal {
                         color: #00FF88;
                         font-size: 20px;
                         font-weight: 800;
+
+                        @include respond-to('sm') {
+                            font-size: 16px;
+                        }
                     }
 
                     .scoreLabel {
@@ -511,6 +729,10 @@
                         font-size: 12px;
                         font-weight: 700;
                         text-transform: uppercase;
+
+                        @include respond-to('sm') {
+                            font-size: 10px;
+                        }
                     }
                 }
             }
@@ -522,6 +744,7 @@
 
                 @include respond-to('sm') {
                     grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
                 }
 
                 .metricItem {
@@ -533,11 +756,21 @@
                     flex-direction: column;
                     gap: 6px;
 
+                    @include respond-to('sm') {
+                        padding: 12px 10px;
+                        border-radius: 12px;
+                        gap: 4px;
+                    }
+
                     .mLabel {
                         color: rgba(255, 255, 255, 0.75);
                         font-size: 13px;
                         font-weight: 600;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('sm') {
+                            font-size: 11.5px;
+                        }
                     }
 
                     .mVal {
@@ -545,6 +778,14 @@
                         font-size: 22px;
                         font-weight: 800;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('md') {
+                            font-size: 18px;
+                        }
+
+                        @include respond-to('sm') {
+                            font-size: 16px;
+                        }
 
                         &.green {
                             color: #00FF88;
@@ -566,6 +807,18 @@
         text-align: center;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 136, 0.25);
 
+        @include respond-to('md') {
+            margin-top: 40px;
+            padding: 32px 24px;
+            border-radius: 20px;
+        }
+
+        @include respond-to('sm') {
+            margin-top: 32px;
+            padding: 22px 14px;
+            border-radius: 16px;
+        }
+
         .ctaContent {
             max-width: 620px;
             margin: 0 auto;
@@ -577,8 +830,18 @@
                 font-family: var(--font-plus-jakarta);
                 margin: 0 0 12px 0;
 
-                @include respond-to('sm') {
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
                     font-size: 24px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -588,6 +851,17 @@
                 line-height: 1.6;
                 margin: 0 0 26px 0;
                 font-family: var(--font-plus-jakarta);
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                    margin-bottom: 20px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.5;
+                    margin-bottom: 16px;
+                }
             }
 
             .ctaBtn {
@@ -605,6 +879,13 @@
                 cursor: pointer;
                 box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 4px 15px rgba(0, 0, 0, 0.3);
                 transition: all 0.3s ease;
+
+                @include respond-to('sm') {
+                    width: 100%;
+                    justify-content: center;
+                    padding: 12px 20px;
+                    font-size: 14px;
+                }
 
                 &:hover {
                     box-shadow: 0 0 35px rgba(0, 255, 136, 0.75), 0 6px 20px rgba(0, 0, 0, 0.4);

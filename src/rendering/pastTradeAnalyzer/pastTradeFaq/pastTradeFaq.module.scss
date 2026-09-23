@@ -77,7 +77,7 @@
 
                 @include respond-to('sm') {
                     padding: 16px;
-                    font-size: 14.5px;
+                    font-size: 15px;
                 }
 
                 .faqIcon {
@@ -92,7 +92,7 @@
             .faqAnswer {
                 padding: 0 24px 20px 24px;
                 color: rgba(255, 255, 255, 0.7);
-                font-size: 14.5px;
+                font-size: 15px;
                 line-height: 1.65;
 
                 @include respond-to('sm') {

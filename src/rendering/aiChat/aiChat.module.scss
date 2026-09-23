@@ -4,17 +4,21 @@
 .aiChat {
     background-color: #030E09;
     width: 100%;
-    min-height: 100dvh;
+    min-height: auto;
     position: relative;
     overflow: hidden;
     padding: 160px 0 90px 0;
 
+    @include respond-to('lg') {
+        padding: 130px 0 75px 0;
+    }
+
     @include respond-to('md') {
-        padding: 130px 0 70px 0;
+        padding: 110px 0 60px 0;
     }
 
     @include respond-to('sm') {
-        padding: 100px 0 50px 0;
+        padding: 85px 0 40px 0;
     }
 
     &::after {
@@ -56,6 +60,10 @@
             padding: 0 16px;
         }
 
+        @include respond-to('sm') {
+            padding: 0 8px;
+        }
+
         .badgeWrapper {
             margin-bottom: 8px;
 
@@ -71,35 +79,44 @@
     .title {
         padding: 16px 0 44px 0;
 
+        @include respond-to('lg') {
+            padding: 14px 0 36px 0;
+        }
+
         @include respond-to('md') {
-            padding: 14px 0 32px 0;
+            padding: 12px 0 28px 0;
         }
 
         @include respond-to('sm') {
-            padding: 12px 0 24px 0;
+            padding: 10px 0 20px 0;
         }
 
         h1 {
             color: #FFFFFF;
             text-align: center;
-            font-size: 58px;
+            font-size: 54px;
             font-family: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0 0 16px 0;
             font-style: normal;
             font-weight: 800;
-            line-height: 1.12;
+            line-height: 1.15;
             letter-spacing: -0.02em;
             text-transform: uppercase;
             text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
 
+            @include respond-to('lg') {
+                font-size: 44px;
+            }
+
             @include respond-to('md') {
-                font-size: 42px;
+                font-size: 34px;
                 letter-spacing: -0.01em;
             }
 
             @include respond-to('sm') {
-                font-size: 30px;
-                line-height: 1.2;
+                font-size: 26px;
+                line-height: 1.25;
+                margin-bottom: 12px;
             }
         }
 
@@ -121,8 +138,8 @@
             }
 
             @include respond-to('sm') {
-                font-size: 15px;
-                line-height: 1.5;
+                font-size: 14px;
+                line-height: 1.55;
             }
         }
     }
@@ -142,9 +159,14 @@
         -webkit-backdrop-filter: blur(20px);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 35px rgba(0, 255, 136, 0.2);
 
+        @include respond-to('md') {
+            padding: 10px;
+            border-radius: 20px;
+        }
+
         @include respond-to('sm') {
-            padding: 8px;
-            border-radius: 18px;
+            padding: 6px;
+            border-radius: 16px;
         }
     }
 
@@ -161,9 +183,13 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 35px rgba(0, 255, 136, 0.35), 0 12px 40px rgba(0, 0, 0, 0.6);
         }
 
+        @include respond-to('md') {
+            padding: 22px 18px 18px 18px;
+        }
+
         @include respond-to('sm') {
-            padding: 18px 16px 16px 16px;
-            border-radius: 14px;
+            padding: 16px 12px 14px 12px;
+            border-radius: 12px;
         }
 
         .inputWrapper {
@@ -174,8 +200,8 @@
             gap: 16px;
 
             @include respond-to('sm') {
-                margin-bottom: 16px;
-                gap: 12px;
+                margin-bottom: 14px;
+                gap: 10px;
             }
 
             .chatInput {
@@ -189,8 +215,13 @@
                 font-family: inherit;
                 line-height: 1.6;
 
+                @include respond-to('md') {
+                    font-size: 16px;
+                }
+
                 @include respond-to('sm') {
-                    font-size: 15px;
+                    font-size: 14px;
+                    line-height: 1.5;
                 }
 
                 &::placeholder {
@@ -214,9 +245,14 @@
                 flex-shrink: 0;
 
                 @include respond-to('sm') {
-                    width: 38px;
-                    height: 38px;
+                    width: 36px;
+                    height: 36px;
                     border-radius: 10px;
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                    }
                 }
 
                 &:hover {
@@ -232,7 +268,7 @@
             gap: 16px;
 
             @include respond-to('sm') {
-                gap: 12px;
+                gap: 10px;
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -243,7 +279,7 @@
                 flex-wrap: wrap;
 
                 @include respond-to('sm') {
-                    gap: 8px;
+                    gap: 6px;
                 }
 
                 button {
@@ -282,14 +318,21 @@
         gap: 20px;
         padding: 32px 0 0 0;
 
+        @include respond-to('lg') {
+            gap: 16px;
+            padding: 28px 0 0 0;
+        }
+
         @include respond-to('md') {
             grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 24px 0 0 0;
         }
 
         @include respond-to('sm') {
             grid-template-columns: 1fr;
-            padding: 24px 0 0 0;
-            gap: 16px;
+            padding: 20px 0 0 0;
+            gap: 14px;
         }
 
         .card {
@@ -302,6 +345,15 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 255, 136, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+
+            @include respond-to('lg') {
+                padding: 20px;
+            }
+
+            @include respond-to('sm') {
+                padding: 16px 14px;
+                border-radius: 14px;
+            }
 
             &:hover {
                 transform: translateY(-6px);
@@ -318,6 +370,12 @@
                 border-bottom: 1px solid rgba(0, 255, 136, 0.25);
                 padding-bottom: 16px;
 
+                @include respond-to('sm') {
+                    gap: 12px;
+                    margin-bottom: 10px;
+                    padding-bottom: 12px;
+                }
+
                 .iconBox {
                     width: 44px;
                     height: 44px;
@@ -330,6 +388,17 @@
                     justify-content: center;
                     box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
                     flex-shrink: 0;
+
+                    @include respond-to('sm') {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 10px;
+
+                        svg {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
 
                     svg {
                         width: 22px;
@@ -346,8 +415,12 @@
                     line-height: normal;
                     letter-spacing: -0.01em;
 
-                    @include respond-to('sm') {
+                    @include respond-to('md') {
                         font-size: 18px;
+                    }
+
+                    @include respond-to('sm') {
+                        font-size: 16px;
                     }
                 }
             }
@@ -361,8 +434,9 @@
                 margin: 0 0 16px 0;
 
                 @include respond-to('sm') {
-                    font-size: 14px;
+                    font-size: 13.5px;
                     line-height: 1.55;
+                    margin-bottom: 12px;
                 }
             }
 
@@ -375,6 +449,10 @@
                 font-weight: 700;
                 font-family: var(--font-plus-jakarta);
                 transition: gap 0.25s ease;
+
+                @include respond-to('sm') {
+                    font-size: 12.5px;
+                }
             }
 
             &:hover .arrowLink {
@@ -397,6 +475,10 @@
         font-weight: 700;
         font-family: var(--font-plus-jakarta);
         white-space: nowrap;
+
+        @include respond-to('sm') {
+            font-size: 12px;
+        }
     }
 
     /* Capabilities Section */
@@ -405,10 +487,28 @@
         padding-top: 40px;
         border-top: 1px solid rgba(0, 255, 136, 0.25);
 
+        @include respond-to('md') {
+            margin-top: 50px;
+            padding-top: 30px;
+        }
+
+        @include respond-to('sm') {
+            margin-top: 36px;
+            padding-top: 24px;
+        }
+
         .sectionHeader {
             text-align: center;
             max-width: 680px;
             margin: 0 auto 40px auto;
+
+            @include respond-to('md') {
+                margin-bottom: 30px;
+            }
+
+            @include respond-to('sm') {
+                margin-bottom: 20px;
+            }
 
             h2 {
                 color: #FFFFFF;
@@ -418,8 +518,18 @@
                 margin: 0 0 12px 0;
                 line-height: 1.25;
 
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
+                    font-size: 24px;
+                }
+
                 @include respond-to('sm') {
-                    font-size: 26px;
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -429,6 +539,15 @@
                 line-height: 1.6;
                 font-family: var(--font-plus-jakarta);
                 margin: 0;
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.5;
+                }
             }
         }
 
@@ -437,8 +556,13 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
 
+            @include respond-to('md') {
+                gap: 16px;
+            }
+
             @include respond-to('sm') {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .capCard {
@@ -448,6 +572,15 @@
                 padding: 24px;
                 backdrop-filter: blur(14px);
                 transition: all 0.3s ease;
+
+                @include respond-to('lg') {
+                    padding: 20px;
+                }
+
+                @include respond-to('sm') {
+                    padding: 16px 14px;
+                    border-radius: 14px;
+                }
 
                 &:hover {
                     border-color: rgba(0, 255, 136, 0.65);
@@ -467,6 +600,18 @@
                     justify-content: center;
                     margin-bottom: 16px;
                     box-shadow: 0 0 14px rgba(0, 255, 136, 0.25);
+
+                    @include respond-to('sm') {
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
                 }
 
                 h3 {
@@ -475,14 +620,28 @@
                     font-weight: 700;
                     font-family: var(--font-plus-jakarta);
                     margin: 0 0 8px 0;
+
+                    @include respond-to('md') {
+                        font-size: 17px;
+                    }
+
+                    @include respond-to('sm') {
+                        font-size: 16px;
+                        margin-bottom: 6px;
+                    }
                 }
 
                 p {
                     color: rgba(255, 255, 255, 0.88);
-                    font-size: 14.5px;
+                    font-size: 15px;
                     line-height: 1.6;
                     font-family: var(--font-plus-jakarta);
                     margin: 0;
+
+                    @include respond-to('sm') {
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                    }
                 }
             }
         }
@@ -492,10 +651,22 @@
     .conversationShowcase {
         margin-top: 70px;
 
+        @include respond-to('md') {
+            margin-top: 50px;
+        }
+
+        @include respond-to('sm') {
+            margin-top: 36px;
+        }
+
         .sectionHeader {
             text-align: center;
             max-width: 680px;
             margin: 0 auto 36px auto;
+
+            @include respond-to('sm') {
+                margin-bottom: 20px;
+            }
 
             h2 {
                 color: #FFFFFF;
@@ -504,8 +675,18 @@
                 font-family: var(--font-plus-jakarta);
                 margin: 0 0 12px 0;
 
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
+                    font-size: 24px;
+                }
+
                 @include respond-to('sm') {
-                    font-size: 26px;
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -514,6 +695,14 @@
                 font-size: 16px;
                 font-family: var(--font-plus-jakarta);
                 margin: 0;
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                }
             }
         }
 
@@ -528,8 +717,16 @@
             flex-direction: column;
             gap: 20px;
 
+            @include respond-to('md') {
+                padding: 20px;
+                border-radius: 18px;
+                gap: 16px;
+            }
+
             @include respond-to('sm') {
-                padding: 16px;
+                padding: 14px 12px;
+                border-radius: 14px;
+                gap: 14px;
             }
 
             .chatMessageUser {
@@ -537,6 +734,10 @@
                 align-items: flex-start;
                 gap: 14px;
                 justify-content: flex-end;
+
+                @include respond-to('sm') {
+                    gap: 8px;
+                }
 
                 .avatarUser {
                     width: 38px;
@@ -551,6 +752,12 @@
                     align-items: center;
                     justify-content: center;
                     order: 2;
+
+                    @include respond-to('sm') {
+                        width: 30px;
+                        height: 30px;
+                        font-size: 9.5px;
+                    }
                 }
 
                 .msgBubbleUser {
@@ -561,13 +768,27 @@
                     max-width: 70%;
                     order: 1;
 
+                    @include respond-to('md') {
+                        max-width: 80%;
+                    }
+
+                    @include respond-to('sm') {
+                        padding: 10px 14px;
+                        max-width: 88%;
+                        border-radius: 14px 4px 14px 14px;
+                    }
+
                     p {
                         color: #FFFFFF;
-                        font-size: 14.5px;
+                        font-size: 15px;
                         font-weight: 500;
                         margin: 0;
                         line-height: 1.5;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('sm') {
+                            font-size: 13px;
+                        }
                     }
                 }
             }
@@ -576,6 +797,10 @@
                 display: flex;
                 align-items: flex-start;
                 gap: 14px;
+
+                @include respond-to('sm') {
+                    gap: 8px;
+                }
 
                 .avatarAi {
                     width: 38px;
@@ -587,6 +812,16 @@
                     justify-content: center;
                     box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
                     flex-shrink: 0;
+
+                    @include respond-to('sm') {
+                        width: 30px;
+                        height: 30px;
+
+                        svg {
+                            width: 14px;
+                            height: 14px;
+                        }
+                    }
                 }
 
                 .msgBubbleAi {
@@ -596,6 +831,17 @@
                     padding: 18px 22px;
                     max-width: 80%;
 
+                    @include respond-to('md') {
+                        max-width: 88%;
+                        padding: 14px 18px;
+                    }
+
+                    @include respond-to('sm') {
+                        max-width: 92%;
+                        padding: 12px 14px;
+                        border-radius: 4px 14px 14px 14px;
+                    }
+
                     .aiBadge {
                         color: #00FF88;
                         font-size: 11px;
@@ -604,6 +850,11 @@
                         text-transform: uppercase;
                         margin-bottom: 8px;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('sm') {
+                            font-size: 10px;
+                            margin-bottom: 6px;
+                        }
                     }
 
                     p {
@@ -612,6 +863,12 @@
                         line-height: 1.65;
                         margin: 0 0 8px 0;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('sm') {
+                            font-size: 12.5px;
+                            line-height: 1.5;
+                            margin-bottom: 6px;
+                        }
 
                         &:last-child {
                             margin-bottom: 0;
@@ -636,6 +893,18 @@
         text-align: center;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 136, 0.25);
 
+        @include respond-to('md') {
+            margin-top: 45px;
+            padding: 32px 24px;
+            border-radius: 20px;
+        }
+
+        @include respond-to('sm') {
+            margin-top: 36px;
+            padding: 22px 14px;
+            border-radius: 16px;
+        }
+
         .ctaContent {
             max-width: 620px;
             margin: 0 auto;
@@ -647,8 +916,18 @@
                 font-family: var(--font-plus-jakarta);
                 margin: 0 0 12px 0;
 
-                @include respond-to('sm') {
+                @include respond-to('lg') {
+                    font-size: 28px;
+                }
+
+                @include respond-to('md') {
                     font-size: 24px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 20px;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
                 }
             }
 
@@ -658,6 +937,17 @@
                 line-height: 1.6;
                 margin: 0 0 26px 0;
                 font-family: var(--font-plus-jakarta);
+
+                @include respond-to('md') {
+                    font-size: 15px;
+                    margin-bottom: 20px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.5;
+                    margin-bottom: 16px;
+                }
             }
 
             .ctaBtn {
@@ -675,6 +965,13 @@
                 cursor: pointer;
                 box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 4px 15px rgba(0, 0, 0, 0.3);
                 transition: all 0.3s ease;
+
+                @include respond-to('sm') {
+                    width: 100%;
+                    justify-content: center;
+                    padding: 12px 20px;
+                    font-size: 14px;
+                }
 
                 &:hover {
                     box-shadow: 0 0 35px rgba(0, 255, 136, 0.75), 0 6px 20px rgba(0, 0, 0, 0.4);

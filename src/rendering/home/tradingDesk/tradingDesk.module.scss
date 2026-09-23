@@ -73,12 +73,17 @@
                             text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
                         }
 
+                        @include respond-to('lg') {
+                            font-size: 34px;
+                        }
+
                         @include respond-to('md') {
-                            font-size: 32px;
+                            font-size: 30px;
                         }
 
                         @include respond-to('sm') {
-                            font-size: 26px;
+                            font-size: 24px;
+                            line-height: 1.25;
                         }
                     }
 
@@ -89,6 +94,12 @@
                         line-height: 26px;
                         max-width: 520px;
                         font-family: var(--font-plus-jakarta);
+
+                        @include respond-to('md') {
+                            font-size: 15px;
+                            line-height: 24px;
+                            max-width: 100%;
+                        }
                     }
                 }
 
@@ -108,6 +119,11 @@
                         backdrop-filter: blur(14px);
                         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.08);
                         transition: all 0.3s ease;
+
+                        @include respond-to('sm') {
+                            padding: 14px 16px;
+                            gap: 12px;
+                        }
 
                         .arrowBox {
                             width: 30px;

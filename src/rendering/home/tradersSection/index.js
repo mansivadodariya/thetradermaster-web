@@ -156,8 +156,10 @@
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 8v8M8 12h8" /></svg>
                                             <span>Win Rate</span>
                                         </div>
-                                        <div className={styles.metricValue}>82.2%</div>
-                                        <div className={styles.metricTrend}>↑ +6.5%</div>
+                                        <div className={styles.metricData}>
+                                            <div className={styles.metricValue}>82.2%</div>
+                                            <div className={styles.metricTrend}>↑ +6.5%</div>
+                                        </div>
                                     </div>
 
                                     <div className={styles.metricChip}>
@@ -165,8 +167,10 @@
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>
                                             <span>Total Trades</span>
                                         </div>
-                                        <div className={styles.metricValue}>1-9</div>
-                                        <div className={styles.metricTrend}>↑ +3.5%</div>
+                                        <div className={styles.metricData}>
+                                            <div className={styles.metricValue}>19</div>
+                                            <div className={styles.metricTrend}>↑ +3.5%</div>
+                                        </div>
                                     </div>
 
                                     <div className={styles.metricChip}>
@@ -174,8 +178,10 @@
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
                                             <span>Strategy</span>
                                         </div>
-                                        <div className={styles.metricValue}>23</div>
-                                        <div className={styles.metricSub}>Analyzed</div>
+                                        <div className={styles.metricData}>
+                                            <div className={styles.metricValue}>23</div>
+                                            <div className={styles.metricSub}>Analyzed</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

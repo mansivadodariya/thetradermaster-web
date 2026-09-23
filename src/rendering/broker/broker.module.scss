@@ -240,7 +240,7 @@
         align-items: stretch;
         gap: 24px;
 
-        > * {
+        >* {
             flex: 0 1 360px;
             width: 100%;
             max-width: 380px;
@@ -249,7 +249,7 @@
         @include respond-to(sm) {
             gap: 16px;
 
-            > * {
+            >* {
                 flex: 1 1 100%;
                 max-width: 100%;
             }
@@ -367,7 +367,7 @@
 
             .description {
                 color: #475569;
-                font-size: 14.5px;
+                font-size: 15px;
                 line-height: 22px;
                 margin: 0;
             }
@@ -385,7 +385,8 @@
                 align-items: center;
             }
 
-            .linkBtn, .syncBtn {
+            .linkBtn,
+            .syncBtn {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -465,11 +466,13 @@
             border-color: rgba(0, 255, 136, 0.25) !important;
             color: #FFFFFF !important;
 
-            h1, .heroStats .statItem .num {
+            h1,
+            .heroStats .statItem .num {
                 color: #FFFFFF !important;
             }
 
-            p, .heroStats .statItem .lbl {
+            p,
+            .heroStats .statItem .lbl {
                 color: rgba(255, 255, 255, 0.88) !important;
             }
 
@@ -544,7 +547,8 @@
             .cardFooter {
                 border-top-color: rgba(255, 255, 255, 0.1) !important;
 
-                .linkBtn, .syncBtn {
+                .linkBtn,
+                .syncBtn {
                     background: #04140D !important;
                     border-color: rgba(0, 255, 136, 0.2) !important;
                     color: #E2E8F0 !important;

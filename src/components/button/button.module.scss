@@ -80,7 +80,7 @@
         }
 
         &:hover {
-            background: l0 10px 30px rgba(204, 231, 213, 0.4);
+            background: linear-gradient(135deg, $neon, $primary);
             box-shadow: 0 10px 30px rgba(12, 44, 23, 0.4);
             transform: translateY(-2px);
 
@@ -94,7 +94,8 @@
         .icon {
             width: 36px;
             height: 36px;
-            background: #FFF;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -104,6 +105,7 @@
             img {
                 display: block;
                 transition: 0.3s ease-in-out;
+                filter: brightness(0) invert(1);
             }
         }
     }
@@ -154,7 +156,8 @@
         .icon {
             width: 36px;
             height: 36px;
-            background: #FFF;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -164,6 +167,7 @@
             img {
                 display: block;
                 transition: 0.3s ease-in-out;
+                filter: brightness(0) invert(1);
             }
         }
     }

@@ -54,12 +54,17 @@
                 text-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.15);
             }
 
+            @include respond-to('lg') {
+                font-size: 36px;
+            }
+
             @include respond-to('md') {
-                font-size: 34px;
+                font-size: 30px;
             }
 
             @include respond-to('sm') {
-                font-size: 28px;
+                font-size: 24px;
+                line-height: 1.25;
             }
         }
 
@@ -71,8 +76,14 @@
             margin: 0 auto;
             font-family: var(--font-plus-jakarta);
 
-            @include respond-to('sm') {
+            @include respond-to('md') {
                 font-size: 16px;
+                line-height: 24px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 15px;
+                line-height: 22px;
             }
         }
     }
@@ -106,7 +117,8 @@
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
 
         @include respond-to('sm') {
-            padding: 24px;
+            padding: 20px 16px;
+            border-radius: 16px;
         }
 
         .iconWrap {
@@ -159,7 +171,7 @@
 
         p {
             color: rgba(255, 255, 255, 0.72);
-            font-size: 14.5px;
+            font-size: 15px;
             line-height: 1.6;
             margin: 0;
             font-family: var(--font-plus-jakarta);

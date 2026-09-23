@@ -68,12 +68,17 @@
                 text-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.15);
             }
 
+            @include respond-to('lg') {
+                font-size: 36px;
+            }
+
             @include respond-to('md') {
-                font-size: 34px;
+                font-size: 30px;
             }
 
             @include respond-to('sm') {
-                font-size: 28px;
+                font-size: 24px;
+                line-height: 1.25;
             }
         }
 
@@ -87,9 +92,14 @@
             margin: 0 auto;
             font-family: var(--font-plus-jakarta);
 
-            @include respond-to('sm') {
+            @include respond-to('md') {
                 font-size: 16px;
                 line-height: 24px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 15px;
+                line-height: 22px;
             }
         }
     }
@@ -103,6 +113,11 @@
         position: relative;
         z-index: 2;
 
+        @include respond-to('lg') {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
         @include respond-to('md') {
             grid-template-columns: 1fr;
             gap: 20px;
@@ -114,6 +129,10 @@
             justify-content: center;
             color: #00FF88;
             filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
+
+            @include respond-to('lg') {
+                display: none;
+            }
 
             @include respond-to('md') {
                 display: none;
@@ -128,6 +147,11 @@
             padding: 28px 24px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+            @include respond-to('sm') {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
 
             &:hover {
                 transform: translateY(-6px);
@@ -379,9 +403,17 @@
                                 border-radius: 50%;
                             }
 
-                            .red { background: #FF5F56; }
-                            .yellow { background: #FFBD2E; }
-                            .green { background: #27C93F; }
+                            .red {
+                                background: #FF5F56;
+                            }
+
+                            .yellow {
+                                background: #FFBD2E;
+                            }
+
+                            .green {
+                                background: #27C93F;
+                            }
                         }
 
                         .windowTitle {

@@ -134,7 +134,7 @@
             p {
                 color: rgba(255, 255, 255, 0.75);
                 text-align: center;
-                font-size: 14.5px;
+                font-size: 15px;
                 font-style: normal;
                 font-weight: 400;
                 margin: 0 auto;
@@ -160,7 +160,7 @@
 
             div[class*="inputWrapper"],
             :global(.inputWrapper),
-            div[class*="phoneField"] > div[class*="wrapper"] {
+            div[class*="phoneField"]>div[class*="wrapper"] {
                 background: rgba(4, 26, 18, 0.8) !important;
                 border: 1px solid rgba(0, 255, 136, 0.35) !important;
                 border-radius: 12px !important;
@@ -174,7 +174,7 @@
                     box-shadow: 0 0 16px rgba(0, 255, 136, 0.35) !important;
                 }
 
-                > img,
+                >img,
                 :global(.iconLeft) {
                     filter: brightness(0) invert(1) opacity(0.9) !important;
                 }
@@ -221,8 +221,8 @@
                     }
                 }
 
-                > img ~ input,
-                :global(.iconLeft) ~ input {
+                >img~input,
+                :global(.iconLeft)~input {
                     padding-left: 44px !important;
                 }
 
@@ -386,7 +386,7 @@
             p {
                 color: rgba(255, 255, 255, 0.78);
                 text-align: center;
-                font-size: 14.5px;
+                font-size: 15px;
                 font-style: normal;
                 font-weight: 400;
 
@@ -444,4 +444,3 @@
         }
     }
 }
-

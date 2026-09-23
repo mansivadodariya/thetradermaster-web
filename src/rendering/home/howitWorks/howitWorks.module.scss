@@ -96,12 +96,17 @@
                 text-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.15);
             }
 
+            @include respond-to('lg') {
+                font-size: 36px;
+            }
+
             @include respond-to('md') {
-                font-size: 34px;
+                font-size: 30px;
             }
 
             @include respond-to('sm') {
-                font-size: 28px;
+                font-size: 24px;
+                line-height: 1.25;
             }
         }
 
@@ -115,9 +120,14 @@
             margin: 0 auto;
             font-family: var(--font-plus-jakarta);
 
-            @include respond-to('sm') {
+            @include respond-to('md') {
                 font-size: 16px;
                 line-height: 24px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 15px;
+                line-height: 22px;
             }
         }
     }
@@ -445,9 +455,17 @@
                                 border-radius: 50%;
                             }
 
-                            .redDot { background: #FF5F56; }
-                            .yellowDot { background: #FFBD2E; }
-                            .greenDot { background: #27C93F; }
+                            .redDot {
+                                background: #FF5F56;
+                            }
+
+                            .yellowDot {
+                                background: #FFBD2E;
+                            }
+
+                            .greenDot {
+                                background: #27C93F;
+                            }
                         }
 
                         .windowTitle {

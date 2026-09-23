@@ -1,4 +1,3 @@
-import React from 'react';
 import Banner from './banner';
 import AiTradeReview from './aiTradeReview';
 import ReviewFeatures from './reviewFeatures';

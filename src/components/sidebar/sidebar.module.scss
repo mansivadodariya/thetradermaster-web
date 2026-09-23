@@ -197,9 +197,11 @@
 
                 .icon {
                     color: #059669;
+
                     svg {
                         stroke: #059669;
                         color: #059669;
+
                         *[fill]:not([fill="none"]) {
                             fill: #059669;
                         }
@@ -440,7 +442,7 @@
     .sidebarBody {
         padding: 20px;
 
-            .box {
+        .box {
             background: $primary;
             padding: 20px;
             position: relative;
@@ -812,7 +814,7 @@
         display: flex;
         justify-content: center;
 
-            .compactUpgradeBtn {
+        .compactUpgradeBtn {
             width: 44px;
             height: 44px;
             background: $primary;
@@ -1144,7 +1146,7 @@
     }
 
     p {
-        font-size: 14.5px;
+        font-size: 15px;
         color: rgba(255, 255, 255, 0.75);
         margin: 0 0 26px;
         line-height: 22px;

@@ -379,7 +379,7 @@
     }
 
     p {
-        font-size: 14.5px;
+        font-size: 15px;
         color: rgba(255, 255, 255, 0.75);
         margin: 0 0 26px;
         line-height: 22px;
@@ -441,7 +441,7 @@
     padding: 0;
     flex-shrink: 0;
 
-        &:hover {
+    &:hover {
         background: #E8F0FE;
         transform: scale(1.05) rotate(15deg);
         box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
@@ -499,6 +499,7 @@
                 p {
                     color: #ffffff;
                 }
+
                 span {
                     color: rgba(255, 255, 255, 0.6);
                 }
@@ -515,6 +516,7 @@
                     p {
                         color: #ffffff;
                     }
+
                     span {
                         color: rgba(255, 255, 255, 0.5);
                     }
@@ -553,6 +555,7 @@
             h3 {
                 color: #ffffff;
             }
+
             p {
                 color: rgba(255, 255, 255, 0.75);
             }

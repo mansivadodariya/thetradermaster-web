@@ -2,9 +2,9 @@
 @use '../../../scss/breakpoints/breakpoints.scss' as *;
 
 .tradeSnapBanner {
-    background-color: #F8FAFC;
+    background-color: #030E09;
     width: 100%;
-    min-height: 100dvh;
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,13 +12,16 @@
     overflow: hidden;
     padding: 140px 0 80px 0;
 
+    @include respond-to('lg') {
+        padding: 120px 0 70px 0;
+    }
+
     @include respond-to('md') {
-        min-height: auto;
-        padding: 120px 0 60px 0;
+        padding: 100px 0 50px 0;
     }
 
     @include respond-to('sm') {
-        padding: 100px 0 40px 0;
+        padding: 80px 0 40px 0;
     }
 
     &::after {
@@ -29,7 +32,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center top;
-        opacity: 0.1;
+        opacity: 0.32;
         pointer-events: none;
         z-index: 0;
     }
@@ -38,7 +41,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 25% 45%, rgba(16, 185, 129, 0.05) 0%, rgba(248, 250, 252, 0.6) 55%, #F1F5F9 100%);
+        background: radial-gradient(circle at 25% 45%, rgba(0, 255, 136, 0.10) 0%, rgba(3, 16, 11, 0.75) 55%, rgba(2, 10, 7, 0.95) 100%);
         pointer-events: none;
         z-index: 1;
     }
@@ -52,8 +55,12 @@
     .grid {
         display: grid;
         grid-template-columns: 1fr 1.15fr;
-        gap: 32px;
+        gap: 36px;
         align-items: center;
+
+        @include respond-to('lg') {
+            gap: 28px;
+        }
 
         @include respond-to('md') {
             grid-template-columns: 1fr;
@@ -79,49 +86,60 @@
             }
 
             :global(.lineText button) {
-                background: #ECFDF5;
-                border: 1px solid #A7F3D0;
-                color: #047857;
-                box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+                background: rgba(0, 26, 18, 0.75);
+                border: 1px solid rgba(34, 197, 94, 0.4);
+                color: #A7F3D0;
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
             }
         }
 
         .title {
             padding: 16px 0 32px 0;
 
+            @include respond-to('md') {
+                padding: 14px 0 24px 0;
+            }
+
             @include respond-to('sm') {
-                padding: 12px 0 24px 0;
+                padding: 10px 0 20px 0;
             }
 
             h1 {
-                color: #0F172A;
-                font-size: 58px;
+                color: #FFFFFF;
+                font-size: 54px;
                 font-weight: 800;
-                line-height: 1.12;
+                line-height: 1.15;
                 letter-spacing: -0.02em;
                 font-family: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
                 text-transform: uppercase;
                 margin: 0 0 18px 0;
+                text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
+
+                @include respond-to('lg') {
+                    font-size: 44px;
+                }
 
                 @include respond-to('md') {
-                    font-size: 42px;
+                    font-size: 34px;
                     letter-spacing: -0.01em;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 32px;
-                    line-height: 1.2;
+                    font-size: 26px;
+                    line-height: 1.25;
+                    margin-bottom: 14px;
                 }
             }
 
             p {
                 max-width: 580px;
-                color: #475569;
+                color: rgba(255, 255, 255, 0.90);
                 font-size: 18px;
                 font-weight: 400;
                 line-height: 1.65;
                 letter-spacing: 0.1px;
                 margin: 0;
+                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
 
                 @include respond-to('md') {
                     margin: 0 auto;
@@ -130,8 +148,8 @@
                 }
 
                 @include respond-to('sm') {
-                    font-size: 15px;
-                    line-height: 1.5;
+                    font-size: 14px;
+                    line-height: 1.55;
                 }
             }
         }
@@ -148,7 +166,7 @@
 
             @include respond-to('sm') {
                 gap: 12px;
-                padding: 0 0 28px 0;
+                padding: 0 0 24px 0;
                 width: 100%;
                 display: grid;
                 grid-template-columns: 1fr;
@@ -162,16 +180,15 @@
 
             :global(.button.outline button),
             :global(.button.outline .linkBtn) {
-                color: #0F172A !important;
-                border-color: #CBD5E1 !important;
-                background: #FFFFFF !important;
-                box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+                color: #FFFFFF !important;
+                border-color: rgba(34, 197, 94, 0.6) !important;
+                background: rgba(4, 30, 20, 0.7) !important;
 
                 &:hover {
-                    background: #ECFDF5 !important;
-                    border-color: #10B981 !important;
-                    color: #047857 !important;
-                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2) !important;
+                    background: rgba(16, 185, 129, 0.25) !important;
+                    border-color: #22C55E !important;
+                    color: #FFFFFF !important;
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4) !important;
                 }
             }
         }
@@ -191,12 +208,12 @@
             }
 
             .tagBtn {
-                border: 1px solid #E2E8F0;
-                background: #FFFFFF;
+                border: 1px solid rgba(34, 197, 94, 0.35);
+                background: rgba(4, 28, 19, 0.75);
                 display: inline-flex;
                 align-items: center;
                 gap: 9px;
-                color: #0F172A;
+                color: #FFFFFF;
                 font-family: var(--font-plus-jakarta), sans-serif;
                 font-size: 13.5px;
                 font-style: normal;
@@ -204,7 +221,7 @@
                 line-height: 1;
                 padding: 9px 18px;
                 border-radius: 9999px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
                 cursor: default;
                 transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -212,7 +229,8 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: #059669;
+                    color: #22C55E;
+                    filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.5));
 
                     svg {
                         width: 17px;
@@ -221,15 +239,15 @@
                 }
 
                 &:hover {
-                    border-color: #A7F3D0;
-                    background: #ECFDF5;
-                    color: #047857;
-                    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+                    border-color: rgba(34, 197, 94, 0.8);
+                    background: rgba(16, 185, 129, 0.22);
+                    color: #FFFFFF;
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
                 }
 
                 @include respond-to('sm') {
                     font-size: 12px;
-                    padding: 7px 13px;
+                    padding: 8px 14px;
                     gap: 6px;
 
                     .tagIcon svg {
@@ -267,15 +285,15 @@
                     width: 100%;
                     height: auto;
                     display: block;
-                    border-radius: 0;
+                    border-radius: 16px;
                     object-fit: contain;
-                    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.12));
+                    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 35px rgba(0, 255, 136, 0.25));
                 }
 
                 .imageGlow {
                     position: absolute;
                     inset: -30px;
-                    background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+                    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.22) 0%, transparent 70%);
                     z-index: -1;
                     pointer-events: none;
                     filter: blur(35px);
@@ -285,17 +303,18 @@
                     position: absolute;
                     z-index: 10;
                     padding: 8px 18px;
-                    background: #FFFFFF;
-                    border: 1.5px solid #10B981;
+                    background: rgba(4, 28, 19, 0.88);
+                    border: 1.5px solid #00FF88;
                     border-radius: 12px;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 10px 25px rgba(0, 0, 0, 0.6);
 
                     span {
-                        color: #047857;
+                        color: #00FF88;
                         font-size: 14px;
                         font-weight: 800;
                         letter-spacing: 1.5px;
                         font-family: var(--font-plus-jakarta);
+                        text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
                     }
                 }
 
@@ -317,7 +336,7 @@
             @include respond-to('sm') {
                 .imageCard {
                     border-radius: 16px;
-                    padding: 6px;
+                    padding: 4px;
 
                     .tradeImage {
                         border-radius: 12px;
@@ -326,101 +345,4 @@
             }
         }
     }
-}
-
-:global(.dark) {
-    .tradeSnapBanner {
-        background-color: #030E09;
-
-        &::after {
-            opacity: 0.32;
-        }
-
-        &::before {
-            background: radial-gradient(circle at 25% 45%, rgba(0, 255, 136, 0.10) 0%, rgba(3, 16, 11, 0.75) 55%, rgba(2, 10, 7, 0.95) 100%);
-        }
-
-        .grid {
-            .badgeWrapper {
-                :global(.lineText button) {
-                    background: rgba(0, 26, 18, 0.75);
-                    border: 1px solid rgba(34, 197, 94, 0.4);
-                    color: #A7F3D0;
-                    box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
-                }
-            }
-
-            .title {
-                h1 {
-                    color: #FFFFFF;
-                    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
-                }
-
-                p {
-                    color: rgba(255, 255, 255, 0.90);
-                    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
-                }
-            }
-
-            .buttonAlignment {
-                :global(.button.outline button),
-                :global(.button.outline .linkBtn) {
-                    color: #FFFFFF !important;
-                    border-color: rgba(34, 197, 94, 0.6) !important;
-                    background: rgba(4, 30, 20, 0.7) !important;
-
-                    &:hover {
-                        background: rgba(16, 185, 129, 0.25) !important;
-                        border-color: #22C55E !important;
-                        color: #FFFFFF !important;
-                        box-shadow: 0 0 20px rgba(34, 197, 94, 0.4) !important;
-                    }
-                }
-            }
-
-            .tagAlignment {
-                .tagBtn {
-                    border: 1px solid rgba(34, 197, 94, 0.35);
-                    background: rgba(4, 28, 19, 0.75);
-                    color: #FFFFFF;
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-                    .tagIcon {
-                        color: #22C55E;
-                        filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.5));
-                    }
-
-                    &:hover {
-                        border-color: rgba(34, 197, 94, 0.8);
-                        background: rgba(16, 185, 129, 0.22);
-                        color: #FFFFFF;
-                        box-shadow: 0 0 20px rgba(34, 197, 94, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-                    }
-                }
-            }
-
-            .imageColumn {
-                .imageCard {
-                    .tradeImage {
-                        filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 35px rgba(0, 255, 136, 0.25));
-                    }
-
-                    .imageGlow {
-                        background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.22) 0%, transparent 70%);
-                    }
-
-                    .floatingBuyBadge {
-                        background: rgba(4, 28, 19, 0.88);
-                        border: 1.5px solid #00FF88;
-                        box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), 0 10px 25px rgba(0, 0, 0, 0.6);
-
-                        span {
-                            color: #00FF88;
-                            text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+}

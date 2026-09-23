@@ -45,8 +45,17 @@
         padding-top: 140px;
         padding-bottom: 0;
 
-        @include respond-to('sm') {
+        @include respond-to('lg') {
+            padding-top: 120px;
+        }
+
+        @include respond-to('md') {
             padding-top: 100px;
+            min-height: auto;
+        }
+
+        @include respond-to('sm') {
+            padding-top: 80px;
         }
     }
 
@@ -56,16 +65,25 @@
         gap: 40px;
         align-items: center;
 
+        @include respond-to('lg') {
+            gap: 28px;
+        }
+
         @include respond-to('md') {
             grid-template-columns: 1fr;
+            gap: 24px;
         }
     }
 
     .contentLeft {
         padding: 40px 80px 90px 24px;
 
+        @include respond-to('lg') {
+            padding: 30px 40px 60px 0;
+        }
+
         @include respond-to('md') {
-            padding: 30px 0;
+            padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -75,7 +93,8 @@
         .tagWrap {
             margin-bottom: 24px;
 
-            button, :global(.lineText) {
+            button,
+            :global(.lineText) {
                 color: #FFFFFF !important;
             }
         }
@@ -85,11 +104,11 @@
             color: #FFFFFF;
             font-size: 56px;
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.15;
             margin: 0 0 20px 0;
             letter-spacing: -0.5px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            
+
             .neonText {
                 color: $neon;
                 text-shadow: 0 0 20px rgba(34, 197, 94, 0.5), 0 0 40px rgba(34, 197, 94, 0.2);
@@ -99,8 +118,18 @@
                 font-size: 48px;
             }
 
+            @include respond-to('lg') {
+                font-size: 42px;
+            }
+
+            @include respond-to('md') {
+                font-size: 34px;
+                line-height: 1.2;
+            }
+
             @include respond-to('sm') {
-                font-size: 36px;
+                font-size: 26px;
+                line-height: 1.25;
             }
         }
 
@@ -112,9 +141,16 @@
             margin: 0 0 40px 0;
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 
+            @include respond-to('md') {
+                font-size: 17px;
+                line-height: 26px;
+                max-width: 100%;
+            }
+
             @include respond-to('sm') {
-                font-size: 16px;
-                line-height: 24px;
+                font-size: 15px;
+                line-height: 22px;
+                margin-bottom: 28px;
             }
         }
 
@@ -122,10 +158,16 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
 
             @include respond-to('sm') {
                 flex-direction: column;
                 width: 100%;
+                gap: 12px;
+
+                >* {
+                    width: 100%;
+                }
             }
         }
     }
@@ -139,6 +181,10 @@
 
         @include respond-to('md') {
             margin-top: 10px;
+        }
+
+        @include respond-to('sm') {
+            display: none;
         }
     }
 
@@ -190,11 +236,30 @@
             opacity: 0;
             transition: opacity 0.3s ease;
 
-            &.s1 { top: 28%; left: 32%; }
-            &.s2 { top: 38%; right: 28%; }
-            &.s3 { bottom: 34%; left: 36%; }
-            &.s4 { top: 56%; right: 34%; }
-            &.s5 { top: 48%; left: 45%; }
+            &.s1 {
+                top: 28%;
+                left: 32%;
+            }
+
+            &.s2 {
+                top: 38%;
+                right: 28%;
+            }
+
+            &.s3 {
+                bottom: 34%;
+                left: 36%;
+            }
+
+            &.s4 {
+                top: 56%;
+                right: 34%;
+            }
+
+            &.s5 {
+                top: 48%;
+                left: 45%;
+            }
         }
     }
 
@@ -202,11 +267,25 @@
         opacity: 1;
         animation: synapseFire 1.8s ease-in-out infinite;
 
-        &.s1 { animation-delay: 0s; }
-        &.s2 { animation-delay: 0.35s; }
-        &.s3 { animation-delay: 0.7s; }
-        &.s4 { animation-delay: 1.05s; }
-        &.s5 { animation-delay: 1.4s; }
+        &.s1 {
+            animation-delay: 0s;
+        }
+
+        &.s2 {
+            animation-delay: 0.35s;
+        }
+
+        &.s3 {
+            animation-delay: 0.7s;
+        }
+
+        &.s4 {
+            animation-delay: 1.05s;
+        }
+
+        &.s5 {
+            animation-delay: 1.4s;
+        }
     }
 
     /* Active status badge */
@@ -260,7 +339,9 @@
         align-items: center;
         justify-content: center;
 
-        .ring1, .ring2, .ring3 {
+        .ring1,
+        .ring2,
+        .ring3 {
             position: absolute;
             border-radius: 50%;
             transition: all 0.5s ease;
@@ -294,11 +375,13 @@
             box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
             animation-duration: 12s;
         }
+
         .ring2 {
             border-color: rgba(34, 197, 94, 0.75);
             box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
             animation-duration: 8s;
         }
+
         .ring3 {
             border-color: rgba(0, 255, 136, 0.85);
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
@@ -342,10 +425,29 @@
             opacity: 0.35;
             transition: all 0.3s ease;
 
-            &.dot1 { top: 25%; left: 30%; animation: pulseGlow 2.5s ease-in-out infinite; }
-            &.dot2 { top: 38%; right: 26%; animation: pulseGlow 3s ease-in-out infinite 0.5s; }
-            &.dot3 { bottom: 32%; left: 32%; animation: pulseGlow 2.2s ease-in-out infinite 1s; }
-            &.dot4 { top: 58%; right: 32%; animation: pulseGlow 2.8s ease-in-out infinite 1.5s; }
+            &.dot1 {
+                top: 25%;
+                left: 30%;
+                animation: pulseGlow 2.5s ease-in-out infinite;
+            }
+
+            &.dot2 {
+                top: 38%;
+                right: 26%;
+                animation: pulseGlow 3s ease-in-out infinite 0.5s;
+            }
+
+            &.dot3 {
+                bottom: 32%;
+                left: 32%;
+                animation: pulseGlow 2.2s ease-in-out infinite 1s;
+            }
+
+            &.dot4 {
+                top: 58%;
+                right: 32%;
+                animation: pulseGlow 2.8s ease-in-out infinite 1.5s;
+            }
         }
     }
 
@@ -371,7 +473,8 @@
         transform: translateY(12px);
         transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 
-        .dataChip, .dataChipRight {
+        .dataChip,
+        .dataChipRight {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -505,31 +608,75 @@
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes spinRing {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes scanBeam {
-    0% { top: -40%; opacity: 0; }
-    30% { opacity: 0.85; }
-    80% { opacity: 0.85; }
-    100% { top: 110%; opacity: 0; }
+    0% {
+        top: -40%;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0.85;
+    }
+
+    80% {
+        opacity: 0.85;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
 }
 
 @keyframes pulseGlow {
-    0%, 100% { transform: scale(1); opacity: 0.35; }
-    50% { transform: scale(1.6); opacity: 0.95; }
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.35;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 0.95;
+    }
 }
 
 @keyframes badgeBlink {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.85); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(0.85);
+    }
 }
 
 @keyframes shockwave {
@@ -538,6 +685,7 @@
         opacity: 0.9;
         border-color: rgba(0, 255, 136, 0.9);
     }
+
     100% {
         transform: scale(2.2);
         opacity: 0;
@@ -546,11 +694,14 @@
 }
 
 @keyframes synapseFire {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.3;
         box-shadow: 0 0 10px #00FF88, 0 0 20px #22C55E;
     }
+
     50% {
         transform: scale(1.75);
         opacity: 1;

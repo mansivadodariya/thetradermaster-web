@@ -79,8 +79,17 @@
                 text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
             }
 
-            @include respond-to('sm') {
+            @include respond-to('lg') {
+                font-size: 30px;
+            }
+
+            @include respond-to('md') {
                 font-size: 26px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 22px;
+                line-height: 1.25;
             }
         }
 
@@ -90,6 +99,11 @@
             line-height: 26px;
             margin: 0;
             font-family: var(--font-plus-jakarta);
+
+            @include respond-to('md') {
+                font-size: 15px;
+                line-height: 24px;
+            }
 
             @include respond-to('sm') {
                 font-size: 14px;

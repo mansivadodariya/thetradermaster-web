@@ -2,7 +2,7 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 $primary: #10B981;
-$border: rgba(18, 18, 18, 0.10);
+$border: #E2E8F0;
 
 .container {
     display: flex;
@@ -15,20 +15,22 @@ $border: rgba(18, 18, 18, 0.10);
     h1 {
         font-size: 22px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #0F172A;
         margin: 0 0 4px;
     }
 
     p {
         font-size: 14px;
-        color: rgba(26, 26, 26, 0.55);
+        color: #475569;
         margin: 0;
     }
 }
 
 .card {
-    background: #fff;
-    border: 1px solid $border;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -45,12 +47,12 @@ $border: rgba(18, 18, 18, 0.10);
     h2 {
         font-size: 18px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #0F172A;
         margin: 0 0 4px;
     }
     p {
-        font-size: 13px;
-        color: rgba(26, 26, 26, 0.55);
+        font-size: 13.5px;
+        color: #475569;
         margin: 0;
     }
 }
@@ -80,7 +82,7 @@ $border: rgba(18, 18, 18, 0.10);
 .emptyState {
     text-align: center;
     padding: 60px 20px;
-    color: rgba(26, 26, 26, 0.55);
+    color: #64748B;
     font-size: 15px;
 }
 
@@ -108,10 +110,10 @@ $border: rgba(18, 18, 18, 0.10);
 
     th {
         padding: 12px 16px;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
-        color: rgba(26, 26, 26, 0.45);
-        border-bottom: 1px solid $border;
+        color: #64748B;
+        border-bottom: 1px solid #E2E8F0;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -119,15 +121,15 @@ $border: rgba(18, 18, 18, 0.10);
     td {
         padding: 16px;
         font-size: 14px;
-        color: #1a1a1a;
-        border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+        color: #0F172A;
+        border-bottom: 1px solid #F1F5F9;
         vertical-align: middle;
     }
 
     .tableRow {
         transition: background-color 0.2s ease;
         &:hover {
-            background-color: rgba(18, 18, 18, 0.02);
+            background-color: #F8FAFC;
         }
     }
 
@@ -142,7 +144,7 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     .amountAdd {
-        color: #10B981;
+        color: #059669;
     }
 
     .amountDeduct {
@@ -150,7 +152,7 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     .descCell {
-        color: rgba(26, 26, 26, 0.7);
+        color: #334155;
         max-width: 350px;
         word-wrap: break-word;
     }
@@ -167,13 +169,15 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .badgeAdd {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+    background-color: #ECFDF5;
+    color: #047857;
+    border: 1px solid #A7F3D0;
 }
 
 .badgeDeduct {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
+    background-color: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
 }
 
 .pagination {
@@ -181,24 +185,24 @@ $border: rgba(18, 18, 18, 0.10);
     justify-content: space-between;
     align-items: center;
     padding-top: 20px;
-    border-top: 1px solid $border;
+    border-top: 1px solid #E2E8F0;
     margin-top: 12px;
 
     .paginationButton {
         padding: 8px 16px;
         font-size: 13px;
         font-weight: 600;
-        color: rgba(26, 26, 26, 0.65);
-        background-color: transparent;
-        border: 1px solid $border;
-        border-radius: 6px;
+        color: #334155;
+        background-color: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
 
         &:hover:not(:disabled) {
-            background-color: rgba(18, 18, 18, 0.04);
-            color: #1a1a1a;
-            border-color: rgba(18, 18, 18, 0.2);
+            background-color: #ECFDF5;
+            color: #059669;
+            border-color: #A7F3D0;
         }
 
         &:disabled {
@@ -210,7 +214,7 @@ $border: rgba(18, 18, 18, 0.10);
     .paginationInfo {
         font-size: 13px;
         font-weight: 500;
-        color: rgba(26, 26, 26, 0.55);
+        color: #64748B;
     }
 }
 
@@ -227,8 +231,8 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     .card {
-        background: #1a1a1e;
-        border-color: #2d2d34;
+        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+        border-color: rgba(0, 255, 136, 0.2);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
@@ -248,7 +252,7 @@ $border: rgba(18, 18, 18, 0.10);
     .historyTable {
         th {
             color: rgba(255, 255, 255, 0.5);
-            border-color: #2d2d34;
+            border-color: rgba(0, 255, 136, 0.2);
         }
         td {
             color: #ffffff;
@@ -263,10 +267,10 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     .pagination {
-        border-color: #2d2d34;
+        border-color: rgba(0, 255, 136, 0.2);
         .paginationButton {
-            color: rgba(255, 255, 255, 0.7);
-            border-color: #2d2d34;
+            // color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(0, 255, 136, 0.2);
 
             &:hover:not(:disabled) {
                 background-color: rgba(255, 255, 255, 0.05);

@@ -104,3 +104,59 @@ export function LiveIcon({ className }) {
         </svg>
     );
 }
+
+export function TargetIcon({ className }) {
+    return (
+        <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" />
+        </svg>
+    );
+}
+
+export function BarChartIcon({ className }) {
+    return (
+        <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="20" x2="18" y2="10" strokeLinecap="round" />
+            <line x1="12" y1="20" x2="12" y2="4" strokeLinecap="round" />
+            <line x1="6" y1="20" x2="6" y2="14" strokeLinecap="round" />
+        </svg>
+    );
+}
+
+export function BrainIcon({ className }) {
+    return (
+        <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z" />
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z" />
+        </svg>
+    );
+}
+
+export function CoinsIcon({ className }) {
+    return (
+        <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 6v12M15 9.5H10.5a2 2 0 000 4h3a2 2 0 010 4H9" strokeLinecap="round" />
+        </svg>
+    );
+}
+
+export function LowerTfIcon({ className }) {
+    return (
+        <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 7l10 10M17 7v10H7" />
+        </svg>
+    );
+}
+
+export function HigherTfIcon({ className }) {
+    return (
+        <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 7l10 10M17 7v10H7" />
+        </svg>
+    );
+}
+
+

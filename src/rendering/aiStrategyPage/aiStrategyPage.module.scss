@@ -21,7 +21,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-image: url('/assets/images/hero-new.png');
+        // background-image: url('/assets/images/hero-new.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center top;
@@ -48,7 +48,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 955px;
+        max-width: 100%;
+        width: 100%;
         margin: 0 auto;
 
         @include respond-to('md') {
@@ -129,7 +130,7 @@
         display: flex;
         flex-direction: column;
         gap: 40px;
-        max-width: 960px;
+        max-width: 100%;
         margin: 0 auto;
         width: 100%;
     }
@@ -613,34 +614,34 @@
         }
     }
 
-    /* Interactive Candlestick Chart Styles - WHITE THEME */
+    /* Interactive Candlestick Chart Styles - CYBER GREEN THEME */
     .chartLoadingPlaceholder {
-        background: #FFFFFF;
-        color: #64748B;
+        background: #04140D;
+        color: rgba(255, 255, 255, 0.75);
         padding: 60px;
         text-align: center;
-        border-radius: 4px;
-        border: 1px solid #E2E8F0;
+        border-radius: 14px;
+        border: 1px solid rgba(0, 255, 136, 0.25);
         font-weight: 500;
     }
 
     .chartWrapperCard {
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 71, 255, 0.2);
-        border-radius: 4px;
-        box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.06);
+        background: #04140D;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        border-radius: 16px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 136, 0.08);
         overflow: hidden;
         display: flex;
         flex-direction: column;
         position: relative;
 
         .chartHeaderBar {
-            background: #F8FAFC;
+            background: #061D13;
             padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #E2E8F0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
             gap: 16px;
             flex-wrap: wrap;
 
@@ -658,16 +659,17 @@
                 .symbolSelector {
                     display: flex;
                     gap: 6px;
-                    background: #EDF2F7;
+                    background: rgba(0, 255, 136, 0.08);
+                    border: 1px solid rgba(0, 255, 136, 0.2);
                     padding: 4px;
-                    border-radius: 4px;
+                    border-radius: 8px;
 
                     .pairBtn {
                         background: transparent;
-                        color: #475569;
+                        color: rgba(255, 255, 255, 0.75);
                         border: none;
                         padding: 6px 12px;
-                        border-radius: 2px;
+                        border-radius: 6px;
                         font-size: 13px;
                         font-weight: 600;
                         cursor: pointer;
@@ -679,12 +681,14 @@
                         }
 
                         &:hover {
-                            color: #0F172A;
+                            color: #00FF88;
                         }
 
                         &.activePair {
-                            background: #0047FF;
-                            color: #FFF;
+                            background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
+                            color: #030E09;
+                            font-weight: 700;
+                            box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
                         }
                     }
                 }
@@ -697,7 +701,7 @@
                     .livePrice {
                         font-size: 20px;
                         font-weight: 700;
-                        color: #0F172A;
+                        color: #FFFFFF;
 
                         @include respond-to('sm') {
                             font-size: 16px;
@@ -707,17 +711,19 @@
                     .changeBadge {
                         font-size: 13px;
                         font-weight: 600;
-                        padding: 2px 6px;
-                        border-radius: 2px;
+                        padding: 2px 8px;
+                        border-radius: 4px;
 
                         &.green {
-                            color: #10B981;
-                            background: rgba(16, 185, 129, 0.12);
+                            color: #00FF88;
+                            background: rgba(0, 255, 136, 0.15);
+                            border: 1px solid rgba(0, 255, 136, 0.3);
                         }
 
                         &.red {
-                            color: #EF4444;
-                            background: rgba(239, 68, 68, 0.12);
+                            color: #FF5757;
+                            background: rgba(255, 87, 87, 0.15);
+                            border: 1px solid rgba(255, 87, 87, 0.3);
                         }
                     }
                 }
@@ -732,23 +738,25 @@
                 .tfSelector {
                     display: flex;
                     gap: 4px;
-                    background: #EDF2F7;
+                    background: rgba(0, 255, 136, 0.08);
+                    border: 1px solid rgba(0, 255, 136, 0.2);
                     padding: 4px;
-                    border-radius: 4px;
+                    border-radius: 8px;
 
                     .tfBtn {
                         background: transparent;
-                        color: #475569;
+                        color: rgba(255, 255, 255, 0.75);
                         border: none;
                         padding: 4px 10px;
-                        border-radius: 2px;
+                        border-radius: 6px;
                         font-size: 12px;
                         font-weight: 600;
                         cursor: pointer;
 
                         &.activeTf {
-                            background: #0047FF;
-                            color: #FFF;
+                            background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
+                            color: #030E09;
+                            font-weight: 700;
                         }
                     }
                 }
@@ -759,41 +767,41 @@
                     gap: 6px;
 
                     .zoomBtn {
-                        background: #FFFFFF;
-                        color: #334155;
-                        border: 1px solid #CBD5E1;
+                        background: #061D13;
+                        color: #00FF88;
+                        border: 1px solid rgba(0, 255, 136, 0.25);
                         width: 32px;
                         height: 32px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        border-radius: 2px;
+                        border-radius: 6px;
                         cursor: pointer;
                         transition: all 0.2s ease;
 
                         &:hover {
-                            background: #0047FF;
+                            background: rgba(0, 255, 136, 0.2);
                             color: #FFF;
-                            border-color: #0047FF;
+                            border-color: #00FF88;
                         }
                     }
 
                     .zoomBtnText {
-                        background: #FFFFFF;
-                        color: #334155;
-                        border: 1px solid #CBD5E1;
+                        background: #061D13;
+                        color: #00FF88;
+                        border: 1px solid rgba(0, 255, 136, 0.25);
                         padding: 0 12px;
                         height: 32px;
                         font-size: 12px;
                         font-weight: 600;
-                        border-radius: 2px;
+                        border-radius: 6px;
                         cursor: pointer;
                         transition: all 0.2s ease;
 
                         &:hover {
-                            background: #0047FF;
+                            background: rgba(0, 255, 136, 0.2);
                             color: #FFF;
-                            border-color: #0047FF;
+                            border-color: #00FF88;
                         }
                     }
                 }
@@ -801,17 +809,17 @@
         }
 
         .ohlcOverlay {
-            background: rgba(248, 250, 252, 0.95);
+            background: rgba(6, 29, 19, 0.95);
             backdrop-filter: blur(4px);
             padding: 6px 16px;
             font-size: 12px;
-            color: #64748B;
+            color: rgba(255, 255, 255, 0.75);
             display: flex;
             gap: 16px;
-            border-bottom: 1px solid #E2E8F0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
 
             strong {
-                color: #0F172A;
+                color: #FFFFFF;
             }
         }
 
@@ -822,14 +830,14 @@
         }
 
         .chartFooterLegend {
-            background: #F8FAFC;
+            background: #061D13;
             padding: 10px 20px;
             display: flex;
             align-items: center;
             gap: 20px;
             font-size: 12px;
-            color: #64748B;
-            border-top: 1px solid #E2E8F0;
+            color: rgba(255, 255, 255, 0.75);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
             flex-wrap: wrap;
 
             @include respond-to('sm') {
@@ -852,7 +860,7 @@
 
             .zoomHintText {
                 margin-left: auto;
-                color: #94A3B8;
+                color: rgba(255, 255, 255, 0.5);
                 font-style: italic;
 
                 @include respond-to('sm') {
@@ -864,10 +872,10 @@
     }
 
     .strategyPreviewCard {
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 71, 255, 0.2);
-        box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.06);
-        border-radius: 4px;
+        background: #04140D;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
         padding: 28px;
         position: relative;
 
@@ -877,13 +885,14 @@
 
         .cardBadge {
             display: inline-block;
-            background: rgba(0, 71, 255, 0.08);
-            color: #0047FF;
+            background: rgba(0, 255, 136, 0.12);
+            color: #00FF88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
             padding: 4px 10px;
-            border-radius: 2px;
+            border-radius: 4px;
             margin-bottom: 16px;
         }
 
@@ -893,7 +902,7 @@
             align-items: flex-start;
             gap: 16px;
             margin-bottom: 24px;
-            border-bottom: 1px solid #EAEAEA;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
             padding-bottom: 20px;
 
             @include respond-to('sm') {
@@ -904,7 +913,7 @@
             h3 {
                 font-size: 22px;
                 font-weight: 700;
-                color: #1A1A1A;
+                color: #FFFFFF;
                 margin: 0 0 6px 0;
 
                 @include respond-to('sm') {
@@ -914,24 +923,24 @@
 
             p {
                 font-size: 14px;
-                color: #5F5F5F;
+                color: rgba(255, 255, 255, 0.75);
                 margin: 0;
             }
 
             .primaryBtn {
-                background: #0047FF;
-                color: #FFF;
+                background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
+                color: #030E09;
                 border: none;
                 padding: 12px 24px;
-                font-weight: 600;
+                font-weight: 700;
                 font-size: 14px;
-                border-radius: 2px;
+                border-radius: 8px;
                 cursor: pointer;
                 white-space: nowrap;
-                transition: background 0.3s ease;
+                transition: all 0.3s ease;
 
                 &:hover {
-                    background: #0036CC;
+                    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
                 }
             }
         }
@@ -940,9 +949,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 4px;
+            background: #061D13;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
             padding: 16px 20px;
             margin-bottom: 20px;
 
@@ -961,7 +970,7 @@
                 .scoreNum {
                     font-size: 36px;
                     font-weight: 800;
-                    color: #10B981;
+                    color: #00FF88;
                     line-height: 1;
 
                     @include respond-to('sm') {
@@ -972,17 +981,18 @@
                 .scoreMax {
                     font-size: 16px;
                     font-weight: 600;
-                    color: #94A3B8;
+                    color: rgba(255, 255, 255, 0.5);
                 }
 
                 .scoreTag {
-                    background: rgba(16, 185, 129, 0.12);
-                    color: #10B981;
+                    background: rgba(0, 255, 136, 0.15);
+                    color: #00FF88;
+                    border: 1px solid rgba(0, 255, 136, 0.3);
                     font-size: 12px;
                     font-weight: 700;
                     letter-spacing: 0.5px;
                     padding: 4px 10px;
-                    border-radius: 2px;
+                    border-radius: 4px;
                     margin-left: 8px;
                 }
             }
@@ -999,14 +1009,14 @@
                 .confLabel {
                     font-size: 11px;
                     font-weight: 600;
-                    color: #64748B;
+                    color: rgba(255, 255, 255, 0.75);
                     letter-spacing: 0.8px;
                 }
 
                 .confVal {
                     font-size: 15px;
                     font-weight: 700;
-                    color: #0F172A;
+                    color: #FFFFFF;
                 }
             }
         }
@@ -1026,9 +1036,9 @@
             }
 
             .metricItem {
-                background: #F8FAFC;
-                border: 1px solid #E2E8F0;
-                border-radius: 4px;
+                background: #061D13;
+                border: 1px solid rgba(0, 255, 136, 0.2);
+                border-radius: 8px;
                 padding: 16px;
                 display: flex;
                 flex-direction: column;
@@ -1036,21 +1046,21 @@
 
                 .metricLabel {
                     font-size: 13px;
-                    color: #64748B;
+                    color: rgba(255, 255, 255, 0.75);
                     font-weight: 500;
                 }
 
                 .metricValue {
                     font-size: 18px;
                     font-weight: 700;
-                    color: #0F172A;
+                    color: #FFFFFF;
 
                     &.green {
-                        color: #10B981;
+                        color: #00FF88;
                     }
 
                     &.red {
-                        color: #EF4444;
+                        color: #FF5757;
                     }
 
                     @include respond-to('sm') {

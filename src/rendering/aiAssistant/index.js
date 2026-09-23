@@ -662,8 +662,9 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                     <div className={styles.chatBody}>
                         {chatMessages.length === 0 ? (
                             <div className={styles.welcomeContainer}>
-                                <div className={styles.welcomeIcon}></div>
-                                <h2>{t('aiChat.copilotTitle', 'Welcome to Trader Master Copilot')}</h2>
+                                <h2>
+                                    Welcome to <span>Trader Master Copilot</span>
+                                </h2>
                                 <p>{t('aiChat.copilotSubtitle', 'Select a major pair below, ask a question, and get deep insights on forex market movement and trends instantly.')}</p>
                             </div>
                         ) : (
@@ -726,28 +727,50 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                 {chatMessages.length === 0 && (
                     <div className={styles.chipsRow}>
                         <button
+                            type="button"
                             className={styles.chip}
                             onClick={() => handleSuggestionClick(`Is ${selectedPair} a buy at current level on H4?`, selectedPair)}
                         >
-                            Analyze {selectedPair} on H4
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10" />
+                                <line x1="12" y1="20" x2="12" y2="4" />
+                                <line x1="6" y1="20" x2="6" y2="14" />
+                            </svg>
+                            <span>Analyze {selectedPair} on H4</span>
                         </button>
                         <button
+                            type="button"
                             className={styles.chip}
                             onClick={() => handleSuggestionClick(`What is the current technical trend for ${selectedPair}?`, selectedPair)}
                         >
-                            {selectedPair} Trend Analysis
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                                <polyline points="17 6 23 6 23 12" />
+                            </svg>
+                            <span>{selectedPair} Trend Analysis</span>
                         </button>
                         <button
+                            type="button"
                             className={styles.chip}
                             onClick={() => handleSuggestionClick(`Explain ${selectedPair} breakout patterns`, selectedPair)}
                         >
-                            {selectedPair} Breakouts
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                            <span>{selectedPair} Breakouts</span>
                         </button>
                         <button
+                            type="button"
                             className={styles.chip}
                             onClick={() => handleSuggestionClick(`Give me a scalping strategy for ${selectedPair}`, selectedPair)}
                         >
-                            {selectedPair} Strategy
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg>
+                            <span>{selectedPair} Strategy</span>
                         </button>
                     </div>
                 )}
@@ -806,17 +829,29 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                             )}
                         </div>
 
-                        {/* Send trigger */}
-                        <button
-                            className={styles.sendBtn}
-                            onClick={handleSendChatMessage}
-                            disabled={pendingRequest || !chatInput.trim()}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="12" y1="19" x2="12" y2="5"></line>
-                                <polyline points="5 12 12 5 19 12"></polyline>
-                            </svg>
-                        </button>
+                        {/* Right Actions */}
+                        <div className={styles.inputRightActions}>
+                            {/* <button
+                                type="button"
+                                className={styles.attachBtn}
+                                title="Attach file"
+                                onClick={() => toast.info('File attachment coming soon!')}
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                                </svg>
+                            </button> */}
+                            <button
+                                className={styles.sendBtn}
+                                onClick={handleSendChatMessage}
+                                disabled={pendingRequest || !chatInput.trim()}
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13" />
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

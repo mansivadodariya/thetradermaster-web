@@ -99,6 +99,7 @@ export default function EcosystemSection() {
                                 <BrokerCard
                                     broker={broker}
                                     detailHref={`/brokers/${broker.id}`}
+                                    isDarkTheme={true}
                                 />
                             </motion.div>
                         ))}

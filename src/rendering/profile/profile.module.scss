@@ -2,7 +2,7 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 $primary: #10B981;
-$border: rgba(18, 18, 18, 0.10);
+$border: #E2E8F0;
 
 .profile {
     display: flex;
@@ -10,6 +10,31 @@ $border: rgba(18, 18, 18, 0.10);
     gap: 24px;
     width: 100%;
     max-width: 100%;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+
+        @include respond-to('sm') {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 0 0 4px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #475569;
+            margin: 0;
+        }
+    }
 }
 
 .profileGrid {
@@ -32,14 +57,14 @@ $border: rgba(18, 18, 18, 0.10);
 
 .subSidebar {
     background: #FFFFFF;
-    border: 1px solid $border;
-    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
     padding: 20px 16px;
     display: flex;
     flex-direction: column;
     gap: 6px;
     height: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 
     @include respond-to('sm') {
         height: auto;
@@ -50,7 +75,7 @@ $border: rgba(18, 18, 18, 0.10);
 .subSidebarNav {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 4px;
 
     @include respond-to('sm') {
         flex-direction: row;
@@ -64,88 +89,69 @@ $border: rgba(18, 18, 18, 0.10);
 .subNavItem {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px;
-    border-radius: 0;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
     border: 1px solid transparent;
     background: transparent;
-    color: #000000;
+    color: #475569;
     text-align: left;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     user-select: none;
     position: relative;
     width: 100%;
-    margin-bottom: 10px;
 
     @include respond-to('sm') {
         width: auto;
         white-space: nowrap;
         flex-shrink: 0;
-        margin-bottom: 0;
-    }
-
-    &::before {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 0;
-        width: 12px;
-        height: 80%;
-        background: #fff;
-        filter: blur(9px);
-        content: '';
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
     }
 
     &:hover {
-        background: rgba(16, 185, 129, 0.08);
+        background: #ECFDF5;
+        color: #047857;
 
         .subNavItemIcon {
-            color: $primary;
+            color: #059669;
         }
 
         .subNavItemTitle {
-            color: $primary;
+            color: #047857;
         }
     }
 }
 
 .subNavItemActive {
-    background: $primary !important;
-    border-color: $primary !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-
-    &::before {
-        opacity: 1;
-    }
+    background: #10B981 !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    color: #FFFFFF !important;
 
     .subNavItemTitle {
         color: #ffffff !important;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     .subNavItemSub {
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(255, 255, 255, 0.85) !important;
     }
 
     .subNavItemIcon {
-        background-color: #ffffff !important;
-        color: $primary !important;
+        background-color: transparent !important;
+        color: #ffffff !important;
     }
 
     .subNavItemBadge {
         background: #ffffff !important;
-        color: $primary !important;
+        color: #047857 !important;
     }
 
     &:hover {
-        background: $primary !important;
+        background: #059669 !important;
 
         .subNavItemIcon {
-            background-color: #ffffff !important;
-            color: $primary !important;
+            color: #ffffff !important;
         }
 
         .subNavItemTitle {
@@ -155,13 +161,13 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .subNavItemIcon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #000000;
+    color: #64748B;
     background: transparent;
     transition: all 0.2s ease-in-out;
 
@@ -181,9 +187,9 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .subNavItemTitle {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    color: #000000;
+    color: #334155;
     line-height: normal;
     transition: color 0.2s ease-in-out;
 }
@@ -200,11 +206,12 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .subNavItemBadge {
-    background: $primary;
-    color: #FFFFFF;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #047857;
     font-size: 11px;
     font-weight: 700;
-    padding: 2px 7px;
+    padding: 2px 8px;
     border-radius: 10px;
     line-height: 1;
     transition: all 0.2s ease;
@@ -218,228 +225,11 @@ $border: rgba(18, 18, 18, 0.10);
     height: 100%;
 }
 
-.cardHeader {
-    padding-bottom: 16px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid $border;
-
-    h2 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1E293B;
-        margin: 0 0 4px;
-    }
-
-    p {
-        font-size: 13px;
-        color: #64748B;
-        margin: 0;
-    }
-}
-
-.cardHeaderRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-
-    @include respond-to('sm') {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    h1 {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0 0 4px;
-    }
-
-    p {
-        font-size: 14px;
-        color: rgba(26, 26, 26, 0.55);
-        margin: 0;
-    }
-}
-
-.recentActivityBtn {
-    height: 46px;
-    min-height: 46px;
-    padding: 0 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #FFF;
-    border: 1px solid $primary;
-    color: $primary;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
-
-    svg {
-        color: $primary;
-        transition: color 0.25s ease;
-    }
-
-    &:hover {
-        background: $primary;
-        color: #FFF;
-        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
-
-        svg {
-            color: #FFF;
-        }
-
-        .activityBadgeCount {
-            background: #FFFFFF;
-            color: $primary;
-        }
-    }
-}
-
-.activityBadgeCount {
-    background: $primary;
-    color: #FFFFFF;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 10px;
-    line-height: 1;
-    transition: all 0.25s ease;
-}
-
-/* Modal Popup Overlay */
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-    padding: 20px;
-}
-
-.modalContent {
+.card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    width: 100%;
-    max-width: 580px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-}
-
-.modalHeader {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 20px 24px;
-    border-bottom: 1px solid #E2E8F0;
-    gap: 12px;
-}
-
-.modalHeaderTitleRow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.modalIconBox {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: rgba(16, 185, 129, 0.1);
-    color: $primary;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.modalTitle {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1E293B;
-    margin: 0 0 2px;
-}
-
-.modalSubtitle {
-    font-size: 13px;
-    color: #64748B;
-    margin: 0;
-}
-
-.modalCloseBtn {
-    background: transparent;
-    border: none;
-    padding: 6px;
-    border-radius: 8px;
-    color: #64748B;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-
-    &:hover {
-        background: #F1F5F9;
-        color: #1E293B;
-    }
-}
-
-.modalBody {
-    padding: 20px 24px;
-    overflow-y: auto;
-    max-height: 60vh;
-}
-
-.modalFooter {
-    padding: 16px 24px;
-    border-top: 1px solid #E2E8F0;
-    display: flex;
-    justify-content: flex-end;
-    background: #F8FAFC;
-}
-
-.modalDoneBtn {
-    padding: 8px 20px;
-    background: $primary;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease;
-
-    &:hover {
-        background: #0947b8;
-    }
-}
-
-.card {
-    background: #fff;
-    border: 1px solid $border;
-    border-radius: 12px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -456,6 +246,32 @@ $border: rgba(18, 18, 18, 0.10);
         flex-direction: column;
         gap: 20px;
     }
+}
+
+.cardHeader {
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E2E8F0;
+
+    h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0F172A;
+        margin: 0 0 4px;
+    }
+
+    p {
+        font-size: 13.5px;
+        color: #475569;
+        margin: 0;
+    }
+}
+
+.cardHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
 .row {
@@ -476,22 +292,25 @@ $border: rgba(18, 18, 18, 0.10);
 
 .label {
     font-size: 14px;
-    font-weight: 500;
-    color: #1a1a1a;
+    font-weight: 600;
+    color: #0F172A;
 }
 
 .emailDisplay {
     padding: 12px 16px;
-    border: 1px solid $border;
-    font-size: 16px;
-    color: rgba(26, 26, 26, 0.65);
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #475569;
     line-height: 24px;
     cursor: not-allowed;
+    font-weight: 500;
 }
 
 .hint {
-    font-size: 12px;
-    color: rgba(26, 26, 26, 0.45);
+    font-size: 12.5px;
+    color: #64748B;
     margin: 0;
 }
 
@@ -510,7 +329,7 @@ $border: rgba(18, 18, 18, 0.10);
     width: 32px;
     height: 32px;
     border: 3px solid rgba(16, 185, 129, 0.15);
-    border-top-color: $primary;
+    border-top-color: #10B981;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
@@ -549,19 +368,19 @@ $border: rgba(18, 18, 18, 0.10);
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.18);
-    color: $primary;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #047857;
     padding: 0 14px;
     height: 50px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
     flex-shrink: 0;
 
     svg {
-        color: $primary;
+        color: #059669;
         flex-shrink: 0;
     }
 }
@@ -569,7 +388,7 @@ $border: rgba(18, 18, 18, 0.10);
 .referralCountNumber {
     font-weight: 700;
     font-size: 12px;
-    background: $primary;
+    background: #10B981;
     color: #ffffff;
     padding: 2px 8px;
     border-radius: 10px;
@@ -587,11 +406,12 @@ $border: rgba(18, 18, 18, 0.10);
 .referralInput {
     width: 100%;
     padding: 0 90px 0 16px;
-    border: 1px solid rgba(26, 26, 26, 0.14);
-    font-size: 16px;
-    font-weight: 400;
-    color: #1A1A1A;
-    background: transparent;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0F172A;
+    background: #F8FAFC;
     line-height: 24px;
     height: 50px;
     outline: none;
@@ -611,7 +431,7 @@ $border: rgba(18, 18, 18, 0.10);
     border: none;
     padding: 8px;
     cursor: pointer;
-    color: rgba(26, 26, 26, 0.5);
+    color: #64748B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -619,8 +439,8 @@ $border: rgba(18, 18, 18, 0.10);
     transition: all 0.2s ease;
 
     &:hover {
-        color: $primary;
-        background-color: rgba(16, 185, 129, 0.15);
+        color: #059669;
+        background-color: #ECFDF5;
     }
 
     svg {
@@ -636,7 +456,7 @@ $border: rgba(18, 18, 18, 0.10);
     justify-content: space-between;
     gap: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid #E2E8F0;
 
     @include respond-to('sm') {
         flex-direction: column;
@@ -654,8 +474,9 @@ $border: rgba(18, 18, 18, 0.10);
     width: 38px;
     height: 38px;
     border-radius: 8px;
-    background: rgba(16, 185, 129, 0.15);
-    color: $primary;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #059669;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -664,20 +485,21 @@ $border: rgba(18, 18, 18, 0.10);
 
 .sectionTitle {
     font-size: 16px;
-    font-weight: 600;
-    color: #1a1a1a;
+    font-weight: 700;
+    color: #0F172A;
     margin: 0 0 2px;
 }
 
 .sectionSubtitle {
     font-size: 13px;
-    color: rgba(26, 26, 26, 0.55);
+    color: #475569;
     margin: 0;
 }
 
 .maxBadge {
-    background: #F1F5FC;
-    color: $primary;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #047857;
     padding: 4px 10px;
     font-size: 12px;
     font-weight: 600;
@@ -702,7 +524,7 @@ $border: rgba(18, 18, 18, 0.10);
     padding: 14px 16px;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 8px;
+    border-radius: 10px;
     transition: all 0.2s ease;
     gap: 12px;
 
@@ -712,19 +534,19 @@ $border: rgba(18, 18, 18, 0.10);
     }
 
     &:hover {
-        border-color: #CBD5E1;
-        background: #F1F5F9;
+        border-color: #A7F3D0;
+        background: #ECFDF5;
     }
 }
 
 .latestLoginItem {
-    background: #FFFFFF;
-    border-color: rgba(16, 185, 129, 0.4);
-    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.08);
+    background: #ECFDF5 !important;
+    border: 1px solid #A7F3D0 !important;
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.08) !important;
 
     &:hover {
-        border-color: $primary;
-        background: #FFFFFF;
+        border-color: #10B981 !important;
+        background: #D1FAE5 !important;
     }
 }
 
@@ -738,7 +560,7 @@ $border: rgba(18, 18, 18, 0.10);
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: #E2E8F0;
+    background: #F1F5F9;
     color: #64748B;
     display: flex;
     align-items: center;
@@ -747,8 +569,9 @@ $border: rgba(18, 18, 18, 0.10);
 }
 
 .activeDeviceIcon {
-    background: rgba(16, 185, 129, 0.12);
-    color: $primary;
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
 }
 
 .loginItemDetails {
@@ -763,7 +586,7 @@ $border: rgba(18, 18, 18, 0.10);
     gap: 6px;
     font-size: 14px;
     font-weight: 600;
-    color: #1E293B;
+    color: #0F172A;
 }
 
 .loginTime {
@@ -787,12 +610,12 @@ $border: rgba(18, 18, 18, 0.10);
     align-items: center;
     gap: 6px;
     padding: 4px 12px;
-    background: rgba(16, 185, 129, 0.1);
-    color: #059669;
+    background: #ECFDF5;
+    color: #047857;
     font-size: 12px;
     font-weight: 600;
     border-radius: 20px;
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    border: 1px solid #A7F3D0;
 }
 
 .activeDot {
@@ -807,11 +630,12 @@ $border: rgba(18, 18, 18, 0.10);
     display: inline-flex;
     align-items: center;
     padding: 4px 10px;
-    background: #F1F5FC;
+    background: #F1F5F9;
     color: #64748B;
     font-size: 12px;
     font-weight: 500;
     border-radius: 20px;
+    border: 1px solid #E2E8F0;
 }
 
 .emptyLogins {
@@ -821,270 +645,435 @@ $border: rgba(18, 18, 18, 0.10);
     font-size: 14px;
 }
 
+.recentActivityBtn {
+    height: 44px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+
+    svg {
+        color: #64748B;
+        transition: color 0.2s ease;
+    }
+
+    &:hover {
+        background: #ECFDF5;
+        border-color: #A7F3D0;
+        color: #059669;
+
+        svg {
+            color: #059669;
+        }
+
+        .activityBadgeCount {
+            background: #10B981;
+            color: #FFFFFF;
+        }
+    }
+}
+
+.activityBadgeCount {
+    background: #E2E8F0;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+/* Modal Popup Overlay */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modalContent {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 580px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #E2E8F0;
+    gap: 12px;
+}
+
+.modalHeaderTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modalIconBox {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.modalTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 2px;
+}
+
+.modalSubtitle {
+    font-size: 13px;
+    color: #475569;
+    margin: 0;
+}
+
+.modalCloseBtn {
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    padding: 6px;
+    border-radius: 8px;
+    color: #64748B;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #E2E8F0;
+        color: #0F172A;
+    }
+}
+
+.modalBody {
+    padding: 20px 24px;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    justify-content: flex-end;
+    background: #F8FAFC;
+}
+
+.modalDoneBtn {
+    padding: 9px 20px;
+    background: #10B981;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: #059669;
+    }
+}
+
 :global(.dark) {
+    .profile {
+        .header {
+            h1 {
+                color: #FFFFFF !important;
+            }
+            p {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+        }
+    }
+
     .subSidebar {
-        background: #18181b;
-        border-color: #27272a;
+        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+        border-color: rgba(0, 255, 136, 0.2) !important;
     }
 
     .subNavItem {
-        color: #a1a1aa;
+        color: rgba(255, 255, 255, 0.75) !important;
 
         .subNavItemIcon {
-            background: transparent;
-            color: #a1a1aa;
+            color: rgba(255, 255, 255, 0.75) !important;
         }
 
         .subNavItemTitle {
-            color: #f4f4f5;
+            color: #FFFFFF !important;
         }
 
         &:hover {
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.15) !important;
 
             .subNavItemIcon {
-                color: $very-light-green;
+                color: #00FF88 !important;
             }
 
             .subNavItemTitle {
-                color: $very-light-green;
+                color: #00FF88 !important;
             }
         }
     }
 
     .subNavItemActive {
-        background: $primary !important;
-        border-color: $primary !important;
-        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
+        background: #10B981 !important;
+        border-color: #10B981 !important;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
 
         .subNavItemTitle {
             color: #ffffff !important;
         }
 
         .subNavItemIcon {
-            background: transparent !important;
             color: #ffffff !important;
         }
 
         .subNavItemBadge {
             background: #ffffff !important;
-            color: $primary !important;
-        }
-    }
-
-    .cardHeader {
-        border-bottom-color: #27272a;
-
-        h2 {
-            color: #ffffff;
-        }
-
-        p {
-            color: #a1a1aa;
-        }
-    }
-
-    .profile {
-        .header {
-            h1 {
-                color: #ffffff;
-            }
-
-            p {
-                color: rgba(255, 255, 255, 0.6);
-            }
+            color: #10B981 !important;
         }
     }
 
     .card {
-        background: #1a1a1e;
-        border-color: #2d2d34;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+        border-color: rgba(0, 255, 136, 0.2) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .cardHeader {
+        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+
+        h2 {
+            color: #ffffff !important;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.65) !important;
+        }
     }
 
     .label {
-        color: #ffffff;
+        color: #ffffff !important;
     }
 
     .emailDisplay {
-        border-color: #2d2d34;
-        color: rgba(255, 255, 255, 0.7);
-        background: #1a1a1e;
+        border-color: rgba(0, 255, 136, 0.2) !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+        background: rgba(0, 16, 11, 0.65) !important;
     }
 
     .referralInput {
-        border-color: #2d2d34;
-        color: #ffffff;
-        background: transparent;
+        border-color: rgba(0, 255, 136, 0.2) !important;
+        color: #ffffff !important;
+        background: rgba(0, 16, 11, 0.65) !important;
     }
 
     .referralBadge {
-        background: rgba(16, 185, 129, 0.15);
-        border-color: rgba(96, 165, 250, 0.3);
-        color: $very-light-green;
+        background: rgba(16, 185, 129, 0.15) !important;
+        border-color: rgba(0, 255, 136, 0.25) !important;
+        color: #00FF88 !important;
 
         svg {
-            color: $very-light-green;
+            color: #00FF88 !important;
         }
     }
 
     .referralCountNumber {
-        background: $primary;
-        color: #ffffff;
+        background: #10B981 !important;
+        color: #ffffff !important;
     }
 
     .hint {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.5) !important;
     }
 
     .iconButton {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.6) !important;
 
         &:hover {
-            color: $very-light-green;
-            background-color: rgba(16, 185, 129, 0.15);
+            color: #00FF88 !important;
+            background-color: rgba(16, 185, 129, 0.15) !important;
         }
     }
 
     .sectionHeader {
-        border-bottom-color: #2d2d34;
+        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
     }
 
     .sectionTitle {
-        color: #ffffff;
+        color: #ffffff !important;
     }
 
     .sectionSubtitle {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.6) !important;
     }
 
     .maxBadge {
-        background: rgba(16, 185, 129, 0.15);
-        color: $very-light-green;
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #00FF88 !important;
     }
 
     .loginItem {
-        background: #121215;
-        border-color: #2d2d34;
+        background: rgba(0, 16, 11, 0.6) !important;
+        border-color: rgba(0, 255, 136, 0.2) !important;
 
         &:hover {
-            border-color: #3f3f46;
-            background: #18181c;
+            border-color: rgba(0, 255, 136, 0.4) !important;
+            background: rgba(0, 255, 136, 0.1) !important;
         }
     }
 
     .latestLoginItem {
-        background: #18181b;
-        border-color: rgba(16, 185, 129, 0.15);
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        background: rgba(0, 32, 22, 0.85) !important;
+        border-color: rgba(0, 255, 136, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(0, 255, 136, 0.15) !important;
 
         &:hover {
-            border-color: $primary;
-            background: #1c1c20;
+            border-color: #00FF88 !important;
+            background: rgba(4, 48, 36, 0.9) !important;
         }
     }
 
     .deviceIconBox {
-        background: #27272a;
-        color: #a1a1aa;
+        background: rgba(0, 255, 136, 0.15) !important;
+        color: rgba(255, 255, 255, 0.65) !important;
     }
 
     .activeDeviceIcon {
-        background: rgba(16, 185, 129, 0.15);
-        color: $very-light-green;
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #00FF88 !important;
     }
 
     .loginTimeRow {
-        color: #f4f4f5;
+        color: #FFFFFF !important;
     }
 
     .loginTime {
-        color: #a1a1aa;
+        color: rgba(255, 255, 255, 0.65) !important;
     }
 
     .loginIsoText {
-        color: #71717a;
+        color: rgba(255, 255, 255, 0.5) !important;
     }
 
     .activeBadge {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
-        border-color: rgba(16, 185, 129, 0.3);
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #34d399 !important;
+        border-color: rgba(16, 185, 129, 0.3) !important;
     }
 
     .pastBadge {
-        background: #27272a;
-        color: #a1a1aa;
+        background: rgba(0, 255, 136, 0.15) !important;
+        color: rgba(255, 255, 255, 0.65) !important;
     }
 
     .emptyLogins {
-        color: #a1a1aa;
+        color: rgba(255, 255, 255, 0.65) !important;
     }
 
     .recentActivityBtn {
-    background: rgba(15, 23, 42, 0.8);
-        border-color: rgba(64, 134, 255, 0.5);
-        color: #a8c8ff;
+        background: rgba(15, 23, 42, 0.8) !important;
+        border-color: rgba(0, 255, 136, 0.3) !important;
+        color: #00FF88 !important;
 
         svg {
-            color: #a8c8ff;
+            color: #00FF88 !important;
         }
 
         .activityBadgeCount {
-            background: rgba(16, 185, 129, 0.15);
-            color: #FFFFFF;
+            background: rgba(16, 185, 129, 0.15) !important;
+            color: #FFFFFF !important;
         }
 
         &:hover {
-            background: $primary;
-            border-color: $primary;
-            color: #FFFFFF;
+            background: #10B981 !important;
+            border-color: #00FF88 !important;
+            color: #FFFFFF !important;
 
             svg {
-                color: #FFFFFF;
+                color: #FFFFFF !important;
             }
 
             .activityBadgeCount {
-                background: #FFFFFF;
-                color: $primary;
+                background: #FFFFFF !important;
+                color: #10B981 !important;
             }
         }
     }
 
     .modalContent {
-        background: #18181b;
-        border-color: #27272a;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+        border-color: rgba(0, 255, 136, 0.2) !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
     }
 
     .modalHeader {
-        border-bottom-color: #27272a;
+        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
     }
 
     .modalIconBox {
-        background: rgba(16, 185, 129, 0.15);
-        color: $very-light-green;
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #00FF88 !important;
     }
 
     .modalTitle {
-        color: #f4f4f5;
+        color: #FFFFFF !important;
     }
 
     .modalSubtitle {
-        color: #a1a1aa;
+        color: rgba(255, 255, 255, 0.65) !important;
     }
 
     .modalCloseBtn {
-        color: #a1a1aa;
+        color: rgba(255, 255, 255, 0.65) !important;
 
         &:hover {
-            background: #27272a;
-            color: #ffffff;
+            background: rgba(0, 255, 136, 0.15) !important;
+            color: #ffffff !important;
         }
     }
 
     .modalFooter {
-        background: #121215;
-        border-top-color: #27272a;
+        background: rgba(0, 16, 11, 0.6) !important;
+        border-top-color: rgba(0, 255, 136, 0.2) !important;
     }
 }

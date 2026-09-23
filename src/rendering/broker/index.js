@@ -18,7 +18,7 @@ const EdufinsIcon = '/assets/icons/edufins.svg';
 const MetaIcon = '/assets/icons/Img2.svg';
 const AlgomaticIcon = '/assets/icons/algomaticIcon.svg';
 const AsicIcon = '/assets/icons/asic.svg';
-const NeweraLogo = '/assets/images/logo-light.webp';
+const NeweraLogo = '/assets/images/logo-light1.webp';
 const FundedMasterLogo = '/assets/icons/Img2.svg';
 
 const SearchIcon = () => (
@@ -102,7 +102,7 @@ export default function BrokerPage() {
                     {t('broker.hubBadge', 'Broker & Platform Hub')}
                 </div>
                 <h1 {...getBidiProps(t('broker.title', 'Integrated Brokerage & Trading Infrastructure'))}>
-                    {t('broker.title', 'Integrated Brokerage & Trading Infrastructure')}
+                    {t('broker.title', 'broker')}
                 </h1>
                 <p {...getBidiProps(t('broker.subtitle', 'Connect your MT5 account, view verified broker partners from our sliding marquee stack, and earn AI credits automatically through your daily trading volume.'))}>
                     {t('broker.subtitle', 'Connect your MT5 account, view verified broker partners from our sliding marquee stack, and earn AI credits automatically through your daily trading volume.')}

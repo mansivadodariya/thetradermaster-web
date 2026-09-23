@@ -305,29 +305,29 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             width: rect.width || 600,
             height: rect.height || 450,
             layout: {
-                background: { type: 'solid', color: 'transparent' },
-                textColor: isDark ? '#94a3b8' : '#64748b',
+                background: { type: 'solid', color: isDark ? '#020B07' : '#ffffff' },
+                textColor: isDark ? 'rgba(255, 255, 255, 0.7)' : '#475569',
                 fontSize: 11,
                 fontFamily: "'Outfit', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 18, 18, 0.04)' },
-                horzLines: { color: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 18, 18, 0.04)' },
+                vertLines: { color: isDark ? 'rgba(0, 255, 136, 0.06)' : '#e2e8f0' },
+                horzLines: { color: isDark ? 'rgba(0, 255, 136, 0.06)' : '#e2e8f0' },
             },
             crosshair: {
-                vertLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#10B98130', width: 1 },
-                horzLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#10B98130', width: 1 },
+                vertLine: { color: isDark ? 'rgba(0, 255, 136, 0.3)' : '#cbd5e1', width: 1 },
+                horzLine: { color: isDark ? 'rgba(0, 255, 136, 0.3)' : '#cbd5e1', width: 1 },
             },
             timeScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 18, 18, 0.08)',
+                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#e2e8f0',
                 timeVisible: true,
                 secondsVisible: false,
                 rightOffset: 10,
                 barSpacing: 8,
             },
             rightPriceScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 18, 18, 0.08)',
+                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#e2e8f0',
                 scaleMargins: { top: 0.05, bottom: 0.04 },
             },
         });

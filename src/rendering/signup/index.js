@@ -22,7 +22,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 
 const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const AuthIcon = '/assets/logo/logoWhite.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 const Profile = '/assets/icons/profile.svg';
 const EmailIcon = '/assets/icons/sms.svg';
@@ -345,10 +345,10 @@ const Signup = () => {
                             <form onSubmit={handleSubmit} noValidate>
                                 <div className={styles.spacingGrid}>
                                     <div className={styles.twoCol}>
-                                        <Input icon={Profile} placeholder={t('auth.firstNameLabel', 'First Name')} name="first_name" value={form.first_name} onChange={set('first_name')} error={errors.first_name} maxLength={50} />
-                                        <Input icon={Profile} placeholder={t('auth.lastNameLabel', 'Last Name')} name="last_name" value={form.last_name} onChange={set('last_name')} error={errors.last_name} maxLength={50} />
+                                        <Input icon={Profile} placeholder={t('auth.firstNameLabel', 'First Name')} name="first_name" value={form.first_name} onChange={set('first_name')} error={errors.first_name} maxLength={50} dark />
+                                        <Input icon={Profile} placeholder={t('auth.lastNameLabel', 'Last Name')} name="last_name" value={form.last_name} onChange={set('last_name')} error={errors.last_name} maxLength={50} dark />
                                     </div>
-                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} />
+                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} dark />
                                     <PhoneInput
                                         label=""
                                         placeholder={t('profile.phoneLabel', 'Phone no')}
@@ -358,8 +358,8 @@ const Signup = () => {
                                         defaultCountry="AE"
                                     />
                                     <div className={styles.twoCol}>
-                                        <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} />
-                                        <Input icon={Lock} placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm Password')} type="password" name="confirmPassword" value={form.confirmPassword} onChange={set('confirmPassword')} error={errors.confirmPassword} maxLength={50} />
+                                        <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} dark />
+                                        <Input icon={Lock} placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm Password')} type="password" name="confirmPassword" value={form.confirmPassword} onChange={set('confirmPassword')} error={errors.confirmPassword} maxLength={50} dark />
                                     </div>
                                     <Input
                                         icon={Profile}
@@ -369,6 +369,7 @@ const Signup = () => {
                                         onChange={set('referral_code')}
                                         error={errors.referral_code}
                                         maxLength={50}
+                                        dark
                                     />
                                     <Button
                                         type="submit"

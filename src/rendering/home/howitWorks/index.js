@@ -1,6 +1,6 @@
 'use client'
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import styles from './howitWorks.module.scss';
 import LineText from '@/components/lineText';
 import { useLanguage } from '@/context/LanguageContext';
@@ -42,6 +42,17 @@ const RefreshTradeIcon = () => (
 export default function HowitWorks() {
     const { t } = useLanguage();
     const [activeStep, setActiveStep] = useState(0);
+    const containerRef = useRef(null);
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    useMotionValueEvent(scrollYProgress, "change", (latest) => {
+        const step = Math.min(3, Math.floor(latest * 4));
+        setActiveStep(step);
+    });
 
     const stepsData = [
         {
@@ -112,139 +123,164 @@ export default function HowitWorks() {
 
     const currentData = stepsData[activeStep];
 
+    const handleStepClick = (idx) => {
+        setActiveStep(idx);
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const scrollTop = window.scrollY || window.pageYOffset;
+            const containerTop = rect.top + scrollTop;
+            const containerHeight = containerRef.current.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const maxScrollable = containerHeight - viewportHeight;
+
+            if (maxScrollable > 0) {
+                const targetFraction = (idx + 0.5) / stepsData.length;
+                const targetY = containerTop + (maxScrollable * targetFraction);
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    };
+
     return (
-        <div className={styles.howitWorks}>
-            <div className='container-xs'>
-                <LineText text={t('home.howItWorksLine', 'How It Works')} />
-                
-                <div className={styles.title}>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        {t('home.howItWorksTitlePart1', 'From Signup to AI Insight in')}{' '}
-                        <span className={styles.neonText}>
-                            {t('home.howItWorksTitlePart2', 'Four Simple Steps')}
-                        </span>
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        {t('home.howItWorksSubtitle', 'No subscription, no card upfront. Your trading activity is what powers your AI access.')}
-                    </motion.p>
-                </div>
-
-                {/* Cyber Pipeline Stepper Track Header */}
-                <div className={styles.pipelineStepper}>
-                    <div className={styles.stepperProgressTrack}>
-                        <div 
-                            className={styles.activeProgressFill} 
-                            style={{ width: `${((activeStep + 1) / stepsData.length) * 100}%` }}
-                        />
-                    </div>
-
-                    <div className={styles.stepperTabs}>
-                        {stepsData.map((step, idx) => (
-                            <button
-                                key={step.id}
-                                className={`${styles.stepperTab} ${activeStep === idx ? styles.active : ''}`}
-                                onClick={() => setActiveStep(idx)}
+        <div ref={containerRef} className={styles.scrollContainer}>
+            <div className={styles.stickyWrapper}>
+                <div className={styles.howitWorks}>
+                    <div className='container-xs'>
+                        <LineText text={t('home.howItWorksLine', 'How It Works')} />
+                        
+                        <div className={styles.title}>
+                            <motion.h2
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
                             >
-                                <div className={styles.stepNumBubble}>{step.stepNum}</div>
-                                <span className={styles.stepTitleLabel}>{step.shortLabel}</span>
-                                {activeStep === idx && (
-                                    <motion.div 
-                                        className={styles.activeGlowIndicator}
-                                        layoutId="activeGlow"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    />
-                                )}
-                            </button>
-                        ))}
+                                {t('home.howItWorksTitlePart1', 'From Signup to AI Insight in')}{' '}
+                                <span className={styles.neonText}>
+                                    {t('home.howItWorksTitlePart2', 'Four Simple Steps')}
+                                </span>
+                            </motion.h2>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                {t('home.howItWorksSubtitle', 'No subscription, no card upfront. Your trading activity is what powers your AI access.')}
+                            </motion.p>
+                        </div>
+
+                        {/* Cyber Pipeline Stepper Track Header */}
+                        <div className={styles.pipelineStepper}>
+                            <div className={styles.stepperProgressTrack}>
+                                <div 
+                                    className={styles.activeProgressFill} 
+                                    style={{ width: `${((activeStep + 1) / stepsData.length) * 100}%` }}
+                                />
+                            </div>
+
+                            <div className={styles.stepperTabs}>
+                                {stepsData.map((step, idx) => (
+                                    <button
+                                        key={step.id}
+                                        className={`${styles.stepperTab} ${activeStep === idx ? styles.active : ''}`}
+                                        onClick={() => handleStepClick(idx)}
+                                    >
+                                        <div className={styles.stepNumBubble}>{step.stepNum}</div>
+                                        <span className={styles.stepTitleLabel}>{step.shortLabel}</span>
+                                        {activeStep === idx && (
+                                            <motion.div 
+                                                className={styles.activeGlowIndicator}
+                                                layoutId="activeGlow"
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                            />
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Main Interactive Cyber Showcase Workspace */}
+                        <div className={styles.showcaseWorkspace}>
+                            <AnimatePresence mode="wait">
+                                <motion.div 
+                                    key={currentData.id}
+                                    className={styles.workspaceGrid}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    {/* Left Details Panel */}
+                                    <div className={styles.detailsPanel}>
+                                        <div className={styles.panelHeader}>
+                                            <span className={styles.badgePill}>{currentData.badge}</span>
+                                            <div className={styles.iconCircle}>
+                                                {currentData.icon}
+                                            </div>
+                                        </div>
+
+                                        <h3>{currentData.title}</h3>
+                                        <h4>{currentData.subtitle}</h4>
+                                        <p>{currentData.description}</p>
+
+                                        <div className={styles.highlightsList}>
+                                            {currentData.highlights.map((item, i) => (
+                                                <div key={i} className={styles.highlightItem}>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                    <span>{item}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Step Navigation Controls */}
+                                        <div className={styles.stepControls}>
+                                            <button 
+                                                className={styles.navBtn}
+                                                disabled={activeStep === 0}
+                                                onClick={() => handleStepClick(Math.max(0, activeStep - 1))}
+                                            >
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                                <span>Previous Step</span>
+                                            </button>
+
+                                            <button 
+                                                className={`${styles.navBtn} ${styles.nextBtn}`}
+                                                disabled={activeStep === stepsData.length - 1}
+                                                onClick={() => handleStepClick(Math.min(stepsData.length - 1, activeStep + 1))}
+                                            >
+                                                <span>Next Step</span>
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Right 3D Visual Frame Showcase */}
+                                    <div className={styles.visualFramePanel}>
+                                        <div className={styles.cyberGlassWindow}>
+                                            <div className={styles.windowHeader}>
+                                                <div className={styles.windowDots}>
+                                                    <span className={styles.redDot}></span>
+                                                    <span className={styles.yellowDot}></span>
+                                                    <span className={styles.greenDot}></span>
+                                                </div>
+                                                <span className={styles.windowTitle}>Trader Master Step {currentData.stepNum}</span>
+                                            </div>
+                                            <div className={styles.imageBox}>
+                                                <img src={currentData.image} alt={currentData.title} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                     </div>
-                </div>
-
-                {/* Main Interactive Cyber Showcase Workspace */}
-                <div className={styles.showcaseWorkspace}>
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={currentData.id}
-                            className={styles.workspaceGrid}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            {/* Left Details Panel */}
-                            <div className={styles.detailsPanel}>
-                                <div className={styles.panelHeader}>
-                                    <span className={styles.badgePill}>{currentData.badge}</span>
-                                    <div className={styles.iconCircle}>
-                                        {currentData.icon}
-                                    </div>
-                                </div>
-
-                                <h3>{currentData.title}</h3>
-                                <h4>{currentData.subtitle}</h4>
-                                <p>{currentData.description}</p>
-
-                                <div className={styles.highlightsList}>
-                                    {currentData.highlights.map((item, i) => (
-                                        <div key={i} className={styles.highlightItem}>
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="20 6 9 17 4 12"></polyline>
-                                            </svg>
-                                            <span>{item}</span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Step Navigation Controls */}
-                                <div className={styles.stepControls}>
-                                    <button 
-                                        className={styles.navBtn}
-                                        disabled={activeStep === 0}
-                                        onClick={() => setActiveStep(prev => Math.max(0, prev - 1))}
-                                    >
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                                        <span>Previous Step</span>
-                                    </button>
-
-                                    <button 
-                                        className={`${styles.navBtn} ${styles.nextBtn}`}
-                                        disabled={activeStep === stepsData.length - 1}
-                                        onClick={() => setActiveStep(prev => Math.min(stepsData.length - 1, prev + 1))}
-                                    >
-                                        <span>Next Step</span>
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Right 3D Visual Frame Showcase */}
-                            <div className={styles.visualFramePanel}>
-                                <div className={styles.cyberGlassWindow}>
-                                    <div className={styles.windowHeader}>
-                                        <div className={styles.windowDots}>
-                                            <span className={styles.redDot}></span>
-                                            <span className={styles.yellowDot}></span>
-                                            <span className={styles.greenDot}></span>
-                                        </div>
-                                        <span className={styles.windowTitle}>Trader Master Step {currentData.stepNum}</span>
-                                    </div>
-                                    <div className={styles.imageBox}>
-                                        <img src={currentData.image} alt={currentData.title} />
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
                 </div>
             </div>
         </div>

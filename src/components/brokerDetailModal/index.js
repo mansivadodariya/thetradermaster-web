@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from './brokerDetailModal.module.scss';
+import { useTheme } from '@/context/ThemeContext';
 
 const CloseIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -33,9 +34,13 @@ const GlobeIcon = () => (
 );
 
 export default function BrokerDetailModal({ broker, onClose, onSyncClick }) {
+    const { theme } = useTheme();
     if (!broker) return null;
 
-    const logoSrc = typeof broker.logo === 'string' ? broker.logo : null;
+    let logoSrc = typeof broker.logo === 'string' ? broker.logo : null;
+    if (logoSrc && (logoSrc.includes('logo-light') || broker.id === 'newera')) {
+        logoSrc = '/assets/images/logo-light1.webp';
+    }
     const name = broker.name || broker.title || 'Partner Platform';
     const subtitle = broker.subtitle || broker.badge || broker.category || 'Trading Infrastructure';
     const websiteUrl = broker.websiteUrl || broker.href || '#';
@@ -58,7 +63,7 @@ export default function BrokerDetailModal({ broker, onClose, onSyncClick }) {
                     <div className={styles.logoRow}>
                         {logoSrc ? (
                             <div className={styles.logoWrapper}>
-                                <img src={logoSrc} alt={name} style={{ filter: 'brightness(1.4)' }} />
+                                <img src={logoSrc} alt={name} />
                             </div>
                         ) : (
                             <div className={styles.logoWrapper}>{broker.logo}</div>

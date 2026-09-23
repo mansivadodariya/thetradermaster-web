@@ -3,15 +3,20 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import styles from './tradingDesk.module.scss';
 import LineText from '@/components/lineText';
+import Button from '@/components/button';
+import { useRouter } from 'next/navigation';
+import { authNavigate } from '@/lib/authRedirect';
 import { useLanguage } from '@/context/LanguageContext';
 
 const MessageIcon = '/assets/icons/message.svg';
 const TechnicalIcon = '/assets/icons/Technical.svg';
 const StructuredIcon = '/assets/icons/Structured.svg';
 const BuiltIcon = '/assets/icons/Built.svg';
+const ArrowIcon = '/assets/icons/arrow.svg';
 const DeskImage = '/assets/images/desk-main-image.png';
 
 export default function TradingDesk() {
+    const router = useRouter();
     const { t } = useLanguage();
 
     const containerVariants = {
@@ -190,17 +195,11 @@ export default function TradingDesk() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
                             >
-                                <motion.button 
-                                    className={styles.ctaButton}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    <span>{t('home.startAskingNow', 'Start Asking Now')}</span>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04100B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </motion.button>
+                                <Button 
+                                    text={t('home.startAskingNow', 'Start Asking Now')}
+                                    icon={ArrowIcon}
+                                    onClick={() => authNavigate(router, '/ai-chat')}
+                                />
                                 <span className={styles.ctaTagline}>
                                     SMART INSIGHTS | LOWER RISK | BETTER TRADES
                                 </span>

@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import styles from './aiStrategyPage.module.scss';
 import LineText from '@/components/lineText';
@@ -34,6 +33,7 @@ export default function AiStrategyPage() {
     return (
         <div className={styles.aiStrategyPage}>
             <div className='container-xs'>
+                {/* Header Title Section */}
                 <motion.div 
                     className={styles.titleWrapper}
                     initial={{ opacity: 0, y: 20 }}
@@ -47,13 +47,13 @@ export default function AiStrategyPage() {
                             <span className={styles.neonText}>{t('aiStrategy.titlePart2', 'TECHNICAL INTELLIGENCE')}</span>
                         </h1>
                         <p>
-                            {t('aiStrategy.subtitle', 'Scan currency pairs and spot metals with automated multi-timeframe indicator confluence, quantitative technical scoring, and structured AI signal reasoning.')}
+                            {t('aiStrategy.subtitleExpanded', 'Architect institutional-grade quantitative strategies for Forex, Spot Gold (XAUUSD), Indices, and Crypto. Combine multi-timeframe EMA trend filters, Smart Money Concepts (SMC) order blocks, RSI/MACD momentum alignment, and automated risk parameters into executable backtested signals.')}
                         </p>
                     </div>
                 </motion.div>
 
                 <div className={styles.promptWrapper}>
-                    {/* Hero Banner Showcase */}
+                    {/* Hero Showcase Banner */}
                     <motion.div
                         className={styles.bannerBox}
                         initial={{ opacity: 0, y: 30 }}
@@ -62,12 +62,17 @@ export default function AiStrategyPage() {
                         transition={{ duration: 0.6 }}
                     >
                         <div className={styles.boxContent}>
-                            <LineText text={t('nav.aiStrategy', 'AI Strategy Builder')} start />
-                            <h3>{t('aiStrategy.builderTitle', 'Turn Market Concepts into Executable Trading Strategies')}</h3>
+                            <LineText text={t('nav.aiStrategy', 'AI Strategy Builder Engine')} start />
+                            <h3>{t('aiStrategy.builderTitleExpanded', 'Turn Market Concepts & Technical Indicators into Executable Trading Strategies')}</h3>
                             <p>
-                                {t('aiStrategy.builderDesc', 'Describe your rules, technical indicators, or risk parameters. Get automated strategy signals, backtest reports, and direct MT5 integration.')}
+                                {t('aiStrategy.builderDescExpanded', 'Transform discretionary rules, technical setups, or risk parameters into automated quantitative algorithms. Trader Master AI generates precise entry/exit logic, multi-timeframe confluence scoring, backtest expectancy metrics, and direct MetaTrader 5 (MT5) execution signals.')}
                             </p>
-                            <Button icon={ArrowIcon} text={t('aiStrategy.generateBtn', 'Try AI Strategy Now')} onClick={() => authNavigate(router, '/dashboard')} />
+                            
+                            <Button 
+                                icon={ArrowIcon} 
+                                text={t('aiStrategy.generateBtn', 'Try AI Strategy Builder Now')} 
+                                onClick={() => authNavigate(router, '/dashboard')} 
+                            />
                         </div>
                         <div className={styles.boxImage}>
                             <img src={StratagyImage} alt="Strategy Builder Showcase" />
@@ -77,14 +82,15 @@ export default function AiStrategyPage() {
                         </div>
                     </motion.div>
 
-                    {/* Features Cards Grid */}
+                    {/* Features Cards Grid (6 Cards) */}
                     <motion.div 
                         className={styles.cardsGrid}
                         variants={containerVariants}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
+                        viewport={{ once: true, amount: 0.15 }}
                     >
+                        {/* Card 1 */}
                         <motion.div
                             className={styles.card}
                             variants={itemVariants}
@@ -101,13 +107,14 @@ export default function AiStrategyPage() {
                                 </div>
                                 <h3>{t('aiStrategy.liveAnalysisTitle', 'Multi-Pair Live Watchlist')}</h3>
                             </div>
-                            <p>{t('aiStrategy.liveAnalysisSubtitle', 'Track real-time prices, pip changes, and active strategy signals across 28 currency pairs and spot metals.')}</p>
+                            <p>{t('aiStrategy.liveAnalysisSubtitleExpanded', 'Track real-time prices, pip shifts, and active AI strategy signals across 28 Forex currency pairs, Spot Gold (XAUUSD), Silver, and Major Crypto pairs.')}</p>
                             <div className={styles.arrowLink}>
-                                <span>{t('common.explore', 'Explore Watchlist')}</span>
+                                <span>{t('common.exploreWatchlist', 'Explore Watchlist')}</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                             </div>
                         </motion.div>
 
+                        {/* Card 2 */}
                         <motion.div
                             className={styles.card}
                             variants={itemVariants}
@@ -123,13 +130,14 @@ export default function AiStrategyPage() {
                                 </div>
                                 <h3>{t('tradeSnap.confidenceScore', 'Quantitative Technical Score')}</h3>
                             </div>
-                            <p>{t('aiStrategy.quantScoreDesc', 'Get a weighted 0-100 score analyzing Trend, Momentum, Volume pressure, and Pivots across multiple timeframes.')}</p>
+                            <p>{t('aiStrategy.quantScoreDescExpanded', 'Instantly evaluate weighted technical health scores (0-100) analyzing Trend, Momentum, Volume pressure, Pivots, and Volatility across M15, H1, H4, and Daily timeframes.')}</p>
                             <div className={styles.arrowLink}>
                                 <span>{t('common.viewScore', 'View Tech Score')}</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                             </div>
                         </motion.div>
 
+                        {/* Card 3 */}
                         <motion.div
                             className={styles.card}
                             variants={itemVariants}
@@ -147,15 +155,87 @@ export default function AiStrategyPage() {
                                 </div>
                                 <h3>{t('aiStrategy.strategyResults', 'AI Confluence & Evidence')}</h3>
                             </div>
-                            <p>{t('tradeSnap.analysisResult', 'Inspect structured bullish and bearish evidence bullets with detailed indicator actions, MACD, ADX, and pivot levels.')}</p>
+                            <p>{t('aiStrategy.confluenceDescExpanded', 'Inspect structured bullish and bearish evidence bullets with detailed indicator actions, MACD histogram shifts, ADX trend strength, and pivot levels.')}</p>
                             <div className={styles.arrowLink}>
                                 <span>{t('common.inspectConfluence', 'Inspect Confluence')}</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                             </div>
                         </motion.div>
+
+                        {/* Card 4: Smart Money Concepts */}
+                        <motion.div
+                            className={styles.card}
+                            variants={itemVariants}
+                            onClick={() => authNavigate(router, '/dashboard')}
+                            role="button"
+                            tabIndex={0}
+                        >
+                            <div className={styles.cardHeader}>
+                                <div className={styles.iconBox}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h3>{t('aiStrategy.smcTitle', 'SMC & Order Block Detection')}</h3>
+                            </div>
+                            <p>{t('aiStrategy.smcDesc', 'Automatically detect institutional order blocks, liquidity sweeps, fair value gaps (FVG), and break of structure (BOS) for high-probability precision entries.')}</p>
+                            <div className={styles.arrowLink}>
+                                <span>{t('common.exploreSMC', 'Explore SMC Signals')}</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 5: Backtest Expectancy */}
+                        <motion.div
+                            className={styles.card}
+                            variants={itemVariants}
+                            onClick={() => authNavigate(router, '/dashboard')}
+                            role="button"
+                            tabIndex={0}
+                        >
+                            <div className={styles.cardHeader}>
+                                <div className={styles.iconBox}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                                    </svg>
+                                </div>
+                                <h3>{t('aiStrategy.backtestTitle', 'Backtest Expectancy Reports')}</h3>
+                            </div>
+                            <p>{t('aiStrategy.backtestDesc', 'Review historical Win Rate %, Profit Factor, Max Drawdown curves, Sharpe Ratio, and Risk-to-Reward asymmetry tailored to your custom trading rules.')}</p>
+                            <div className={styles.arrowLink}>
+                                <span>{t('common.viewBacktests', 'View Backtest Analytics')}</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 6: MT5 & Webhook Distribution */}
+                        <motion.div
+                            className={styles.card}
+                            variants={itemVariants}
+                            onClick={() => authNavigate(router, '/dashboard')}
+                            role="button"
+                            tabIndex={0}
+                        >
+                            <div className={styles.cardHeader}>
+                                <div className={styles.iconBox}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
+                                </div>
+                                <h3>{t('aiStrategy.mt5Title', 'MT5 & Real-Time Alerts')}</h3>
+                            </div>
+                            <p>{t('aiStrategy.mt5Desc', 'Receive real-time push notifications, webhook signals, and direct MetaTrader 5 (MT5) order execution alerts the instant setup parameters align.')}</p>
+                            <div className={styles.arrowLink}>
+                                <span>{t('common.setupAlerts', 'Setup Signal Alerts')}</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                            </div>
+                        </motion.div>
                     </motion.div>
 
-                    {/* NEW SECTION 1: How AI Strategy Works (4-Step Workflow Grid) */}
+                    {/* SECTION 1: How AI Strategy Works (4-Step Workflow Grid) */}
                     <motion.div 
                         className={styles.workflowSection}
                         initial={{ opacity: 0, y: 30 }}
@@ -168,37 +248,37 @@ export default function AiStrategyPage() {
                                 {t('aiStrategy.workflowTitlePart1', 'How AI Strategy')}{' '}
                                 <span className={styles.neonText}>{t('aiStrategy.workflowTitlePart2', 'Generation Works')}</span>
                             </h2>
-                            <p>{t('aiStrategy.workflowSubtitle', 'Transform raw trading ideas into backtested, quantitative strategies in 4 simple steps.')}</p>
+                            <p>{t('aiStrategy.workflowSubtitleExpanded', 'Transform raw trading ideas and discretionary rules into backtested, quantitative strategies in 4 simple steps.')}</p>
                         </div>
 
                         <div className={styles.workflowGrid}>
                             <div className={styles.stepCard}>
                                 <div className={styles.stepNum}>01</div>
-                                <h3>{t('aiStrategy.step1Title', 'Define Rules & Indicators')}</h3>
-                                <p>{t('aiStrategy.step1Desc', 'Specify your indicators (RSI, EMA, MACD, SMC), entry triggers, and stop-loss/take-profit parameters.')}</p>
+                                <h3>{t('aiStrategy.step1TitleExpanded', 'Define Rules & Indicators')}</h3>
+                                <p>{t('aiStrategy.step1DescExpanded', 'Specify custom indicator parameters (EMA 20/50/200, RSI 14 divergence, MACD crossovers, SMC Order Blocks), entry triggers, and fixed/dynamic Stop-Loss and Take-Profit ratios.')}</p>
                             </div>
 
                             <div className={styles.stepCard}>
                                 <div className={styles.stepNum}>02</div>
-                                <h3>{t('aiStrategy.step2Title', 'Automated Confluence Scan')}</h3>
-                                <p>{t('aiStrategy.step2Desc', 'Trader Master AI scans 28 currency pairs and spot metals for technical alignment across H1, H4, and Daily.')}</p>
+                                <h3>{t('aiStrategy.step2TitleExpanded', 'Automated Confluence Scan')}</h3>
+                                <p>{t('aiStrategy.step2DescExpanded', 'Trader Master AI continuously monitors 28 currency pairs, Spot Gold (XAUUSD), and major assets for multi-timeframe alignment across M15, H1, H4, and Daily charts.')}</p>
                             </div>
 
                             <div className={styles.stepCard}>
                                 <div className={styles.stepNum}>03</div>
-                                <h3>{t('aiStrategy.step3Title', 'Backtest & Risk Metrics')}</h3>
-                                <p>{t('aiStrategy.step3Desc', 'Review historical Win Rate, Profit Factor, Max Drawdown, and Risk-to-Reward ratio breakdown.')}</p>
+                                <h3>{t('aiStrategy.step3TitleExpanded', 'Backtest & Risk Metrics')}</h3>
+                                <p>{t('aiStrategy.step3DescExpanded', 'Instantly view comprehensive performance analytics including historical Win Rate %, Profit Factor (PF), Maximum Drawdown (DD), Profit Expectancy per trade, and Kelly Criterion lot scaling.')}</p>
                             </div>
 
                             <div className={styles.stepCard}>
                                 <div className={styles.stepNum}>04</div>
-                                <h3>{t('aiStrategy.step4Title', 'MT5 Direct Execution')}</h3>
-                                <p>{t('aiStrategy.step4Desc', 'Connect strategy signals directly to your MetaTrader 5 account context for real-time trade alerts.')}</p>
+                                <h3>{t('aiStrategy.step4TitleExpanded', 'MT5 Direct Execution')}</h3>
+                                <p>{t('aiStrategy.step4DescExpanded', 'Connect your generated strategy directly to MetaTrader 5 (MT5) for real-time webhooks, live signal alerts, and instant execution notifications whenever market setups occur.')}</p>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* NEW SECTION 2: Sample Strategy Performance Card */}
+                    {/* SECTION 2: Sample Strategy Performance Cards (2 Cards) */}
                     <motion.div 
                         className={styles.sampleStrategySection}
                         initial={{ opacity: 0, y: 30 }}
@@ -211,43 +291,79 @@ export default function AiStrategyPage() {
                                 {t('aiStrategy.sampleTitlePart1', 'Generated Strategy')}{' '}
                                 <span className={styles.neonText}>{t('aiStrategy.sampleTitlePart2', 'Performance Metrics')}</span>
                             </h2>
-                            <p>{t('aiStrategy.sampleSubtitle', 'Example quantitative breakdown generated by Trader Master AI for EUR/USD.')}</p>
+                            <p>{t('aiStrategy.sampleSubtitleExpanded', 'Example quantitative breakdowns generated by Trader Master AI for active market pairs.')}</p>
                         </div>
 
-                        <div className={styles.strategyMetricsCard}>
-                            <div className={styles.cardTopRow}>
-                                <div>
-                                    <span className={styles.pairBadge}>EUR/USD • H4 Timeframe</span>
-                                    <h3>MACD + SMC Order Block Breakout</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                            {/* Strategy Card 1 */}
+                            <div className={styles.strategyMetricsCard}>
+                                <div className={styles.cardTopRow}>
+                                    <div>
+                                        <span className={styles.pairBadge}>EUR/USD • H4 Timeframe</span>
+                                        <h3>MACD + SMC Order Block Breakout</h3>
+                                    </div>
+                                    <div className={styles.scorePill}>
+                                        <span className={styles.scoreVal}>88/100</span>
+                                        <span className={styles.scoreLabel}>High Confluence</span>
+                                    </div>
                                 </div>
-                                <div className={styles.scorePill}>
-                                    <span className={styles.scoreVal}>84/100</span>
-                                    <span className={styles.scoreLabel}>High Confluence</span>
+
+                                <div className={styles.metricsGrid}>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Win Rate</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>78.4%</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Profit Factor</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>2.85</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Max Drawdown</span>
+                                        <span className={styles.mVal}>4.2%</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Avg Risk / Reward</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>1 : 3.2</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className={styles.metricsGrid}>
-                                <div className={styles.metricItem}>
-                                    <span className={styles.mLabel}>Win Rate</span>
-                                    <span className={`${styles.mVal} ${styles.green}`}>78.4%</span>
+                            {/* Strategy Card 2 */}
+                            <div className={styles.strategyMetricsCard}>
+                                <div className={styles.cardTopRow}>
+                                    <div>
+                                        <span className={styles.pairBadge}>XAU/USD (Gold) • H1 Timeframe</span>
+                                        <h3>EMA Pullback & Volatility Expansion</h3>
+                                    </div>
+                                    <div className={styles.scorePill}>
+                                        <span className={styles.scoreVal}>92/100</span>
+                                        <span className={styles.scoreLabel}>Top Rated</span>
+                                    </div>
                                 </div>
-                                <div className={styles.metricItem}>
-                                    <span className={styles.mLabel}>Profit Factor</span>
-                                    <span className={`${styles.mVal} ${styles.green}`}>2.85</span>
-                                </div>
-                                <div className={styles.metricItem}>
-                                    <span className={styles.mLabel}>Max Drawdown</span>
-                                    <span className={styles.mVal}>4.2%</span>
-                                </div>
-                                <div className={styles.metricItem}>
-                                    <span className={styles.mLabel}>Avg Risk / Reward</span>
-                                    <span className={`${styles.mVal} ${styles.green}`}>1 : 3.2</span>
+
+                                <div className={styles.metricsGrid}>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Win Rate</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>74.1%</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Profit Factor</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>2.62</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Max Drawdown</span>
+                                        <span className={styles.mVal}>5.1%</span>
+                                    </div>
+                                    <div className={styles.metricItem}>
+                                        <span className={styles.mLabel}>Avg Risk / Reward</span>
+                                        <span className={`${styles.mVal} ${styles.green}`}>1 : 2.8</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* NEW SECTION 3: CTA Section */}
+                    {/* SECTION 3: CTA Section */}
                     <motion.div 
                         className={styles.ctaCard}
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -256,18 +372,13 @@ export default function AiStrategyPage() {
                         transition={{ duration: 0.5 }}
                     >
                         <div className={styles.ctaContent}>
-                            <h2>{t('aiStrategy.ctaTitle', 'Build Your Custom AI Strategy Today')}</h2>
-                            <p>{t('aiStrategy.ctaDesc', 'Empower your trading with automated quantitative rules, technical confluence, and live signal tracking.')}</p>
-                            <button 
-                                className={styles.ctaBtn} 
+                            <h2>{t('aiStrategy.ctaTitleExpanded', 'Build & Deploy Your Custom AI Strategy Engine Today')}</h2>
+                            <p>{t('aiStrategy.ctaDescExpanded', 'Empower your trading with automated quantitative rules, institutional confluence scoring, and live MT5 signal alerts.')}</p>
+                            <Button 
+                                icon={ArrowIcon}
+                                text={t('aiStrategy.startBuildingNow', 'Generate AI Strategy Now')}
                                 onClick={() => authNavigate(router, '/dashboard')}
-                            >
-                                <span>{t('aiStrategy.startBuildingNow', 'Generate Strategy Now')}</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04100B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
+                            />
                         </div>
                     </motion.div>
                 </div>
@@ -275,4 +386,3 @@ export default function AiStrategyPage() {
         </div>
     );
 }
-

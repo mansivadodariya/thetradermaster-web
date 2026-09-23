@@ -274,7 +274,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
         };
     }, [activeUserId, hasExistingLink, welcomeAwarded, loading, syncCredits]);
 
-    const logoSrc = theme === 'dark' ? '/assets/icons/Img1.svg' : '/assets/images/LightNewera.png';
+    const logoSrc = '/assets/images/logo-light1.webp';
 
     const handleLoginChange = (e) => {
         const val = e.target.value.replace(/\D/g, '');
@@ -402,8 +402,11 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                 <>
                                     <h2 id="modal-title" className={styles.title}>
                                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="10" fill="#DC2626" />
-                                            <path d="M12 7v6M12 16.5h.01" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M20 12v10H4V12" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            <path d="M22 7H2v5h20V7z" fill="rgba(0, 255, 136, 0.2)" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            <path d="M12 22V7" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                         <span>{t('neweraModal.welcomeBonus', 'Welcome Bonus')}</span>
                                     </h2>

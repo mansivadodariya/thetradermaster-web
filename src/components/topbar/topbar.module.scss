@@ -4,8 +4,8 @@
 .topbar {
     height: 65px;
     box-sizing: border-box;
-    border-bottom: 1px solid #E4E4E4;
-    background: #FFF;
+    border-bottom: 1px solid #E2E8F0;
+    background: #FFFFFF;
     padding: 0 16px;
     display: flex;
     align-items: center;
@@ -21,7 +21,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: #1A1A1A;
+            color: #059669;
             padding: 8px;
             margin-left: -8px;
             margin-right: 8px;
@@ -46,9 +46,11 @@
             min-height: 40px;
             box-sizing: border-box;
             gap: 6px;
-            background: $primary;
+            background: #ECFDF5;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
             padding: 0 14px;
-            color: #fff;
+            color: #059669;
             font-size: 15px;
             font-weight: 600;
             white-space: nowrap;
@@ -66,7 +68,7 @@
                 right: -30%;
                 width: 40px;
                 height: 160%;
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(16, 185, 129, 0.2);
                 filter: blur(10px);
                 animation: shine 2s infinite;
             }
@@ -77,8 +79,10 @@
         }
 
         .bell {
-            border: 1px solid #D5E1F8;
-            background: #F5F8FE;
+            border: 1px solid #E2E8F0;
+            background: #F8FAFC;
+            color: #059669;
+            border-radius: 8px;
             width: 42px;
             height: 42px;
             display: flex;
@@ -89,12 +93,14 @@
         .line {
             width: 1px;
             height: 23px;
-            background: #E4E4E4;
+            background: #E2E8F0;
         }
 
         .profileSection {
             position: relative;
-            background-color: rgba(16,185,129,0.09);
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
             padding: 8px 18px 8px 8px;
         }
 
@@ -111,7 +117,7 @@
                 gap: 18px;
 
                 p {
-                    color: #1A1A1A;
+                    color: #0F172A;
                     font-size: 16px;
                     font-weight: 600;
                     line-height: normal;
@@ -344,31 +350,39 @@
 .confirmOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(2, 14, 10, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
 .confirmBox {
-    background: #fff;
-    border-radius: 12px;
-    padding: 28px 32px;
-    min-width: 320px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(145deg, rgba(6, 26, 18, 0.96) 0%, rgba(3, 16, 11, 0.98) 100%);
+    border: 1px solid rgba(0, 255, 136, 0.28);
+    border-radius: 20px;
+    padding: 32px 36px;
+    min-width: 360px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 255, 136, 0.15);
 
     h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1A1A1A;
+        font-size: 20px;
+        font-weight: 800;
+        color: #FFFFFF;
         margin: 0 0 8px;
+        letter-spacing: -0.01em;
     }
 
     p {
-        font-size: 14px;
-        color: rgba(26, 26, 26, 0.65);
-        margin: 0 0 24px;
+        font-size: 14.5px;
+        color: rgba(255, 255, 255, 0.75);
+        margin: 0 0 26px;
+        line-height: 22px;
     }
 }
 
@@ -378,29 +392,37 @@
     justify-content: flex-end;
 
     button {
-        padding: 9px 20px;
-        border-radius: 8px;
+        padding: 10px 22px;
+        border-radius: 10px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         border: none;
         font-family: inherit;
-        transition: opacity 0.15s ease;
-
-        &:hover {
-            opacity: 0.85;
-        }
+        transition: all 0.2s ease;
     }
 }
 
 .cancelBtn {
-    background: #F1F5FC;
-    color: $primary;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
 }
 
 .logoutBtn {
-    background: #E74C3C;
-    color: #fff;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45);
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(239, 68, 68, 0.6);
+    }
 }
 
 .themeToggle {
@@ -433,30 +455,43 @@
 
 :global(.dark) {
     .topbar {
-        background: #0f0f11;
-        border-bottom-color: #2d2d34;
+        background: #092016;
+        border-bottom-color: rgba(0, 255, 136, 0.15);
 
         .left .menuBtn {
-            color: #f3f4f6;
+            color: #00FF88;
+        }
+
+        .credits {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: rgba(0, 255, 136, 0.3);
+            color: #00FF88;
+        }
+
+        .bell {
+            background: #061A12;
+            border-color: rgba(0, 255, 136, 0.2);
+            color: #00FF88;
         }
 
         .themeToggle {
-            border-color: rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
+            border-color: rgba(0, 255, 136, 0.25);
+            background: #061A12;
+            color: #00FF88;
 
             &:hover {
-                background: rgba(255, 255, 255, 0.12);
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+                background: rgba(0, 255, 136, 0.15);
+                box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
             }
         }
 
         .line {
-            background: #2d2d34;
+            background: rgba(0, 255, 136, 0.15);
         }
 
         .profileSection {
-            background-color: rgba(255, 255, 255, 0.04);
+            background-color: rgba(0, 255, 136, 0.08);
+            border-color: rgba(0, 255, 136, 0.15);
         }
 
         .profile {
@@ -465,13 +500,13 @@
                     color: #ffffff;
                 }
                 span {
-                    color: rgba(255, 255, 255, 0.5);
+                    color: rgba(255, 255, 255, 0.6);
                 }
             }
         }
 
         .dropdown {
-            background: #1a1a1e;
+            background: #061A12;
             border-color: #2d2d34;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 
@@ -506,25 +541,31 @@
         }
 
         .confirmOverlay {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(2, 14, 10, 0.82);
+            backdrop-filter: blur(12px);
         }
 
         .confirmBox {
-            background: #1a1a1e;
-            border: 1px solid #2d2d34;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(145deg, rgba(6, 26, 18, 0.98) 0%, rgba(3, 16, 11, 0.99) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 255, 136, 0.18);
 
             h3 {
                 color: #ffffff;
             }
             p {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(255, 255, 255, 0.75);
             }
         }
 
         .cancelBtn {
-            background: #252529;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             color: #ffffff;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.16);
+            }
         }
     }
 }

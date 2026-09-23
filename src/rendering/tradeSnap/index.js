@@ -4,11 +4,10 @@ import { motion } from 'framer-motion';
 import styles from './tradeSnap.module.scss';
 import HistoryButton from '@/components/historyButton';
 import { analyzeTradeScreenshots, dataUrlToBlob, extractTradesFromPayload } from '@/lib/tradeSnapApi';
+import { tradeSnapApi } from '@/lib/api';
 import { getStoredUserId } from '@/lib/authSession';
 import { toast } from '@/components/toast';
-import { notifyCreditsUpdated } from '@/lib/credits';
-import { tradeSnapApi } from '@/lib/api';
-import { historyDeletes } from '@/lib/historyDeletes';
+import { CREDITS_UPDATED_EVENT, refreshCreditsFromServer } from '@/lib/credits';
 import AnalysisResultItem from './AnalysisResultItem';
 import NextScreenshotTimer from './NextScreenshotTimer';
 import Modal from './Modal';
@@ -25,6 +24,12 @@ import {
     ClockIcon,
     LiveIcon,
     UploadIcon,
+    TargetIcon,
+    BarChartIcon,
+    BrainIcon,
+    CoinsIcon,
+    LowerTfIcon,
+    HigherTfIcon,
 } from './icons';
 
 const AUTO_CAPTURE_OPTIONS = [
@@ -51,6 +56,32 @@ export default function TradeSnap() {
     const { t } = useLanguage();
     const [activeTab, setActiveTab] = useState('single');
     const [error, setError] = useState(null);
+
+    // User credits & timeframe selects
+    const [userCredits, setUserCredits] = useState(0);
+    const [tfLower, setTfLower] = useState('5m');
+    const [tfHigher, setTfHigher] = useState('1h');
+
+    useEffect(() => {
+        refreshCreditsFromServer().then((val) => {
+            if (val !== null && val !== undefined) setUserCredits(val);
+        });
+
+        const onCreditsUpdated = (e) => {
+            const next = e?.detail?.available_credits;
+            if (next !== undefined && next !== null) {
+                setUserCredits(next);
+            }
+        };
+        if (typeof window !== 'undefined') {
+            window.addEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+        }
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+            }
+        };
+    }, []);
 
     // Single mode
     const [isSharing, setIsSharing] = useState(false);
@@ -624,15 +655,15 @@ export default function TradeSnap() {
         <div className={styles.videoPlaceholder}>
             <MonitorIcon className={styles.placeholderIcon} />
             <h3>
-                {sharing 
-                    ? loadingText 
+                {sharing
+                    ? loadingText
                     : (isScreenShareSupported ? t('tradeSnap.noScreenSharing', 'No screen sharing active') : t('tradeSnap.screenShareNotSupported', 'Screen sharing not supported'))}
             </h3>
             <p>
-                {sharing 
-                    ? t('tradeSnap.waitScreenLoading', 'Please wait while we load your screen') 
-                    : (isScreenShareSupported 
-                        ? t('tradeSnap.clickStartSharing', 'Click "Start Sharing" to begin') 
+                {sharing
+                    ? t('tradeSnap.waitScreenLoading', 'Please wait while we load your screen')
+                    : (isScreenShareSupported
+                        ? t('tradeSnap.clickStartSharing', 'Click "Start Sharing" to begin')
                         : t('tradeSnap.desktopRequiredDesc', 'Screen sharing is not supported on mobile Safari or iOS devices. Please open on desktop Chrome, Edge, or Mac Safari.'))}
             </p>
         </div>
@@ -678,16 +709,22 @@ export default function TradeSnap() {
         <div className={styles.tradeSnap}>
             <div className={styles.title}>
                 <div className={styles.titleRow}>
-                    <div>
-                        <h2>{t('nav.aiTrade', 'AI Trade')}</h2>
+                    <div className={styles.titleHead}>
+                        <h2>
+                            <span>AI</span> Trade
+                        </h2>
                         <p>
                             {t('tradeSnap.subtitle', 'Capture your screen, analyze chart movements, and get AI trade insights with single or multi-timeframe views.')}
                         </p>
                     </div>
-                    <HistoryButton
-                        text={t('tradeSnap.history', 'History')}
-                        onClick={openHistory}
-                    />
+
+
+                    <div className={styles.headerActions}>
+                        <HistoryButton
+                            text={t('tradeSnap.history', 'History')}
+                            onClick={openHistory}
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -710,7 +747,6 @@ export default function TradeSnap() {
                     <ChartIcon />
                     {t('tradeSnap.multiTimeframe', 'Multi Timeframe')}
                 </button>
-
             </div>
 
             <div className={`${styles.workspace} ${activeTab === 'multi' ? styles.workspaceMulti : ''}`}>
@@ -718,19 +754,21 @@ export default function TradeSnap() {
                     {activeTab === 'single' ? (
                         <div className={styles.panel}>
                             <div className={styles.panelHeader}>
-                                <h3>
-                                    {isSharing ? (
-                                        <>
-                                            <LiveIcon />
-                                            {t('tradeSnap.liveScreenShare', 'Live Screen Share')}
-                                        </>
-                                    ) : (
-                                        <>
-                                            <MonitorOffIcon />
-                                            {t('tradeSnap.screenPreview', 'Screen Preview')}
-                                        </>
-                                    )}
-                                </h3>
+                                <div className={styles.panelTitleGroup}>
+                                    <h3>
+                                        {isSharing ? (
+                                            <>
+                                                <LiveIcon />
+                                                {t('tradeSnap.liveScreenShare', 'Live Screen Share')}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <MonitorOffIcon />
+                                                {t('tradeSnap.screenPreview', 'Screen Preview')}
+                                            </>
+                                        )}
+                                    </h3>
+                                </div>
                                 {isSharing &&
                                     renderAutoCaptureSelect(
                                         'auto-capture-single',
@@ -785,32 +823,49 @@ export default function TradeSnap() {
                         <div className={styles.multiGrid}>
                             <div className={styles.panel}>
                                 <div className={styles.panelHeader}>
-                                    <h3>
-                                        {isSharing ? (
-                                            <span className={styles.liveDot}>{t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}</span>
-                                        ) : (
-                                            <>
-                                                <MonitorOffIcon />
-                                                {t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}
-                                            </>
-                                        )}
-                                    </h3>
-                                    {isSharing &&
-                                        renderAutoCaptureSelect(
-                                            'auto-capture-1',
-                                            autoCaptureInterval1,
-                                            (v) => {
-                                                setAutoCaptureInterval1(v);
-                                                if (v) captureScreenshot1();
-                                            },
-                                            AUTO_CAPTURE_OPTIONS_MULTI_LOW
-                                        )}
+                                    <div className={styles.panelTitleGroup}>
+                                        <h3>
+                                            {isSharing ? (
+                                                <span className={styles.liveDot}>{t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}</span>
+                                            ) : (
+                                                <>
+                                                    <LowerTfIcon />
+                                                    {t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}
+                                                </>
+                                            )}
+                                        </h3>
+                                        <p>{t('tradeSnap.lowerTfDesc', 'Short-term price action for precise entry and exit points.')}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                        <select
+                                            className={styles.tfSelectDropdown}
+                                            value={tfLower}
+                                            onChange={(e) => setTfLower(e.target.value)}
+                                            aria-label="Lower Timeframe Select"
+                                        >
+                                            <option value="1m">1m</option>
+                                            <option value="3m">3m</option>
+                                            <option value="5m">5m</option>
+                                            <option value="15m">15m</option>
+                                            <option value="30m">30m</option>
+                                        </select>
+                                        {isSharing &&
+                                            renderAutoCaptureSelect(
+                                                'auto-capture-1',
+                                                autoCaptureInterval1,
+                                                (v) => {
+                                                    setAutoCaptureInterval1(v);
+                                                    if (v) captureScreenshot1();
+                                                },
+                                                AUTO_CAPTURE_OPTIONS_MULTI_LOW
+                                            )}
+                                    </div>
                                 </div>
                                 <div className={styles.videoFrame}>
                                     {isSharing && stream ? (
                                         <video ref={videoRef} autoPlay muted playsInline className={styles.video} />
                                     ) : (
-                                        renderVideoPlaceholder(false, '')
+                                        renderVideoPlaceholder(false, '', false)
                                     )}
                                 </div>
                                 <div className={styles.panelActions}>
@@ -827,14 +882,14 @@ export default function TradeSnap() {
                                                     endTime={nextScreenshotEndTime1}
                                                 />
                                             ) : (
-                                                <button type="button" className={styles.btnPrimary} onClick={captureScreenshot1}>
+                                                <button type="button" className={styles.btnPrimaryWide} onClick={captureScreenshot1}>
                                                     <CameraIcon />
                                                     {t('tradeSnap.capture', 'Capture')}
                                                 </button>
                                             )}
                                         </>
                                     ) : (
-                                        <button type="button" className={styles.btnPrimary} onClick={startScreenShare}>
+                                        <button type="button" className={styles.btnPrimaryWide} onClick={startScreenShare}>
                                             <PlayIcon />
                                             {t('tradeSnap.startSharing', 'Start Sharing')}
                                         </button>
@@ -844,32 +899,48 @@ export default function TradeSnap() {
 
                             <div className={styles.panel}>
                                 <div className={styles.panelHeader}>
-                                    <h3>
-                                        {isSharing2 ? (
-                                            <span className={styles.liveDot}>{t('tradeSnap.higherTimeframe', 'Higher Timeframe')}</span>
-                                        ) : (
-                                            <>
-                                                <MonitorOffIcon />
-                                                {t('tradeSnap.higherTimeframe', 'Higher Timeframe')}
-                                            </>
-                                        )}
-                                    </h3>
-                                    {isSharing2 &&
-                                        renderAutoCaptureSelect(
-                                            'auto-capture-2',
-                                            autoCaptureInterval2,
-                                            (v) => {
-                                                setAutoCaptureInterval2(v);
-                                                if (v) captureScreenshot2();
-                                            },
-                                            AUTO_CAPTURE_OPTIONS_MULTI_LOW
-                                        )}
+                                    <div className={styles.panelTitleGroup}>
+                                        <h3>
+                                            {isSharing2 ? (
+                                                <span className={styles.liveDot}>{t('tradeSnap.higherTimeframe', 'Higher Timeframe')}</span>
+                                            ) : (
+                                                <>
+                                                    <HigherTfIcon />
+                                                    {t('tradeSnap.higherTimeframe', 'Higher Timeframe')}
+                                                </>
+                                            )}
+                                        </h3>
+                                        <p>{t('tradeSnap.higherTfDesc', 'Long-term trend view for better trade decisions.')}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                        <select
+                                            className={styles.tfSelectDropdown}
+                                            value={tfHigher}
+                                            onChange={(e) => setTfHigher(e.target.value)}
+                                            aria-label="Higher Timeframe Select"
+                                        >
+                                            <option value="1h">1h</option>
+                                            <option value="4h">4h</option>
+                                            <option value="1d">1d</option>
+                                            <option value="1w">1w</option>
+                                        </select>
+                                        {isSharing2 &&
+                                            renderAutoCaptureSelect(
+                                                'auto-capture-2',
+                                                autoCaptureInterval2,
+                                                (v) => {
+                                                    setAutoCaptureInterval2(v);
+                                                    if (v) captureScreenshot2();
+                                                },
+                                                AUTO_CAPTURE_OPTIONS_MULTI_LOW
+                                            )}
+                                    </div>
                                 </div>
                                 <div className={styles.videoFrame}>
                                     {isSharing2 && stream2 ? (
                                         <video ref={videoRef2} autoPlay muted playsInline className={styles.video} />
                                     ) : (
-                                        renderVideoPlaceholder(false, '')
+                                        renderVideoPlaceholder(false, '', true)
                                     )}
                                 </div>
                                 <div className={styles.panelActions}>
@@ -886,14 +957,14 @@ export default function TradeSnap() {
                                                     endTime={nextScreenshotEndTime2}
                                                 />
                                             ) : (
-                                                <button type="button" className={styles.btnPrimary} onClick={captureScreenshot2}>
+                                                <button type="button" className={styles.btnPrimaryWide} onClick={captureScreenshot2}>
                                                     <CameraIcon />
                                                     {t('tradeSnap.capture', 'Capture')}
                                                 </button>
                                             )}
                                         </>
                                     ) : (
-                                        <button type="button" className={styles.btnPrimary} onClick={startScreenShare2}>
+                                        <button type="button" className={styles.btnPrimaryWide} onClick={startScreenShare2}>
                                             <PlayIcon />
                                             {t('tradeSnap.startSharing', 'Start Sharing')}
                                         </button>
@@ -1010,6 +1081,36 @@ export default function TradeSnap() {
                         </div>
                     </div>
                 )}
+            </div>
+
+            <div className={styles.featureCardsSection}>
+                <div className={styles.featureCard}>
+                    <div className={styles.featureIconBox}>
+                        <TargetIcon />
+                    </div>
+                    <div className={styles.featureContent}>
+                        <h4>{t('tradeSnap.feature1Title', 'Capture & Analyze')}</h4>
+                        <p>{t('tradeSnap.feature1Desc', 'Share your chart and get instant AI analysis with key levels, trend, and signals.')}</p>
+                    </div>
+                </div>
+                <div className={styles.featureCard}>
+                    <div className={styles.featureIconBox}>
+                        <BarChartIcon />
+                    </div>
+                    <div className={styles.featureContent}>
+                        <h4>{t('tradeSnap.feature2Title', 'Multi-Timeframe Insights')}</h4>
+                        <p>{t('tradeSnap.feature2Desc', 'Analyze both short-term and long-term charts for better accuracy.')}</p>
+                    </div>
+                </div>
+                <div className={styles.featureCard}>
+                    <div className={styles.featureIconBox}>
+                        <BrainIcon />
+                    </div>
+                    <div className={styles.featureContent}>
+                        <h4>{t('tradeSnap.feature3Title', 'Trade Smarter')}</h4>
+                        <p>{t('tradeSnap.feature3Desc', 'Make data-driven decisions with AI-powered insights.')}</p>
+                    </div>
+                </div>
             </div>
 
             <Modal

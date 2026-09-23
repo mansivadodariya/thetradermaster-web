@@ -1,8 +1,8 @@
 {
   "nav": {
     "home": "Tahanan",
-    "aiTrade": "AI Trade",
-    "aiChat": "AI Chat",
+    "aiTrade": "AI Chart Scanner",
+    "aiChat": "AI Trade Assistant",
     "aiStrategy": "AI Diskarte",
     "aiStrategyDesc": "Bumuo, subukan at i-optimize ang mga diskarte sa pag-trade na pinapagana ng AI.",
     "liveAnalysis": "Live na Pagsusuri",
@@ -176,7 +176,7 @@
     "captureHigherTimeframe": "Kumuha ng mataas na timeframe"
   },
   "aiChat": {
-    "title": "AI Forex Assistant",
+    "title": "AI Trade Assistant",
     "subtitle": "Magtanong tungkol sa currency pairs, technical setups, balitang pang-ekonomiya, o pamamahala ng peligro.",
     "inputPlaceholder": "Magtanong sa AI tungkol sa anumang pair, indicator, o market setup...",
     "send": "Ipadala",

@@ -135,49 +135,44 @@ export default function Footer() {
                         </form>
                     </div>
 
-                    <div className={styles.linkcol}>
-                        <div className={styles.linkCol}>
-                            <h4>{t('footer.product', 'Product')}</h4>
-                            <ul>
-                                <li><Link href="/tradesnap">{t('nav.aiTrade', 'AI Trade')}</Link></li>
-                                <li><Link href="/ai-chat">{t('nav.aiChat', 'AI Chat')}</Link></li>
-                                <li><Link href="/ai-strategy">{t('nav.aiStrategy', 'AI Strategy')}</Link></li>
-                               
-                            </ul>
-                        </div>
+                    <div className={styles.rightCol}>
+                        <div className={styles.linkcol}>
+                            <div className={styles.linkCol}>
+                                <h4>{t('footer.product', 'Product')}</h4>
+                                <ul>
+                                    <li><Link href="/tradesnap">{t('nav.aiTrade', 'AI Chart Scanner')}</Link></li>
+                                    <li><Link href="/ai-chat">{t('nav.aiChat', 'AI Trade Assistant')}</Link></li>
+                                    <li><Link href="/ai-strategy">{t('nav.aiStrategy', 'AI Strategy')}</Link></li>
+                                    <li><Link href='/past-trade-analyzer'>{t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer')}</Link></li>
+                                </ul>
+                            </div>
 
-                        <div className={styles.linkCol}>
-                            <h4>{t('footer.company', 'Company')}</h4>
-                            <ul>
-                                <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
-                                <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>
-                                <li><Link href="/contact">{t('nav.contactUs', 'Contact Us')}</Link></li>
-                                <li><Link href="/#faq">{t('nav.faq', 'FAQ')}</Link></li>
-                            </ul>
-                        </div>
+                            <div className={styles.linkCol}>
+                                <h4>{t('footer.company', 'Company')}</h4>
+                                <ul>
+                                    <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
+                                    <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>
+                                    <li><Link href="/contact">{t('nav.contactUs', 'Contact Us')}</Link></li>
+                                    <li><Link href="/#faq">{t('nav.faq', 'FAQ')}</Link></li>
+                                </ul>
+                            </div>
 
-                        {/* <div className={styles.linkCol}>
-                            <h4>{t('footer.partners', 'Company')}</h4>
-                            <ul>
-                                <li>
-                                    <Link
-                                        href="https://fundedmaster.com/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="Funded Master"
-                                    >
-                                        {t('nav.fundedMaster', 'Funded Master')}
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div> */}
+                            <div className={styles.linkCol}>
+                                <h4>{t('footer.legal', 'Legal')}</h4>
+                                <ul>
+                                    <li><Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link></li>
+                                    <li><Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link></li>
+                                </ul>
+                            </div>
 
-                        <div className={styles.linkCol}>
-                            <h4>{t('footer.legal', 'Legal')}</h4>
-                            <ul>
-                                <li><Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link></li>
-                                <li><Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link></li>
-                            </ul>
+                            <div className={styles.linkCol}>
+                                <h4>{t('footer.social', 'Social')}</h4>
+                                <div className={styles.socialLinks}>
+                                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
+                                        <InstagramIcon />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,21 +189,6 @@ export default function Footer() {
                             {t('footer.riskPara6', 'This statement serves as a summary notice and does not replace our complete legal framework. For exhaustive details on our operating terms and risk warnings, please review our full ')}
                             <Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link> {t('common.and', 'and')} <Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link>.
                         </p>
-                    </div>
-
-                    <div className={styles.socialLinks}>
-                        {/* <a href="#" className={styles.socialIcon} aria-label="Facebook">
-                            <FacebookIcon />
-                        </a> */}
-                        {/* <a href="#" className={styles.socialIcon} aria-label="Pinterest">
-                            <PinterestIcon />
-                        </a> */}
-                        <a href="#" className={styles.socialIcon} aria-label="Instagram">
-                            <InstagramIcon />
-                        </a>
-                        {/* <a href="#" className={styles.socialIcon} aria-label="Website">
-                            <DribbbleIcon />
-                        </a> */}
                     </div>
                 </div>
             </div>

@@ -48,7 +48,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 955px;
+        max-width: 100%;
+        width: 100%;
         margin: 0 auto;
 
         @include respond-to('md') {
@@ -127,7 +128,7 @@
     }
 
     .chatWrapper {
-        max-width: 960px;
+        max-width: 100%;
         margin: 0 auto;
         width: 100%;
     }

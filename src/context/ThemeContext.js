@@ -8,18 +8,16 @@ const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-            setTheme('dark');
-            document.documentElement.classList.add('dark');
-        } else {
+        if (storedTheme === 'light') {
             setTheme('light');
             document.documentElement.classList.remove('dark');
+        } else {
+            setTheme('dark');
+            document.documentElement.classList.add('dark');
         }
     }, []);
 

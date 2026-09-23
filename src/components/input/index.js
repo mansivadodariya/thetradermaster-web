@@ -17,7 +17,7 @@ const EyeClosed = () => (
     </svg>
 );
 
-const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon, error, ...rest }) => {
+const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon, error, dark = false, className = '', ...rest }) => {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === 'password';
     const resolvedType = isPassword ? (showPassword ? 'text' : 'password') : type;
@@ -38,9 +38,9 @@ const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon,
     };
 
     return (
-        <div className={styles.input}>
+        <div className={`${styles.input} ${dark ? styles.darkInput : ''} ${className}`}>
             {label && <label htmlFor={name}>{label}</label>}
-            <div className={`${styles.inputWrapper} ${error ? styles.hasError : ''}`}>
+            <div className={`${styles.inputWrapper} ${dark ? styles.dark : ''} ${error ? styles.hasError : ''}`}>
                 {icon && <img src={icon} alt="" aria-hidden="true" className={styles.iconLeft} />}
                 <input
                     id={name}

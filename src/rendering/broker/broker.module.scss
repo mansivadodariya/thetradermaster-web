@@ -8,13 +8,14 @@
     gap: 24px;
 
     .heroBanner {
-        background: linear-gradient(135deg, $primary 0%, #063995 100%);
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
         border-radius: 16px;
         padding: 32px 28px;
-        color: #FFFFFF;
+        color: #0F172A;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 
         &::before {
             content: '';
@@ -23,7 +24,7 @@
             right: -40px;
             width: 220px;
             height: 220px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(16, 185, 129, 0.06);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -35,7 +36,7 @@
             right: 120px;
             width: 180px;
             height: 180px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(16, 185, 129, 0.04);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -44,8 +45,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
+            background: #ECFDF5;
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 13px;
@@ -53,7 +53,8 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #A7F3D0;
+            color: #047857;
         }
 
         h1 {
@@ -61,6 +62,7 @@
             font-weight: 700;
             margin: 0 0 10px;
             line-height: 1.25;
+            color: #0F172A;
 
             @include respond-to(md) {
                 font-size: 22px;
@@ -69,7 +71,7 @@
 
         p {
             font-size: 15px;
-            color: rgba(255, 255, 255, 0.88);
+            color: #475569;
             margin: 0 0 20px;
             max-width: 680px;
             line-height: 1.5;
@@ -80,7 +82,7 @@
             gap: 28px;
             flex-wrap: wrap;
             padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid #E2E8F0;
 
             .statItem {
                 display: flex;
@@ -89,12 +91,12 @@
                 .num {
                     font-size: 22px;
                     font-weight: 700;
-                    color: #FFFFFF;
+                    color: #0F172A;
                 }
 
                 .lbl {
                     font-size: 12px;
-                    color: rgba(255, 255, 255, 0.75);
+                    color: #64748B;
                     font-weight: 500;
                 }
             }
@@ -103,7 +105,7 @@
 
     .tickerSection {
         background: #FFFFFF;
-        border: 1px solid #E4E4E4;
+        border: 1px solid #E2E8F0;
         border-radius: 12px;
         padding: 18px 20px;
         overflow: hidden;
@@ -113,7 +115,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            color: #656363;
+            color: #64748B;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
@@ -123,7 +125,7 @@
                 content: '';
                 flex: 1;
                 height: 1px;
-                background: #E4E4E4;
+                background: #E2E8F0;
             }
         }
 
@@ -167,45 +169,34 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #F3F4F6;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
             padding: 4px;
             border-radius: 10px;
             overflow-x: auto;
             max-width: 100%;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
 
             .tabBtn {
                 padding: 8px 14px;
                 border-radius: 8px;
                 border: none;
                 background: transparent;
-                color: #656363;
+                color: #64748B;
                 font-size: 13.5px;
                 font-weight: 500;
                 cursor: pointer;
                 transition: all 0.2s ease;
                 flex-shrink: 0;
-                white-space: nowrap;
-
-                @include respond-to(sm) {
-                    padding: 7px 12px;
-                    font-size: 13px;
-                }
 
                 &:hover {
-                    color: $primary;
+                    color: #059669;
                 }
 
                 &.active {
-                    background: #FFFFFF;
-                    color: $primary;
+                    background: #ECFDF5;
+                    color: #047857;
+                    border: 1px solid #A7F3D0;
                     font-weight: 600;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 }
             }
         }
@@ -214,24 +205,19 @@
             position: relative;
             min-width: 260px;
 
-            @include respond-to(sm) {
-                width: 100%;
-                min-width: 100%;
-            }
-
             input {
                 width: 100%;
                 padding: 9px 14px 9px 38px;
                 border-radius: 8px;
-                border: 1px solid #E4E4E4;
+                border: 1px solid #E2E8F0;
                 background: #FFFFFF;
                 font-size: 14px;
-                color: #1A1A1A;
+                color: #0F172A;
                 outline: none;
                 transition: all 0.2s ease;
 
                 &:focus {
-                    border-color: $primary;
+                    border-color: #10B981;
                     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
                 }
             }
@@ -271,10 +257,10 @@
     }
 
     .brokerCard {
-        border: 1px solid rgba(26, 26, 26, 0.1);
+        border: 1px solid #E2E8F0;
         background: #FFFFFF;
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         padding: 24px 24px 0 24px;
         display: flex;
         flex-direction: column;
@@ -287,28 +273,10 @@
             padding: 20px 20px 0 20px;
         }
 
-        &::before {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: '';
-            background: $primary;
-            width: 100px;
-            height: 100px;
-            opacity: 0.12;
-            filter: blur(40px);
-            border-radius: 50%;
-            transition: opacity 0.3s ease;
-        }
-
         &:hover {
             transform: translateY(-6px);
-            border-color: rgba(16, 185, 129, 0.15);
-            box-shadow: 0 20px 45px rgba(16, 185, 129, 0.15);
-
-            &::before {
-                opacity: 0.25;
-            }
+            border-color: #A7F3D0;
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.1);
         }
 
         .cardHeader {
@@ -317,11 +285,10 @@
             justify-content: space-between;
             gap: 16px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #0e0f12 0%, #072a6b 100%);
+            background: #F8FAFC;
             padding: 14px 18px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 6px 20px rgba(6, 57, 149, 0.2);
+            border: 1px solid #E2E8F0;
 
             .logoBox {
                 height: 44px;
@@ -337,9 +304,9 @@
             }
 
             .eyeBtn {
-                background: rgba(255, 255, 255, 0.12);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: #FFFFFF;
+                background: #FFFFFF;
+                border: 1px solid #E2E8F0;
+                color: #475569;
                 width: 36px;
                 height: 36px;
                 border-radius: 10px;
@@ -351,11 +318,9 @@
                 flex-shrink: 0;
 
                 &:hover {
-                    background: $primary;
-                    border-color: $primary;
+                    background: #10B981;
+                    border-color: #10B981;
                     color: #FFFFFF;
-                    transform: scale(1.08);
-                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
                 }
             }
 
@@ -368,21 +333,21 @@
                 letter-spacing: 0.5px;
 
                 &.connected {
-                    background: rgba(16, 185, 129, 0.2);
-                    color: #34D399;
-                    border: 1px solid rgba(16, 185, 129, 0.3);
+                    background: #ECFDF5;
+                    color: #047857;
+                    border: 1px solid #A7F3D0;
                 }
 
                 &.supported {
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #FFFFFF;
-                    border: 1px solid rgba(255, 255, 255, 0.25);
+                    background: #F1F5F9;
+                    color: #334155;
+                    border: 1px solid #E2E8F0;
                 }
 
                 &.partner {
-                    background: rgba(139, 92, 246, 0.2);
-                    color: #A78BFA;
-                    border: 1px solid rgba(139, 92, 246, 0.3);
+                    background: #F5F3FF;
+                    color: #6D28D9;
+                    border: 1px solid #DDD6FE;
                 }
             }
         }
@@ -393,38 +358,24 @@
 
             h3 {
                 margin: 0 0 8px 0;
-                color: #1A1A1A;
+                color: #0F172A;
                 font-size: 20px;
                 font-weight: 700;
                 line-height: 1.3;
                 font-family: var(--font-plus-jakarta);
-
-                @include respond-to(sm) {
-                    font-size: 18px;
-                }
             }
 
             .description {
-                color: rgba(26, 26, 26, 0.72);
+                color: #475569;
                 font-size: 14.5px;
                 line-height: 22px;
                 margin: 0;
-
-                @include respond-to(sm) {
-                    font-size: 13.5px;
-                    line-height: 20px;
-                }
             }
         }
 
         .cardFooter {
-            border-top: 1px solid rgba(26, 26, 26, 0.08);
+            border-top: 1px solid #E2E8F0;
             padding: 16px 20px 20px 20px;
-            margin: 0;
-
-            @include respond-to(sm) {
-                padding: 14px 16px 16px 16px;
-            }
 
             .actionGroup {
                 display: grid;
@@ -440,36 +391,20 @@
                 justify-content: center;
                 gap: 6px;
                 padding: 10px 12px;
-                background: #F3F4F6;
-                border: 1px solid #E5E7EB;
-                color: #1F2937;
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+                color: #334155;
                 border-radius: 10px;
                 font-size: 13px;
                 font-weight: 600;
                 text-decoration: none;
                 cursor: pointer;
-                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-
-                @include respond-to(sm) {
-                    padding: 9px 8px;
-                    font-size: 12px;
-                }
+                transition: all 0.25s ease;
 
                 &:hover {
-                    background: #E5E7EB;
-                    color: $primary;
-                    transform: translateY(-1px);
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-                }
-
-                span {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                svg {
-                    flex-shrink: 0;
+                    background: #ECFDF5;
+                    color: #059669;
+                    border-color: #A7F3D0;
                 }
             }
 
@@ -479,37 +414,22 @@
                 justify-content: center;
                 gap: 6px;
                 padding: 10px 12px;
-                background: linear-gradient(135deg, $primary 0%, #063995 100%);
+                background: #10B981;
+                border: 1px solid #10B981;
                 color: #FFFFFF;
                 border-radius: 10px;
                 font-size: 13px;
                 font-weight: 600;
                 text-decoration: none;
-                border: none;
                 cursor: pointer;
-                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
-
-                @include respond-to(sm) {
-                    padding: 9px 8px;
-                    font-size: 12px;
-                }
+                transition: all 0.25s ease;
 
                 &:hover {
-                    background: linear-gradient(135deg, #0843AD 0%, #042B75 100%);
-                    color: #FFFFFF;
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
-                }
-
-                span {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
+                    background: #059669;
+                    border-color: #059669;
                 }
 
                 svg {
-                    flex-shrink: 0;
                     stroke: #FFFFFF;
                 }
             }
@@ -520,14 +440,14 @@
         text-align: center;
         padding: 48px 20px;
         background: #FFFFFF;
-        border: 1px solid #E4E4E4;
+        border: 1px solid #E2E8F0;
         border-radius: 12px;
-        color: #656363;
+        color: #64748B;
 
         h3 {
             font-size: 18px;
             font-weight: 600;
-            color: #1A1A1A;
+            color: #0F172A;
             margin: 0 0 8px;
         }
 
@@ -540,125 +460,105 @@
 
 :global(.dark) {
     .brokerPage {
-        .tickerSection {
-            background: #1A1A1E;
-            border-color: #2D2D34;
+        .heroBanner {
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
+            border-color: rgba(0, 255, 136, 0.25) !important;
+            color: #FFFFFF !important;
 
-            .tickerTitle {
-                color: #9CA3AF;
-
-                &::after {
-                    background: #2D2D34;
-                }
+            h1, .heroStats .statItem .num {
+                color: #FFFFFF !important;
             }
 
-            .sliderWrapper .sliderTrack img {
-                filter: brightness(1.2) grayscale(10%);
+            p, .heroStats .statItem .lbl {
+                color: rgba(255, 255, 255, 0.88) !important;
+            }
 
-                &:hover {
-                    filter: brightness(1.3) grayscale(0%);
+            .badge {
+                background: rgba(0, 255, 136, 0.12) !important;
+                border-color: rgba(0, 255, 136, 0.3) !important;
+                color: #00FF88 !important;
+            }
+        }
+
+        .tickerSection {
+            background: #1A1A1E !important;
+            border-color: #2D2D34 !important;
+
+            .tickerTitle {
+                color: #9CA3AF !important;
+
+                &::after {
+                    background: #2D2D34 !important;
                 }
             }
         }
 
         .controlsRow {
             .tabs {
-                background: #252529;
+                background: #04140D !important;
+                border-color: rgba(0, 255, 136, 0.2) !important;
 
                 .tabBtn {
-                    color: #9CA3AF;
+                    color: rgba(255, 255, 255, 0.65) !important;
 
                     &:hover {
-                        color: $very-light-green;
+                        color: #00FF88 !important;
                     }
 
                     &.active {
-                        background: $primary;
-                        color: #FFFFFF;
+                        background: rgba(0, 255, 136, 0.18) !important;
+                        color: #00FF88 !important;
+                        border-color: rgba(0, 255, 136, 0.3) !important;
                     }
                 }
             }
 
             .searchBox {
                 input {
-                    background: #1A1A1E;
-                    border-color: #2D2D34;
-                    color: #FFFFFF;
-
-                    &:focus {
-                        border-color: $very-light-green;
-                    }
-                }
-
-                .searchIcon {
-                    color: #6B7280;
+                    background: #04140D !important;
+                    border-color: rgba(0, 255, 136, 0.2) !important;
+                    color: #FFFFFF !important;
                 }
             }
         }
 
         .brokerCard {
-            background: #1A1A1E;
-            border-color: #2D2D34;
+            border-color: rgba(0, 255, 136, 0.2) !important;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
 
-            &:hover {
-                border-color: $primary;
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            .cardHeader {
+                background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%) !important;
+                border-color: rgba(255, 255, 255, 0.12) !important;
             }
 
-         
             .cardBody {
                 h3 {
-                    color: #FFFFFF;
-                }
-
-                .subtitle {
-                    color: $very-light-green;
+                    color: #FFFFFF !important;
                 }
 
                 .description {
-                    color: #9CA3AF;
-                }
-
-                .featuresList .featureItem {
-                    color: #D1D5DB;
+                    color: rgba(255, 255, 255, 0.75) !important;
                 }
             }
 
             .cardFooter {
-                border-top-color: #2D2D34;
+                border-top-color: rgba(255, 255, 255, 0.1) !important;
 
                 .linkBtn, .syncBtn {
-                    background: #252529;
-                    border-color: #374151;
-                    color: #E2E8F0;
+                    background: #04140D !important;
+                    border-color: rgba(0, 255, 136, 0.2) !important;
+                    color: #E2E8F0 !important;
 
                     &:hover {
-                        background: #374151;
-                        color: $very-light-green;
+                        color: #00FF88 !important;
                     }
                 }
 
                 .detailBtn {
-                    background: linear-gradient(135deg, $primary 0%, #063995 100%);
-                    color: #FFFFFF;
-                    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
-
-                    &:hover {
-                        background: linear-gradient(135deg, $primary 0%, $primary 100%);
-                        color: #FFFFFF;
-                        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
-                    }
+                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
+                    border-color: rgba(0, 255, 136, 0.25) !important;
+                    color: #FFFFFF !important;
                 }
-            }
-        }
-
-        .emptyState {
-            background: #1A1A1E;
-            border-color: #2D2D34;
-            color: #9CA3AF;
-
-            h3 {
-                color: #FFFFFF;
             }
         }
     }

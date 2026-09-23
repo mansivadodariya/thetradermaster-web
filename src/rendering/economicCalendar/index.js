@@ -15,13 +15,13 @@ export default function EconomicCalendar() {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      colorTheme: theme,
+      colorTheme: theme === 'dark' ? 'dark' : 'light',
       isTransparent: true,
       locale: language === 'ar' ? 'ar' : 'en',
       countryFilter: "ar,au,br,ca,cn,fr,de,in,id,it,jp,kr,mx,ru,sa,za,tr,gb,us,eu",
       importanceFilter: "-1,0,1",
       width: "100%",
-      height: "640",
+      height: "650",
     });
 
     if (widgetContainerRef.current) {

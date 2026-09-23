@@ -2,11 +2,10 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .brokerCard {
-    background: rgba(8, 24, 17, 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 255, 136, 0.18);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -21,14 +20,14 @@
 
     &:hover {
         transform: translateY(-6px);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 255, 136, 0.15);
-        border-color: rgba(0, 255, 136, 0.5);
-        background: rgba(10, 30, 21, 0.9);
+        box-shadow: 0 12px 30px rgba(16, 185, 129, 0.12);
+        border-color: #A7F3D0;
+        background: #FFFFFF;
     }
 
     .bannerHeader {
         height: 90px;
-        background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%);
+        background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
         border-radius: 14px;
         padding: 14px 16px;
         position: relative;
@@ -36,19 +35,23 @@
         display: flex;
         align-items: center;
         margin-bottom: 14px;
-        border: 1px solid rgba(0, 255, 136, 0.25);
+        border: 1px solid #E2E8F0;
 
         .logoWrapper {
             z-index: 2;
-            height: 36px;
+            height: 38px;
             display: flex;
             align-items: center;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: #FFFFFF;
+            backdrop-filter: blur(4px);
+            border: 1px solid #E2E8F0;
 
             img {
                 max-height: 34px;
                 max-width: 130px;
                 object-fit: contain;
-                filter: brightness(1.5);
             }
 
             :global([dir="rtl"]) & {
@@ -79,9 +82,9 @@
         display: flex;
 
         .infrastructureBadge {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            color: #00FF88;
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #047857;
             border-radius: 8px;
             padding: 4px 9px;
             font-size: 11px;
@@ -103,7 +106,7 @@
         .cardTitle {
             font-size: 18px;
             font-weight: 700;
-            color: #FFFFFF;
+            color: #0F172A;
             margin: 0 0 4px 0;
             line-height: 1.25;
             font-family: var(--font-plus-jakarta);
@@ -116,16 +119,15 @@
         .subtitleTag {
             font-size: 12px;
             font-weight: 600;
-            color: #00FF88;
+            color: #059669;
             margin: 0 0 8px 0;
             display: inline-block;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
         }
 
         .cardDescription {
             font-size: 13px;
             line-height: 1.55;
-            color: rgba(255, 255, 255, 0.72);
+            color: #475569;
             margin: 0;
             min-height: 56px;
             display: -webkit-box;
@@ -151,8 +153,8 @@
             align-items: center;
             gap: 10px;
             padding: 8px 12px;
-            background: rgba(0, 255, 136, 0.04);
-            border: 1px solid rgba(0, 255, 136, 0.15);
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
             border-radius: 12px;
             width: 100%;
 
@@ -164,8 +166,9 @@
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
-                background: rgba(0, 255, 136, 0.12);
-                border: 1px solid rgba(0, 255, 136, 0.25);
+                background: #ECFDF5;
+                border: 1px solid #A7F3D0;
+                color: #059669;
             }
 
             .highlightText {
@@ -176,7 +179,7 @@
                 .hlTitle {
                     font-size: 12px;
                     font-weight: 700;
-                    color: #FFFFFF;
+                    color: #0F172A;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -185,7 +188,7 @@
 
                 .hlSub {
                     font-size: 11px;
-                    color: rgba(255, 255, 255, 0.6);
+                    color: #64748B;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -196,7 +199,7 @@
     }
 
     .cardFooter {
-        border-top: 1px solid rgba(0, 255, 136, 0.15);
+        border-top: 1px solid #E2E8F0;
         padding-top: 14px;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -204,9 +207,9 @@
         align-items: center;
 
         .visitSiteBtn {
-            background: rgba(0, 255, 136, 0.08);
-            border: 1px solid rgba(0, 255, 136, 0.25);
-            color: #00FF88;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            color: #334155;
             border-radius: 10px;
             padding: 10px 8px;
             font-size: 12px;
@@ -220,9 +223,9 @@
             font-family: var(--font-plus-jakarta);
 
             &:hover {
-                background: rgba(0, 255, 136, 0.18);
-                border-color: rgba(0, 255, 136, 0.45);
-                color: #00FF88;
+                background: #ECFDF5;
+                border-color: #A7F3D0;
+                color: #059669;
                 transform: translateY(-1px);
             }
 
@@ -232,8 +235,9 @@
         }
 
         .viewDetailsBtn {
-            background: linear-gradient(135deg, #00FF88 0%, #00C868 100%);
-            color: #050d09;
+            background: #10B981;
+            color: #FFFFFF;
+            border: 1px solid #10B981;
             border-radius: 10px;
             padding: 10px 8px;
             font-size: 12px;
@@ -243,19 +247,124 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.35);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: var(--font-plus-jakarta);
 
             &:hover {
-                background: linear-gradient(135deg, #22FF99 0%, #00E676 100%);
-                color: #050d09;
+                background: #059669;
+                border-color: #059669;
+                color: #FFFFFF;
                 transform: translateY(-1px);
-                box-shadow: 0 0 30px rgba(0, 255, 136, 0.55);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
             }
 
             .btnLabel {
                 white-space: nowrap;
+            }
+        }
+    }
+}
+
+:global(.dark) .brokerCard,
+:global([class*="ecosystemSection"]) .brokerCard,
+:global(#ecosystem) .brokerCard,
+.darkThemeCard {
+    background: rgba(8, 24, 17, 0.85);
+    border-color: rgba(0, 255, 136, 0.18);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+    &:hover {
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 255, 136, 0.15);
+        border-color: rgba(0, 255, 136, 0.5);
+        background: rgba(10, 30, 21, 0.9);
+    }
+
+    .bannerHeader {
+        background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%);
+        border-color: rgba(0, 255, 136, 0.25);
+
+        .logoWrapper {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+
+            img {
+                filter: brightness(1.8) drop-shadow(0 0 6px rgba(0, 255, 136, 0.3));
+            }
+        }
+    }
+
+    .badgeRow {
+        .infrastructureBadge {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.3);
+            color: #00FF88;
+        }
+    }
+
+    .cardBody {
+        .cardTitle {
+            color: #FFFFFF;
+        }
+
+        .subtitleTag {
+            color: #00FF88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .cardDescription {
+            color: rgba(255, 255, 255, 0.72);
+        }
+    }
+
+    .highlightsGrid {
+        .highlightItem {
+            background: rgba(0, 255, 136, 0.04);
+            border-color: rgba(0, 255, 136, 0.15);
+
+            .iconBox {
+                background: rgba(0, 255, 136, 0.12);
+                border-color: rgba(0, 255, 136, 0.25);
+                color: inherit;
+            }
+
+            .highlightText {
+                .hlTitle {
+                    color: #FFFFFF;
+                }
+
+                .hlSub {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        }
+    }
+
+    .cardFooter {
+        border-top-color: rgba(0, 255, 136, 0.15);
+
+        .visitSiteBtn {
+            background: rgba(0, 255, 136, 0.08);
+            border-color: rgba(0, 255, 136, 0.25);
+            color: #00FF88;
+
+            &:hover {
+                background: rgba(0, 255, 136, 0.18);
+                border-color: rgba(0, 255, 136, 0.45);
+                color: #00FF88;
+            }
+        }
+
+        .viewDetailsBtn {
+            background: linear-gradient(135deg, #00FF88 0%, #00C868 100%);
+            color: #050d09;
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.35);
+
+            &:hover {
+                background: linear-gradient(135deg, #22FF99 0%, #00E676 100%);
+                color: #050d09;
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.55);
             }
         }
     }

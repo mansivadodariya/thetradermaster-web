@@ -3,8 +3,8 @@
 
 $primary: #10B981;
 $primaryHover: #047857;
-$border: rgba(18, 18, 18, 0.10);
-$bgSoft: #F0FFF4;
+$border: rgba(0, 255, 136, 0.18);
+$bgSoft: rgba(2, 30, 22, 0.75);
 
 .aiStrategyWrapper {
     display: flex;
@@ -30,13 +30,13 @@ $bgSoft: #F0FFF4;
         h2 {
             font-size: 22px;
             font-weight: 700;
-            color: #121212;
+            color: #0F172A;
             margin: 0 0 4px;
         }
 
         p {
             font-size: 13px;
-            color: rgba(18, 18, 18, 0.6);
+            color: #475569;
             margin: 0;
             max-width: 700px;
         }
@@ -54,23 +54,25 @@ $bgSoft: #F0FFF4;
     gap: 8px;
     padding: 6px 12px;
     border-radius: 9999px;
-    border: 1px solid $border;
+    border: 1px solid #E2E8F0;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    background: #ffffff;
+    background: #FFFFFF;
+    color: #475569;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
     .statusDot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background-color: #64748b;
+        background-color: #94a3b8;
     }
 
     &.connected {
-        color: #10b981;
-        border-color: rgba(16, 185, 129, 0.2);
-        background: rgba(16, 185, 129, 0.04);
+        color: #059669;
+        border-color: rgba(16, 185, 129, 0.25);
+        background: #ECFDF5;
 
         .statusDot {
             background-color: #10b981;
@@ -79,9 +81,9 @@ $bgSoft: #F0FFF4;
     }
 
     &.connecting {
-        color: $primary;
-        border-color: rgba(59, 130, 246, 0.2);
-        background: rgba(59, 130, 246, 0.04);
+        color: #0D9488;
+        border-color: rgba(13, 148, 136, 0.25);
+        background: #F0FDFA;
 
         .statusDot {
             background-color: $primary;
@@ -91,9 +93,9 @@ $bgSoft: #F0FFF4;
     }
 
     &.disconnected {
-        color: #ef4444;
-        border-color: rgba(239, 68, 68, 0.2);
-        background: rgba(239, 68, 68, 0.04);
+        color: #DC2626;
+        border-color: rgba(239, 68, 68, 0.25);
+        background: #FEF2F2;
 
         .statusDot {
             background-color: #ef4444;
@@ -126,7 +128,7 @@ $bgSoft: #F0FFF4;
     align-items: center;
     flex-wrap: wrap;
     gap: 14px;
-    border-bottom: 1.5px solid #eef2f6;
+    border-bottom: 1.5px solid #E2E8F0;
     padding-bottom: 14px;
     margin-bottom: 8px;
 }
@@ -134,9 +136,9 @@ $bgSoft: #F0FFF4;
 .symbolForm {
     display: flex;
     align-items: center;
-    border: 1px solid $border;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
-    background: #ffffff;
+    background: #FFFFFF;
     overflow: hidden;
     max-width: 320px;
     width: 100%;
@@ -147,10 +149,14 @@ $bgSoft: #F0FFF4;
         padding: 8px 12px;
         font-size: 13px;
         font-weight: 600;
-        color: #121212;
+        color: #0F172A;
         width: 100%;
         text-transform: uppercase;
         background: transparent;
+
+        &::placeholder {
+            color: #94A3B8;
+        }
     }
 
     .subscribeBtn {
@@ -171,7 +177,7 @@ $bgSoft: #F0FFF4;
 
 .tabSwitcher {
     display: flex;
-    background: #e2e8f0;
+    background: #F1F5F9;
     padding: 3px;
     border-radius: 8px;
     gap: 2px;
@@ -180,7 +186,7 @@ $bgSoft: #F0FFF4;
 .tabBtn {
     border: none;
     background: transparent;
-    color: #475569;
+    color: #64748B;
     padding: 6px 14px;
     font-size: 12px;
     font-weight: 700;
@@ -189,13 +195,14 @@ $bgSoft: #F0FFF4;
     transition: all 0.2s ease;
 
     &:hover {
-        color: #0f172a;
+        color: #0F172A;
     }
 
     &.activeTab {
-        background: #ffffff;
-        color: #0f172a;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        background: #FFFFFF;
+        color: #0F172A;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
 }
 
@@ -215,10 +222,10 @@ $bgSoft: #F0FFF4;
     justify-content: center;
     padding: 60px 20px;
     gap: 12px;
-    background: #ffffff;
-    border: 1px solid $border;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 12px;
-    color: rgba(18, 18, 18, 0.6);
+    color: #475569;
     font-size: 13px;
 }
 
@@ -230,8 +237,8 @@ $bgSoft: #F0FFF4;
 
 /* Live Card Styling */
 .unifiedCard {
-    background: #ffffff;
-    border: 1px solid $border;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
@@ -287,13 +294,13 @@ $bgSoft: #F0FFF4;
     h3 {
         font-size: 18px;
         font-weight: 700;
-        color: #121212;
+        color: #0F172A;
         margin: 0;
     }
 
     p {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.5);
+        color: #64748B;
         font-weight: 600;
         margin: 2px 0 0;
     }
@@ -324,7 +331,7 @@ $bgSoft: #F0FFF4;
 .priceValue {
     font-size: 32px;
     font-weight: 700;
-    color: #121212;
+    color: #ffffff;
     font-variant-numeric: tabular-nums;
 }
 
@@ -351,7 +358,7 @@ $bgSoft: #F0FFF4;
 }
 
 .countdownBox {
-    background: #f8fafc;
+    background: rgba(0, 16, 11, 0.6);
     border: 1px solid $border;
     border-radius: 6px;
     padding: 4px 8px;
@@ -360,7 +367,7 @@ $bgSoft: #F0FFF4;
     gap: 6px;
     font-size: 11px;
     font-weight: 600;
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     font-variant-numeric: tabular-nums;
     margin-left: auto;
 }
@@ -370,7 +377,7 @@ $bgSoft: #F0FFF4;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    background: #f8fafc;
+    background: rgba(0, 16, 11, 0.6);
     border: 1px solid $border;
     border-radius: 12px;
     padding: 12px;
@@ -390,7 +397,7 @@ $bgSoft: #F0FFF4;
     .metricLabel {
         font-size: 10px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -398,7 +405,7 @@ $bgSoft: #F0FFF4;
     .metricValue {
         font-size: 13px;
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
         font-variant-numeric: tabular-nums;
     }
 }
@@ -408,7 +415,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid rgba(0, 255, 136, 0.15);
     padding-top: 16px;
     flex-wrap: wrap;
     gap: 10px;
@@ -416,14 +423,14 @@ $bgSoft: #F0FFF4;
     .rowLabel {
         font-size: 12px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         text-transform: uppercase;
     }
 }
 
 .timeframeSelectors {
     display: flex;
-    background: #e2e8f0;
+    background: #04140D;
     border-radius: 6px;
     padding: 2px;
     gap: 1px;
@@ -435,13 +442,13 @@ $bgSoft: #F0FFF4;
     padding: 4px 10px;
     font-size: 11px;
     font-weight: 700;
-    color: #475569;
+    color: rgba(255, 255, 255, 0.65);
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-        color: #0f172a;
+        color: #ffffff;
     }
 
     &.tfActive {
@@ -455,7 +462,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid rgba(0, 255, 136, 0.15);
     padding-top: 16px;
 }
 
@@ -468,18 +475,18 @@ $bgSoft: #F0FFF4;
     text-transform: uppercase;
 
     span {
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
     }
 
     .strengthText {
-        color: #121212;
+        color: #ffffff;
     }
 }
 
 .progressBackground {
     width: 100%;
     height: 8px;
-    background: #e2e8f0;
+    background: #04140D;
     border-radius: 9999px;
     overflow: hidden;
 }
@@ -507,13 +514,13 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid rgba(0, 255, 136, 0.15);
     padding-top: 16px;
 
     .signalsHeaderLabel {
         font-size: 12px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         text-transform: uppercase;
     }
 }
@@ -526,10 +533,10 @@ $bgSoft: #F0FFF4;
 
 .noSignalsBadge {
     padding: 8px 12px;
-    background: #f8fafc;
+    background: rgba(0, 16, 11, 0.6);
     border: 1px solid $border;
     border-radius: 6px;
-    color: rgba(18, 18, 18, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 12px;
     font-weight: 600;
     text-align: center;
@@ -557,7 +564,7 @@ $bgSoft: #F0FFF4;
     &.neutralBadge {
         background: rgba(255, 255, 255, 0.05);
         border-color: $border;
-        color: #475569;
+        color: rgba(255, 255, 255, 0.65);
     }
 
     &.breakoutBadge {
@@ -593,12 +600,12 @@ $bgSoft: #F0FFF4;
 
 /* Strategy Tab - Inactive state */
 .noTradeCard {
-    background: #ffffff;
-    border: 1px solid $border;
+    background: #04140D;
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 16px;
     padding: 48px 24px;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -608,12 +615,12 @@ $bgSoft: #F0FFF4;
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: rgba(59, 130, 246, 0.06);
-        border: 1px solid rgba(59, 130, 246, 0.15);
+        background: rgba(0, 255, 136, 0.08);
+        border: 1px solid rgba(0, 255, 136, 0.25);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: $primary;
+        color: #00FF88;
         position: relative;
 
         &::before {
@@ -622,7 +629,7 @@ $bgSoft: #F0FFF4;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1px solid $primary;
+            border: 1px solid #00FF88;
             animation: radarPulse 2s infinite linear;
             opacity: 0;
         }
@@ -631,13 +638,13 @@ $bgSoft: #F0FFF4;
     h4 {
         font-size: 16px;
         font-weight: 700;
-        color: #121212;
+        color: #FFFFFF;
         margin: 0;
     }
 
     p {
         font-size: 13px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.6);
         max-width: 420px;
         line-height: 1.5;
         margin: 0;
@@ -658,23 +665,23 @@ $bgSoft: #F0FFF4;
 
 /* Strategy Card Details */
 .strategyCard {
-    background: #ffffff;
-    border: 1px solid $border;
+    background: #04140D;
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     gap: 18px;
 
     &.activeBuy {
-        border-color: rgba(16, 185, 129, 0.3);
-        box-shadow: 0 4px 24px rgba(16, 185, 129, 0.03);
+        border-color: rgba(0, 255, 136, 0.4);
+        box-shadow: 0 4px 24px rgba(0, 255, 136, 0.1);
     }
 
     &.activeSell {
-        border-color: rgba(239, 68, 68, 0.3);
-        box-shadow: 0 4px 24px rgba(239, 68, 68, 0.03);
+        border-color: rgba(239, 68, 68, 0.4);
+        box-shadow: 0 4px 24px rgba(239, 68, 68, 0.1);
     }
 }
 
@@ -700,35 +707,40 @@ $bgSoft: #F0FFF4;
         box-shadow: 0 0 8px currentColor;
 
         &.buyDot {
-            background-color: #10b981;
-            color: #10b981;
+            background-color: #00FF88;
+            color: #00FF88;
         }
 
         &.sellDot {
             background-color: #ef4444;
             color: #ef4444;
         }
+
+        &.holdDot {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.4);
+        }
     }
 
     h3 {
         font-size: 18px;
         font-weight: 700;
-        color: #121212;
+        color: #FFFFFF;
         margin: 0;
     }
 
     .timeTag {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.4);
+        color: #64748B;
         font-weight: 600;
         margin-left: 6px;
     }
 }
 
 .strategyTypeTag {
-    background: rgba(245, 158, 11, 0.06);
-    border: 1px solid rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    background: #ECFDF5;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #059669;
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 11px;
@@ -744,15 +756,21 @@ $bgSoft: #F0FFF4;
     width: fit-content;
 
     &.buyColor {
-        background: rgba(16, 185, 129, 0.08);
-        border: 1px solid rgba(16, 185, 129, 0.2);
-        color: #10b981;
+        background: #ECFDF5;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #059669;
     }
 
     &.sellColor {
-        background: rgba(239, 68, 68, 0.08);
-        border: 1px solid rgba(239, 68, 68, 0.2);
-        color: #ef4444;
+        background: #FEF2F2;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #DC2626;
+    }
+
+    &.holdColor {
+        background: #F1F5F9;
+        border: 1px solid #E2E8F0;
+        color: #475569;
     }
 }
 
@@ -761,8 +779,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: #f8fafc;
-    border: 1px solid $border;
+    background: #04140D;
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 12px;
     padding: 16px;
 }
@@ -771,7 +789,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
     padding-bottom: 8px;
 
     &:last-child {
@@ -781,7 +799,7 @@ $bgSoft: #F0FFF4;
 
     .levelLabel {
         font-size: 12px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: 700;
         text-transform: uppercase;
     }
@@ -789,7 +807,7 @@ $bgSoft: #F0FFF4;
     .levelValue {
         font-size: 14px;
         font-weight: 700;
-        color: #121212;
+        color: #FFFFFF;
         font-variant-numeric: tabular-nums;
 
         &.slColor {
@@ -797,7 +815,7 @@ $bgSoft: #F0FFF4;
         }
 
         &.tpColor {
-            color: #10b981;
+            color: #00FF88;
         }
     }
 }
@@ -807,8 +825,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid $border;
+    background: #04140D;
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 12px;
     padding: 14px 18px;
     flex-wrap: wrap;
@@ -822,7 +840,7 @@ $bgSoft: #F0FFF4;
 
     .confKicker {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -834,15 +852,15 @@ $bgSoft: #F0FFF4;
         gap: 6px;
         font-size: 13px;
         font-weight: 600;
-        color: rgba(18, 18, 18, 0.7);
+        color: rgba(255, 255, 255, 0.85);
 
         svg {
-            color: rgba(18, 18, 18, 0.4);
+            color: rgba(0, 255, 136, 0.6);
         }
     }
 
     .strongText {
-        color: #10b981;
+        color: #00FF88;
     }
 
     .confStrengthBadge {
@@ -855,13 +873,15 @@ $bgSoft: #F0FFF4;
         margin-top: 4px;
 
         &.highConf {
-            background: rgba(16, 185, 129, 0.08);
-            color: #10b981;
+            background: rgba(0, 255, 136, 0.12);
+            color: #00FF88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
         }
 
         &.medConf {
-            background: rgba(245, 158, 11, 0.08);
-            color: #d97706;
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
     }
 }
@@ -881,7 +901,7 @@ $bgSoft: #F0FFF4;
     }
 
     .ringText {
-        fill: #121212;
+        fill: #FFFFFF;
         text-anchor: middle;
         dominant-baseline: middle;
     }
@@ -895,14 +915,14 @@ $bgSoft: #F0FFF4;
 
     .reasoningLabel {
         font-size: 12px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: 700;
         text-transform: uppercase;
     }
 
     p {
         font-size: 13px;
-        color: rgba(18, 18, 18, 0.75);
+        color: rgba(255, 255, 255, 0.75);
         line-height: 1.6;
         margin: 0;
     }
@@ -915,18 +935,18 @@ $bgSoft: #F0FFF4;
 }
 
 .strategyTag {
-    background: #f8fafc;
-    border: 1px solid $border;
+    background: #04140D;
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 10px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* Console Log panel */
 .logsConsole {
-    background: #0f172a;
+    background: #04140D;
     border-radius: 12px;
     padding: 16px;
     display: flex;
@@ -999,7 +1019,7 @@ $bgSoft: #F0FFF4;
 }
 
 .logTime {
-    color: #64748b;
+    color: #94a3b8;
     flex-shrink: 0;
 }
 
@@ -1015,7 +1035,7 @@ $bgSoft: #F0FFF4;
     }
 
     100% {
-        border-color: rgba(18, 18, 18, 0.10);
+        border-color: rgba(0, 255, 136, 0.15);
         box-shadow: none;
     }
 }
@@ -1027,14 +1047,14 @@ $bgSoft: #F0FFF4;
     }
 
     100% {
-        border-color: rgba(18, 18, 18, 0.10);
+        border-color: rgba(0, 255, 136, 0.15);
         box-shadow: none;
     }
 }
 
 .unifiedCard {
-    background: #ffffff;
-    border: 1px solid rgba(18, 18, 18, 0.10);
+    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
@@ -1046,7 +1066,7 @@ $bgSoft: #F0FFF4;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-        border-color: rgba(18, 18, 18, 0.18);
+        border-color: rgba(0, 255, 136, 0.25);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         transform: translateY(-2px);
     }
@@ -1066,8 +1086,8 @@ $bgSoft: #F0FFF4;
     align-items: center;
     justify-content: center;
     gap: 24px;
-    background: #ffffff;
-    border: 1px solid rgba(18, 18, 18, 0.10);
+    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+    border: 1px solid rgba(0, 255, 136, 0.2);
     padding: 12px 24px;
     border-radius: 16px;
     margin: 8px auto 24px auto;
@@ -1077,7 +1097,7 @@ $bgSoft: #F0FFF4;
     .barLabel {
         font-size: 13px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.6);
+        color: rgba(255, 255, 255, 0.7);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -1085,16 +1105,16 @@ $bgSoft: #F0FFF4;
     .timeframeButtons {
         display: flex;
         gap: 6px;
-        background: #f1f5f9;
+        background: rgba(0, 16, 11, 0.6);
         padding: 4px;
         border-radius: 10px;
-        border: 1px solid rgba(18, 18, 18, 0.05);
+        border: 1px solid rgba(0, 255, 136, 0.15);
     }
 
     .tfBtn {
         background: transparent;
         border: none;
-        color: rgba(18, 18, 18, 0.6);
+        color: rgba(255, 255, 255, 0.7);
         padding: 6px 18px;
         border-radius: 8px;
         font-size: 12px;
@@ -1104,8 +1124,8 @@ $bgSoft: #F0FFF4;
         outline: none;
 
         &:hover {
-            color: #121212;
-            background: rgba(18, 18, 18, 0.05);
+            color: #ffffff;
+            background: rgba(0, 255, 136, 0.12);
         }
 
         &.active {
@@ -1137,7 +1157,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.15);
     padding-bottom: 12px;
 }
 
@@ -1151,11 +1171,11 @@ $bgSoft: #F0FFF4;
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: rgba(18, 18, 18, 0.04);
+    background: rgba(0, 255, 136, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(18, 18, 18, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     transition: all 0.3s;
 
     &.bullish {
@@ -1176,13 +1196,13 @@ $bgSoft: #F0FFF4;
     h3 {
         font-size: 16px;
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
     }
 
     .cardConnStatus {
         font-size: 11px;
         font-weight: 600;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         display: flex;
         align-items: center;
         gap: 4px;
@@ -1210,9 +1230,9 @@ $bgSoft: #F0FFF4;
 
 .cardTimeframeSelector {
     .tfSelect {
-        background: rgba(18, 18, 18, 0.04);
-        border: 1px solid rgba(18, 18, 18, 0.08);
-        color: #121212;
+        background: rgba(0, 255, 136, 0.08);
+        border: 1px solid rgba(0, 255, 136, 0.15);
+        color: #ffffff;
         border-radius: 6px;
         padding: 4px 8px;
         outline: none;
@@ -1222,7 +1242,7 @@ $bgSoft: #F0FFF4;
         transition: background 0.2s;
 
         &:hover {
-            background: rgba(18, 18, 18, 0.08);
+            background: rgba(0, 255, 136, 0.15);
         }
     }
 }
@@ -1238,7 +1258,7 @@ $bgSoft: #F0FFF4;
     font-size: 24px;
     font-weight: 700;
     font-family: monospace;
-    color: #121212;
+    color: #ffffff;
     transition: color 0.15s;
 }
 
@@ -1266,20 +1286,20 @@ $bgSoft: #F0FFF4;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 6px;
-    background: #f8fafc;
-    border: 1px solid rgba(18, 18, 18, 0.08);
+    background: rgba(0, 16, 11, 0.6);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 10px;
     padding: 10px;
 }
 
 .cardStrategySection {
-    border-top: 1px dashed rgba(18, 18, 18, 0.08);
+    border-top: 1px dashed rgba(0, 255, 136, 0.15);
     padding-top: 12px;
 }
 
 .cardStrategyStatus {
-    background: rgba(18, 18, 18, 0.02);
-    border: 1px solid rgba(18, 18, 18, 0.08);
+    background: rgba(0, 16, 11, 0.6);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 8px;
     padding: 8px 12px;
     display: flex;
@@ -1287,7 +1307,7 @@ $bgSoft: #F0FFF4;
     justify-content: space-between;
     font-size: 11px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.65);
 
     &.activeBuy {
         background: rgba(16, 185, 129, 0.04);
@@ -1312,7 +1332,7 @@ $bgSoft: #F0FFF4;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: rgba(18, 18, 18, 0.3);
+    background-color: rgba(0, 255, 136, 0.3);
 
     &.buy {
         background-color: #10b981;
@@ -1360,17 +1380,17 @@ $bgSoft: #F0FFF4;
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #ffffff;
-    border: 1px solid rgba(18, 18, 18, 0.08);
-    padding: 10px 16px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    padding: 8px 16px;
     border-radius: 12px;
     width: fit-content;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     .dropdownLabel {
         font-size: 13px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.6);
+        color: #0F172A;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin: 0;
@@ -1386,9 +1406,9 @@ $bgSoft: #F0FFF4;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #f1f5f9;
-        border: 1px solid rgba(18, 18, 18, 0.08);
-        color: #121212;
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        color: #0F172A;
         padding: 8px 16px;
         border-radius: 10px;
         font-size: 13px;
@@ -1400,8 +1420,8 @@ $bgSoft: #F0FFF4;
         user-select: none;
 
         &:hover:not(:disabled) {
-            background: #e2e8f0;
-            border-color: rgba(18, 18, 18, 0.15);
+            background: #F8FAFC;
+            border-color: #CBD5E1;
         }
 
         &:disabled {
@@ -1415,10 +1435,11 @@ $bgSoft: #F0FFF4;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-right: 8px;
+        color: #0F172A;
     }
 
     .chevronIcon {
-        color: rgba(18, 18, 18, 0.5);
+        color: #64748B;
         transition: transform 0.25s ease;
         flex-shrink: 0;
     }
@@ -1433,10 +1454,10 @@ $bgSoft: #F0FFF4;
         left: 0;
         width: 100%;
         min-width: 220px;
-        background: #ffffff;
-        border: 1px solid rgba(18, 18, 18, 0.08);
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
         border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         padding: 6px;
         z-index: 100;
         display: flex;
@@ -1453,7 +1474,7 @@ $bgSoft: #F0FFF4;
         padding: 8px 12px;
         border: none;
         background: transparent;
-        color: #121212;
+        color: #1E293B;
         font-size: 13px;
         font-weight: 600;
         border-radius: 8px;
@@ -1462,13 +1483,13 @@ $bgSoft: #F0FFF4;
         transition: all 0.15s;
 
         &:hover {
-            background: #f1f5f9;
-            color: $primary;
+            background: #F1F5F9;
+            color: #0F172A;
         }
 
         &.itemSelected {
-            background: rgba(16, 185, 129, 0.06);
-            color: $primary;
+            background: #ECFDF5;
+            color: #059669;
             font-weight: 700;
         }
     }
@@ -1476,14 +1497,14 @@ $bgSoft: #F0FFF4;
     .checkmarkIcon {
         font-size: 11px;
         font-weight: 700;
-        color: $primary;
+        color: #059669;
     }
 
     .dropdownSpinner {
         width: 14px;
         height: 14px;
-        border: 2px solid rgba(16, 185, 129, 0.2);
-        border-top-color: $primary;
+        border: 2px solid #E2E8F0;
+        border-top-color: #10B981;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
         position: absolute;
@@ -1505,11 +1526,11 @@ $bgSoft: #F0FFF4;
 
 /* ─── Watchlist Panel ─── */
 .watchlistPanel {
-    background: #e9f0fc52;
-    border: 1px solid rgba(18, 18, 18, 0.08);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -1530,14 +1551,14 @@ $bgSoft: #F0FFF4;
         h3 {
             font-size: 16px;
             font-weight: 700;
-            color: #121212;
+            color: #0F172A;
             margin: 0;
         }
 
         .watchlistCount {
             font-size: 11px;
             font-weight: 600;
-            color: rgba(18, 18, 18, 0.4);
+            color: #64748B;
         }
     }
 }
@@ -1546,13 +1567,13 @@ $bgSoft: #F0FFF4;
     display: flex;
     align-items: center;
     position: relative;
-    background: #f8fafc;
-    border: 1px solid rgba(18, 18, 18, 0.06);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
     padding: 6px 10px;
 
     .searchIcon {
-        color: rgba(18, 18, 18, 0.4);
+        color: #94A3B8;
         margin-right: 8px;
         flex-shrink: 0;
     }
@@ -1563,18 +1584,18 @@ $bgSoft: #F0FFF4;
         outline: none;
         font-size: 12px;
         font-weight: 600;
-        color: #121212;
+        color: #0F172A;
         width: 100%;
 
         &::placeholder {
-            color: rgba(18, 18, 18, 0.35);
+            color: #94A3B8;
         }
     }
 
     .searchClearBtn {
         border: none;
         background: transparent;
-        color: rgba(18, 18, 18, 0.4);
+        color: #94A3B8;
         font-size: 14px;
         font-weight: 700;
         cursor: pointer;
@@ -1600,7 +1621,7 @@ $bgSoft: #F0FFF4;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(18, 18, 18, 0.08);
+        background: #CBD5E1;
         border-radius: 2px;
     }
 }
@@ -1608,7 +1629,7 @@ $bgSoft: #F0FFF4;
 .noPairsFound {
     padding: 24px 8px;
     text-align: center;
-    color: rgba(18, 18, 18, 0.4);
+    color: #64748B;
     font-size: 12px;
     font-weight: 600;
 }
@@ -1624,15 +1645,15 @@ $bgSoft: #F0FFF4;
     border: 1px solid transparent;
 
     &:hover {
-        background: #f8fafc;
+        background: #F8FAFC;
     }
 
     &.activeItem {
-        background: rgba(16, 185, 129, 0.15);
-        border-color: rgba(16, 185, 129, 0.15);
+        background: #ECFDF5;
+        border-color: rgba(16, 185, 129, 0.3);
 
         .itemSymbolName {
-            color: $primary;
+            color: #059669;
         }
     }
 }
@@ -1660,7 +1681,7 @@ $bgSoft: #F0FFF4;
     }
 
     &.scoreNeutral {
-        background-color: #fbbf24;
+        background-color: #f59e0b;
     }
 
     &.scoreBearish {
@@ -1676,14 +1697,14 @@ $bgSoft: #F0FFF4;
 .itemSymbolName {
     font-size: 14px;
     font-weight: 700;
-    color: #121212;
+    color: #0F172A;
     font-family: monospace;
 }
 
 .itemSymbolLabel {
     font-size: 10px;
     font-weight: 600;
-    color: rgba(18, 18, 18, 0.4);
+    color: #64748B;
     text-transform: uppercase;
     margin-top: 1px;
 }
@@ -1698,15 +1719,15 @@ $bgSoft: #F0FFF4;
     font-size: 14px;
     font-weight: 700;
     font-family: monospace;
-    color: #121212;
+    color: #0F172A;
 }
 
 .itemBullish {
-    color: #10b981 !important;
+    color: #059669 !important;
 }
 
 .itemBearish {
-    color: #ef4444 !important;
+    color: #dc2626 !important;
 }
 
 .itemChangePct {
@@ -1739,7 +1760,7 @@ $bgSoft: #F0FFF4;
     animation: itemFlashGreen 0.6s ease-out;
 
     .itemPrice {
-        color: #10b981;
+        color: #059669;
     }
 }
 
@@ -1747,18 +1768,18 @@ $bgSoft: #F0FFF4;
     animation: itemFlashRed 0.6s ease-out;
 
     .itemPrice {
-        color: #ef4444;
+        color: #dc2626;
     }
 }
 
 
 /* ─── Chart Panel ─── */
 .chartPanel {
-    background: #ffffff;
-    border: 1px solid rgba(18, 18, 18, 0.08);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -1773,7 +1794,7 @@ $bgSoft: #F0FFF4;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+    border-bottom: 1px solid #E2E8F0;
     padding-bottom: 12px;
 }
 
@@ -1790,15 +1811,15 @@ $bgSoft: #F0FFF4;
     h3 {
         font-size: 18px;
         font-weight: 700;
-        color: #121212;
+        color: #0F172A;
         font-family: monospace;
         margin: 0;
     }
 
     .chartTimeframeBadge {
-        background: rgba(16, 185, 129, 0.15);
-        border: 1px solid rgba(16, 185, 129, 0.15);
-        color: $primary;
+        background: #ECFDF5;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #059669;
         padding: 2px 6px;
         border-radius: 4px;
         font-size: 10px;
@@ -1827,7 +1848,7 @@ $bgSoft: #F0FFF4;
 }
 
 .ohlcLabel {
-    color: rgba(18, 18, 18, 0.4);
+    color: #64748B;
     font-weight: 700;
 }
 
@@ -1844,7 +1865,7 @@ $bgSoft: #F0FFF4;
 }
 
 .legendValue {
-    color: #121212;
+    color: #0F172A;
     font-family: monospace;
     font-size: 10px;
     font-weight: 700;
@@ -1856,7 +1877,7 @@ $bgSoft: #F0FFF4;
     gap: 12px;
     font-size: 10px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.5);
+    color: #64748B;
     text-transform: uppercase;
 
     .legendItem {
@@ -1877,9 +1898,9 @@ $bgSoft: #F0FFF4;
     width: 100%;
     flex: 1;
     min-height: 350px;
-    background: #fafbfc;
+    background: #FFFFFF;
     border-radius: 12px;
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    border: 1px solid #E2E8F0;
     overflow: hidden;
 }
 
@@ -1909,14 +1930,15 @@ $bgSoft: #F0FFF4;
 .chartOverlay {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    color: rgba(18, 18, 18, 0.5);
+    gap: 14px;
+    color: #475569;
     font-size: 13px;
     font-weight: 600;
 }
@@ -1925,7 +1947,7 @@ $bgSoft: #F0FFF4;
     width: 32px;
     height: 32px;
     border: 3px solid rgba(16, 185, 129, 0.15);
-    border-top-color: $primary;
+    border-top-color: #10B981;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -1933,33 +1955,35 @@ $bgSoft: #F0FFF4;
 .chartErrorText {
     color: #ef4444;
     font-weight: 700;
+    font-size: 15px;
 }
 
 .chartRetryBtn {
-    background: $primary;
-    color: #ffffff;
+    background: #10B981;
+    color: #FFFFFF;
     border: none;
-    padding: 6px 16px;
-    border-radius: 6px;
-    font-size: 12px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 
     &:hover {
-        background: #0b57e3;
+        background: #059669;
     }
 }
 
 
 /* ─── Analysis Panel ─── */
 .analysisPanel {
-    background: #e9f0fc48 !important;
-    border: 1px solid rgba(18, 18, 18, 0.08) !important;
-    color: #121212 !important;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    color: #0F172A;
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 0px;
@@ -1972,7 +1996,7 @@ $bgSoft: #F0FFF4;
     }
 
     scrollbar-width: thin;
-    scrollbar-color: rgba(18, 18, 18, 0.15) transparent;
+    scrollbar-color: #CBD5E1 transparent;
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -1983,7 +2007,7 @@ $bgSoft: #F0FFF4;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(18, 18, 18, 0.15);
+        background: #CBD5E1;
         border-radius: 99px;
     }
 
@@ -1994,25 +2018,25 @@ $bgSoft: #F0FFF4;
 }
 
 .analysisPanelPlaceholder {
-    background: #ffffff !important;
-    border: 1px solid rgba(18, 18, 18, 0.08) !important;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     height: 650px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    color: rgba(18, 18, 18, 0.4);
-    font-size: 12px;
+    gap: 14px;
+    color: #64748B;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .analysisSpinner {
     width: 32px;
     height: 32px;
-    border: 3px solid rgba(16, 185, 129, 0.15);
-    border-top-color: $primary;
+    border: 3px solid rgba(0, 255, 136, 0.15);
+    border-top-color: #00FF88;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -2020,25 +2044,29 @@ $bgSoft: #F0FFF4;
 .analysisErrorText {
     color: #ef4444;
     font-weight: 700;
+    font-size: 15px;
 }
 
 .analysisRetryBtn {
-    background: $primary;
-    color: #ffffff;
+    background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
+    color: #030E09;
     border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 11px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    transition: all 0.2s ease;
 
     &:hover {
-        background: #0b57e3;
+        background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
     }
 }
 
 .analysisOverview {
-    border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.15);
     padding-bottom: 10px;
 
     .overviewHeader {
@@ -2049,14 +2077,14 @@ $bgSoft: #F0FFF4;
         h4 {
             font-size: 14px;
             font-weight: 700;
-            color: #121212;
+            color: #ffffff;
             margin: 0;
         }
 
         .overviewTimeframe {
             font-size: 10px;
             font-weight: 700;
-            color: rgba(18, 18, 18, 0.4);
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
         }
     }
@@ -2070,7 +2098,7 @@ $bgSoft: #F0FFF4;
 
     .overviewLabel {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         font-weight: 600;
     }
 
@@ -2084,8 +2112,8 @@ $bgSoft: #F0FFF4;
 
 /* Score dial */
 .scoreCard {
-    background: #f8fafc;
-    border: 1px solid rgba(18, 18, 18, 0.05);
+    background: rgba(0, 16, 11, 0.6);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 12px;
     padding: 12px;
     display: flex;
@@ -2115,7 +2143,7 @@ $bgSoft: #F0FFF4;
     .dialMaxText {
         font-size: 9px;
         font-weight: 600;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         position: absolute;
         bottom: 12px;
     }
@@ -2136,10 +2164,10 @@ $bgSoft: #F0FFF4;
         flex-direction: column;
         gap: 2px;
         font-size: 10px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
 
         strong {
-            color: #121212;
+            color: #ffffff;
         }
     }
 
@@ -2170,13 +2198,13 @@ $bgSoft: #F0FFF4;
     font-weight: 700;
 
     .breakdownName {
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
     }
 }
 
 .breakdownBarBg {
     height: 4px;
-    background: #e2e8f0;
+    background: #04140D;
     border-radius: 2px;
     overflow: hidden;
 }
@@ -2218,7 +2246,7 @@ $bgSoft: #F0FFF4;
     .aiHeadline {
         font-size: 12px;
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
         line-height: 1.4;
     }
 
@@ -2250,20 +2278,20 @@ $bgSoft: #F0FFF4;
     gap: 4px;
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(18, 18, 18, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.15);
 
     .levelCardLabel {
         font-size: 9px;
         font-weight: 700;
         text-transform: uppercase;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
     }
 
     .levelCardValue {
         font-size: 12px;
         font-weight: 700;
         font-family: monospace;
-        color: #121212;
+        color: #ffffff;
     }
 
     &.support {
@@ -2299,7 +2327,7 @@ $bgSoft: #F0FFF4;
     border: 1px solid rgba(18, 18, 18, 0.06);
     border-radius: 12px;
     overflow: hidden;
-    background: #ffffff;
+    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
 }
 
 .accordionHeader {
@@ -2307,23 +2335,23 @@ $bgSoft: #F0FFF4;
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
-    background: #f8fafc;
+    background: rgba(0, 16, 11, 0.6);
     cursor: pointer;
     font-size: 11px;
     font-weight: 700;
-    color: #121212;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     user-select: none;
     transition: background 0.2s;
 
     &:hover {
-        background: #f1f5f9;
+        background: rgba(0, 16, 11, 0.6);
     }
 
     .arrow {
         font-size: 9px;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         transition: transform 0.2s;
 
         &.open {
@@ -2362,7 +2390,7 @@ $bgSoft: #F0FFF4;
     font-weight: 700;
 
     .evidenceGroupName {
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
     }
 }
 
@@ -2375,7 +2403,7 @@ $bgSoft: #F0FFF4;
 
     li {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.75);
+        color: rgba(255, 255, 255, 0.75);
         line-height: 1.4;
     }
 }
@@ -2395,7 +2423,7 @@ $bgSoft: #F0FFF4;
 
     th {
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
         font-size: 9px;
         background: #fafbfc;
@@ -2425,7 +2453,7 @@ $bgSoft: #F0FFF4;
 
     th {
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
         font-size: 8px;
         background: #fafbfc;
@@ -2439,7 +2467,7 @@ $bgSoft: #F0FFF4;
 
     .pivotType {
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
         text-transform: capitalize;
     }
 
@@ -2494,7 +2522,7 @@ $bgSoft: #F0FFF4;
 .instructionsText {
     font-size: 13px;
     font-weight: 700;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .selectorWrapper {
@@ -2513,7 +2541,7 @@ $bgSoft: #F0FFF4;
 
 .gridCard {
     cursor: pointer;
-    border: 1.5px solid rgba(18, 18, 18, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.2);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
     opacity: 0.85;
     transition: all 0.2s ease;
@@ -2537,11 +2565,11 @@ $bgSoft: #F0FFF4;
     gap: 2px;
     font-size: 9px;
     font-family: monospace;
-    color: #64748b;
-    background: #f8fafc;
+    color: #94a3b8;
+    background: rgba(0, 16, 11, 0.6);
     padding: 6px 8px;
     border-radius: 4px;
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    border: 1px solid rgba(0, 255, 136, 0.15);
 }
 
 .flexSpaceBetween {
@@ -2564,12 +2592,12 @@ $bgSoft: #F0FFF4;
 }
 
 .inactiveMessage {
-    background: #f8fafc;
+    background: rgba(0, 16, 11, 0.6);
     border: 1.5px dashed rgba(18, 18, 18, 0.06);
     border-radius: 8px;
     padding: 10px;
     font-size: 11px;
-    color: #64748b;
+    color: #94a3b8;
     text-align: center;
     font-weight: 600;
     min-height: 76px;
@@ -2588,7 +2616,7 @@ $bgSoft: #F0FFF4;
 
 .dropdownArrow {
     font-size: 12px;
-    color: #64748b;
+    color: #94a3b8;
     display: inline-block;
     transition: transform 0.2s ease;
 
@@ -2614,7 +2642,7 @@ $bgSoft: #F0FFF4;
         font-size: 15px;
         font-weight: 700;
         margin: 0;
-        color: #121212;
+        color: #ffffff;
     }
 
     .strategyTypeTag {
@@ -2629,25 +2657,25 @@ $bgSoft: #F0FFF4;
         margin: 0 !important;
 
         &.holdBadge {
-            background-color: #f1f5f9;
-            color: #64748b;
-            border-color: #cbd5e1;
+            background-color: rgba(148, 163, 184, 0.12);
+            color: #94a3b8;
+            border-color: rgba(148, 163, 184, 0.25);
         }
     }
 
     .levelsCard {
         padding: 8px 10px !important;
         gap: 4px !important;
-        background: #f8fafc !important;
+        background: rgba(0, 16, 11, 0.6) !important;
         border-radius: 8px !important;
         border: 1px solid rgba(18, 18, 18, 0.05) !important;
     }
 }
 
 .directionBadge.holdColor {
-    background-color: #f1f5f9;
-    color: #64748b;
-    border-color: #cbd5e1;
+    background-color: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.25);
 }
 
 .activeHold {
@@ -2683,17 +2711,17 @@ $bgSoft: #F0FFF4;
 .signalStateLabel {
     font-size: 11px;
     font-weight: 600;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .gridLevelLabel {
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     font-weight: 600;
 }
 
 .gridLevelValue {
     font-weight: 700;
-    color: #121212;
+    color: #ffffff;
 }
 
 .minHeight300 {
@@ -2739,11 +2767,11 @@ $bgSoft: #F0FFF4;
 ────────────────────────────────────── */
 
 .strategyAccordion {
-    border: 1.5px solid rgba(18, 18, 18, 0.08);
+    border: 1px solid #E2E8F0;
     border-radius: 14px;
     overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    background: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .accordionTrigger {
@@ -2752,7 +2780,7 @@ $bgSoft: #F0FFF4;
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    background: #ffffff;
+    background: #FFFFFF;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
@@ -2768,12 +2796,12 @@ $bgSoft: #F0FFF4;
     }
 
     &:hover {
-        background: #f8fafc;
+        background: #F8FAFC;
     }
 
     &.accordionOpen {
-        background: #f8fafc;
-        border-bottom: 1.5px solid rgba(18, 18, 18, 0.07);
+        background: #F8FAFC;
+        border-bottom: 1px solid #E2E8F0;
     }
 }
 
@@ -2792,7 +2820,7 @@ $bgSoft: #F0FFF4;
 .accordionTitle {
     font-size: 15px;
     font-weight: 700;
-    color: #121212;
+    color: #0F172A;
 }
 
 .accordionBadge {
@@ -2800,11 +2828,12 @@ $bgSoft: #F0FFF4;
     align-items: center;
     padding: 2px 8px;
     border-radius: 20px;
-    background: rgba(16, 185, 129, 0.15);
-    color: $primary;
+    background: #ECFDF5;
+    color: #059669;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.3px;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .accordionWsBadge {
@@ -2815,21 +2844,21 @@ $bgSoft: #F0FFF4;
     border: 1px solid transparent;
 
     &.connected {
-        color: #10b981;
-        background: rgba(16, 185, 129, 0.08);
-        border-color: rgba(16, 185, 129, 0.2);
+        color: #059669;
+        background: #ECFDF5;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     &.connecting {
-        color: $primary;
-        background: rgba(59, 130, 246, 0.08);
-        border-color: rgba(59, 130, 246, 0.2);
+        color: #0D9488;
+        background: #F0FDFA;
+        border-color: rgba(13, 148, 136, 0.3);
     }
 
     &.disconnected {
-        color: #64748b;
-        background: rgba(100, 116, 139, 0.08);
-        border-color: rgba(100, 116, 139, 0.15);
+        color: #64748B;
+        background: #F1F5F9;
+        border-color: #E2E8F0;
     }
 }
 
@@ -2864,19 +2893,19 @@ $bgSoft: #F0FFF4;
 
 /* Individual pair card */
 .pairCard {
-    border: 1.5px solid rgba(18, 18, 18, 0.08);
+    border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    background: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     &.activeBuy {
@@ -2892,7 +2921,7 @@ $bgSoft: #F0FFF4;
     h4 {
         font-size: 15px;
         font-weight: 700;
-        color: #121212;
+        color: #0F172A;
         margin: 0;
     }
 
@@ -2901,9 +2930,9 @@ $bgSoft: #F0FFF4;
         gap: 6px !important;
         display: flex;
         flex-direction: column;
-        background: #f8fafc !important;
+        background: #F8FAFC !important;
         border-radius: 8px !important;
-        border: 1px solid rgba(18, 18, 18, 0.05) !important;
+        border: 1px solid #E2E8F0 !important;
     }
 
     .directionBadge {
@@ -2917,6 +2946,13 @@ $bgSoft: #F0FFF4;
         align-items: center;
         justify-content: center;
         gap: 8px;
+        background: #F8FAFC !important;
+        border: 1.5px dashed #CBD5E1 !important;
+        color: #64748B !important;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 12px;
+        font-weight: 600;
     }
 }
 
@@ -2949,14 +2985,14 @@ $bgSoft: #F0FFF4;
     padding: 10px 4px;
     cursor: pointer;
     user-select: none;
-    color: rgba(18, 18, 18, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
     transition: color 0.2s ease;
 
     &:hover {
-        color: #121212;
+        color: #ffffff;
     }
 }
 
@@ -2991,7 +3027,7 @@ $bgSoft: #F0FFF4;
 
     .scoreDivider {
         font-size: 14px;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: 600;
         margin-left: 2px;
     }
@@ -3014,7 +3050,7 @@ $bgSoft: #F0FFF4;
 .confLabel {
     font-size: 10px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
@@ -3022,7 +3058,7 @@ $bgSoft: #F0FFF4;
 .confValue {
     font-size: 16px;
     font-weight: 700;
-    color: #121212;
+    color: #ffffff;
 }
 
 .breakdownProgressList {
@@ -3048,11 +3084,11 @@ $bgSoft: #F0FFF4;
 
     &:hover {
         .progressBarTitle {
-            color: #121212;
+            color: #ffffff;
         }
 
         .subChevron {
-            color: #121212;
+            color: #ffffff;
         }
     }
 }
@@ -3065,7 +3101,7 @@ $bgSoft: #F0FFF4;
     flex-shrink: 0;
 
     svg {
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         flex-shrink: 0;
     }
 }
@@ -3073,14 +3109,14 @@ $bgSoft: #F0FFF4;
 .progressBarTitle {
     font-size: 12px;
     font-weight: 600;
-    color: rgba(18, 18, 18, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     transition: color 0.2s ease;
 }
 
 .progressOuterTrack {
     flex: 1;
     height: 6px;
-    background: rgba(18, 18, 18, 0.06);
+    background: rgba(0, 255, 136, 0.1);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -3104,18 +3140,18 @@ $bgSoft: #F0FFF4;
 .progressScoreText {
     font-size: 12px;
     font-weight: 700;
-    color: #121212;
+    color: #ffffff;
     font-family: monospace;
 }
 
 .subChevron {
-    color: rgba(18, 18, 18, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     transition: all 0.2s ease;
 }
 
 .progressSubDetailsCollapse {
-    background: rgba(18, 18, 18, 0.02);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: rgba(0, 16, 11, 0.6);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 8px;
     padding: 10px 14px;
     margin-left: 22px;
@@ -3139,13 +3175,13 @@ $bgSoft: #F0FFF4;
 }
 
 .metricName {
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     font-weight: 500;
 }
 
 .metricVal {
     font-family: monospace;
-    color: #121212;
+    color: #ffffff;
     font-weight: 600;
     margin-left: auto;
     margin-right: 12px;
@@ -3173,12 +3209,12 @@ $bgSoft: #F0FFF4;
     font-size: 11px;
 
     span {
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         font-weight: 500;
     }
 
     strong {
-        color: #121212;
+        color: #ffffff;
         font-weight: 700;
     }
 }
@@ -3194,7 +3230,7 @@ $bgSoft: #F0FFF4;
     .formulaTitle {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         letter-spacing: 0.5px;
     }
 
@@ -3208,8 +3244,8 @@ $bgSoft: #F0FFF4;
 
 // 3. Evidence Sub-elements
 .evidenceOutlinedGroup {
-    border: 1px solid rgba(18, 18, 18, 0.08);
-    background: rgba(18, 18, 18, 0.01);
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    background: rgba(0, 16, 11, 0.5);
     border-radius: 12px;
     padding: 14px;
     margin-bottom: 12px;
@@ -3260,7 +3296,7 @@ $bgSoft: #F0FFF4;
 .groupTypeTitle {
     font-size: 11px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     letter-spacing: 0.5px;
     width: 90px;
 }
@@ -3291,7 +3327,7 @@ $bgSoft: #F0FFF4;
     align-items: flex-start;
     font-size: 11.5px;
     line-height: 1.45;
-    color: rgba(18, 18, 18, 0.8);
+    color: rgba(255, 255, 255, 0.85);
 
     svg {
         margin-top: 2px;
@@ -3337,13 +3373,13 @@ $bgSoft: #F0FFF4;
     h4 {
         font-size: 16px;
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
         margin: 0 0 2px 0;
     }
 
     span {
         font-size: 11px;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
         font-weight: 600;
     }
 }
@@ -3359,8 +3395,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(18, 18, 18, 0.015);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: rgba(0, 16, 11, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 8px;
     padding: 10px 14px;
 }
@@ -3371,7 +3407,7 @@ $bgSoft: #F0FFF4;
     gap: 8px;
     font-size: 12px;
     font-weight: 600;
-    color: #121212;
+    color: #ffffff;
 
     .dotDot {
         width: 6px;
@@ -3408,8 +3444,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: rgba(0, 16, 11, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3422,19 +3458,19 @@ $bgSoft: #F0FFF4;
     span {
         font-size: 11px;
         font-weight: 600;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
     }
 
     strong {
         font-size: 12px;
         font-weight: 700;
-        color: #121212;
+        color: #ffffff;
     }
 }
 
 .confidenceTrack {
     height: 6px;
-    background: rgba(18, 18, 18, 0.06);
+    background: rgba(0, 255, 136, 0.1);
     border-radius: 3px;
     overflow: hidden;
 }
@@ -3451,8 +3487,8 @@ $bgSoft: #F0FFF4;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 18px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: rgba(0, 16, 11, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.15);
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3465,14 +3501,14 @@ $bgSoft: #F0FFF4;
     .sliderName {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: rgba(255, 255, 255, 0.65);
     }
 
     .sliderValTxt {
         font-size: 13px;
         font-weight: 700;
         font-family: monospace;
-        color: #121212;
+        color: #ffffff;
     }
 }
 
@@ -3498,7 +3534,7 @@ $bgSoft: #F0FFF4;
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: #ffffff;
+        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
         border: 2.5px solid #121212;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
     }
@@ -3516,7 +3552,7 @@ $bgSoft: #F0FFF4;
     top: 12px;
     transform: translateX(-50%);
     font-size: 9px;
-    color: rgba(18, 18, 18, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     font-weight: 700;
 }
 
@@ -3524,7 +3560,7 @@ $bgSoft: #F0FFF4;
     font-size: 11px;
     font-weight: 700;
     text-align: center;
-    color: rgba(18, 18, 18, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -3534,8 +3570,8 @@ $bgSoft: #F0FFF4;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 18px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3548,7 +3584,7 @@ $bgSoft: #F0FFF4;
     .macdTitle {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: #64748B;
     }
 
     .macdLabelValue {
@@ -3561,7 +3597,7 @@ $bgSoft: #F0FFF4;
 
 .macdHistogramTrack {
     height: 8px;
-    background: rgba(18, 18, 18, 0.06);
+    background: #E2E8F0;
     border-radius: 4px;
     position: relative;
     margin: 8px 0;
@@ -3573,7 +3609,7 @@ $bgSoft: #F0FFF4;
         top: 0;
         bottom: 0;
         width: 1px;
-        background: rgba(18, 18, 18, 0.25);
+        background: #94A3B8;
         z-index: 2;
     }
 
@@ -3589,7 +3625,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     justify-content: space-between;
     font-size: 10px;
-    color: rgba(18, 18, 18, 0.5);
+    color: #64748B;
     font-family: monospace;
     font-weight: 600;
 }
@@ -3598,8 +3634,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3614,7 +3650,7 @@ $bgSoft: #F0FFF4;
 .stochLabel {
     font-size: 11px;
     font-weight: 600;
-    color: rgba(18, 18, 18, 0.5);
+    color: #64748B;
     width: 65px;
     flex-shrink: 0;
 }
@@ -3622,7 +3658,7 @@ $bgSoft: #F0FFF4;
 .stochTrackBg {
     flex: 1;
     height: 6px;
-    background: rgba(18, 18, 18, 0.06);
+    background: #E2E8F0;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -3636,7 +3672,7 @@ $bgSoft: #F0FFF4;
 .stochValText {
     font-size: 11px;
     font-weight: 700;
-    color: #121212;
+    color: #0F172A;
     min-width: 25px;
     text-align: right;
     font-family: monospace;
@@ -3648,8 +3684,8 @@ $bgSoft: #F0FFF4;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 18px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3662,19 +3698,19 @@ $bgSoft: #F0FFF4;
     span {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: #64748B;
     }
 
     strong {
         font-size: 13px;
         font-weight: 700;
-        color: #121212;
+        color: #0F172A;
     }
 }
 
 .relativeVolumeTrack {
     height: 6px;
-    background: rgba(18, 18, 18, 0.06);
+    background: #E2E8F0;
     border-radius: 3px;
     position: relative;
     margin: 10px 0 16px 0;
@@ -3687,8 +3723,8 @@ $bgSoft: #F0FFF4;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 2.5px solid #121212;
+    background: #10B981;
+    border: 2px solid #FFFFFF;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -3698,7 +3734,7 @@ $bgSoft: #F0FFF4;
     top: 12px;
     transform: translateX(-50%);
     font-size: 9px;
-    color: rgba(18, 18, 18, 0.4);
+    color: #64748B;
     font-weight: 700;
 }
 
@@ -3713,8 +3749,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background: rgba(18, 18, 18, 0.015);
-    border: 1px solid rgba(18, 18, 18, 0.05);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -3723,7 +3759,7 @@ $bgSoft: #F0FFF4;
 .volCompareLabel {
     font-size: 10px;
     font-weight: 700;
-    color: rgba(18, 18, 18, 0.4);
+    color: #64748B;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -3731,7 +3767,7 @@ $bgSoft: #F0FFF4;
 .volCompareValue {
     font-size: 14px;
     font-weight: 700;
-    color: #121212;
+    color: #0F172A;
     font-family: monospace;
 }
 
@@ -3739,8 +3775,8 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: rgba(18, 18, 18, 0.01);
-    border: 1px solid rgba(18, 18, 18, 0.04);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3753,7 +3789,7 @@ $bgSoft: #F0FFF4;
     span {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(18, 18, 18, 0.5);
+        color: #64748B;
     }
 
     strong {
@@ -3800,18 +3836,18 @@ $bgSoft: #F0FFF4;
     font-weight: 700;
 
     .buyText {
-        color: #10b981;
+        color: #059669;
     }
 
     .sellText {
-        color: #ef4444;
+        color: #dc2626;
     }
 }
 
 // 7. AI Intelligence Summary Sub-elements
 .purpleAiSummaryCard {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, rgba(16, 185, 129, 0.15) 100%);
-    border: 1px solid rgba(168, 85, 247, 0.2);
+    background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+    border: 1px solid #DDD6FE;
     border-radius: 12px;
     padding: 16px;
     display: flex;
@@ -3823,7 +3859,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #a855f7;
+    color: #7C3AED;
 
     h5 {
         font-size: 12px;
@@ -3837,7 +3873,7 @@ $bgSoft: #F0FFF4;
 .purpleAiHeadline {
     font-size: 13.5px;
     font-weight: 700;
-    color: #121212;
+    color: #4C1D95;
     line-height: 1.45;
 }
 
@@ -3845,7 +3881,7 @@ $bgSoft: #F0FFF4;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border-top: 1px solid rgba(18, 18, 18, 0.06);
+    border-top: 1px solid #DDD6FE;
     padding-top: 12px;
 }
 
@@ -3864,7 +3900,7 @@ $bgSoft: #F0FFF4;
     p {
         font-size: 11.5px;
         line-height: 1.5;
-        color: rgba(18, 18, 18, 0.75);
+        color: #334155;
         margin: 0;
     }
 }
@@ -3884,8 +3920,8 @@ $bgSoft: #F0FFF4;
         }
 
         .statusBadge {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
             color: #94a3b8;
 
             &.connected {
@@ -3908,12 +3944,12 @@ $bgSoft: #F0FFF4;
         }
 
         .controlsBar {
-            border-bottom-color: #2d2d34;
+            border-bottom-color: rgba(0, 255, 136, 0.2);
         }
 
         .symbolForm {
-            border-color: #2d2d34;
-            background: #1a1a1e;
+            border-color: rgba(0, 255, 136, 0.2);
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
 
             .symbolInput {
                 color: #ffffff;
@@ -3925,7 +3961,7 @@ $bgSoft: #F0FFF4;
         }
 
         .tabSwitcher {
-            background: #252529;
+            background: rgba(0, 16, 11, 0.6);
         }
 
         .tabBtn {
@@ -3936,15 +3972,15 @@ $bgSoft: #F0FFF4;
             }
 
             &.activeTab {
-                background: #1a1a1e;
+                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
                 color: $very-light-green;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
         }
 
         .strategyDropdownContainer {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
             .dropdownLabel {
@@ -3952,8 +3988,8 @@ $bgSoft: #F0FFF4;
             }
 
             .customSelectTrigger {
-                background: #252529;
-                border-color: #2d2d34;
+                background: rgba(0, 16, 11, 0.6);
+                border-color: rgba(0, 255, 136, 0.2);
                 color: #ffffff;
 
                 &:hover:not(:disabled) {
@@ -3967,8 +4003,8 @@ $bgSoft: #F0FFF4;
             }
 
             .customDropdownMenu {
-                background: #252529;
-                border-color: #2d2d34;
+                background: rgba(0, 16, 11, 0.6);
+                border-color: rgba(0, 255, 136, 0.2);
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             }
 
@@ -3992,8 +4028,8 @@ $bgSoft: #F0FFF4;
         }
 
         .watchlistPanel {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
             .watchlistHeader {
@@ -4008,8 +4044,8 @@ $bgSoft: #F0FFF4;
         }
 
         .watchlistSearchContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
 
             .searchIcon {
                 color: rgba(255, 255, 255, 0.4);
@@ -4040,7 +4076,7 @@ $bgSoft: #F0FFF4;
 
         .watchlistItem {
             &:hover {
-                background: #252529;
+                background: rgba(0, 16, 11, 0.6);
             }
 
             &.activeItem {
@@ -4066,14 +4102,14 @@ $bgSoft: #F0FFF4;
         }
 
         .loaderContainer {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             color: rgba(255, 255, 255, 0.6);
         }
 
         .analysisPanel {
-            background: #1a1a1e !important;
-            border-color: #2d2d34 !important;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+            border-color: rgba(0, 255, 136, 0.2) !important;
             color: #ffffff !important;
 
             scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
@@ -4085,13 +4121,13 @@ $bgSoft: #F0FFF4;
         }
 
         .analysisPanelPlaceholder {
-            background: #1a1a1e !important;
-            border-color: #2d2d34 !important;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+            border-color: rgba(0, 255, 136, 0.2) !important;
             color: rgba(255, 255, 255, 0.4);
         }
 
         .premiumAccordion {
-            border-bottom-color: #2d2d34;
+            border-bottom-color: rgba(0, 255, 136, 0.2);
         }
 
         .premiumAccordionHeader {
@@ -4151,8 +4187,8 @@ $bgSoft: #F0FFF4;
         }
 
         .progressSubDetailsCollapse {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .metricName {
@@ -4174,7 +4210,7 @@ $bgSoft: #F0FFF4;
         }
 
         .scoreFormulaRow {
-            border-top-color: #2d2d34;
+            border-top-color: rgba(0, 255, 136, 0.2);
 
             .formulaTitle {
                 color: rgba(255, 255, 255, 0.4);
@@ -4182,8 +4218,8 @@ $bgSoft: #F0FFF4;
         }
 
         .evidenceOutlinedGroup {
-            border-color: #2d2d34;
-            background: #252529;
+            border-color: rgba(0, 255, 136, 0.2);
+            background: rgba(0, 16, 11, 0.6);
 
             &.trend {
                 background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent);
@@ -4207,7 +4243,7 @@ $bgSoft: #F0FFF4;
         }
 
         .evidenceCollapsedBulletArea {
-            border-top-color: #2d2d34;
+            border-top-color: rgba(0, 255, 136, 0.2);
         }
 
         .evidenceBulletItem {
@@ -4225,8 +4261,8 @@ $bgSoft: #F0FFF4;
         }
 
         .metricGridItem {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .indicatorLabelBox {
@@ -4234,8 +4270,8 @@ $bgSoft: #F0FFF4;
         }
 
         .trendConfidenceContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .confidenceTexts {
@@ -4253,8 +4289,8 @@ $bgSoft: #F0FFF4;
         }
 
         .momentumSliderContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .sliderLabelRow {
@@ -4269,7 +4305,7 @@ $bgSoft: #F0FFF4;
 
         .sliderPinPointer {
             .pinDot {
-                background: #1a1a1e;
+                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
                 border-color: #ffffff;
             }
 
@@ -4287,8 +4323,8 @@ $bgSoft: #F0FFF4;
         }
 
         .macdMetricsContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .macdHeaderRow {
@@ -4310,8 +4346,8 @@ $bgSoft: #F0FFF4;
         }
 
         .stochasticSubProgressList {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .stochProgressRow {
@@ -4329,8 +4365,8 @@ $bgSoft: #F0FFF4;
         }
 
         .relativeVolumeContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .volHeaderRow {
@@ -4348,7 +4384,7 @@ $bgSoft: #F0FFF4;
         }
 
         .relativeVolPointer {
-            background: #1a1a1e;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
             border-color: #ffffff;
         }
 
@@ -4357,8 +4393,8 @@ $bgSoft: #F0FFF4;
         }
 
         .volCompareCard {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .volCompareLabel {
@@ -4370,8 +4406,8 @@ $bgSoft: #F0FFF4;
         }
 
         .volumePressureContainer {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
         }
 
         .pressureHeaderRow {
@@ -4395,8 +4431,8 @@ $bgSoft: #F0FFF4;
         }
 
         .unifiedCard {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
             .symbolText h3 {
@@ -4412,13 +4448,13 @@ $bgSoft: #F0FFF4;
             }
 
             .countdownBox {
-                background: #252529;
-                border-color: #2d2d34;
+                background: rgba(0, 16, 11, 0.6);
+                border-color: rgba(0, 255, 136, 0.2);
                 color: rgba(255, 255, 255, 0.5);
             }
 
             .timeframeRow {
-                border-top-color: #2d2d34;
+                border-top-color: rgba(0, 255, 136, 0.2);
 
                 .rowLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4426,7 +4462,7 @@ $bgSoft: #F0FFF4;
             }
 
             .timeframeSelectors {
-                background: #252529;
+                background: rgba(0, 16, 11, 0.6);
             }
 
             .tfBtn {
@@ -4443,7 +4479,7 @@ $bgSoft: #F0FFF4;
             }
 
             .strengthArea {
-                border-top-color: #2d2d34;
+                border-top-color: rgba(0, 255, 136, 0.2);
             }
 
             .strengthHeader {
@@ -4461,7 +4497,7 @@ $bgSoft: #F0FFF4;
             }
 
             .signalsArea {
-                border-top-color: #2d2d34;
+                border-top-color: rgba(0, 255, 136, 0.2);
 
                 .signalsHeaderLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4469,23 +4505,23 @@ $bgSoft: #F0FFF4;
             }
 
             .noSignalsBadge {
-                background: #252529;
-                border-color: #2d2d34;
+                background: rgba(0, 16, 11, 0.6);
+                border-color: rgba(0, 255, 136, 0.2);
                 color: rgba(255, 255, 255, 0.4);
             }
 
             .signalPill {
                 &.neutralBadge {
                     background: rgba(255, 255, 255, 0.05);
-                    border-color: #2d2d34;
+                    border-color: rgba(0, 255, 136, 0.2);
                     color: #94a3b8;
                 }
             }
         }
 
         .noTradeCard {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
             h4 {
@@ -4498,8 +4534,8 @@ $bgSoft: #F0FFF4;
         }
 
         .strategyCard {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
             .strategyTitleRow {
@@ -4513,16 +4549,16 @@ $bgSoft: #F0FFF4;
             }
 
             .strategyHeader {
-                border-bottom-color: #2d2d34;
+                border-bottom-color: rgba(0, 255, 136, 0.2);
             }
         }
 
         .levelsCard {
-            background: #252529;
-            border-color: #2d2d34;
+            background: rgba(0, 16, 11, 0.6);
+            border-color: rgba(0, 255, 136, 0.2);
 
             .levelItem {
-                border-bottom-color: #2d2d34;
+                border-bottom-color: rgba(0, 255, 136, 0.2);
 
                 .levelLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4534,7 +4570,7 @@ $bgSoft: #F0FFF4;
             }
 
             .gridLevelRow {
-                border-bottom-color: #2d2d34;
+                border-bottom-color: rgba(0, 255, 136, 0.2);
 
                 .gridLevelLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4547,7 +4583,7 @@ $bgSoft: #F0FFF4;
         }
 
         .confluenceBox {
-            border-color: #2d2d34;
+            border-color: rgba(0, 255, 136, 0.2);
 
             .confluenceStats {
                 .confKicker {
@@ -4562,11 +4598,11 @@ $bgSoft: #F0FFF4;
 
         // Chart Panel specific dark theme support
         .chartPanel {
-            background: #1a1a1e;
-            border-color: #2d2d34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border-color: rgba(0, 255, 136, 0.2);
 
             .chartPanelHeader {
-                border-bottom-color: #2d2d34;
+                border-bottom-color: rgba(0, 255, 136, 0.2);
 
                 .chartTitleArea h3 {
                     color: #ffffff;
@@ -4590,8 +4626,8 @@ $bgSoft: #F0FFF4;
             }
 
             .chartLegendContainer {
-                background: #1a1a1e;
-                border-top-color: #2d2d34;
+                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+                border-top-color: rgba(0, 255, 136, 0.2);
 
                 .chartLegend {
                     color: #94a3b8;
@@ -4600,21 +4636,21 @@ $bgSoft: #F0FFF4;
         }
 
         .strategyAccordion {
-            border-color: #2d2d34;
-            background: #1a1a1e;
+            border-color: rgba(0, 255, 136, 0.2);
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .accordionTrigger {
-            background: #1a1a1e;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
 
             &:hover {
-                background: #252529;
+                background: rgba(0, 16, 11, 0.6);
             }
 
             &.accordionOpen {
-                background: #252529;
-                border-bottom-color: #2d2d34;
+                background: rgba(0, 16, 11, 0.6);
+                border-bottom-color: rgba(0, 255, 136, 0.2);
             }
         }
 
@@ -4648,13 +4684,13 @@ $bgSoft: #F0FFF4;
         }
 
         .pairCard {
-            border-color: #2d2d34;
-            background: #1a1a1e;
+            border-color: rgba(0, 255, 136, 0.2);
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
             &:hover {
                 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-                background: #252529;
+                background: rgba(0, 16, 11, 0.6);
             }
 
             &.activeBuy {
@@ -4672,27 +4708,27 @@ $bgSoft: #F0FFF4;
             }
 
             .levelsCard {
-                background: #252529 !important;
-                border-color: #2d2d34 !important;
+                background: rgba(0, 16, 11, 0.6) !important;
+                border-color: rgba(0, 255, 136, 0.2) !important;
             }
 
             .inactiveMessage {
-                background: #252529 !important;
-                border-color: #2d2d34 !important;
+                background: rgba(0, 16, 11, 0.6) !important;
+                border-color: rgba(0, 255, 136, 0.2) !important;
                 color: rgba(255, 255, 255, 0.5) !important;
             }
 
             .directionBadge.holdColor,
             .holdBadge {
-                background-color: #252529 !important;
+                background-color: rgba(148, 163, 184, 0.12) !important;
                 color: #94a3b8 !important;
-                border-color: #2d2d34 !important;
+                border-color: rgba(0, 255, 136, 0.2) !important;
             }
         }
 
         .inactiveMessage {
-            background: #252529 !important;
-            border-color: #2d2d34 !important;
+            background: rgba(0, 16, 11, 0.6) !important;
+            border-color: rgba(0, 255, 136, 0.2) !important;
             color: rgba(255, 255, 255, 0.5) !important;
         }
 

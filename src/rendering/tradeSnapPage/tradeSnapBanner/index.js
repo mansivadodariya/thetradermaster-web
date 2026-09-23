@@ -85,11 +85,11 @@ export default function TradeSnapBanner() {
                             animate="visible"
                         >
                             <motion.div variants={itemVariants} className={styles.badgeWrapper}>
-                                <LineText text={t('nav.aiTrade', 'AI Trade')} start />
+                                <LineText text={t('nav.aiTrade', 'AI Chart Scanner')} start />
                             </motion.div>
                             <motion.div className={styles.title} variants={itemVariants}>
                                 <h1>
-                                    {t('tradeSnap.title', 'AI TRADE')}
+                                    {t('tradeSnap.title', 'AI CHART SCANNER')}
                                 </h1>
                                 <p>
                                     {t('tradeSnap.subtitle', 'Capture your screen, analyze chart movements, and get AI trade insights with single or multi-timeframe views.')}

@@ -45,14 +45,14 @@ export default function Header() {
                             </div>
                         ) : (
                             <div className={styles.menuAlignment}>
-                                <Link href="/tradesnap" aria-label='AI Trade' className={navClass('/tradesnap')}>{t('nav.aiTrade', 'AI Trade')}</Link>
-                                <Link href="/ai-chat" aria-label='AI Chat' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Chat')}</Link>
+                                <Link href="/tradesnap" aria-label='AI Chart Scanner' className={navClass('/tradesnap')}>{t('nav.aiTrade', 'AI Chart Scanner')}</Link>
+                                <Link href="/ai-chat" aria-label='AI Trade Assistant' className={navClass('/ai-chat')}>{t('nav.aiChat', 'AI Trade Assistant')}</Link>
                                 <Link href="/ai-strategy" aria-label='AI Strategy' className={navClass('/ai-strategy')}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
-                                <Link href="/past-trade-analyzer" aria-label='Past Trade Analyzer' className={navClass('/past-trade-analyzer')}>{t('nav.pastTradeAnalyzer', 'Past Trade Analyzer')}</Link>
+                                <Link href="/past-trade-analyzer" aria-label='AI Past Trade Analyzer' className={navClass('/past-trade-analyzer')}>{t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer')}</Link>
                                 {/* <Link
                                     href="https://www.edufins.com/"
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                rel="noopener noreferrer"
                                     aria-label="Edufins"
                                     className={styles.navLink}
                                 >
@@ -111,9 +111,10 @@ export default function Header() {
                         </div>
                         <div className={styles.body}>
                             <Link href="/" aria-label='Home' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.home', 'Home')}</Link>
-                            <Link href={getAuthHref('/trade-snap')} aria-label='AI Trade' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiTrade', 'AI Trade')}</Link>
-                            <Link href={getAuthHref('/ai-assistant')} aria-label='AI Chat' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiChat', 'AI Chat')}</Link>
+                            <Link href={getAuthHref('/trade-snap')} aria-label='AI Chart Scanner' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiTrade', 'AI Chart Scanner')}</Link>
+                            <Link href={getAuthHref('/ai-assistant')} aria-label='AI Trade Assistant' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiChat', 'AI Trade Assistant')}</Link>
                             <Link href="/ai-strategy" aria-label='AI Strategy' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
+                            <Link href="/past-trade-analyzer" aria-label='AI Past Trade Analyzer' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer')}</Link>
                             {/* <Link
                                 href="https://www.edufins.com/"
                                 target="_blank"

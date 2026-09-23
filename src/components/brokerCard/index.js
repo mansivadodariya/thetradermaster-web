@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './brokerCard.module.scss';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 
 const ExternalLinkIcon = () => (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -42,8 +43,9 @@ const ShieldHighlightIcon = () => (
     </svg>
 );
 
-export default function BrokerCard({ broker, detailHref }) {
+export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
     const { t, tDynamic } = useLanguage();
+    const { theme } = useTheme();
     if (!broker) return null;
 
     const href = detailHref || `/broker/${broker.id}`;
@@ -58,13 +60,17 @@ export default function BrokerCard({ broker, detailHref }) {
     const subtitle = tDynamic(broker, 'subtitle') || broker.subtitle;
     const description = tDynamic(broker, 'description') || broker.description;
 
+    const logoSrc = (broker.logo && (broker.logo.includes('logo-light') || broker.id === 'newera'))
+        ? '/assets/images/logo-light.webp'
+        : broker.logo;
+
     return (
-        <div className={styles.brokerCard}>
+        <div className={`${styles.brokerCard} ${isDarkTheme ? styles.darkThemeCard : ''}`}>
             {/* Top Banner Header with Graphic */}
             <div className={styles.bannerHeader}>
-                {broker.logo && (
+                {logoSrc && (
                     <div className={styles.logoWrapper}>
-                        <img src={broker.logo} alt={name || 'Broker Logo'} />
+                        <img src={logoSrc} alt={name || 'Broker Logo'} />
                     </div>
                 )}
                 <svg className={styles.chartGraphic} viewBox="0 0 400 120" fill="none" preserveAspectRatio="none">

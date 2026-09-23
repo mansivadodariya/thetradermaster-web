@@ -10,6 +10,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { ArrowRightIcon } from '@/rendering/aiStrategy/icons';
 
 const SnapImage = '/assets/images/snap-image.png';
+const ArrowRight ='/assets/icons/arrow.svg';
 
 const UploadIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -166,7 +167,7 @@ export default function TradeSetup() {
                 <div className={styles.showcaseBanner}>
                     <div className={styles.bannerGrid}>
                         <div className={styles.bannerContent}>
-                            <LineText text={t('nav.aiTrade', 'AI Trade')} start />
+                            <LineText text={t('nav.aiTrade', 'AI Trade Assistance')} start />
                             <h3>
                                 {t('home.turnScreenshotTitlePart1', 'Turn Screenshot Into')}{' '}
                                 <span className={styles.neonText}>
@@ -225,8 +226,8 @@ export default function TradeSetup() {
 
                             <div className={styles.ctaWrapper}>
                                 <Button 
-                                    icon={ArrowRightIcon} 
-                                    text={t('home.tryAiTradeNow', 'Try AI Trade Now')} 
+                                    icon={ArrowRight} 
+                                    text={t('home.tryAiTradeNow', 'Try AI Trade Assistance Now')} 
                                     onClick={() => authNavigate(router, '/trade-snap')} 
                                 />
                             </div>
@@ -240,10 +241,10 @@ export default function TradeSetup() {
                                         <span className={styles.yellow}></span>
                                         <span className={styles.green}></span>
                                     </div>
-                                    <span className={styles.windowTitle}>AI Trade Preview</span>
+                                    <span className={styles.windowTitle}>AI Trade Assistance Preview</span>
                                 </div>
                                 <div className={styles.imageWrapper}>
-                                    <img src={SnapImage} alt="AI Trade Chart Analysis Showcase" />
+                                    <img src={SnapImage} alt="AI Trade Assistance Chart Analysis Showcase" />
                                 </div>
                             </div>
                         </div>

@@ -234,3 +234,94 @@
         text-decoration: underline;
     }
 }
+
+:global(.dark) {
+    .modalOverlay {
+        background: rgba(3, 14, 9, 0.85);
+        backdrop-filter: blur(10px);
+    }
+
+    .modalCard {
+        background: #04140D;
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
+        color: #FFFFFF;
+
+        .closeBtn {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00FF88;
+            border-color: rgba(0, 255, 136, 0.2);
+
+            &:hover {
+                background: rgba(0, 255, 136, 0.25);
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .title {
+        color: #FFFFFF;
+    }
+
+    .subtitle {
+        color: #A0AEC0;
+
+        strong {
+            color: #00FF88;
+        }
+    }
+
+    .customPhoneInput {
+        background: #061D13;
+        border-color: rgba(0, 255, 136, 0.25);
+        color: #FFFFFF;
+
+        &:focus-within {
+            border-color: #00FF88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+            background: #04140D;
+        }
+
+        :global(.PhoneInputInput) {
+            color: #FFFFFF;
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.35);
+            }
+        }
+
+        :global(.PhoneInputCountrySelect) {
+            background: #04140D;
+            color: #FFFFFF;
+        }
+    }
+
+    .otpBox {
+        background: #061D13;
+        border-color: rgba(0, 255, 136, 0.25);
+        color: #FFFFFF;
+
+        &:focus {
+            border-color: #00FF88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+            background: #04140D;
+        }
+
+        &.filled {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00FF88;
+            color: #00FF88;
+        }
+    }
+
+    .resendRow {
+        color: #A0AEC0;
+
+        strong {
+            color: #00FF88;
+        }
+    }
+
+    .resendBtn {
+        color: #00FF88;
+    }
+}

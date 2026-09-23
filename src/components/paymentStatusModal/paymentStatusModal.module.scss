@@ -248,3 +248,62 @@
         color: #0F172A;
     }
 }
+
+:global(.dark) {
+    .modalOverlay {
+        background: rgba(3, 14, 9, 0.85);
+        backdrop-filter: blur(10px);
+    }
+
+    .modalContent {
+        background: #04140D;
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
+
+        .closeBtn {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00FF88;
+
+            &:hover {
+                background: rgba(0, 255, 136, 0.25);
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .title {
+        color: #FFFFFF;
+    }
+
+    .subtitle {
+        color: #A0AEC0;
+    }
+
+    .detailBadge {
+        background: rgba(0, 255, 136, 0.1);
+        border-color: rgba(0, 255, 136, 0.3);
+        color: #00FF88;
+    }
+
+    .primaryBtn {
+        background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
+        color: #030E09;
+        font-weight: 700;
+        box-shadow: 0 4px 14px rgba(0, 255, 136, 0.3);
+
+        &:hover {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+        }
+    }
+
+    .secondaryBtn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #00FF88;
+        }
+    }
+}

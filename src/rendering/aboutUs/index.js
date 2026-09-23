@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext'
 
 const CheckIcon = () => (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16.6667 5L7.50001 14.1667L3.33334 10" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16.6667 5L7.50001 14.1667L3.33334 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
 
@@ -15,11 +15,11 @@ export default function AboutUs() {
 
     const features = [
         {
-            title: t('about.feature1Title', 'AI Trade (TradeSnap)'),
+            title: t('about.feature1Title', 'Ai Chart Scanner (TradeSnap)'),
             description: t('about.feature1Desc', 'Upload any chart screenshot and receive instant AI-powered technical analysis, pattern detection, and actionable trade setups — all within seconds.')
         },
         {
-            title: t('about.feature2Title', 'AI Chat'),
+            title: t('about.feature2Title', 'AI Trade Assistant'),
             description: t('about.feature2Desc', 'Your personal market assistant. Ask questions about Forex pairs, market conditions, technical indicators, and trading concepts — get intelligent, context-aware responses.')
         },
         {
@@ -88,7 +88,7 @@ export default function AboutUs() {
                     </section>
 
                     {/* Partners */}
-                    <section>
+                    {/* <section>
                         <h2>{t('about.partners', 'Our Partners')}</h2>
                         <p>{t('about.partnersPara', 'We work closely with trusted partners in the trading ecosystem to provide a complete experience:')}</p>
                         <ul className={styles.partnerList}>
@@ -109,7 +109,7 @@ export default function AboutUs() {
                                 {' — '}{t('about.fundedMasterPara', 'A prop trading firm offering funded trading accounts for qualified traders.')}
                             </li>
                         </ul>
-                    </section>
+                    </section> */}
 
                     {/* Disclaimer */}
                     <section className={styles.disclaimerSection}>

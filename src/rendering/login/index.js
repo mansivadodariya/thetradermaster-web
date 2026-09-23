@@ -19,7 +19,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 
 const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const AuthIcon = '/assets/logo/logoWhite.svg';
+;
 const ArrowIcon = '/assets/icons/arrow.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const Lock = '/assets/icons/lock.svg';
@@ -271,12 +272,12 @@ const Login = () => {
                             </div>
                             <form onSubmit={handleSubmit} noValidate>
                                 <div className={styles.spacingGrid}>
-                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} />
-                                    <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} />
+                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} dark />
+                                    <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} dark />
                                     <div className={styles.forgotRow}>
                                         <Link href="/forgot-password">{t('auth.forgotPasswordQuestion', 'Forgot password?')}</Link>
                                     </div>
-                                    <Button text={loading ? t('auth.loggingInBtn', 'Logging in...') : t('auth.loginBtn', 'Log in')} icon={ArrowIcon} disabled={loading} type="submit" />
+                                    <Button text={loading ? t('auth.loggingInBtn', 'Logging in...') : t('auth.loginBtn', 'Log in')} icon={ArrowIcon} disabled={loading} type="submit" fullWidth />
                                 </div>
                             </form>
                             <div className={styles.accountText}>

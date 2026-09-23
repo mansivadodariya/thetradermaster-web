@@ -126,34 +126,34 @@ export default function InteractiveCandlestickChart() {
         const width = containerRef.current.clientWidth || 800;
         const height = 440;
 
-        // White Theme Chart Setup
+        // Cyber Green Dark Theme Chart Setup
         const chart = createChart(containerRef.current, {
             width,
             height,
             layout: {
-                background: { type: 'solid', color: '#FFFFFF' },
-                textColor: '#475569',
+                background: { type: 'solid', color: '#04140D' },
+                textColor: 'rgba(255, 255, 255, 0.75)',
                 fontSize: 12,
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: 'rgba(0, 0, 0, 0.05)' },
-                horzLines: { color: 'rgba(0, 0, 0, 0.05)' },
+                vertLines: { color: 'rgba(0, 255, 136, 0.08)' },
+                horzLines: { color: 'rgba(0, 255, 136, 0.08)' },
             },
             crosshair: {
-                vertLine: { color: '#0047FF', width: 1, style: 3 },
-                horzLine: { color: '#0047FF', width: 1, style: 3 },
+                vertLine: { color: '#00FF88', width: 1, style: 3 },
+                horzLine: { color: '#00FF88', width: 1, style: 3 },
             },
             timeScale: {
-                borderColor: '#E2E8F0',
+                borderColor: 'rgba(0, 255, 136, 0.2)',
                 timeVisible: true,
                 secondsVisible: false,
                 barSpacing: 9,
                 rightOffset: 12,
             },
             rightPriceScale: {
-                borderColor: '#E2E8F0',
+                borderColor: 'rgba(0, 255, 136, 0.2)',
                 scaleMargins: { top: 0.1, bottom: 0.25 },
             },
         });

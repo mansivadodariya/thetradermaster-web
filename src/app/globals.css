@@ -10,9 +10,9 @@ textarea {
 body {
   margin: 0;
   padding: 0;
+  background-color: #F4F7F6;
+  color: #0F172A;
 }
-
-
 
 * {
   box-sizing: border-box;
@@ -53,6 +53,8 @@ p:last-child {
 
 .user-layout {
   display: flex;
+  background-color: #F4F7F6;
+  min-height: 100vh;
 }
 
 .sidebar-wrapper {
@@ -61,6 +63,7 @@ p:last-child {
   z-index: 90;
   overflow: visible !important;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #FFFFFF;
 }
 
 .sidebar-wrapper.collapsed {
@@ -72,6 +75,7 @@ p:last-child {
   position: relative;
   z-index: 1;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #F4F7F6;
 }
 
 .sidebar-wrapper.collapsed ~ .children-wrapper,
@@ -81,6 +85,7 @@ p:last-child {
 
 .children-spacing {
   padding: 16px;
+  background-color: #F4F7F6;
 }
 
 .nsm7Bb-HzV7m-LgbsSe {
@@ -117,14 +122,25 @@ p:last-child {
   width: 100% !important;
 }
 
-/* Dark Mode Core Theme */
-html.dark, html.dark body {
-  background-color: #0f0f11;
-  color: #f3f4f6;
+/* Light & Dark Mode Core Theme */
+html, html body {
+  background-color: #F4F7F6;
+  color: #0F172A;
 }
 
-html.dark .children-wrapper {
-  background-color: #0f0f11;
+html.dark, html.dark body {
+  background-color: #030E09 !important;
+  color: #f3f4f6 !important;
+}
+
+html.dark .user-layout,
+html.dark .children-wrapper,
+html.dark .children-spacing {
+  background-color: #030E09 !important;
+}
+
+html.dark .sidebar-wrapper {
+  background-color: #092016 !important;
 }
 
 /* Mixed Language (Arabic & English Bidi) Rules */

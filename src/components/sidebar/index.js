@@ -56,10 +56,12 @@ const ChevronRightIcon = () => (
 
 
 const getMainNav = (t) => [
-  { label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardIcon },
-  { label: t('nav.aiTrade', 'AI Trade'), href: "/trade-snap", icon: TradeIcon },
-  { label: t('nav.aiChat', 'AI Chat'), href: "/ai-assistant", icon: AssistantIcon },
+  { section: 'main', label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardIcon },
+  { section: 'main', label: t('nav.aiChat', 'AI Trade Assistant'), href: "/ai-assistant", icon: AssistantIcon },
+  { section: 'main', label: t('nav.aiTrade', 'AI Chart Scanner'), href: "/trade-snap", icon: TradeIcon },
+  { section: 'main', label: t('nav.aiTradeAnalysis', 'AI Past Trade Analyzer'), href: "/ai-trade-analysis", icon: AnalyticsIcon },
   {
+    section: 'main',
     label: t('nav.aiStrategy', 'AI Strategy'),
     href: "/ai-strategy",
     icon: AiIcon,
@@ -68,11 +70,11 @@ const getMainNav = (t) => [
       { label: t('nav.aiStrategy', 'AI Strategy'), href: "/ai-strategy/strategy", icon: StrategyIcon },
     ]
   },
-  { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
-  { label: t('nav.aiTradeAnalysis', 'AI Trade Analysis'), href: "/ai-trade-analysis", icon: AnalyticsIcon },
-  { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
-  { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerIcon },
-  { label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
+  
+  { section: 'more', label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
+  { section: 'more', label: t('nav.broker', 'Associated Brokers'), href: "/broker", icon: BrokerIcon },
+  { section: 'more', label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
+  { section: 'more', label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
 ];
 
 /** Match current route to nav item (handles trailing slashes and nested paths). */
@@ -338,9 +340,6 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
 
   const handleNavigate = () => {
     onClose?.();
-    if (!isCollapsed && onToggleCollapse) {
-      onToggleCollapse();
-    }
   };
 
   const doLogout = () => {
@@ -379,6 +378,9 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
       })
     : [];
 
+  const mainItems = mainNav.filter(item => item.section === 'main');
+  const moreItems = mainNav.filter(item => item.section === 'more');
+
   const hasPlansPermission = visibleTabNames ? visibleTabNames.has('subscription plans') : false;
 
   return (
@@ -416,15 +418,37 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
           {tabsLoading && !visibleTabNames ? (
             <NavSkeleton count={6} isCollapsed={isCollapsed} />
           ) : (
-            mainNav.map((item) => (
-              <NavItem
-                key={item.href}
-                item={item}
-                pathname={pathname}
-                onNavigate={handleNavigate}
-                isCollapsed={isCollapsed}
-              />
-            ))
+            <>
+              {mainItems.map((item) => (
+                <NavItem
+                  key={item.href}
+                  item={item}
+                  pathname={pathname}
+                  onNavigate={handleNavigate}
+                  isCollapsed={isCollapsed}
+                />
+              ))}
+              {moreItems.length > 0 && (
+                <>
+                  {!isCollapsed ? (
+                    <div className={styles.sectionHeader}>
+                      <span>{t('sidebar.more', 'MORE')}</span>
+                    </div>
+                  ) : (
+                    <div className={styles.sectionDivider} />
+                  )}
+                  {moreItems.map((item) => (
+                    <NavItem
+                      key={item.href}
+                      item={item}
+                      pathname={pathname}
+                      onNavigate={handleNavigate}
+                      isCollapsed={isCollapsed}
+                    />
+                  ))}
+                </>
+              )}
+            </>
           )}
         </div>
         {hasPlansPermission && (

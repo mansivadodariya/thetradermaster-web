@@ -74,6 +74,76 @@ function formatSummary(text) {
     }
 }
 
+const SparklineSVG = () => (
+    <svg width="100" height="32" viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2V30H2V24Z" fill="url(#sparklineGrad)" opacity="0.15" />
+        <defs>
+            <linearGradient id="sparklineGrad" x1="50" y1="2" x2="50" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#00FF88" />
+                <stop offset="1" stopColor="#00FF88" stopOpacity="0" />
+            </linearGradient>
+        </defs>
+    </svg>
+);
+
+const BullBearGraphic = () => (
+    <div className={styles.bannerGraphic}>
+        <div className={styles.bullBearContainer}>
+            <svg width="220" height="100" viewBox="0 0 220 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Bull & Bear silhouettes / chart glow */}
+                <path d="M10 70 Q 40 40, 70 55 T 130 30 T 190 45 T 210 20" stroke="#00FF88" strokeWidth="2" fill="none" opacity="0.8" />
+                <path d="M10 70 Q 40 40, 70 55 T 130 30 T 190 45 T 210 20 L 210 95 L 10 95 Z" fill="url(#bullGrad)" opacity="0.12" />
+                <circle cx="210" cy="20" r="4" fill="#00FF88" />
+                
+                {/* Bull outline */}
+                <path d="M40 60 C 45 45, 60 40, 75 48 C 85 52, 95 42, 105 50 C 115 58, 110 70, 95 72 C 80 74, 65 72, 40 60 Z" stroke="#00FF88" strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.6" />
+                
+                {/* Bear outline */}
+                <path d="M120 55 C 130 42, 150 42, 160 52 C 170 60, 180 50, 190 62 C 195 72, 180 75, 165 74 C 150 72, 135 70, 120 55 Z" stroke="#00CC6A" strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.6" />
+
+                <defs>
+                    <linearGradient id="bullGrad" x1="110" y1="20" x2="110" y2="95" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#00FF88" />
+                        <stop offset="1" stopColor="#00FF88" stopOpacity="0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div className={styles.bannerTagline}>
+            <span>DISCIPLINE</span>
+            <span>ANALYSIS</span>
+            <span>BETTER TRADES</span>
+        </div>
+    </div>
+);
+
+const EmptyDocIcon = () => (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <polyline points="10 9 9 9 8 9" />
+    </svg>
+);
+
+const TradeSmarterWatermark = () => (
+    <div className={styles.watermark}>
+        <div className={styles.watermarkArrows}>
+            <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+                <path d="M10 90 L85 15 M85 15 H45 M85 15 V55" stroke="#00FF88" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
+                <path d="M10 65 L60 15 M60 15 H30 M60 15 V45" stroke="#00FF88" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.12" />
+            </svg>
+        </div>
+        <div className={styles.watermarkText}>
+            <span>TRADE</span>
+            <span>SMARTER</span>
+            <span>EVERYDAY</span>
+        </div>
+    </div>
+);
+
 export default function Dashboard() {
     const router = useRouter();
     const { t } = useLanguage();
@@ -83,6 +153,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
+
     useEffect(() => {
         const syncUser = () => {
             setUserId(getStoredUserId());
@@ -127,53 +198,162 @@ export default function Dashboard() {
         };
     }, [userId]);
 
-    const quickActions = useMemo(
-        () => [
-            {
-                title: t('dashboard.snapChart', 'Upload Trade Screenshot'),
-                desc: t('tradeSnap.dropzoneText', 'Upload any chart screenshot and get AI analysis instantly.'),
-                cta: t('common.exploreNow', 'Upload Now'),
-                href: '/trade-snap',
-                accent: styles.qaBlue,
-                icon: iconOne
-            },
-            {
-                title: t('nav.aiStrategy', 'AI Strategy'),
-                desc: t('nav.aiStrategyDesc', 'Build, test and optimize AI-powered trading strategies.'),
-                cta: t('common.exploreNow', 'Explore Now'),
-                href: '/ai-strategy',
-                accent: styles.qaGreen,
-                icon: iconTwo
-            },
-            {
-                title: t('dashboard.askAssistant', 'Ask AI Chat'),
-                desc: t('aiChat.subtitle', 'Ask any trading or finance related question to AI.'),
-                cta: t('common.exploreNow', 'Ask Now'),
-                href: '/ai-assistant?tab=chat',
-                accent: styles.qaPurple,
-                icon: iconThree
-            },
-            {
-                title: t('nav.economicCalendar', 'Economic Calendar'),
-                desc: t('home.tradingDeskSubtitle', 'Track high-impact news and plan trades around events.'),
-                cta: t('common.exploreNow', 'Open Calendar'),
-                href: '/economic-calendar',
-                accent: styles.qaOrange,
-                icon: iconFour
-            },
+    const getGreeting = () => {
+        const hour = new Date().getHours();
+        if (hour < 12) return t('dashboard.goodMorning', 'Good Morning');
+        else if (hour < 17) return t('dashboard.goodAfternoon', 'Good Afternoon');
+        else if (hour < 21) return t('dashboard.goodEvening', 'Good Evening');
+        else return t('dashboard.goodNight', 'Good Night');
+    };
 
-        ],
-        [t]
-    );
+    const statsData = [
+        {
+            id: 1,
+            label: t('dashboard.recent', 'Recent'),
+            value: stats?.total_analysis_history ?? 0,
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+            )
+        },
+        {
+            id: 2,
+            label: t('nav.aiChat', 'AI Chat'),
+            value: stats?.total_chat_history ?? 0,
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                </svg>
+            )
+        },
+        {
+            id: 3,
+            label: t('dashboard.availableCredits', 'Available AI Credits'),
+            value: stats?.available_credits ?? 0,
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 1l4 4-4 4" />
+                    <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                    <path d="M7 23l-4-4 4-4" />
+                    <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                </svg>
+            )
+        },
+        {
+            id: 4,
+            label: t('dashboard.credits', 'credits'),
+            value: stats?.total_credits ?? 0,
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <circle cx="12" cy="5" r="2" />
+                    <path d="M12 7v4" />
+                    <line x1="8" y1="16" x2="8.01" y2="16" />
+                    <line x1="16" y1="16" x2="16.01" y2="16" />
+                </svg>
+            )
+        },
+    ];
+
+    const quickActions = [
+        {
+            title: t('dashboard.snapChart', 'Upload Trade Screenshot'),
+            desc: t('dashboard.snapDesc', 'Drag and drop your chart here or click to browse'),
+            cta: t('common.exploreNow', 'Explore Now'),
+            href: '/trade-snap',
+            theme: styles.cardBlue,
+            graphic: (
+                <div className={styles.qaIllustrationBlue}>
+                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
+                        <rect x="5" y="5" width="80" height="55" rx="8" fill="url(#blueGrad)" stroke="rgba(0, 255, 136, 0.3)" strokeWidth="1.2" />
+                        <path d="M45 42 V22 M45 22 L38 29 M45 22 L52 29" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <line x1="20" y1="48" x2="70" y2="48" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.5" strokeLinecap="round" />
+                        <defs>
+                            <linearGradient id="blueGrad" x1="5" y1="5" x2="85" y2="60" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#1E1B4B" opacity="0.8" />
+                                <stop offset="1" stopColor="#061A13" opacity="0.9" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            )
+        },
+        {
+            title: t('nav.aiStrategy', 'AI Strategy'),
+            desc: t('nav.aiStrategyDesc', 'Build, test and optimize AI-powered trading strategies.'),
+            cta: t('common.exploreNow', 'Explore Now'),
+            href: '/ai-strategy',
+            theme: styles.cardGreen,
+            graphic: (
+                <div className={styles.qaIllustrationGreen}>
+                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
+                        <path d="M10 50 L30 35 L50 42 L80 15" stroke="#00FF88" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M80 15 H65 M80 15 V30" stroke="#00FF88" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="20" y="38" width="8" height="15" fill="#00FF88" opacity="0.3" rx="2" />
+                        <rect x="40" y="44" width="8" height="9" fill="#00FF88" opacity="0.3" rx="2" />
+                        <rect x="60" y="24" width="8" height="29" fill="#00FF88" opacity="0.4" rx="2" />
+                    </svg>
+                </div>
+            )
+        },
+        {
+            title: t('dashboard.askAssistant', 'Ask AI Chat'),
+            desc: t('dashboard.askDesc', 'Ask questions about currency pairs, technical setups, economic news, or risk management.'),
+            cta: t('common.exploreNow', 'Explore Now'),
+            href: '/ai-assistant?tab=chat',
+            theme: styles.cardPurple,
+            graphic: (
+                <div className={styles.qaIllustrationPurple}>
+                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
+                        <rect x="10" y="10" width="70" height="45" rx="10" fill="url(#purpGrad)" stroke="rgba(0, 255, 136, 0.25)" strokeWidth="1.2" />
+                        <circle cx="30" cy="32" r="3" fill="#00FF88" />
+                        <circle cx="45" cy="32" r="3" fill="#00FF88" opacity="0.7" />
+                        <circle cx="60" cy="32" r="3" fill="#00FF88" opacity="0.4" />
+                        <defs>
+                            <linearGradient id="purpGrad" x1="10" y1="10" x2="80" y2="55" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#31103F" opacity="0.85" />
+                                <stop offset="1" stopColor="#061A13" opacity="0.9" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            )
+        },
+        {
+            title: t('nav.aiTradeAnalysis', 'AI Past Trade Analyzer'),
+            desc: t('dashboard.aiTradeAnalysisDesc', 'Upload your broker statement (MT4, MT5, cTrader, CSV) to reveal execution leaks, win-rate edge, and psychological biases.'),
+            cta: t('common.exploreNow', 'Explore Now'),
+            href: '/ai-trade-analysis',
+            theme: styles.cardOrange,
+            graphic: (
+                <div className={styles.qaIllustrationOrange}>
+                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
+                        <rect x="12" y="10" width="66" height="48" rx="8" stroke="#00FF88" strokeWidth="1.8" fill="url(#tradeAnalyzeGrad)" opacity="0.9" />
+                        <path d="M26 38L38 28L48 34L64 20" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M64 20H52M64 20V32" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="22" y="20" width="12" height="14" rx="3" fill="rgba(0, 255, 136, 0.15)" stroke="rgba(0, 255, 136, 0.4)" strokeWidth="1" />
+                        <path d="M26 25H30M26 29H28" stroke="#00FF88" strokeWidth="1.5" strokeLinecap="round" />
+                        <defs>
+                            <linearGradient id="tradeAnalyzeGrad" x1="12" y1="10" x2="78" y2="58" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#02241B" opacity="0.9" />
+                                <stop offset="1" stopColor="#01140F" opacity="0.95" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            )
+        }
+    ];
 
     const recents = useMemo(() => {
         const normalize = (item, index) => {
             const type = item?.type || item?.activity_type || item?.kind || "";
-            const normalizedType = String(type)
-                .toLowerCase()
-                .includes("blog")
-                ? "blog"
-                : "chat";
+            const normalizedType = String(type).toLowerCase().includes("blog") ? "blog" : "chat";
 
             let summary = "";
             if (typeof item?.summary === "string") {
@@ -214,136 +394,85 @@ export default function Dashboard() {
         router.push(`/ai-assistant?${params.toString()}`);
     };
 
-    const getGreeting = () => {
-        const hour = new Date().getHours();
-        if (hour < 12) return t('dashboard.goodMorning', 'Good Morning');
-        else if (hour < 17) return t('dashboard.goodAfternoon', 'Good Afternoon');
-        else if (hour < 21) return t('dashboard.goodEvening', 'Good Evening');
-        else return t('dashboard.goodNight', 'Good Night');
-    };
-
-    const statsData = [
-        {
-            id: 1,
-            label: t('dashboard.recentAnalyses', 'Total Trade Analysis'),
-            value: stats?.total_analysis_history ?? "—",
-            delta: "Analysis History",
-            icon: state1,
-        },
-        {
-            id: 2,
-            label: t('nav.aiChat', 'Total Chats'),
-            value: stats?.total_chat_history ?? "—",
-            delta: "Chat History",
-            icon: state2,
-        },
-        {
-            id: 3,
-            label: t('dashboard.creditsBalance', 'Available Credits'),
-            value: stats?.available_credits ?? "—",
-            delta: `Total Credits: ${stats?.total_credits ?? 0}`,
-            icon: state3,
-        },
-        {
-            id: 4,
-            label: t('topbar.credits', 'Total Credits'),
-            value: stats?.total_credits ?? "—",
-            delta: "Total Credits",
-            icon: state4,
-        },
-    ];
-
     return (
         <div className={styles.dashboard}>
-            <section className={styles.hero}>
-                <div className={styles.heroText}>
-                    <div className={styles.heroKicker}>{t('home.heroTitle', 'AI Powered insights ready')}</div>
+            {/* Top Hero Banner */}
+            <section className={styles.heroBanner}>
+                <img src="/assets/images/dashboard-bg.png" alt="Dashboard Banner" className={styles.heroBgImg} />
+                <div className={styles.heroContent}>
+                    <div className={styles.kicker}>
+                        {t('dashboard.bannerKicker', 'Trade Smarter With AI-Powered Forex Intelligence')}
+                    </div>
                     <h1>
-                        {greeting}, <span>{name}</span>
+                        {greeting}, <span className={styles.neonText}>{name}</span>
                     </h1>
+                    <p className={styles.tagline}>
+                        Analyze &bull; Strategize &bull; Trade &bull; Grow
+                    </p>
+                </div>
+                <div className={styles.bannerTaglineRight}>
+                    <span>DISCIPLINE</span>
+                    <span>ANALYSIS</span>
+                    <span>BETTER TRADES</span>
+                    <div className={styles.accentLine} />
                 </div>
             </section>
 
+            {/* 4 Stat Cards Row */}
             <section className={styles.statsGrid}>
-                {loading ? (
-                    [...Array(4)].map((_, i) => (
-                        <div className={`${styles.statCard} ${styles.skeletonCard}`} key={i}>
-                            <div className={`${styles.skeletonIcon} ${styles.shimmer}`} />
-                            <div className={styles.stat}>
-                                <div className={`${styles.skeletonLabel} ${styles.shimmer}`} />
-                                <div className={`${styles.skeletonValue} ${styles.shimmer}`} />
+                {statsData.map((item) => (
+                    <div className={styles.statCard} key={item.id}>
+                        <div className={styles.statLeft}>
+                            <div className={styles.statIconBox}>
+                                {item.icon}
+                            </div>
+                            <div className={styles.statInfo}>
+                                <span className={styles.statLabel}>{item.label}</span>
+                                <span className={styles.statValue}>{item.value}</span>
                             </div>
                         </div>
-                    ))
-                ) : (
-                    statsData.map((item) => (
-                        <div className={styles.statCard} key={item.id}>
-                            <img src={item.icon} alt={item.label} />
-                            <div className={styles.stat}>
-                                <div className={styles.statLabel}>{item.label}</div>
-                                <div className={styles.statValue}>{item.value}</div>
-                            </div>
-                        </div>
-                    ))
-                )}
+                        <SparklineSVG />
+                    </div>
+                ))}
             </section>
 
+            {/* Quick Actions Grid */}
             <section className={styles.section}>
-                <div className={styles.sectionHeader}>
-                    <h2>{t('dashboard.quickActions', 'Quick Actions')}</h2>
-                </div>
+                <h2 className={styles.sectionTitle}>{t('dashboard.quickActions', 'Quick Actions')}</h2>
                 <div className={styles.quickGrid}>
                     {quickActions.map((qa) => (
-                        <div key={qa.title} className={`${styles.qaCard} `}>
+                        <div key={qa.title} className={`${styles.qaCard} ${qa.theme}`}>
+                            <div className={styles.qaHeaderGraphic}>
+                                {qa.graphic}
+                            </div>
                             <div className={styles.qaBody}>
-                                <img src={qa.icon} alt={qa.title} />
                                 <h3>{qa.title}</h3>
                                 <p>{qa.desc}</p>
-                                <div className={styles.dividerLine}></div>
-                                <Link href={qa.href} className={styles.qaFooter} aria-label={qa.cta}>
-                                    <div className={styles.icon}>
-                                        <img src={ArrowIcon} alt={ArrowIcon} />
-                                    </div>
-                                    <span>{qa.cta}</span>
-                                </Link>
                             </div>
+                            <Link href={qa.href} className={styles.qaCtaBtn}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7" />
+                                    <polyline points="7 7 17 7 17 17" />
+                                </svg>
+                                <span>{qa.cta}</span>
+                            </Link>
                         </div>
                     ))}
                 </div>
             </section>
 
+            {/* Recent Activity Section */}
             <section className={styles.section}>
-                <div className={styles.sectionHeader}>
-                    <h2>{t('dashboard.recentAnalyses', 'Recent')}</h2>
-                </div>
-
-                <div className={styles.recentCard}>
-                    {loading ? (
-                        <div className={styles.tableWrapper}>
-                            <table className={styles.recentTable}>
-                                <thead>
-                                    <tr>
-                                        <th>{t('dashboard.time', 'Time')}</th>
-                                        <th>{t('dashboard.type', 'Type')}</th>
-                                        <th>{t('dashboard.title', 'Title')}</th>
-                                        <th>{t('dashboard.summary', 'Summary')}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {[...Array(5)].map((_, i) => (
-                                        <tr key={i} className={styles.skeletonRow}>
-                                            <td><div className={`${styles.skeletonBadge} ${styles.shimmer}`} /></td>
-                                            <td><div className={`${styles.skeletonText} ${styles.shimmer}`} /></td>
-                                            <td><div className={`${styles.skeletonTextWide} ${styles.shimmer}`} /></td>
-                                            <td><div className={`${styles.skeletonTextShort} ${styles.shimmer}`} /></td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    ) : recents.length === 0 ? (
-                        <div className={styles.recentEmpty}>
-                            {t('dashboard.noRecentActivity', 'No recent chats or blogs yet.')}
+                <h2 className={styles.sectionTitle}>{t('dashboard.recent', 'Recent')}</h2>
+                <div className={styles.recentBox}>
+                    {recents.length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <div className={styles.emptyIconBox}>
+                                <EmptyDocIcon />
+                            </div>
+                            <h3>{t('dashboard.noRecentTitle', 'No recent activity found')}</h3>
+                            <p>{t('dashboard.noRecentDesc', 'Your trade activity, AI chats and analysis will appear here.')}</p>
+                            <TradeSmarterWatermark />
                         </div>
                     ) : (
                         <div className={styles.tableWrapper}>
@@ -362,32 +491,9 @@ export default function Dashboard() {
                                             onClick={() => openRecent(item)}
                                             className={styles.tableRow}
                                         >
-                                            <td>
-                                                <div className={styles.recentTime}>
-                                                    {timeAgo(item.created_at)}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div
-                                                    className={styles.recentTitle}
-                                                    title={item.title}
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className={styles.recentSummary}>
-                                                    {item.summary ? (
-                                                        <div
-                                                            dangerouslySetInnerHTML={{
-                                                                __html: formatSummary(item.summary),
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        "-"
-                                                    )}
-                                                </div>
-                                            </td>
+                                            <td className={styles.recentTime}>{timeAgo(item.created_at)}</td>
+                                            <td className={styles.recentTitle}>{item.title}</td>
+                                            <td className={styles.recentSummary}>{item.summary || '-'}</td>
                                         </tr>
                                     ))}
                                 </tbody>

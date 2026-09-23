@@ -41,10 +41,10 @@
             }
 
             &:hover {
-                background: rgba(16, 185, 129, 0.25);
+                // background: rgba(16, 185, 129, 0.25);
                 border-color: $accent-neon;
                 color: #FFFFFF;
-                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+                // box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
             }
         }
     }
@@ -67,7 +67,7 @@
         cursor: pointer;
         text-decoration: none;
         line-height: normal;
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        // box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
         transition: all 0.3s ease;
 
         :global([dir="rtl"]) & {
@@ -80,8 +80,8 @@
         }
 
         &:hover {
-            background: linear-gradient(135deg, $neon, $primary);
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            background: l0 10px 30px rgba(204, 231, 213, 0.4);
+            box-shadow: 0 10px 30px rgba(12, 44, 23, 0.4);
             transform: translateY(-2px);
 
             .icon {

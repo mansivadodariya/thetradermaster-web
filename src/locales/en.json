@@ -1,10 +1,10 @@
 {
   "nav": {
     "home": "Home",
-    "aiTrade": "AI Trade",
-    "aiChat": "AI Chat",
+    "aiTrade": "AI Chart Scanner",
+    "aiChat": "AI Trade Assistant",
     "aiStrategy": "AI Strategy",
-    "pastTradeAnalyzer": "Past Trade Analyzer",
+    "pastTradeAnalyzer": "AI Past Trade Analyzer",
     "aiStrategyDesc": "Build, test and optimize AI-powered trading strategies.",
     "liveAnalysis": "Live Analysis",
     "economicCalendar": "Economic Calendar",
@@ -130,7 +130,7 @@
     "readyDeskSubtitle": "Claim credits, and start asking Trader Master in under five minutes."
   },
   "tradeSnap": {
-    "title": "AI Trade",
+    "title": "AI Chart Scanner",
     "subtitle": "Capture your screen, analyze chart movements, and get AI trade insights with single or multi-timeframe views.",
     "dropzoneText": "Drag and drop your chart here or click to browse",
     "analyzeBtn": "Analyze Chart",
@@ -176,7 +176,7 @@
     "captureHigherTimeframe": "Capture higher timeframe"
   },
   "aiChat": {
-    "title": "AI Forex Assistant",
+    "title": "AI Trade Assistant",
     "subtitle": "Ask questions about currency pairs, technical setups, economic news, or risk management.",
     "inputPlaceholder": "Ask AI about any pair, indicator, or market setup...",
     "send": "Send",

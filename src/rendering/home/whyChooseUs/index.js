@@ -53,33 +53,33 @@ export default function WhyChooseUs() {
     const features = [
         {
             icon: <CreditIcon />,
-            title: t('home.whyNoSub', 'No Subscription Required'),
-            description: t('home.whyNoSubDesc', 'Pay with your trading volume, not your wallet. Every completed trade cycle on Newera replenishes your AI credits automatically.'),
+            title: t('home.whyNoSub', 'Turn Charts Into Clear Insights'),
+            description: t('home.whyNoSubDesc', 'Upload a chart and let AI analyze market structure, key levels, momentum, and potential setups. Get structured insights instead of spending hours manually studying every detail.'),
         },
         {
             icon: <Mt5Icon />,
-            title: t('home.whyMt5', 'Built Exclusively for MT5'),
-            description: t('home.whyMt5Desc', 'Unlike generic AI tools, Trader Master is purpose-built for MetaTrader 5 traders with deep integration into the MT5 ecosystem.'),
+            title: t('home.whyMt5', 'Ask. Analyze. Build.'),
+            description: t('home.whyMt5Desc', 'Use AI Trade for chart analysis, AI Chat for market questions and trading discussions, and AI Strategy to create structured strategies based on your trading style.'),
         },
         {
             icon: <DataIcon />,
-            title: t('home.whyData', 'Institutional-Grade Data'),
-            description: t('home.whyDataDesc', 'Market telemetry and price data across currencies, commodities, and indices sourced from institutional data feeds for professional-level accuracy.'),
+            title: t('home.whyData', 'Structured, Data-Driven Analysis'),
+            description: t('home.whyDataDesc', 'Instead of overwhelming you with information, Trader Master organizes its analysis into clear sections so you can better understand market structure, technical conditions, setups, and risk considerations.'),
         },
         {
             icon: <AiIcon />,
-            title: t('home.whyRealtime', 'Real-Time AI Analysis'),
-            description: t('home.whyRealtimeDesc', 'Get instant chart readings, pattern detection, and trade setups within seconds — not minutes. AI that matches your trading speed.'),
+            title: t('home.whyRealtime', 'Built Around Your Trading Journey'),
+            description: t('home.whyRealtimeDesc', "Whether you're learning the fundamentals or already trading actively, Trader Master gives you AI-powered tools that can support different stages of your trading workflow."),
         },
         {
             icon: <ShieldIcon />,
-            title: t('home.whyPrivacy', 'Complete Privacy'),
-            description: t('home.whyPrivacyDesc', 'We never access your brokerage account, hold client deposits, or execute trades on your behalf. Your trading data stays yours.'),
+            title: t('home.whyPrivacy', 'One Connected Trading Experience'),
+            description: t('home.whyPrivacyDesc', "Trader Master is designed to work around your MT5 trading environment, creating a more connected experience between your trading activity and AI-powered analysis."),
         },
         {
             icon: <RepeatIcon />,
-            title: t('home.whyCredit', 'Trade More, Analyze More'),
-            description: t('home.whyCreditDesc', 'A unique credit system that rewards active traders. The more you trade, the more AI analysis credits you earn — creating a self-sustaining cycle.'),
+            title: t('home.whyCredit', 'Strategy Creation Made Simpler'),
+            description: t('home.whyCreditDesc', "Describe the way you want to trade and use AI Strategy to turn your ideas into structured trading rules, filters, and backtesting workflows."),
         },
     ]
 

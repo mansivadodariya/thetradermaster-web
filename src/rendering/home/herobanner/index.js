@@ -58,6 +58,10 @@ const StrategyIcon = () => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
 );
 
+const AnalyzerIcon = () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+);
+
 export default function Herobanner() {
     const router = useRouter();
     const { language, t } = useLanguage();
@@ -66,7 +70,7 @@ export default function Herobanner() {
     const featureCards = [
         {
             icon: <CameraIcon />,
-            title: t('nav.aiTrade', 'AI Trade'),
+            title: t('nav.aiTrade', 'AI Trade Assistance'),
             description: t('home.aiTradeCardDesc', 'Upload a chart screenshot and get instant structure analysis, key levels, and a graded setup with risk/reward.'),
             link: '/tradesnap',
         },
@@ -81,6 +85,12 @@ export default function Herobanner() {
             title: t('nav.aiStrategy', 'AI Strategy'),
             description: t('home.aiStrategyCardDesc', 'Describe your style, get a complete strategy with entry rules, filters, and an exportable backtest report.'),
             link: '/ai-strategy',
+        },
+        {
+            icon: <AnalyzerIcon />,
+            title: t('nav.aiPastTradeAnalyzer', 'AI Past Trade Analyzer'),
+            description: t('home.aiPastTradeAnalyzerCardDesc', 'Upload MT4/MT5/cTrader broker statements to reveal execution leaks, win-rate edge, and AI trade playbooks.'),
+            link: '/ai-trade-analysis',
         },
     ];
 

@@ -7,7 +7,7 @@ export const brokerList = [
         name_ar: 'وساطة نيو ايرا',
         subtitle: 'Liquidity Gateway',
         subtitle_ar: 'بوابة السيولة',
-        logo: '/assets/images/logo-light.webp',
+        logo: '/assets/images/logo-light1.webp',
         category: 'Brokers',
         description: 'Native volume-to-credit integration engine powering your Trader Master AI usage credits directly through MT5 trading volume.',
         description_ar: 'محرك متكامل لتحويل حجم التداول إلى رصيد ذكاء اصطناعي مباشرة من خلال تداولك على منصة MT5.',
@@ -36,8 +36,8 @@ export const brokerList = [
 export function formatBroker(item) {
     if (!item) return null;
     let logoUrl = item.logo || '';
-    if (item.id === 'newera' || logoUrl.includes('Img1.svg')) {
-        logoUrl = '/assets/images/logo-light.webp';
+    if (item.id === 'newera' || logoUrl.includes('Img1.svg') || !logoUrl) {
+        logoUrl = '/assets/images/logo-light1.webp';
     }
     return {
         id: item.id,

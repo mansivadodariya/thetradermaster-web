@@ -2,10 +2,33 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .privacyPolicy {
-    padding: 180px 0 80px 0;
+    padding: 160px 0 80px 0;
+    background-color: #050d09;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 60%;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.06) 0%, rgba(16, 185, 129, 0.01) 50%, transparent 75%);
+        filter: blur(100px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    :global(.container-xs) {
+        position: relative;
+        z-index: 2;
+    }
 
     @include respond-to('md') {
-        padding: 140px 0 60px 0;
+        padding: 130px 0 60px 0;
     }
 
     @include respond-to('sm') {
@@ -16,23 +39,23 @@
         margin-bottom: 60px;
 
         h1 {
-            color: #1A1A1A;
-            font-size: 48px;
-            font-weight: 700;
+            color: #FFFFFF;
+            font-size: 46px;
+            font-weight: 800;
             font-family: var(--font-plus-jakarta);
             margin-bottom: 16px;
 
             @include respond-to('md') {
-                font-size: 40px;
+                font-size: 38px;
             }
 
             @include respond-to('sm') {
-                font-size: 32px;
+                font-size: 30px;
             }
         }
 
         p {
-            color: #5F5F5F;
+            color: rgba(255, 255, 255, 0.78);
             font-size: 18px;
             font-weight: 500;
 
@@ -51,7 +74,7 @@
             }
 
             h2 {
-                color: #1A1A1A;
+                color: #FFFFFF;
                 font-size: 26px;
                 font-weight: 700;
                 margin-bottom: 20px;
@@ -66,8 +89,9 @@
                     top: 5px;
                     bottom: 5px;
                     width: 4px;
-                    background: $primary;
+                    background: #00FF88;
                     border-radius: 4px;
+                    box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
                 }
 
                 @include respond-to('md') {
@@ -81,7 +105,7 @@
             }
 
             p {
-                color: #5F5F5F;
+                color: rgba(255, 255, 255, 0.78);
                 font-size: 17px;
                 line-height: 1.8;
                 margin-bottom: 16px;
@@ -101,18 +125,19 @@
             }
 
             a {
-                color: $primary;
+                color: #00FF88;
                 text-decoration: none;
                 font-weight: 600;
                 transition: opacity 0.2s;
 
                 &:hover {
-                    opacity: 0.8;
+                    color: #22FF99;
+                    text-decoration: underline;
                 }
             }
 
             strong {
-                color: #1A1A1A;
+                color: #FFFFFF;
             }
         }
     }

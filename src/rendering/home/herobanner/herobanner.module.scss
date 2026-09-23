@@ -74,6 +74,10 @@
 
         .tagWrap {
             margin-bottom: 24px;
+
+            button, :global(.lineText) {
+                color: #FFFFFF !important;
+            }
         }
 
         h1 {
@@ -415,8 +419,12 @@
 
     .featureCardsGrid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 20px;
+
+        @include respond-to('lg') {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
         @include respond-to('md') {
             grid-template-columns: 1fr;

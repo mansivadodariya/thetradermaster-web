@@ -53,19 +53,69 @@
             padding: 0 0 32px 0;
         }
 
-        .linkcol {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+        .rightCol {
+            width: 100%;
 
-            @include respond-to('md') {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 36px;
+            .linkcol {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+
+                @include respond-to('md') {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 36px;
+                }
+
+                @include respond-to('sm') {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 28px;
+                }
             }
 
-            @include respond-to('sm') {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 28px;
+            .socialLinks {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-top: 4px;
+
+                .socialIcon {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    border: 1px solid rgba(0, 255, 136, 0.25);
+                    background: rgba(0, 255, 136, 0.08);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    color: #00FF88;
+                    box-shadow: 0 0 12px rgba(0, 255, 136, 0.1);
+
+                    @include respond-to('sm') {
+                        width: 40px;
+                        height: 40px;
+                    }
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                        fill: currentColor;
+
+                        @include respond-to('sm') {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    &:hover {
+                        background: #00FF88;
+                        border-color: #00FF88;
+                        color: #050d09;
+                        transform: translateY(-3px);
+                        box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+                    }
+                }
             }
         }
 
@@ -308,54 +358,6 @@
                     line-height: 16px;
                 }
 
-                @include respond-to('sm') {
-                    font-size: 10px;
-                    line-height: 15px;
-                }
-            }
-        }
-
-        .socialLinks {
-            display: flex;
-            gap: 12px;
-
-            .socialIcon {
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                border: 1px solid rgba(0, 255, 136, 0.25);
-                background: rgba(0, 255, 136, 0.08);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                color: #00FF88;
-                box-shadow: 0 0 12px rgba(0, 255, 136, 0.1);
-
-                @include respond-to('sm') {
-                    width: 40px;
-                    height: 40px;
-                }
-
-                svg {
-                    width: 18px;
-                    height: 18px;
-                    fill: currentColor;
-
-                    @include respond-to('sm') {
-                        width: 16px;
-                        height: 16px;
-                    }
-                }
-
-                &:hover {
-                    background: #00FF88;
-                    border-color: #00FF88;
-                    color: #050d09;
-                    transform: translateY(-3px);
-                    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
-                }
             }
         }
     }

@@ -26,9 +26,9 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #F3F4F6;
-            border: 1px solid #E5E7EB;
-            color: #4B5563;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            color: #0F172A;
             padding: 8px 16px;
             border-radius: 10px;
             font-size: 14px;
@@ -36,10 +36,11 @@
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
             &:hover {
-                background: $primary;
-                border-color: $primary;
+                background: #10B981;
+                border-color: #10B981;
                 color: #FFFFFF;
                 transform: translateX(-2px);
             }
@@ -47,12 +48,12 @@
     }
 
     .heroBanner {
-        background: linear-gradient(135deg, #0e0f12 0%, #072a6b 100%);
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
         border-radius: 20px;
         padding: 36px 32px;
-        color: #FFFFFF;
-        box-shadow: 0 10px 30px rgba(6, 57, 149, 0.25);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #0F172A;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 
         .logoRow {
             display: flex;
@@ -70,6 +71,10 @@
                 height: 52px;
                 display: flex;
                 align-items: center;
+                padding: 6px 12px;
+                border-radius: 10px;
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
 
                 img {
                     max-height: 48px;
@@ -84,9 +89,9 @@
                 gap: 10px;
 
                 .categoryBadge {
-                    background: rgba(255, 255, 255, 0.15);
-                    border: 1px solid rgba(255, 255, 255, 0.25);
-                    color: #FFFFFF;
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #334155;
                     padding: 4px 14px;
                     border-radius: 20px;
                     font-size: 12px;
@@ -96,9 +101,9 @@
                 }
 
                 .statusBadge {
-                    background: rgba(16, 185, 129, 0.25);
-                    color: #34D399;
-                    border: 1px solid rgba(16, 185, 129, 0.4);
+                    background: #ECFDF5;
+                    color: #047857;
+                    border: 1px solid #A7F3D0;
                     padding: 4px 14px;
                     border-radius: 20px;
                     font-size: 12px;
@@ -112,6 +117,7 @@
         .title {
             font-size: 32px;
             font-weight: 700;
+            color: #0F172A;
             margin: 0 0 8px 0;
             line-height: 1.2;
             font-family: var(--font-plus-jakarta);
@@ -123,7 +129,7 @@
 
         .subtitle {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.85);
+            color: #475569;
             margin: 0;
             font-weight: 500;
         }
@@ -145,7 +151,7 @@
 
             .cardSection {
                 background: #FFFFFF;
-                border: 1px solid #E5E7EB;
+                border: 1px solid #E2E8F0;
                 border-radius: 16px;
                 padding: 28px;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -153,14 +159,14 @@
                 h3 {
                     font-size: 18px;
                     font-weight: 700;
-                    color: #111827;
+                    color: #0F172A;
                     margin: 0 0 14px 0;
                 }
 
                 .description {
                     font-size: 15px;
                     line-height: 1.65;
-                    color: #4B5563;
+                    color: #475569;
                     margin: 0;
                 }
 
@@ -177,14 +183,16 @@
                         align-items: flex-start;
                         gap: 12px;
                         font-size: 15px;
-                        color: #1F2937;
+                        color: #1E293B;
                         font-weight: 500;
 
                         .checkIconBox {
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            background: rgba(16, 185, 129, 0.12);
+                            background: #ECFDF5;
+                            border: 1px solid #A7F3D0;
+                            color: #059669;
                             border-radius: 50%;
                             padding: 4px;
                             margin-top: 2px;
@@ -198,10 +206,10 @@
         .sidebar {
             .actionCard {
                 background: #FFFFFF;
-                border: 1px solid #E5E7EB;
+                border: 1px solid #E2E8F0;
                 border-radius: 16px;
                 padding: 24px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
@@ -211,13 +219,13 @@
                 h4 {
                     font-size: 17px;
                     font-weight: 700;
-                    color: #111827;
+                    color: #0F172A;
                     margin: 0;
                 }
 
                 p {
                     font-size: 14px;
-                    color: #6B7280;
+                    color: #64748B;
                     line-height: 1.5;
                     margin: 0;
                 }
@@ -231,16 +239,10 @@
                     padding: 10px 14px;
                     border-radius: 10px;
                     font-size: 13px;
-                    color: $primary;
+                    color: #059669;
                     font-weight: 600;
                     word-break: break-all;
                     font-family: monospace;
-
-                    :global([dir="rtl"]) & {
-                        direction: ltr;
-                        text-align: left;
-                        justify-content: flex-end;
-                    }
                 }
 
                 .visitOfficialBtn {
@@ -249,7 +251,7 @@
                     justify-content: center;
                     gap: 10px;
                     padding: 13px 20px;
-                    background: $primary;
+                    background: #10B981;
                     color: #FFFFFF;
                     border-radius: 12px;
                     font-size: 15px;
@@ -258,24 +260,17 @@
                     transition: all 0.2s ease;
                     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
 
-                    svg {
-                        :global([dir="rtl"]) & {
-                            transform: scaleX(-1);
-                        }
-                    }
-
                     &:hover {
-                        background: #0843AD;
+                        background: #059669;
                         transform: translateY(-2px);
-                        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
                     }
                 }
 
                 .syncBtn {
                     padding: 12px 20px;
-                    background: linear-gradient(135deg, #0e0f12 0%, #072a6b 100%);
-                    color: #FFFFFF;
-                    border: none;
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+                    color: #334155;
                     border-radius: 12px;
                     font-size: 14px;
                     font-weight: 600;
@@ -283,8 +278,9 @@
                     transition: all 0.2s ease;
 
                     &:hover {
-                        opacity: 0.92;
-                        transform: translateY(-1px);
+                        background: #ECFDF5;
+                        color: #059669;
+                        border-color: #A7F3D0;
                     }
                 }
             }
@@ -298,12 +294,12 @@
 
     h2 {
         font-size: 24px;
-        color: #111827;
+        color: #0F172A;
         margin: 0 0 8px 0;
     }
 
     p {
-        color: #6B7280;
+        color: #64748B;
         margin: 0 0 20px 0;
     }
 
@@ -312,7 +308,7 @@
         align-items: center;
         gap: 8px;
         padding: 10px 20px;
-        background: $primary;
+        background: #10B981;
         color: #FFFFFF;
         border-radius: 10px;
         text-decoration: none;
@@ -324,41 +320,72 @@
     .brokerDetailPage {
         .topNav {
             .backLink {
-                background: #1A1A1E;
-                border-color: #2D2D34;
-                color: #E2E8F0;
+                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+                border-color: rgba(0, 255, 136, 0.2) !important;
+                color: #FFFFFF !important;
 
                 &:hover {
-                    background: $primary;
-                    border-color: $primary;
-                    color: #FFFFFF;
+                    background: $primary !important;
+                    border-color: $primary !important;
+                    color: #FFFFFF !important;
                 }
             }
         }
 
         .heroBanner {
-            border-color: #2D2D34;
+            background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
+            border-color: rgba(0, 255, 136, 0.25) !important;
+            color: #FFFFFF !important;
+
+            .title {
+                color: #FFFFFF !important;
+            }
+
+            .subtitle {
+                color: rgba(255, 255, 255, 0.85) !important;
+            }
+
+            .logoRow {
+                .logoBox {
+                    background: rgba(255, 255, 255, 0.08) !important;
+                    border: none !important;
+                }
+
+                .badges .categoryBadge {
+                    background: rgba(255, 255, 255, 0.15) !important;
+                    border-color: rgba(255, 255, 255, 0.25) !important;
+                    color: #FFFFFF !important;
+                }
+
+                .badges .statusBadge {
+                    background: rgba(16, 185, 129, 0.25) !important;
+                    color: #34D399 !important;
+                    border-color: rgba(16, 185, 129, 0.4) !important;
+                }
+            }
         }
 
         .contentGrid {
             .mainContent {
                 .cardSection {
-                    background: #1A1A1E;
-                    border-color: #2D2D34;
+                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+                    border-color: rgba(0, 255, 136, 0.2) !important;
 
                     h3 {
-                        color: #FFFFFF;
+                        color: #FFFFFF !important;
                     }
 
                     .description {
-                        color: #9CA3AF;
+                        color: rgba(255, 255, 255, 0.7) !important;
                     }
 
                     .featureList .featureItem {
-                        color: #E2E8F0;
+                        color: #FFFFFF !important;
 
                         .checkIconBox {
-                            background: rgba(16, 185, 129, 0.2);
+                            background: rgba(16, 185, 129, 0.2) !important;
+                            border: none !important;
+                            color: #00FF88 !important;
                         }
                     }
                 }
@@ -366,36 +393,36 @@
 
             .sidebar {
                 .actionCard {
-                    background: #1A1A1E;
-                    border-color: #2D2D34;
+                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+                    border-color: rgba(0, 255, 136, 0.2) !important;
 
                     h4 {
-                        color: #FFFFFF;
+                        color: #FFFFFF !important;
                     }
 
                     p {
-                        color: #9CA3AF;
+                        color: rgba(255, 255, 255, 0.7) !important;
                     }
 
                     .urlBox {
-                        background: #0F172A;
-                        border-color: #1E293B;
-                        color: $very-light-green;
+                        background: rgba(0, 16, 11, 0.65) !important;
+                        border-color: rgba(0, 255, 136, 0.25) !important;
+                        color: #00FF88 !important;
                     }
 
                     .visitOfficialBtn {
-                        background: $primary;
-                        color: #FFFFFF;
+                        background: $primary !important;
+                        color: #FFFFFF !important;
 
                         &:hover {
-                            background: $primary;
+                            background: #059669 !important;
                         }
                     }
 
                     .syncBtn {
-                        background: linear-gradient(135deg, #0e0f12 0%, #072a6b 100%);
-                        border: 1px solid #2D2D34;
-                        color: #FFFFFF;
+                        background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
+                        border-color: rgba(0, 255, 136, 0.25) !important;
+                        color: #FFFFFF !important;
                     }
                 }
             }
@@ -404,11 +431,11 @@
 
     .notFound {
         h2 {
-            color: #FFFFFF;
+            color: #FFFFFF !important;
         }
 
         p {
-            color: #9CA3AF;
+            color: rgba(255, 255, 255, 0.7) !important;
         }
     }
 }

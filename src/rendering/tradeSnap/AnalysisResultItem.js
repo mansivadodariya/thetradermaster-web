@@ -74,7 +74,7 @@ export default function AnalysisResultItem({ trade, index, onViewDetails }) {
                 <div className={styles.confidenceWrap}>
                     <div className={`${styles.confidenceRing} ${confidenceClass}`}>
                         <svg viewBox="0 0 80 80" aria-hidden="true">
-                            <circle cx="40" cy="40" r="34" fill="none" stroke="#e5e7eb" strokeWidth="7" />
+                            <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(0, 255, 136, 0.15)" strokeWidth="7" />
                             <motion.circle
                                 cx="40"
                                 cy="40"

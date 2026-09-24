@@ -142,7 +142,7 @@ export async function POST(request) {
         return NextResponse.json(
             {
                 success: true,
-                message: 'Phone number verified with Firebase and saved to user database.',
+                message: 'Phone number verified.',
                 phone_number: verifiedPhone,
                 is_phone_verified: true,
             },

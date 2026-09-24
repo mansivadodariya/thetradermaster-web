@@ -96,7 +96,7 @@ export async function hydrateUserFromProfile(userId, currentUser = null) {
             try {
                 const { data, error } = await supabase
                     .from('users')
-                    .select('first_name, last_name, email, name, phone_number, profile_picture')
+                    .select('first_name, last_name, email, phone_number, profile_picture')
                     .eq('id', uid)
                     .maybeSingle();
 
@@ -209,6 +209,13 @@ export function persistAuthSession(payload) {
     }
     updatedLogins = updatedLogins.slice(-5);
 
+    const isPhoneVerified = Boolean(
+        user.is_phone_verified === true ||
+        data.is_phone_verified === true ||
+        user.is_phone_verified === 'true' ||
+        data.is_phone_verified === 'true'
+    );
+
     const sessionUser = {
         id: userId || user.id || user.user_id || '',
         user_id: userId || user.user_id || user.id || '',
@@ -216,12 +223,16 @@ export function persistAuthSession(payload) {
         last_name: user.last_name || data.last_name || (nameParts.length > 1 ? nameParts.slice(1).join(' ') : '') || '',
         email: user.email || data.email || '',
         phone_number: user.phone_number || data.phone_number || '',
+        is_phone_verified: isPhoneVerified,
         referral_code: user.referral_code || data.referral_code || '',
         last_logins: updatedLogins,
     };
 
-    const hasPhone = Boolean(sessionUser.phone_number);
-    document.cookie = `has_phone=${hasPhone}; path=/; SameSite=Lax`;
+    if (isPhoneVerified) {
+        document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+    } else {
+        document.cookie = 'has_phone=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    }
 
     localStorage.setItem('user', JSON.stringify(sessionUser));
     window.dispatchEvent(new CustomEvent('user:updated'));

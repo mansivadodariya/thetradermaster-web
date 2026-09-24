@@ -12,12 +12,13 @@ const cleanEnv = (val, fallback = '') => {
 };
 
 const firebaseConfig = {
-    apiKey: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_API_KEY, 'AIzaSyAeuqPAkgx_fuyIQ_zFq-Md6nE8HPQXi1w'),
-    authDomain: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, 'the-trader-master.firebaseapp.com'),
-    projectId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID, 'the-trader-master'),
-    storageBucket: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET, 'the-trader-master.firebasestorage.app'),
-    messagingSenderId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID, '638080398853'),
-    appId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_APP_ID, '1:638080398853:web:141fd5c1fcb143e72c4e6c'),
+    apiKey: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_API_KEY, 'AIzaSyAAYITwyxc7YfPqn5dHbpiOaNnb1kmex6E'),
+    authDomain: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, 'algomaticbot-f9485.firebaseapp.com'),
+    projectId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID, 'algomaticbot-f9485'),
+    storageBucket: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET, 'algomaticbot-f9485.firebasestorage.app'),
+    messagingSenderId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID, '574801388116'),
+    appId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_APP_ID, '1:574801388116:web:57fb943e782b340732c3c1'),
+    measurementId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, 'G-9S87RWPNSB'),
 };
 
 export function getFirebaseApp() {
@@ -29,7 +30,13 @@ export function getFirebaseApp() {
 
 export function getFirebaseAuth() {
     const app = getFirebaseApp();
-    return getAuth(app);
+    const auth = getAuth(app);
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        try {
+            auth.settings.appVerificationDisabledForTesting = true;
+        } catch (_) {}
+    }
+    return auth;
 }
 
 /**
@@ -72,6 +79,12 @@ export async function sendFirebaseSmsOtp(phoneNumber, recaptchaVerifier) {
 
     if (!verifier) {
         throw new Error('reCAPTCHA verifier is not initialized.');
+    }
+
+    try {
+        await verifier.render();
+    } catch (renderErr) {
+        console.warn('reCAPTCHA render notice:', renderErr);
     }
 
     const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);

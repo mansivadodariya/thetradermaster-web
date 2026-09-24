@@ -2,48 +2,77 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .page {
+    background-color: #030E09;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 60px 20px;
     min-height: 100dvh;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/images/login-bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top;
+        opacity: 1;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 40%, rgba(0, 255, 136, 0.14) 0%, rgba(3, 16, 11, 0.82) 55%, rgba(2, 10, 7, 0.96) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
 
     .box {
-        max-width: 497px;
+        max-width: 480px;
         margin: 0 auto;
         position: relative;
-        padding: 90px 24px 40px;
+        z-index: 2;
+        padding: 42px 32px 36px 32px;
         border-radius: 24px;
         width: 100%;
         overflow: hidden;
-        border: 1px solid rgba(26, 26, 26, 0.14);
-        background: #FFF;
-        box-shadow: 0 0 84.9px 0 rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 255, 136, 0.35);
+        background: linear-gradient(180deg, rgba(6, 28, 19, 0.92) 0%, rgba(3, 16, 11, 0.95) 100%);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 255, 136, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+
+        @include respond-to('md') {
+            padding: 36px 24px 28px 24px;
+        }
+
+        @include respond-to('sm') {
+            padding: 30px 18px 24px 18px;
+            border-radius: 20px;
+        }
 
         .layer {
             border-radius: 442px;
-            background: #10B981;
-            filter: blur(46.8px);
-            width: 90%;
+            background: #00FF88;
+            filter: blur(40px);
+            width: 80%;
             height: 20px;
             position: absolute;
-            top: 0;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
+            opacity: 0.35;
+            pointer-events: none;
         }
 
         .lineimage {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-
-            img {
-                display: block;
-                max-width: 312px;
-            }
+            display: none;
         }
     }
 
@@ -59,87 +88,88 @@
             cursor: pointer;
 
             img {
-                max-width: 180px;
+                max-width: 210px;
                 width: 100%;
                 height: auto;
+                filter: drop-shadow(0 0 16px rgba(0, 255, 136, 0.4));
+                transition: transform 0.25s ease, filter 0.25s ease;
+
+                &:hover {
+                    transform: scale(1.02);
+                    filter: drop-shadow(0 0 22px rgba(0, 255, 136, 0.6));
+                }
             }
         }
 
         .text {
             h2 {
-                color: #1A1A1A;
-                font-size: 24px;
+                color: #FFFFFF;
+                font-size: 26px;
                 font-weight: 700;
                 margin: 0 0 12px;
                 line-height: normal;
+                text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
             }
 
             p {
-                color: rgba(26, 26, 26, 0.70);
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 24px;
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 22px;
                 margin: 0 auto 24px;
                 max-width: 360px;
             }
         }
 
         .checkmark {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: #e8f5e9;
-            color: #2e7d32;
-            font-size: 25px;
+            background: rgba(0, 255, 136, 0.15);
+            border: 2px solid #00FF88;
+            color: #00FF88;
+            font-size: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .errorIcon {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: #fdecea;
-            color: #d32f2f;
-            font-size: 22px;
+            background: rgba(255, 87, 87, 0.15);
+            border: 2px solid #FF5757;
+            color: #FF5757;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(16, 185, 129, 0.15);
-            border-top-color: #10B981;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 16px auto 24px;
+            box-shadow: 0 0 20px rgba(255, 87, 87, 0.3);
         }
 
         .cta {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: #10B981;
-            color: #fff;
+            color: #FFFFFF;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             padding: 12px 32px;
-            border-radius: 4px;
+            border-radius: 9999px;
             text-decoration: none;
-            transition: opacity 0.2s;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
 
             &:hover {
-                opacity: 0.88;
+                background: #059669;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
             }
         }
-    }
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
     }
 }

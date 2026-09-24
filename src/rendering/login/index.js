@@ -82,34 +82,18 @@ const Login = () => {
                         return;
                     }
 
-                    const user = getStoredUser();
-
-                    if (!user?.phone_number && !data?.phone_number) {
-                        console.log('Login checkSession: No phone number found, setting pending uid =', uid);
-                        setPendingPhoneUserId(uid);
-                    } else {
-                        console.log('Login checkSession: Phone number exists:', data?.phone_number || user?.phone_number);
-                        if (user) {
-                            user.phone_number = data?.phone_number || user?.phone_number || '';
-                            localStorage.setItem('user', JSON.stringify(user));
-                        }
-                        document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                        window.location.assign(redirectTo);
+                    if (user) {
+                        user.phone_number = data?.phone_number || user?.phone_number || '';
+                        localStorage.setItem('user', JSON.stringify(user));
                     }
+                    window.location.assign(redirectTo);
                 } catch (e) {
                     console.error('Error fetching user status', e);
                 }
             }
         };
 
-        const needPhone = searchParams?.get('need_phone');
-        const queryUid = searchParams?.get('uid');
-        console.log('Login URL params: needPhone =', needPhone, 'queryUid =', queryUid);
-        if (needPhone && queryUid) {
-            setPendingPhoneUserId(queryUid);
-        } else {
-            checkSession();
-        }
+        checkSession();
     }, [searchParams, redirectTo]);
 
     const set = (field) => (e) => {
@@ -153,9 +137,7 @@ const Login = () => {
         }
 
         setPhoneError('');
-        // OTP verification flow commented out for now:
-        // setShowOtpModal(true);
-        handleOtpSuccess();
+        setShowOtpModal(true);
     };
 
     const handleOtpSuccess = async () => {
@@ -226,76 +208,27 @@ const Login = () => {
                     <div className={styles.icon} onClick={() => router.push("/")}>
                         <img src={AuthIcon} alt="" aria-hidden="true" />
                     </div>
-                    {pendingPhoneUserId ? (
-                        <>
-                            <div className={styles.text}>
-                                <h2>{t('auth.completeProfile', 'Complete Your Profile')}</h2>
-                                <p>{t('auth.enterPhoneDesc', 'Please enter your phone number to continue.')}</p>
+                    <div className={styles.text}>
+                        <h2>{t('auth.loginHeader', 'Log In')}</h2>
+                        <p>{t('auth.loginDesc', 'Log in to your account to access AI strategy tools and market analysis.')}</p>
+                    </div>
+                    <form onSubmit={handleSubmit} noValidate>
+                        <div className={styles.spacingGrid}>
+                            <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} dark />
+                            <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} dark />
+                            <div className={styles.forgotRow}>
+                                <Link href="/forgot-password">{t('auth.forgotPasswordQuestion', 'Forgot password?')}</Link>
                             </div>
-                            <form onSubmit={handleSavePhoneNumber} noValidate>
-                                <div className={styles.spacingGrid}>
-                                    <PhoneInput
-                                        label={t('profile.phoneLabel', 'Phone Number')}
-                                        value={phoneNumber}
-                                        onChange={(val) => {
-                                            setPhoneNumber(val || '');
-                                            setPhoneError('');
-                                        }}
-                                        placeholder={t('profile.phoneLabel', 'Phone number')}
-                                        error={phoneError}
-                                        defaultCountry="AE"
-                                    />
-                                    <Button
-                                        text={savingPhone ? t('auth.saving', 'Saving...') : t('auth.continue', 'Continue')}
-                                        type="submit"
-                                        disabled={savingPhone}
-                                        icon={ArrowIcon}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            clearAuthSession();
-                                            window.location.assign('/');
-                                        }}
-                                        className={styles.backBtn}
-                                    >
-                                        {t('auth.backToHome', 'Back to Home')}
-                                    </button>
-                                </div>
-                            </form>
-                        </>
-                    ) : (
-                        <>
-                            <div className={styles.text}>
-                                <h2>{t('auth.loginHeader', 'Log In')}</h2>
-                                <p>{t('auth.loginDesc', 'Log in to your account to access AI strategy tools and market analysis.')}</p>
-                            </div>
-                            <form onSubmit={handleSubmit} noValidate>
-                                <div className={styles.spacingGrid}>
-                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} dark />
-                                    <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} dark />
-                                    <div className={styles.forgotRow}>
-                                        <Link href="/forgot-password">{t('auth.forgotPasswordQuestion', 'Forgot password?')}</Link>
-                                    </div>
-                                    <Button text={loading ? t('auth.loggingInBtn', 'Logging in...') : t('auth.loginBtn', 'Log in')} icon={ArrowIcon} disabled={loading} type="submit" fullWidth />
-                                </div>
-                            </form>
-                            <div className={styles.accountText}>
-                                <p>{t('auth.noAccount', "Don't have an account?")} <Link href="/signup">{t('auth.signupHeader', 'Sign up')}</Link></p>
-                            </div>
-                            <div className={styles.orText}><span>{t('auth.or', 'or')}</span></div>
-                            <ContinueWithGoogle redirectTo={redirectTo} onPendingPhone={setPendingPhoneUserId} />
-                        </>
-                    )}
+                            <Button text={loading ? t('auth.loggingInBtn', 'Logging in...') : t('auth.loginBtn', 'Log in')} icon={ArrowIcon} disabled={loading} type="submit" fullWidth />
+                        </div>
+                    </form>
+                    <div className={styles.accountText}>
+                        <p>{t('auth.noAccount', "Don't have an account?")} <Link href="/signup">{t('auth.signupHeader', 'Sign up')}</Link></p>
+                    </div>
+                    <div className={styles.orText}><span>{t('auth.or', 'or')}</span></div>
+                    <ContinueWithGoogle redirectTo={redirectTo} />
                 </div>
             </div>
-
-            <FirebasePhoneModal
-                isOpen={showOtpModal}
-                phoneNumber={phoneNumber}
-                onClose={() => setShowOtpModal(false)}
-                onSuccess={handleOtpSuccess}
-            />
         </div>
     );
 };

@@ -8,7 +8,7 @@ import Loader from '@/components/loader';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 
-const AuthIcon = '/assets/icons/auth.svg';
+const AuthIcon = '/assets/logo/logoWhite.svg';
 const LineImage = '/assets/images/line.png';
 
 const STATUS = { LOADING: 'loading', SUCCESS: 'success', ERROR: 'error' };

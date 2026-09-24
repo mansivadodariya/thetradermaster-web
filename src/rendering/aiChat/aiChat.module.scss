@@ -18,7 +18,7 @@
     }
 
     @include respond-to('sm') {
-        padding: 85px 0 40px 0;
+        padding: 140px 0 40px 0;
     }
 
     &::after {
@@ -114,7 +114,7 @@
             }
 
             @include respond-to('sm') {
-                font-size: 26px;
+                font-size: 25px;
                 line-height: 1.25;
                 margin-bottom: 12px;
             }
@@ -451,7 +451,7 @@
                 transition: gap 0.25s ease;
 
                 @include respond-to('sm') {
-                    font-size: 12.5px;
+                    font-size: 13px;
                 }
             }
 
@@ -865,7 +865,7 @@
                         font-family: var(--font-plus-jakarta);
 
                         @include respond-to('sm') {
-                            font-size: 12.5px;
+                            font-size: 13px;
                             line-height: 1.5;
                             margin-bottom: 6px;
                         }

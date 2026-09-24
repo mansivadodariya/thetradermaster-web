@@ -12,7 +12,7 @@
     }
 
     @include respond-to('sm') {
-        padding: 90px 0 50px 0;
+        padding: 140px 0 50px 0;
     }
 
     &::after {
@@ -190,9 +190,18 @@
                         border-radius: 50%;
                         display: inline-block;
                     }
-                    .red { background: #FF5F56; }
-                    .yellow { background: #FFBD2E; }
-                    .green { background: #27C93F; }
+
+                    .red {
+                        background: #FF5F56;
+                    }
+
+                    .yellow {
+                        background: #FFBD2E;
+                    }
+
+                    .green {
+                        background: #27C93F;
+                    }
                 }
 
                 .barTitle {

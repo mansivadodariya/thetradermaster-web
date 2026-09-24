@@ -8,10 +8,6 @@ import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import { useLanguage } from '@/context/LanguageContext';
 
-const MessageIcon = '/assets/icons/message.svg';
-const TechnicalIcon = '/assets/icons/Technical.svg';
-const StructuredIcon = '/assets/icons/Structured.svg';
-const BuiltIcon = '/assets/icons/Built.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 const DeskImage = '/assets/images/desk-main-image.png';
 
@@ -32,10 +28,10 @@ export default function TradingDesk() {
 
     const boxVariants = {
         hidden: { opacity: 0, x: -30 },
-        visible: { 
-            opacity: 1, 
-            x: 0, 
-            transition: { duration: 0.5, ease: "easeOut" } 
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
         },
         hover: {
             x: 10,
@@ -91,14 +87,14 @@ export default function TradingDesk() {
                                 </motion.p>
                             </div>
 
-                            <motion.div 
+                            <motion.div
                                 className={styles.featureList}
                                 variants={containerVariants}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ once: true, amount: 0.2 }}
                             >
-                                <motion.div 
+                                <motion.div
                                     className={styles.featureCard}
                                     variants={boxVariants}
                                     whileHover="hover"
@@ -119,7 +115,7 @@ export default function TradingDesk() {
                                     </div>
                                 </motion.div>
 
-                                <motion.div 
+                                <motion.div
                                     className={styles.featureCard}
                                     variants={boxVariants}
                                     whileHover="hover"
@@ -140,7 +136,7 @@ export default function TradingDesk() {
                                     </div>
                                 </motion.div>
 
-                                <motion.div 
+                                <motion.div
                                     className={styles.featureCard}
                                     variants={boxVariants}
                                     whileHover="hover"
@@ -163,7 +159,7 @@ export default function TradingDesk() {
                                     </div>
                                 </motion.div>
 
-                                <motion.div 
+                                <motion.div
                                     className={styles.featureCard}
                                     variants={boxVariants}
                                     whileHover="hover"
@@ -188,14 +184,14 @@ export default function TradingDesk() {
                             </motion.div>
 
                             {/* CTA Action Area below Feature Cards */}
-                            <motion.div 
+                            <motion.div
                                 className={styles.ctaWrapper}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
                             >
-                                <Button 
+                                <Button
                                     text={t('home.startAskingNow', 'Start Asking Now')}
                                     icon={ArrowIcon}
                                     onClick={() => authNavigate(router, '/ai-chat')}
@@ -207,7 +203,7 @@ export default function TradingDesk() {
                         </div>
 
                         <div className={styles.rightColumn}>
-                            <motion.div 
+                            <motion.div
                                 className={styles.imageShowcase}
                                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -222,7 +218,7 @@ export default function TradingDesk() {
                                 </div> */}
 
                                 {/* Floating Badge 1: Top Left */}
-                                <motion.div 
+                                <motion.div
                                     className={`${styles.floatingBadge} ${styles.badgeTopLeft}`}
                                     animate={{ y: [-6, 6, -6] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -239,7 +235,7 @@ export default function TradingDesk() {
                                 </motion.div>
 
                                 {/* Floating Badge 2: Top Right */}
-                                <motion.div 
+                                <motion.div
                                     className={`${styles.floatingBadge} ${styles.badgeTopRight}`}
                                     animate={{ y: [6, -6, 6] }}
                                     transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
@@ -258,7 +254,7 @@ export default function TradingDesk() {
                                 </motion.div>
 
                                 {/* Floating Badge 3: Bottom Left */}
-                                <motion.div 
+                                <motion.div
                                     className={`${styles.floatingBadge} ${styles.badgeBottomLeft}`}
                                     animate={{ y: [-5, 5, -5] }}
                                     transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
@@ -276,7 +272,7 @@ export default function TradingDesk() {
                                 </motion.div>
 
                                 {/* Floating Badge 4: Bottom Right */}
-                                <motion.div 
+                                <motion.div
                                     className={`${styles.floatingBadge} ${styles.badgeBottomRight}`}
                                     animate={{ y: [5, -5, 5] }}
                                     transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}

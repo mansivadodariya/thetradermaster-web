@@ -18,7 +18,7 @@
     }
 
     @include respond-to('sm') {
-        padding: 85px 0 40px 0;
+        padding: 140px 0 40px 0;
     }
 
     &::after {
@@ -115,7 +115,7 @@
             }
 
             @include respond-to('sm') {
-                font-size: 26px;
+                font-size: 25px;
                 line-height: 1.25;
                 letter-spacing: 0.5px;
                 margin-bottom: 12px;
@@ -211,7 +211,7 @@
                 font-family: var(--font-plus-jakarta);
 
                 @include respond-to('lg') {
-                    font-size: 26px;
+                    font-size: 25px;
                 }
 
                 @include respond-to('md') {
@@ -421,7 +421,7 @@
                 transition: gap 0.25s ease;
 
                 @include respond-to('sm') {
-                    font-size: 12.5px;
+                    font-size: 13px;
                 }
             }
 
@@ -769,7 +769,7 @@
                         font-family: var(--font-plus-jakarta);
 
                         @include respond-to('sm') {
-                            font-size: 11.5px;
+                            font-size: 12px;
                         }
                     }
 
@@ -1384,6 +1384,7 @@
 
                 .arrowLink {
                     color: #FFFFFF;
+
                     svg {
                         transform: translateX(4px);
                     }

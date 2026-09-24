@@ -62,9 +62,11 @@
         transform: scale(0.95);
         opacity: 0.5;
     }
+
     50% {
         opacity: 0.3;
     }
+
     100% {
         transform: scale(1.4);
         opacity: 0;
@@ -76,7 +78,8 @@
     position: absolute;
     right: 100%;
     white-space: nowrap;
-    background: rgba(15, 23, 42, 0.95); /* Sleek slate dark background */
+    background: rgba(15, 23, 42, 0.95);
+    /* Sleek slate dark background */
     color: #ffffff;
     padding: 8px 14px;
     border-radius: 8px;
@@ -116,6 +119,7 @@
     }
 
     .tooltip {
-        display: none; /* Hide tooltip on mobile for cleaner layout */
+        display: none;
+        /* Hide tooltip on mobile for cleaner layout */
     }
 }

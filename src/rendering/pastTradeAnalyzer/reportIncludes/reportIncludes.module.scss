@@ -5,6 +5,10 @@
     padding: 80px 0;
     background-color: #030E09;
 
+    @include respond-to("sm") {
+        padding: 60px 0 0 0;
+    }
+
     .neonText {
         color: #00FF88;
         text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
@@ -28,7 +32,7 @@
             }
 
             @include respond-to('sm') {
-                font-size: 26px;
+                font-size: 25px;
             }
         }
 

@@ -1,6 +1,5 @@
 @use 'breakpoints/breakpoints.scss' as *;
 
-// Primary Brand Colors (Neon & Emerald Green)
 $primary: #10B981;
 $primary-hover: #059669;
 $primary-dark: #047857;
@@ -9,26 +8,21 @@ $very-light-green: #F0FDF4;
 $neon: #22C55E;
 $neon-bright: #00FF88;
 
-// Dark Backgrounds
 $bg-dark: #001A12;
 $bg-dark-secondary: #022C22;
 $card-dark: rgba(2, 44, 34, 0.75);
 
-// Light Backgrounds
 $bg-light: #FFFFFF;
 $bg-light-green: #F0FDF4;
 
-// Text Colors
 $text-dark: #0F172A;
 $text-light: #FFFFFF;
 $text-secondary: #475569;
 $text-muted: #64748B;
 
-// Borders & Glows
 $border-light: rgba(16, 185, 129, 0.15);
 $border-glow: rgba(16, 185, 129, 0.35);
 
-// legacy variables mapping to maintain compatibility temporarily during refactor
 $accent-neon: #22C55E;
 $bright-neon: #4ADE80;
 $dark-neon: #022C22;
@@ -39,4 +33,3 @@ $danger: #EF4444;
 $success: #10B981;
 $bgSoft: #F0FDF4;
 $input-bg: #FFFFFF;
-

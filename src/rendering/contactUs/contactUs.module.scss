@@ -32,7 +32,7 @@
     }
 
     @include respond-to('sm') {
-        padding: 100px 0 40px 0;
+        padding: 140px 0 40px 0;
     }
 
     .header {
@@ -144,7 +144,8 @@
         justify-content: center;
         color: #00FF88;
 
-        svg path, svg circle {
+        svg path,
+        svg circle {
             stroke: #00FF88;
         }
     }

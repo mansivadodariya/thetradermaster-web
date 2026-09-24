@@ -407,14 +407,16 @@
                 gap: 8px;
                 width: 100%;
 
-                @include respond-to('sm') {
+                @include respond-to('tab') {
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
                     gap: 8px;
                 }
 
                 @include respond-to('sm') {
+                    display: grid;
                     grid-template-columns: 1fr;
+                    gap: 8px;
                 }
 
                 .metricChip {

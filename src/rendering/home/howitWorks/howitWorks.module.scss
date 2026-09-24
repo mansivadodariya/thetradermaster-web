@@ -324,7 +324,7 @@
                     letter-spacing: -0.4px;
 
                     @include respond-to('sm') {
-                        font-size: 26px;
+                        font-size: 25px;
                     }
                 }
 
@@ -375,6 +375,13 @@
                     align-items: center;
                     gap: 14px;
                     margin-top: auto;
+
+                    @include respond-to('sm') {
+                        width: 100%;
+                        justify-content: space-between;
+                        gap: 10px;
+                        margin-top: 20px;
+                    }
 
                     .navBtn {
                         display: inline-flex;

@@ -9,8 +9,8 @@ const LanguageContext = createContext({
   dir: 'ltr',
   isRTL: false,
   isPending: false,
-  setLanguage: () => {},
-  toggleLanguage: () => {},
+  setLanguage: () => { },
+  toggleLanguage: () => { },
   t: (key, fallback) => fallback || key,
   tDynamic: (item, keyEn, keyAr) => '',
 });
@@ -59,7 +59,7 @@ export const LanguageProvider = ({ children }) => {
       const next = SUPPORTED_LANGUAGES[(idx + 1) % SUPPORTED_LANGUAGES.length];
       try {
         localStorage.setItem('app_language', next);
-      } catch (_) {}
+      } catch (_) { }
       if (typeof document !== 'undefined') {
         const isRtlLang = RTL_LANGUAGES.includes(next);
         document.documentElement.setAttribute('lang', next);

@@ -13,7 +13,6 @@
     }
 }
 
-/* Ambient Background Glows */
 .ambientGlow1 {
     position: absolute;
     top: 30px;
@@ -109,9 +108,17 @@
 }
 
 @keyframes pulse {
-    0% { opacity: 0.6; }
-    50% { opacity: 0.3; }
-    100% { opacity: 0.6; }
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
 }
 
 .plansGrid {
@@ -209,7 +216,9 @@
     white-space: nowrap;
     z-index: 10;
 
-    svg { color: #F59E0B; }
+    svg {
+        color: #F59E0B;
+    }
 }
 
 /* Header Container */
@@ -359,7 +368,10 @@
 
     &:hover {
         .btnIconBox {
-            svg, img, .btnArrow {
+
+            svg,
+            img,
+            .btnArrow {
                 transform: rotate(45deg);
             }
         }
@@ -481,7 +493,7 @@
 }
 
 .disclaimer {
-    font-size: 12.5px;
+    font-size: 13px;
     font-style: italic;
     color: #64748B;
     line-height: 1.6;
@@ -545,7 +557,9 @@
         color: #9CA3AF;
     }
 
-    .currency, .amount, .validityLabel {
+    .currency,
+    .amount,
+    .validityLabel {
         color: #FFFFFF;
     }
 
@@ -569,6 +583,7 @@
     .primaryBuyBtn,
     .featuredBuyBtn {
         background: $primary;
+
         &:hover {
             background: $primary-dark;
         }

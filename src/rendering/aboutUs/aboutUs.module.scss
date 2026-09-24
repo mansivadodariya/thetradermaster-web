@@ -32,7 +32,7 @@
     }
 
     @include respond-to('sm') {
-        padding: 100px 0 40px 0;
+        padding: 140px 0 40px 0;
     }
 
     .header {
@@ -98,7 +98,7 @@
 
             h2 {
                 color: #FFFFFF;
-                font-size: 26px;
+                font-size: 25px;
                 font-weight: 700;
                 margin-bottom: 20px;
                 font-family: var(--font-plus-jakarta);
@@ -265,7 +265,6 @@
             }
         }
 
-        // Disclaimer Section
         .disclaimerSection {
             background: rgba(8, 24, 17, 0.75);
             border: 1px solid rgba(0, 255, 136, 0.18);

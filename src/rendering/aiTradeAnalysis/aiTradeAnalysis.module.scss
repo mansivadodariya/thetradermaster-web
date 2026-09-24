@@ -35,6 +35,12 @@
         justify-content: space-between;
         align-items: flex-start;
 
+        @include respond-to('sm') {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
         .badge {
             background: #ECFDF5;
             color: #047857;
@@ -53,11 +59,15 @@
 
         h2 {
             font-family: var(--font-plus-jakarta) !important;
-            font-size: 26px;
+            font-size: 25px;
             font-weight: 800;
             margin: 0 0 8px;
             color: #0F172A;
             letter-spacing: -0.5px;
+
+            @include respond-to('sm') {
+                font-size: 20px;
+            }
         }
 
         p {
@@ -66,6 +76,10 @@
             line-height: 1.5;
             max-width: 720px;
             margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 13.5px;
+            }
         }
     }
 }
@@ -119,7 +133,7 @@
             }
 
             span {
-                font-size: 11.5px;
+                font-size: 12px;
                 color: #64748B;
             }
         }
@@ -165,7 +179,8 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 
-    &:hover, &.dragActive {
+    &:hover,
+    &.dragActive {
         border-color: #10B981;
         background: #F0FDF4;
         transform: translateY(-2px);
@@ -243,7 +258,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 11.5px;
+        font-size: 12px;
         font-weight: 600;
         color: #047857;
         background: #ECFDF5;
@@ -294,7 +309,7 @@
                 background: #F1F5F9;
                 color: #475569;
                 border: 1px solid #E2E8F0;
-                font-size: 11.5px;
+                font-size: 12px;
                 font-weight: 600;
                 padding: 4px 10px;
                 border-radius: 6px;
@@ -563,7 +578,7 @@
                 margin-bottom: 12px;
 
                 .pillarScoreNum {
-                    font-size: 26px;
+                    font-size: 25px;
                     font-weight: 800;
                     color: #0F172A;
                     font-family: var(--font-plus-jakarta);
@@ -575,7 +590,8 @@
                 }
             }
 
-            .highlightsList, .penaltiesList {
+            .highlightsList,
+            .penaltiesList {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -647,7 +663,7 @@
             }
 
             .kpiSub {
-                font-size: 11.5px;
+                font-size: 12px;
                 color: #94A3B8;
             }
         }
@@ -1074,7 +1090,7 @@
                 .detailGoodHead {
                     color: #047857;
                     font-weight: 700;
-                    font-size: 12.5px;
+                    font-size: 13px;
                     display: block;
                     margin-bottom: 4px;
                 }
@@ -1082,7 +1098,7 @@
                 .detailBadHead {
                     color: #B91C1C;
                     font-weight: 700;
-                    font-size: 12.5px;
+                    font-size: 13px;
                     display: block;
                     margin-bottom: 4px;
                 }
@@ -1090,7 +1106,7 @@
                 ul {
                     margin: 0;
                     padding-left: 20px;
-                    font-size: 12.5px;
+                    font-size: 13px;
                     color: #475569;
                 }
             }
@@ -1166,7 +1182,9 @@
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 // Modal Styles
@@ -1467,7 +1485,7 @@
                 background: #FEF3C7;
                 color: #92400E;
                 border: 1px solid #FCD34D;
-                font-size: 11.5px;
+                font-size: 12px;
                 font-weight: 800;
                 padding: 4px 10px;
                 border-radius: 100px;
@@ -1570,7 +1588,7 @@
         }
 
         p {
-            font-size: 12.5px;
+            font-size: 13px;
             color: #475569;
             margin: 0;
             line-height: 1.5;
@@ -1616,7 +1634,7 @@
         ul {
             margin: 0;
             padding-left: 18px;
-            font-size: 12.5px;
+            font-size: 13px;
             color: #065F46;
             line-height: 1.5;
             display: flex;
@@ -1654,7 +1672,7 @@
         ul {
             margin: 0;
             padding-left: 18px;
-            font-size: 12.5px;
+            font-size: 13px;
             color: #991B1B;
             line-height: 1.5;
             display: flex;
@@ -1693,7 +1711,7 @@
     ul {
         margin: 0;
         padding-left: 18px;
-        font-size: 12.5px;
+        font-size: 13px;
         color: #78350F;
         line-height: 1.6;
         display: flex;
@@ -1737,7 +1755,7 @@
         gap: 3px;
 
         strong {
-            font-size: 12.5px;
+            font-size: 13px;
             color: #059669;
 
             :global(.dark) & {
@@ -1746,7 +1764,7 @@
         }
 
         p {
-            font-size: 12.5px;
+            font-size: 13px;
             color: #475569;
             margin: 0;
             line-height: 1.5;
@@ -1856,7 +1874,7 @@
     pre {
         white-space: pre-wrap;
         font-family: inherit;
-        font-size: 12.5px;
+        font-size: 13px;
         line-height: 1.6;
         color: #334155;
         margin: 0;
@@ -2120,7 +2138,7 @@
 
             p {
                 color: #64748B;
-                font-size: 12.5px;
+                font-size: 13px;
                 line-height: 1.5;
                 margin: 0;
             }
@@ -2130,6 +2148,7 @@
 
 // Dark Mode Overrides
 :global(.dark) {
+
     .hero,
     .uploadCard,
     .featuresPanel,
@@ -2177,7 +2196,8 @@
     .uploadCard {
         border-color: rgba(0, 255, 136, 0.3) !important;
 
-        &:hover, &.dragActive {
+        &:hover,
+        &.dragActive {
             border-color: #00FF88 !important;
             background: rgba(0, 255, 136, 0.08) !important;
         }
@@ -2445,7 +2465,9 @@
         background: rgba(8, 24, 17, 0.85) !important;
         border-color: rgba(0, 255, 136, 0.4) !important;
 
-        .takeawayHeader h4, .takeawayText, .takeawaySub {
+        .takeawayHeader h4,
+        .takeawayText,
+        .takeawaySub {
             color: #00FF88 !important;
         }
     }
@@ -2564,6 +2586,7 @@
         opacity: 0;
         transform: scale(0.97);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -2643,16 +2666,20 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
 @keyframes pulseRing {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.8;
     }
+
     50% {
         transform: scale(1.08);
         opacity: 1;
@@ -2842,10 +2869,13 @@
 }
 
 @keyframes pulseDot {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(0.65);
         opacity: 0.5;
@@ -2864,4 +2894,3 @@
         color: #00FF88;
     }
 }
-

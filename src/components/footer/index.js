@@ -166,7 +166,7 @@ export default function Footer() {
                             </div>
 
                             <div className={styles.linkCol}>
-                                <h4>{t('footer.social', 'Social')}</h4>
+                                <h4>{t('footer.social', 'Social Media')}</h4>
                                 <div className={styles.socialLinks}>
                                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
                                         <InstagramIcon />

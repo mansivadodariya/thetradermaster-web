@@ -1,12 +1,17 @@
 'use client';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getStoredUserId, getStoredUser, clearAuthSession } from '@/lib/authSession';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
+import FirebasePhoneModal from '@/components/firebasePhoneModal';
+import { profileApi } from '@/lib/api';
 
 export default function AuthGuard({ children }) {
     const router = useRouter();
+    const [needsPhoneVerification, setNeedsPhoneVerification] = useState(false);
+    const [userPhone, setUserPhone] = useState('');
+    const [activeUid, setActiveUid] = useState('');
 
     useEffect(() => {
         const handleUnauthorized = () => {
@@ -17,68 +22,151 @@ export default function AuthGuard({ children }) {
 
         const checkUserStatus = async () => {
             const uid = getStoredUserId();
-            console.log('AuthGuard checkUserStatus: uid =', uid);
-            if (uid && supabase) {
-                try {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .select('phone_number, is_phone_verified, is_active')
-                        .eq('id', uid)
-                        .single();
+            const localUser = getStoredUser();
+            setActiveUid(uid);
 
-                    console.log('AuthGuard status check: data =', data, 'error =', error);
+            // 1. Instant check from local session to avoid delay/refresh dependency
+            const isLocallyVerified = Boolean(localUser?.is_phone_verified === true);
+            const initialPhone = localUser?.phone_number || '';
+            setUserPhone(initialPhone);
 
-                    // Check if account is actually deleted (PGRST116 = 0 rows returned from Supabase)
-                    const isUserDeleted = error?.code === 'PGRST116' || (!data && !error);
-                    if (isUserDeleted) {
-                        clearAuthSession();
-                        toast.error('Your account has been deleted. Please contact admin.');
-                        router.replace('/login');
-                        return;
+            if (!isLocallyVerified) {
+                console.log('AuthGuard: Phone is not verified in local session, showing modal immediately');
+                setNeedsPhoneVerification(true);
+            } else {
+                setNeedsPhoneVerification(false);
+            }
+
+            // 2. Fetch fresh status from Supabase or backend API
+            if (uid) {
+                let dbUser = null;
+                let isUserDeleted = false;
+
+                if (supabase) {
+                    try {
+                        const { data, error } = await supabase
+                            .from('users')
+                            .select('phone_number, is_phone_verified, is_active')
+                            .eq('id', uid)
+                            .maybeSingle();
+
+                        if (error?.code === 'PGRST116') {
+                            isUserDeleted = true;
+                        } else if (data) {
+                            dbUser = data;
+                        }
+                    } catch (sbErr) {
+                        console.warn('AuthGuard Supabase status fetch warning:', sbErr);
                     }
+                }
 
-                    // For other errors (network drop, RLS permission, transient query error), do NOT log out the user
-                    if (error || !data) {
-                        console.error('AuthGuard: Unable to verify user status due to error:', error);
-                        return;
+                if (isUserDeleted) {
+                    clearAuthSession();
+                    toast.error('Your account has been deleted. Please contact admin.');
+                    router.replace('/login');
+                    return;
+                }
+
+                if (!dbUser) {
+                    try {
+                        const profRes = await profileApi.getProfile();
+                        dbUser = profRes?.data || profRes;
+                    } catch (apiErr) {
+                        console.warn('AuthGuard profileApi status fetch warning:', apiErr);
                     }
+                }
 
-                    // User inactive
-                    if (data.is_active === false) {
-                        clearAuthSession();
-                        toast.error('Your account is inactive. Please contact admin.');
-                        router.replace('/login');
-                        return;
-                    }
+                if (dbUser?.is_active === false) {
+                    clearAuthSession();
+                    toast.error('Your account is inactive. Please contact admin.');
+                    router.replace('/login');
+                    return;
+                }
 
-                    // Strict Phone Verification Guard:
-                    // Only users with verified phone numbers (is_phone_verified === true) can navigate to dashboard
-                    if (!data.phone_number || data.is_phone_verified !== true) {
-                        console.log('AuthGuard: Phone number missing or not verified (is_phone_verified is false), redirecting to verification popup flow');
-                        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-                        router.replace(`/login?need_phone=true&uid=${uid}${currentPath && currentPath !== '/' ? `&redirect=${encodeURIComponent(currentPath)}` : ''}`);
-                        return;
-                    }
+                const updatedPhone = dbUser?.phone_number || initialPhone;
+                if (updatedPhone) setUserPhone(updatedPhone);
 
-                    // Sync verified status to localStorage and cookie
-                    const user = getStoredUser();
-                    if (user) {
-                        user.phone_number = data.phone_number;
-                        user.is_phone_verified = true;
-                        localStorage.setItem('user', JSON.stringify(user));
-                        window.dispatchEvent(new CustomEvent('user:updated'));
+                const isVerifiedInDb = Boolean(dbUser?.is_phone_verified === true);
+                if (isVerifiedInDb) {
+                    setNeedsPhoneVerification(false);
+                    if (localUser) {
+                        localUser.phone_number = updatedPhone;
+                        localUser.is_phone_verified = true;
+                        localStorage.setItem('user', JSON.stringify(localUser));
                     }
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                } catch (e) {
-                    console.error('AuthGuard status check error:', e);
+                } else {
+                    setNeedsPhoneVerification(true);
                 }
             }
         };
 
         checkUserStatus();
 
-        return () => window.removeEventListener('auth:unauthorized', handleUnauthorized);
+        const handleUserUpdated = () => checkUserStatus();
+        window.addEventListener('user:updated', handleUserUpdated);
+
+        return () => {
+            window.removeEventListener('auth:unauthorized', handleUnauthorized);
+            window.removeEventListener('user:updated', handleUserUpdated);
+        };
     }, [router]);
 
-    return children;
+    const handlePhoneVerifiedSuccess = async (verifiedPhone) => {
+        const phoneToSave = verifiedPhone || userPhone;
+        try {
+            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+            const firstName = stored.first_name || '';
+            const lastName = stored.last_name || '';
+
+            await profileApi.updateProfile({
+                first_name: firstName,
+                last_name: lastName,
+                phone_number: phoneToSave,
+            });
+
+            if (supabase && activeUid) {
+                try {
+                    await supabase
+                        .from('users')
+                        .update({
+                            phone_number: phoneToSave,
+                            is_phone_verified: true
+                        })
+                        .eq('id', activeUid);
+                } catch (dbErr) {
+                    console.warn("Supabase direct phone verification update error:", dbErr);
+                }
+            }
+
+            if (typeof window !== 'undefined') {
+                const parsed = JSON.parse(localStorage.getItem('user') || '{}');
+                parsed.phone_number = phoneToSave;
+                parsed.is_phone_verified = true;
+                localStorage.setItem('user', JSON.stringify(parsed));
+                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                window.dispatchEvent(new CustomEvent('user:updated'));
+            }
+
+            setNeedsPhoneVerification(false);
+            toast.success('Phone number verified successfully!');
+        } catch (err) {
+            console.error('Failed to update phone verification status:', err);
+            setNeedsPhoneVerification(false);
+        }
+    };
+
+    return (
+        <>
+            {children}
+            <FirebasePhoneModal
+                isOpen={needsPhoneVerification}
+                phoneNumber={userPhone}
+                autoTriggerSend={true}
+                isPhoneReadOnly={Boolean(userPhone)}
+                onClose={null}
+                onSuccess={handlePhoneVerifiedSuccess}
+            />
+        </>
+    );
 }

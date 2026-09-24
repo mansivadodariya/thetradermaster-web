@@ -80,6 +80,18 @@
     z-index: 1;
 }
 
+.logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+        height: 38px;
+        width: auto;
+    }
+}
+
 .successIconWrapper {
     width: 64px;
     height: 64px;
@@ -132,6 +144,19 @@
     padding: 10px 14px;
     color: #121212;
     transition: all 0.2s ease;
+
+    &.disabledInput,
+    &:has(input:disabled) {
+        opacity: 0.75;
+        background: #F1F5F9;
+        cursor: not-allowed;
+
+        :global(.PhoneInputInput),
+        :global(.PhoneInputCountrySelect) {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
 
     &:focus-within {
         border-color: $primary;
@@ -276,6 +301,20 @@
         border-color: rgba(0, 255, 136, 0.25);
         color: #FFFFFF;
 
+        &.disabledInput,
+        &:has(input:disabled) {
+            background: rgba(6, 29, 19, 0.6);
+            border-color: rgba(0, 255, 136, 0.15);
+            opacity: 0.8;
+            cursor: not-allowed;
+
+            :global(.PhoneInputInput),
+            :global(.PhoneInputCountrySelect) {
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+        }
+
         &:focus-within {
             border-color: #00FF88;
             box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
@@ -324,4 +363,11 @@
     .resendBtn {
         color: #00FF88;
     }
+}
+
+:global(.grecaptcha-badge) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }

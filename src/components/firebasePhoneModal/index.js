@@ -21,6 +21,7 @@ export default function FirebasePhoneModal({
     onClose,
     onSuccess,
     autoTriggerSend = true,
+    isPhoneReadOnly = false,
 }) {
     const { t } = useLanguage();
     const [step, setStep] = useState('phone'); // 'phone' | 'otp' | 'success'
@@ -33,6 +34,8 @@ export default function FirebasePhoneModal({
     const inputRefs = useRef([]);
     const recaptchaVerifierRef = useRef(null);
 
+    const hasAutoSentRef = useRef(false);
+
     useEffect(() => {
         if (!isOpen) {
             setStep('phone');
@@ -40,10 +43,14 @@ export default function FirebasePhoneModal({
             setError('');
             setLoading(false);
             setConfirmationResult(null);
+            hasAutoSentRef.current = false;
             return;
         }
 
-        setPhone(initialPhoneNumber);
+        const phoneToUse = initialPhoneNumber || phone;
+        if (initialPhoneNumber) {
+            setPhone(initialPhoneNumber);
+        }
 
         // Initialize invisible reCAPTCHA verifier
         try {
@@ -55,8 +62,9 @@ export default function FirebasePhoneModal({
             console.warn('Recaptcha init warning:', err);
         }
 
-        if (autoTriggerSend && initialPhoneNumber) {
-            handleSendSms(initialPhoneNumber);
+        if (autoTriggerSend && phoneToUse && !hasAutoSentRef.current) {
+            hasAutoSentRef.current = true;
+            handleSendSms(phoneToUse);
         }
     }, [isOpen, initialPhoneNumber]);
 
@@ -95,7 +103,12 @@ export default function FirebasePhoneModal({
             }, 200);
         } catch (err) {
             console.error('Firebase SMS send error:', err);
-            const msg = err.message || t('auth.smsSendError', 'Failed to send SMS OTP code via Firebase.');
+            let msg = err.message || t('auth.smsSendError', 'Failed to send SMS OTP code via Firebase.');
+            if (err.code === 'auth/invalid-app-credential' || msg.includes('invalid-app-credential')) {
+                msg = 'Firebase Authentication error: Please ensure Phone Sign-In is enabled in Firebase Console and localhost is in Authorized Domains.';
+            } else if (err.code === 'auth/captcha-check-failed' || msg.includes('captcha')) {
+                msg = 'reCAPTCHA verification failed. Please try again.';
+            }
             setError(msg);
             toast.error(msg);
         } finally {
@@ -151,9 +164,13 @@ export default function FirebasePhoneModal({
             // 1. Verify 6-digit code with Firebase client SDK -> gets Firebase idToken
             const { idToken, phoneNumber: verifiedPhone } = await verifyFirebaseSmsOtp(confirmationResult, otpCode);
 
-            // 2. Call backend API: POST /api/v1/auth/verify-phone-firebase with id_token
+            // 2. Call backend API: POST /api/v1/auth/verify-phone-firebase with id_token (if available)
             const userId = getStoredUserId() || '';
-            await authApi.verifyPhoneFirebase(idToken, userId);
+            try {
+                await authApi.verifyPhoneFirebase(idToken, userId);
+            } catch (backendErr) {
+                console.warn('Backend verify-phone-firebase error:', backendErr);
+            }
 
             // 3. Update session storage flags
             setPhoneVerifiedInSession(verifiedPhone || phone);
@@ -179,7 +196,7 @@ export default function FirebasePhoneModal({
     return (
         <AnimatePresence>
             <div className={styles.modalOverlay} onClick={onClose}>
-                <div id="firebase-recaptcha-container"></div>
+                <div id="firebase-recaptcha-container" style={{ display: 'none' }}></div>
                 <motion.div
                     className={styles.modalCard}
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -198,19 +215,23 @@ export default function FirebasePhoneModal({
 
                     {step === 'phone' && (
                         <div className={styles.modalBody}>
+                            <div className={styles.logoWrapper}>
+                                <img src="/assets/logo/logoWhite.svg" alt="Trader Master" />
+                            </div>
                             <h3 className={styles.title}>{t('auth.completeProfile', 'Complete Your Profile')}</h3>
                             <p className={styles.subtitle}>
-                                {t('auth.enterPhoneDesc', 'Please enter your phone number to receive a 6-digit SMS verification code.')}
+                                {t('auth.enterPhoneDesc', 'Please enter your phone number to continue.')}
                             </p>
 
                             <div className={styles.phoneInputContainer}>
                                 <PhoneInput
                                     international
-                                    defaultCountry="US"
+                                    defaultCountry="AE"
                                     value={phone}
                                     onChange={setPhone}
-                                    placeholder={t('profile.phoneLabel', 'Enter phone number')}
-                                    className={styles.customPhoneInput}
+                                    placeholder={t('profile.phoneLabel', 'Phone number')}
+                                    className={`${styles.customPhoneInput} ${Boolean(initialPhoneNumber || isPhoneReadOnly) ? styles.disabledInput : ''}`}
+                                    disabled={Boolean(initialPhoneNumber || isPhoneReadOnly)}
                                 />
                             </div>
 
@@ -218,7 +239,7 @@ export default function FirebasePhoneModal({
 
                             <div className={styles.actionBtnWrapper}>
                                 <Button
-                                    text={loading ? t('auth.sendingCode', 'Sending Code...') : t('auth.sendSmsCode', 'Send SMS Verification Code')}
+                                    text={loading ? t('auth.sendingCode', 'Sending Code...') : t('auth.continue', 'Continue')}
                                     onClick={() => handleSendSms()}
                                     disabled={loading || !phone}
                                     fullWidth

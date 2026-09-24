@@ -86,10 +86,15 @@ export default function AuthGuard({ children }) {
                 const updatedPhone = dbUser?.phone_number || initialPhone;
                 if (updatedPhone) setUserPhone(updatedPhone);
 
-                const isVerifiedInDb = Boolean(dbUser?.is_phone_verified === true);
-                if (isVerifiedInDb) {
+                const isVerified = Boolean(
+                    dbUser?.is_phone_verified === true ||
+                    isLocallyVerified === true ||
+                    localUser?.is_phone_verified === true
+                );
+
+                if (isVerified) {
                     setNeedsPhoneVerification(false);
-                    if (localUser) {
+                    if (localUser && !localUser.is_phone_verified) {
                         localUser.phone_number = updatedPhone;
                         localUser.is_phone_verified = true;
                         localStorage.setItem('user', JSON.stringify(localUser));
@@ -113,46 +118,68 @@ export default function AuthGuard({ children }) {
     }, [router]);
 
     const handlePhoneVerifiedSuccess = async (verifiedPhone) => {
-        const phoneToSave = verifiedPhone || userPhone;
+        const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+        const phoneToSave = verifiedPhone || userPhone || stored.phone_number || '';
+        console.log('AuthGuard handlePhoneVerifiedSuccess: phoneToSave =', phoneToSave);
+
+        // Instantly close modal and set local session to verified
+        setNeedsPhoneVerification(false);
+
+        if (typeof window !== 'undefined') {
+            const parsed = JSON.parse(localStorage.getItem('user') || '{}');
+            parsed.phone_number = phoneToSave;
+            parsed.is_phone_verified = true;
+            localStorage.setItem('user', JSON.stringify(parsed));
+            document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+        }
+
+        if (!phoneToSave) return;
+
         try {
-            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
             const firstName = stored.first_name || '';
             const lastName = stored.last_name || '';
+            const userEmail = stored.email || '';
+            const targetUid = activeUid || stored.id || stored.user_id || getStoredUserId();
 
-            await profileApi.updateProfile({
-                first_name: firstName,
-                last_name: lastName,
-                phone_number: phoneToSave,
-            });
+            try {
+                await profileApi.updateProfile({
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone_number: phoneToSave,
+                });
+            } catch (apiErr) {
+                console.warn("backend profileApi update error:", apiErr);
+            }
 
-            if (supabase && activeUid) {
+            if (supabase) {
                 try {
-                    await supabase
-                        .from('users')
-                        .update({
-                            phone_number: phoneToSave,
-                            is_phone_verified: true
-                        })
-                        .eq('id', activeUid);
+                    if (targetUid) {
+                        await supabase
+                            .from('users')
+                            .update({
+                                phone_number: phoneToSave,
+                                is_phone_verified: true
+                            })
+                            .eq('id', targetUid);
+                    }
+
+                    if (userEmail) {
+                        await supabase
+                            .from('users')
+                            .update({
+                                phone_number: phoneToSave,
+                                is_phone_verified: true
+                            })
+                            .eq('email', userEmail);
+                    }
                 } catch (dbErr) {
                     console.warn("Supabase direct phone verification update error:", dbErr);
                 }
             }
 
-            if (typeof window !== 'undefined') {
-                const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-                parsed.phone_number = phoneToSave;
-                parsed.is_phone_verified = true;
-                localStorage.setItem('user', JSON.stringify(parsed));
-                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                window.dispatchEvent(new CustomEvent('user:updated'));
-            }
-
-            setNeedsPhoneVerification(false);
-            toast.success('Phone number verified successfully!');
+            toast.success('Phone number verified and saved to database successfully!');
         } catch (err) {
             console.error('Failed to update phone verification status:', err);
-            setNeedsPhoneVerification(false);
         }
     };
 

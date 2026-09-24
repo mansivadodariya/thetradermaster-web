@@ -162,24 +162,28 @@ export default function FirebasePhoneModal({
 
         try {
             // 1. Verify 6-digit code with Firebase client SDK -> gets Firebase idToken
-            const { idToken, phoneNumber: verifiedPhone } = await verifyFirebaseSmsOtp(confirmationResult, otpCode);
+            const { idToken, phoneNumber: firebasePhone } = await verifyFirebaseSmsOtp(confirmationResult, otpCode);
+            const verifiedPhone = firebasePhone || phone;
 
-            // 2. Call backend API: POST /api/v1/auth/verify-phone-firebase with id_token (if available)
+            // 2. Call backend API: POST /api/v1/auth/verify-phone-firebase with id_token & phone_number
             const userId = getStoredUserId() || '';
+            const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+            const userEmail = storedUser.email || '';
+
             try {
-                await authApi.verifyPhoneFirebase(idToken, userId);
+                await authApi.verifyPhoneFirebase(idToken, userId, verifiedPhone, userEmail);
             } catch (backendErr) {
                 console.warn('Backend verify-phone-firebase error:', backendErr);
             }
 
             // 3. Update session storage flags
-            setPhoneVerifiedInSession(verifiedPhone || phone);
+            setPhoneVerifiedInSession(verifiedPhone);
 
             // 4. Switch to animated success modal
             setStep('success');
 
             setTimeout(() => {
-                if (onSuccess) onSuccess(verifiedPhone || phone);
+                if (onSuccess) onSuccess(verifiedPhone);
             }, 2200);
         } catch (err) {
             console.error('Verify Firebase OTP error:', err);

@@ -13,7 +13,7 @@ import { supabase } from '@/lib/supabaseClient';
 import PhoneInput from '@/components/phoneInput';
 import Button from '@/components/button';
 import { isValidPhoneNumber } from 'react-phone-number-input';
-import FirebasePhoneModal from '@/components/firebasePhoneModal';
+// import FirebasePhoneModal from '@/components/firebasePhoneModal';
 
 const GoogleIcon = '/assets/icons/google.svg';
 
@@ -31,11 +31,11 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
     }, [redirectTo]);
 
     // States for phone number step (fallback if no onPendingPhone prop is passed)
-    const [showPhoneModal, setShowPhoneModal] = useState(false);
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [phoneError, setPhoneError] = useState('');
-    const [savingPhone, setSavingPhone] = useState(false);
-    const [userId, setUserId] = useState('');
+    // const [showPhoneModal, setShowPhoneModal] = useState(false);
+    // const [phoneNumber, setPhoneNumber] = useState('');
+    // const [phoneError, setPhoneError] = useState('');
+    // const [savingPhone, setSavingPhone] = useState(false);
+    // const [userId, setUserId] = useState('');
 
     const callbackRef = useRef(null);
 
@@ -90,84 +90,84 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
         }
     };
 
-    const handleSavePhoneNumber = async (e) => {
-        if (e) e.preventDefault();
-
-        if (!phoneNumber) {
-            setPhoneError('Phone number is required.');
-            return;
-        }
-
-        if (!isValidPhoneNumber(phoneNumber)) {
-            setPhoneError('Enter a valid phone number.');
-            return;
-        }
-
-        setSavingPhone(true);
-        setPhoneError('');
-
-        try {
-            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-            const firstName = stored.first_name || '';
-            const lastName = stored.last_name || '';
-
-            const apiRes = await profileApi.updateProfile({
-                first_name: firstName,
-                last_name: lastName,
-                phone_number: phoneNumber,
-            });
-
-            // Update Supabase users table directly to set is_phone_verified = true
-            const activeUid = stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
-            if (supabase && activeUid) {
-                try {
-                    await supabase
-                        .from('users')
-                        .update({
-                            phone_number: phoneNumber,
-                            is_phone_verified: true
-                        })
-                        .eq('id', activeUid);
-                } catch (dbErr) {
-                    console.warn("Supabase direct phone verification update error:", dbErr);
-                }
-            }
-
-            // Update user in localStorage
-            if (typeof window !== 'undefined') {
-                const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-                parsed.phone_number = phoneNumber;
-                parsed.is_phone_verified = true;
-                localStorage.setItem('user', JSON.stringify(parsed));
-                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                window.dispatchEvent(new CustomEvent('user:updated'));
-            }
-
-            toast.success(apiRes?.message || 'Profile completed successfully!');
-            setShowPhoneModal(false);
-
-            const target = redirectRef.current || '/dashboard';
-            if (typeof window !== 'undefined') {
-                window.location.assign(target);
-            } else {
-                router.replace(target);
-                router.refresh();
-            }
-        } catch (err) {
-            console.error('Failed to save phone number:', err);
-            const msg = String(err.message || '');
-            let userFriendlyMsg = 'Failed to complete profile.';
-            if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
-                userFriendlyMsg = 'This phone number is already in use.';
-            } else if (msg) {
-                userFriendlyMsg = msg;
-            }
-            setPhoneError(userFriendlyMsg);
-            toast.error(userFriendlyMsg);
-        } finally {
-            setSavingPhone(false);
-        }
-    };
+    // const handleSavePhoneNumber = async (e) => {
+    //     if (e) e.preventDefault();
+    //
+    //     if (!phoneNumber) {
+    //         setPhoneError('Phone number is required.');
+    //         return;
+    //     }
+    //
+    //     if (!isValidPhoneNumber(phoneNumber)) {
+    //         setPhoneError('Enter a valid phone number.');
+    //         return;
+    //     }
+    //
+    //     setSavingPhone(true);
+    //     setPhoneError('');
+    //
+    //     try {
+    //         const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+    //         const firstName = stored.first_name || '';
+    //         const lastName = stored.last_name || '';
+    //
+    //         const apiRes = await profileApi.updateProfile({
+    //             first_name: firstName,
+    //             last_name: lastName,
+    //             phone_number: phoneNumber,
+    //         });
+    //
+    //         // Update Supabase users table directly to set is_phone_verified = true
+    //         const activeUid = stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
+    //         if (supabase && activeUid) {
+    //             try {
+    //                 await supabase
+    //                     .from('users')
+    //                     .update({
+    //                         phone_number: phoneNumber,
+    //                         is_phone_verified: true
+    //                     })
+    //                     .eq('id', activeUid);
+    //             } catch (dbErr) {
+    //                 console.warn("Supabase direct phone verification update error:", dbErr);
+    //             }
+    //         }
+    //
+    //         // Update user in localStorage
+    //         if (typeof window !== 'undefined') {
+    //             const parsed = JSON.parse(localStorage.getItem('user') || '{}');
+    //             parsed.phone_number = phoneNumber;
+    //             parsed.is_phone_verified = true;
+    //             localStorage.setItem('user', JSON.stringify(parsed));
+    //             document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+    //             window.dispatchEvent(new CustomEvent('user:updated'));
+    //         }
+    //
+    //         toast.success(apiRes?.message || 'Profile completed successfully!');
+    //         setShowPhoneModal(false);
+    //
+    //         const target = redirectRef.current || '/dashboard';
+    //         if (typeof window !== 'undefined') {
+    //             window.location.assign(target);
+    //         } else {
+    //             router.replace(target);
+    //             router.refresh();
+    //         }
+    //     } catch (err) {
+    //         console.error('Failed to save phone number:', err);
+    //         const msg = String(err.message || '');
+    //         let userFriendlyMsg = 'Failed to complete profile.';
+    //         if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
+    //             userFriendlyMsg = 'This phone number is already in use.';
+    //         } else if (msg) {
+    //             userFriendlyMsg = msg;
+    //         }
+    //         setPhoneError(userFriendlyMsg);
+    //         toast.error(userFriendlyMsg);
+    //     } finally {
+    //         setSavingPhone(false);
+    //     }
+    // };
 
     useEffect(() => {
         const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
@@ -255,7 +255,7 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
                 />
             </div>
 
-            <FirebasePhoneModal
+            {/* <FirebasePhoneModal
                 isOpen={showPhoneModal}
                 phoneNumber={phoneNumber}
                 onClose={() => setShowPhoneModal(false)}
@@ -269,7 +269,7 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
                         router.refresh();
                     }
                 }}
-            />
+            /> */}
         </div>
     );
 };

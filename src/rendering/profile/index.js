@@ -714,12 +714,12 @@ export default function Profile() {
                 )}
             </AnimatePresence>
 
-            <FirebasePhoneModal
+            {/* <FirebasePhoneModal
                 isOpen={showOtpModal}
                 phoneNumber={form.phone_number}
                 onClose={() => setShowOtpModal(false)}
                 onSuccess={performSaveProfile}
-            />
+            /> */}
         </div>
     );
 }

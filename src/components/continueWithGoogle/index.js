@@ -255,7 +255,7 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
                 />
             </div>
 
-            <FirebasePhoneModal
+            {/* <FirebasePhoneModal
                 isOpen={showPhoneModal}
                 phoneNumber={phoneNumber}
                 onClose={() => setShowPhoneModal(false)}
@@ -269,7 +269,7 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
                         router.refresh();
                     }
                 }}
-            />
+            /> */}
         </div>
     );
 };

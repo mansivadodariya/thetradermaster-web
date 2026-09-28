@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { getStoredUserId, getStoredUser, clearAuthSession } from '@/lib/authSession';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
-import FirebasePhoneModal from '@/components/firebasePhoneModal';
+// import FirebasePhoneModal from '@/components/firebasePhoneModal';
 import { profileApi } from '@/lib/api';
 
 export default function AuthGuard({ children }) {
@@ -108,7 +108,9 @@ export default function AuthGuard({ children }) {
                 }
                 document.cookie = 'has_phone=true; path=/; SameSite=Lax';
             } else {
-                setNeedsPhoneVerification(true);
+                // Phone verification disabled for now
+                // setNeedsPhoneVerification(true);
+                setNeedsPhoneVerification(false);
             }
         };
 
@@ -192,6 +194,7 @@ export default function AuthGuard({ children }) {
     return (
         <>
             {children}
+            {/* Phone verification modal disabled for now
             <FirebasePhoneModal
                 isOpen={needsPhoneVerification}
                 phoneNumber={userPhone}
@@ -200,6 +203,7 @@ export default function AuthGuard({ children }) {
                 onClose={null}
                 onSuccess={handlePhoneVerifiedSuccess}
             />
+            */}
         </>
     );
 }

@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
             __html: `
               try {
                 var isDashboard = /^\\/(dashboard|ai-assistant|ai-strategy|credit-history|economic-calendar|profile|settings|trade-snap)/.test(window.location.pathname);
-                if (isDashboard && (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))) {
+                if (isDashboard && localStorage.getItem('theme') !== 'light') {
                   document.documentElement.classList.add('dark');
                 } else {
                   document.documentElement.classList.remove('dark');

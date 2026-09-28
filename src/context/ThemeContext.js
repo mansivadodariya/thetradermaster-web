@@ -16,7 +16,9 @@ export const ThemeProvider = ({ children }) => {
             setTheme('light');
             document.documentElement.classList.remove('dark');
         } else {
+            // Default to dark mode when no theme is stored or theme is 'dark'
             setTheme('dark');
+            localStorage.setItem('theme', 'dark');
             document.documentElement.classList.add('dark');
         }
     }, []);

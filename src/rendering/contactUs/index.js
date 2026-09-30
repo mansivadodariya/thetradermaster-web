@@ -109,7 +109,7 @@ export default function ContactUs() {
                             <div className={styles.infoContent}>
                                 <h3>{t('contact.emailSupport', 'Email Support')}</h3>
                                 <p>{t('contact.emailDesc', 'Send us an email and we\'ll respond within 24 hours.')}</p>
-                                <a href="mailto:support@trademaster.ai">support@trademaster.ai</a>
+                                <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a>
                             </div>
                         </div>
 

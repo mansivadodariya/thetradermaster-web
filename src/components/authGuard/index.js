@@ -9,9 +9,9 @@ import { profileApi } from '@/lib/api';
 
 export default function AuthGuard({ children }) {
     const router = useRouter();
-    // const [needsPhoneVerification, setNeedsPhoneVerification] = useState(false);
-    // const [userPhone, setUserPhone] = useState('');
-    // const [activeUid, setActiveUid] = useState('');
+    const [needsPhoneVerification, setNeedsPhoneVerification] = useState(false);
+    const [userPhone, setUserPhone] = useState('');
+    const [activeUid, setActiveUid] = useState('');
 
     useEffect(() => {
         const handleUnauthorized = () => {
@@ -26,24 +26,24 @@ export default function AuthGuard({ children }) {
 
             // 1. If user is logged out or session is empty, immediately hide modal and return
             if (!uid || !localUser) {
-                // setActiveUid('');
-                // setNeedsPhoneVerification(false);
+                setActiveUid('');
+                setNeedsPhoneVerification(false);
                 return;
             }
 
-            // setActiveUid(uid);
+            setActiveUid(uid);
 
             // 2. Check local session / cookie
-            // const isLocallyVerified = Boolean(
-            //     localUser?.is_phone_verified === true ||
-            //     (typeof document !== 'undefined' && document.cookie.includes('has_phone=true'))
-            // );
-            // const initialPhone = localUser?.phone_number || '';
-            // setUserPhone(initialPhone);
+            const isLocallyVerified = Boolean(
+                localUser?.is_phone_verified === true ||
+                (typeof document !== 'undefined' && document.cookie.includes('has_phone=true'))
+            );
+            const initialPhone = localUser?.phone_number || '';
+            setUserPhone(initialPhone);
 
-            // if (isLocallyVerified) {
-            //     setNeedsPhoneVerification(false);
-            // }
+            if (isLocallyVerified) {
+                setNeedsPhoneVerification(false);
+            }
 
             // 3. Fetch fresh status from Supabase or backend API
             let dbUser = null;
@@ -90,26 +90,28 @@ export default function AuthGuard({ children }) {
                 return;
             }
 
-            // const updatedPhone = dbUser?.phone_number || initialPhone;
-            // if (updatedPhone) setUserPhone(updatedPhone);
+            const updatedPhone = dbUser?.phone_number || initialPhone;
+            if (updatedPhone) setUserPhone(updatedPhone);
 
-            // const isVerified = Boolean(
-            //     dbUser?.is_phone_verified === true ||
-            //     isLocallyVerified === true ||
-            //     localUser?.is_phone_verified === true
-            // );
+            const isVerified = Boolean(
+                dbUser?.is_phone_verified === true ||
+                isLocallyVerified === true ||
+                localUser?.is_phone_verified === true
+            );
 
-            // if (isVerified) {
-            //     setNeedsPhoneVerification(false);
-            //     if (localUser && !localUser.is_phone_verified) {
-            //         localUser.phone_number = updatedPhone;
-            //         localUser.is_phone_verified = true;
-            //         localStorage.setItem('user', JSON.stringify(localUser));
-            //     }
-            //     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-            // } else {
-            //     setNeedsPhoneVerification(true);
-            // }
+            if (isVerified) {
+                setNeedsPhoneVerification(false);
+                if (localUser && !localUser.is_phone_verified) {
+                    localUser.phone_number = updatedPhone;
+                    localUser.is_phone_verified = true;
+                    localStorage.setItem('user', JSON.stringify(localUser));
+                }
+                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+            } else {
+                // Phone verification disabled for now
+                // setNeedsPhoneVerification(true);
+                setNeedsPhoneVerification(false);
+            }
         };
 
         checkUserStatus();
@@ -123,83 +125,85 @@ export default function AuthGuard({ children }) {
         };
     }, [router]);
 
-    // const handlePhoneVerifiedSuccess = async (verifiedPhone) => {
-    //     const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-    //     const phoneToSave = verifiedPhone || userPhone || stored.phone_number || '';
-    //     console.log('AuthGuard handlePhoneVerifiedSuccess: phoneToSave =', phoneToSave);
-    //
-    //     // Instantly close modal and set local session to verified
-    //     setNeedsPhoneVerification(false);
-    //
-    //     if (typeof window !== 'undefined') {
-    //         const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-    //         parsed.phone_number = phoneToSave;
-    //         parsed.is_phone_verified = true;
-    //         localStorage.setItem('user', JSON.stringify(parsed));
-    //         document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-    //     }
-    //
-    //     if (!phoneToSave) return;
-    //
-    //     try {
-    //         const firstName = stored.first_name || '';
-    //         const lastName = stored.last_name || '';
-    //         const userEmail = stored.email || '';
-    //         const targetUid = activeUid || stored.id || stored.user_id || getStoredUserId();
-    //
-    //         try {
-    //             await profileApi.updateProfile({
-    //                 first_name: firstName,
-    //                 last_name: lastName,
-    //                 phone_number: phoneToSave,
-    //             });
-    //         } catch (apiErr) {
-    //             console.warn("backend profileApi update error:", apiErr);
-    //         }
-    //
-    //         if (supabase) {
-    //             try {
-    //                 if (targetUid) {
-    //                     await supabase
-    //                         .from('users')
-    //                         .update({
-    //                             phone_number: phoneToSave,
-    //                             is_phone_verified: true
-    //                         })
-    //                         .eq('id', targetUid);
-    //                 }
-    //
-    //                 if (userEmail) {
-    //                     await supabase
-    //                         .from('users')
-    //                         .update({
-    //                             phone_number: phoneToSave,
-    //                             is_phone_verified: true
-    //                         })
-    //                         .eq('email', userEmail);
-    //                 }
-    //             } catch (dbErr) {
-    //                 console.warn("Supabase direct phone verification update error:", dbErr);
-    //             }
-    //         }
-    //
-    //         toast.success('Phone number verified successfully!');
-    //     } catch (err) {
-    //         console.error('Failed to update phone verification status:', err);
-    //     }
-    // };
+    const handlePhoneVerifiedSuccess = async (verifiedPhone) => {
+        const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+        const phoneToSave = verifiedPhone || userPhone || stored.phone_number || '';
+        console.log('AuthGuard handlePhoneVerifiedSuccess: phoneToSave =', phoneToSave);
+
+        // Instantly close modal and set local session to verified
+        setNeedsPhoneVerification(false);
+
+        if (typeof window !== 'undefined') {
+            const parsed = JSON.parse(localStorage.getItem('user') || '{}');
+            parsed.phone_number = phoneToSave;
+            parsed.is_phone_verified = true;
+            localStorage.setItem('user', JSON.stringify(parsed));
+            document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+        }
+
+        if (!phoneToSave) return;
+
+        try {
+            const firstName = stored.first_name || '';
+            const lastName = stored.last_name || '';
+            const userEmail = stored.email || '';
+            const targetUid = activeUid || stored.id || stored.user_id || getStoredUserId();
+
+            try {
+                await profileApi.updateProfile({
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone_number: phoneToSave,
+                });
+            } catch (apiErr) {
+                console.warn("backend profileApi update error:", apiErr);
+            }
+
+            if (supabase) {
+                try {
+                    if (targetUid) {
+                        await supabase
+                            .from('users')
+                            .update({
+                                phone_number: phoneToSave,
+                                is_phone_verified: true
+                            })
+                            .eq('id', targetUid);
+                    }
+
+                    if (userEmail) {
+                        await supabase
+                            .from('users')
+                            .update({
+                                phone_number: phoneToSave,
+                                is_phone_verified: true
+                            })
+                            .eq('email', userEmail);
+                    }
+                } catch (dbErr) {
+                    console.warn("Supabase direct phone verification update error:", dbErr);
+                }
+            }
+
+            toast.success('Phone number verified successfully!');
+        } catch (err) {
+            console.error('Failed to update phone verification status:', err);
+        }
+    };
 
     return (
         <>
             {children}
-            {/* <FirebasePhoneModal
+            {/* Phone verification modal disabled for now
+            <FirebasePhoneModal
                 isOpen={needsPhoneVerification}
                 phoneNumber={userPhone}
                 autoTriggerSend={true}
                 isPhoneReadOnly={Boolean(userPhone)}
                 onClose={null}
                 onSuccess={handlePhoneVerifiedSuccess}
-            /> */}
+            />
+            */}
         </>
     );
 }

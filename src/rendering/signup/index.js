@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import styles from './signup.module.scss';
 import Input from '@/components/input';
 import PhoneInput from '@/components/phoneInput';
-// import FirebasePhoneModal from '@/components/firebasePhoneModal';
+import FirebasePhoneModal from '@/components/firebasePhoneModal';
 import Button from '@/components/button';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
 import { getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
@@ -15,7 +15,7 @@ import { authApi, profileApi } from '@/lib/api';
 import { validateSignup } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { supabase } from '@/lib/supabaseClient';
-// import { isValidPhoneNumber } from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import { getUtmParameters } from '@/lib/utm';
 
 import { useLanguage } from '@/context/LanguageContext';
@@ -48,15 +48,15 @@ const Signup = () => {
     const [success, setSuccess] = useState(false);
 
     // States for phone step after Google Sign-in
-    // const [pendingPhoneUserId, setPendingPhoneUserId] = useState('');
-    // const [phoneNumber, setPhoneNumber] = useState('');
-    // const [phoneError, setPhoneError] = useState('');
-    // const [savingPhone, setSavingPhone] = useState(false);
-    // const [showOtpModal, setShowOtpModal] = useState(false);
+    const [pendingPhoneUserId, setPendingPhoneUserId] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+    const [savingPhone, setSavingPhone] = useState(false);
+    const [showOtpModal, setShowOtpModal] = useState(false);
 
-    // useEffect(() => {
-    //     console.log('Signup mount/update: pendingPhoneUserId =', pendingPhoneUserId);
-    // }, [pendingPhoneUserId]);
+    useEffect(() => {
+        console.log('Signup mount/update: pendingPhoneUserId =', pendingPhoneUserId);
+    }, [pendingPhoneUserId]);
 
     useEffect(() => {
         const checkSession = async () => {
@@ -168,81 +168,81 @@ const Signup = () => {
         }
     };
 
-    // const handleSavePhoneNumber = async (e) => {
-    //     if (e) e.preventDefault();
-    //
-    //     if (!phoneNumber) {
-    //         setPhoneError('Phone number is required.');
-    //         return;
-    //     }
-    //
-    //     if (!isValidPhoneNumber(phoneNumber)) {
-    //         setPhoneError('Enter a valid phone number.');
-    //         return;
-    //     }
-    //
-    //     setPhoneError('');
-    //     setShowOtpModal(true);
-    // };
+    const handleSavePhoneNumber = async (e) => {
+        if (e) e.preventDefault();
 
-    // const handleOtpSuccess = async () => {
-    //     setSavingPhone(true);
-    //     try {
-    //         const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-    //         const firstName = form.first_name || stored.first_name || '';
-    //         const lastName = form.last_name || stored.last_name || '';
-    //
-    //         const apiRes = await profileApi.updateProfile({
-    //             first_name: firstName.trim(),
-    //             last_name: lastName.trim(),
-    //             phone_number: phoneNumber,
-    //         });
-    //
-    //         // Update Supabase users table directly to set is_phone_verified = true
-    //         const activeUid = pendingPhoneUserId || stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
-    //         if (supabase && activeUid) {
-    //             try {
-    //                 await supabase
-    //                     .from('users')
-    //                     .update({
-    //                         phone_number: phoneNumber,
-    //                         is_phone_verified: true
-    //                     })
-    //                     .eq('id', activeUid);
-    //             } catch (dbErr) {
-    //                 console.warn("Supabase direct phone verification update error:", dbErr);
-    //             }
-    //         }
-    //
-    //         if (typeof window !== 'undefined') {
-    //             const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-    //             parsed.first_name = firstName.trim() || parsed.first_name || '';
-    //             parsed.last_name = lastName.trim() || parsed.last_name || '';
-    //             parsed.phone_number = phoneNumber;
-    //             parsed.is_phone_verified = true;
-    //             localStorage.setItem('user', JSON.stringify(parsed));
-    //             document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-    //             window.dispatchEvent(new CustomEvent('user:updated'));
-    //         }
-    //
-    //         toast.success(apiRes?.message || 'Phone number verified successfully!');
-    //         window.location.assign(redirectTo);
-    //     } catch (err) {
-    //         console.error('Failed to save phone number:', err);
-    //         const msg = String(err.message || '');
-    //         let userFriendlyMsg = 'Failed to save phone number.';
-    //         if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
-    //             userFriendlyMsg = 'This phone number is already in use.';
-    //         } else if (msg) {
-    //             userFriendlyMsg = msg;
-    //         }
-    //         setPhoneError(userFriendlyMsg);
-    //         toast.error(userFriendlyMsg);
-    //     } finally {
-    //         setSavingPhone(false);
-    //         setShowOtpModal(false);
-    //     }
-    // };
+        if (!phoneNumber) {
+            setPhoneError('Phone number is required.');
+            return;
+        }
+
+        if (!isValidPhoneNumber(phoneNumber)) {
+            setPhoneError('Enter a valid phone number.');
+            return;
+        }
+
+        setPhoneError('');
+        setShowOtpModal(true);
+    };
+
+    const handleOtpSuccess = async () => {
+        setSavingPhone(true);
+        try {
+            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+            const firstName = form.first_name || stored.first_name || '';
+            const lastName = form.last_name || stored.last_name || '';
+
+            const apiRes = await profileApi.updateProfile({
+                first_name: firstName.trim(),
+                last_name: lastName.trim(),
+                phone_number: phoneNumber,
+            });
+
+            // Update Supabase users table directly to set is_phone_verified = true
+            const activeUid = pendingPhoneUserId || stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
+            if (supabase && activeUid) {
+                try {
+                    await supabase
+                        .from('users')
+                        .update({
+                            phone_number: phoneNumber,
+                            is_phone_verified: true
+                        })
+                        .eq('id', activeUid);
+                } catch (dbErr) {
+                    console.warn("Supabase direct phone verification update error:", dbErr);
+                }
+            }
+
+            if (typeof window !== 'undefined') {
+                const parsed = JSON.parse(localStorage.getItem('user') || '{}');
+                parsed.first_name = firstName.trim() || parsed.first_name || '';
+                parsed.last_name = lastName.trim() || parsed.last_name || '';
+                parsed.phone_number = phoneNumber;
+                parsed.is_phone_verified = true;
+                localStorage.setItem('user', JSON.stringify(parsed));
+                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                window.dispatchEvent(new CustomEvent('user:updated'));
+            }
+
+            toast.success(apiRes?.message || 'Phone number verified successfully!');
+            window.location.assign(redirectTo);
+        } catch (err) {
+            console.error('Failed to save phone number:', err);
+            const msg = String(err.message || '');
+            let userFriendlyMsg = 'Failed to save phone number.';
+            if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
+                userFriendlyMsg = 'This phone number is already in use.';
+            } else if (msg) {
+                userFriendlyMsg = msg;
+            }
+            setPhoneError(userFriendlyMsg);
+            toast.error(userFriendlyMsg);
+        } finally {
+            setSavingPhone(false);
+            setShowOtpModal(false);
+        }
+    };
 
     if (success) {
         return (

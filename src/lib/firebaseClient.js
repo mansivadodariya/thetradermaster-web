@@ -31,10 +31,14 @@ export function getFirebaseApp() {
 export function getFirebaseAuth() {
     const app = getFirebaseApp();
     const auth = getAuth(app);
-    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-        try {
-            auth.settings.appVerificationDisabledForTesting = true;
-        } catch (_) {}
+    if (typeof window !== 'undefined') {
+        const hostname = window.location.hostname;
+        const isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.devtunnels.ms');
+        if (isLocalDev) {
+            try {
+                auth.settings.appVerificationDisabledForTesting = true;
+            } catch (_) {}
+        }
     }
     return auth;
 }

@@ -98,7 +98,7 @@ export default function TermsAndConditions() {
                     <section>
                         <h2>Contact Information</h2>
                         <p>For legal inquiries, questions regarding these Terms and Conditions, or requests related to the platform, please contact:</p>
-                        <p><strong>Email:</strong> <a href="mailto:support@trademaster.ai">support@trademaster.ai</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a></p>
                     </section>
 
                     <section>

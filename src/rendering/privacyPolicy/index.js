@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
                     <section>
                         <h2>Contact Information</h2>
                         <p>If you have any questions, concerns, requests, or complaints regarding this Privacy Policy or our privacy practices, please contact us at:</p>
-                        <p><strong>Email:</strong> <a href="mailto:support@trademaster.ai">support@trademaster.ai</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a></p>
                     </section>
                 </div>
             </div>

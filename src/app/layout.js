@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/assets/images/new-hero-banner.png" as="image" fetchPriority="high" />
         <script
           id="theme-initializer"
           dangerouslySetInnerHTML={{

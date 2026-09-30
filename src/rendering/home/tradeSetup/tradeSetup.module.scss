@@ -167,7 +167,7 @@
                 margin-bottom: 18px;
 
                 .stepBadge {
-                    font-size: 13px;
+                    font-size: 14px;
                     font-weight: 800;
                     color: #00FF88;
                     background: rgba(0, 255, 136, 0.12);
@@ -308,7 +308,7 @@
                             font-family: var(--font-plus-jakarta);
 
                             @include respond-to('sm') {
-                                font-size: 13px;
+                                font-size: 14px;
                             }
                         }
                     }

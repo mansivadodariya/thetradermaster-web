@@ -26,16 +26,26 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     padding-bottom: 14px;
     margin-bottom: 6px;
 
+    @include respond-to('sm') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
     .titleArea {
         h2 {
             font-size: 22px;
             font-weight: 700;
             color: #0F172A;
             margin: 0 0 4px;
+
+            @include respond-to('sm') {
+                font-size: 20px;
+            }
         }
 
         p {
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
             margin: 0;
             max-width: 700px;
@@ -131,6 +141,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     border-bottom: 1.5px solid #E2E8F0;
     padding-bottom: 14px;
     margin-bottom: 8px;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
 }
 
 .symbolForm {
@@ -143,11 +159,15 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     max-width: 320px;
     width: 100%;
 
+    @include respond-to('sm') {
+        max-width: 100%;
+    }
+
     .symbolInput {
         border: none;
         outline: none;
         padding: 8px 12px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: #0F172A;
         width: 100%;
@@ -165,7 +185,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         color: #ffffff;
         font-weight: 700;
         padding: 8px 16px;
-        font-size: 13px;
+        font-size: 14px;
         cursor: pointer;
         transition: background-color 0.2s ease;
 
@@ -226,7 +246,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     color: #475569;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .cardContainer {
@@ -403,7 +423,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 
     .metricValue {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #ffffff;
         font-variant-numeric: tabular-nums;
@@ -643,7 +663,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 
     p {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(255, 255, 255, 0.6);
         max-width: 420px;
         line-height: 1.5;
@@ -850,7 +870,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         display: flex;
         align-items: center;
         gap: 6px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.85);
 
@@ -921,7 +941,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 
     p {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(255, 255, 255, 0.75);
         line-height: 1.6;
         margin: 0;
@@ -1095,7 +1115,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 
     .barLabel {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: rgba(255, 255, 255, 0.7);
         text-transform: uppercase;
@@ -1388,7 +1408,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     .dropdownLabel {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #0F172A;
         text-transform: uppercase;
@@ -1411,7 +1431,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         color: #0F172A;
         padding: 8px 16px;
         border-radius: 10px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         outline: none;
         cursor: pointer;
@@ -1475,7 +1495,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         border: none;
         background: transparent;
         color: #1E293B;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         border-radius: 8px;
         text-align: left;
@@ -1939,7 +1959,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     justify-content: center;
     gap: 14px;
     color: #475569;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -1964,7 +1984,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -2028,7 +2048,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     justify-content: center;
     gap: 14px;
     color: #64748B;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -2520,7 +2540,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 }
 
 .instructionsText {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #94a3b8;
 }
@@ -2768,7 +2788,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
 .strategyAccordion {
     border: 1px solid #E2E8F0;
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
     background: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -2986,7 +3006,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     cursor: pointer;
     user-select: none;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.5px;
     transition: color 0.2s ease;
@@ -3505,7 +3525,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 
     .sliderValTxt {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         font-family: monospace;
         color: #ffffff;
@@ -3702,7 +3722,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 
     strong {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #0F172A;
     }

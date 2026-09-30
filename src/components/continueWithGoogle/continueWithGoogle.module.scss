@@ -6,7 +6,7 @@
 
     .error {
         color: #d32f2f;
-        font-size: 13px;
+        font-size: 14px;
         text-align: center;
         margin: 0 0 10px;
     }
@@ -15,7 +15,7 @@
         color: #1a6b2a;
         background: #e8f5e9;
         border-radius: 6px;
-        font-size: 13px;
+        font-size: 14px;
         text-align: center;
         padding: 10px 12px;
         margin: 0 0 10px;
@@ -23,7 +23,7 @@
 
     .loading {
         color: $primary;
-        font-size: 13px;
+        font-size: 14px;
         text-align: center;
         margin: 0 0 10px;
     }
@@ -82,7 +82,7 @@
         opacity: 0.011;
         cursor: pointer;
 
-        > div {
+        >div {
             width: 100% !important;
             max-width: 100% !important;
             height: 100% !important;
@@ -159,6 +159,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -169,6 +170,7 @@
         transform: scale(0.95);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;

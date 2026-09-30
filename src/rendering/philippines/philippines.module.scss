@@ -65,7 +65,7 @@ $danger: #FF5757;
         background: rgba(16, 185, 129, 0.1);
         color: $primary;
         border-radius: 100px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -339,7 +339,7 @@ $danger: #FF5757;
                 margin-bottom: 8px;
 
                 @include respond-to('sm') {
-                    font-size: 13px;
+                    font-size: 14px;
                     margin-bottom: 6px;
                 }
 

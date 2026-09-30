@@ -1,14 +1,16 @@
+import dynamic from 'next/dynamic';
 import Banner from './banner';
-import AiTradeReview from './aiTradeReview';
-import ReviewFeatures from './reviewFeatures';
-import InsideTrade from './insideTrade';
-import LearningOpportunity from './learningOpportunity';
-import AnalysisProcess from './analysisProcess';
-import ReportIncludes from './reportIncludes';
-import TradingPatterns from './tradingPatterns';
-import WhyReview from './whyReview';
-import ReadyToAnalyze from './readyToAnalyze';
-import PastTradeFaq from './pastTradeFaq';
+
+const AiTradeReview = dynamic(() => import('./aiTradeReview'));
+const ReviewFeatures = dynamic(() => import('./reviewFeatures'));
+const InsideTrade = dynamic(() => import('./insideTrade'));
+const LearningOpportunity = dynamic(() => import('./learningOpportunity'));
+const AnalysisProcess = dynamic(() => import('./analysisProcess'));
+const ReportIncludes = dynamic(() => import('./reportIncludes'));
+const TradingPatterns = dynamic(() => import('./tradingPatterns'));
+const WhyReview = dynamic(() => import('./whyReview'));
+const ReadyToAnalyze = dynamic(() => import('./readyToAnalyze'));
+const PastTradeFaq = dynamic(() => import('./pastTradeFaq'));
 
 export default function PastTradeAnalyzerPage() {
     return (

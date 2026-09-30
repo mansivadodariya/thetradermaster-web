@@ -110,7 +110,7 @@
         background: #F8FAFC;
         border: 1px solid #E2E8F0;
         padding: 12px 16px;
-        border-radius: 14px;
+        border-radius: 12px;
         transition: all 0.25s ease;
 
         .num {
@@ -340,7 +340,7 @@
             color: #059669;
             padding: 8px 16px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
@@ -515,7 +515,7 @@
                     }
 
                     .miniScore {
-                        font-size: 13px;
+                        font-size: 14px;
                         font-weight: 800;
                         color: #0F172A;
                     }
@@ -541,7 +541,7 @@
         .pillarCard {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 18px;
             display: flex;
             flex-direction: column;
@@ -633,7 +633,7 @@
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
             padding: 20px;
-            border-radius: 14px;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -683,7 +683,7 @@
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
             padding: 16px;
-            border-radius: 14px;
+            border-radius: 12px;
 
             .sideBadgeBuy {
                 display: inline-block;
@@ -712,7 +712,7 @@
             .sideRow {
                 display: flex;
                 justify-content: space-between;
-                font-size: 13px;
+                font-size: 14px;
                 color: #475569;
 
                 strong {
@@ -726,7 +726,7 @@
     .takeawayBanner {
         background: #ECFDF5;
         border: 1px solid #A7F3D0;
-        border-radius: 14px;
+        border-radius: 12px;
         padding: 20px 24px;
 
         .takeawayHeader {
@@ -764,7 +764,7 @@
     .levelUpCard {
         background: #F8FAFC;
         border: 1px solid #E2E8F0;
-        border-radius: 14px;
+        border-radius: 12px;
         padding: 20px;
 
         h4 {
@@ -897,7 +897,7 @@
         .srCard {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 20px;
 
             .goodTitle {
@@ -923,7 +923,7 @@
                 gap: 8px;
 
                 li {
-                    font-size: 13px;
+                    font-size: 14px;
                     line-height: 1.5;
                     color: #334155;
                 }
@@ -943,7 +943,7 @@
         }
 
         p {
-            font-size: 13px;
+            font-size: 14px;
             color: #64748B;
             margin: 0;
         }
@@ -952,13 +952,13 @@
     .tradesTableWrapper {
         overflow-x: auto;
         border: 1px solid #E2E8F0;
-        border-radius: 14px;
+        border-radius: 12px;
     }
 
     .tradesTable {
         width: 100%;
         border-collapse: collapse;
-        font-size: 13px;
+        font-size: 14px;
 
         th {
             background: #F8FAFC;
@@ -1090,7 +1090,7 @@
                 .detailGoodHead {
                     color: #047857;
                     font-weight: 700;
-                    font-size: 13px;
+                    font-size: 14px;
                     display: block;
                     margin-bottom: 4px;
                 }
@@ -1098,7 +1098,7 @@
                 .detailBadHead {
                     color: #B91C1C;
                     font-weight: 700;
-                    font-size: 13px;
+                    font-size: 14px;
                     display: block;
                     margin-bottom: 4px;
                 }
@@ -1106,7 +1106,7 @@
                 ul {
                     margin: 0;
                     padding-left: 20px;
-                    font-size: 13px;
+                    font-size: 14px;
                     color: #475569;
                 }
             }
@@ -1117,7 +1117,7 @@
     .markdownReportBox {
         background: #F8FAFC;
         border: 1px solid #E2E8F0;
-        border-radius: 14px;
+        border-radius: 12px;
         padding: 24px;
 
         h4 {
@@ -1318,7 +1318,7 @@
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
     padding: 14px;
-    border-radius: 14px;
+    border-radius: 12px;
 
     :global(.dark) & {
         background: rgba(4, 20, 14, 0.8);
@@ -1391,7 +1391,7 @@
     }
 
     p {
-        font-size: 13px;
+        font-size: 14px;
         color: #64748B;
         margin: 0;
 
@@ -1405,7 +1405,7 @@
     background: #FEF2F2;
     border: 1px solid #FCA5A5;
     padding: 24px;
-    border-radius: 14px;
+    border-radius: 12px;
     text-align: center;
 
     .errorIcon {
@@ -1432,7 +1432,7 @@
         border: none;
         padding: 8px 18px;
         border-radius: 100px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         cursor: pointer;
     }
@@ -1500,7 +1500,7 @@
         }
 
         .outcomePill {
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
             font-weight: 700;
 
@@ -1577,7 +1577,7 @@
         }
 
         h5 {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             color: #0F172A;
             margin: 0 0 6px;
@@ -1588,7 +1588,7 @@
         }
 
         p {
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
             margin: 0;
             line-height: 1.5;
@@ -1613,7 +1613,7 @@
         background: #ECFDF5;
         border: 1px solid #A7F3D0;
         padding: 16px;
-        border-radius: 14px;
+        border-radius: 12px;
 
         :global(.dark) & {
             background: rgba(0, 255, 136, 0.08);
@@ -1634,7 +1634,7 @@
         ul {
             margin: 0;
             padding-left: 18px;
-            font-size: 13px;
+            font-size: 14px;
             color: #065F46;
             line-height: 1.5;
             display: flex;
@@ -1651,7 +1651,7 @@
         background: #FEF2F2;
         border: 1px solid #FCA5A5;
         padding: 16px;
-        border-radius: 14px;
+        border-radius: 12px;
 
         :global(.dark) & {
             background: rgba(239, 68, 68, 0.08);
@@ -1672,7 +1672,7 @@
         ul {
             margin: 0;
             padding-left: 18px;
-            font-size: 13px;
+            font-size: 14px;
             color: #991B1B;
             line-height: 1.5;
             display: flex;
@@ -1690,7 +1690,7 @@
     background: #FFFBEB;
     border: 1px solid #FDE68A;
     padding: 16px;
-    border-radius: 14px;
+    border-radius: 12px;
 
     :global(.dark) & {
         background: rgba(245, 158, 11, 0.08);
@@ -1711,7 +1711,7 @@
     ul {
         margin: 0;
         padding-left: 18px;
-        font-size: 13px;
+        font-size: 14px;
         color: #78350F;
         line-height: 1.6;
         display: flex;
@@ -1728,7 +1728,7 @@
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
     padding: 18px;
-    border-radius: 14px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -1755,7 +1755,7 @@
         gap: 3px;
 
         strong {
-            font-size: 13px;
+            font-size: 14px;
             color: #059669;
 
             :global(.dark) & {
@@ -1764,7 +1764,7 @@
         }
 
         p {
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
             margin: 0;
             line-height: 1.5;
@@ -1788,7 +1788,7 @@
     }
 
     h5 {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #0F172A;
         margin: 0 0 8px;
@@ -1830,7 +1830,7 @@
     color: #475569;
     padding: 10px 16px;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     display: inline-flex;
@@ -1874,7 +1874,7 @@
     pre {
         white-space: pre-wrap;
         font-family: inherit;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.6;
         color: #334155;
         margin: 0;
@@ -1891,7 +1891,7 @@
     max-width: 420px;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 16px;
     margin-bottom: 20px;
 
@@ -2006,7 +2006,7 @@
 
         p {
             color: #64748B;
-            font-size: 13px;
+            font-size: 14px;
             margin: 0;
         }
     }
@@ -2045,7 +2045,7 @@
 
             span {
                 color: #1E293B;
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: 600;
             }
         }
@@ -2097,7 +2097,7 @@
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
             padding: 20px;
-            border-radius: 14px;
+            border-radius: 12px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
@@ -2138,7 +2138,7 @@
 
             p {
                 color: #64748B;
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.5;
                 margin: 0;
             }
@@ -2736,7 +2736,7 @@
 
 .loaderFileSize {
     color: #00FF88 !important;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
 }
 

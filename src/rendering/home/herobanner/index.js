@@ -100,34 +100,28 @@ export default function Herobanner() {
                 {/* Main hero content */}
                 <div className="container-xs">
                     <div className={styles.grid}>
-                        <motion.div
-                            key={language}
-                            className={styles.contentLeft}
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                        >
-                            <motion.div variants={itemVariants} className={styles.tagWrap}>
+                        <div className={styles.contentLeft}>
+                            <div className={styles.tagWrap}>
                                 <LineText text={t('home.heroTag', 'AI-POWERED TRADING INTELLIGENCE')} start />
-                            </motion.div>
+                            </div>
 
-                            <motion.h1 variants={itemVariants}>
+                            <h1>
                                 {t('home.heroTitleLine1', 'READ THE MARKET.')} <br/>
                                 <span className={styles.neonText}>{t('home.heroTitleLine2', 'BEFORE')}</span> {t('home.heroTitleLine3', 'IT MOVES.')}
-                            </motion.h1>
+                            </h1>
 
-                            <motion.p variants={itemVariants}>
+                            <p>
                                 {t('home.heroSubtitle', 'Trader Master reads your charts, analyses your trades, and builds your strategies through a conversational prompt interface designed exclusively for Forex and MT5 traders.')}
-                            </motion.p>
+                            </p>
 
-                            <motion.div className={styles.actionButtons} variants={itemVariants}>
+                            <div className={styles.actionButtons}>
                                 <Button 
                                     text={t('nav.explorePlatform', 'EXPLORE THE PLATFORM')}
                                     icon={ArrowIcon}
                                     onClick={() => authNavigate(router, '/dashboard')}
                                 />
-                            </motion.div>
-                        </motion.div>
+                            </div>
+                        </div>
 
                         {/* Interactive Brain Hotspot (Over Background Image Brain) */}
                         <div 

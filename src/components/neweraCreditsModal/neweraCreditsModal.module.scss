@@ -514,7 +514,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
 
     @include respond-to('sm') {
         padding: 18px 14px;
-        border-radius: 14px;
+        border-radius: 12px;
         gap: 12px;
     }
 }
@@ -527,7 +527,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
     border: 1px solid rgba(16, 185, 129, 0.3);
     border-radius: 20px;
     padding: 6px 14px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #059669;
 
@@ -544,7 +544,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
     margin: 0;
 
     @include respond-to('sm') {
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.5;
     }
 
@@ -558,7 +558,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #475569;
     background: #FFFFFF;
@@ -612,9 +612,20 @@ $newera-border: rgba(0, 255, 136, 0.2);
 }
 
 @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
 }
 
 /* Dark Mode Overrides */
@@ -751,6 +762,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
 
                 input {
                     color: #ffffff !important;
+
                     &::placeholder {
                         color: rgba(255, 255, 255, 0.45) !important;
                     }
@@ -762,8 +774,13 @@ $newera-border: rgba(0, 255, 136, 0.2);
 
 /* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideUp {
@@ -771,6 +788,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
         opacity: 0;
         transform: translateY(24px) scale(0.96);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -778,6 +796,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
-

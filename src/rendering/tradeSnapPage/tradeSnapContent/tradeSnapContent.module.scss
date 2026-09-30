@@ -197,7 +197,7 @@
 
                     @include respond-to('sm') {
                         padding: 18px 14px;
-                        border-radius: 14px;
+                        border-radius: 12px;
                     }
 
                     .featureHeader {
@@ -325,7 +325,7 @@
 
             @include respond-to('sm') {
                 padding: 16px 14px;
-                border-radius: 14px;
+                border-radius: 12px;
             }
 
             &::before {
@@ -360,7 +360,7 @@
             .cardIconCircle {
                 width: 48px;
                 height: 48px;
-                border-radius: 14px;
+                border-radius: 12px;
                 background: rgba(0, 255, 136, 0.12);
                 border: 1px solid rgba(0, 255, 136, 0.3);
                 display: flex;
@@ -475,7 +475,7 @@
                     gap: 16px;
                     background: rgba(4, 18, 12, 0.9);
                     border: 1px solid rgba(0, 255, 136, 0.25);
-                    border-radius: 14px;
+                    border-radius: 12px;
                     padding: 16px 20px;
                     transition: all 0.3s ease;
 
@@ -542,7 +542,7 @@
                 text-align: center;
                 background: rgba(0, 255, 136, 0.08);
                 border: 1px dashed rgba(0, 255, 136, 0.35);
-                border-radius: 14px;
+                border-radius: 12px;
                 padding: 16px 24px;
                 color: #00FF88;
                 font-size: 15px;
@@ -551,7 +551,7 @@
 
                 @include respond-to('sm') {
                     padding: 12px 14px;
-                    font-size: 13px;
+                    font-size: 14px;
                     border-radius: 10px;
                 }
             }
@@ -687,7 +687,7 @@
                 font-style: italic;
 
                 @include respond-to('sm') {
-                    font-size: 13px;
+                    font-size: 14px;
                 }
             }
         }
@@ -734,7 +734,7 @@
 
                 @include respond-to('sm') {
                     padding: 16px 14px;
-                    border-radius: 14px;
+                    border-radius: 12px;
                 }
 
                 &:hover {
@@ -892,7 +892,7 @@
             }
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
                 padding: 8px 14px;
                 width: 100%;
                 box-sizing: border-box;
@@ -996,7 +996,7 @@
 
                 @include respond-to('sm') {
                     padding: 18px 14px;
-                    border-radius: 14px;
+                    border-radius: 12px;
                     gap: 12px;
                     width: 100%;
                     box-sizing: border-box;

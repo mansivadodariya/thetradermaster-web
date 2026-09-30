@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import LineText from '@/components/lineText';
 import styles from './whyReview.module.scss';

@@ -83,7 +83,8 @@
                 z-index: 1000;
                 overflow: hidden;
 
-                a, button {
+                a,
+                button {
                     display: block;
                     width: 100%;
                     padding: 12px 20px;
@@ -214,7 +215,7 @@
 
                 @include respond-to('md') {
                     padding: 6px 12px;
-                    font-size: 13px;
+                    font-size: 14px;
                 }
 
                 @include respond-to('sm') {

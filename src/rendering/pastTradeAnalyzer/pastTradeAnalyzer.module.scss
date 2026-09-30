@@ -266,7 +266,7 @@
             .flowTitle {
                 font-weight: 700;
                 color: #FFFFFF;
-                font-size: 13px;
+                font-size: 14px;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
                 width: 100%;
@@ -279,7 +279,7 @@
             }
 
             .flowStep {
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: 600;
                 color: #00FF88;
                 background: rgba(0, 255, 136, 0.12);
@@ -478,7 +478,7 @@
                             display: block;
 
                             @include respond-to('sm') {
-                                font-size: 13px;
+                                font-size: 14px;
                             }
                         }
                     }
@@ -489,7 +489,7 @@
                     border-left: 3px solid #00FF88;
                     padding: 12px 14px;
                     border-radius: 6px;
-                    font-size: 13px;
+                    font-size: 14px;
                     color: rgba(255, 255, 255, 0.8);
                     line-height: 1.45;
 
@@ -544,7 +544,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
             gap: 12px;
         }
 
@@ -645,7 +645,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         &:hover {
@@ -662,7 +662,7 @@
         .cardIcon {
             width: 52px;
             height: 52px;
-            border-radius: 14px;
+            border-radius: 12px;
             background: rgba(0, 255, 136, 0.1);
             border: 1px solid rgba(0, 255, 136, 0.25);
             color: #00FF88;
@@ -704,7 +704,7 @@
             margin: 0;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.5;
             }
         }
@@ -755,7 +755,7 @@
         background: rgba(0, 255, 136, 0.04);
         border: 1px solid rgba(0, 255, 136, 0.15);
         padding: 14px 18px;
-        border-radius: 14px;
+        border-radius: 12px;
 
         @include respond-to('sm') {
             padding: 10px 14px;
@@ -788,7 +788,7 @@
             color: #FFFFFF;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
             }
         }
     }
@@ -840,7 +840,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         &:hover {
@@ -909,7 +909,7 @@
             margin: 0;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.5;
             }
         }
@@ -948,7 +948,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         &:hover {
@@ -992,7 +992,7 @@
             margin-bottom: 12px;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.45;
                 margin-bottom: 8px;
             }
@@ -1044,7 +1044,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         &:hover {
@@ -1091,7 +1091,7 @@
             margin: 0;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
             }
         }
     }
@@ -1132,7 +1132,7 @@
         margin-bottom: 22px;
 
         @include respond-to('sm') {
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 16px;
         }
     }
@@ -1186,7 +1186,7 @@
 
         @include respond-to('sm') {
             padding: 10px 14px;
-            font-size: 13px;
+            font-size: 14px;
         }
     }
 }
@@ -1226,7 +1226,7 @@
         margin: 0 auto 28px auto;
 
         @include respond-to('sm') {
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 18px;
         }
     }
@@ -1301,7 +1301,7 @@
 
         @include respond-to('sm') {
             margin-top: 18px;
-            font-size: 13px;
+            font-size: 14px;
             padding: 6px 16px;
         }
     }
@@ -1337,7 +1337,7 @@
 
         @include respond-to('sm') {
             padding: 16px 14px;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         &:hover {
@@ -1363,7 +1363,7 @@
             margin: 0;
 
             @include respond-to('sm') {
-                font-size: 13px;
+                font-size: 14px;
             }
         }
     }
@@ -1609,7 +1609,7 @@
 
             @include respond-to('sm') {
                 padding: 0 12px 14px 12px;
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.5;
             }
 

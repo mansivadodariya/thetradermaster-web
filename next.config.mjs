@@ -6,6 +6,26 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
+  },
+  experimental: {
+    optimizePackageImports: [
+      'framer-motion',
+      'swiper',
+      '@supabase/supabase-js',
+      'firebase',
+      'react-markdown',
+      'rehype-raw',
+      'remark-gfm',
+    ],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'src')],
   },

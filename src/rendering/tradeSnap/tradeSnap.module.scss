@@ -14,7 +14,7 @@ $success: #10B981;
     margin: -16px;
     padding: 20px 24px 32px 24px;
     min-height: calc(100vh - 72px);
-    background-color: #F1F7F4;
+        background: #FFFFFF;
     overflow: hidden;
     box-sizing: border-box;
 
@@ -30,7 +30,8 @@ $success: #10B981;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center top;
-        opacity: 0.2;
+        // opacity: 0.2;
+         display: none;
         pointer-events: none;
         z-index: 0;
     }
@@ -39,7 +40,7 @@ $success: #10B981;
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.15) 0%, rgba(241, 247, 244, 0.5) 50%, #F1F7F4 100%);
+        // background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.15) 0%, rgba(241, 247, 244, 0.5) 50%, #F1F7F4 100%);
         pointer-events: none;
         z-index: 1;
     }
@@ -513,7 +514,6 @@ $success: #10B981;
 
         svg {
             color: #0F172A;
-            fill: #0F172A;
         }
 
         &:hover:not(:disabled) {
@@ -1523,7 +1523,6 @@ $success: #10B981;
 
             svg {
                 color: #030E09;
-                fill: #030E09;
             }
 
             &:hover:not(:disabled) {

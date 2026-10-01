@@ -247,15 +247,41 @@ export function persistAuthSession(payload) {
 
 export function clearAuthSession() {
     if (typeof window === 'undefined') return;
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('user_id');
+
+    // Thoroughly clear all localStorage items (including theme, tokens, user data, preferences)
+    try {
+        localStorage.clear();
+    } catch (_) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('theme');
+        localStorage.removeItem('app_language');
+    }
+
+    // Thoroughly clear sessionStorage
     try {
         sessionStorage.clear();
     } catch (_) {}
-    document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
-    document.cookie = 'has_phone=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+
+    // Expire and clear all cookies on the document
+    try {
+        const rawCookies = document.cookie.split(';');
+        for (let i = 0; i < rawCookies.length; i++) {
+            const cookie = rawCookies[i];
+            const eqPos = cookie.indexOf('=');
+            const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim();
+            if (name) {
+                document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+                document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=${window.location.hostname}; SameSite=Lax`;
+            }
+        }
+    } catch (_) {
+        document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+        document.cookie = 'has_phone=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    }
+
     window.dispatchEvent(new CustomEvent('user:updated'));
 }
 

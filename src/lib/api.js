@@ -131,6 +131,18 @@ async function request(path, options = {}, _isRetry = false) {
 
 import { getOrCreateDeviceId } from '@/lib/deviceId';
 
+export const analyticsApi = {
+    trackDevice: () => {
+        const deviceId = getOrCreateDeviceId();
+        const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
+        return request('/analytics/track-device', {
+            method: 'POST',
+            headers,
+            body: '',
+        });
+    },
+};
+
 export const authApi = {
     signup: (body) => {
         const deviceId = getOrCreateDeviceId();
@@ -145,6 +157,8 @@ export const authApi = {
             }),
         });
     },
+
+    trackDevice: () => analyticsApi.trackDevice(),
 
     verifyEmail: (token) =>
         request(`/auth/verify-email?token=${encodeURIComponent(token)}`),

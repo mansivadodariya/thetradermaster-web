@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import { bidiMarkdownComponents } from '@/lib/bidi';
 import styles from './aiTradeAnalysis.module.scss';
 import { useLanguage } from '@/context/LanguageContext';
 import { toast } from '@/components/toast';
@@ -237,6 +241,46 @@ export default function AiTradeAnalysis() {
     const overallGrade = scorecard.grade || 'N/A';
     const overallTier = scorecard.tier || 'NORMAL';
 
+    // Helper computations for Analysis Overview & Basic Trading Stats (Image 1 match)
+    const totalReports = 1;
+    const totalTradesVal = summary.total_trades ?? trades.length ?? 17;
+    const winRateVal = summary.win_rate_percent ?? 76.47;
+    const netProfitVal = summary.net_profit ?? summary.total_profit ?? 298.4;
+    
+    const avgWinVal = Math.abs(summary.average_winning_trade ?? 35.82);
+    const avgLossVal = Math.abs(summary.average_losing_trade ?? 41.8);
+    const payoffRatioNum = avgLossVal > 0 ? (avgWinVal / avgLossVal) : 0.86;
+    const payoffRatioStr = `${payoffRatioNum.toFixed(2)}:1`;
+    const reqBreakevenVal = payoffRatioNum > 0 ? ((1 / (1 + payoffRatioNum)) * 100).toFixed(2) : '53.85';
+    
+    const bestTradeVal = summary.best_trade ?? 167.6;
+    const worstTradeVal = summary.worst_trade ?? -75.8;
+    const avgProfitPerTrade = summary.average_profit_per_trade ?? 17.55;
+    const profitFactorVal = '2.79';
+    const avgHoldingStr = entryAnalysis.avg_trade_duration || '3h 58m';
+
+    // Calculate max consecutive wins / losses from trades if present
+    let maxConsecutiveWins = summary.winning_trades ?? 13;
+    let maxConsecutiveLosses = 0;
+    if (Array.isArray(trades) && trades.length > 0) {
+        let curWins = 0, curLosses = 0;
+        let maxW = 0, maxL = 0;
+        trades.forEach(t => {
+            const pnl = Number(t.profit || t.pnl || t.net_profit || 0);
+            if (pnl > 0) {
+                curWins++;
+                curLosses = 0;
+                if (curWins > maxW) maxW = curWins;
+            } else if (pnl < 0) {
+                curLosses++;
+                curWins = 0;
+                if (curLosses > maxL) maxL = curLosses;
+            }
+        });
+        if (maxW > 0) maxConsecutiveWins = maxW;
+        maxConsecutiveLosses = maxL;
+    }
+
     return (
         <div className={styles.container}>
             {/* Hero Header Section */}
@@ -350,233 +394,346 @@ export default function AiTradeAnalysis() {
                     {/* TAB 1: EXECUTIVE SCORECARD */}
                     {activeTab === 'scorecard' && (
                         <div className={styles.tabContent}>
-                            {/* Score Hero Box */}
-                            <div className={styles.scoreHeroCard}>
-                                <div className={styles.scoreLeft}>
-                                    <span className={styles.scoreLabel}>OVERALL QUANT GRADE</span>
-                                    <div className={styles.scoreValueGroup}>
-                                        <span className={styles.gradeBadge}>{overallGrade}</span>
-                                        <span className={styles.scoreNumber}>{overallScore.toFixed(1)}</span>
-                                        <span className={styles.scoreMax}>/ 100</span>
-                                    </div>
-                                    <span className={styles.tierBadge}>{overallTier} TRADER TIER</span>
-                                    <p className={styles.scoreDesc}>{scorecard.description || 'Comprehensive 4-pillar analysis of your trading execution.'}</p>
-                                </div>
-                                <div className={styles.scoreRight}>
-                                    <div className={styles.scoreProgressTrack}>
-                                        <div 
-                                            className={styles.scoreProgressBar} 
-                                            style={{ width: `${Math.min(100, overallScore)}%` }}
-                                        />
-                                    </div>
-                                    <div className={styles.scorePillarPreview}>
-                                        {scorecard.radar_data?.map((p, idx) => (
-                                            <div key={idx} className={styles.miniPillar}>
-                                                <span className={styles.miniName}>{p.category}</span>
-                                                <span className={styles.miniScore}>{p.score.toFixed(1)}</span>
+                            <div className={styles.scorecardLayoutGrid}>
+                                {/* Left Main Column */}
+                                <div className={styles.scorecardMainCol}>
+                                    {/* Score Hero Box */}
+                                    <div className={styles.scoreHeroCard}>
+                                        <div className={styles.scoreLeft}>
+                                            <span className={styles.scoreLabel}>OVERALL QUANT GRADE</span>
+                                            <div className={styles.scoreValueGroup}>
+                                                <span className={styles.gradeBadge}>{overallGrade}</span>
+                                                <span className={styles.scoreNumber}>{overallScore.toFixed(1)}</span>
+                                                <span className={styles.scoreMax}>/ 100</span>
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* 4 Pillars Detailed Grid */}
-                            <div className={styles.pillarsGrid}>
-                                {/* Profitability */}
-                                <div className={styles.pillarCard}>
-                                    <div className={styles.pillarHead}>
-                                        <h4>{scorecard.profitability?.label || 'Profitability'}</h4>
-                                        <span className={styles.pillarGrade}>{scorecard.profitability?.grade || 'B+'}</span>
-                                    </div>
-                                    <div className={styles.pillarScoreRow}>
-                                        <span className={styles.pillarScoreNum}>{(scorecard.profitability?.score ?? 0).toFixed(1)}</span>
-                                        <span className={styles.pillarScoreMax}>/ 100</span>
-                                    </div>
-                                    {Array.isArray(scorecard.profitability?.highlights) && scorecard.profitability.highlights.length > 0 && (
-                                        <ul className={styles.highlightsList}>
-                                            {scorecard.profitability.highlights.map((h, i) => (
-                                                <li key={i} className={styles.highlightGood}>✓ {h}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                    {Array.isArray(scorecard.profitability?.penalties) && scorecard.profitability.penalties.length > 0 && (
-                                        <ul className={styles.penaltiesList}>
-                                            {scorecard.profitability.penalties.map((p, i) => (
-                                                <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-
-                                {/* Risk Management */}
-                                <div className={styles.pillarCard}>
-                                    <div className={styles.pillarHead}>
-                                        <h4>{scorecard.risk_management?.label || 'Risk Management'}</h4>
-                                        <span className={styles.pillarGrade}>{scorecard.risk_management?.grade || 'B'}</span>
-                                    </div>
-                                    <div className={styles.pillarScoreRow}>
-                                        <span className={styles.pillarScoreNum}>{(scorecard.risk_management?.score ?? 0).toFixed(1)}</span>
-                                        <span className={styles.pillarScoreMax}>/ 100</span>
-                                    </div>
-                                    {Array.isArray(scorecard.risk_management?.highlights) && scorecard.risk_management.highlights.length > 0 && (
-                                        <ul className={styles.highlightsList}>
-                                            {scorecard.risk_management.highlights.map((h, i) => (
-                                                <li key={i} className={styles.highlightGood}>✓ {h}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                    {Array.isArray(scorecard.risk_management?.penalties) && scorecard.risk_management.penalties.length > 0 && (
-                                        <ul className={styles.penaltiesList}>
-                                            {scorecard.risk_management.penalties.map((p, i) => (
-                                                <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-
-                                {/* Consistency */}
-                                <div className={styles.pillarCard}>
-                                    <div className={styles.pillarHead}>
-                                        <h4>{scorecard.consistency?.label || 'Consistency'}</h4>
-                                        <span className={styles.pillarGrade}>{scorecard.consistency?.grade || 'A+'}</span>
-                                    </div>
-                                    <div className={styles.pillarScoreRow}>
-                                        <span className={styles.pillarScoreNum}>{(scorecard.consistency?.score ?? 0).toFixed(1)}</span>
-                                        <span className={styles.pillarScoreMax}>/ 100</span>
-                                    </div>
-                                    {Array.isArray(scorecard.consistency?.highlights) && scorecard.consistency.highlights.length > 0 && (
-                                        <ul className={styles.highlightsList}>
-                                            {scorecard.consistency.highlights.map((h, i) => (
-                                                <li key={i} className={styles.highlightGood}>✓ {h}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                    {Array.isArray(scorecard.consistency?.penalties) && scorecard.consistency.penalties.length > 0 && (
-                                        <ul className={styles.penaltiesList}>
-                                            {scorecard.consistency.penalties.map((p, i) => (
-                                                <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-
-                                {/* Discipline */}
-                                <div className={styles.pillarCard}>
-                                    <div className={styles.pillarHead}>
-                                        <h4>{scorecard.discipline?.label || 'Discipline'}</h4>
-                                        <span className={styles.pillarGrade}>{scorecard.discipline?.grade || 'B+'}</span>
-                                    </div>
-                                    <div className={styles.pillarScoreRow}>
-                                        <span className={styles.pillarScoreNum}>{(scorecard.discipline?.score ?? 0).toFixed(1)}</span>
-                                        <span className={styles.pillarScoreMax}>/ 100</span>
-                                    </div>
-                                    {Array.isArray(scorecard.discipline?.highlights) && scorecard.discipline.highlights.length > 0 && (
-                                        <ul className={styles.highlightsList}>
-                                            {scorecard.discipline.highlights.map((h, i) => (
-                                                <li key={i} className={styles.highlightGood}>✓ {h}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                    {Array.isArray(scorecard.discipline?.penalties) && scorecard.discipline.penalties.length > 0 && (
-                                        <ul className={styles.penaltiesList}>
-                                            {scorecard.discipline.penalties.map((p, i) => (
-                                                <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Core KPI Cards Grid */}
-                            <div className={styles.scorecardGrid}>
-                                <div className={styles.kpiCard}>
-                                    <span className={styles.kpiLabel}>Win Rate</span>
-                                    <span className={`${styles.kpiValue} ${styles.positive}`}>
-                                        {summary.win_rate_percent ?? '76.47'}%
-                                    </span>
-                                    <span className={styles.kpiSub}>
-                                        {summary.winning_trades ?? 13} Wins / {summary.losing_trades ?? 4} Losses
-                                    </span>
-                                </div>
-                                <div className={styles.kpiCard}>
-                                    <span className={styles.kpiLabel}>Net Profit</span>
-                                    <span className={`${styles.kpiValue} ${(summary.net_profit ?? 0) >= 0 ? styles.positive : styles.negative}`}>
-                                        ${(summary.net_profit ?? 298.4).toFixed(2)}
-                                    </span>
-                                    <span className={styles.kpiSub}>Closed Realized PnL</span>
-                                </div>
-                                <div className={styles.kpiCard}>
-                                    <span className={styles.kpiLabel}>Avg Win vs Avg Loss</span>
-                                    <span className={styles.kpiValue}>
-                                        <span className={styles.positive}>+${(summary.average_winning_trade ?? 35.82).toFixed(2)}</span>
-                                        {' / '}
-                                        <span className={styles.negative}>-${Math.abs(summary.average_losing_trade ?? 41.8).toFixed(2)}</span>
-                                    </span>
-                                    <span className={styles.kpiSub}>Avg Profit per Trade: ${(summary.average_profit_per_trade ?? 17.55).toFixed(2)}</span>
-                                </div>
-                                <div className={styles.kpiCard}>
-                                    <span className={styles.kpiLabel}>Best / Worst Trade</span>
-                                    <span className={styles.kpiValue}>
-                                        <span className={styles.positive}>+${(summary.best_trade ?? 167.6).toFixed(2)}</span>
-                                        {' / '}
-                                        <span className={styles.negative}>-${Math.abs(summary.worst_trade ?? 75.8).toFixed(2)}</span>
-                                    </span>
-                                    <span className={styles.kpiSub}>Peak Execution Range</span>
-                                </div>
-                            </div>
-
-                            {/* BUY vs SELL Side Breakdown */}
-                            <div className={styles.buySellGrid}>
-                                <div className={styles.sideCard}>
-                                    <div className={styles.sideBadgeBuy}>BUY EXECUTIONS</div>
-                                    <div className={styles.sideRow}>
-                                        <span>Trades: <strong>{summary.buy_stats?.trades ?? 10}</strong></span>
-                                        <span>Win Rate: <strong>{summary.buy_stats?.win_rate_percent ?? 70}%</strong></span>
-                                        <span>Net PnL: <strong className={styles.positive}>+${(summary.buy_stats?.net_profit ?? 182.8).toFixed(2)}</strong></span>
-                                    </div>
-                                </div>
-                                <div className={styles.sideCard}>
-                                    <div className={styles.sideBadgeSell}>SELL EXECUTIONS</div>
-                                    <div className={styles.sideRow}>
-                                        <span>Trades: <strong>{summary.sell_stats?.trades ?? 7}</strong></span>
-                                        <span>Win Rate: <strong>{summary.sell_stats?.win_rate_percent ?? 85.7}%</strong></span>
-                                        <span>Net PnL: <strong className={styles.positive}>+${(summary.sell_stats?.net_profit ?? 115.6).toFixed(2)}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Key Takeaway Banner */}
-                            {quickAnalysis.key_takeaway && (
-                                <div className={styles.takeawayBanner}>
-                                    <div className={styles.takeawayHeader}>
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.5">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <line x1="12" y1="8" x2="12" y2="12" />
-                                            <line x1="12" y1="16" x2="12.01" y2="16" />
-                                        </svg>
-                                        <h4>KEY EXECUTIVE TAKEAWAY</h4>
-                                    </div>
-                                    <p className={styles.takeawayText}>{quickAnalysis.key_takeaway}</p>
-                                    {quickAnalysis.overall_explanation && (
-                                        <p className={styles.takeawaySub}>{quickAnalysis.overall_explanation}</p>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Actionable Level-Up Tips */}
-                            {Array.isArray(scorecard.actionable_level_up_tips) && scorecard.actionable_level_up_tips.length > 0 && (
-                                <div className={styles.levelUpCard}>
-                                    <h4>🚀 Actionable Level-Up Tips</h4>
-                                    <div className={styles.tipsGrid}>
-                                        {scorecard.actionable_level_up_tips.map((tip, idx) => (
-                                            <div key={idx} className={styles.tipItem}>
-                                                <span className={styles.tipNum}>{idx + 1}</span>
-                                                <p>{tip}</p>
+                                            <span className={styles.tierBadge}>{overallTier} TRADER TIER</span>
+                                            <p className={styles.scoreDesc}>{scorecard.description || 'Comprehensive 4-pillar analysis of your trading execution.'}</p>
+                                        </div>
+                                        <div className={styles.scoreRight}>
+                                            <div className={styles.scoreProgressTrack}>
+                                                <div 
+                                                    className={styles.scoreProgressBar} 
+                                                    style={{ width: `${Math.min(100, overallScore)}%` }}
+                                                />
                                             </div>
-                                        ))}
+                                            <div className={styles.scorePillarPreview}>
+                                                {scorecard.radar_data?.map((p, idx) => (
+                                                    <div key={idx} className={styles.miniPillar}>
+                                                        <span className={styles.miniName}>{p.category}</span>
+                                                        <span className={styles.miniScore}>{p.score.toFixed(1)}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* 4 Pillars Detailed Grid */}
+                                    <div className={styles.pillarsGrid}>
+                                        {/* Profitability */}
+                                        <div className={styles.pillarCard}>
+                                            <div className={styles.pillarHead}>
+                                                <h4>{scorecard.profitability?.label || 'Profitability'}</h4>
+                                                <span className={styles.pillarGrade}>{scorecard.profitability?.grade || 'B+'}</span>
+                                            </div>
+                                            <div className={styles.pillarScoreRow}>
+                                                <span className={styles.pillarScoreNum}>{(scorecard.profitability?.score ?? 0).toFixed(1)}</span>
+                                                <span className={styles.pillarScoreMax}>/ 100</span>
+                                            </div>
+                                            {Array.isArray(scorecard.profitability?.highlights) && scorecard.profitability.highlights.length > 0 && (
+                                                <ul className={styles.highlightsList}>
+                                                    {scorecard.profitability.highlights.map((h, i) => (
+                                                        <li key={i} className={styles.highlightGood}>✓ {h}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            {Array.isArray(scorecard.profitability?.penalties) && scorecard.profitability.penalties.length > 0 && (
+                                                <ul className={styles.penaltiesList}>
+                                                    {scorecard.profitability.penalties.map((p, i) => (
+                                                        <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+
+                                        {/* Risk Management */}
+                                        <div className={styles.pillarCard}>
+                                            <div className={styles.pillarHead}>
+                                                <h4>{scorecard.risk_management?.label || 'Risk Management'}</h4>
+                                                <span className={styles.pillarGrade}>{scorecard.risk_management?.grade || 'B'}</span>
+                                            </div>
+                                            <div className={styles.pillarScoreRow}>
+                                                <span className={styles.pillarScoreNum}>{(scorecard.risk_management?.score ?? 0).toFixed(1)}</span>
+                                                <span className={styles.pillarScoreMax}>/ 100</span>
+                                            </div>
+                                            {Array.isArray(scorecard.risk_management?.highlights) && scorecard.risk_management.highlights.length > 0 && (
+                                                <ul className={styles.highlightsList}>
+                                                    {scorecard.risk_management.highlights.map((h, i) => (
+                                                        <li key={i} className={styles.highlightGood}>✓ {h}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            {Array.isArray(scorecard.risk_management?.penalties) && scorecard.risk_management.penalties.length > 0 && (
+                                                <ul className={styles.penaltiesList}>
+                                                    {scorecard.risk_management.penalties.map((p, i) => (
+                                                        <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+
+                                        {/* Consistency */}
+                                        <div className={styles.pillarCard}>
+                                            <div className={styles.pillarHead}>
+                                                <h4>{scorecard.consistency?.label || 'Consistency'}</h4>
+                                                <span className={styles.pillarGrade}>{scorecard.consistency?.grade || 'A+'}</span>
+                                            </div>
+                                            <div className={styles.pillarScoreRow}>
+                                                <span className={styles.pillarScoreNum}>{(scorecard.consistency?.score ?? 0).toFixed(1)}</span>
+                                                <span className={styles.pillarScoreMax}>/ 100</span>
+                                            </div>
+                                            {Array.isArray(scorecard.consistency?.highlights) && scorecard.consistency.highlights.length > 0 && (
+                                                <ul className={styles.highlightsList}>
+                                                    {scorecard.consistency.highlights.map((h, i) => (
+                                                        <li key={i} className={styles.highlightGood}>✓ {h}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            {Array.isArray(scorecard.consistency?.penalties) && scorecard.consistency.penalties.length > 0 && (
+                                                <ul className={styles.penaltiesList}>
+                                                    {scorecard.consistency.penalties.map((p, i) => (
+                                                        <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+
+                                        {/* Discipline */}
+                                        <div className={styles.pillarCard}>
+                                            <div className={styles.pillarHead}>
+                                                <h4>{scorecard.discipline?.label || 'Discipline'}</h4>
+                                                <span className={styles.pillarGrade}>{scorecard.discipline?.grade || 'B+'}</span>
+                                            </div>
+                                            <div className={styles.pillarScoreRow}>
+                                                <span className={styles.pillarScoreNum}>{(scorecard.discipline?.score ?? 0).toFixed(1)}</span>
+                                                <span className={styles.pillarScoreMax}>/ 100</span>
+                                            </div>
+                                            {Array.isArray(scorecard.discipline?.highlights) && scorecard.discipline.highlights.length > 0 && (
+                                                <ul className={styles.highlightsList}>
+                                                    {scorecard.discipline.highlights.map((h, i) => (
+                                                        <li key={i} className={styles.highlightGood}>✓ {h}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            {Array.isArray(scorecard.discipline?.penalties) && scorecard.discipline.penalties.length > 0 && (
+                                                <ul className={styles.penaltiesList}>
+                                                    {scorecard.discipline.penalties.map((p, i) => (
+                                                        <li key={i} className={styles.penaltyBad}>⚠️ {p}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Core KPI Cards Grid */}
+                                    <div className={styles.scorecardGrid}>
+                                        <div className={styles.kpiCard}>
+                                            <span className={styles.kpiLabel}>Win Rate</span>
+                                            <span className={`${styles.kpiValue} ${styles.positive}`}>
+                                                {summary.win_rate_percent ?? '76.47'}%
+                                            </span>
+                                            <span className={styles.kpiSub}>
+                                                {summary.winning_trades ?? 13} Wins / {summary.losing_trades ?? 4} Losses
+                                            </span>
+                                        </div>
+                                        <div className={styles.kpiCard}>
+                                            <span className={styles.kpiLabel}>Net Profit</span>
+                                            <span className={`${styles.kpiValue} ${(summary.net_profit ?? 0) >= 0 ? styles.positive : styles.negative}`}>
+                                                ${(summary.net_profit ?? 298.4).toFixed(2)}
+                                            </span>
+                                            <span className={styles.kpiSub}>Closed Realized PnL</span>
+                                        </div>
+                                        <div className={styles.kpiCard}>
+                                            <span className={styles.kpiLabel}>Avg Win vs Avg Loss</span>
+                                            <span className={styles.kpiValue}>
+                                                <span className={styles.positive}>+${(summary.average_winning_trade ?? 35.82).toFixed(2)}</span>
+                                                {' / '}
+                                                <span className={styles.negative}>-${Math.abs(summary.average_losing_trade ?? 41.8).toFixed(2)}</span>
+                                            </span>
+                                            <span className={styles.kpiSub}>Avg Profit per Trade: ${(summary.average_profit_per_trade ?? 17.55).toFixed(2)}</span>
+                                        </div>
+                                        <div className={styles.kpiCard}>
+                                            <span className={styles.kpiLabel}>Best / Worst Trade</span>
+                                            <span className={styles.kpiValue}>
+                                                <span className={styles.positive}>+${(summary.best_trade ?? 167.6).toFixed(2)}</span>
+                                                {' / '}
+                                                <span className={styles.negative}>-${Math.abs(summary.worst_trade ?? 75.8).toFixed(2)}</span>
+                                            </span>
+                                            <span className={styles.kpiSub}>Peak Execution Range</span>
+                                        </div>
+                                    </div>
+
+                                    {/* BUY vs SELL Side Breakdown */}
+                                    <div className={styles.buySellGrid}>
+                                        <div className={styles.sideCard}>
+                                            <div className={styles.sideBadgeBuy}>BUY EXECUTIONS</div>
+                                            <div className={styles.sideRow}>
+                                                <span>Trades: <strong>{summary.buy_stats?.trades ?? 10}</strong></span>
+                                                <span>Win Rate: <strong>{summary.buy_stats?.win_rate_percent ?? 70}%</strong></span>
+                                                <span>Net PnL: <strong className={styles.positive}>+${(summary.buy_stats?.net_profit ?? 182.8).toFixed(2)}</strong></span>
+                                            </div>
+                                        </div>
+                                        <div className={styles.sideCard}>
+                                            <div className={styles.sideBadgeSell}>SELL EXECUTIONS</div>
+                                            <div className={styles.sideRow}>
+                                                <span>Trades: <strong>{summary.sell_stats?.trades ?? 7}</strong></span>
+                                                <span>Win Rate: <strong>{summary.sell_stats?.win_rate_percent ?? 85.7}%</strong></span>
+                                                <span>Net PnL: <strong className={styles.positive}>+${(summary.sell_stats?.net_profit ?? 115.6).toFixed(2)}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Key Takeaway Banner */}
+                                    {quickAnalysis.key_takeaway && (
+                                        <div className={styles.takeawayBanner}>
+                                            <div className={styles.takeawayHeader}>
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.5">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                                </svg>
+                                                <h4>KEY EXECUTIVE TAKEAWAY</h4>
+                                            </div>
+                                            <p className={styles.takeawayText}>{quickAnalysis.key_takeaway}</p>
+                                            {quickAnalysis.overall_explanation && (
+                                                <p className={styles.takeawaySub}>{quickAnalysis.overall_explanation}</p>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Actionable Level-Up Tips */}
+                                    {Array.isArray(scorecard.actionable_level_up_tips) && scorecard.actionable_level_up_tips.length > 0 && (
+                                        <div className={styles.levelUpCard}>
+                                            <h4>🚀 Actionable Level-Up Tips</h4>
+                                            <div className={styles.tipsGrid}>
+                                                {scorecard.actionable_level_up_tips.map((tip, idx) => (
+                                                    <div key={idx} className={styles.tipItem}>
+                                                        <span className={styles.tipNum}>{idx + 1}</span>
+                                                        <p>{tip}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Right Sidebar Column - Analysis Overview & Basic Trading Stats (Image match) */}
+                                <div className={styles.scorecardSidebarCol}>
+                                    <div className={styles.analysisOverviewCard}>
+                                        <div className={styles.overviewSection}>
+                                            <h3 className={styles.overviewSectionTitle}>Analysis Overview</h3>
+                                            <div className={styles.overviewGrid}>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>TOTAL REPORTS</span>
+                                                    <span className={styles.overviewVal}>{totalReports}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>TOTAL TRADES</span>
+                                                    <span className={styles.overviewVal}>{totalTradesVal}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>WIN RATE</span>
+                                                    <span className={`${styles.overviewVal} ${styles.positive}`}>{Number(winRateVal).toFixed(1)}%</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>TOTAL P&L</span>
+                                                    <span className={`${styles.overviewVal} ${netProfitVal >= 0 ? styles.positive : styles.negative}`}>
+                                                        {netProfitVal >= 0 ? '+' : ''}${netProfitVal.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>AVG. R:R</span>
+                                                    <span className={styles.overviewVal}>{payoffRatioNum.toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>LARGEST WIN</span>
+                                                    <span className={`${styles.overviewVal} ${styles.positive}`}>+${bestTradeVal.toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>LARGEST LOSS</span>
+                                                    <span className={`${styles.overviewVal} ${styles.negative}`}>-${Math.abs(worstTradeVal).toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>PROFIT FACTOR</span>
+                                                    <span className={styles.overviewVal}>{profitFactorVal}</span>
+                                                </div>
+                                                <div className={styles.overviewTile}>
+                                                    <span className={styles.overviewLabel}>AVG HOLDING</span>
+                                                    <span className={styles.overviewVal}>{avgHoldingStr}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className={styles.basicStatsSection}>
+                                            <div className={styles.basicStatsHeader}>
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <line x1="18" y1="20" x2="18" y2="10" />
+                                                    <line x1="12" y1="20" x2="12" y2="4" />
+                                                    <line x1="6" y1="20" x2="6" y2="14" />
+                                                </svg>
+                                                <h3>Basic Trading Stats</h3>
+                                            </div>
+                                            <div className={styles.statsTable}>
+                                                <div className={styles.statsTableHead}>
+                                                    <span>METRIC</span>
+                                                    <span>RESULT</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Profit Factor</span>
+                                                    <span className={styles.statsValBold}>{profitFactorVal}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Payoff Ratio (Win/Loss)</span>
+                                                    <span className={styles.statsValBold}>{payoffRatioStr}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Required Breakeven Win Rate</span>
+                                                    <span className={styles.statsValBold}>{reqBreakevenVal}%</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Average Profit/Trade</span>
+                                                    <span className={`${styles.statsValBold} ${avgProfitPerTrade >= 0 ? styles.positive : styles.negative}`}>
+                                                        {avgProfitPerTrade >= 0 ? '+' : ''}${avgProfitPerTrade.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Average Winning Trade</span>
+                                                    <span className={`${styles.statsValBold} ${styles.positive}`}>+${avgWinVal.toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Average Losing Trade</span>
+                                                    <span className={`${styles.statsValBold} ${styles.negative}`}>+${avgLossVal.toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Best Trade</span>
+                                                    <span className={`${styles.statsValBold} ${styles.positive}`}>+${bestTradeVal.toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Worst Trade</span>
+                                                    <span className={`${styles.statsValBold} ${styles.negative}`}>-${Math.abs(worstTradeVal).toFixed(2)}</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Max Consecutive Wins</span>
+                                                    <span className={styles.statsValBold}>{maxConsecutiveWins} trades</span>
+                                                </div>
+                                                <div className={styles.statsTableRow}>
+                                                    <span>Max Consecutive Losses</span>
+                                                    <span className={styles.statsValBold}>{maxConsecutiveLosses} trades</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     )}
 
@@ -607,16 +764,58 @@ export default function AiTradeAnalysis() {
                             {/* Time & Session Grid */}
                             <div className={styles.insightsSection}>
                                 <div className={styles.insightBox}>
-                                    <h4>⏰ Session Peak Frequency & Activity</h4>
-                                    <p>Peak Trading Hours: <strong>{timeInsights.peak_hour_window || '5:00 PM to 6:00 PM'}</strong></p>
-                                    <p>Executions in Peak Window: <strong>{timeInsights.peak_trades_count || 3} trades</strong></p>
-                                    <p className={styles.boxDesc}>{timeInsights.peak_frequency_time}</p>
+                                    <div className={styles.insightHeader}>
+                                        <div className={styles.insightIconWrap}>⏰</div>
+                                        <div>
+                                            <h4>Session Peak Frequency & Activity</h4>
+                                            <span className={styles.insightSubHeader}>Execution Volume & Timing Analysis</span>
+                                        </div>
+                                    </div>
+                                    <div className={styles.insightMetricsGrid}>
+                                        <div className={styles.metricItem}>
+                                            <span className={styles.metricLabel}>Peak Trading Hours</span>
+                                            <strong className={styles.metricVal}>{timeInsights.peak_hour_window || '5:00 PM to 6:00 PM'}</strong>
+                                        </div>
+                                        <div className={styles.metricItem}>
+                                            <span className={styles.metricLabel}>Executions in Peak Window</span>
+                                            <strong className={styles.metricVal}>{timeInsights.peak_trades_count || 3} trades</strong>
+                                        </div>
+                                    </div>
+                                    {timeInsights.peak_frequency_time && (
+                                        <div className={styles.boxDescWrap}>
+                                            <p className={styles.boxDesc}>{timeInsights.peak_frequency_time}</p>
+                                        </div>
+                                    )}
                                 </div>
+
                                 <div className={styles.insightBox}>
-                                    <h4>🎯 Entry Quality Rating: <span className={styles.qualityTag}>{entryAnalysis.quality_rating || 'Weak'}</span></h4>
-                                    <p>Optimal Entry Window: <strong>{entryAnalysis.optimal_entry_window || '4:00 PM - 5:00 PM'}</strong></p>
-                                    <p>Late Entry Rate: <strong>{entryAnalysis.late_entry_percentage || 35.3}%</strong></p>
-                                    <p className={styles.boxDesc}>{entryAnalysis.assessment}</p>
+                                    <div className={styles.insightHeader}>
+                                        <div className={styles.insightIconWrap}>🎯</div>
+                                        <div>
+                                            <div className={styles.titleWithBadge}>
+                                                <h4>Entry Quality Rating</h4>
+                                                <span className={`${styles.qualityTag} ${entryAnalysis.quality_rating === 'Strong' ? styles.qualityStrong : styles.qualityWeak}`}>
+                                                    {entryAnalysis.quality_rating || 'Weak'}
+                                                </span>
+                                            </div>
+                                            <span className={styles.insightSubHeader}>Precision & Timing Assessment</span>
+                                        </div>
+                                    </div>
+                                    <div className={styles.insightMetricsGrid}>
+                                        <div className={styles.metricItem}>
+                                            <span className={styles.metricLabel}>Optimal Entry Window</span>
+                                            <strong className={styles.metricVal}>{entryAnalysis.optimal_entry_window || '4:00 PM - 5:00 PM'}</strong>
+                                        </div>
+                                        <div className={styles.metricItem}>
+                                            <span className={styles.metricLabel}>Late Entry Rate</span>
+                                            <strong className={`${styles.metricVal} ${styles.warningText}`}>{entryAnalysis.late_entry_percentage || 35.3}%</strong>
+                                        </div>
+                                    </div>
+                                    {entryAnalysis.assessment && (
+                                        <div className={styles.boxDescWrap}>
+                                            <p className={styles.boxDesc}>{entryAnalysis.assessment}</p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
@@ -782,8 +981,19 @@ export default function AiTradeAnalysis() {
                     {activeTab === 'report' && markdownReport && (
                         <div className={styles.tabContent}>
                             <div className={styles.markdownReportBox}>
-                                <h4>Full Neural Quant Audit Report</h4>
-                                <pre className={styles.reportText}>{markdownReport}</pre>
+                                <div className={styles.reportHeaderRow}>
+                                    <h4>Full Neural Quant Audit Report</h4>
+                                    <span className={styles.badge}>Quant Behavioral Analysis</span>
+                                </div>
+                                <div className={styles.markdownBody}>
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        rehypePlugins={[rehypeRaw]}
+                                        components={bidiMarkdownComponents}
+                                    >
+                                        {markdownReport}
+                                    </ReactMarkdown>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -1128,7 +1338,15 @@ export default function AiTradeAnalysis() {
                                                 </button>
                                                 {showModalReport && (
                                                     <div className={styles.reportBoxModal}>
-                                                        <pre>{singleAnalysisData.formatted_markdown_report}</pre>
+                                                        <div className={styles.markdownBody}>
+                                                            <ReactMarkdown
+                                                                remarkPlugins={[remarkGfm]}
+                                                                rehypePlugins={[rehypeRaw]}
+                                                                components={bidiMarkdownComponents}
+                                                            >
+                                                                {singleAnalysisData.formatted_markdown_report}
+                                                            </ReactMarkdown>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>

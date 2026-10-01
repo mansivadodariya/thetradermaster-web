@@ -113,7 +113,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         : (broker.features || []);
 
     const logoSrc = (broker.logo && (broker.logo.includes('logo-light') || broker.id === 'newera'))
-        ? '/assets/images/logo-light.webp'
+        ? (theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp')
         : broker.logo;
 
     return (

@@ -257,13 +257,63 @@ $border: #E2E8F0;
         font-size: 18px;
         font-weight: 700;
         color: #0F172A;
-        margin: 0 0 4px;
+        margin: 0;
     }
 
     p {
         font-size: 13.5px;
         color: #475569;
-        margin: 0;
+        margin: 4px 0 0;
+    }
+}
+
+.cardHeaderTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.verifiedBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: #DCFCE7;
+    border: 1px solid #86EFAC;
+    color: #15803D;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: var(--font-plus-jakarta);
+    line-height: 1;
+
+    svg {
+        stroke-width: 2.8;
+    }
+}
+
+.unverifiedBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #DC2626;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: var(--font-plus-jakarta);
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #FEE2E2;
+        border-color: #FCA5A5;
+        color: #B91C1C;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15);
     }
 }
 
@@ -1076,5 +1126,24 @@ $border: #E2E8F0;
     .modalFooter {
         background: rgba(0, 16, 11, 0.6) !important;
         border-top-color: rgba(0, 255, 136, 0.2) !important;
+    }
+
+    .verifiedBadge {
+        background: rgba(0, 255, 136, 0.15) !important;
+        border-color: rgba(0, 255, 136, 0.35) !important;
+        color: #00FF88 !important;
+    }
+
+    .unverifiedBtn {
+        background: rgba(239, 68, 68, 0.15) !important;
+        border-color: rgba(239, 68, 68, 0.35) !important;
+        color: #FF6B6B !important;
+
+        &:hover {
+            background: rgba(239, 68, 68, 0.28) !important;
+            border-color: #EF4444 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+        }
     }
 }

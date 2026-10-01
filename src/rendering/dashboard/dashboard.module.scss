@@ -10,7 +10,8 @@
 
 /* Top Hero Banner (Light Default) */
 .heroBanner {
-    background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%);
+    // background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%);
+        background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 20px;
     padding: 36px 40px;
@@ -39,7 +40,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center right;
-    opacity: 0.2;
+    display: none;
     pointer-events: none;
     z-index: 1;
 }
@@ -239,9 +240,34 @@
 
 .qaHeaderGraphic {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    pointer-events: none;
+    top: 18px;
+    right: 18px;
+}
+
+.qaIconBox {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #059669;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+    transition: all 0.3s ease;
+
+    svg {
+        transition: transform 0.3s ease;
+    }
+}
+
+.qaCard:hover .qaIconBox {
+    transform: scale(1.08);
+    background: #D1FAE5;
+    border-color: #10B981;
+    color: #047857;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.18);
 }
 
 .qaBody {
@@ -425,6 +451,7 @@
     }
 
     .heroBgImg {
+        display: block;
         opacity: 1;
     }
 
@@ -466,6 +493,13 @@
         color: #FFFFFF;
     }
 
+    .qaIconBox {
+        background: rgba(0, 255, 136, 0.12);
+        border-color: rgba(0, 255, 136, 0.3);
+        color: #00FF88;
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+    }
+
     .qaCard {
         background: rgba(4, 22, 15, 0.88);
         border-color: rgba(0, 255, 136, 0.22);
@@ -473,6 +507,13 @@
         &:hover {
             border-color: rgba(0, 255, 136, 0.65);
             background: rgba(6, 32, 22, 0.95);
+
+            .qaIconBox {
+                background: rgba(0, 255, 136, 0.22);
+                border-color: #00FF88;
+                color: #FFFFFF;
+                box-shadow: 0 0 22px rgba(0, 255, 136, 0.45);
+            }
         }
 
         .qaBody {

@@ -39,7 +39,7 @@ export default function BrokerDetailModal({ broker, onClose, onSyncClick }) {
 
     let logoSrc = typeof broker.logo === 'string' ? broker.logo : null;
     if (logoSrc && (logoSrc.includes('logo-light') || broker.id === 'newera')) {
-        logoSrc = '/assets/images/logo-light1.webp';
+        logoSrc = theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
     }
     const name = broker.name || broker.title || 'Partner Platform';
     const subtitle = broker.subtitle || broker.badge || broker.category || 'Trading Infrastructure';

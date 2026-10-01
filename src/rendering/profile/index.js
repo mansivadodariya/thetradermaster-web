@@ -62,6 +62,7 @@ export default function Profile() {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [initialPhone, setInitialPhone] = useState('');
     const [referralCount, setReferralCount] = useState(0);
+    const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
     const [form, setForm] = useState({
         first_name: '',
@@ -78,6 +79,7 @@ export default function Profile() {
         const id = user.id || user.user_id || '';
         setUserId(id);
         setInitialPhone(user.phone_number || '');
+        setIsPhoneVerified(user.is_phone_verified === true || user.is_phone_verified === 'true');
 
         setForm({
             first_name: user.first_name || '',
@@ -103,11 +105,14 @@ export default function Profile() {
                 try {
                     const { data } = await supabase
                         .from('users')
-                        .select('first_name, last_name, email, phone_number, referral_code, last_logins')
+                        .select('first_name, last_name, email, phone_number, referral_code, last_logins, is_phone_verified')
                         .eq('id', id)
                         .maybeSingle();
 
                     if (data) {
+                        if (data.is_phone_verified !== undefined && data.is_phone_verified !== null) {
+                            setIsPhoneVerified(data.is_phone_verified === true || data.is_phone_verified === 'true');
+                        }
                         const parsedDbLogins = parseLogins(data.last_logins);
                         if (parsedDbLogins.length > 0) {
                             setLastLogins(parsedDbLogins.slice(-5));
@@ -139,6 +144,9 @@ export default function Profile() {
             const apiRes = await profileApi.getProfile();
             const profileData = apiRes?.data || apiRes || {};
             if (profileData) {
+                if (profileData.is_phone_verified !== undefined && profileData.is_phone_verified !== null) {
+                    setIsPhoneVerified(profileData.is_phone_verified === true || profileData.is_phone_verified === 'true');
+                }
                 if (profileData.phone_number) setInitialPhone(profileData.phone_number);
                 setForm((prev) => ({
                     first_name: profileData.first_name || prev.first_name || '',
@@ -254,12 +262,13 @@ export default function Profile() {
                 ...stored,
                 first_name: form.first_name.trim(),
                 last_name: form.last_name.trim(),
-                phone_number: form.phone_number,
+                phone_number: phoneToSave,
                 is_phone_verified: true
             };
             localStorage.setItem('user', JSON.stringify(updated));
             document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-            setInitialPhone(form.phone_number);
+            setInitialPhone(phoneToSave);
+            setIsPhoneVerified(true);
             window.dispatchEvent(new Event('user:updated'));
 
             toast.success(apiRes?.message || 'Profile updated successfully.');
@@ -406,7 +415,31 @@ export default function Profile() {
                     {activeTab === 'profile' && (
                         <div className={styles.card}>
                             <div className={styles.cardHeader}>
-                                <h2>{t('auth.profileInfo', 'Personal Details')}</h2>
+                                <div className={styles.cardHeaderTitleRow}>
+                                    <h2>{t('auth.profileInfo', 'Personal Details')}</h2>
+                                    {isPhoneVerified ? (
+                                        <span className={styles.verifiedBadge}>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg>
+                                            <span>{t('profile.verified', 'Verified')}</span>
+                                        </span>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            className={styles.unverifiedBtn}
+                                            onClick={() => setShowOtpModal(true)}
+                                            title={t('auth.verifyPhoneTitle', 'Verify Phone Number')}
+                                        >
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <line x1="12" y1="8" x2="12" y2="12" />
+                                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                                            </svg>
+                                            <span>{t('profile.notVerified', 'Not Verified')}</span>
+                                        </button>
+                                    )}
+                                </div>
                                 <p>{t('profile.manageDetails', 'Update your personal details below.')}</p>
                             </div>
                             <form onSubmit={handleSave} noValidate>
@@ -714,12 +747,19 @@ export default function Profile() {
                 )}
             </AnimatePresence>
 
-            {/* <FirebasePhoneModal
+            <FirebasePhoneModal
                 isOpen={showOtpModal}
                 phoneNumber={form.phone_number}
                 onClose={() => setShowOtpModal(false)}
-                onSuccess={performSaveProfile}
-            /> */}
+                onSuccess={(verifiedPhone) => {
+                    const phoneToUse = typeof verifiedPhone === 'string' ? verifiedPhone : form.phone_number;
+                    if (phoneToUse) {
+                        setForm((prev) => ({ ...prev, phone_number: phoneToUse }));
+                    }
+                    setIsPhoneVerified(true);
+                    performSaveProfile(phoneToUse);
+                }}
+            />
         </div>
     );
 }

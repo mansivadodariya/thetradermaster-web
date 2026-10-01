@@ -60,8 +60,9 @@ export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
     const subtitle = tDynamic(broker, 'subtitle') || broker.subtitle;
     const description = tDynamic(broker, 'description') || broker.description;
 
+    const effectiveTheme = isDarkTheme ? 'dark' : theme;
     const logoSrc = (broker.logo && (broker.logo.includes('logo-light') || broker.id === 'newera'))
-        ? '/assets/images/logo-light.webp'
+        ? (effectiveTheme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp')
         : broker.logo;
 
     return (

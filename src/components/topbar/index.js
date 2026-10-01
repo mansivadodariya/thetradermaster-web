@@ -128,7 +128,7 @@ const Topbar = ({ onMenuClick }) => {
                     </button>
                 </div>
                 <div className={styles.right}>
-                    {/* <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle Theme" type="button">
+                    <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle Theme" type="button">
                         {theme === 'light' ? (
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
@@ -139,15 +139,15 @@ const Topbar = ({ onMenuClick }) => {
                                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
                             </svg>
                         )}
-                    </button> */}
+                    </button>
                     <LanguageToggle />
                     {credits !== null && (
                         <div className={styles.credits}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
-                                <circle opacity="0.5" cx="12" cy="12" r="10" stroke="#fff" strokeWidth="1.5" />
-                                <path d="M12 17V17.5V18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-                                <path d="M12 6V6.5V7" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-                                <path d="M15 9.5C15 8.11929 13.6569 7 12 7C10.3431 7 9 8.11929 9 9.5C9 10.8807 10.3431 12 12 12C13.6569 12 15 13.1193 15 14.5C15 15.8807 13.6569 17 12 17C10.3431 17 9 15.8807 9 14.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <circle opacity="0.6" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
+                                <path d="M12 17V17.5V18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                                <path d="M12 6V6.5V7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                                <path d="M15 9.5C15 8.11929 13.6569 7 12 7C10.3431 7 9 8.11929 9 9.5C9 10.8807 10.3431 12 12 12C13.6569 12 15 13.1193 15 14.5C15 15.8807 13.6569 17 12 17C10.3431 17 9 15.8807 9 14.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                             </svg>
                             <span>{credits} {t('topbar.credits', 'credits')}</span>
                         </div>

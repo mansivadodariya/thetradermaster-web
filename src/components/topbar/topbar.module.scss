@@ -350,9 +350,9 @@
 .confirmOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(2, 14, 10, 0.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -361,26 +361,26 @@
 }
 
 .confirmBox {
-    background: linear-gradient(145deg, rgba(6, 26, 18, 0.96) 0%, rgba(3, 16, 11, 0.98) 100%);
-    border: 1px solid rgba(0, 255, 136, 0.28);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 20px;
     padding: 32px 36px;
     min-width: 360px;
     max-width: 440px;
     width: 100%;
-    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 255, 136, 0.15);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
 
     h3 {
         font-size: 20px;
         font-weight: 800;
-        color: #FFFFFF;
+        color: #0F172A;
         margin: 0 0 8px;
         letter-spacing: -0.01em;
     }
 
     p {
         font-size: 15px;
-        color: rgba(255, 255, 255, 0.75);
+        color: #64748B;
         margin: 0 0 26px;
         line-height: 22px;
     }
@@ -404,13 +404,13 @@
 }
 
 .cancelBtn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #FFFFFF;
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    color: #334155;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.16);
-        border-color: rgba(255, 255, 255, 0.3);
+        background: #E2E8F0;
+        color: #0F172A;
     }
 }
 

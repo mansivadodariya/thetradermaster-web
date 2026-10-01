@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans, Roboto } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ToastProvider } from "@/components/toast";
 import WhatsappButton from "@/components/whatsappButton";
@@ -67,6 +68,19 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TWNPPGX2CM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-TWNPPGX2CM');
+          `}
+        </Script>
         <LanguageProvider>
           <ToastProvider>
             {children}

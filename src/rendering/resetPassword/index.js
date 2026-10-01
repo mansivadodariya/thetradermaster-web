@@ -80,8 +80,8 @@ const ResetPassword = () => {
                     ) : (
                         <form onSubmit={handleSubmit} noValidate>
                             <div className={styles.spacingGrid}>
-                                <Input label={t('auth.newPasswordLabel', 'New Password')} placeholder={t('auth.newPasswordPlaceholder', 'Enter new password')} type="password" name="new_password" value={form.new_password} onChange={set('new_password')} error={errors.new_password} maxLength={50} />
-                                <Input label={t('auth.confirmPasswordLabel', 'Confirm Password')} placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm new password')} type="password" name="confirm_password" value={form.confirm_password} onChange={set('confirm_password')} error={errors.confirm_password} maxLength={50} />
+                                <Input placeholder={t('auth.newPasswordPlaceholder', 'Enter new password')} type="password" name="new_password" value={form.new_password} onChange={set('new_password')} error={errors.new_password} maxLength={50} dark />
+                                <Input placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm new password')} type="password" name="confirm_password" value={form.confirm_password} onChange={set('confirm_password')} error={errors.confirm_password} maxLength={50} dark />
                                 <Button
                                     type="submit"
                                     fullWidth

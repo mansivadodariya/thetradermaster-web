@@ -620,12 +620,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
 /* Strategy Tab - Inactive state */
 .noTradeCard {
-    background: #04140D;
-    border: 1px solid rgba(0, 255, 136, 0.2);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 48px 24px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -635,12 +635,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: rgba(0, 255, 136, 0.08);
-        border: 1px solid rgba(0, 255, 136, 0.25);
+        background: #ECFDF5;
+        border: 1px solid #A7F3D0;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #00FF88;
+        color: #059669;
         position: relative;
 
         &::before {
@@ -649,7 +649,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1px solid #00FF88;
+            border: 1px solid #10B981;
             animation: radarPulse 2s infinite linear;
             opacity: 0;
         }
@@ -658,13 +658,13 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     h4 {
         font-size: 16px;
         font-weight: 700;
-        color: #FFFFFF;
+        color: #0F172A;
         margin: 0;
     }
 
     p {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
+        font-size: 13px;
+        color: #64748B;
         max-width: 420px;
         line-height: 1.5;
         margin: 0;
@@ -2989,7 +2989,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
 // 1. Accordion Rules
 .premiumAccordion {
-    border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+    border-bottom: 1px solid #E2E8F0;
     display: flex;
     flex-direction: column;
 
@@ -3005,14 +3005,14 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     padding: 10px 4px;
     cursor: pointer;
     user-select: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
+    color: #475569;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
     transition: color 0.2s ease;
 
     &:hover {
-        color: #ffffff;
+        color: #0F172A;
     }
 }
 
@@ -3047,7 +3047,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
     .scoreDivider {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.5);
+        color: #64748B;
         font-weight: 600;
         margin-left: 2px;
     }
@@ -3070,7 +3070,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 .confLabel {
     font-size: 10px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
+    color: #64748B;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
@@ -3078,7 +3078,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 .confValue {
     font-size: 16px;
     font-weight: 700;
-    color: #ffffff;
+    color: #0F172A;
 }
 
 .breakdownProgressList {
@@ -3104,11 +3104,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
     &:hover {
         .progressBarTitle {
-            color: #ffffff;
+            color: #0F172A;
         }
 
         .subChevron {
-            color: #ffffff;
+            color: #0F172A;
         }
     }
 }
@@ -3121,7 +3121,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex-shrink: 0;
 
     svg {
-        color: rgba(255, 255, 255, 0.65);
+        color: #64748B;
         flex-shrink: 0;
     }
 }
@@ -3129,14 +3129,14 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 .progressBarTitle {
     font-size: 12px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
+    color: #475569;
     transition: color 0.2s ease;
 }
 
 .progressOuterTrack {
     flex: 1;
     height: 6px;
-    background: rgba(0, 255, 136, 0.1);
+    background: #E2E8F0;
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -3160,18 +3160,18 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 .progressScoreText {
     font-size: 12px;
     font-weight: 700;
-    color: #ffffff;
+    color: #0F172A;
     font-family: monospace;
 }
 
 .subChevron {
-    color: rgba(255, 255, 255, 0.5);
+    color: #64748B;
     transition: all 0.2s ease;
 }
 
 .progressSubDetailsCollapse {
-    background: rgba(0, 16, 11, 0.6);
-    border: 1px solid rgba(0, 255, 136, 0.15);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
     padding: 10px 14px;
     margin-left: 22px;
@@ -3195,13 +3195,13 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 }
 
 .metricName {
-    color: rgba(255, 255, 255, 0.65);
+    color: #64748B;
     font-weight: 500;
 }
 
 .metricVal {
     font-family: monospace;
-    color: #ffffff;
+    color: #0F172A;
     font-weight: 600;
     margin-left: auto;
     margin-right: 12px;
@@ -3229,12 +3229,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     font-size: 11px;
 
     span {
-        color: rgba(255, 255, 255, 0.65);
+        color: #64748B;
         font-weight: 500;
     }
 
     strong {
-        color: #ffffff;
+        color: #0F172A;
         font-weight: 700;
     }
 }
@@ -3243,14 +3243,14 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(18, 18, 18, 0.08);
+    border-top: 1px solid #E2E8F0;
     padding-top: 14px;
     margin-top: 8px;
 
     .formulaTitle {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(255, 255, 255, 0.5);
+        color: #64748B;
         letter-spacing: 0.5px;
     }
 
@@ -3264,8 +3264,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
 // 3. Evidence Sub-elements
 .evidenceOutlinedGroup {
-    border: 1px solid rgba(0, 255, 136, 0.15);
-    background: rgba(0, 16, 11, 0.5);
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
     border-radius: 12px;
     padding: 14px;
     margin-bottom: 12px;
@@ -3279,22 +3279,22 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
     &.trend {
         border-left: 3px solid $primary;
-        background: linear-gradient(to right, rgba(59, 130, 246, 0.03), transparent);
+        background: linear-gradient(to right, rgba(59, 130, 246, 0.05), #F8FAFC);
     }
 
     &.momentum {
         border-left: 3px solid #a855f7;
-        background: linear-gradient(to right, rgba(168, 85, 247, 0.03), transparent);
+        background: linear-gradient(to right, rgba(168, 85, 247, 0.05), #F8FAFC);
     }
 
     &.volume {
         border-left: 3px solid #f59e0b;
-        background: linear-gradient(to right, rgba(245, 158, 11, 0.03), transparent);
+        background: linear-gradient(to right, rgba(245, 158, 11, 0.05), #F8FAFC);
     }
 
     &.structure {
         border-left: 3px solid #10b981;
-        background: linear-gradient(to right, rgba(16, 185, 129, 0.03), transparent);
+        background: linear-gradient(to right, rgba(16, 185, 129, 0.05), #F8FAFC);
     }
 }
 
@@ -3316,7 +3316,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 .groupTypeTitle {
     font-size: 11px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.65);
+    color: #64748B;
     letter-spacing: 0.5px;
     width: 90px;
 }
@@ -3328,7 +3328,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
 .evidenceCollapsedBulletArea {
     margin-top: 10px;
-    border-top: 1px solid rgba(18, 18, 18, 0.06);
+    border-top: 1px solid #E2E8F0;
     padding-top: 10px;
     animation: fadeIn 0.15s ease-out;
 }
@@ -3347,7 +3347,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     align-items: flex-start;
     font-size: 12px;
     line-height: 1.45;
-    color: rgba(255, 255, 255, 0.85);
+    color: #334155;
 
     svg {
         margin-top: 2px;
@@ -3393,13 +3393,13 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     h4 {
         font-size: 16px;
         font-weight: 700;
-        color: #ffffff;
+        color: #0F172A;
         margin: 0 0 2px 0;
     }
 
     span {
         font-size: 11px;
-        color: rgba(255, 255, 255, 0.65);
+        color: #64748B;
         font-weight: 600;
     }
 }
@@ -3415,8 +3415,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 16, 11, 0.5);
-    border: 1px solid rgba(0, 255, 136, 0.15);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
     padding: 10px 14px;
 }
@@ -3427,7 +3427,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     gap: 8px;
     font-size: 12px;
     font-weight: 600;
-    color: #ffffff;
+    color: #0F172A;
 
     .dotDot {
         width: 6px;
@@ -3464,8 +3464,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: rgba(0, 16, 11, 0.5);
-    border: 1px solid rgba(0, 255, 136, 0.15);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3478,19 +3478,19 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     span {
         font-size: 11px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.65);
+        color: #64748B;
     }
 
     strong {
         font-size: 12px;
         font-weight: 700;
-        color: #ffffff;
+        color: #0F172A;
     }
 }
 
 .confidenceTrack {
     height: 6px;
-    background: rgba(0, 255, 136, 0.1);
+    background: #E2E8F0;
     border-radius: 3px;
     overflow: hidden;
 }
@@ -3507,8 +3507,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex-direction: column;
     gap: 8px;
     margin-bottom: 18px;
-    background: rgba(0, 16, 11, 0.5);
-    border: 1px solid rgba(0, 255, 136, 0.15);
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 14px;
 }
@@ -3521,14 +3521,14 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     .sliderName {
         font-size: 11px;
         font-weight: 700;
-        color: rgba(255, 255, 255, 0.65);
+        color: #64748B;
     }
 
     .sliderValTxt {
         font-size: 14px;
         font-weight: 700;
         font-family: monospace;
-        color: #ffffff;
+        color: #0F172A;
     }
 }
 
@@ -3554,15 +3554,15 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-        border: 2.5px solid #121212;
+        background: #FFFFFF;
+        border: 2.5px solid #0F172A;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
     }
 
     .pinLine {
         width: 2px;
         height: 8px;
-        background: rgba(18, 18, 18, 0.3);
+        background: rgba(15, 23, 42, 0.3);
         margin-top: 1px;
     }
 }
@@ -3572,7 +3572,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     top: 12px;
     transform: translateX(-50%);
     font-size: 9px;
-    color: rgba(255, 255, 255, 0.5);
+    color: #64748B;
     font-weight: 700;
 }
 
@@ -3580,7 +3580,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     font-size: 11px;
     font-weight: 700;
     text-align: center;
-    color: rgba(255, 255, 255, 0.7);
+    color: #64748B;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -4004,46 +4004,52 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
             .dropdownLabel {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(0, 255, 136, 0.9);
+                font-weight: 800;
             }
 
             .customSelectTrigger {
-                background: rgba(0, 16, 11, 0.6);
-                border-color: rgba(0, 255, 136, 0.2);
+                background: rgba(0, 255, 136, 0.08);
+                border-color: rgba(0, 255, 136, 0.3);
                 color: #ffffff;
 
                 &:hover:not(:disabled) {
-                    background: #2d2d34;
-                    border-color: rgba(255, 255, 255, 0.15);
+                    background: rgba(0, 255, 136, 0.16);
+                    border-color: rgba(0, 255, 136, 0.5);
                 }
             }
 
+            .selectedText {
+                color: #00FF88 !important;
+                font-weight: 700;
+            }
+
             .chevronIcon {
-                color: rgba(255, 255, 255, 0.5);
+                color: #00FF88 !important;
             }
 
             .customDropdownMenu {
-                background: rgba(0, 16, 11, 0.6);
-                border-color: rgba(0, 255, 136, 0.2);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                background: rgba(4, 28, 20, 0.98);
+                border-color: rgba(0, 255, 136, 0.3);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
             }
 
             .customDropdownItem {
                 color: #ffffff;
 
                 &:hover {
-                    background: #2d2d34;
-                    color: $very-light-green;
+                    background: rgba(0, 255, 136, 0.15);
+                    color: #00FF88;
                 }
 
                 &.itemSelected {
-                    background: rgba(96, 165, 250, 0.15);
-                    color: $very-light-green;
+                    background: rgba(0, 255, 136, 0.2);
+                    color: #00FF88;
                 }
             }
 
             .checkmarkIcon {
-                color: $very-light-green;
+                color: #00FF88;
             }
         }
 
@@ -4436,17 +4442,27 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
         }
 
+        .purpleAiSummaryCard {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.55) 0%, rgba(17, 24, 39, 0.8) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .purpleAiHeader {
+            color: #A78BFA;
+        }
+
         .purpleAiHeadline {
-            color: #ffffff;
+            color: #F3E8FF;
         }
 
         .purpleAiBulletsList {
-            border-top-color: rgba(255, 255, 255, 0.1);
+            border-top-color: rgba(139, 92, 246, 0.25);
         }
 
         .aiBulletSection {
             p {
-                color: rgba(255, 255, 255, 0.75);
+                color: rgba(255, 255, 255, 0.88);
             }
         }
 
@@ -4543,6 +4559,16 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
             border-color: rgba(0, 255, 136, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+            .radarIcon {
+                background: rgba(0, 255, 136, 0.08);
+                border-color: rgba(0, 255, 136, 0.25);
+                color: #00FF88;
+
+                &::before {
+                    border-color: #00FF88;
+                }
+            }
 
             h4 {
                 color: #ffffff;

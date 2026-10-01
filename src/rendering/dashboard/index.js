@@ -268,17 +268,11 @@ export default function Dashboard() {
             href: '/trade-snap',
             theme: styles.cardBlue,
             graphic: (
-                <div className={styles.qaIllustrationBlue}>
-                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
-                        <rect x="5" y="5" width="80" height="55" rx="8" fill="url(#blueGrad)" stroke="rgba(0, 255, 136, 0.3)" strokeWidth="1.2" />
-                        <path d="M45 42 V22 M45 22 L38 29 M45 22 L52 29" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <line x1="20" y1="48" x2="70" y2="48" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.5" strokeLinecap="round" />
-                        <defs>
-                            <linearGradient id="blueGrad" x1="5" y1="5" x2="85" y2="60" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#1E1B4B" opacity="0.8" />
-                                <stop offset="1" stopColor="#061A13" opacity="0.9" />
-                            </linearGradient>
-                        </defs>
+                <div className={styles.qaIconBox}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
                 </div>
             )
@@ -290,13 +284,10 @@ export default function Dashboard() {
             href: '/ai-strategy',
             theme: styles.cardGreen,
             graphic: (
-                <div className={styles.qaIllustrationGreen}>
-                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
-                        <path d="M10 50 L30 35 L50 42 L80 15" stroke="#00FF88" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M80 15 H65 M80 15 V30" stroke="#00FF88" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        <rect x="20" y="38" width="8" height="15" fill="#00FF88" opacity="0.3" rx="2" />
-                        <rect x="40" y="44" width="8" height="9" fill="#00FF88" opacity="0.3" rx="2" />
-                        <rect x="60" y="24" width="8" height="29" fill="#00FF88" opacity="0.4" rx="2" />
+                <div className={styles.qaIconBox}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                        <polyline points="16 7 22 7 22 13" />
                     </svg>
                 </div>
             )
@@ -308,18 +299,12 @@ export default function Dashboard() {
             href: '/ai-assistant?tab=chat',
             theme: styles.cardPurple,
             graphic: (
-                <div className={styles.qaIllustrationPurple}>
-                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
-                        <rect x="10" y="10" width="70" height="45" rx="10" fill="url(#purpGrad)" stroke="rgba(0, 255, 136, 0.25)" strokeWidth="1.2" />
-                        <circle cx="30" cy="32" r="3" fill="#00FF88" />
-                        <circle cx="45" cy="32" r="3" fill="#00FF88" opacity="0.7" />
-                        <circle cx="60" cy="32" r="3" fill="#00FF88" opacity="0.4" />
-                        <defs>
-                            <linearGradient id="purpGrad" x1="10" y1="10" x2="80" y2="55" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#31103F" opacity="0.85" />
-                                <stop offset="1" stopColor="#061A13" opacity="0.9" />
-                            </linearGradient>
-                        </defs>
+                <div className={styles.qaIconBox}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        <circle cx="8" cy="10" r="1" fill="currentColor" />
+                        <circle cx="12" cy="10" r="1" fill="currentColor" />
+                        <circle cx="16" cy="10" r="1" fill="currentColor" />
                     </svg>
                 </div>
             )
@@ -331,19 +316,13 @@ export default function Dashboard() {
             href: '/ai-trade-analysis',
             theme: styles.cardOrange,
             graphic: (
-                <div className={styles.qaIllustrationOrange}>
-                    <svg width="90" height="65" viewBox="0 0 90 65" fill="none">
-                        <rect x="12" y="10" width="66" height="48" rx="8" stroke="#00FF88" strokeWidth="1.8" fill="url(#tradeAnalyzeGrad)" opacity="0.9" />
-                        <path d="M26 38L38 28L48 34L64 20" stroke="#00FF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M64 20H52M64 20V32" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <rect x="22" y="20" width="12" height="14" rx="3" fill="rgba(0, 255, 136, 0.15)" stroke="rgba(0, 255, 136, 0.4)" strokeWidth="1" />
-                        <path d="M26 25H30M26 29H28" stroke="#00FF88" strokeWidth="1.5" strokeLinecap="round" />
-                        <defs>
-                            <linearGradient id="tradeAnalyzeGrad" x1="12" y1="10" x2="78" y2="58" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#02241B" opacity="0.9" />
-                                <stop offset="1" stopColor="#01140F" opacity="0.95" />
-                            </linearGradient>
-                        </defs>
+                <div className={styles.qaIconBox}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <line x1="10" y1="9" x2="8" y2="9" />
                     </svg>
                 </div>
             )

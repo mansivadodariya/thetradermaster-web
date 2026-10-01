@@ -274,7 +274,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
         };
     }, [activeUserId, hasExistingLink, welcomeAwarded, loading, syncCredits]);
 
-    const logoSrc = '/assets/images/logo-light1.webp';
+    const logoSrc = theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
 
     const handleLoginChange = (e) => {
         const val = e.target.value.replace(/\D/g, '');

@@ -59,7 +59,7 @@ const getMainNav = (t) => [
   { section: 'main', label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardIcon },
   { section: 'main', label: t('nav.aiChat', 'AI Trade Assistant'), href: "/ai-assistant", icon: AssistantIcon },
   { section: 'main', label: t('nav.aiTrade', 'AI Chart Scanner'), href: "/trade-snap", icon: TradeIcon },
-  { section: 'main', label: t('nav.aiTradeAnalysis', 'AI Past Trade Analyzer'), href: "/ai-trade-analysis", icon: AnalyticsIcon },
+  { section: 'main', label: t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer'), href: "/ai-trade-analysis", icon: AnalyticsIcon },
   {
     section: 'main',
     label: t('nav.aiStrategy', 'AI Strategy'),

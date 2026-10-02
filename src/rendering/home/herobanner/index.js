@@ -88,9 +88,9 @@ export default function Herobanner() {
         },
         {
             icon: <AnalyzerIcon />,
-            title: t('nav.aiPastTradeAnalyzer', 'AI Past Trade Analyzer'),
+            title: t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer'),
             description: t('home.aiPastTradeAnalyzerCardDesc', 'Upload MT4/MT5/cTrader broker statements to reveal execution leaks, win-rate edge, and AI trade playbooks.'),
-            link: '/ai-trade-analysis',
+            link: '/past-trade-analyzer',
         },
     ];
 

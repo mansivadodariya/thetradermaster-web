@@ -70,7 +70,7 @@ export default function AiStrategyPage() {
                             
                             <Button 
                                 icon={ArrowIcon} 
-                                text={t('aiStrategy.generateBtn', 'Try AI Strategy Builder Now')} 
+                               text={t('aiStrategy.generateBtn', 'Try AI Strategy Builder Now')} 
                                 onClick={() => authNavigate(router, '/dashboard')} 
                             />
                         </div>
@@ -108,10 +108,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('aiStrategy.liveAnalysisTitle', 'Multi-Pair Live Watchlist')}</h3>
                             </div>
                             <p>{t('aiStrategy.liveAnalysisSubtitleExpanded', 'Track real-time prices, pip shifts, and active AI strategy signals across 28 Forex currency pairs, Spot Gold (XAUUSD), Silver, and Major Crypto pairs.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.exploreWatchlist', 'Explore Watchlist')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                           
                         </motion.div>
 
                         {/* Card 2 */}
@@ -131,10 +128,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('tradeSnap.confidenceScore', 'Quantitative Technical Score')}</h3>
                             </div>
                             <p>{t('aiStrategy.quantScoreDescExpanded', 'Instantly evaluate weighted technical health scores (0-100) analyzing Trend, Momentum, Volume pressure, Pivots, and Volatility across M15, H1, H4, and Daily timeframes.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.viewScore', 'View Tech Score')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                            
                         </motion.div>
 
                         {/* Card 3 */}
@@ -156,10 +150,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('aiStrategy.strategyResults', 'AI Confluence & Evidence')}</h3>
                             </div>
                             <p>{t('aiStrategy.confluenceDescExpanded', 'Inspect structured bullish and bearish evidence bullets with detailed indicator actions, MACD histogram shifts, ADX trend strength, and pivot levels.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.inspectConfluence', 'Inspect Confluence')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                          
                         </motion.div>
 
                         {/* Card 4: Smart Money Concepts */}
@@ -179,10 +170,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('aiStrategy.smcTitle', 'SMC & Order Block Detection')}</h3>
                             </div>
                             <p>{t('aiStrategy.smcDesc', 'Automatically detect institutional order blocks, liquidity sweeps, fair value gaps (FVG), and break of structure (BOS) for high-probability precision entries.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.exploreSMC', 'Explore SMC Signals')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                           
                         </motion.div>
 
                         {/* Card 5: Backtest Expectancy */}
@@ -204,10 +192,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('aiStrategy.backtestTitle', 'Backtest Expectancy Reports')}</h3>
                             </div>
                             <p>{t('aiStrategy.backtestDesc', 'Review historical Win Rate %, Profit Factor, Max Drawdown curves, Sharpe Ratio, and Risk-to-Reward asymmetry tailored to your custom trading rules.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.viewBacktests', 'View Backtest Analytics')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                           
                         </motion.div>
 
                         {/* Card 6: MT5 & Webhook Distribution */}
@@ -228,10 +213,7 @@ export default function AiStrategyPage() {
                                 <h3>{t('aiStrategy.mt5Title', 'MT5 & Real-Time Alerts')}</h3>
                             </div>
                             <p>{t('aiStrategy.mt5Desc', 'Receive real-time push notifications, webhook signals, and direct MetaTrader 5 (MT5) order execution alerts the instant setup parameters align.')}</p>
-                            <div className={styles.arrowLink}>
-                                <span>{t('common.setupAlerts', 'Setup Signal Alerts')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </div>
+                          
                         </motion.div>
                     </motion.div>
 
@@ -376,7 +358,7 @@ export default function AiStrategyPage() {
                             <p>{t('aiStrategy.ctaDescExpanded', 'Empower your trading with automated quantitative rules, institutional confluence scoring, and live MT5 signal alerts.')}</p>
                             <Button 
                                 icon={ArrowIcon}
-                                text={t('aiStrategy.startBuildingNow', 'Generate AI Strategy Now')}
+                                text={t('aiStrategy.startBuildingNow', ' AI Strategy Now')}
                                 onClick={() => authNavigate(router, '/dashboard')}
                             />
                         </div>

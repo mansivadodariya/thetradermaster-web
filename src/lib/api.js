@@ -129,23 +129,12 @@ async function request(path, options = {}, _isRetry = false) {
     return data;
 }
 
-import { getOrCreateDeviceId } from '@/lib/deviceId';
-
-export const analyticsApi = {
-    trackDevice: () => {
-        const deviceId = getOrCreateDeviceId();
-        const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
-        return request('/analytics/track-device', {
-            method: 'POST',
-            headers,
-            body: '',
-        });
-    },
-};
+import { getOrCreateDeviceId, getDeviceType } from '@/lib/deviceId';
 
 export const authApi = {
     signup: (body) => {
         const deviceId = getOrCreateDeviceId();
+        const deviceType = getDeviceType();
         const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
         return request('/auth/signup', {
             method: 'POST',
@@ -153,12 +142,11 @@ export const authApi = {
             body: JSON.stringify({
                 ...body,
                 role_id: DEFAULT_ROLE_ID,
-                ...(deviceId ? { device_id: deviceId } : {})
+                ...(deviceId ? { device_id: deviceId } : {}),
+                ...(deviceType ? { device_type: deviceType } : {})
             }),
         });
     },
-
-    trackDevice: () => analyticsApi.trackDevice(),
 
     verifyEmail: (token) =>
         request(`/auth/verify-email?token=${encodeURIComponent(token)}`),
@@ -189,13 +177,15 @@ export const authApi = {
 
     googleLogin: (credential) => {
         const deviceId = getOrCreateDeviceId();
+        const deviceType = getDeviceType();
         const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
         return request('/auth/google-login', {
             method: 'POST',
             headers,
             body: JSON.stringify({
                 credential,
-                ...(deviceId ? { device_id: deviceId } : {})
+                ...(deviceId ? { device_id: deviceId } : {}),
+                ...(deviceType ? { device_type: deviceType } : {})
             }),
         });
     },

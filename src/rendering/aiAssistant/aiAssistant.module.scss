@@ -214,16 +214,23 @@
                         }
                     }
 
+                    .pairBadgeHeader {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 6px;
+                    }
+
                     .pairBadge {
-                        background: rgba(0, 255, 136, 0.15);
-                        border: 1px solid rgba(0, 255, 136, 0.3);
-                        color: #00FF88;
+                        display: inline-flex;
+                        align-items: center;
+                        background: rgba(255, 255, 255, 0.25);
+                        border: 1px solid rgba(255, 255, 255, 0.4);
+                        color: #FFFFFF;
                         font-size: 11px;
                         font-weight: 700;
+                        letter-spacing: 0.5px;
                         padding: 2px 8px;
                         border-radius: 6px;
-                        align-self: flex-end;
-                        margin-bottom: -2px;
                     }
 
                     .assistantMessage {
@@ -264,28 +271,33 @@
                     align-items: flex-end;
 
                     .userMessage {
-                        background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
-                        color: #030E09;
-                        border-radius: 12px;
+                        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+                        border: 1px solid rgba(5, 150, 105, 0.3);
+                        color: #FFFFFF;
+                        border-radius: 18px 18px 4px 18px;
                         padding: 12px 18px;
                         font-size: 15px;
-                        font-weight: 700;
+                        font-weight: 600;
                         line-height: 1.5;
-                        box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
+                        box-shadow: 0 4px 16px rgba(5, 150, 105, 0.25);
                     }
                 }
 
                 // Loading indicator within bubble
                 .loadingDots {
-                    display: flex;
+                    display: inline-flex;
                     align-items: center;
-                    gap: 4px;
-                    padding: 6px 12px;
+                    gap: 6px;
+                    padding: 8px 16px;
+                    background: rgba(16, 185, 129, 0.08);
+                    border: 1px solid rgba(16, 185, 129, 0.2);
+                    border-radius: 20px;
+                    width: fit-content;
 
                     span {
                         width: 8px;
                         height: 8px;
-                        background-color: #0f5cf2;
+                        background-color: #10B981;
                         border-radius: 50%;
                         display: inline-block;
                         animation: dotPulse 1.4s infinite ease-in-out both;
@@ -830,28 +842,33 @@
 
 .inlineDownloadRow {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     margin-top: 12px;
-    border-top: 1px solid rgba(15, 92, 242, 0.08);
-    padding-top: 12px;
+    border-top: 1px solid rgba(16, 185, 129, 0.15);
+    padding-top: 18px;
 }
 
-.inlineDownloadBtn {
+.inlineDownloadBtn,
+.reportDownloadBtn {
     display: inline-flex;
     align-items: center;
-    background: #0f5cf2;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     border: none;
-    color: #fff;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 8px 18px;
+    border-radius: 9999px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
 
     &:hover {
-        background: #0b57e3;
-        box-shadow: 0 4px 12px rgba(15, 92, 242, 0.2);
+        background: linear-gradient(135deg, #00FF88 0%, #10B981 100%);
+        color: #030E09;
+        box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+        transform: translateY(-1px);
     }
 
     &:active {
@@ -976,10 +993,10 @@
 
 .reportWidget {
     margin: 12px 0;
-    padding: 12px;
-    border: 1px solid rgba(15, 92, 242, 0.12);
-    border-radius: 8px;
-    background: #fafbff;
+    padding: 16px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 12px;
+    background: #F0FDF4;
 
     .chartToolbar {
         display: flex;
@@ -1015,23 +1032,23 @@
     transition: all 0.2s ease;
 
     &:hover {
-        border-color: rgba(15, 92, 242, 0.4);
-        color: #0f5cf2;
+        border-color: rgba(16, 185, 129, 0.4);
+        color: #059669;
     }
 }
 
 .srToggleActive {
-    background: #ebf2fc;
-    border-color: rgba(15, 92, 242, 0.35);
-    color: #0f5cf2;
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.35);
+    color: #059669;
 }
 
 
 .reportWidgetTitle {
-    margin: 0 0 8px;
+    margin: 0 0 12px;
     font-size: 14px;
     font-weight: 700;
-    color: #0f5cf2;
+    color: #059669;
 }
 
 .reportWidgetMissing {
@@ -1188,10 +1205,10 @@
 
     .reportWidget {
         margin: 12px 0;
-        padding: 12px;
-        border: 1px solid rgba(15, 92, 242, 0.12);
-        border-radius: 8px;
-        background: #fafbff;
+        padding: 16px;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 12px;
+        background: #F0FDF4;
 
         // Prevent page breaks inside widgets (charts, gauges, radars)
         break-inside: avoid !important;
@@ -1219,23 +1236,23 @@
         transition: all 0.2s ease;
 
         &:hover {
-            border-color: rgba(15, 92, 242, 0.4);
-            color: #0f5cf2;
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #059669;
         }
     }
 
     .srToggleActive {
-        background: #ebf2fc;
-        border-color: rgba(15, 92, 242, 0.35);
-        color: #0f5cf2;
+        background: rgba(16, 185, 129, 0.12);
+        border-color: rgba(16, 185, 129, 0.35);
+        color: #059669;
     }
 
 
     .reportWidgetTitle {
-        margin: 0 0 8px;
+        margin: 0 0 12px;
         font-size: 14px;
         font-weight: 700;
-        color: #0f5cf2;
+        color: #059669;
     }
 
     .reportWidgetMissing {
@@ -1292,11 +1309,13 @@
         0%,
         80%,
         100% {
-            transform: scale(0);
+            transform: scale(0.6);
+            opacity: 0.4;
         }
 
         40% {
-            transform: scale(1.0);
+            transform: scale(1.15);
+            opacity: 1;
         }
     }
 
@@ -1566,17 +1585,52 @@
 
 .pdfExporting {
     background: #ffffff !important;
-    color: #121212 !important;
+    color: #0F172A !important;
     padding: 32px !important;
     border: none !important;
 
-    // Force strict layout width for PDF generation to prevent responsive clipping without expanding the parent
+    // Force strict layout width for PDF generation to prevent responsive clipping
     width: 100% !important;
     max-width: 800px !important;
     box-sizing: border-box !important;
 
     display: block !important;
     margin: 0 auto !important;
+
+    .pdfHeader {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding-bottom: 16px !important;
+        margin-bottom: 24px !important;
+        border-bottom: 2px solid #00FF88 !important;
+
+        .pdfHeaderBrand {
+            h2 {
+                font-size: 20px !important;
+                font-weight: 800 !important;
+                color: #0F172A !important;
+                margin: 0 0 4px 0 !important;
+                letter-spacing: -0.02em !important;
+                text-transform: uppercase !important;
+            }
+            span {
+                font-size: 13px !important;
+                font-weight: 600 !important;
+                color: #059669 !important;
+            }
+        }
+
+        .pdfHeaderMeta {
+            font-size: 12px !important;
+            color: #64748B !important;
+            text-align: right !important;
+            line-height: 1.5 !important;
+            strong {
+                color: #0F172A !important;
+            }
+        }
+    }
 
     .chartToolbar {
         display: none !important;
@@ -1593,6 +1647,8 @@
     // Adjust tables for print
     .mdTableWrapper {
         border-color: rgba(18, 18, 18, 0.2) !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
 
     .mdTable {
@@ -1630,11 +1686,22 @@
     }
 
     .reportWidget {
-        background: #ffffff !important;
-        border-color: rgba(15, 92, 242, 0.2) !important;
+        background: #F8FAFC !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        margin: 20px 0 !important;
         box-shadow: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        overflow: hidden !important;
+
+        .reportWidgetTitle {
+            color: #059669 !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            margin-bottom: 12px !important;
+        }
     }
 
     .reportGauge,
@@ -1643,52 +1710,53 @@
         text-align: center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        background: transparent !important;
+        margin: 0 auto !important;
     }
 
-    .chartContainer,
-    canvas,
-    img,
-    svg {
+    :global(.apexcharts-canvas) {
+        background: transparent !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
 
-    .mdTableWrapper,
-    table,
-    tr,
-    th,
-    td,
-    pre {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+    :global(.apexcharts-text) {
+        fill: #334155 !important;
     }
 
-    // --- Text content: prevent paragraphs, lists, and blockquotes from being sliced ---
+    :global(.apexcharts-gridline) {
+        stroke: #E2E8F0 !important;
+    }
+
+    :global(.apexcharts-legend-text) {
+        color: #334155 !important;
+    }
+
+    // --- Text content: allow paragraphs and lists to flow naturally ---
     .reportMarkdown {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
+        page-break-inside: auto !important;
+        break-inside: auto !important;
 
-    p,
-    li,
-    ul,
-    ol,
-    blockquote {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
+        p,
+        li,
+        ul,
+        ol,
+        blockquote {
+            page-break-inside: auto !important;
+            break-inside: auto !important;
+        }
 
-    // --- Headings: keep headings attached to the content that follows ---
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        page-break-after: avoid !important;
-        break-after: avoid !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            page-break-after: avoid !important;
+            break-after: avoid !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
     }
 
     .reportPage {
@@ -1870,10 +1938,16 @@
                 }
 
                 .messageRow {
+                    .pairBadgeHeader {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 6px;
+                    }
+
                     .pairBadge {
-                        background: rgba(0, 255, 136, 0.15);
+                        background: rgba(0, 255, 136, 0.22);
                         color: #00FF88;
-                        border-color: rgba(0, 255, 136, 0.3);
+                        border-color: rgba(0, 255, 136, 0.5);
                     }
 
                     .assistantMessage {
@@ -1886,14 +1960,26 @@
                         li {
                             color: #E2E8F0;
                         }
+
+                        .loadingDots {
+                            background: rgba(6, 26, 18, 0.9);
+                            border: 1px solid rgba(0, 255, 136, 0.3);
+                            box-shadow: 0 0 12px rgba(0, 255, 136, 0.15);
+
+                            span {
+                                background-color: #00FF88;
+                                box-shadow: 0 0 8px rgba(0, 255, 136, 0.8);
+                            }
+                        }
                     }
                 }
 
                 .userRow {
                     .userMessage {
-                        background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
-                        color: #030E09;
-                        box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
+                        background: linear-gradient(135deg, rgba(0, 255, 136, 0.24) 0%, rgba(3, 30, 20, 0.85) 100%);
+                        border: 1px solid rgba(0, 255, 136, 0.45);
+                        color: #FFFFFF;
+                        box-shadow: 0 6px 24px rgba(0, 255, 136, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
                     }
                 }
 
@@ -1987,6 +2073,23 @@
         .reportWidgetTitle {
             color: #00FF88;
             font-weight: 700;
+        }
+
+        .srToggleBtn {
+            border-color: rgba(0, 255, 136, 0.25);
+            background: rgba(0, 255, 136, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+
+            &:hover {
+                border-color: #00FF88;
+                color: #00FF88;
+            }
+        }
+
+        .srToggleActive {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: rgba(0, 255, 136, 0.4);
+            color: #00FF88;
         }
     }
 
@@ -2093,59 +2196,86 @@
     }
 
     .historyModalContent {
-        background: #1a1a1e;
+        background: transparent;
+        border-radius: 14px;
 
         .first {
             .lineText {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.7);
 
                 &::before,
                 &::after {
-                    background: linear-gradient(to right, transparent, rgba(96, 165, 250, 0.4));
+                    background: linear-gradient(to right, transparent, rgba(0, 255, 136, 0.4));
                 }
             }
         }
 
         .allMessage {
-            border-top-color: #2d2d34;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 16px;
+            gap: 12px;
 
             &::-webkit-scrollbar-thumb {
-                background: rgba(96, 165, 250, 0.2);
+                background: rgba(0, 255, 136, 0.3);
+                border-radius: 4px;
             }
 
             .noHistory {
-                color: rgba(255, 255, 255, 0.4);
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 14px;
             }
 
             .messageBox {
-                background: #252529;
-                border-color: #2d2d34;
+                background: rgba(8, 28, 19, 0.9);
+                border: 1px solid rgba(0, 255, 136, 0.22);
+                border-radius: 12px;
+                padding: 14px 16px;
+                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
                 &:hover {
-                    background: #2d2d34;
-                    border-color: rgba(96, 165, 250, 0.4);
+                    background: rgba(12, 40, 26, 0.95);
+                    border-color: rgba(0, 255, 136, 0.6);
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(0, 255, 136, 0.15);
+                    transform: translateY(-2px);
+
+                    .icon {
+                        color: #FF5F56;
+                        background: rgba(255, 95, 86, 0.15);
+                    }
                 }
 
                 &.selectedBox {
-                    background: rgba(96, 165, 250, 0.1);
-                    border-color: #0f5cf2;
+                    background: rgba(0, 255, 136, 0.15);
+                    border-color: #00FF88;
+                    box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
 
                     p {
-                        color: $very-light-green;
-                        font-weight: 600;
+                        color: #00FF88;
+                        font-weight: 700;
                     }
                 }
 
                 p {
-                    color: rgba(255, 255, 255, 0.85);
+                    color: rgba(255, 255, 255, 0.92);
+                    font-size: 14.5px;
+                    font-weight: 500;
+                    font-family: var(--font-plus-jakarta);
                 }
 
                 .icon {
-                    color: rgba(255, 255, 255, 0.4);
+                    color: rgba(255, 255, 255, 0.45);
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.2s ease;
 
                     &:hover {
-                        background-color: rgba(239, 68, 68, 0.2);
-                        color: #f87171;
+                        background-color: rgba(239, 68, 68, 0.25);
+                        color: #FF5F56;
+                        transform: scale(1.08);
                     }
                 }
             }
@@ -2153,16 +2283,37 @@
     }
 
     .modalCancelBtn {
-        background: #252529;
-        color: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 255, 136, 0.1);
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 8px 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
 
         &:hover {
-            background: #2d2d34;
-            color: #ffffff;
+            background: rgba(0, 255, 136, 0.2);
+            color: #00FF88;
+            border-color: #00FF88;
+        }
+    }
+
+    .modalDeleteBtn {
+        background: rgba(239, 68, 68, 0.85);
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 8px 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: rgba(239, 68, 68, 1);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
         }
     }
 
     .modalText {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 15px;
     }
 }

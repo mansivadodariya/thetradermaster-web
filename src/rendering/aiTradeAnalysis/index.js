@@ -1369,7 +1369,7 @@ export default function AiTradeAnalysis() {
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onDrop={handleDrop}
-                            onClick={handleBrowseClick}
+                         
                         >
                             <input 
                                 type="file" 
@@ -1426,7 +1426,7 @@ export default function AiTradeAnalysis() {
                             )}
 
                             <span className={styles.formats}>
-                                {t('aiTradeAnalysis.supportedFormats', 'Supported formats: PDF, CSV, Excel (XLSX, XLS), HTML & TXT')}
+                                {t('aiTradeAnalysis.supportedFormats', 'Supported MT5 formats: Excel (XLSX, XLS) ')}
                             </span>
 
                             <div className={styles.security}>

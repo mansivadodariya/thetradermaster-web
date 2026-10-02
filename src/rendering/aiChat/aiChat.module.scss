@@ -25,7 +25,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-image: url('/assets/images/hero-new.png');
+        // background-image: url('/assets/images/hero-new.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center top;
@@ -193,19 +193,14 @@
         }
 
         .inputWrapper {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            gap: 16px;
+            margin-bottom: 20px;
 
             @include respond-to('sm') {
                 margin-bottom: 14px;
-                gap: 10px;
             }
 
             .chatInput {
-                flex-grow: 1;
+                width: 100%;
                 border: none;
                 outline: none;
                 resize: none;
@@ -228,37 +223,51 @@
                     color: rgba(255, 255, 255, 0.65);
                 }
             }
+        }
 
-            .sendButton {
-                background: linear-gradient(135deg, #00FF88 0%, #00CC6A 100%);
-                color: #04100B;
-                border: none;
-                width: 44px;
-                height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                border-radius: 12px;
-                box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                flex-shrink: 0;
+        .bottomRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
 
-                @include respond-to('sm') {
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 10px;
+            @include respond-to('sm') {
+                flex-direction: column-reverse;
+                align-items: flex-end;
+                gap: 12px;
+            }
+        }
 
-                    svg {
-                        width: 18px;
-                        height: 18px;
-                    }
+        .sendButton {
+            background: linear-gradient(135deg, #00FF88 0%, #00CC6A 100%);
+            color: #04100B;
+            border: none;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+
+            @include respond-to('sm') {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
                 }
+            }
 
-                &:hover {
-                    box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
-                    transform: translateY(-2px);
-                }
+            &:hover {
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+                transform: translateY(-2px);
             }
         }
 
@@ -483,18 +492,18 @@
 
     /* Capabilities Section */
     .capabilitiesSection {
-        margin-top: 70px;
-        padding-top: 40px;
-        border-top: 1px solid rgba(0, 255, 136, 0.25);
+        margin-top: 90px;
+        padding-top: 70px;
+        border-top: 1px solid rgba(0, 255, 136, 0.2);
 
         @include respond-to('md') {
-            margin-top: 50px;
-            padding-top: 30px;
+            margin-top: 40px;
+            padding-top: 24px;
         }
 
         @include respond-to('sm') {
-            margin-top: 36px;
-            padding-top: 24px;
+            margin-top: 28px;
+            padding-top: 18px;
         }
 
         .sectionHeader {
@@ -649,7 +658,7 @@
 
     /* Live Conversation Showcase */
     .conversationShowcase {
-        margin-top: 70px;
+        margin-top: 95px;
 
         @include respond-to('md') {
             margin-top: 50px;

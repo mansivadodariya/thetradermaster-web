@@ -5,28 +5,57 @@
     padding: 80px 0;
     background-color: #030E09;
 
+    @include respond-to('md') {
+        padding: 60px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 40px 0;
+    }
+
     .patternsBox {
         background: rgba(8, 24, 17, 0.85);
         border: 1px solid rgba(0, 255, 136, 0.22);
         border-radius: 24px;
         padding: 36px;
         margin-bottom: 40px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+        @include respond-to('md') {
+            padding: 28px;
+            margin-bottom: 30px;
+        }
 
         @include respond-to('sm') {
-            padding: 22px;
+            padding: 20px 16px;
+            border-radius: 16px;
+            margin-bottom: 24px;
         }
 
         .patternsTitle {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: #FFFFFF;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('sm') {
+                font-size: 20px;
+            }
         }
 
         .patternsSub {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 22px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('sm') {
+                font-size: 13.5px;
+                margin-bottom: 18px;
+            }
         }
 
         .patternPills {
@@ -37,7 +66,7 @@
 
             .pill {
                 background: rgba(255, 95, 86, 0.1);
-                border: 1px solid rgba(255, 95, 86, 0.25);
+                border: 1px solid rgba(255, 95, 86, 0.28);
                 color: #FF8080;
                 padding: 8px 16px;
                 border-radius: 30px;
@@ -46,98 +75,295 @@
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                transition: all 0.2s ease;
+                transition: all 0.25s ease;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to('sm') {
+                    padding: 6px 12px;
+                    font-size: 12.5px;
+                }
 
                 &:hover {
-                    background: rgba(255, 95, 86, 0.2);
-                    transform: scale(1.03);
+                    background: rgba(255, 95, 86, 0.22);
+                    border-color: rgba(255, 95, 86, 0.5);
+                    transform: translateY(-2px);
                 }
             }
         }
 
         .patternGoalNote {
             background: rgba(0, 255, 136, 0.08);
-            border: 1px solid rgba(0, 255, 136, 0.22);
-            padding: 14px 20px;
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            padding: 16px 20px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: #00FF88;
             text-align: center;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('sm') {
+                font-size: 13.5px;
+                padding: 12px 14px;
+            }
         }
     }
 
     .cycleBox {
         background: rgba(8, 24, 17, 0.85);
-        border: 1px solid rgba(0, 255, 136, 0.22);
-        border-radius: 24px;
-        padding: 38px;
-        text-align: center;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        border-radius: 28px;
+        padding: 44px 36px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+
+        @include respond-to('lg') {
+            padding: 36px 28px;
+        }
+
+        @include respond-to('md') {
+            padding: 28px 20px;
+            border-radius: 20px;
+        }
 
         @include respond-to('sm') {
-            padding: 24px;
+            padding: 20px 14px;
+            border-radius: 16px;
         }
 
-        h3 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 12px;
+        .cycleHeader {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 36px auto;
+
+            @include respond-to('sm') {
+                margin-bottom: 24px;
+            }
+
+            h3 {
+                font-size: 28px;
+                font-weight: 800;
+                color: #FFFFFF;
+                margin-bottom: 12px;
+                font-family: var(--font-plus-jakarta);
+                letter-spacing: -0.01em;
+
+                @include respond-to('md') {
+                    font-size: 24px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 20px;
+                    margin-bottom: 8px;
+                }
+            }
+
+            p {
+                font-size: 16px;
+                color: rgba(255, 255, 255, 0.78);
+                line-height: 1.65;
+                margin: 0;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to('md') {
+                    font-size: 14.5px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                    line-height: 1.55;
+                }
+            }
         }
 
-        p {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 650px;
-            margin: 0 auto 28px auto;
-        }
-
-        .cycleDiagram {
+        .cycleGrid {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 36px;
 
-            .cycleNode {
-                background: rgba(0, 255, 136, 0.08);
-                border: 1px solid rgba(0, 255, 136, 0.3);
-                padding: 12px 20px;
-                border-radius: 12px;
-                text-align: center;
+            @include respond-to('lg') {
+                gap: 8px;
+            }
 
-                .nodeTitle {
-                    font-weight: 800;
-                    font-size: 14px;
-                    color: #00FF88;
-                    letter-spacing: 0.05em;
+            @include respond-to('md') {
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 24px;
+            }
+
+            .cycleCard {
+                flex: 1;
+                min-width: 0;
+                background: rgba(4, 18, 12, 0.92);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+                border-radius: 18px;
+                padding: 22px 18px;
+                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+
+                @include respond-to('lg') {
+                    padding: 18px 14px;
                 }
 
-                .nodeDesc {
-                    font-size: 12px;
-                    color: rgba(255, 255, 255, 0.65);
-                    margin-top: 2px;
+                @include respond-to('md') {
+                    width: 100%;
+                }
+
+                @include respond-to('sm') {
+                    padding: 16px 14px;
+                    border-radius: 14px;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, #00FF88, transparent);
+                    opacity: 0;
+                    transition: opacity 0.35s ease;
+                }
+
+                &:hover {
+                    border-color: rgba(0, 255, 136, 0.6);
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.15);
+
+                    &::before {
+                        opacity: 1;
+                    }
+
+                    .stepBadge {
+                        background: #00FF88;
+                        color: #04100B;
+                        box-shadow: 0 0 14px rgba(0, 255, 136, 0.6);
+                    }
+                }
+
+                .cardHeaderRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 12px;
+
+                    .stepBadge {
+                        font-size: 12px;
+                        font-weight: 800;
+                        color: #00FF88;
+                        background: rgba(0, 255, 136, 0.15);
+                        border: 1px solid rgba(0, 255, 136, 0.35);
+                        padding: 4px 10px;
+                        border-radius: 8px;
+                        font-family: var(--font-plus-jakarta);
+                        transition: all 0.3s ease;
+                    }
+
+                    .stepTitle {
+                        font-size: 15px;
+                        font-weight: 800;
+                        color: #FFFFFF;
+                        letter-spacing: 0.05em;
+                        font-family: var(--font-plus-jakarta);
+                    }
+                }
+
+                .stepSubtitle {
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: #00FF88;
+                    margin: 0 0 8px 0;
+                    font-family: var(--font-plus-jakarta);
+
+                    @include respond-to('sm') {
+                        font-size: 15px;
+                    }
+                }
+
+                .stepDesc {
+                    font-size: 13.5px;
+                    color: rgba(255, 255, 255, 0.72);
+                    line-height: 1.55;
+                    margin: 0;
+                    font-family: var(--font-plus-jakarta);
+
+                    @include respond-to('sm') {
+                        font-size: 13px;
+                    }
                 }
             }
 
-            .cycleArrow {
+            .stepArrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 color: #00FF88;
-                font-size: 18px;
-                font-weight: 700;
+                background: rgba(0, 255, 136, 0.1);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                flex-shrink: 0;
+                box-shadow: 0 0 14px rgba(0, 255, 136, 0.2);
+                transition: all 0.3s ease;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover {
+                    background: rgba(0, 255, 136, 0.25);
+                    box-shadow: 0 0 20px rgba(0, 255, 136, 0.45);
+                    transform: scale(1.1);
+                }
+
+                @include respond-to('md') {
+                    transform: rotate(90deg);
+
+                    &:hover {
+                        transform: rotate(90deg) scale(1.1);
+                    }
+                }
             }
         }
 
-        .cycleFormula {
-            margin-top: 28px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: 0.03em;
-            background: rgba(0, 255, 136, 0.12);
-            display: inline-block;
-            padding: 8px 24px;
-            border-radius: 30px;
-            border: 1px solid rgba(0, 255, 136, 0.35);
+        .cycleFormulaWrapper {
+            text-align: center;
+
+            .cycleFormula {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: rgba(0, 255, 136, 0.1);
+                border: 1px solid rgba(0, 255, 136, 0.35);
+                padding: 12px 28px;
+                border-radius: 9999px;
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 700;
+                font-family: var(--font-plus-jakarta);
+                letter-spacing: 0.02em;
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+
+                @include respond-to('sm') {
+                    padding: 10px 18px;
+                    font-size: 13.5px;
+                    gap: 6px;
+                    border-radius: 12px;
+                }
+
+                .formulaIcon {
+                    color: #00FF88;
+                }
+            }
         }
     }
 }

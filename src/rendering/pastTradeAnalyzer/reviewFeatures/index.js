@@ -85,12 +85,12 @@ export default function ReviewFeatures() {
         <section className={styles.reviewFeatures} id="review-features">
             <div className="container-xs">
                 <div className={styles.sectionHeader}>
-                    <LineText text="Comprehensive Features" />
+                    <LineText text={t('pastTradeFeatures.badge', 'Comprehensive Features')} />
                     <h2>
-                        What Does Past Trade Analyzer <span className={styles.neonText}>Review?</span>
+                        {t('pastTradeFeatures.titlePart1', 'What Does Past Trade Analyzer')} <span className={styles.neonText}>{t('pastTradeFeatures.titlePart2', 'Review?')}</span>
                     </h2>
                     <p>
-                        Deep institutional-grade analysis of every completed execution.
+                        {t('pastTradeFeatures.subtitle', 'Deep institutional-grade analysis of every completed execution.')}
                     </p>
                 </div>
 

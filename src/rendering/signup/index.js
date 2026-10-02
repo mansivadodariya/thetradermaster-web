@@ -11,7 +11,7 @@ import Button from '@/components/button';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
 import { getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
 import { useSearchParams } from 'next/navigation';
-import { authApi, profileApi, analyticsApi } from '@/lib/api';
+import { authApi, profileApi } from '@/lib/api';
 import { validateSignup } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { supabase } from '@/lib/supabaseClient';
@@ -157,12 +157,6 @@ const Signup = () => {
                 }
             } catch (dbSyncErr) {
                 console.warn("Database UTM sync error on registration:", dbSyncErr);
-            }
-
-            try {
-                await analyticsApi.trackDevice();
-            } catch (trackErr) {
-                console.warn("Track device after registration failed:", trackErr);
             }
 
             setSuccess(true);

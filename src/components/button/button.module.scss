@@ -15,6 +15,22 @@
         }
     }
 
+    &.noIcon {
+        button,
+        .linkBtn {
+            padding: 12px 24px;
+            min-height: 48px;
+            box-sizing: border-box;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+
+            :global([dir="rtl"]) & {
+                padding: 12px 24px;
+            }
+        }
+    }
+
     &.light {
         button {
             background: #F0FDF4;
@@ -51,6 +67,8 @@
 
     button {
         padding: 6px 6px 6px 24px;
+        min-height: 48px;
+        box-sizing: border-box;
         background: linear-gradient(135deg, $primary, $primary-dark);
         display: inline-flex;
         align-items: center;
@@ -112,6 +130,8 @@
 
     .linkBtn {
         padding: 6px 6px 6px 24px;
+        min-height: 48px;
+        box-sizing: border-box;
         background: linear-gradient(135deg, $primary, $primary-dark);
         display: inline-flex;
         align-items: center;

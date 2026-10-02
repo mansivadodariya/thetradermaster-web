@@ -2,38 +2,36 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import LineText from '@/components/lineText';
 import styles from './reportIncludes.module.scss';
 
 export default function ReportIncludes() {
+    const { t } = useLanguage();
     const reportIncludes = [
         {
-            title: 'Trade Summary',
-            desc: 'A clear overview of the trade, including direction, entry, exit, result, and other relevant details.',
+            title: t('reportIncludes.item1Title', 'Trade Summary'),
+            desc: t('reportIncludes.item1Desc', 'A clear overview of the trade, including direction, entry, exit, result, and other relevant details.'),
         },
         {
-            title: 'Execution Review',
-            desc: 'A closer look at how the trade was entered and managed.',
+            title: t('reportIncludes.item2Title', 'Execution Review'),
+            desc: t('reportIncludes.item2Desc', 'A closer look at how the trade was entered and managed.'),
         },
         {
-            title: 'Market Context',
-            desc: 'Analysis of the surrounding trend, structure, support/resistance, and price behavior.',
+            title: t('reportIncludes.item3Title', 'Market Context'),
+            desc: t('reportIncludes.item3Desc', 'Analysis of the surrounding trend, structure, support/resistance, and price behavior.'),
         },
         {
-            title: 'Risk Review',
-            desc: 'Evaluation of stop-loss, target, position size, and risk/reward considerations.',
+            title: t('reportIncludes.item4Title', 'Risk Review'),
+            desc: t('reportIncludes.item4Desc', 'Evaluation of stop-loss, target, position size, and risk/reward considerations.'),
         },
         {
-            title: 'Mistake Breakdown',
-            desc: 'Potential issues that may have affected the trade.',
+            title: t('reportIncludes.item5Title', 'Mistake Breakdown'),
+            desc: t('reportIncludes.item5Desc', 'Potential issues that may have affected the trade.'),
         },
         {
-            title: 'Improvement Plan',
-            desc: 'Practical suggestions for approaching similar situations more effectively.',
-        },
-        {
-            title: 'Overall Trade Score',
-            desc: 'A structured assessment that helps you compare trade quality across your journal.',
+            title: t('reportIncludes.item6Title', 'Improvement Plan'),
+            desc: t('reportIncludes.item6Desc', 'Practical suggestions for approaching similar situations more effectively.'),
         },
     ];
 
@@ -41,11 +39,11 @@ export default function ReportIncludes() {
         <section className={styles.reportIncludes}>
             <div className="container-xs">
                 <div className={styles.sectionHeader}>
-                    <LineText text="Report Breakdown" />
+                    <LineText text={t('reportIncludes.badge', 'Report Breakdown')} />
                     <h2>
-                        What Your Trade Report <span className={styles.neonText}>Can Include</span>
+                        {t('reportIncludes.titlePart1', 'What Your Trade Report')} <span className={styles.neonText}>{t('reportIncludes.titlePart2', 'Can Include')}</span>
                     </h2>
-                    <p>Structured breakdown generated for every submitted trade.</p>
+                    <p>{t('reportIncludes.subtitle', 'Structured breakdown generated for every submitted trade.')}</p>
                 </div>
 
                 <div className={styles.reportGrid}>

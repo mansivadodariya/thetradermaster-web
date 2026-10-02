@@ -52,6 +52,14 @@ const RiskRewardIcon = () => (
     </svg>
 );
 
+const ConfluenceIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+    </svg>
+);
+
 const FrictionIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10"></circle>
@@ -83,6 +91,13 @@ const LearningIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+    </svg>
+);
+
+const ConfidenceIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        <path d="M9 12l2 2 4-4"></path>
     </svg>
 );
 
@@ -119,6 +134,11 @@ export default function TradeSnapContent() {
             title: t('tradeSnap.what5Title', 'Risk & Reward'),
             description: t('tradeSnap.what5Desc', 'Review the potential risk/reward relationship of the setup and understand how the trade can be evaluated before execution.'),
             icon: <RiskRewardIcon />
+        },
+        {
+            title: t('tradeSnap.what6Title', 'Indicator & Trend Confluence'),
+            description: t('tradeSnap.what6Desc', 'Evaluate how technical indicators, chart patterns, and price trends align together to validate your setup.'),
+            icon: <ConfluenceIcon />
         }
     ];
 
@@ -155,6 +175,11 @@ export default function TradeSnapContent() {
             title: t('tradeSnap.why5Title', 'Learn From Your Charts'),
             description: t('tradeSnap.why5Desc', 'Seeing a structured breakdown of price action can also help you better understand how different elements of a trade setup come together.'),
             icon: <LearningIcon />
+        },
+        {
+            title: t('tradeSnap.why6Title', 'Objective & Unbiased Confidence'),
+            description: t('tradeSnap.why6Desc', 'Eliminate emotional bias with clear, data-driven technical validation before entering any trade.'),
+            icon: <ConfidenceIcon />
         }
     ];
 
@@ -247,7 +272,7 @@ export default function TradeSnapContent() {
                         </h2>
                     </div>
 
-                    <div className={`${styles.cardsGrid} ${styles.fiveCardsGrid}`}>
+                    <div className={styles.cardsGrid}>
                         {whatWeAnalyze.map((item, idx) => (
                             <motion.div 
                                 key={idx}

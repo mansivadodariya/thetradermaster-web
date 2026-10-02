@@ -187,17 +187,31 @@
                 }
 
                 input {
-                    background: transparent;
+                    background: transparent !important;
                     border: none;
-                    color: #FFF;
+                    color: #FFF !important;
                     font-size: 15px;
                     outline: none;
                     width: 100%;
                     padding-right: 10px;
                     font-family: var(--font-plus-jakarta);
+                    box-shadow: none;
 
                     &::placeholder {
                         color: rgba(255, 255, 255, 0.45);
+                    }
+
+                    /* Prevent browser autofill from rendering white background */
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active {
+                        -webkit-text-fill-color: #FFFFFF !important;
+                        -webkit-box-shadow: 0 0 0px 1000px #081811 inset !important;
+                        box-shadow: 0 0 0px 1000px #081811 inset !important;
+                        transition: background-color 5000s ease-in-out 0s !important;
+                        caret-color: #FFFFFF !important;
+                        border-radius: 8px;
                     }
                 }
 

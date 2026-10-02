@@ -13,6 +13,24 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     padding: 2px;
     height: calc(100dvh - 200px);
     min-height: 0;
+
+    @include respond-to('md') {
+        height: auto;
+        min-height: auto;
+        padding: 0;
+    }
+
+    @include respond-to('tab') {
+        height: auto;
+        min-height: auto;
+        padding: 0;
+    }
+
+    @include respond-to('sm') {
+        height: auto;
+        min-height: auto;
+        padding: 0;
+    }
 }
 
 /* Header & WS Badge */
@@ -233,6 +251,24 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex: 1;
     min-height: 0;
     overflow: hidden;
+
+    @include respond-to('md') {
+        overflow: visible;
+        flex: initial;
+        height: auto;
+    }
+
+    @include respond-to('tab') {
+        overflow: visible;
+        flex: initial;
+        height: auto;
+    }
+
+    @include respond-to('sm') {
+        overflow: visible;
+        flex: initial;
+        height: auto;
+    }
 }
 
 .loaderContainer {
@@ -1376,14 +1412,28 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     overflow: hidden;
 
     @include respond-to('lg') {
-        grid-template-columns: 240px 1fr;
+        grid-template-columns: 240px 1fr 300px;
+        gap: 14px;
     }
 
     @include respond-to('md') {
         grid-template-columns: 1fr;
         display: flex;
         flex-direction: column;
-        overflow: auto;
+        overflow: visible;
+        gap: 16px;
+        flex: initial;
+        height: auto;
+    }
+
+    @include respond-to('tab') {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        gap: 14px;
+        flex: initial;
+        height: auto;
     }
 
     @include respond-to('sm') {
@@ -1391,7 +1441,9 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         display: flex;
         flex-direction: column;
         gap: 12px;
-        overflow: auto;
+        overflow: visible;
+        flex: initial;
+        height: auto;
     }
 }
 
@@ -1558,27 +1610,46 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     min-height: 0;
     overflow: hidden;
 
+    @include respond-to('md') {
+        width: 100%;
+        height: auto;
+    }
+
+    @include respond-to('tab') {
+        width: 100%;
+        height: auto;
+    }
+
     @include respond-to("sm") {
         width: 100%;
         height: auto;
+        padding: 12px;
+        gap: 10px;
     }
 
     .watchlistHeader {
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
 
         h3 {
             font-size: 16px;
             font-weight: 700;
             color: #0F172A;
             margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 14px;
+            }
         }
 
         .watchlistCount {
             font-size: 11px;
             font-weight: 600;
             color: #64748B;
+            white-space: nowrap;
         }
     }
 }
@@ -1631,6 +1702,18 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex-direction: column;
     gap: 4px;
     padding-right: 2px;
+
+    @include respond-to('md') {
+        max-height: 280px;
+    }
+
+    @include respond-to('tab') {
+        max-height: 260px;
+    }
+
+    @include respond-to('sm') {
+        max-height: 240px;
+    }
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -1806,6 +1889,28 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     height: 100%;
     min-height: 0;
     overflow: hidden;
+
+    @include respond-to('md') {
+        height: auto;
+        min-height: 380px;
+        width: 100%;
+    }
+
+    @include respond-to('tab') {
+        height: auto;
+        min-height: 350px;
+        width: 100%;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    @include respond-to('sm') {
+        height: auto;
+        min-height: 300px;
+        width: 100%;
+        padding: 12px;
+        gap: 10px;
+    }
 }
 
 .chartPanelHeader {
@@ -1816,16 +1921,26 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     gap: 12px;
     border-bottom: 1px solid #E2E8F0;
     padding-bottom: 12px;
+
+    @include respond-to("sm") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-bottom: 8px;
+    }
 }
 
 .chartTitleArea {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
 
     @include respond-to("sm") {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
     }
 
     h3 {
@@ -1834,6 +1949,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         color: #0F172A;
         font-family: monospace;
         margin: 0;
+
+        @include respond-to('sm') {
+            font-size: 15px;
+        }
     }
 
     .chartTimeframeBadge {
@@ -1857,6 +1976,19 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     gap: 12px;
     margin-left: 16px;
     flex-wrap: wrap;
+
+    @include respond-to('tab') {
+        margin-left: 0;
+        gap: 6px 12px;
+        width: 100%;
+    }
+
+    @include respond-to('sm') {
+        margin-left: 0;
+        gap: 4px 8px;
+        font-size: 11px;
+        width: 100%;
+    }
 }
 
 .ohlcItem {
@@ -3030,6 +3162,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .scoreTextGroup {
@@ -3044,6 +3178,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     font-size: 38px;
     font-weight: 800;
     line-height: 1.1;
+
+    @include respond-to('sm') {
+        font-size: 28px;
+    }
 
     .scoreDivider {
         font-size: 14px;
@@ -3065,6 +3203,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex-direction: column;
     align-items: flex-end;
     gap: 2px;
+
+    @include respond-to('sm') {
+        align-items: flex-start;
+    }
 }
 
 .confLabel {
@@ -3102,6 +3244,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     padding: 4px 0;
     user-select: none;
 
+    @include respond-to('sm') {
+        gap: 6px;
+    }
+
     &:hover {
         .progressBarTitle {
             color: #0F172A;
@@ -3120,6 +3266,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     width: 90px;
     flex-shrink: 0;
 
+    @include respond-to('sm') {
+        width: 70px;
+        gap: 4px;
+    }
+
     svg {
         color: #64748B;
         flex-shrink: 0;
@@ -3131,6 +3282,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     font-weight: 600;
     color: #475569;
     transition: color 0.2s ease;
+
+    @include respond-to('sm') {
+        font-size: 11px;
+    }
 }
 
 .progressOuterTrack {
@@ -3155,6 +3310,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     min-width: 60px;
     justify-content: flex-end;
     flex-shrink: 0;
+
+    @include respond-to('sm') {
+        min-width: 45px;
+        gap: 4px;
+    }
 }
 
 .progressScoreText {
@@ -3179,6 +3339,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     flex-direction: column;
     gap: 8px;
     animation: fadeIn 0.15s ease-out;
+
+    @include respond-to('sm') {
+        margin-left: 10px;
+        padding: 8px 10px;
+    }
 }
 
 .subDetailTableGrid {
@@ -3192,11 +3357,17 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     justify-content: space-between;
     align-items: center;
     font-size: 11px;
+    gap: 4px;
+
+    @include respond-to('sm') {
+        font-size: 10px;
+    }
 }
 
 .metricName {
     color: #64748B;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .metricVal {
@@ -3205,6 +3376,10 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     font-weight: 600;
     margin-left: auto;
     margin-right: 12px;
+
+    @include respond-to('sm') {
+        margin-right: 4px;
+    }
 }
 
 .metricAction {

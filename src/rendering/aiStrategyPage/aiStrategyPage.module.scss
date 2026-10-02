@@ -433,8 +433,8 @@
 
     /* Workflow 4-Step Grid */
     .workflowSection {
-        margin-top: 40px;
-        padding-top: 40px;
+        margin-top: 70px;
+        padding-top: 50px;
         border-top: 1px solid rgba(0, 255, 136, 0.25);
 
         @include respond-to('md') {
@@ -584,7 +584,7 @@
 
     /* Sample Strategy Performance Card */
     .sampleStrategySection {
-        margin-top: 40px;
+        margin-top: 70px;
 
         @include respond-to('sm') {
             margin-top: 28px;

@@ -15,7 +15,7 @@ export default function AboutUs() {
 
     const features = [
         {
-            title: t('about.feature1Title', 'Ai Chart Scanner (TradeSnap)'),
+            title: t('about.feature1Title', 'Ai Chart Scanner '),
             description: t('about.feature1Desc', 'Upload any chart screenshot and receive instant AI-powered technical analysis, pattern detection, and actionable trade setups — all within seconds.')
         },
         {
@@ -25,6 +25,10 @@ export default function AboutUs() {
         {
             title: t('about.feature3Title', 'AI Strategy'),
             description: t('about.feature3Desc', 'Generate, backtest, and refine algorithmic trading strategies powered by neural pattern recognition and multi-timeframe analysis engines.')
+        },
+        {
+            title: t('about.featurePastTradeTitle', 'AI Past Trade Analyzer'),
+            description: t('about.featurePastTradeDesc', 'Upload completed trade screenshots or logs to receive detailed AI feedback on execution quality, entry/exit precision, risk management, and potential psychological mistakes.')
         },
         {
             title: t('about.feature4Title', 'Economic Calendar'),

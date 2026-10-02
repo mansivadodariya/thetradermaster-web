@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import LineText from '@/components/lineText';
 import styles from './insideTrade.module.scss';
 
@@ -12,14 +13,14 @@ const CheckIcon = () => (
 );
 
 export default function InsideTrade() {
+    const { t } = useLanguage();
     const insideQuestions = [
-        "Was my entry well timed?",
-        "Was I entering before confirmation?",
-        "Did I trade with or against the market structure?",
-        "Was my stop-loss positioned logically?",
-        "Did the trade offer enough risk/reward?",
-        "Did my exit make sense based on the setup?",
-        "What could I have done differently?",
+        t('insideTrade.q1', 'Was my entry well timed?'),
+        t('insideTrade.q2', 'Was I entering before confirmation?'),
+        t('insideTrade.q3', 'Did I trade with or against the market structure?'),
+        t('insideTrade.q4', 'Was my stop-loss positioned logically?'),
+        t('insideTrade.q5', 'Did the trade offer enough risk/reward?'),
+        t('insideTrade.q6', 'Did my exit make sense based on the setup?'),
     ];
 
     return (
@@ -27,12 +28,12 @@ export default function InsideTrade() {
             <div className="container-xs">
                 <div className={styles.checklistGlassBox}>
                     <div className={styles.sectionHeader}>
-                        <LineText text="Process Over Outcome" />
+                        <LineText text={t('insideTrade.badge', 'Process Over Outcome')} />
                         <h2>
-                            See What Actually Happened <span className={styles.neonText}>Inside Your Trade</span>
+                            {t('insideTrade.titlePart1', 'See What Actually Happened')} <span className={styles.neonText}>{t('insideTrade.titlePart2', 'Inside Your Trade')}</span>
                         </h2>
                         <p>
-                            A trade result only tells you the outcome. Past Trade Analyzer helps you understand the process behind that outcome.
+                            {t('insideTrade.subtitle', 'A trade result only tells you the outcome. Past Trade Analyzer helps you understand the process behind that outcome.')}
                         </p>
                     </div>
 
@@ -53,7 +54,7 @@ export default function InsideTrade() {
                     </div>
 
                     <div className={styles.summaryLine}>
-                        This turns your trading history into something you can actually learn from.
+                        {t('insideTrade.summary', 'This turns your trading history into something you can actually learn from.')}
                     </div>
                 </div>
             </div>

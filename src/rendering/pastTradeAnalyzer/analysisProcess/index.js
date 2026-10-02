@@ -2,34 +2,36 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import LineText from '@/components/lineText';
 import styles from './analysisProcess.module.scss';
 
 export default function AnalysisProcess() {
+    const { t } = useLanguage();
     const processSteps = [
         {
             num: '01',
-            title: 'Upload Your Completed Trade',
-            desc: 'Upload a screenshot of your completed trade or provide the relevant trade information.',
-            sub: 'Your chart. Your execution. Your history.',
+            title: t('analysisProcess.step1Title', 'Upload Your Completed Trade'),
+            desc: t('analysisProcess.step1Desc', 'Upload a screenshot of your completed trade or provide the relevant trade information.'),
+            sub: t('analysisProcess.step1Sub', 'Your chart. Your execution. Your history.'),
         },
         {
             num: '02',
-            title: 'AI Reviews the Trade',
-            desc: 'The analyzer examines the visible chart, entry, exit, market structure, risk management, and surrounding price action.',
-            sub: 'Deep AI chart structure audit',
+            title: t('analysisProcess.step2Title', 'AI Reviews the Trade'),
+            desc: t('analysisProcess.step2Desc', 'The analyzer examines the visible chart, entry, exit, market structure, risk management, and surrounding price action.'),
+            sub: t('analysisProcess.step2Sub', 'Deep AI chart structure audit'),
         },
         {
             num: '03',
-            title: 'Explore the Findings',
-            desc: 'Review the trade breakdown, potential mistakes, execution issues, and important observations identified by AI.',
-            sub: 'Comprehensive report & score',
+            title: t('analysisProcess.step3Title', 'Explore the Findings'),
+            desc: t('analysisProcess.step3Desc', 'Review the trade breakdown, potential mistakes, execution issues, and important observations identified by AI.'),
+            sub: t('analysisProcess.step3Sub', 'Comprehensive report & score'),
         },
         {
             num: '04',
-            title: 'Improve Your Next Trade',
-            desc: 'Use the feedback to refine your process and avoid repeating the same execution mistakes.',
-            sub: 'Continuous trading progress',
+            title: t('analysisProcess.step4Title', 'Improve Your Next Trade'),
+            desc: t('analysisProcess.step4Desc', 'Use the feedback to refine your process and avoid repeating the same execution mistakes.'),
+            sub: t('analysisProcess.step4Sub', 'Continuous trading progress'),
         },
     ];
 
@@ -37,9 +39,9 @@ export default function AnalysisProcess() {
         <section className={styles.analysisProcess}>
             <div className="container-xs">
                 <div className={styles.sectionHeader}>
-                    <LineText text="How It Works" />
+                    <LineText text={t('analysisProcess.badge', 'How It Works')} />
                     <h2>
-                        From Trade Screenshot to <span className={styles.neonText}>Detailed Analysis</span>
+                        {t('analysisProcess.titlePart1', 'From Trade Screenshot to')} <span className={styles.neonText}>{t('analysisProcess.titlePart2', 'Detailed Analysis')}</span>
                     </h2>
                 </div>
 

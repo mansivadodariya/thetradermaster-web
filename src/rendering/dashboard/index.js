@@ -10,6 +10,7 @@ import { getStoredUser, getStoredUserId } from '@/lib/authSession';
 import Loader from '@/components/loader';
 import EcosystemSection from '../home/ecosystemSection';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 import { getBidiProps } from '@/lib/bidi';
 
 const CardIcon = '/assets/icons/dashboardCard.svg'
@@ -77,12 +78,12 @@ function formatSummary(text) {
 
 const SparklineSVG = () => (
     <svg width="100" height="32" viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2V30H2V24Z" fill="url(#sparklineGrad)" opacity="0.15" />
         <defs>
             <linearGradient id="sparklineGrad" x1="50" y1="2" x2="50" y2="30" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#00FF88" />
-                <stop offset="1" stopColor="#00FF88" stopOpacity="0" />
+                <stop stopColor="currentColor" />
+                <stop offset="1" stopColor="currentColor" stopOpacity="0" />
             </linearGradient>
         </defs>
     </svg>
@@ -96,10 +97,10 @@ const BullBearGraphic = () => (
                 <path d="M10 70 Q 40 40, 70 55 T 130 30 T 190 45 T 210 20" stroke="#00FF88" strokeWidth="2" fill="none" opacity="0.8" />
                 <path d="M10 70 Q 40 40, 70 55 T 130 30 T 190 45 T 210 20 L 210 95 L 10 95 Z" fill="url(#bullGrad)" opacity="0.12" />
                 <circle cx="210" cy="20" r="4" fill="#00FF88" />
-                
+
                 {/* Bull outline */}
                 <path d="M40 60 C 45 45, 60 40, 75 48 C 85 52, 95 42, 105 50 C 115 58, 110 70, 95 72 C 80 74, 65 72, 40 60 Z" stroke="#00FF88" strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.6" />
-                
+
                 {/* Bear outline */}
                 <path d="M120 55 C 130 42, 150 42, 160 52 C 170 60, 180 50, 190 62 C 195 72, 180 75, 165 74 C 150 72, 135 70, 120 55 Z" stroke="#00CC6A" strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.6" />
 
@@ -148,6 +149,7 @@ const TradeSmarterWatermark = () => (
 export default function Dashboard() {
     const router = useRouter();
     const { t } = useLanguage();
+    const { theme } = useTheme();
     const [userId, setUserId] = useState('');
     const [stats, setStats] = useState(null);
     const [recentActivity, setRecentActivity] = useState([]);
@@ -213,7 +215,7 @@ export default function Dashboard() {
             label: t('dashboard.recent', 'Recent'),
             value: stats?.total_analysis_history ?? 0,
             icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="20" x2="18" y2="10" />
                     <line x1="12" y1="20" x2="12" y2="4" />
                     <line x1="6" y1="20" x2="6" y2="14" />
@@ -225,7 +227,7 @@ export default function Dashboard() {
             label: t('nav.aiChat', 'AI Chat'),
             value: stats?.total_chat_history ?? 0,
             icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <circle cx="12" cy="12" r="6" />
                     <circle cx="12" cy="12" r="2" />
@@ -237,7 +239,7 @@ export default function Dashboard() {
             label: t('dashboard.availableCredits', 'Available AI Credits'),
             value: stats?.available_credits ?? 0,
             icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17 1l4 4-4 4" />
                     <path d="M3 11V9a4 4 0 0 1 4-4h14" />
                     <path d="M7 23l-4-4 4-4" />
@@ -250,7 +252,7 @@ export default function Dashboard() {
             label: t('dashboard.credits', 'credits'),
             value: stats?.total_credits ?? 0,
             icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="10" rx="2" />
                     <circle cx="12" cy="5" r="2" />
                     <path d="M12 7v4" />
@@ -311,7 +313,7 @@ export default function Dashboard() {
             )
         },
         {
-            title: t('nav.aiTradeAnalysis', 'AI Past Trade Analyzer'),
+            title: t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer'),
             desc: t('dashboard.aiTradeAnalysisDesc', 'Upload your broker statement (MT4, MT5, cTrader, CSV) to reveal execution leaks, win-rate edge, and psychological biases.'),
             cta: t('common.exploreNow', 'Explore Now'),
             href: '/ai-trade-analysis',
@@ -378,7 +380,11 @@ export default function Dashboard() {
         <div className={styles.dashboard}>
             {/* Top Hero Banner */}
             <section className={styles.heroBanner}>
-                <Image src="/assets/images/dashboard-bg.webp" alt="Dashboard Banner" fill priority fetchPriority="high" sizes="100vw" quality={85} className={styles.heroBgImg} />
+                <img
+                    src={theme === 'light' ? '/assets/images/dashboard-light-bg.webp' : '/assets/images/dashboard-bg.webp'}
+                    alt="Dashboard Banner"
+                    className={styles.heroBgImg}
+                />
                 <div className={styles.heroContent}>
                     <div className={styles.kicker}>
                         {t('dashboard.bannerKicker', 'Trade Smarter With AI-Powered Forex Intelligence')}

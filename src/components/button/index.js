@@ -20,7 +20,8 @@ export default function Button({
         styles.button,
         light ? styles.light : '',
         outline ? styles.outline : '',
-        fullWidth ? styles.fullWidth : ''
+        fullWidth ? styles.fullWidth : '',
+        !icon ? styles.noIcon : ''
     );
 
     const content = (

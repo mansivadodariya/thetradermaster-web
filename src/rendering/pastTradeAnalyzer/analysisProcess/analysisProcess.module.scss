@@ -35,38 +35,45 @@
 
     .stepsGrid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
         position: relative;
-
-        @include respond-to('md') {
-            grid-template-columns: repeat(2, 1fr);
-        }
 
         @include respond-to('sm') {
             grid-template-columns: 1fr;
+            gap: 16px;
         }
 
         .processStepCard {
-            background: rgba(8, 24, 17, 0.7);
-            border: 1px solid rgba(0, 255, 136, 0.18);
+            background: rgba(8, 24, 17, 0.75);
+            border: 1px solid rgba(0, 255, 136, 0.2);
             border-radius: 20px;
-            padding: 26px;
+            padding: 34px 30px;
             backdrop-filter: blur(12px);
             position: relative;
             transition: all 0.3s ease;
 
+            @include respond-to('sm') {
+                padding: 24px 20px;
+            }
+
             &:hover {
-                border-color: rgba(0, 255, 136, 0.45);
+                border-color: rgba(0, 255, 136, 0.5);
                 transform: translateY(-5px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 136, 0.15);
             }
 
             .stepNum {
-                font-size: 36px;
+                font-size: 46px;
                 font-weight: 800;
-                color: rgba(0, 255, 136, 0.25);
+                color: rgba(0, 255, 136, 0.35);
                 line-height: 1;
-                margin-bottom: 16px;
+                margin-bottom: 20px;
+
+                @include respond-to('sm') {
+                    font-size: 38px;
+                    margin-bottom: 14px;
+                }
 
                 span {
                     color: #00FF88;
@@ -74,27 +81,45 @@
             }
 
             h3 {
-                font-size: 17px;
+                font-size: 21px;
                 font-weight: 700;
                 color: #FFFFFF;
-                margin-bottom: 10px;
+                margin-bottom: 12px;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to('sm') {
+                    font-size: 18px;
+                }
             }
 
             p {
-                font-size: 13.5px;
-                line-height: 1.55;
-                color: rgba(255, 255, 255, 0.7);
-                margin-bottom: 12px;
+                font-size: 15px;
+                line-height: 1.65;
+                color: rgba(255, 255, 255, 0.75);
+                margin-bottom: 16px;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to('sm') {
+                    font-size: 14px;
+                    line-height: 1.55;
+                }
             }
 
             .subNote {
-                font-size: 12px;
+                font-size: 13px;
                 font-weight: 600;
                 color: #00FF88;
-                background: rgba(0, 255, 136, 0.08);
-                padding: 4px 8px;
-                border-radius: 4px;
+                background: rgba(0, 255, 136, 0.1);
+                border: 1px solid rgba(0, 255, 136, 0.22);
+                padding: 6px 12px;
+                border-radius: 6px;
                 display: inline-block;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to('sm') {
+                    font-size: 12px;
+                    padding: 5px 10px;
+                }
             }
         }
     }

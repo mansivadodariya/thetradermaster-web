@@ -1,34 +1,36 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import LineText from '@/components/lineText';
 import styles from './learningOpportunity.module.scss';
 
 export default function LearningOpportunity() {
+    const { t } = useLanguage();
     const scenarioCards = [
         {
             type: 'losing',
-            tag: 'Losing Trade?',
-            title: 'Analyze Execution Issues',
-            desc: 'Find the execution issues that may have contributed to the loss.',
+            tag: t('learningOpp.tag1', 'Losing Trade?'),
+            title: t('learningOpp.title1', 'Analyze Execution Issues'),
+            desc: t('learningOpp.desc1', 'Find the execution issues that may have contributed to the loss.'),
         },
         {
             type: 'winning',
-            tag: 'Winning Trade?',
-            title: 'Recognize Quality Setups',
-            desc: 'Understand what you did correctly so you can recognize similar high-quality setups.',
+            tag: t('learningOpp.tag2', 'Winning Trade?'),
+            title: t('learningOpp.title2', 'Recognize Quality Setups'),
+            desc: t('learningOpp.desc2', 'Understand what you did correctly so you can recognize similar high-quality setups.'),
         },
         {
             type: 'repeating',
-            tag: 'Repeating Mistakes?',
-            title: 'Identify Bad Habits',
-            desc: 'Compare your reviewed trades and identify patterns in your execution.',
+            tag: t('learningOpp.tag3', 'Repeating Mistakes?'),
+            title: t('learningOpp.title3', 'Identify Bad Habits'),
+            desc: t('learningOpp.desc3', 'Compare your reviewed trades and identify patterns in your execution.'),
         },
         {
             type: 'unsure',
-            tag: 'Unsure Process?',
-            title: 'Build Consistency',
-            desc: 'Use your previous trades to see where your decision-making can become more consistent.',
+            tag: t('learningOpp.tag4', 'Unsure Process?'),
+            title: t('learningOpp.title4', 'Build Consistency'),
+            desc: t('learningOpp.desc4', 'Use your previous trades to see where your decision-making can become more consistent.'),
         },
     ];
 
@@ -36,9 +38,9 @@ export default function LearningOpportunity() {
         <section className={styles.learningOpportunity}>
             <div className="container-xs">
                 <div className={styles.sectionHeader}>
-                    <LineText text="Adaptive Learning" />
+                    <LineText text={t('learningOpp.badge', 'Adaptive Learning')} />
                     <h2>
-                        Turn Every Trade Into a <span className={styles.neonText}>Learning Opportunity</span>
+                        {t('learningOpp.mainTitlePart1', 'Turn Every Trade Into a')} <span className={styles.neonText}>{t('learningOpp.mainTitlePart2', 'Learning Opportunity')}</span>
                     </h2>
                 </div>
 

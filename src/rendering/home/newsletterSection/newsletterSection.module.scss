@@ -151,23 +151,45 @@
         input {
             flex: 1;
             border: none;
-            background: transparent;
+            background: transparent !important;
             padding: 12px 10px;
             font-size: 15px;
-            color: #FFFFFF;
+            color: #FFFFFF !important;
             font-family: var(--font-plus-jakarta);
             outline: none;
             width: 100%;
+            box-shadow: none;
 
             &::placeholder {
-                color: rgba(255, 255, 255, 0.45);
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            /* Prevent browser autofill from rendering white background */
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus,
+            &:-webkit-autofill:active {
+                -webkit-text-fill-color: #FFFFFF !important;
+                -webkit-box-shadow: 0 0 0px 1000px #04120C inset !important;
+                box-shadow: 0 0 0px 1000px #04120C inset !important;
+                transition: background-color 5000s ease-in-out 0s !important;
+                caret-color: #FFFFFF !important;
+                border-radius: 10px;
             }
 
             @include respond-to('sm') {
-                background: rgba(4, 18, 12, 0.9);
+                background: rgba(4, 18, 12, 0.9) !important;
                 border: 1px solid rgba(0, 255, 136, 0.25);
                 border-radius: 12px;
                 padding: 14px 18px;
+
+                &:-webkit-autofill,
+                &:-webkit-autofill:hover,
+                &:-webkit-autofill:focus,
+                &:-webkit-autofill:active {
+                    -webkit-box-shadow: 0 0 0px 1000px #04120C inset !important;
+                    box-shadow: 0 0 0px 1000px #04120C inset !important;
+                }
             }
         }
 

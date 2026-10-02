@@ -9,6 +9,7 @@ import styles from './aiAssistant.module.scss';
 import { ATR } from 'technicalindicators';
 import { useTheme } from '@/context/ThemeContext';
 import { getBidiProps, bidiMarkdownComponents } from '@/lib/bidi';
+import Button from '@/components/button';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -271,6 +272,7 @@ const SentimentRadar = ({ indicators, theme = 'light' }) => {
     const data = indicators?.voting_scores || indicators?.['4H']?.voting_scores || {};
     const normalize = (val) => (val + 10) * 5;
     const isDark = theme === 'dark';
+    const primaryGreen = isDark ? '#00FF88' : '#10B981';
 
     const series = [{
         name: 'Market Sentiment',
@@ -285,15 +287,23 @@ const SentimentRadar = ({ indicators, theme = 'light' }) => {
     const options = {
         chart: { type: 'radar', toolbar: { show: false }, animations: { enabled: true, speed: 1000 } },
         theme: { mode: theme },
+        colors: [primaryGreen],
         labels: ['Trend', 'Momentum', 'Volatility', 'Overall'],
         yaxis: { show: false, min: 0, max: 100 },
         fill: {
             opacity: 0.45, type: 'gradient',
-            gradient: { shade: isDark ? 'dark' : 'light', gradientToColors: ['#0f5cf2'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
+            gradient: { shade: isDark ? 'dark' : 'light', gradientToColors: [primaryGreen], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
         },
-        stroke: { width: 2, colors: ['#0f5cf2'] },
-        markers: { size: 4, colors: ['#0f5cf2'], strokeWidth: 2, strokeColors: isDark ? '#1a1a1e' : '#fff' },
-        plotOptions: { radar: { polygons: { strokeColors: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 92, 242, 0.15)', connectorColors: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 92, 242, 0.1)' } } },
+        stroke: { width: 2, colors: [primaryGreen] },
+        markers: { size: 4, colors: [primaryGreen], strokeWidth: 2, strokeColors: isDark ? '#061a12' : '#ffffff' },
+        plotOptions: {
+            radar: {
+                polygons: {
+                    strokeColors: isDark ? 'rgba(0, 255, 136, 0.25)' : 'rgba(16, 185, 129, 0.25)',
+                    connectorColors: isDark ? 'rgba(0, 255, 136, 0.15)' : 'rgba(16, 185, 129, 0.15)'
+                }
+            }
+        },
         tooltip: { theme: theme }
     };
 
@@ -306,20 +316,23 @@ const SentimentRadar = ({ indicators, theme = 'light' }) => {
 
 const Gauge = ({ value, title, theme = 'light' }) => {
     const isDark = theme === 'dark';
+    const primaryGreen = isDark ? '#00FF88' : '#10B981';
+
     const options = {
         chart: { type: 'radialBar', sparkline: { enabled: true } },
+        colors: [primaryGreen],
         plotOptions: {
             radialBar: {
                 startAngle: -110, endAngle: 110,
                 hollow: { size: '65%', background: isDark ? '#1a1a1e' : '#f8fafc' },
                 track: { background: isDark ? '#2d2d34' : '#e2e8f0', strokeWidth: '100%', margin: 5 },
                 dataLabels: {
-                    name: { show: true, color: isDark ? '#F0FDF4' : '#0f5cf2', offsetY: -10, fontSize: '12px', fontWeight: 600 },
+                    name: { show: true, color: primaryGreen, offsetY: -10, fontSize: '12px', fontWeight: 600 },
                     value: { show: true, fontSize: '22px', fontWeight: 700, color: isDark ? '#ffffff' : '#121212', offsetY: 0, formatter: (val) => val.toFixed(1) }
                 }
             }
         },
-        fill: { type: 'gradient', gradient: { shade: isDark ? 'dark' : 'light', type: 'horizontal', gradientToColors: ['#0f5cf2'], stops: [0, 100] } },
+        fill: { type: 'gradient', gradient: { shade: isDark ? 'dark' : 'light', type: 'horizontal', gradientToColors: [primaryGreen], stops: [0, 100] } },
         stroke: { lineCap: 'round' },
         labels: [title]
     };
@@ -394,14 +407,11 @@ const ReportPanel = ({ fullReport, visualData, isLoading, scrollToTopSignal, onD
                 )}
                 {onDownload && (
                     <div className={styles.inlineDownloadRow}>
-                        <button type="button" className={styles.inlineDownloadBtn} onClick={() => onDownload && onDownload(reportRef.current)}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Download Report
-                        </button>
+                        <Button
+                            type="button"
+                            text="Download Report"
+                            onClick={() => onDownload && onDownload(reportRef.current)}
+                        />
                     </div>
                 )}
             </div>
@@ -412,7 +422,13 @@ const ReportPanel = ({ fullReport, visualData, isLoading, scrollToTopSignal, onD
         <div className={styles.reportPanel}>
             <div className={styles.reportPanelHeader}>
                 <h3>{fullReport ? 'Analysis Center' : 'No Report Selected'}</h3>
-                {fullReport && onDownload && <button type="button" className={styles.reportDownloadBtn} onClick={() => onDownload && onDownload(reportRef.current)}>Download Document</button>}
+                {fullReport && onDownload && (
+                    <Button
+                        type="button"
+                        text="Download Document"
+                        onClick={() => onDownload && onDownload(reportRef.current)}
+                    />
+                )}
             </div>
             <div className={styles.reportPanelBody} ref={scrollRef}>
                 {isLoading ? (

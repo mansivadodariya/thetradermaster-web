@@ -401,8 +401,8 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                 toast('Preparing PDF download...');
                 const html2pdf = (await import('html2pdf.js')).default;
 
-                // Give a short delay to let layout and ApexCharts settle in the off-screen element
-                await new Promise((resolve) => setTimeout(resolve, 500));
+                // Give time for layout and ApexCharts to fully render off-screen
+                await new Promise((resolve) => setTimeout(resolve, 800));
 
                 const element = exportRef.current;
                 if (!element) {
@@ -410,8 +410,8 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                 }
 
                 const opt = {
-                    margin: 15,
-                    filename: 'market-analysis-report.pdf',
+                    margin: [12, 12, 12, 12],
+                    filename: `${selectedPair ? selectedPair.replace('/', '_') : 'FX'}_Market_Analysis_Report.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: {
                         scale: 2,
@@ -424,34 +424,14 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                     },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak: {
-                        mode: ['avoid-all', 'css', 'legacy'],
-                        before: [],
-                        after: [],
+                        mode: ['css', 'legacy'],
                         avoid: [
                             `.${styles.reportWidget}`,
                             `.${styles.reportGauge}`,
                             `.${styles.reportRadar}`,
                             `.${styles.mdTableWrapper}`,
-                            `.${styles.reportMarkdown}`,
-                            'h1',
-                            'h2',
-                            'h3',
-                            'h4',
-                            'h5',
-                            'h6',
-                            'p',
-                            'li',
-                            'ul',
-                            'ol',
-                            'blockquote',
-                            'img',
-                            'canvas',
-                            'svg',
-                            'table',
                             'tr',
-                            'td',
-                            'th',
-                            'pre'
+                            'table'
                         ]
                     }
                 };
@@ -673,12 +653,16 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                                     key={index}
                                     className={`${styles.messageRow} ${msg.role === 'user' ? styles.userRow : ''} ${msg.fullReport ? styles.reportRow : ''}`}
                                 >
-                                    {msg.role === 'user' && msg.pair && (
-                                        <span className={styles.pairBadge}>{msg.pair}</span>
-                                    )}
                                     <div {...getBidiProps(msg.content, msg.role === 'user' ? styles.userMessage : styles.assistantMessage)}>
                                         {msg.role === 'user' ? (
-                                            msg.content
+                                            <>
+                                                {msg.pair && (
+                                                    <div className={styles.pairBadgeHeader}>
+                                                        <span className={styles.pairBadge}>{msg.pair}</span>
+                                                    </div>
+                                                )}
+                                                <span>{msg.content}</span>
+                                            </>
                                         ) : (
                                             <>
                                                 {msg.fullReport ? (
@@ -922,6 +906,16 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                     }}
                 >
                     <div ref={exportRef} className={styles.pdfExporting}>
+                        <div className={styles.pdfHeader}>
+                            <div className={styles.pdfHeaderBrand}>
+                                <h2>Trader Master Copilot</h2>
+                                <span>AI Market Intelligence & Technical Analysis Report</span>
+                            </div>
+                            <div className={styles.pdfHeaderMeta}>
+                                <div><strong>Active Pair:</strong> {selectedPair}</div>
+                                <div><strong>Date:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+                            </div>
+                        </div>
                         <ReportPanel
                             inline
                             fullReport={exportData.fullReport}

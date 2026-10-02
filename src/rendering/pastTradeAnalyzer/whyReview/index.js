@@ -4,29 +4,30 @@ import { motion } from 'framer-motion';
 import LineText from '@/components/lineText';
 import styles from './whyReview.module.scss';
 
+const whyCards = [
+    {
+        title: 'Stop Repeating the Same Mistakes',
+        desc: 'A mistake becomes expensive when it keeps happening. Review your previous trades and identify recurring execution problems.',
+    },
+    {
+        title: 'Understand What Works for You',
+        desc: 'Learn which setups, conditions, and execution patterns have worked best within your own trading history.',
+    },
+    {
+        title: 'Improve Trading Discipline',
+        desc: 'Create a habit of reviewing decisions instead of focusing only on the final profit or loss.',
+    },
+    {
+        title: 'Make Your Journal More Useful',
+        desc: 'Turn raw trade records into structured insights you can actually use.',
+    },
+    {
+        title: 'Become More Consistent',
+        desc: 'The objective is not to make every trade perfect. It is to make your decision-making process more consistent over time.',
+    },
+];
+
 export default function WhyReview() {
-    const whyCards = [
-        {
-            title: 'Stop Repeating the Same Mistakes',
-            desc: 'A mistake becomes expensive when it keeps happening. Review your previous trades and identify recurring execution problems.',
-        },
-        {
-            title: 'Understand What Works for You',
-            desc: 'Learn which setups, conditions, and execution patterns have worked best within your own trading history.',
-        },
-        {
-            title: 'Improve Trading Discipline',
-            desc: 'Create a habit of reviewing decisions instead of focusing only on the final profit or loss.',
-        },
-        {
-            title: 'Make Your Journal More Useful',
-            desc: 'Turn raw trade records into structured insights you can actually use.',
-        },
-        {
-            title: 'Become More Consistent',
-            desc: 'The objective is not to make every trade perfect. It is to make your decision-making process more consistent over time.',
-        },
-    ];
 
     return (
         <section className={styles.whyReview}>

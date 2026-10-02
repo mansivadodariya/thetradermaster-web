@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from './dashboard.module.scss';
 import CommonSearch from '@/components/commonSearch';
@@ -377,7 +378,7 @@ export default function Dashboard() {
         <div className={styles.dashboard}>
             {/* Top Hero Banner */}
             <section className={styles.heroBanner}>
-                <img src="/assets/images/dashboard-bg.png" alt="Dashboard Banner" className={styles.heroBgImg} />
+                <Image src="/assets/images/dashboard-bg.webp" alt="Dashboard Banner" fill priority fetchPriority="high" sizes="100vw" quality={85} className={styles.heroBgImg} />
                 <div className={styles.heroContent}>
                     <div className={styles.kicker}>
                         {t('dashboard.bannerKicker', 'Trade Smarter With AI-Powered Forex Intelligence')}

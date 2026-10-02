@@ -1,11 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Herobanner from './herobanner'
-import SliderSection from './sliderSection'
-import TradersSection from './tradersSection'
-import TradingDesk from './tradingDesk'
 
 // Dynamically import below-the-fold sections for faster initial page load & better LCP
+const SliderSection = dynamic(() => import('./sliderSection'))
+const TradersSection = dynamic(() => import('./tradersSection'))
+const TradingDesk = dynamic(() => import('./tradingDesk'))
 const WhyChooseUs = dynamic(() => import('./whyChooseUs'))
 const HowitWorks = dynamic(() => import('./howitWorks'))
 const TradeSetup = dynamic(() => import('./tradeSetup'))

@@ -8,20 +8,19 @@
     overflow: hidden;
     background: #050d09;
 
-    /* Background image with reduced opacity */
-    &::after {
-        content: '';
+    /* Background image via Next.js Image component */
+    .heroBgImage {
         position: absolute;
         inset: 0;
-        background: url('/assets/images/new-hero-banner.png') no-repeat center center;
-        background-size: cover;
+        object-fit: cover;
         opacity: 0.6;
         z-index: 0;
+        pointer-events: none;
         transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
     }
 
     /* Enhanced subtle glow on background image when cursor is over the brain area */
-    &.brainActive::after {
+    &.brainActive .heroBgImage {
         opacity: 0.85;
         filter: drop-shadow(0 0 35px rgba(34, 197, 94, 0.45));
     }

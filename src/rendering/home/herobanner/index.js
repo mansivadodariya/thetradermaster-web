@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './herobanner.module.scss';
 import Header from '@/components/header';
@@ -96,6 +97,16 @@ export default function Herobanner() {
 
     return (
         <div className={`${styles.herobanner} ${isBrainHovered ? styles.brainActive : ''}`}>
+            <Image
+                src="/assets/images/new-hero-banner.webp"
+                alt="Trader Master AI Hero"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                quality={85}
+                className={styles.heroBgImage}
+            />
             <div className={styles.heroInner}>
                 {/* Main hero content */}
                 <div className="container-xs">

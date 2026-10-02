@@ -80,9 +80,9 @@
                                 </Link>
                             </div>
                             <div className={styles.cardVisualArea}>
-                                <img src={TradeVisual} alt="AI Trade Graphic" className={styles.bgGraphic} />
+                                <img src={TradeVisual} alt="AI Trade Graphic" className={styles.bgGraphic} loading="lazy" decoding="async" />
                                 <div className={styles.chartFrame}>
-                                    <img src={ChartVisual} alt="Chart Preview" />
+                                    <img src={ChartVisual} alt="Chart Preview" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </motion.div>
@@ -99,7 +99,7 @@
                                 </Link>
                             </div>
                             <div className={styles.robotGraphicBox}>
-                                <img src={RobotVisual} alt="AI Assistant Robot" className={styles.robotImg} />
+                                <img src={RobotVisual} alt="AI Assistant Robot" className={styles.robotImg} loading="lazy" decoding="async" />
                             </div>
                         </motion.div>
 
@@ -115,7 +115,7 @@
                                 </Link>
                             </div>
                             <div className={styles.strategyGraphicBox}>
-                                <img src={StrategyVisual} alt="AI Strategy Stack" className={styles.strategyImg} />
+                                <img src={StrategyVisual} alt="AI Strategy Stack" className={styles.strategyImg} loading="lazy" decoding="async" />
                             </div>
                         </motion.div>
 

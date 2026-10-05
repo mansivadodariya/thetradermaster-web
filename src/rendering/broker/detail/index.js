@@ -112,8 +112,9 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         ? broker.features_ar
         : (broker.features || []);
 
+    const effectiveTheme = isPublicLanding ? 'dark' : theme;
     const logoSrc = (broker.logo && (broker.logo.includes('logo-light') || broker.id === 'newera'))
-        ? (theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp')
+        ? (effectiveTheme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp')
         : broker.logo;
 
     return (
@@ -141,7 +142,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
                     )}
                 </div>
 
-                {name && <h1 className={styles.title}>{name}</h1>}
+                {!logoSrc && name && <h1 className={styles.title}>{name}</h1>}
                 {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
             </div>
 

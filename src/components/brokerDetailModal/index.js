@@ -71,7 +71,7 @@ export default function BrokerDetailModal({ broker, onClose, onSyncClick }) {
                         <span className={styles.categoryBadge}>{subtitle}</span>
                     </div>
 
-                    <h2 className={styles.title}>{name}</h2>
+                    {!logoSrc && <h2 className={styles.title}>{name}</h2>}
                     {broker.status && <span className={styles.statusBadge}>{broker.status}</span>}
                 </div>
 

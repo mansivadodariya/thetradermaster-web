@@ -117,7 +117,7 @@ export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
 
             {/* Title & Description */}
             <div className={styles.cardBody}>
-                {name && <h3 className={styles.cardTitle}>{name}</h3>}
+                {!logoSrc && name && <h3 className={styles.cardTitle}>{name}</h3>}
                 {subtitle && <span className={styles.subtitleTag}>{subtitle}</span>}
                 {description && <p className={styles.cardDescription}>{description}</p>}
             </div>

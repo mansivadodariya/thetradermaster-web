@@ -15,10 +15,26 @@
     overflow: visible !important;
     z-index: 90;
 
+    *,
+    *::before,
+    *::after {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    a, button, input, div {
+        &:focus,
+        &:focus-visible,
+        &:focus-within,
+        &:active {
+            outline: none !important;
+            box-shadow: none;
+        }
+    }
+
     .logoHeader {
         position: relative;
         display: flex;
-        align-items: center;
+        align-items: center;  
         justify-content: center;
         height: 65px;
         box-sizing: border-box;
@@ -187,6 +203,13 @@
             position: relative;
             text-decoration: none;
             border-radius: 8px;
+            outline: none !important;
+
+            &:focus,
+            &:focus-visible,
+            &:active {
+                outline: none !important;
+            }
 
             &::before {
                 display: none;
@@ -340,6 +363,13 @@
             text-decoration: none;
             transition: all 0.2s ease-in-out;
             border-radius: 8px;
+            outline: none !important;
+
+            &:focus,
+            &:focus-visible,
+            &:active {
+                outline: none !important;
+            }
 
             &::before {
                 content: '';

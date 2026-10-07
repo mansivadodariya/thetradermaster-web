@@ -142,7 +142,18 @@
         background: #F0FDF4;
         transform: translateY(-2px);
         box-shadow: 0 8px 24px rgba(16, 185, 129, 0.1);
+
+        .sparkline {
+            color: #059669;
+            filter: drop-shadow(0 2px 6px rgba(16, 185, 129, 0.35));
+        }
     }
+}
+
+.sparkline {
+    color: #10B981;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 .statLeft {
@@ -465,6 +476,11 @@
         }
     }
 
+    .sparkline {
+        color: #00FF88;
+        filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.3));
+    }
+
     .statCard {
         background: rgba(4, 22, 15, 0.85);
         border-color: rgba(0, 255, 136, 0.22);
@@ -473,6 +489,11 @@
         &:hover {
             border-color: rgba(0, 255, 136, 0.5);
             background: rgba(6, 30, 20, 0.95);
+
+            .sparkline {
+                color: #00FF88;
+                filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.6));
+            }
         }
     }
 

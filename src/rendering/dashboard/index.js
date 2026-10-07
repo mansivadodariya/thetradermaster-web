@@ -77,9 +77,9 @@ function formatSummary(text) {
 }
 
 const SparklineSVG = () => (
-    <svg width="100" height="32" viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+    <svg width="100" height="32" viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.sparkline}>
         <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2V30H2V24Z" fill="url(#sparklineGrad)" opacity="0.15" />
+        <path d="M2 24C12 24 18 14 28 16C38 18 44 8 54 12C64 16 72 4 82 8C90 11.2 94 3 98 2V30H2V24Z" fill="url(#sparklineGrad)" opacity="0.25" />
         <defs>
             <linearGradient id="sparklineGrad" x1="50" y1="2" x2="50" y2="30" gradientUnits="userSpaceOnUse">
                 <stop stopColor="currentColor" />

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './aiChat.module.scss';
 import LineText from '@/components/lineText';
+import Button from '@/components/button';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import { useLanguage } from '@/context/LanguageContext';
@@ -100,7 +101,6 @@ export default function AiChat() {
                                             <button 
                                                 key={idx} 
                                                 type="button" 
-                                                onClick={() => handleSend(item)}
                                             >
                                                 {item}
                                             </button>
@@ -111,7 +111,6 @@ export default function AiChat() {
                                     className={styles.sendButton} 
                                     type="button" 
                                     aria-label="Send prompt"
-                                    onClick={() => handleSend()}
                                 >
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -132,9 +131,6 @@ export default function AiChat() {
                         <motion.div 
                             className={styles.card} 
                             variants={itemVariants} 
-                            onClick={() => handleSend('Analyze EUR/USD key levels and trend structure')} 
-                            role="button" 
-                            tabIndex={0}
                         >
                             <div className={styles.cardHeader}>
                                 <div className={styles.iconBox}>
@@ -152,9 +148,6 @@ export default function AiChat() {
                         <motion.div 
                             className={styles.card} 
                             variants={itemVariants} 
-                            // onClick={() => handleSend('What is the market impact of the upcoming NFP release?')} 
-                            role="button" 
-                            tabIndex={0}
                         >
                             <div className={styles.cardHeader}>
                                 <div className={styles.iconBox}>
@@ -174,9 +167,6 @@ export default function AiChat() {
                         <motion.div 
                             className={styles.card} 
                             variants={itemVariants} 
-                            // onClick={() => handleSend('Explain how to calculate position size for 1% risk')} 
-                            role="button" 
-                            tabIndex={0}
                         >
                             <div className={styles.cardHeader}>
                                 <div className={styles.iconBox}>
@@ -305,16 +295,11 @@ export default function AiChat() {
                         <div className={styles.ctaContent}>
                             <h2>{t('aiChat.ctaTitle', 'Ready to Chat with Trader Master AI?')}</h2>
                             <p>{t('aiChat.ctaDesc', 'Join thousands of traders using AI to analyze market setups and improve win rate.')}</p>
-                            <button 
-                                className={styles.ctaBtn} 
-                                onClick={() => authNavigate(router, '/ai-assistant')}
-                            >
-                                <span>{t('aiChat.startAskingNow', 'Start Asking Now')}</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04100B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
+                            <Button
+                                text={t('aiChat.startAskingNow', 'Start Asking Now')}
+                                icon="/assets/icons/arrow.svg"
+                                href="/ai-assistant"
+                            />
                         </div>
                     </motion.div>
                 </div>

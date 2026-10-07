@@ -4,6 +4,7 @@ import styles from './contactUs.module.scss'
 import { supabase } from '@/lib/supabaseClient'
 import { toast } from '@/components/toast'
 import Loader from '@/components/loader'
+import Button from '@/components/button'
 import { useLanguage } from '@/context/LanguageContext'
 
 const MailIcon = () => (
@@ -196,13 +197,13 @@ export default function ContactUs() {
                                 />
                             </div>
 
-                            <button
+                            <Button
+                                text={submitting ? t('contact.sending', 'Sending...') : t('contact.sendButton', 'Send Message')}
+                                icon="/assets/icons/arrow.svg"
                                 type="submit"
-                                className={styles.submitBtn}
                                 disabled={submitting}
-                            >
-                                {submitting ? <Loader size="sm" /> : t('contact.sendButton', 'Send Message')}
-                            </button>
+                                fullWidth
+                            />
                         </form>
                     </div>
                 </div>

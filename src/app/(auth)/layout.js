@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from 'react'
 import { captureUtmParameters } from '@/lib/utm';
+import MaintenanceGuard from '@/components/maintenanceGuard';
 
 export default function Layout({ children }) {
     useEffect(() => {
@@ -9,8 +10,10 @@ export default function Layout({ children }) {
     }, []);
 
     return (
-        <div>
-            {children}
-        </div>
+        <MaintenanceGuard>
+            <div>
+                {children}
+            </div>
+        </MaintenanceGuard>
     )
-}
+}

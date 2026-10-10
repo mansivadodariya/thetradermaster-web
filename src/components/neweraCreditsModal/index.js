@@ -233,6 +233,12 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                     } catch (dbErr) {
                         console.error("Error updating deposit_credits_awarded:", dbErr);
                     }
+                }
+
+                const message = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                if (message) {
+                    toast.success(message);
+                } else if (welcomeAwarded && !depositAwarded) {
                     toast.success(`Congratulations! You have received ${earnedAmount} deposit credits!`);
                 } else if (welcomeAwarded && depositAwarded) {
                     toast.success(`Congratulations! You have received ${earnedAmount} trading credits!`);
@@ -246,7 +252,14 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                 return;
             } else {
                 setSyncChecked(true);
-                setSyncStatusMessage('Checked just now. No new credits available yet.');
+                const isSuccess = apiRes?.success ?? res?.success ?? true;
+                const message = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                if (isSuccess && message) {
+                    toast.success(message);
+                    setSyncStatusMessage(message);
+                } else {
+                    setSyncStatusMessage('Checked just now. No new credits available yet.');
+                }
             }
         } catch (err) {
             console.warn("Credit sync failed:", err);
@@ -348,9 +361,12 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                     return;
                 }
 
-                toast.success('Account linked successfully! Welcome credits will update shortly.');
+                const apiData = res?.data || res || {};
+                const msg = apiData?.detail || apiData?.message || 'Account linked successfully! Welcome credits will update shortly.';
+                toast.success(msg);
             } else {
                 const apiMsg = res.message || res.detail || 'Failed to link account.';
+               
                 setError(apiMsg);
                 toast.error(apiMsg);
             }
@@ -378,7 +394,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
             <div className={styles.box}>
                 {/* Visual Brand Border accent */}
                 <div className={styles.accentLayer}></div>
-                
+
                 {/* Newera Logo Header */}
                 <div className={styles.brandHeader}>
                     <div className={styles.logoWrapper}>
@@ -402,11 +418,11 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                 <>
                                     <h2 id="modal-title" className={styles.title}>
                                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 12v10H4V12" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            <path d="M22 7H2v5h20V7z" fill="rgba(0, 255, 136, 0.2)" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            <path d="M12 22V7" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            <path d="M20 12v10H4V12" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M22 7H2v5h20V7z" fill="rgba(0, 255, 136, 0.2)" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M12 22V7" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         <span>{t('neweraModal.welcomeBonus', 'Welcome Bonus')}</span>
                                     </h2>
@@ -434,9 +450,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                                     { '{credits}': welcomeCredits }
                                                 )}
                                             </p>
-                                            <button 
-                                                type="button" 
-                                                className={styles.registerBtn} 
+                                            <button
+                                                type="button"
+                                                className={styles.registerBtn}
                                                 onClick={handleRegisterRedirect}
                                             >
                                                 <span {...getBidiProps(t('neweraModal.registerAccountBtn', 'Register Account'))}>
@@ -473,14 +489,14 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                                         name="email"
                                                         value={email}
                                                         onChange={(e) => setEmail(e.target.value)}
-                                                            required
-                                                            disabled
+                                                        required
+                                                        disabled
                                                     />
                                                 </div>
                                                 {error && <p className={styles.error} role="alert">{error}</p>}
-                                                <button 
-                                                    type="submit" 
-                                                    className={styles.submitBtn} 
+                                                <button
+                                                    type="submit"
+                                                    className={styles.submitBtn}
                                                     disabled={submitting || !email.trim() || !email.includes('@')}
                                                 >
                                                     {submitting ? (
@@ -552,9 +568,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                                     <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
                                                         {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
                                                     </span>
-                                                    <button 
-                                                        type="button" 
-                                                        className={styles.recheckBtn} 
+                                                    <button
+                                                        type="button"
+                                                        className={styles.recheckBtn}
                                                         onClick={syncCredits}
                                                         disabled={autoSyncing}
                                                     >
@@ -616,9 +632,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                                     <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
                                                         {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
                                                     </span>
-                                                    <button 
-                                                        type="button" 
-                                                        className={styles.recheckBtn} 
+                                                    <button
+                                                        type="button"
+                                                        className={styles.recheckBtn}
                                                         onClick={syncCredits}
                                                         disabled={autoSyncing}
                                                     >

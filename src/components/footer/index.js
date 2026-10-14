@@ -110,8 +110,8 @@ export default function Footer() {
                         </Link>
                         <p>
                             {t('footer.descPart1', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the ')}
-                            <a href="https://newera365.com/en" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
-                                Newera
+                            <a href="https://www.avatrade.com/?tag=226362" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
+                                AvaTrade
                             </a>
                             {t('footer.descPart2', ' brokerage stack.')}
                         </p>

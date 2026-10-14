@@ -75,10 +75,10 @@ export default function HowitWorks() {
             id: 2,
             stepNum: '02',
             badge: 'STEP 02',
-            shortLabel: t('home.step2Tab', '2. Link Newera'),
-            title: t('home.step2Title', 'Link Newera account'),
+            shortLabel: t('home.step2Tab', '2. Link Avatrade'),
+            title: t('home.step2Title', 'Link Avatrade account'),
             subtitle: t('home.step2Subtitle', 'Connect your MT5 brokerage account to synchronize credits seamlessly.'),
-            description: t('home.step2Desc', 'Connect your Newera trading account by entering your registered Newera email address to claim your initial AI credits.'),
+            description: t('home.step2Desc', 'Connect your Avatrade trading account by entering your registered Avatrade email address to claim your initial AI credits.'),
             highlights: [
                 'Seamless MT5 account integration',
                 'Automatic credit synchronization',

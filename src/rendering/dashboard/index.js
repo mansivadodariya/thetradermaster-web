@@ -130,22 +130,6 @@ const EmptyDocIcon = () => (
     </svg>
 );
 
-const TradeSmarterWatermark = () => (
-    <div className={styles.watermark}>
-        <div className={styles.watermarkArrows}>
-            <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
-                <path d="M10 90 L85 15 M85 15 H45 M85 15 V55" stroke="#00FF88" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
-                <path d="M10 65 L60 15 M60 15 H30 M60 15 V45" stroke="#00FF88" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.12" />
-            </svg>
-        </div>
-        <div className={styles.watermarkText}>
-            <span>TRADE</span>
-            <span>SMARTER</span>
-            <span>EVERYDAY</span>
-        </div>
-    </div>
-);
-
 export default function Dashboard() {
     const router = useRouter();
     const { t } = useLanguage();
@@ -458,7 +442,6 @@ export default function Dashboard() {
                             </div>
                             <h3>{t('dashboard.noRecentTitle', 'No recent activity found')}</h3>
                             <p>{t('dashboard.noRecentDesc', 'Your trade activity, AI chats and analysis will appear here.')}</p>
-                            <TradeSmarterWatermark />
                         </div>
                     ) : (
                         <div className={styles.tableWrapper}>

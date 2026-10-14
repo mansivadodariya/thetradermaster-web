@@ -83,25 +83,129 @@ $newera-border: rgba(0, 255, 136, 0.2);
 }
 
 .logoWrapper {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    background: #F8FAFC;
+    background: #FFFFFF !important;
     backdrop-filter: blur(4px);
-    padding: 6px 16px;
-    border-radius: 12px;
+    padding: 8px 20px;
+    border-radius: 14px;
     border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .logoImg {
-    width: 180px !important;
-    max-width: 100%;
-    height: auto;
+    max-width: 180px !important;
+    max-height: 44px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
     display: block;
 
     @include respond-to('sm') {
-        width: 140px !important;
+        max-width: 140px !important;
+        max-height: 36px !important;
     }
+}
+
+.brokerSelectorContainer {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.selectorTitle {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #64748B;
+}
+
+.brokerGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.brokerCardBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #E2E8F0;
+    background: #F8FAFC;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    outline: none;
+
+    &:hover {
+        border-color: #10B981;
+        background: #F0FDF4;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+    }
+
+    &.selected {
+        border-color: #10B981;
+        background: #ECFDF5;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
+    }
+}
+
+.brokerCardLogoBox {
+    width: 70px;
+    height: 30px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+}
+
+.brokerCardName {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.selectedCheck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #10B981;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.selectBrokerPrompt {
+    padding: 20px 16px;
+    background: #F8FAFC;
+    border: 1.5px dashed #CBD5E1;
+    border-radius: 14px;
+    color: #64748B;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 6px;
 }
 
 .brandBlue {
@@ -652,13 +756,51 @@ $newera-border: rgba(0, 255, 136, 0.2);
         }
     }
 
-    .brandText {
-        color: #ffffff !important;
+    .logoWrapper {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 255, 136, 0.35) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 12px rgba(0, 255, 136, 0.15) !important;
     }
 
-    .logoWrapper {
-        background: rgba(0, 16, 11, 0.7) !important;
-        border: 1px solid rgba(0, 255, 136, 0.25) !important;
+    .selectorTitle {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .brokerCardBtn {
+        background: rgba(0, 20, 14, 0.75);
+        border-color: rgba(0, 255, 136, 0.2);
+
+        &:hover {
+            border-color: rgba(0, 255, 136, 0.5);
+            background: rgba(0, 35, 24, 0.85);
+            box-shadow: 0 4px 16px rgba(0, 255, 136, 0.2);
+        }
+
+        &.selected {
+            border-color: #00FF88;
+            background: rgba(0, 255, 136, 0.15);
+            box-shadow: 0 0 18px rgba(0, 255, 136, 0.3);
+        }
+    }
+
+    .brokerCardLogoBox {
+        background: #FFFFFF;
+        border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .brokerCardName {
+        color: #FFFFFF;
+    }
+
+    .selectedCheck {
+        background: #00FF88;
+        color: #01140F;
+    }
+
+    .selectBrokerPrompt {
+        background: rgba(0, 16, 11, 0.5);
+        border-color: rgba(0, 255, 136, 0.2);
+        color: rgba(255, 255, 255, 0.65);
     }
 
     .title {

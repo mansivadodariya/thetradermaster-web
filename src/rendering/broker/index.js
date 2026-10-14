@@ -58,10 +58,11 @@ export default function BrokerPage() {
             try {
                 const data = await fetchBrokers();
                 if (isMounted) {
-                    setBrokers(data && data.length > 0 ? data : brokerList);
+                    const list = (data && data.length > 0 ? data : brokerList).filter(b => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera'));
+                    setBrokers(list);
                 }
             } catch (_) {
-                if (isMounted) setBrokers(brokerList);
+                if (isMounted) setBrokers(brokerList.filter(b => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera')));
             } finally {
                 if (isMounted) setIsLoading(false);
             }

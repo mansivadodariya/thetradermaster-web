@@ -10,6 +10,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
 import { extractAvailableCredits, notifyCreditsUpdated, refreshCreditsFromServer } from '@/lib/credits';
+import { getStoredUserId } from '@/lib/authSession';
+import { brokerList } from '@/lib/brokersData';
 
 function parseCreditAmount(res) {
     if (!res) return null;
@@ -74,9 +76,90 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
     const [depositThreshold, setDepositThreshold] = useState('150');
     const [depositCredits, setDepositCredits] = useState('100');
     const [tradeCreditsPerLot, setTradeCreditsPerLot] = useState('200');
+    const [brokers, setBrokers] = useState([]);
+    const [selectedBroker, setSelectedBroker] = useState(null);
     const isSyncingRef = useRef(false);
     const { theme } = useTheme();
     const { t } = useLanguage();
+
+    // Fetch dynamic brokers from Supabase / REST API
+    useEffect(() => {
+        let isMounted = true;
+        const loadBrokers = async () => {
+            try {
+                let brokerData = null;
+
+                // 1. Try Supabase Client
+                if (supabase) {
+                    try {
+                        const { data, error: sbError } = await supabase
+                            .from('brokers')
+                            .select('*')
+                            .order('created_at', { ascending: true });
+                        if (!sbError && Array.isArray(data) && data.length > 0) {
+                            brokerData = data;
+                        }
+                    } catch (err) {
+                        console.warn('Supabase client brokers fetch error:', err);
+                    }
+                }
+
+                // 2. Direct REST fetch to Supabase endpoint specified
+                if (!brokerData || brokerData.length === 0) {
+                    try {
+                        const apiUrl = 'https://yvjhmhjyvedsapzgprkb.supabase.co/rest/v1/brokers?select=*&order=created_at.asc';
+                        const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2amhtaGp5dmVkc2FwemdwcmtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3NzcwNzUsImV4cCI6MjEwMjM1MzA3NX0.icxxOTw_idk0DCx0q2nIM8MQlXG0iS3XLdke8FP4HW8';
+                        const res = await fetch(apiUrl, {
+                            headers: {
+                                apikey: anonKey,
+                                Authorization: `Bearer ${anonKey}`,
+                            },
+                        });
+                        if (res.ok) {
+                            const json = await res.json();
+                            if (Array.isArray(json) && json.length > 0) {
+                                brokerData = json;
+                            }
+                        }
+                    } catch (fetchErr) {
+                        console.warn('Direct REST fetch error:', fetchErr);
+                    }
+                }
+
+                // 3. Fallback to brokerList
+                if (!brokerData || brokerData.length === 0) {
+                    brokerData = brokerList;
+                }
+
+                if (isMounted && Array.isArray(brokerData)) {
+                    // Filter out any legacy newera entries
+                    const cleanList = brokerData.filter(
+                        (b) => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera')
+                    );
+                    const finalList = cleanList.length > 0 ? cleanList : brokerData;
+                    setBrokers(finalList);
+
+                    if (finalList.length === 1) {
+                        setSelectedBroker(finalList[0]);
+                    } else if (finalList.length > 1) {
+                        // For multiple brokers, wait for user selection
+                        setSelectedBroker(null);
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load brokers:', e);
+                if (isMounted) {
+                    setBrokers(brokerList);
+                    setSelectedBroker(brokerList[0]);
+                }
+            }
+        };
+
+        loadBrokers();
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     useEffect(() => {
         try {
@@ -88,7 +171,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                 }
             }
         } catch (e) {
-            console.error('Error reading user email for Newera link:', e);
+            console.error('Error reading user email for broker link:', e);
         }
     }, []);
 
@@ -104,7 +187,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                         'newera_welcome_credits',
                         'newera_deposit_threshold',
                         'newera_deposit_credits',
-                        'newera_trade_credits_per_lot'
+                        'newera_trade_credits_per_lot',
                     ]);
 
                 if (data && Array.isArray(data)) {
@@ -124,7 +207,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                     });
                 }
             } catch (err) {
-                console.error('Error fetching Newera system_settings:', err);
+                console.error('Error fetching system_settings:', err);
             }
         };
 
@@ -187,6 +270,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
         fetchLinkedAccount();
     }, [userId]);
 
+    const brokerName = selectedBroker?.name || 'AvaTrade';
+    const brokerLogo = selectedBroker?.logo || (theme === 'light' ? '/assets/images/site-logo-20y-on-light.svg' : '/assets/images/site-logo-20y-on-light.svg');
+
     // Helper for syncing Phase 2 or Phase 3
     const syncCredits = useCallback(async () => {
         const uid = activeUserId;
@@ -222,7 +308,6 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
             }
 
             if (earnedAmount !== null && earnedAmount !== undefined && earnedAmount > 0) {
-                // If in Phase 2 (welcomeAwarded = true, depositAwarded = false), update deposit_credits_awarded in DB
                 if (welcomeAwarded && !depositAwarded && supabase) {
                     try {
                         await supabase
@@ -231,11 +316,12 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                             .eq('user_id', uid);
                         setDepositAwarded(true);
                     } catch (dbErr) {
-                        console.error("Error updating deposit_credits_awarded:", dbErr);
+                        console.error('Error updating deposit_credits_awarded:', dbErr);
                     }
                 }
 
-                const message = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                const rawMessage = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                const message = rawMessage ? rawMessage.replace(/newera/gi, brokerName) : null;
                 if (message) {
                     toast.success(message);
                 } else if (welcomeAwarded && !depositAwarded) {
@@ -253,7 +339,8 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
             } else {
                 setSyncChecked(true);
                 const isSuccess = apiRes?.success ?? res?.success ?? true;
-                const message = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                const rawMessage = apiRes?.detail || apiRes?.message || res?.detail || res?.message;
+                const message = rawMessage ? rawMessage.replace(/newera/gi, brokerName) : null;
                 if (isSuccess && message) {
                     toast.success(message);
                     setSyncStatusMessage(message);
@@ -262,16 +349,16 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                 }
             }
         } catch (err) {
-            console.warn("Credit sync failed:", err);
+            console.warn('Credit sync failed:', err);
             setSyncChecked(true);
             setSyncStatusMessage('Failed to check credits. Retry below.');
         } finally {
             isSyncingRef.current = false;
             setAutoSyncing(false);
         }
-    }, [activeUserId, email, welcomeAwarded, depositAwarded, onSuccess, onClose]);
+    }, [activeUserId, email, welcomeAwarded, depositAwarded, onSuccess, onClose, brokerName]);
 
-    // Hit syncCredits when tab visibility changes to visible (e.g. after depositing in another tab)
+    // Hit syncCredits when tab visibility changes to visible
     useEffect(() => {
         if (!activeUserId || !hasExistingLink || !welcomeAwarded || loading) return;
 
@@ -286,15 +373,6 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, [activeUserId, hasExistingLink, welcomeAwarded, loading, syncCredits]);
-
-    const logoSrc = theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
-
-    const handleLoginChange = (e) => {
-        const val = e.target.value.replace(/\D/g, '');
-        if (val.length <= 20) {
-            setLogin(val);
-        }
-    };
 
     // Phase 1 - Submit account connection
     const handleLinkAccount = async (e) => {
@@ -323,7 +401,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                             }, { onConflict: 'user_id' });
                     }
                 } catch (dbErr) {
-                    console.error("Database insert error for mt5_accounts:", dbErr);
+                    console.error('Database insert error for mt5_accounts:', dbErr);
                 }
 
                 // Store in newera_credits_sync setting welcome_credits_awarded = true
@@ -335,11 +413,11 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                 user_id: uid,
                                 email: normalizedEmail,
                                 welcome_credits_awarded: true,
-                                deposit_credits_awarded: false
+                                deposit_credits_awarded: false,
                             });
                     }
                 } catch (dbErr) {
-                    console.error("Database insert error for newera_credits_sync:", dbErr);
+                    console.error('Database insert error for newera_credits_sync:', dbErr);
                 }
 
                 setHasExistingLink(true);
@@ -355,33 +433,33 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
 
                 if (earnedAmount !== null && earnedAmount > 0) {
                     notifyCreditsUpdated(earnedAmount);
-                    toast.success(`Congratulations! You have received ${earnedAmount} welcome credits for linking your Newera account.`);
+                    toast.success(`Congratulations! You have received ${earnedAmount} welcome credits for linking your ${brokerName} account.`);
                     if (onSuccess) onSuccess(earnedAmount);
                     onClose?.();
                     return;
                 }
 
                 const apiData = res?.data || res || {};
-                const msg = apiData?.detail || apiData?.message || 'Account linked successfully! Welcome credits will update shortly.';
-                toast.success(msg);
+                const rawMsg = apiData?.detail || apiData?.message || 'Account linked successfully! Welcome credits will update shortly.';
+                toast.success(rawMsg.replace(/newera/gi, brokerName));
             } else {
                 const apiMsg = res.message || res.detail || 'Failed to link account.';
-               
-                setError(apiMsg);
-                toast.error(apiMsg);
+                setError(apiMsg.replace(/newera/gi, brokerName));
+                toast.error(apiMsg.replace(/newera/gi, brokerName));
             }
         } catch (err) {
             const apiMsg = err?.detail || err?.message || 'An error occurred. Please try again.';
-            setError(apiMsg);
-            toast.error(apiMsg);
+            setError(apiMsg.replace(/newera/gi, brokerName));
+            toast.error(apiMsg.replace(/newera/gi, brokerName));
         } finally {
             setSubmitting(false);
         }
     };
 
     const handleRegisterRedirect = () => {
-        window.open('https://trade.newera365.com/client/register/6a68798de0aaa', '_blank', 'noopener,noreferrer');
-        toast('Newera registration opened. Enter your email address here when done!');
+        const targetUrl = selectedBroker?.website_url || selectedBroker?.websiteUrl || 'https://www.avatrade.com/?tag=226362';
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
+        toast(`${brokerName} registration opened. Enter your email address here when done!`);
     };
 
     // Determine current phase (Only rendered when loading is false)
@@ -395,12 +473,44 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                 {/* Visual Brand Border accent */}
                 <div className={styles.accentLayer}></div>
 
-                {/* Newera Logo Header */}
-                <div className={styles.brandHeader}>
-                    <div className={styles.logoWrapper}>
-                        <img src={logoSrc} alt="Newera Logo" className={styles.logoImg} />
+                {/* If multiple brokers exist, render the broker selector at top */}
+                {brokers.length > 1 && (
+                    <div className={styles.brokerSelectorContainer}>
+                        <span className={styles.selectorTitle}>
+                            {t('neweraModal.selectBroker', 'Select Your Broker')}
+                        </span>
+                        <div className={styles.brokerGrid}>
+                            {brokers.map((b) => {
+                                const isSelected = selectedBroker?.id === b.id;
+                                return (
+                                    <button
+                                        key={b.id}
+                                        type="button"
+                                        onClick={() => setSelectedBroker(b)}
+                                        className={`${styles.brokerCardBtn} ${isSelected ? styles.selected : ''}`}
+                                    >
+                                        <div className={styles.brokerCardLogoBox}>
+                                            <img src={b.logo} alt={b.name} />
+                                        </div>
+                                        <span className={styles.brokerCardName}>{b.name}</span>
+                                        {isSelected && (
+                                            <span className={styles.selectedCheck}>✓</span>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
+                )}
+
+                {/* Active Broker Logo Header */}
+                {selectedBroker && (
+                    <div className={styles.brandHeader}>
+                        <div className={styles.logoWrapper}>
+                            <img src={brokerLogo} alt={`${brokerName} Logo`} className={styles.logoImg} />
+                        </div>
+                    </div>
+                )}
 
                 <div className={styles.content}>
                     {/* While checking database status, render Loading view */}
@@ -413,240 +523,274 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                         </div>
                     ) : (
                         <>
-                            {/* Phase 1 Header & Content */}
-                            {isPhase1 && (
+                            {/* If multiple brokers and user hasn't selected a broker yet */}
+                            {brokers.length > 1 && !selectedBroker ? (
+                                <div className={styles.selectBrokerPrompt}>
+                                    <p {...getBidiProps(t('neweraModal.selectBrokerDesc', 'Select your broker above to create or link your trading account and receive your welcome credits.'))}>
+                                        {t('neweraModal.selectBrokerDesc', 'Select your broker above to create or link your trading account and receive your welcome credits.')}
+                                    </p>
+                                </div>
+                            ) : (
                                 <>
-                                    <h2 id="modal-title" className={styles.title}>
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 12v10H4V12" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M22 7H2v5h20V7z" fill="rgba(0, 255, 136, 0.2)" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M12 22V7" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        <span>{t('neweraModal.welcomeBonus', 'Welcome Bonus')}</span>
-                                    </h2>
-                                    <div className={styles.welcomeText}>
-                                        <p>
-                                            {renderWithBoldPlaceholders(
-                                                t('neweraModal.welcomeBonusSub', 'Connect your Newera trading account and receive your {credits} welcome credits instantly.'),
-                                                { '{credits}': welcomeCredits }
-                                            )}
-                                        </p>
-                                    </div>
-
-                                    <div className={styles.optionsContainer}>
-                                        {/* Step 1: Register card */}
-                                        <div className={styles.optionCard}>
-                                            <div className={styles.optionHeader}>
-                                                <span className={styles.badgeStep}>1</span>
-                                                <h3 {...getBidiProps(t('neweraModal.createNewAccount', 'Create New Account'))}>
-                                                    {t('neweraModal.createNewAccount', 'Create New Account')}
-                                                </h3>
-                                            </div>
-                                            <p className={styles.optionDesc}>
-                                                {renderWithBoldPlaceholders(
-                                                    t('neweraModal.createNewAccountDesc', "Don't have a Newera account? Register one in a new tab to start trading and get {credits} free credits."),
-                                                    { '{credits}': welcomeCredits }
-                                                )}
-                                            </p>
-                                            <button
-                                                type="button"
-                                                className={styles.registerBtn}
-                                                onClick={handleRegisterRedirect}
-                                            >
-                                                <span {...getBidiProps(t('neweraModal.registerAccountBtn', 'Register Account'))}>
-                                                    {t('neweraModal.registerAccountBtn', 'Register Account')}
-                                                </span>
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    {/* Phase 1 Header & Content */}
+                                    {isPhase1 && (
+                                        <>
+                                            <h2 id="modal-title" className={styles.title}>
+                                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M20 12v10H4V12" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <path d="M22 7H2v5h20V7z" fill="rgba(0, 255, 136, 0.2)" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <path d="M12 22V7" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                 </svg>
-                                            </button>
-                                        </div>
-
-                                        {/* Step 2: Link account card */}
-                                        <div className={styles.optionCard}>
-                                            <div className={styles.optionHeader}>
-                                                <span className={styles.badgeStep}>2</span>
-                                                <h3 {...getBidiProps(t('neweraModal.linkExistingAccount', 'Link Existing Account'))}>
-                                                    {t('neweraModal.linkExistingAccount', 'Link Existing Account')}
-                                                </h3>
+                                                <span>{t('neweraModal.welcomeBonus', 'Welcome Bonus')}</span>
+                                            </h2>
+                                            <div className={styles.welcomeText}>
+                                                <p>
+                                                    {renderWithBoldPlaceholders(
+                                                        t('neweraModal.welcomeBonusSub', 'Connect your {broker} trading account and receive your {credits} welcome credits instantly.'),
+                                                        {
+                                                            '{credits}': welcomeCredits,
+                                                            '{broker}': brokerName,
+                                                            'Newera': brokerName,
+                                                            'newera': brokerName,
+                                                        }
+                                                    )}
+                                                </p>
                                             </div>
-                                            <p className={styles.optionDesc}>
-                                                {renderWithBoldPlaceholders(
-                                                    t('neweraModal.linkExistingAccountDesc', 'Enter your Newera account email address below to claim your {credits} free credits.'),
-                                                    { '{credits}': welcomeCredits }
-                                                )}
-                                            </p>
 
-                                            <form onSubmit={handleLinkAccount} className={styles.linkForm}>
-                                                <div className={styles.inputWrapper}>
-                                                    <Input
-                                                        type="email"
-                                                        placeholder={t('neweraModal.enterEmailPlaceholder', 'Enter Email Address')}
-                                                        name="email"
-                                                        value={email}
-                                                        onChange={(e) => setEmail(e.target.value)}
-                                                        required
-                                                        disabled
-                                                    />
+                                            <div className={styles.optionsContainer}>
+                                                {/* Step 1: Register card */}
+                                                <div className={styles.optionCard}>
+                                                    <div className={styles.optionHeader}>
+                                                        <span className={styles.badgeStep}>1</span>
+                                                        <h3 {...getBidiProps(t('neweraModal.createNewAccount', 'Create New Account'))}>
+                                                            {t('neweraModal.createNewAccount', 'Create New Account')}
+                                                        </h3>
+                                                    </div>
+                                                    <p className={styles.optionDesc}>
+                                                        {renderWithBoldPlaceholders(
+                                                            t('neweraModal.createNewAccountDesc', "Don't have a {broker} account? Register one in a new tab to start trading and get {credits} free credits."),
+                                                            {
+                                                                '{credits}': welcomeCredits,
+                                                                '{broker}': brokerName,
+                                                                'Newera': brokerName,
+                                                                'newera': brokerName,
+                                                            }
+                                                        )}
+                                                    </p>
+                                                    <button
+                                                        type="button"
+                                                        className={styles.registerBtn}
+                                                        onClick={handleRegisterRedirect}
+                                                    >
+                                                        <span {...getBidiProps(t('neweraModal.registerAccountBtn', 'Register Account'))}>
+                                                            {t('neweraModal.registerAccountBtn', 'Register Account')}
+                                                        </span>
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                                        </svg>
+                                                    </button>
                                                 </div>
-                                                {error && <p className={styles.error} role="alert">{error}</p>}
-                                                <button
-                                                    type="submit"
-                                                    className={styles.submitBtn}
-                                                    disabled={submitting || !email.trim() || !email.includes('@')}
-                                                >
-                                                    {submitting ? (
+
+                                                {/* Step 2: Link account card */}
+                                                <div className={styles.optionCard}>
+                                                    <div className={styles.optionHeader}>
+                                                        <span className={styles.badgeStep}>2</span>
+                                                        <h3 {...getBidiProps(t('neweraModal.linkExistingAccount', 'Link Existing Account'))}>
+                                                            {t('neweraModal.linkExistingAccount', 'Link Existing Account')}
+                                                        </h3>
+                                                    </div>
+                                                    <p className={styles.optionDesc}>
+                                                        {renderWithBoldPlaceholders(
+                                                            t('neweraModal.linkExistingAccountDesc', 'Enter your {broker} account email address below to claim your {credits} free credits.'),
+                                                            {
+                                                                '{credits}': welcomeCredits,
+                                                                '{broker}': brokerName,
+                                                                'Newera': brokerName,
+                                                                'newera': brokerName,
+                                                            }
+                                                        )}
+                                                    </p>
+
+                                                    <form onSubmit={handleLinkAccount} className={styles.linkForm}>
+                                                        <div className={styles.inputWrapper}>
+                                                            <Input
+                                                                type="email"
+                                                                placeholder={t('neweraModal.enterEmailPlaceholder', 'Enter Email Address')}
+                                                                name="email"
+                                                                value={email}
+                                                                onChange={(e) => setEmail(e.target.value)}
+                                                                required
+                                                                disabled
+                                                            />
+                                                        </div>
+                                                        {error && <p className={styles.error} role="alert">{error}</p>}
+                                                        <button
+                                                            type="submit"
+                                                            className={styles.submitBtn}
+                                                            disabled={submitting || !email.trim() || !email.includes('@')}
+                                                        >
+                                                            {submitting ? (
+                                                                <>
+                                                                    <span className={styles.spinner}></span>
+                                                                    <span {...getBidiProps(t('neweraModal.linkingBtn', 'Linking...'))}>
+                                                                        {t('neweraModal.linkingBtn', 'Linking...')}
+                                                                    </span>
+                                                                </>
+                                                            ) : (
+                                                                <span {...getBidiProps(t('neweraModal.linkAccountBtn', 'Link Account'))}>
+                                                                    {t('neweraModal.linkAccountBtn', 'Link Account')}
+                                                                </span>
+                                                            )}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {/* Phase 2 Header & Content: Deposit Bonus */}
+                                    {isPhase2 && (
+                                        <div className={styles.phaseContainer}>
+                                            <h2 id="modal-title" className={styles.title} {...getBidiProps(t('neweraModal.depositBonusTitle', 'Deposit & Earn More Credits'))}>
+                                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                {t('neweraModal.depositBonusTitle', 'Deposit & Earn More Credits')}
+                                            </h2>
+
+                                            <div className={styles.autoStatusCard}>
+                                                {email && (
+                                                    <div className={styles.accountInfoBadge}>
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                                        </svg>
+                                                        <span {...getBidiProps(`${t('neweraModal.linkedEmail', 'Linked Email:')} ${email}`)}>
+                                                            {t('neweraModal.linkedEmail', 'Linked Email:')} {email}
+                                                        </span>
+                                                    </div>
+                                                )}
+
+                                                <p className={styles.statusMessage}>
+                                                    {renderWithBoldPlaceholders(
+                                                        t('neweraModal.depositBonusDesc', 'Deposit {threshold} into your {broker} trading account to receive {credits} additional credits.'),
+                                                        {
+                                                            '{threshold}': String(depositThreshold).startsWith('$') ? depositThreshold : `$${depositThreshold}`,
+                                                            '{credits}': depositCredits,
+                                                            '{broker}': brokerName,
+                                                            'Newera': brokerName,
+                                                            'newera': brokerName,
+                                                        }
+                                                    )}
+                                                </p>
+
+                                                <div className={styles.statusIndicator}>
+                                                    {autoSyncing ? (
                                                         <>
-                                                            <span className={styles.spinner}></span>
-                                                            <span {...getBidiProps(t('neweraModal.linkingBtn', 'Linking...'))}>
-                                                                {t('neweraModal.linkingBtn', 'Linking...')}
+                                                            <div className={styles.pulseDot}></div>
+                                                            <span {...getBidiProps(t('neweraModal.syncingCredits', 'Syncing credits from {broker}...'))}>
+                                                                {t('neweraModal.syncingCredits', 'Syncing credits from {broker}...').replace('{broker}', brokerName).replace(/newera/gi, brokerName)}
                                                             </span>
                                                         </>
                                                     ) : (
-                                                        <span {...getBidiProps(t('neweraModal.linkAccountBtn', 'Link Account'))}>
-                                                            {t('neweraModal.linkAccountBtn', 'Link Account')}
-                                                        </span>
+                                                        <>
+                                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                            </svg>
+                                                            <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
+                                                                {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
+                                                            </span>
+                                                            <button
+                                                                type="button"
+                                                                className={styles.recheckBtn}
+                                                                onClick={syncCredits}
+                                                                disabled={autoSyncing}
+                                                            >
+                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
+                                                                    {t('neweraModal.checkAgainBtn', 'Check Again')}
+                                                                </span>
+                                                            </button>
+                                                        </>
                                                     )}
-                                                </button>
-                                            </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
+
+                                    {/* Phase 3 Header & Content: Per Lot Credits */}
+                                    {isPhase3 && (
+                                        <div className={styles.phaseContainer}>
+                                            <h2 id="modal-title" className={styles.title} {...getBidiProps(t('neweraModal.earnByTradingTitle', 'Earn Credits by Trading'))}>
+                                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                {t('neweraModal.earnByTradingTitle', 'Earn Credits by Trading')}
+                                            </h2>
+
+                                            <div className={styles.autoStatusCard}>
+                                                {email && (
+                                                    <div className={styles.accountInfoBadge}>
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                                        </svg>
+                                                        <span {...getBidiProps(`${t('neweraModal.linkedEmail', 'Linked Email:')} ${email}`)}>
+                                                            {t('neweraModal.linkedEmail', 'Linked Email:')} {email}
+                                                        </span>
+                                                    </div>
+                                                )}
+
+                                                <p className={styles.statusMessage}>
+                                                    {renderWithBoldPlaceholders(
+                                                        t('neweraModal.earnByTradingDesc', "You've used all your available credits. Continue trading with your {broker} account and earn {credits} credits for every lot traded."),
+                                                        {
+                                                            '{credits}': tradeCreditsPerLot,
+                                                            '{broker}': brokerName,
+                                                            'Newera': brokerName,
+                                                            'newera': brokerName,
+                                                        }
+                                                    )}
+                                                </p>
+
+                                                <div className={styles.statusIndicator}>
+                                                    {autoSyncing ? (
+                                                        <>
+                                                            <div className={styles.pulseDot}></div>
+                                                            <span {...getBidiProps(t('neweraModal.syncingVolume', 'Syncing trading volume...'))}>
+                                                                {t('neweraModal.syncingVolume', 'Syncing trading volume...')}
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                            </svg>
+                                                            <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
+                                                                {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
+                                                            </span>
+                                                            <button
+                                                                type="button"
+                                                                className={styles.recheckBtn}
+                                                                onClick={syncCredits}
+                                                                disabled={autoSyncing}
+                                                            >
+                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
+                                                                    {t('neweraModal.checkAgainBtn', 'Check Again')}
+                                                                </span>
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </>
-                            )}
-
-                            {/* Phase 2 Header & Content: Deposit Bonus */}
-                            {isPhase2 && (
-                                <div className={styles.phaseContainer}>
-                                    <h2 id="modal-title" className={styles.title} {...getBidiProps(t('neweraModal.depositBonusTitle', 'Deposit & Earn More Credits'))}>
-                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        {t('neweraModal.depositBonusTitle', 'Deposit & Earn More Credits')}
-                                    </h2>
-
-                                    <div className={styles.autoStatusCard}>
-                                        {email && (
-                                            <div className={styles.accountInfoBadge}>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                                </svg>
-                                                <span {...getBidiProps(`${t('neweraModal.linkedEmail', 'Linked Email:')} ${email}`)}>
-                                                    {t('neweraModal.linkedEmail', 'Linked Email:')} {email}
-                                                </span>
-                                            </div>
-                                        )}
-
-                                        <p className={styles.statusMessage}>
-                                            {renderWithBoldPlaceholders(
-                                                t('neweraModal.depositBonusDesc', 'Deposit {threshold} into your Newera trading account to receive {credits} additional credits.'),
-                                                {
-                                                    '{threshold}': String(depositThreshold).startsWith('$') ? depositThreshold : `$${depositThreshold}`,
-                                                    '{credits}': depositCredits
-                                                }
-                                            )}
-                                        </p>
-
-                                        <div className={styles.statusIndicator}>
-                                            {autoSyncing ? (
-                                                <>
-                                                    <div className={styles.pulseDot}></div>
-                                                    <span {...getBidiProps(t('neweraModal.syncingCredits', 'Syncing credits from Newera...'))}>
-                                                        {t('neweraModal.syncingCredits', 'Syncing credits from Newera...')}
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                    </svg>
-                                                    <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
-                                                        {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
-                                                    </span>
-                                                    <button
-                                                        type="button"
-                                                        className={styles.recheckBtn}
-                                                        onClick={syncCredits}
-                                                        disabled={autoSyncing}
-                                                    >
-                                                        <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
-                                                            {t('neweraModal.checkAgainBtn', 'Check Again')}
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Phase 3 Header & Content: Per Lot Credits */}
-                            {isPhase3 && (
-                                <div className={styles.phaseContainer}>
-                                    <h2 id="modal-title" className={styles.title} {...getBidiProps(t('neweraModal.earnByTradingTitle', 'Earn Credits by Trading'))}>
-                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        {t('neweraModal.earnByTradingTitle', 'Earn Credits by Trading')}
-                                    </h2>
-
-                                    <div className={styles.autoStatusCard}>
-                                        {email && (
-                                            <div className={styles.accountInfoBadge}>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                                </svg>
-                                                <span {...getBidiProps(`${t('neweraModal.linkedEmail', 'Linked Email:')} ${email}`)}>
-                                                    {t('neweraModal.linkedEmail', 'Linked Email:')} {email}
-                                                </span>
-                                            </div>
-                                        )}
-
-                                        <p className={styles.statusMessage}>
-                                            {renderWithBoldPlaceholders(
-                                                t('neweraModal.earnByTradingDesc', "You've used all your available credits. Continue trading with your Newera account and earn {credits} credits for every lot traded."),
-                                                { '{credits}': tradeCreditsPerLot }
-                                            )}
-                                        </p>
-
-                                        <div className={styles.statusIndicator}>
-                                            {autoSyncing ? (
-                                                <>
-                                                    <div className={styles.pulseDot}></div>
-                                                    <span {...getBidiProps(t('neweraModal.syncingVolume', 'Syncing trading volume...'))}>
-                                                        {t('neweraModal.syncingVolume', 'Syncing trading volume...')}
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                    </svg>
-                                                    <span {...getBidiProps(syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.'))}>
-                                                        {syncStatusMessage || t('neweraModal.checkedJustNow', 'Checked just now.')}
-                                                    </span>
-                                                    <button
-                                                        type="button"
-                                                        className={styles.recheckBtn}
-                                                        onClick={syncCredits}
-                                                        disabled={autoSyncing}
-                                                    >
-                                                        <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
-                                                            {t('neweraModal.checkAgainBtn', 'Check Again')}
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
                             )}
                         </>
                     )}

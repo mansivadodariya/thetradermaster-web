@@ -36,7 +36,7 @@ export default function AboutUs() {
         },
         {
             title: t('about.feature5Title', 'Broker Integration'),
-            description: t('about.feature5Desc', 'Seamlessly connect with recommended brokers including Newera for a complete trading workflow — from analysis to execution.')
+            description: t('about.feature5Desc', 'Seamlessly connect with recommended brokers including AvaTrade for a complete trading workflow — from analysis to execution.')
         }
     ]
 
@@ -48,7 +48,7 @@ export default function AboutUs() {
                     <span className={styles.badge}>{t('about.badge', 'About Us')}</span>
                     <h1>{t('about.title', 'About Trader Master')}</h1>
                     <p className={styles.subtitle}>
-                        {t('about.subtitle', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the Newera brokerage stack.')}
+                        {t('about.subtitle', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the AvaTrade brokerage stack.')}
                     </p>
                 </div>
 
@@ -98,11 +98,11 @@ export default function AboutUs() {
                         <ul className={styles.partnerList}>
                             <li>
                                 <strong>
-                                    <a href="https://newera365.com/en" target="_blank" rel="noopener noreferrer">
-                                        Newera
+                                    <a href="https://www.avatrade.com/?tag=226362" target="_blank" rel="noopener noreferrer">
+                                        AvaTrade
                                     </a>
                                 </strong>
-                                {' — '}{t('about.neweraPara', 'Our primary brokerage partner. Trader Master is built around the MT5 and Newera brokerage stack. All funds and trade execution are managed by Newera.')}
+                                {' — '}{t('about.neweraPara', 'Our primary brokerage partner. Trader Master is built around the MT5 and AvaTrade brokerage stack. All funds and trade execution are managed by AvaTrade.')}
                             </li>
                             <li>
                                 <strong>

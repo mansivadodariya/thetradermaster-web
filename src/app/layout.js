@@ -26,7 +26,7 @@ export const metadata = {
     template: "%s | Trader Master",
   },
   description:
-    "Trader Master delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the Newera brokerage stack.",
+    "Trader Master delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the AvaTrade brokerage stack.",
   keywords: ["forex", "trading", "AI", "trade analysis", "MT5", "trade signals", "Trader Master"],
   authors: [{ name: "Trader Master" }],
   robots: {

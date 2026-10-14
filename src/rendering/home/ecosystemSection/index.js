@@ -20,15 +20,11 @@ export default function EcosystemSection() {
                 const data = await fetchBrokers();
                 if (isMounted) {
                     let displayList = data && data.length > 0 ? [...data] : [...brokerList];
-                    if (displayList.length < 3) {
-                        const existingIds = new Set(displayList.map(b => b.id));
-                        const additional = brokerList.filter(b => !existingIds.has(b.id));
-                        displayList = [...displayList, ...additional].slice(0, 3);
-                    }
+                    displayList = displayList.filter(b => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera'));
                     setBrokers(displayList);
                 }
             } catch (_) {
-                if (isMounted) setBrokers(brokerList.slice(0, 3));
+                if (isMounted) setBrokers(brokerList.filter(b => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera')));
             } finally {
                 if (isMounted) setIsLoading(false);
             }

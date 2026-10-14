@@ -28,11 +28,11 @@ export default function FaqSection() {
         },
         {
             question: t('home.faq2Q', 'Do I need an MT5 account to use Trader Master?'),
-            answer: t('home.faq2A', 'While you can explore the platform without one, linking your Newera MT5 account unlocks the full credit system. Your trading activity on Newera automatically replenishes your AI analysis credits.'),
+            answer: t('home.faq2A', 'While you can explore the platform without one, linking your Avatrade MT5 account unlocks the full credit system. Your trading activity on Avatrade automatically replenishes your AI analysis credits.'),
         },
         {
             question: t('home.faq3Q', 'How does the credit system work?'),
-            answer: t('home.faq3A', 'Every AI interaction (chart analysis, chat query, strategy generation) costs credits. You earn credits by trading on your linked Newera account — each completed trade cycle automatically replenishes your balance. No subscription or upfront payment required.'),
+            answer: t('home.faq3A', 'Every AI interaction (chart analysis, chat query, strategy generation) costs credits. You earn credits by trading on your linked Avatrade account — each completed trade cycle automatically replenishes your balance. No subscription or upfront payment required.'),
         },
         {
             question: t('home.faq4Q', 'Is my trading data safe with Trader Master?'),

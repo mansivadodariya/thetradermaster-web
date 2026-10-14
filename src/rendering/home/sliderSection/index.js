@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import styles from './sliderSection.module.scss';
 const MetaIcon = '/assets/icons/Img2.svg';
 const EdufinsIcon = '/assets/icons/edufins.svg';
-const MatchIcon = '/assets/images/logo-light.webp';
+const AvaTradeIcon = '/assets/images/site-logo-20y-on-dark.svg';
 const AsicIcon = '/assets/icons/asic.svg';
 const AlgomaticIcon = '/assets/icons/algomaticIcon.svg';
 
-const images = [ EdufinsIcon, MetaIcon , MatchIcon,AlgomaticIcon];
+const images = [ EdufinsIcon, MetaIcon, AvaTradeIcon, AlgomaticIcon ];
 // Duplicate array 4 times to ensure it covers large screens and loops seamlessly
 const duplicatedImages = [...images, ...images, ...images, ...images];
 

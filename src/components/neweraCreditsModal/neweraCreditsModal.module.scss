@@ -86,11 +86,11 @@ $newera-border: rgba(0, 255, 136, 0.2);
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    background: #FFFFFF !important;
+    background: #050d09 !important;
     backdrop-filter: blur(4px);
     padding: 8px 20px;
     border-radius: 14px;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #00ff8859 !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -757,7 +757,7 @@ $newera-border: rgba(0, 255, 136, 0.2);
     }
 
     .logoWrapper {
-        background: #FFFFFF !important;
+        background: #122a23 !important;
         border: 1px solid rgba(0, 255, 136, 0.35) !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 12px rgba(0, 255, 136, 0.15) !important;
     }

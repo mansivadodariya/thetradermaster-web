@@ -306,6 +306,10 @@
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
+                padding: 4px 10px;
+                border-radius: 8px;
+                background: #050d09 !important;
+                border: 1px solid #00ff8859 !important;
 
                 img {
                     max-height: 40px;
@@ -543,6 +547,11 @@
             .cardHeader {
                 background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%) !important;
                 border-color: rgba(255, 255, 255, 0.12) !important;
+
+                .logoBox {
+                    background: #122a23 !important;
+                    border: 1px solid #00ff8859 !important;
+                }
             }
 
             .cardBody {

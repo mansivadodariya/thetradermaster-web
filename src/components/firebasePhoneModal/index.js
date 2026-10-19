@@ -26,7 +26,8 @@ export default function FirebasePhoneModal({
 }) {
     const { t } = useLanguage();
     const { theme } = useTheme();
-    const logoSrc = theme === 'dark' ? '/assets/logo/logoWhite.svg' : '/assets/logo/logo.svg';
+    const logoSrc = "/assets/logo/logoWhite.svg";
+    // const logoSrc = theme === 'dark' ? '/assets/logo/logoWhite.svg' : '/assets/logo/logo.svg';
     const [step, setStep] = useState('phone'); // 'phone' | 'otp' | 'success'
     const [phone, setPhone] = useState(initialPhoneNumber);
     const [otpValues, setOtpValues] = useState(['', '', '', '', '', '']);

@@ -1,11 +1,12 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import styles from './footer.module.scss';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
 import Loader from '@/components/loader';
 import { useLanguage } from '@/context/LanguageContext';
+import { fetchBrokers, brokerList } from '@/lib/brokersData';
 
 const FooterLogo = '/assets/logo/logoWhite.svg';
 
@@ -47,9 +48,30 @@ const DribbbleIcon = () => (
 );
 
 export default function Footer() {
-    const { t } = useLanguage();
+    const { t, tDynamic } = useLanguage();
     const [email, setEmail] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [broker, setBroker] = useState(() => {
+        return brokerList.find((b) => b.id === 'forex__cfd_trading') || brokerList[0] || null;
+    });
+
+    useEffect(() => {
+        let isMounted = true;
+        fetchBrokers().then((data) => {
+            if (isMounted && Array.isArray(data) && data.length > 0) {
+                const target = data.find((b) => b.id === 'forex__cfd_trading') || data[0];
+                if (target) {
+                    setBroker(target);
+                }
+            }
+        }).catch((err) => {
+            console.error('Failed to load broker for footer:', err);
+        });
+        return () => { isMounted = false; };
+    }, []);
+
+    const brokerName = (broker ? tDynamic(broker, 'name') : null) || broker?.name || 'Forex & CFD Trading';
+    const brokerRedirectionLink = broker?.website_url || broker?.websiteUrl || 'https://my.tickmill.com?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&lp=https%3A%2F%2Fmy.tickmill.com%2Fen%2Fsign-up';
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -110,8 +132,8 @@ export default function Footer() {
                         </Link>
                         <p>
                             {t('footer.descPart1', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the ')}
-                            <a href="https://my.tickmill.com/en/sign-up/account-type?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&utm_term=&referrer=" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
-                                Tickmill
+                            <a href={brokerRedirectionLink} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
+                                {brokerName}
                             </a>
                             {t('footer.descPart2', ' brokerage stack.')}
                         </p>

@@ -44,9 +44,9 @@
             align-items: center;
             padding: 4px 8px;
             border-radius: 8px;
-            background: #FFFFFF;
+            background: #050d09 !important;
             backdrop-filter: blur(4px);
-            border: 1px solid #E2E8F0;
+            border: 1px solid #00ff8859 !important;
 
             img {
                 max-height: 34px;
@@ -285,8 +285,9 @@
         border-color: rgba(0, 255, 136, 0.25);
 
         .logoWrapper {
-            background: #161212;
-            border: none;
+            background: #122a23 !important;
+            border: 1px solid #00ff8859 !important;
+         
 
             img {
                 filter: brightness(1.8) drop-shadow(0 0 6px rgba(0, 255, 136, 0.3));

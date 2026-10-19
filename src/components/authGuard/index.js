@@ -206,7 +206,6 @@ export default function AuthGuard({ children }) {
             <FirebasePhoneModal
                 isOpen={needsPhoneVerification}
                 phoneNumber={userPhone}
-                autoTriggerSend={true}
                 isPhoneReadOnly={Boolean(userPhone)}
                 onClose={handleSkipPhoneVerification}
                 onSkip={handleSkipPhoneVerification}

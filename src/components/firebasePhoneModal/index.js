@@ -22,7 +22,6 @@ export default function FirebasePhoneModal({
     onClose,
     onSkip,
     onSuccess,
-    autoTriggerSend = true,
     isPhoneReadOnly = false,
 }) {
     const { t } = useLanguage();
@@ -38,8 +37,6 @@ export default function FirebasePhoneModal({
     const [confirmationResult, setConfirmationResult] = useState(null);
     const inputRefs = useRef([]);
     const recaptchaVerifierRef = useRef(null);
-
-    const hasAutoSentRef = useRef(false);
 
     const handleSkip = () => {
         if (typeof window !== 'undefined') {
@@ -59,11 +56,9 @@ export default function FirebasePhoneModal({
             setError('');
             setLoading(false);
             setConfirmationResult(null);
-            hasAutoSentRef.current = false;
             return;
         }
 
-        const phoneToUse = initialPhoneNumber || phone;
         if (initialPhoneNumber) {
             setPhone(initialPhoneNumber);
         }
@@ -76,11 +71,6 @@ export default function FirebasePhoneModal({
             recaptchaVerifierRef.current = verifier;
         } catch (err) {
             console.warn('Recaptcha init warning:', err);
-        }
-
-        if (autoTriggerSend && phoneToUse && !hasAutoSentRef.current) {
-            hasAutoSentRef.current = true;
-            handleSendSms(phoneToUse);
         }
     }, [isOpen, initialPhoneNumber]);
 

@@ -83,7 +83,11 @@ export default function FirebasePhoneModal({
         return () => clearInterval(timer);
     }, [isOpen, resendCooldown]);
 
-    const handleSendSms = async (targetPhone) => {
+    const handleSendSms = async (targetPhone, triggeredByUser = false) => {
+        if (!triggeredByUser) {
+            return;
+        }
+
         const phoneToUse = targetPhone || phone;
         if (!phoneToUse) {
             setError(t('auth.validPhoneRequired', 'Please enter a valid phone number.'));
@@ -250,7 +254,7 @@ export default function FirebasePhoneModal({
                             <div className={styles.actionBtnWrapper}>
                                 <Button
                                     text={loading ? t('auth.sendingCode', 'Sending Code...') : t('auth.continue', 'Continue')}
-                                    onClick={() => handleSendSms()}
+                                    onClick={() => handleSendSms(phone, true)}
                                     disabled={loading || !phone}
                                     fullWidth
                                     icon={ArrowIcon}
@@ -314,7 +318,7 @@ export default function FirebasePhoneModal({
                                     <button
                                         type="button"
                                         className={styles.resendBtn}
-                                        onClick={() => handleSendSms()}
+                                        onClick={() => handleSendSms(phone, true)}
                                         disabled={loading}
                                     >
                                         {t('auth.resendSmsOtp', 'Resend SMS OTP')}

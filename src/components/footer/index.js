@@ -110,8 +110,8 @@ export default function Footer() {
                         </Link>
                         <p>
                             {t('footer.descPart1', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the ')}
-                            <a href="https://www.avatrade.com/?tag=226362" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
-                                AvaTrade
+                            <a href="https://my.tickmill.com/en/sign-up/account-type?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&utm_term=&referrer=" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
+                                Tickmill
                             </a>
                             {t('footer.descPart2', ' brokerage stack.')}
                         </p>

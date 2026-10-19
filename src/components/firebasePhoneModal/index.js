@@ -20,6 +20,7 @@ export default function FirebasePhoneModal({
     isOpen,
     phoneNumber: initialPhoneNumber = '',
     onClose,
+    onSkip,
     onSuccess,
     autoTriggerSend = true,
     isPhoneReadOnly = false,
@@ -39,6 +40,17 @@ export default function FirebasePhoneModal({
     const recaptchaVerifierRef = useRef(null);
 
     const hasAutoSentRef = useRef(false);
+
+    const handleSkip = () => {
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('skip_phone_verification', 'true');
+        }
+        if (onSkip) {
+            onSkip();
+        } else if (onClose) {
+            onClose();
+        }
+    };
 
     useEffect(() => {
         if (!isOpen) {
@@ -203,7 +215,7 @@ export default function FirebasePhoneModal({
 
     return (
         <AnimatePresence>
-            <div className={styles.modalOverlay} onClick={onClose}>
+            <div className={styles.modalOverlay} onClick={handleSkip}>
                 <div id="firebase-recaptcha-container" style={{ display: 'none' }}></div>
                 <motion.div
                     className={styles.modalCard}
@@ -215,8 +227,8 @@ export default function FirebasePhoneModal({
                 >
                     <div className={styles.topGlowLayer} />
 
-                    {onClose && step !== 'success' && (
-                        <button className={styles.closeBtn} onClick={onClose} aria-label={t('common.close', 'Close')}>
+                    {(onClose || onSkip) && step !== 'success' && (
+                        <button className={styles.closeBtn} onClick={handleSkip} aria-label={t('common.close', 'Close')}>
                             ✕
                         </button>
                     )}
@@ -253,6 +265,16 @@ export default function FirebasePhoneModal({
                                     fullWidth
                                     icon={ArrowIcon}
                                 />
+                            </div>
+
+                            <div className={styles.skipWrapper}>
+                                <button
+                                    type="button"
+                                    className={styles.skipBtn}
+                                    onClick={handleSkip}
+                                >
+                                    {t('common.skipForNow', 'Skip for now')}
+                                </button>
                             </div>
                         </div>
                     )}
@@ -308,6 +330,16 @@ export default function FirebasePhoneModal({
                                         {t('auth.resendSmsOtp', 'Resend SMS OTP')}
                                     </button>
                                 )}
+                            </div>
+
+                            <div className={styles.skipWrapper}>
+                                <button
+                                    type="button"
+                                    className={styles.skipBtn}
+                                    onClick={handleSkip}
+                                >
+                                    {t('common.skipForNow', 'Skip for now')}
+                                </button>
                             </div>
                         </div>
                     )}

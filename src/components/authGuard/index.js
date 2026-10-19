@@ -99,14 +99,18 @@ export default function AuthGuard({ children }) {
                 localUser?.is_phone_verified === true
             );
 
-            if (isVerified) {
+            const isSkipped = typeof window !== 'undefined' && sessionStorage.getItem('skip_phone_verification') === 'true';
+
+            if (isVerified || isSkipped) {
                 setNeedsPhoneVerification(false);
-                if (localUser && !localUser.is_phone_verified) {
+                if (isVerified && localUser && !localUser.is_phone_verified) {
                     localUser.phone_number = updatedPhone;
                     localUser.is_phone_verified = true;
                     localStorage.setItem('user', JSON.stringify(localUser));
                 }
-                document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                if (isVerified) {
+                    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                }
             } else {
                 setNeedsPhoneVerification(true);
             }
@@ -189,6 +193,13 @@ export default function AuthGuard({ children }) {
         }
     };
 
+    const handleSkipPhoneVerification = () => {
+        setNeedsPhoneVerification(false);
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('skip_phone_verification', 'true');
+        }
+    };
+
     return (
         <>
             {children}
@@ -197,7 +208,8 @@ export default function AuthGuard({ children }) {
                 phoneNumber={userPhone}
                 autoTriggerSend={true}
                 isPhoneReadOnly={Boolean(userPhone)}
-                onClose={null}
+                onClose={handleSkipPhoneVerification}
+                onSkip={handleSkipPhoneVerification}
                 onSuccess={handlePhoneVerifiedSuccess}
             />
         </>

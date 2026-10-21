@@ -477,8 +477,8 @@
 :global(.dark) {
     .brokerPage {
         .heroBanner {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
             color: #FFFFFF !important;
 
             h1,
@@ -488,61 +488,75 @@
 
             p,
             .heroStats .statItem .lbl {
-                color: rgba(255, 255, 255, 0.88) !important;
+                color: rgba(255, 255, 255, 0.75) !important;
             }
 
             .badge {
-                background: rgba(0, 255, 136, 0.12) !important;
-                border-color: rgba(0, 255, 136, 0.3) !important;
-                color: #00FF88 !important;
+                background: #10b9811a;
+                border: 1px solid #10b98147;
+                color: #34d399 !important;
             }
         }
 
         .tickerSection {
-            background: #1A1A1E !important;
-            border-color: #2D2D34 !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .tickerTitle {
-                color: #9CA3AF !important;
+                color: rgba(255, 255, 255, 0.6) !important;
 
                 &::after {
-                    background: #2D2D34 !important;
+                    background: rgba(0, 255, 136, 0.14) !important;
                 }
             }
         }
 
         .controlsRow {
             .tabs {
-                background: #04140D !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
+                background: #070707 !important;
+                border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
                 .tabBtn {
-                    color: rgba(255, 255, 255, 0.65) !important;
+                    color: rgba(255, 255, 255, 0.7) !important;
 
                     &:hover {
                         color: #00FF88 !important;
+                        background: rgba(0, 255, 136, 0.06) !important;
                     }
 
                     &.active {
-                        background: rgba(0, 255, 136, 0.18) !important;
-                        color: #00FF88 !important;
-                        border-color: rgba(0, 255, 136, 0.3) !important;
+                        background: #047857 !important;
+                        color: #ffffff !important;
+                        border-color: #047857 !important;
                     }
                 }
             }
 
             .searchBox {
                 input {
-                    background: #04140D !important;
-                    border-color: rgba(0, 255, 136, 0.2) !important;
+                    background: #070707 !important;
+                    border: 1px solid rgba(0, 255, 136, 0.14) !important;
                     color: #FFFFFF !important;
+
+                    &:focus {
+                        border-color: #00FF88 !important;
+                    }
+                }
+
+                .searchIcon {
+                    color: rgba(255, 255, 255, 0.5) !important;
                 }
             }
         }
 
         .brokerCard {
-            border-color: rgba(0, 255, 136, 0.2) !important;
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707 !important;
+
+            &:hover {
+                border-color: rgba(0, 255, 136, 0.35) !important;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.12) !important;
+            }
 
             .cardHeader {
                 background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%) !important;
@@ -562,27 +576,60 @@
                 .description {
                     color: rgba(255, 255, 255, 0.75) !important;
                 }
+
+                .tagsGroup .tagItem {
+                    background: #070707 !important;
+                    border: 1px solid rgba(0, 255, 136, 0.14) !important;
+
+                    .tagIcon {
+                        color: #00FF88 !important;
+                    }
+
+                    .tagTitle {
+                        color: #ffffff !important;
+                    }
+
+                    .tagSub {
+                        color: rgba(255, 255, 255, 0.5) !important;
+                    }
+                }
             }
 
             .cardFooter {
-                border-top-color: rgba(255, 255, 255, 0.1) !important;
+                border-top-color: rgba(0, 255, 136, 0.14) !important;
 
                 .linkBtn,
                 .syncBtn {
-                    background: #04140D !important;
-                    border-color: rgba(0, 255, 136, 0.2) !important;
-                    color: #E2E8F0 !important;
+                    background: rgba(0, 255, 136, 0.06) !important;
+                    border: 1px solid rgba(0, 255, 136, 0.25) !important;
+                    color: #00FF88 !important;
 
                     &:hover {
-                        color: #00FF88 !important;
+                        background: rgba(0, 255, 136, 0.15) !important;
+                        color: #FFFFFF !important;
                     }
                 }
 
                 .detailBtn {
-                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
-                    border-color: rgba(0, 255, 136, 0.25) !important;
+                    background: #047857 !important;
+                    border: 1px solid #047857 !important;
                     color: #FFFFFF !important;
+
+                    &:hover {
+                        background: #059669 !important;
+                        border-color: #059669 !important;
+                    }
                 }
+            }
+        }
+
+        .emptyState {
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+
+            h3 {
+                color: #FFFFFF !important;
             }
         }
     }

@@ -14,7 +14,7 @@ $success: #10B981;
     margin: -16px;
     padding: 20px 24px 32px 24px;
     min-height: calc(100vh - 72px);
-        background: #FFFFFF;
+    background: #FFFFFF;
     overflow: hidden;
     box-sizing: border-box;
 
@@ -31,7 +31,7 @@ $success: #10B981;
         background-size: cover;
         background-position: center top;
         // opacity: 0.2;
-         display: none;
+        display: none;
         pointer-events: none;
         z-index: 0;
     }
@@ -507,23 +507,40 @@ $success: #10B981;
     .btnPrimary,
     .btnAnalyze {
         padding: 12px 24px;
-        background: #4ADE80;
-        color: #0F172A;
-        font-weight: 800;
-        border-radius: 12px;
+        min-height: 48px;
+        box-sizing: border-box;
+        background: #047857;
+        border: 1px solid #047857;
+        color: #FFFFFF;
+        font-family: var(--font-plus-jakarta), sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 9999px;
+        box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35);
+        transition: all 0.3s ease;
 
         svg {
-            color: #0F172A;
+            color: #FFFFFF;
+            fill: currentColor;
         }
 
         &:hover:not(:disabled) {
-            background: #22C55E;
-            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3);
+            background: #059669;
+            border-color: #10B981;
+            color: #FFFFFF;
+            box-shadow: 0 6px 20px rgba(4, 120, 87, 0.5);
+            transform: translateY(-2px);
+
+            svg {
+                color: #FFFFFF;
+            }
         }
 
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
     }
 
@@ -531,8 +548,8 @@ $success: #10B981;
         @extend .btnPrimary;
         width: 100%;
         padding: 12px 24px;
-        border-radius: 12px;
-        font-weight: 800;
+        border-radius: 9999px;
+        font-weight: 600;
     }
 
     .featureCardsSection {
@@ -631,6 +648,62 @@ $success: #10B981;
         &:hover {
             background: #E2E8F0;
             color: #0F172A;
+        }
+    }
+
+    .btnRemove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 18px;
+        min-height: 44px;
+        box-sizing: border-box;
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #EF4444;
+        font-family: var(--font-plus-jakarta), sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: rgba(239, 68, 68, 0.16);
+            border-color: #EF4444;
+            color: #DC2626;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .removeThumbnailBtn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        z-index: 2;
+
+        &:hover {
+            background: #EF4444;
+            border-color: #EF4444;
+            color: #FFFFFF;
+            transform: scale(1.08);
         }
     }
 
@@ -1176,6 +1249,10 @@ $success: #10B981;
     border: 1px solid #E2E8F0;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     color: #0F172A;
+
+    &.resultModalBox {
+        max-width: 700px;
+    }
 }
 
 .modalHeader {
@@ -1319,11 +1396,11 @@ $success: #10B981;
         background-color: transparent;
 
         &::after {
-            opacity: 0.35;
+            opacity: 0.15;
         }
 
         &::before {
-            background: radial-gradient(circle at 25% 45%, rgba(0, 255, 136, 0.10) 0%, rgba(3, 16, 11, 0.75) 55%, rgba(2, 10, 7, 0.95) 100%);
+            background: radial-gradient(circle at 50% 20%, rgba(0, 255, 136, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
         }
 
         .title {
@@ -1332,7 +1409,7 @@ $success: #10B981;
                     color: #ffffff;
 
                     span {
-                        color: #00FF88;
+                        color: #10B981;
                     }
                 }
 
@@ -1342,12 +1419,12 @@ $success: #10B981;
             }
 
             .creditsBadge {
-                background: rgba(0, 255, 136, 0.12);
-                border-color: rgba(0, 255, 136, 0.3);
-                color: #00FF88;
+                background: rgba(16, 185, 129, 0.08);
+                border: 1px solid rgba(16, 185, 129, 0.25);
+                color: #10B981;
 
                 svg {
-                    color: #00FF88;
+                    color: #10B981;
                 }
             }
 
@@ -1358,66 +1435,70 @@ $success: #10B981;
                     }
 
                     strong {
-                        color: #00FF88;
+                        color: #10B981;
                     }
 
                     .tagLine {
-                        background: #00FF88;
-                        box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+                        background: #10B981;
+                        box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
                     }
                 }
             }
         }
 
         .tabSwitcher {
-            background: rgba(4, 28, 19, 0.85);
-            border-color: rgba(0, 255, 136, 0.25);
+            background: #070707;
+            border: 1px solid rgba(16, 185, 129, 0.15);
             box-shadow: none;
 
             button {
                 color: rgba(255, 255, 255, 0.75);
 
                 &:hover {
-                    color: #00FF88;
-                    background: rgba(0, 255, 136, 0.08);
+                    color: #10B981;
+                    background: rgba(16, 185, 129, 0.08);
                 }
 
                 &.tabActive {
-                    background: linear-gradient(135deg, rgba(0, 255, 136, 0.25) 0%, rgba(0, 204, 106, 0.15) 100%);
-                    border-color: rgba(0, 255, 136, 0.45);
-                    color: #00FF88;
-                    box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
+                    background: #047857;
+                    border-color: #047857;
+                    color: #ffffff;
+                    box-shadow: 0 0 12px rgba(4, 120, 87, 0.35);
 
                     svg {
-                        color: #00FF88;
+                        color: #ffffff;
                     }
                 }
             }
         }
 
         .panel {
-            background: linear-gradient(145deg, rgba(8, 40, 28, 0.85) 0%, rgba(4, 24, 16, 0.90) 100%);
-            border-color: rgba(0, 255, 136, 0.25);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 15px rgba(0, 255, 136, 0.08);
-        }
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 
-        .panelHeader {
-            border-bottom-color: rgba(0, 255, 136, 0.15);
+            .panelHeader {
+                border-bottom-color: rgba(0, 255, 136, 0.14);
 
-            .panelTitleGroup {
-                h3 {
-                    color: #ffffff;
+                .panelTitleGroup {
+                    h3 {
+                        color: #ffffff;
+                    }
+
+                    p {
+                        color: rgba(255, 255, 255, 0.65);
+                    }
                 }
+            }
 
-                p {
-                    color: rgba(255, 255, 255, 0.65);
-                }
+            .panelActions {
+                background: #070707;
             }
         }
 
         .tfSelectDropdown {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.3);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.2);
             color: #FFFFFF;
 
             &:hover,
@@ -1431,8 +1512,8 @@ $success: #10B981;
             color: rgba(255, 255, 255, 0.75);
 
             select {
-                background: #061D13;
-                border-color: rgba(0, 255, 136, 0.3);
+                background: #070707;
+                border: 1px solid rgba(0, 255, 136, 0.2);
                 color: #ffffff;
 
                 &:focus {
@@ -1442,20 +1523,20 @@ $success: #10B981;
         }
 
         .videoFrame {
-            background: #030E09;
-            border-top: none;
-            border-bottom: none;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .chartPlaceholderView {
-            background: #030E09;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .chartToolbar {
-                background: #04140D;
-                border-right-color: rgba(0, 255, 136, 0.15);
+                background: #070707;
+                border-right-color: rgba(0, 255, 136, 0.14);
 
                 .toolbarIcon {
-                    color: rgba(255, 255, 255, 0.45);
+                    color: rgba(255, 255, 255, 0.55);
 
                     &:hover {
                         color: #00FF88;
@@ -1465,34 +1546,34 @@ $success: #10B981;
             }
 
             .chartCanvasBody {
-                background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.03) 0%, rgba(3, 14, 9, 0.95) 100%);
+                background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.02) 0%, rgba(0, 0, 0, 0.85) 100%);
             }
 
             .chartPriceAxis {
-                background: #04140D;
-                border-left-color: rgba(0, 255, 136, 0.15);
-                color: rgba(255, 255, 255, 0.5);
+                background: #070707;
+                border-left-color: rgba(0, 255, 136, 0.14);
+                color: rgba(255, 255, 255, 0.6);
 
                 .pricePillActive {
-                    background: #00FF88;
-                    color: #030E09;
-                    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+                    background: #047857;
+                    color: #ffffff;
+                    box-shadow: 0 0 10px rgba(4, 120, 87, 0.4);
                 }
             }
 
             .chartTimeAxis {
-                background: #04140D;
-                border-top-color: rgba(0, 255, 136, 0.15);
-                color: rgba(255, 255, 255, 0.4);
+                background: #070707;
+                border-top-color: rgba(0, 255, 136, 0.14);
+                color: rgba(255, 255, 255, 0.5);
             }
 
             .expandIconBtn {
-                background: rgba(4, 20, 13, 0.8);
-                border-color: rgba(0, 255, 136, 0.3);
+                background: rgba(0, 255, 136, 0.06);
+                border: 1px solid rgba(0, 255, 136, 0.25);
                 color: #00FF88;
 
                 &:hover {
-                    background: rgba(0, 255, 136, 0.2);
+                    background: rgba(0, 255, 136, 0.15);
                 }
             }
         }
@@ -1519,32 +1600,72 @@ $success: #10B981;
 
         .btnPrimary,
         .btnAnalyze {
-            background: linear-gradient(135deg, #00FF88 0%, #059669 100%);
-            color: #030E09;
+            background: #047857;
+            border: 1px solid #047857;
+            color: #ffffff;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35);
 
             svg {
-                color: #030E09;
+                color: #ffffff;
+                fill: currentColor;
             }
 
             &:hover:not(:disabled) {
-                background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
-                box-shadow: 0 0 18px rgba(0, 255, 136, 0.4);
+                background: #059669;
+                border-color: #10B981;
+                color: #ffffff;
+                box-shadow: 0 6px 20px rgba(4, 120, 87, 0.5);
+                transform: translateY(-2px);
+
+                svg {
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .featureCardsSection {
+            .featureCard {
+                background: #070707;
+                border: 1px solid rgba(0, 255, 136, 0.14);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+                &:hover {
+                    border-color: rgba(0, 255, 136, 0.35);
+                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.12);
+                }
+
+                .featureIconBox {
+                    background: rgba(0, 255, 136, 0.08);
+                    border: 1px solid rgba(0, 255, 136, 0.25);
+                    color: #00FF88;
+                }
+
+                .featureContent {
+                    h4 {
+                        color: #FFFFFF;
+                    }
+
+                    p {
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+                }
             }
         }
 
         .featureCard {
-            border-color: rgba(0, 255, 136, 0.25);
-            background: linear-gradient(145deg, rgba(8, 40, 28, 0.85) 0%, rgba(4, 24, 16, 0.90) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            background: #070707;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
             &:hover {
-                border-color: rgba(0, 255, 136, 0.5);
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.15);
+                border-color: rgba(0, 255, 136, 0.35);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.12);
             }
 
             .featureIconBox {
-                background: rgba(0, 255, 136, 0.12);
-                border-color: rgba(0, 255, 136, 0.3);
+                background: rgba(0, 255, 136, 0.08);
+                border: 1px solid rgba(0, 255, 136, 0.25);
                 color: #00FF88;
             }
 
@@ -1560,35 +1681,35 @@ $success: #10B981;
         }
 
         .btnSecondary {
-            background: rgba(0, 255, 136, 0.12);
-            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.06);
+            border: 1px solid rgba(0, 255, 136, 0.25);
             color: #00FF88;
 
             &:hover:not(:disabled) {
-                background: rgba(0, 255, 136, 0.25);
+                background: rgba(0, 255, 136, 0.18);
                 color: #FFFFFF;
             }
         }
 
         .btnGhost {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
             color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
 
             &:hover {
-                background: rgba(255, 255, 255, 0.15);
+                background: rgba(255, 255, 255, 0.12);
                 color: #ffffff;
             }
         }
 
         .timerBadge {
-            background: rgba(0, 255, 136, 0.12);
-            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.06);
+            border: 1px solid rgba(0, 255, 136, 0.25);
             color: #00FF88;
         }
 
         .snapshotHeader {
-            border-bottom-color: rgba(0, 255, 136, 0.25);
+            border-bottom-color: rgba(0, 255, 136, 0.14);
 
             h3 {
                 color: #ffffff;
@@ -1596,30 +1717,41 @@ $success: #10B981;
         }
 
         .snapshotImg {
-            background: #030E09;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .snapshotEmpty {
-            background: #030E09;
+            background: #070707;
             color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .dualSnapshot {
             img {
-                background: #030E09;
-                border-color: rgba(0, 255, 136, 0.25);
+                background: #070707;
+                border-color: rgba(0, 255, 136, 0.14);
             }
         }
 
         .resultsPanel {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.25);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+            .resultsHeader {
+                background: #070707;
+                border-bottom-color: rgba(0, 255, 136, 0.14);
+
+                h3 {
+                    color: #ffffff;
+                }
+            }
         }
 
         .resultsHeader {
-            background: #061D13;
-            border-bottom-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border-bottom-color: rgba(0, 255, 136, 0.14);
 
             h3 {
                 color: #ffffff;
@@ -1642,17 +1774,69 @@ $success: #10B981;
         }
 
         .resultCard {
-            background: #061D13;
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             &:hover {
-                border-color: rgba(0, 255, 136, 0.4);
-                box-shadow: 0 6px 20px rgba(0, 255, 136, 0.15);
+                border-color: rgba(0, 255, 136, 0.35);
+                box-shadow: 0 6px 20px rgba(0, 255, 136, 0.12);
+            }
+
+            .resultHeader {
+                border-bottom-color: rgba(0, 255, 136, 0.14);
+            }
+
+            .resultTitleRow h3 {
+                color: #ffffff;
+            }
+
+            .detailBox {
+                background: #070707;
+                border: 1px solid rgba(0, 255, 136, 0.14);
+
+                span {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+
+                strong {
+                    color: #ffffff;
+                }
+            }
+
+            .riskReward {
+                background: #070707;
+                border: 1px solid rgba(16, 185, 129, 0.15);
+
+                span {
+                    color: #ffffff;
+                }
+
+                strong {
+                    background: rgba(16, 185, 129, 0.1);
+                    border: 1px solid rgba(16, 185, 129, 0.25);
+                    color: #10B981;
+                }
+            }
+
+            .rationale {
+                h4 {
+                    color: #ffffff;
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.75);
+                }
+            }
+
+            .entryNote {
+                background: #070707;
+                border: 1px solid rgba(16, 185, 129, 0.14);
+                color: rgba(255, 255, 255, 0.6);
             }
         }
 
         .resultHeader {
-            border-bottom-color: rgba(0, 255, 136, 0.15);
+            border-bottom-color: rgba(16, 185, 129, 0.15);
         }
 
         .resultTitleRow {
@@ -1662,9 +1846,9 @@ $success: #10B981;
         }
 
         .tradeTypeBadge {
-            background: rgba(0, 255, 136, 0.15);
-            color: #00FF88;
-            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(16, 185, 129, 0.12);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .timeframeBadge {
@@ -1672,63 +1856,63 @@ $success: #10B981;
         }
 
         .signalBuy {
-            background: rgba(0, 255, 136, 0.18);
-            color: #00FF88;
-            border-color: rgba(0, 255, 136, 0.35);
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.35);
         }
 
         .signalSell {
-            background: rgba(255, 87, 87, 0.18);
-            color: #FF5757;
-            border-color: rgba(255, 87, 87, 0.35);
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.35);
         }
 
         .signalNeutral {
             background: rgba(255, 255, 255, 0.08);
             color: #FFFFFF;
-            border-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .confidenceRing {
             &.confidenceHigh {
-                color: #00FF88;
-                background: rgba(0, 255, 136, 0.1);
+                color: #10B981;
+                background: rgba(16, 185, 129, 0.12);
             }
 
             &.confidenceMid {
                 color: #FBBF24;
-                background: rgba(251, 191, 36, 0.1);
+                background: rgba(251, 191, 36, 0.12);
             }
 
             &.confidenceLow {
-                color: #FF5757;
-                background: rgba(255, 87, 87, 0.1);
+                color: #EF4444;
+                background: rgba(239, 68, 68, 0.12);
             }
         }
 
         .confidenceLabel {
             &.confidenceHigh {
-                background: rgba(0, 255, 136, 0.18);
-                color: #00FF88;
-                border-color: rgba(0, 255, 136, 0.3);
+                background: rgba(16, 185, 129, 0.15);
+                color: #10B981;
+                border: 1px solid rgba(16, 185, 129, 0.3);
             }
 
             &.confidenceMid {
-                background: rgba(251, 191, 36, 0.18);
+                background: rgba(251, 191, 36, 0.15);
                 color: #FBBF24;
-                border-color: rgba(251, 191, 36, 0.3);
+                border: 1px solid rgba(251, 191, 36, 0.3);
             }
 
             &.confidenceLow {
-                background: rgba(255, 87, 87, 0.18);
-                color: #FF5757;
-                border-color: rgba(255, 87, 87, 0.3);
+                background: rgba(239, 68, 68, 0.15);
+                color: #EF4444;
+                border: 1px solid rgba(239, 68, 68, 0.3);
             }
         }
 
         .detailBox {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.18);
+            background: #070707;
+            border: 1px solid rgba(16, 185, 129, 0.15);
 
             span {
                 color: rgba(255, 255, 255, 0.6);
@@ -1740,45 +1924,63 @@ $success: #10B981;
         }
 
         .lossText {
-            color: #FF5757 !important;
+            color: #EF4444 !important;
         }
 
         .profitText {
-            color: #00FF88 !important;
+            color: #10B981 !important;
         }
 
         .targetsBox {
-            background: rgba(0, 255, 136, 0.08);
-            border-color: rgba(0, 255, 136, 0.25);
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 8px;
         }
 
         .targetsLabel {
-            color: #00FF88;
+            color: #10B981;
+            font-weight: 700;
         }
 
         .targetRow {
             span {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(255, 255, 255, 0.7);
             }
         }
 
         .viewDetailsBtn {
             margin-top: 8px;
-            color: #00FF88;
+            color: #10B981;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+
+            svg {
+                color: #10B981;
+            }
+
+            &:hover {
+                color: #34D399;
+
+                svg {
+                    color: #34D399;
+                }
+            }
         }
 
         .riskReward {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.18);
+            background: #070707;
+            border: 1px solid rgba(16, 185, 129, 0.15);
 
             span {
                 color: #ffffff;
             }
 
             strong {
-                background: #061D13;
-                border-color: rgba(0, 255, 136, 0.3);
-                color: #00FF88;
+                background: rgba(16, 185, 129, 0.1);
+                border: 1px solid rgba(16, 185, 129, 0.25);
+                color: #10B981;
             }
         }
 
@@ -1793,14 +1995,26 @@ $success: #10B981;
         }
 
         .entryNote {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.18);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
             color: rgba(255, 255, 255, 0.6);
         }
 
+        .btnRemove {
+            background: rgba(255, 87, 87, 0.12);
+            border: 1px solid rgba(255, 87, 87, 0.35);
+            color: #FF5757;
+
+            &:hover {
+                background: rgba(255, 87, 87, 0.22);
+                border-color: #FF5757;
+                color: #FFFFFF;
+            }
+        }
+
         .mobileCard {
-            background: #04140D;
-            border-color: rgba(0, 255, 136, 0.25);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 
             h3 {
@@ -1813,7 +2027,8 @@ $success: #10B981;
         }
 
         .mobileIconWrap {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 255, 136, 0.15));
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.2);
 
             .mobileMonitor {
                 color: #00FF88;
@@ -1822,18 +2037,18 @@ $success: #10B981;
     }
 
     .modalOverlay {
-        background: rgba(3, 14, 9, 0.85);
+        background: rgba(0, 0, 0, 0.85);
     }
 
     .modalBox {
-        background: #04140D;
-        border-color: rgba(0, 255, 136, 0.3);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         color: #ffffff;
     }
 
     .modalHeader {
-        border-bottom-color: rgba(0, 255, 136, 0.15);
+        border-bottom-color: rgba(0, 255, 136, 0.14);
 
         h2 {
             color: #ffffff;
@@ -1845,11 +2060,11 @@ $success: #10B981;
     }
 
     .modalClose {
-        background: rgba(0, 255, 136, 0.1);
+        background: rgba(0, 255, 136, 0.08);
         color: #00FF88;
 
         &:hover {
-            background: rgba(0, 255, 136, 0.25);
+            background: rgba(0, 255, 136, 0.2);
             color: #FFFFFF;
         }
     }
@@ -1859,12 +2074,12 @@ $success: #10B981;
     }
 
     .modalFooter {
-        border-top-color: rgba(0, 255, 136, 0.15);
+        border-top-color: rgba(0, 255, 136, 0.14);
     }
 
     .uploadDropzone {
-        border-color: rgba(0, 255, 136, 0.25);
-        background: #04140D;
+        border: 1px dashed rgba(0, 255, 136, 0.25);
+        background: #070707;
 
         &:hover,
         &:focus-visible {
@@ -1890,253 +2105,6 @@ $success: #10B981;
     }
 
     .uploadPreviewImg {
-        border-color: rgba(0, 255, 136, 0.25);
-    }
-}
-
-:global(.dark) {
-    .tradeSnap {
-        background-color: #030E09;
-
-        &::after {
-            opacity: 0.32;
-        }
-
-        &::before {
-            background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.22) 0%, rgba(6, 24, 16, 0.75) 50%, #030E09 100%);
-        }
-
-        .title {
-            .titleHead {
-                h2 {
-                    color: #FFFFFF;
-                }
-
-                p {
-                    color: #94A3B8;
-                }
-            }
-        }
-
-        .tabSwitcher {
-            background: #092016;
-            border-color: #164E39;
-
-            button {
-                color: #94A3B8;
-
-                &:hover {
-                    color: #34D399;
-                    background: rgba(16, 185, 129, 0.1);
-                }
-
-                &.tabActive {
-                    background: rgba(16, 185, 129, 0.2);
-                    border-color: #10B981;
-                    color: #34D399;
-                }
-            }
-        }
-
-        .panel {
-            background: #061810;
-            border-color: #164E39;
-
-            .panelHeader {
-                border-bottom-color: #0E2A1E;
-
-                .panelTitleGroup {
-                    h3 {
-                        color: #F8FAFC;
-                    }
-
-                    p {
-                        color: #94A3B8;
-                    }
-                }
-            }
-
-            .panelActions {
-                background: #061810;
-            }
-
-            .tfSelectDropdown {
-                background: #092016;
-                border-color: #164E39;
-                color: #F8FAFC;
-
-                &:hover,
-                &:focus {
-                    border-color: #10B981;
-                }
-            }
-        }
-
-        .videoFrame {
-            background: #04120B;
-            border-color: #0E2A1E;
-        }
-
-        .chartPlaceholderView {
-            background: #04120B;
-
-            .chartToolbar {
-                background: #092016;
-                border-right-color: #164E39;
-
-                .toolbarIcon {
-                    color: #94A3B8;
-
-                    &:hover {
-                        color: #34D399;
-                        background: rgba(16, 185, 129, 0.15);
-                    }
-                }
-            }
-
-            .chartCanvasBody {
-                background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, rgba(4, 18, 11, 0.95) 100%);
-            }
-
-            .chartPriceAxis {
-                background: #092016;
-                border-left-color: #164E39;
-                color: #94A3B8;
-            }
-
-            .chartTimeAxis {
-                background: #092016;
-                border-top-color: #164E39;
-                color: #94A3B8;
-            }
-
-            .expandIconBtn {
-                background: #061810;
-                border-color: #164E39;
-                color: #34D399;
-
-                &:hover {
-                    background: rgba(16, 185, 129, 0.2);
-                }
-            }
-        }
-
-        .videoPlaceholder {
-            color: #F8FAFC;
-
-            h3 {
-                color: #F8FAFC;
-            }
-
-            p {
-                color: #94A3B8;
-            }
-
-            .placeholderIcon {
-                color: #475569;
-            }
-        }
-
-        .featureCardsSection {
-            .featureCard {
-                background: #061810;
-                border-color: #164E39;
-
-                &:hover {
-                    border-color: #10B981;
-                }
-
-                .featureIconBox {
-                    background: rgba(16, 185, 129, 0.15);
-                    border-color: rgba(16, 185, 129, 0.3);
-                    color: #34D399;
-                }
-
-                .featureContent {
-                    h4 {
-                        color: #F8FAFC;
-                    }
-
-                    p {
-                        color: #94A3B8;
-                    }
-                }
-            }
-        }
-
-        .resultsPanel {
-            background: #061810;
-            border-color: #164E39;
-
-            .resultsHeader {
-                background: #092016;
-                border-bottom-color: #164E39;
-
-                h3 {
-                    color: #F8FAFC;
-                }
-            }
-        }
-
-        .resultCard {
-            background: #092016;
-            border-color: #164E39;
-
-            &:hover {
-                border-color: #10B981;
-            }
-
-            .resultHeader {
-                border-bottom-color: #0E2A1E;
-            }
-
-            .resultTitleRow h3 {
-                color: #F8FAFC;
-            }
-
-            .detailBox {
-                background: #04120B;
-                border-color: #164E39;
-
-                span {
-                    color: #94A3B8;
-                }
-
-                strong {
-                    color: #F8FAFC;
-                }
-            }
-
-            .riskReward {
-                background: #04120B;
-                border-color: #164E39;
-
-                span {
-                    color: #F8FAFC;
-                }
-
-                strong {
-                    background: #092016;
-                    border-color: #164E39;
-                    color: #34D399;
-                }
-            }
-
-            .rationale {
-                h4 {
-                    color: #F8FAFC;
-                }
-
-                p {
-                    color: #CBD5E1;
-                }
-            }
-
-            .entryNote {
-                background: #04120B;
-                border-color: #164E39;
-                color: #94A3B8;
-            }
-        }
+        border-color: rgba(0, 255, 136, 0.2);
     }
 }

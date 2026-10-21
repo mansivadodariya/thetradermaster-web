@@ -236,9 +236,9 @@ $border: #E2E8F0;
     }
 
     .card {
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-        border-color: rgba(0, 255, 136, 0.2);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
     .historyHeader {
@@ -247,7 +247,7 @@ $border: #E2E8F0;
         }
 
         p {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.65);
         }
     }
 
@@ -257,40 +257,65 @@ $border: #E2E8F0;
 
     .historyTable {
         th {
-            color: rgba(255, 255, 255, 0.5);
-            border-color: rgba(0, 255, 136, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            border-bottom-color: rgba(0, 255, 136, 0.14);
         }
 
         td {
             color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.05);
+            border-bottom-color: rgba(255, 255, 255, 0.05);
         }
 
         .tableRow:hover {
-            background-color: rgba(255, 255, 255, 0.02);
+            background-color: rgba(0, 255, 136, 0.04);
         }
 
         .descCell {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.75);
         }
     }
 
+    .badgeAdd {
+        background-color: rgba(0, 255, 136, 0.08);
+        color: #00FF88;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+    }
+
+    .badgeDeduct {
+        background-color: rgba(255, 87, 87, 0.12);
+        color: #FF5757;
+        border: 1px solid rgba(255, 87, 87, 0.25);
+    }
+
+    .amountAdd {
+        color: #00FF88;
+    }
+
+    .amountDeduct {
+        color: #FF5757;
+    }
+
     .pagination {
-        border-color: rgba(0, 255, 136, 0.2);
+        border-top-color: rgba(0, 255, 136, 0.14);
 
         .paginationButton {
-            // color: rgba(255, 255, 255, 0.7);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            color: rgba(255, 255, 255, 0.8);
 
             &:hover:not(:disabled) {
-                background-color: rgba(255, 255, 255, 0.05);
+                background-color: #047857;
                 color: #ffffff;
-                border-color: rgba(255, 255, 255, 0.2);
+                border-color: #047857;
+            }
+
+            &:disabled {
+                opacity: 0.3;
             }
         }
 
         .paginationInfo {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
         }
     }
 }

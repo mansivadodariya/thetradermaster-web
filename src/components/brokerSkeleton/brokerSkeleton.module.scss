@@ -42,9 +42,9 @@
 
 :global(.dark) .cardSkeleton,
 :global(html.dark) .cardSkeleton {
-  background: rgba(8, 24, 17, 0.85);
-  border-color: rgba(0, 255, 136, 0.18);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+  background: #070707;
+  border-color: rgba(0, 255, 136, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .bannerHeader {
@@ -57,8 +57,8 @@
 
 :global(.dark) .bannerHeader,
 :global(html.dark) .bannerHeader {
-  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(4, 20, 14, 0.9) 100%);
-  border-bottom-color: rgba(0, 255, 136, 0.15);
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.06) 0%, #0A0D0B 100%);
+  border-bottom-color: rgba(0, 255, 136, 0.14);
 }
 
 .logoCircle {
@@ -147,8 +147,8 @@
 
 :global(.dark) .detailBanner,
 :global(html.dark) .detailBanner {
-  background: rgba(8, 24, 17, 0.85);
-  border-color: rgba(0, 255, 136, 0.18);
+  background: #070707;
+  border-color: rgba(0, 255, 136, 0.14);
 }
 
 .detailLogo {
@@ -190,8 +190,8 @@
 
 :global(.dark) .detailCardSection,
 :global(html.dark) .detailCardSection {
-  background: rgba(8, 24, 17, 0.85);
-  border-color: rgba(0, 255, 136, 0.18);
+  background: #070707;
+  border-color: rgba(0, 255, 136, 0.14);
 }
 
 .sectionTitle {

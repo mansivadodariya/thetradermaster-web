@@ -801,6 +801,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     border-radius: 6px;
     font-size: 11px;
     font-weight: 700;
+
+    :global(.dark) & {
+        background: rgba(16, 185, 129, 0.1) !important;
+        border-color: rgba(16, 185, 129, 0.28) !important;
+        color: #34D399 !important;
+    }
 }
 
 .directionBadge {
@@ -815,18 +821,36 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         background: #ECFDF5;
         border: 1px solid rgba(16, 185, 129, 0.3);
         color: #059669;
+
+        :global(.dark) & {
+            background: rgba(16, 185, 129, 0.1) !important;
+            border-color: rgba(16, 185, 129, 0.28) !important;
+            color: #10B981 !important;
+        }
     }
 
     &.sellColor {
         background: #FEF2F2;
         border: 1px solid rgba(239, 68, 68, 0.3);
         color: #DC2626;
+
+        :global(.dark) & {
+            background: rgba(239, 68, 68, 0.1) !important;
+            border-color: rgba(239, 68, 68, 0.28) !important;
+            color: #EF4444 !important;
+        }
     }
 
     &.holdColor {
         background: #F1F5F9;
         border: 1px solid #E2E8F0;
         color: #475569;
+
+        :global(.dark) & {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
     }
 }
 
@@ -4115,36 +4139,36 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .statusBadge {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
-            color: #94a3b8;
+            background: rgba(0, 255, 136, 0.06);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
 
             &.connected {
-                color: #10b981;
-                border-color: rgba(16, 185, 129, 0.3);
-                background: rgba(16, 185, 129, 0.1);
+                color: #00FF88;
+                border-color: rgba(0, 255, 136, 0.35);
+                background: rgba(0, 255, 136, 0.08);
             }
 
             &.connecting {
-                color: $very-light-green;
+                color: #60a5fa;
                 border-color: rgba(96, 165, 250, 0.3);
-                background: rgba(96, 165, 250, 0.1);
+                background: rgba(96, 165, 250, 0.08);
             }
 
             &.disconnected {
                 color: #f87171;
                 border-color: rgba(248, 113, 113, 0.3);
-                background: rgba(248, 113, 113, 0.1);
+                background: rgba(248, 113, 113, 0.08);
             }
         }
 
         .controlsBar {
-            border-bottom-color: rgba(0, 255, 136, 0.2);
+            border-bottom-color: rgba(0, 255, 136, 0.14);
         }
 
         .symbolForm {
-            border-color: rgba(0, 255, 136, 0.2);
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            background: #070707;
 
             .symbolInput {
                 color: #ffffff;
@@ -4156,82 +4180,85 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .tabSwitcher {
-            background: rgba(0, 16, 11, 0.6);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .tabBtn {
-            color: #94a3b8;
+            color: rgba(255, 255, 255, 0.7);
 
             &:hover {
-                color: #ffffff;
+                color: #00FF88;
+                background: rgba(0, 255, 136, 0.08);
             }
 
             &.activeTab {
-                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-                color: $very-light-green;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                background: #047857;
+                border-color: #047857;
+                color: #ffffff;
+                box-shadow: 0 2px 8px rgba(4, 120, 87, 0.35);
             }
         }
 
         .strategyDropdownContainer {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: #070707;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
             .dropdownLabel {
-                color: rgba(0, 255, 136, 0.9);
-                font-weight: 800;
+                color: rgba(255, 255, 255, 0.75);
+                font-weight: 700;
             }
 
             .customSelectTrigger {
-                background: rgba(0, 255, 136, 0.08);
-                border-color: rgba(0, 255, 136, 0.3);
+                background: #0D110E;
+                border: 1px solid rgba(255, 255, 255, 0.12);
                 color: #ffffff;
 
                 &:hover:not(:disabled) {
-                    background: rgba(0, 255, 136, 0.16);
-                    border-color: rgba(0, 255, 136, 0.5);
+                    background: #121814;
+                    border-color: rgba(16, 185, 129, 0.35);
                 }
             }
 
             .selectedText {
-                color: #00FF88 !important;
+                color: #ffffff !important;
                 font-weight: 700;
             }
 
             .chevronIcon {
-                color: #00FF88 !important;
+                color: #10B981 !important;
             }
 
             .customDropdownMenu {
-                background: rgba(4, 28, 20, 0.98);
-                border-color: rgba(0, 255, 136, 0.3);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+                background: #070707;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
             }
 
             .customDropdownItem {
                 color: #ffffff;
 
                 &:hover {
-                    background: rgba(0, 255, 136, 0.15);
-                    color: #00FF88;
+                    background: rgba(16, 185, 129, 0.1);
+                    color: #34D399;
                 }
 
                 &.itemSelected {
-                    background: rgba(0, 255, 136, 0.2);
-                    color: #00FF88;
+                    background: rgba(16, 185, 129, 0.15);
+                    color: #10B981;
                 }
             }
 
             .checkmarkIcon {
-                color: #00FF88;
+                color: #10B981;
             }
         }
 
         .watchlistPanel {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
             .watchlistHeader {
                 h3 {
@@ -4239,14 +4266,14 @@ $bgSoft: rgba(2, 30, 22, 0.75);
                 }
 
                 .watchlistCount {
-                    color: rgba(255, 255, 255, 0.4);
+                    color: rgba(255, 255, 255, 0.5);
                 }
             }
         }
 
         .watchlistSearchContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .searchIcon {
                 color: rgba(255, 255, 255, 0.4);
@@ -4267,25 +4294,25 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
         .watchlistItemsList {
             &::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.08);
+                background: rgba(0, 255, 136, 0.2);
             }
         }
 
         .noPairsFound {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .watchlistItem {
             &:hover {
-                background: rgba(0, 16, 11, 0.6);
+                background: rgba(0, 255, 136, 0.04);
             }
 
             &.activeItem {
-                background: rgba(16, 185, 129, 0.15);
-                border-color: rgba(16, 185, 129, 0.15);
+                background: rgba(0, 255, 136, 0.08);
+                border: 1px solid rgba(0, 255, 136, 0.25);
 
                 .itemSymbolName {
-                    color: $very-light-green;
+                    color: #00FF88;
                 }
             }
 
@@ -4294,7 +4321,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .itemSymbolLabel {
-                color: rgba(255, 255, 255, 0.4);
+                color: rgba(255, 255, 255, 0.5);
             }
 
             .itemPrice {
@@ -4303,32 +4330,32 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .loaderContainer {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
             color: rgba(255, 255, 255, 0.6);
         }
 
         .analysisPanel {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-            border-color: rgba(0, 255, 136, 0.2) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
             color: #ffffff !important;
 
-            scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+            scrollbar-color: rgba(0, 255, 136, 0.2) transparent;
 
             &::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.15);
+                background: rgba(0, 255, 136, 0.2);
                 border-radius: 99px;
             }
         }
 
         .analysisPanelPlaceholder {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-            border-color: rgba(0, 255, 136, 0.2) !important;
-            color: rgba(255, 255, 255, 0.4);
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .premiumAccordion {
-            border-bottom-color: rgba(0, 255, 136, 0.2);
+            border-bottom-color: rgba(0, 255, 136, 0.14);
         }
 
         .premiumAccordionHeader {
@@ -4346,7 +4373,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .confLabel {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .confValue {
@@ -4372,11 +4399,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .progressBarTitle {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.65);
         }
 
         .progressOuterTrack {
-            background: #2d2d34;
+            background: #1a1a1a;
         }
 
         .progressScoreText {
@@ -4388,8 +4415,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .progressSubDetailsCollapse {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .metricName {
@@ -4411,7 +4438,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .scoreFormulaRow {
-            border-top-color: rgba(0, 255, 136, 0.2);
+            border-top-color: rgba(0, 255, 136, 0.14);
 
             .formulaTitle {
                 color: rgba(255, 255, 255, 0.4);
@@ -4419,23 +4446,23 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .evidenceOutlinedGroup {
-            border-color: rgba(0, 255, 136, 0.2);
-            background: rgba(0, 16, 11, 0.6);
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            background: #070707;
 
             &.trend {
-                background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent);
+                background: linear-gradient(to right, rgba(59, 130, 246, 0.08), transparent);
             }
 
             &.momentum {
-                background: linear-gradient(to right, rgba(168, 85, 247, 0.1), transparent);
+                background: linear-gradient(to right, rgba(168, 85, 247, 0.08), transparent);
             }
 
             &.volume {
-                background: linear-gradient(to right, rgba(245, 158, 11, 0.1), transparent);
+                background: linear-gradient(to right, rgba(245, 158, 11, 0.08), transparent);
             }
 
             &.structure {
-                background: linear-gradient(to right, rgba(16, 185, 129, 0.1), transparent);
+                background: linear-gradient(to right, rgba(0, 255, 136, 0.08), transparent);
             }
         }
 
@@ -4444,7 +4471,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .evidenceCollapsedBulletArea {
-            border-top-color: rgba(0, 255, 136, 0.2);
+            border-top-color: rgba(0, 255, 136, 0.14);
         }
 
         .evidenceBulletItem {
@@ -4462,8 +4489,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .metricGridItem {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .indicatorLabelBox {
@@ -4471,8 +4498,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .trendConfidenceContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .confidenceTexts {
@@ -4486,12 +4513,12 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .confidenceTrack {
-            background: #2d2d34;
+            background: #1a1a1a;
         }
 
         .momentumSliderContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .sliderLabelRow {
@@ -4506,7 +4533,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
         .sliderPinPointer {
             .pinDot {
-                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+                background: #070707;
                 border-color: #ffffff;
             }
 
@@ -4524,8 +4551,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .macdMetricsContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .macdHeaderRow {
@@ -4535,7 +4562,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .macdHistogramTrack {
-            background: #2d2d34;
+            background: #1a1a1a;
 
             .centerLine {
                 background: rgba(255, 255, 255, 0.25);
@@ -4547,8 +4574,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .stochasticSubProgressList {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .stochProgressRow {
@@ -4557,7 +4584,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .stochTrackBg {
-                background: #2d2d34;
+                background: #1a1a1a;
             }
 
             .stochValText {
@@ -4566,8 +4593,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .relativeVolumeContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .volHeaderRow {
@@ -4581,11 +4608,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .relativeVolumeTrack {
-            background: #2d2d34;
+            background: #1a1a1a;
         }
 
         .relativeVolPointer {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            background: #070707;
             border-color: #ffffff;
         }
 
@@ -4594,8 +4621,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .volCompareCard {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .volCompareLabel {
@@ -4607,8 +4634,8 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .volumePressureContainer {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
         }
 
         .pressureHeaderRow {
@@ -4618,9 +4645,9 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .purpleAiSummaryCard {
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.55) 0%, rgba(17, 24, 39, 0.8) 100%);
+            background: #070707;
             border: 1px solid rgba(139, 92, 246, 0.35);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
         .purpleAiHeader {
@@ -4642,9 +4669,9 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .unifiedCard {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
             .symbolText h3 {
                 color: #ffffff;
@@ -4659,13 +4686,13 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .countdownBox {
-                background: rgba(0, 16, 11, 0.6);
-                border-color: rgba(0, 255, 136, 0.2);
-                color: rgba(255, 255, 255, 0.5);
+                background: rgba(0, 255, 136, 0.06);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+                color: #00FF88;
             }
 
             .timeframeRow {
-                border-top-color: rgba(0, 255, 136, 0.2);
+                border-top-color: rgba(0, 255, 136, 0.14);
 
                 .rowLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4673,24 +4700,24 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .timeframeSelectors {
-                background: rgba(0, 16, 11, 0.6);
+                background: #070707;
             }
 
             .tfBtn {
-                color: #94a3b8;
+                color: rgba(255, 255, 255, 0.7);
 
                 &:hover {
-                    color: #ffffff;
+                    color: #00FF88;
                 }
 
                 &.tfActive {
-                    background: $primary;
+                    background: #047857;
                     color: #ffffff;
                 }
             }
 
             .strengthArea {
-                border-top-color: rgba(0, 255, 136, 0.2);
+                border-top-color: rgba(0, 255, 136, 0.14);
             }
 
             .strengthHeader {
@@ -4704,11 +4731,11 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .progressBackground {
-                background: #2d2d34;
+                background: #1a1a1a;
             }
 
             .signalsArea {
-                border-top-color: rgba(0, 255, 136, 0.2);
+                border-top-color: rgba(0, 255, 136, 0.14);
 
                 .signalsHeaderLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4716,28 +4743,28 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .noSignalsBadge {
-                background: rgba(0, 16, 11, 0.6);
-                border-color: rgba(0, 255, 136, 0.2);
-                color: rgba(255, 255, 255, 0.4);
+                background: rgba(0, 255, 136, 0.04);
+                border: 1px solid rgba(0, 255, 136, 0.14);
+                color: rgba(255, 255, 255, 0.5);
             }
 
             .signalPill {
                 &.neutralBadge {
                     background: rgba(255, 255, 255, 0.05);
-                    border-color: rgba(0, 255, 136, 0.2);
-                    color: #94a3b8;
+                    border: 1px solid rgba(0, 255, 136, 0.2);
+                    color: rgba(255, 255, 255, 0.8);
                 }
             }
         }
 
         .noTradeCard {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
             .radarIcon {
                 background: rgba(0, 255, 136, 0.08);
-                border-color: rgba(0, 255, 136, 0.25);
+                border: 1px solid rgba(0, 255, 136, 0.25);
                 color: #00FF88;
 
                 &::before {
@@ -4755,9 +4782,9 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .strategyCard {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
             .strategyTitleRow {
                 h3 {
@@ -4765,21 +4792,21 @@ $bgSoft: rgba(2, 30, 22, 0.75);
                 }
 
                 .timeTag {
-                    color: rgba(255, 255, 255, 0.4);
+                    color: rgba(255, 255, 255, 0.5);
                 }
             }
 
             .strategyHeader {
-                border-bottom-color: rgba(0, 255, 136, 0.2);
+                border-bottom-color: rgba(0, 255, 136, 0.14);
             }
         }
 
         .levelsCard {
-            background: rgba(0, 16, 11, 0.6);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .levelItem {
-                border-bottom-color: rgba(0, 255, 136, 0.2);
+                border-bottom-color: rgba(0, 255, 136, 0.14);
 
                 .levelLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4791,7 +4818,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .gridLevelRow {
-                border-bottom-color: rgba(0, 255, 136, 0.2);
+                border-bottom-color: rgba(0, 255, 136, 0.14);
 
                 .gridLevelLabel {
                     color: rgba(255, 255, 255, 0.5);
@@ -4804,7 +4831,7 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .confluenceBox {
-            border-color: rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.14);
 
             .confluenceStats {
                 .confKicker {
@@ -4819,26 +4846,26 @@ $bgSoft: rgba(2, 30, 22, 0.75);
 
         // Chart Panel specific dark theme support
         .chartPanel {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            border-color: rgba(0, 255, 136, 0.2);
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .chartPanelHeader {
-                border-bottom-color: rgba(0, 255, 136, 0.2);
+                border-bottom-color: rgba(0, 255, 136, 0.14);
 
                 .chartTitleArea h3 {
                     color: #ffffff;
                 }
 
                 .ohlcLabel {
-                    color: rgba(255, 255, 255, 0.45);
+                    color: rgba(255, 255, 255, 0.5);
                 }
             }
 
             .chartCanvasContainer {
-                background: #0f0f11;
+                background: #070707;
 
                 .chartOverlay {
-                    background: rgba(15, 15, 17, 0.7);
+                    background: rgba(0, 0, 0, 0.7);
 
                     span {
                         color: #ffffff;
@@ -4847,31 +4874,31 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             }
 
             .chartLegendContainer {
-                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-                border-top-color: rgba(0, 255, 136, 0.2);
+                background: #070707;
+                border-top-color: rgba(0, 255, 136, 0.14);
 
                 .chartLegend {
-                    color: #94a3b8;
+                    color: rgba(255, 255, 255, 0.7);
                 }
             }
         }
 
         .strategyAccordion {
-            border-color: rgba(0, 255, 136, 0.2);
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            background: #070707;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         .accordionTrigger {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
+            background: #070707;
 
             &:hover {
-                background: rgba(0, 16, 11, 0.6);
+                background: rgba(0, 255, 136, 0.04);
             }
 
             &.accordionOpen {
-                background: rgba(0, 16, 11, 0.6);
-                border-bottom-color: rgba(0, 255, 136, 0.2);
+                background: #070707;
+                border-bottom-color: rgba(0, 255, 136, 0.14);
             }
         }
 
@@ -4880,19 +4907,20 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .accordionBadge {
-            background: rgba(96, 165, 250, 0.15);
-            color: $very-light-green;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.28);
+            color: #34D399;
         }
 
         .accordionWsBadge {
             &.connected {
-                color: #10b981;
-                background: rgba(16, 185, 129, 0.08);
-                border-color: rgba(16, 185, 129, 0.2);
+                color: #10B981;
+                background: rgba(16, 185, 129, 0.1);
+                border: 1px solid rgba(16, 185, 129, 0.28);
             }
 
             &.connecting {
-                color: $primary;
+                color: #60a5fa;
                 background: rgba(59, 130, 246, 0.08);
                 border-color: rgba(59, 130, 246, 0.2);
             }
@@ -4905,51 +4933,100 @@ $bgSoft: rgba(2, 30, 22, 0.75);
         }
 
         .pairCard {
-            border-color: rgba(0, 255, 136, 0.2);
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #070707;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 
             &:hover {
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-                background: rgba(0, 16, 11, 0.6);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+                background: #0C100E;
+                border-color: rgba(16, 185, 129, 0.3);
             }
 
             &.activeBuy {
-                border-left-color: #10b981;
+                border-left: 4px solid #10B981;
                 box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
             }
 
             &.activeSell {
-                border-left-color: #ef4444;
+                border-left: 4px solid #ef4444;
                 box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
             }
 
-            h4 {
-                color: #ffffff;
+            .pairCardHead {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .cardHeaderTitle {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                min-width: 0;
+
+                h4 {
+                    color: #ffffff;
+                    font-size: 15px;
+                    font-weight: 800;
+                    margin: 0;
+                    white-space: nowrap;
+                }
+            }
+
+            .strategyTypeTag {
+                background: rgba(16, 185, 129, 0.1) !important;
+                color: #34D399 !important;
+                border: 1px solid rgba(16, 185, 129, 0.28) !important;
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                padding: 4px 10px !important;
+                border-radius: 6px !important;
+                white-space: nowrap !important;
+            }
+
+            .directionBadge {
+                font-size: 12px !important;
+                font-weight: 700 !important;
+                padding: 5px 12px !important;
+                border-radius: 8px !important;
+
+                &.holdColor,
+                &.holdBadge {
+                    background-color: rgba(255, 255, 255, 0.06) !important;
+                    color: rgba(255, 255, 255, 0.8) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+                }
+
+                &.buyColor {
+                    background-color: rgba(16, 185, 129, 0.1) !important;
+                    color: #10B981 !important;
+                    border: 1px solid rgba(16, 185, 129, 0.28) !important;
+                }
+
+                &.sellColor {
+                    background-color: rgba(239, 68, 68, 0.1) !important;
+                    color: #EF4444 !important;
+                    border: 1px solid rgba(239, 68, 68, 0.28) !important;
+                }
             }
 
             .levelsCard {
-                background: rgba(0, 16, 11, 0.6) !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
+                background: #090C0A !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
             }
 
             .inactiveMessage {
-                background: rgba(0, 16, 11, 0.6) !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
+                background: #090C0A !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
                 color: rgba(255, 255, 255, 0.5) !important;
-            }
-
-            .directionBadge.holdColor,
-            .holdBadge {
-                background-color: rgba(148, 163, 184, 0.12) !important;
-                color: #94a3b8 !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
             }
         }
 
         .inactiveMessage {
-            background: rgba(0, 16, 11, 0.6) !important;
-            border-color: rgba(0, 255, 136, 0.2) !important;
+            background: #090C0A !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
             color: rgba(255, 255, 255, 0.5) !important;
         }
 

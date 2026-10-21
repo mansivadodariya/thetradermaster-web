@@ -164,6 +164,7 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
             <Icon />
           </div>
           <span>{item.label}</span>
+          {isActive && <span className={styles.activeDot} />}
         </div>
         {isOpen && (
           <div className={styles.subItemsList}>
@@ -182,6 +183,7 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
                     <SubIcon />
                   </div>
                   <span>{sub.label}</span>
+                  {isSubActive && <span className={styles.activeDot} />}
                 </Link>
               );
             })}
@@ -203,6 +205,7 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
         <Icon />
       </div>
       {!isCollapsed && <span>{item.label}</span>}
+      {!isCollapsed && isActive && <span className={styles.activeDot} />}
       {isCollapsed && <span className={styles.tooltip}>{item.label}</span>}
     </Link>
   );

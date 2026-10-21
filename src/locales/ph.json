@@ -197,7 +197,12 @@
     "suggestedTag1": "Diskarte sa XAU/USD",
     "suggestedTag2": "XAU/USD Breakouts",
     "suggestedTag3": "Pagsusuri ng Trend sa XAU/USD",
-    "suggestedTag4": "Suriin ang XAU/USD sa H4"
+    "suggestedTag4": "Suriin ang XAU/USD sa H4",
+    "analysisStarted": "Nagsimula na ang pagsusuri – maaari mong ipagpatuloy ang paggamit ng platform.",
+    "analysisSubtitle": "Sinusuri ng quantitative engine ang multi-timeframe trends, order blocks, at key liquidity levels para sa",
+    "backgroundActive": "Aktibo ang background worker • Malaya kang makakapunta sa Dashboard o Chart Scanner",
+    "analysisReady": "Handa na ang pagsusuri",
+    "analysisReadyDesc": "Nakumpleto na ang quantitative report. I-click upang tingnan."
   },
   "aiStrategy": {
     "title": "Tagabuo ng AI Diskarte",

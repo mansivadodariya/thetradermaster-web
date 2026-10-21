@@ -38,7 +38,9 @@ export default function BrokerDetailModal({ broker, onClose, onSyncClick }) {
     if (!broker) return null;
 
     let logoSrc = typeof broker.logo === 'string' ? broker.logo : null;
-    if (logoSrc && (logoSrc.includes('logo-light') || broker.id === 'newera')) {
+    if (!logoSrc || broker.id === 'avatrade' || logoSrc.includes('site-logo-20y')) {
+        logoSrc = '/assets/images/site-logo-20y-on-light.svg';
+    } else if (logoSrc.includes('logo-light') || broker.id === 'newera') {
         logoSrc = theme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
     }
     const name = broker.name || broker.title || 'Partner Platform';

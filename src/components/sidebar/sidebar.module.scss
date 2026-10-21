@@ -1,6 +1,28 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
+@keyframes activeBorderGlow {
+    0%, 100% {
+        border-color: rgba(0, 255, 136, 0.45);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(0, 255, 136, 0.25);
+    }
+    50% {
+        border-color: rgba(0, 255, 136, 0.85);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.8), 0 0 22px rgba(0, 255, 136, 0.5);
+    }
+}
+
+@keyframes activeBorderGlowLight {
+    0%, 100% {
+        border-color: rgba(16, 185, 129, 0.5);
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    }
+    50% {
+        border-color: rgba(16, 185, 129, 0.9);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
+}
+
 .sidebar {
     height: calc(100dvh - 0px);
     border-right: 1px solid #E2E8F0;
@@ -21,20 +43,26 @@
         -webkit-tap-highlight-color: transparent;
     }
 
-    a, button, input, div {
+    a,
+    button,
+    input,
+    div {
+
         &:focus,
         &:focus-visible,
         &:focus-within,
-        &:active {
+        &:active,
+        &:visited {
             outline: none !important;
-            box-shadow: none;
+            box-shadow: none !important;
+            border-color: transparent;
         }
     }
 
     .logoHeader {
         position: relative;
         display: flex;
-        align-items: center;  
+        align-items: center;
         justify-content: center;
         height: 65px;
         box-sizing: border-box;
@@ -193,75 +221,100 @@
         }
 
         .menu {
-            padding: 8px 12px;
+            padding: 9px 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin: 0 0 8px;
-            transition: 0.3s ease-in-out;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             position: relative;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            border: 1px solid transparent;
             outline: none !important;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent !important;
 
             &:focus,
             &:focus-visible,
-            &:active {
+            &:focus-within,
+            &:active,
+            &:visited {
                 outline: none !important;
+                box-shadow: none !important;
+                border-color: transparent;
+                text-decoration: none;
             }
 
-            &::before {
-                display: none;
-            }
 
             &:hover {
-                background: rgba(16, 185, 129, 0.08);
+                background: rgba(16, 185, 129, 0.08) !important;
+                border: 1px solid transparent !important;
+                box-shadow: none !important;
+                transform: none !important;
+
 
                 .icon {
-                    color: #059669;
+                    color: #059669 !important;
+                    transform: none;
 
                     svg {
-                        stroke: #059669;
-                        color: #059669;
+                        stroke: #059669 !important;
+                        color: #059669 !important;
 
                         *[fill]:not([fill="none"]) {
-                            fill: #059669;
+                            fill: #059669 !important;
                         }
                     }
                 }
 
                 span {
-                    color: #059669;
+                    color: #059669 !important;
                 }
 
                 .chevron {
-                    color: #059669;
+                    color: #059669 !important;
                 }
             }
 
             &[data-active='true'] {
-                background: #ECFDF5 !important;
-                border: 1px solid rgba(16, 185, 129, 0.3) !important;
+                background: #047857 !important;
+                border: 1px solid #047857 !important;
                 border-radius: 10px !important;
-                box-shadow: 0 2px 10px rgba(16, 185, 129, 0.1) !important;
+                box-shadow: 0 4px 14px rgba(4, 120, 87, 0.25) !important;
+                animation: none;
+
+                &:focus,
+                &:focus-visible,
+                &:focus-within,
+                &:active,
+                &:visited {
+                    border-color: #047857 !important;
+                    outline: none !important;
+                }
 
                 .icon {
                     background-color: transparent !important;
-                    color: #047857 !important;
+                    color: #FFFFFF !important;
 
                     svg {
-                        stroke: #047857 !important;
+                        stroke: #FFFFFF !important;
+                        color: #FFFFFF !important;
+
+                        *[fill]:not([fill="none"]) {
+                            fill: #FFFFFF !important;
+                        }
                     }
                 }
 
                 span {
-                    color: #047857 !important;
+                    color: #FFFFFF !important;
                     font-weight: 700 !important;
                 }
 
                 .chevron {
-                    color: #047857 !important;
+                    color: #FFFFFF !important;
                 }
             }
 
@@ -363,12 +416,20 @@
             text-decoration: none;
             transition: all 0.2s ease-in-out;
             border-radius: 8px;
+            border: 1px solid transparent;
             outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
 
             &:focus,
             &:focus-visible,
-            &:active {
+            &:focus-within,
+            &:active,
+            &:visited {
                 outline: none !important;
+                box-shadow: none !important;
+                border-color: transparent;
+                color: #475569;
+                text-decoration: none;
             }
 
             &::before {
@@ -397,40 +458,61 @@
             }
 
             &:hover {
-                color: #059669;
-                background: rgba(16, 185, 129, 0.08);
+                color: #059669 !important;
+                background: rgba(16, 185, 129, 0.08) !important;
+                border: 1px solid transparent !important;
+                box-shadow: none !important;
 
                 &::before {
-                    background: #059669;
+                    background: #10B981;
                 }
 
                 &::after {
-                    border-color: #059669;
+                    border-color: #10B981;
                 }
 
                 .subMenuIcon {
-                    color: #059669;
+                    color: #059669 !important;
                 }
             }
 
             &[data-active='true'] {
-                color: #047857;
-                font-weight: 700;
-                background: #ECFDF5;
-                border: 1px solid rgba(16, 185, 129, 0.3);
-                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+                color: #FFFFFF !important;
+                font-weight: 700 !important;
+                background: #047857 !important;
+                border: 1px solid #047857 !important;
+                box-shadow: 0 4px 14px rgba(4, 120, 87, 0.2) !important;
+
+                &:focus,
+                &:focus-visible,
+                &:focus-within,
+                &:active,
+                &:visited {
+                    border-color: #047857 !important;
+                    color: #FFFFFF !important;
+                    outline: none !important;
+                }
 
                 &::before {
-                    background: #047857;
+                    background: #10B981;
                 }
 
                 &::after {
-                    border-color: #047857;
+                    border-color: #10B981;
                 }
 
                 .subMenuIcon {
                     background-color: transparent;
-                    color: #047857;
+                    color: #FFFFFF !important;
+
+                    svg {
+                        stroke: #FFFFFF !important;
+                        color: #FFFFFF !important;
+
+                        *[fill]:not([fill="none"]) {
+                            fill: #FFFFFF !important;
+                        }
+                    }
                 }
             }
 
@@ -779,12 +861,27 @@
             gap: 10px;
             padding: 8px 10px;
             border-radius: 8px;
+            border: 1px solid transparent;
             text-decoration: none;
             color: #475569 !important;
             font-size: 13.5px;
             font-weight: 500;
             transition: all 0.2s ease;
             width: 100%;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within,
+            &:active,
+            &:visited {
+                outline: none !important;
+                box-shadow: none !important;
+                border-color: transparent;
+                color: #475569 !important;
+                text-decoration: none;
+            }
 
             span {
                 color: #475569 !important;
@@ -801,7 +898,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: #64748B !important;
+                color: #64748B;
                 flex-shrink: 0;
                 transition: color 0.2s ease;
 
@@ -811,29 +908,53 @@
             }
 
             &:hover {
-                background: #ECFDF5 !important;
+                background: rgba(16, 185, 129, 0.08) !important;
+                border: 1px solid transparent !important;
 
                 span {
-                    color: #047857 !important;
+                    color: #059669 !important;
                 }
 
                 .subMenuIcon {
                     color: #059669 !important;
+
+                    svg {
+                        stroke: #059669 !important;
+                        color: #059669 !important;
+                    }
                 }
             }
 
             &[data-active='true'] {
-                background: #ECFDF5 !important;
-                border: 1px solid #A7F3D0 !important;
-                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1) !important;
+                background: #047857 !important;
+                border: 1px solid #047857 !important;
+                box-shadow: 0 4px 14px rgba(4, 120, 87, 0.2) !important;
+
+                &:focus,
+                &:focus-visible,
+                &:focus-within,
+                &:active,
+                &:visited {
+                    border-color: #047857 !important;
+                    outline: none !important;
+                }
 
                 span {
-                    color: #047857 !important;
+                    color: #FFFFFF !important;
                     font-weight: 700 !important;
                 }
 
                 .subMenuIcon {
-                    color: #059669 !important;
+                    color: #FFFFFF !important;
+
+                    svg {
+                        stroke: #FFFFFF !important;
+                        color: #FFFFFF !important;
+
+                        *[fill]:not([fill="none"]) {
+                            fill: #FFFFFF !important;
+                        }
+                    }
                 }
             }
         }
@@ -899,14 +1020,14 @@
 
                 &[data-active='true'] .icon {
                     background-color: transparent !important;
-                    color: #047857 !important;
+                    color: #00FF88 !important;
 
                     svg {
-                        stroke: #047857 !important;
-                        color: #047857 !important;
+                        stroke: #00FF88 !important;
+                        color: #00FF88 !important;
 
                         *[fill]:not([fill="none"]) {
-                            fill: #047857 !important;
+                            fill: #00FF88 !important;
                         }
                     }
                 }
@@ -1232,13 +1353,17 @@
 }
 
 
+
+
 :global(.dark) {
+    
+
     .sidebar {
-        background: #092016;
-        border-color: rgba(0, 255, 136, 0.15);
+        background: #000000 !important;
+        border-color: rgba(0, 255, 136, 0.12);
 
         .logoHeader {
-            border-bottom-color: rgba(0, 255, 136, 0.15);
+            border-bottom-color: rgba(0, 255, 136, 0.12);
         }
 
         .toggleBtn {
@@ -1326,10 +1451,11 @@
                 }
 
                 &:hover {
-                    background: rgba(0, 255, 136, 0.12) !important;
+                    background: rgba(0, 255, 136, 0.14) !important;
+                    border: 1px solid rgba(0, 255, 136, 0.35) !important;
 
                     span {
-                        color: #00FF88 !important;
+                        color: #FFFFFF !important;
                     }
 
                     .subMenuIcon {
@@ -1338,12 +1464,12 @@
                 }
 
                 &[data-active='true'] {
-                    background: rgba(0, 255, 136, 0.18) !important;
-                    border: 1px solid rgba(0, 255, 136, 0.35) !important;
-                    box-shadow: 0 0 15px rgba(0, 255, 136, 0.15) !important;
+                    background: #0A0A0A !important;
+                    border: 1px solid rgba(0, 255, 136, 0.5) !important;
+                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 255, 136, 0.2) !important;
 
                     span {
-                        color: #00FF88 !important;
+                        color: #FFFFFF !important;
                         font-weight: 700 !important;
                     }
 
@@ -1368,23 +1494,47 @@
             }
 
             .menu {
+                border: 1px solid transparent;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+                &:focus,
+                &:focus-visible,
+                &:focus-within,
+                &:active,
+                &:visited {
+                    border-color: transparent;
+                    outline: none !important;
+                }
+
+
                 span {
                     color: #e5e7eb;
+                    transition: color 0.2s ease;
                 }
 
                 .icon {
                     color: #e5e7eb;
+                    transition: color 0.2s ease, transform 0.2s ease;
                 }
 
                 .chevron {
                     color: #9ca3af;
+                    transition: color 0.2s ease;
                 }
 
                 &:hover {
-                    background: rgba(16, 185, 129, 0.15);
+                    background: rgba(0, 255, 136, 0.08) !important;
+                    border: 1px solid transparent !important;
+                    border-radius: 10px !important;
+                    box-shadow: none !important;
+                    transform: none !important;
+
 
                     .icon {
                         color: #00FF88 !important;
+                        transform: none !important;
 
                         svg {
                             stroke: #00FF88 !important;
@@ -1396,40 +1546,53 @@
                         }
                     }
 
-                    span,
+                    span {
+                        color: #FFFFFF !important;
+                    }
+
                     .chevron {
                         color: #00FF88 !important;
                     }
                 }
 
                 &[data-active='true'] {
-                    background: rgba(0, 255, 136, 0.12) !important;
-                    border: 1px solid rgba(0, 255, 136, 0.35) !important;
-                    border-radius: 10px !important;
-                    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2) !important;
+                    background: #047857 !important;
+                    border: 1px solid #047857 !important;
+                    border-radius: 12px !important;
+                    box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35) !important;
+                    animation: none !important;
 
-                    &::before {
-                        display: none;
+                    &:focus,
+                    &:focus-visible,
+                    &:focus-within,
+                    &:active,
+                    &:visited {
+                        border-color: #059669 !important;
+                        outline: none !important;
                     }
+
 
                     .icon {
                         background-color: transparent !important;
-                        color: #00FF88 !important;
+                        color: #FFFFFF !important;
 
                         svg {
-                            stroke: #00FF88 !important;
-                            color: #00FF88 !important;
+                            stroke: #FFFFFF !important;
+                            color: #FFFFFF !important;
 
                             *[fill]:not([fill="none"]) {
-                                fill: #00FF88 !important;
+                                fill: #FFFFFF !important;
                             }
                         }
                     }
 
-                    span,
-                    .chevron {
-                        color: #00FF88 !important;
+                    span {
+                        color: #FFFFFF !important;
                         font-weight: 700 !important;
+                    }
+
+                    .chevron {
+                        color: #FFFFFF !important;
                     }
                 }
             }
@@ -1440,6 +1603,17 @@
 
             .subMenuLink {
                 color: #9CA3AF;
+                border: 1px solid transparent;
+
+                &:focus,
+                &:focus-visible,
+                &:focus-within,
+                &:active,
+                &:visited {
+                    border-color: transparent;
+                    outline: none !important;
+                    color: #9CA3AF;
+                }
 
                 &::before {
                     background: rgba(0, 255, 136, 0.25);
@@ -1451,8 +1625,9 @@
                 }
 
                 &:hover {
-                    color: #00FF88;
-                    background: rgba(0, 255, 136, 0.12);
+                    color: #FFFFFF !important;
+                    background: rgba(0, 255, 136, 0.14) !important;
+                    border: 1px solid rgba(0, 255, 136, 0.35) !important;
 
                     &::before {
                         background: #00FF88;
@@ -1463,16 +1638,31 @@
                     }
 
                     .subMenuIcon {
-                        color: #00FF88;
+                        color: #00FF88 !important;
+
+                        svg {
+                            stroke: #00FF88 !important;
+                            color: #00FF88 !important;
+                        }
                     }
                 }
 
                 &[data-active='true'] {
-                    color: #00FF88;
-                    font-weight: 700;
-                    background: rgba(0, 255, 136, 0.15);
-                    border: 1px solid rgba(0, 255, 136, 0.35);
-                    box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+                    color: #FFFFFF !important;
+                    font-weight: 700 !important;
+                    background: #047857 !important;
+                    border: 1px solid #047857 !important;
+                    box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35) !important;
+
+                    &:focus,
+                    &:focus-visible,
+                    &:focus-within,
+                    &:active,
+                    &:visited {
+                        border-color: #059669 !important;
+                        color: #FFFFFF !important;
+                        outline: none !important;
+                    }
 
                     &::before {
                         background: #00FF88;
@@ -1483,8 +1673,17 @@
                     }
 
                     .subMenuIcon {
-                        background-color: transparent;
-                        color: #00FF88;
+                        background-color: transparent !important;
+                        color: #FFFFFF !important;
+
+                        svg {
+                            stroke: #FFFFFF !important;
+                            color: #FFFFFF !important;
+
+                            *[fill]:not([fill="none"]) {
+                                fill: #FFFFFF !important;
+                            }
+                        }
                     }
                 }
             }
@@ -1600,14 +1799,14 @@
     }
 
     .confirmOverlay {
-        background: rgba(2, 14, 10, 0.82);
+        background: rgba(0, 0, 0, 0.82);
         backdrop-filter: blur(12px);
     }
 
     .confirmBox {
-        background: linear-gradient(145deg, rgba(6, 26, 18, 0.98) 0%, rgba(3, 16, 11, 0.99) 100%);
-        border: 1px solid rgba(0, 255, 136, 0.3);
-        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 255, 136, 0.18);
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
+        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9);
 
         h3 {
             color: #ffffff;
@@ -1619,12 +1818,12 @@
     }
 
     .cancelBtn {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         color: #ffffff;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.12);
         }
     }
 }

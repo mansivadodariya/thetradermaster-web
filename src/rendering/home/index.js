@@ -1,6 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Herobanner from './herobanner'
+import AnimatedSection from '@/components/animation/AnimatedSection'
 
 // Dynamically import below-the-fold sections for faster initial page load & better LCP
 const SliderSection = dynamic(() => import('./sliderSection'))
@@ -20,19 +21,19 @@ export default function HomePage() {
     return (
         <div>
             <Herobanner />
-            <SliderSection />
+            <AnimatedSection><SliderSection /></AnimatedSection>
             {/* <StatsSection /> */}
-            <TradersSection />
-            <TradingDesk />
-            <WhyChooseUs />
-            <HowitWorks />
-            <TradeSetup />
-            <EcosystemSection />
-            <ClientSection />
-            <FaqSection />
-            <NewsletterSection />
-            <PlansSection />
-            <ReadyTostart />
+            <AnimatedSection><TradersSection /></AnimatedSection>
+            <AnimatedSection><TradingDesk /></AnimatedSection>
+            <AnimatedSection><WhyChooseUs /></AnimatedSection>
+            <AnimatedSection><HowitWorks /></AnimatedSection>
+            <AnimatedSection><TradeSetup /></AnimatedSection>
+            <AnimatedSection><EcosystemSection /></AnimatedSection>
+            <AnimatedSection><ClientSection /></AnimatedSection>
+            <AnimatedSection><FaqSection /></AnimatedSection>
+            <AnimatedSection><NewsletterSection /></AnimatedSection>
+            <AnimatedSection><PlansSection /></AnimatedSection>
+            <AnimatedSection><ReadyTostart /></AnimatedSection>
         </div>
     )
 }

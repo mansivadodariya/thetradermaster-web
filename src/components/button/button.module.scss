@@ -69,7 +69,8 @@
         padding: 6px 6px 6px 24px;
         min-height: 48px;
         box-sizing: border-box;
-        background: linear-gradient(135deg, $primary, $primary-dark);
+        background: #047857;
+        border: 1px solid #047857;
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
@@ -80,12 +81,11 @@
         font-size: 15px;
         font-style: normal;
         font-weight: 600;
-        border: none;
         border-radius: 9999px;
         cursor: pointer;
         text-decoration: none;
         line-height: normal;
-        // box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35);
         transition: all 0.3s ease;
 
         :global([dir="rtl"]) & {
@@ -98,8 +98,9 @@
         }
 
         &:hover {
-            background: linear-gradient(135deg, $neon, $primary);
-            box-shadow: 0 10px 30px rgba(12, 44, 23, 0.4);
+            background: #059669;
+            border-color: #10B981;
+            box-shadow: 0 6px 20px rgba(4, 120, 87, 0.5);
             transform: translateY(-2px);
 
             .icon {
@@ -132,7 +133,8 @@
         padding: 6px 6px 6px 24px;
         min-height: 48px;
         box-sizing: border-box;
-        background: linear-gradient(135deg, $primary, $primary-dark);
+        background: #047857;
+        border: 1px solid #047857;
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
@@ -141,12 +143,11 @@
         font-family: var(--font-plus-jakarta), sans-serif;
         font-size: 15px;
         font-weight: 600;
-        border: none;
         border-radius: 9999px;
         cursor: pointer;
         text-decoration: none;
         line-height: normal;
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35);
         transition: all 0.3s ease;
 
         :global([dir="rtl"]) & {
@@ -154,8 +155,9 @@
         }
 
         &:hover {
-            background: linear-gradient(135deg, $neon, $primary);
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            background: #059669;
+            border-color: #10B981;
+            box-shadow: 0 6px 20px rgba(4, 120, 87, 0.5);
             transform: translateY(-2px);
 
             .icon {

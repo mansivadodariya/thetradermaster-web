@@ -222,7 +222,7 @@
     }
 
     .chooseBtn {
-        background: #10B981 !important;
+        background: #047857 !important;
         color: #FFFFFF !important;
         border: none;
         padding: 12px 24px;
@@ -1527,9 +1527,9 @@
             }
 
             .badge {
-                background: #ECFDF5;
-                color: #059669;
-                border: 1px solid #A7F3D0;
+                background: #10b9811a;
+                color: #34d399;
+                border: 1px solid #10b98147;
                 padding: 4px 12px;
                 border-radius: 20px;
                 font-size: 12px;
@@ -1552,7 +1552,12 @@
                 color: rgba(255, 255, 255, 0.88) !important;
             }
 
-            h1, h2, h3, h4, h5, h6 {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
                 font-family: var(--font-plus-jakarta);
                 font-weight: 800;
                 color: #0F172A;
@@ -1565,9 +1570,20 @@
                 }
             }
 
-            h1 { font-size: 24px; }
-            h2 { font-size: 20px; border-bottom: 1px solid #E2E8F0; padding-bottom: 8px; }
-            h3 { font-size: 17px; color: #059669; }
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+                border-bottom: 1px solid #E2E8F0;
+                padding-bottom: 8px;
+            }
+
+            h3 {
+                font-size: 17px;
+                color: #059669;
+            }
 
             :global(.dark) & h3 {
                 color: #00FF88 !important;
@@ -1586,12 +1602,14 @@
                 }
             }
 
-            ul, ol {
+            ul,
+            ol {
                 margin-bottom: 18px;
                 padding-left: 24px;
 
                 li {
                     margin-bottom: 8px;
+
                     &::marker {
                         color: #10B981;
                     }
@@ -2718,17 +2736,17 @@
     .featuresPanel,
     .bottomSection,
     .resultDashboard {
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-        border-color: rgba(0, 255, 136, 0.22) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
     }
 
     .stepper {
-        border-top-color: rgba(0, 255, 136, 0.18) !important;
+        border-top-color: rgba(0, 255, 136, 0.14) !important;
 
         .step {
-            background: rgba(4, 20, 14, 0.8) !important;
-            border-color: rgba(0, 255, 136, 0.18) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .num {
                 color: rgba(255, 255, 255, 0.5) !important;
@@ -2743,8 +2761,8 @@
             }
 
             &.active {
-                background: rgba(0, 255, 136, 0.15) !important;
-                border-color: rgba(0, 255, 136, 0.4) !important;
+                background: rgba(0, 255, 136, 0.08) !important;
+                border-color: rgba(0, 255, 136, 0.3) !important;
 
                 .num {
                     color: #00FF88 !important;
@@ -2758,18 +2776,30 @@
     }
 
     .uploadCard {
-        border-color: rgba(0, 255, 136, 0.3) !important;
+        border: 1px dashed rgba(0, 255, 136, 0.25) !important;
 
         &:hover,
         &.dragActive {
             border-color: #00FF88 !important;
-            background: rgba(0, 255, 136, 0.08) !important;
+            background: rgba(0, 255, 136, 0.05) !important;
         }
 
         .uploadIcon {
-            background: rgba(0, 255, 136, 0.12) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: rgba(0, 255, 136, 0.08) !important;
+            border: 1px solid rgba(0, 255, 136, 0.25) !important;
             color: #00FF88 !important;
+        }
+
+        .chooseBtn {
+            background: #047857 !important;
+            border: 1px solid #047857 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35) !important;
+
+            &:hover {
+                background: #059669 !important;
+                border-color: #059669 !important;
+            }
         }
 
         .formats {
@@ -2777,8 +2807,8 @@
         }
 
         .security {
-            background: rgba(0, 255, 136, 0.1) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: rgba(0, 255, 136, 0.06) !important;
+            border: 1px solid rgba(0, 255, 136, 0.25) !important;
             color: #00FF88 !important;
 
             svg {
@@ -2788,8 +2818,8 @@
     }
 
     .fileSelectedBox {
-        background: rgba(4, 20, 14, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         .fileDetails .fileName {
             color: #FFFFFF !important;
@@ -2801,15 +2831,15 @@
     }
 
     .featuresHeader .iconBox {
-        background: rgba(0, 255, 136, 0.12) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
+        background: rgba(0, 255, 136, 0.08) !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
         color: #00FF88 !important;
     }
 
     .featuresGrid {
         .featureItem {
-            background: rgba(4, 20, 14, 0.8) !important;
-            border-color: rgba(0, 255, 136, 0.18) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             span {
                 color: #FFFFFF !important;
@@ -2820,7 +2850,7 @@
             }
 
             &:hover {
-                background: rgba(0, 255, 136, 0.12) !important;
+                background: rgba(0, 255, 136, 0.06) !important;
                 border-color: rgba(0, 255, 136, 0.35) !important;
             }
         }
@@ -2828,12 +2858,12 @@
 
     .cardsGrid {
         .card {
-            background: rgba(4, 20, 14, 0.8) !important;
-            border-color: rgba(0, 255, 136, 0.18) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .iconBox {
-                background: rgba(0, 255, 136, 0.12) !important;
-                border-color: rgba(0, 255, 136, 0.25) !important;
+                background: rgba(0, 255, 136, 0.08) !important;
+                border: 1px solid rgba(0, 255, 136, 0.25) !important;
                 color: #00FF88 !important;
             }
 
@@ -2846,15 +2876,15 @@
             }
 
             &:hover {
-                background: rgba(0, 255, 136, 0.12) !important;
-                border-color: rgba(0, 255, 136, 0.4) !important;
+                background: rgba(0, 255, 136, 0.06) !important;
+                border-color: rgba(0, 255, 136, 0.35) !important;
             }
         }
     }
 
     .kpiCard {
-        background: rgba(4, 20, 14, 0.8) !important;
-        border-color: rgba(0, 255, 136, 0.18) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         .kpiLabel {
             color: rgba(255, 255, 255, 0.65) !important;
@@ -2879,12 +2909,12 @@
 
     .levelUpCard {
         .tipItem {
-            background: rgba(4, 20, 14, 0.8) !important;
-            border-color: rgba(0, 255, 136, 0.18) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .tipNum {
-                background: rgba(0, 255, 136, 0.12) !important;
-                border-color: rgba(0, 255, 136, 0.25) !important;
+                background: rgba(0, 255, 136, 0.08) !important;
+                border: 1px solid rgba(0, 255, 136, 0.25) !important;
                 color: #00FF88 !important;
             }
 
@@ -2930,13 +2960,13 @@
 
     .insightsSection {
         .insightBox {
-            background: rgba(4, 20, 14, 0.75) !important;
-            border-color: rgba(0, 255, 136, 0.2) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .insightHeader {
                 .insightIconWrap {
-                    background: rgba(0, 255, 136, 0.12) !important;
-                    border-color: rgba(0, 255, 136, 0.25) !important;
+                    background: rgba(0, 255, 136, 0.08) !important;
+                    border: 1px solid rgba(0, 255, 136, 0.25) !important;
                 }
 
                 h4 {
@@ -2949,8 +2979,8 @@
             }
 
             .insightMetricsGrid {
-                background: rgba(8, 28, 20, 0.8) !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
+                background: #070707 !important;
+                border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
                 .metricItem {
                     .metricLabel {
@@ -2979,39 +3009,40 @@
     }
 
     .tabsBar {
-        border-bottom-color: rgba(0, 255, 136, 0.18) !important;
+        border-bottom-color: rgba(0, 255, 136, 0.14) !important;
 
         .tabBtn {
-            background: rgba(0, 16, 11, 0.65) !important;
-            border-color: rgba(0, 255, 136, 0.18) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
             color: rgba(255, 255, 255, 0.8) !important;
 
             &:hover {
-                background: rgba(0, 255, 136, 0.15) !important;
-                border-color: rgba(0, 255, 136, 0.4) !important;
+                background: rgba(0, 255, 136, 0.08) !important;
+                border-color: rgba(0, 255, 136, 0.3) !important;
                 color: #00FF88 !important;
             }
 
             &.activeTab {
-                background: linear-gradient(135deg, #00FF88 0%, #00C868 100%) !important;
-                color: #050d09 !important;
-                border-color: transparent !important;
+                background: #047857 !important;
+                border-color: #047857 !important;
+                color: #FFFFFF !important;
+                box-shadow: 0 2px 10px rgba(4, 120, 87, 0.35) !important;
             }
         }
     }
 
     .scoreHeroCard {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         .gradeBadge {
-            background: linear-gradient(135deg, #00FF88 0%, #00C868 100%) !important;
-            color: #050d09 !important;
+            background: #047857 !important;
+            color: #FFFFFF !important;
         }
 
         .tierBadge {
-            background: rgba(0, 255, 136, 0.12) !important;
-            border-color: rgba(0, 255, 136, 0.3) !important;
+            background: rgba(0, 255, 136, 0.08) !important;
+            border: 1px solid rgba(0, 255, 136, 0.25) !important;
             color: #00FF88 !important;
         }
 
@@ -3020,8 +3051,8 @@
         }
 
         .miniPillar {
-            background: rgba(4, 20, 14, 0.8) !important;
-            border-color: rgba(0, 255, 136, 0.2) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
             .miniName {
                 color: rgba(255, 255, 255, 0.7) !important;
@@ -3034,12 +3065,12 @@
     }
 
     .pillarCard {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.18) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         .pillarGrade {
-            background: rgba(0, 255, 136, 0.12) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: rgba(0, 255, 136, 0.08) !important;
+            border: 1px solid rgba(0, 255, 136, 0.25) !important;
             color: #00FF88 !important;
         }
 
@@ -3063,8 +3094,8 @@
     }
 
     .sideCard {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.18) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         .sideRow {
             color: rgba(255, 255, 255, 0.75) !important;
@@ -3076,8 +3107,8 @@
     }
 
     .takeawayBanner {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.4) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.3) !important;
 
         .takeawayHeader h4,
         .takeawayText,
@@ -3089,8 +3120,8 @@
     .levelUpCard,
     .srCard,
     .markdownReportBox {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.18) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
     }
 
     .srCard {
@@ -3134,13 +3165,13 @@
     }
 
     .tradesTableWrapper {
-        border-color: rgba(0, 255, 136, 0.2) !important;
+        border-color: rgba(0, 255, 136, 0.14) !important;
     }
 
     .tradesTable {
         th {
-            background: rgba(4, 20, 14, 0.9) !important;
-            border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+            background: #070707 !important;
+            border-bottom-color: rgba(0, 255, 136, 0.14) !important;
         }
 
         td {
@@ -3148,11 +3179,11 @@
         }
 
         .winRow {
-            background: rgba(8, 24, 17, 0.6) !important;
+            background: rgba(0, 255, 136, 0.04) !important;
         }
 
         .lossRow {
-            background: rgba(25, 8, 8, 0.6) !important;
+            background: rgba(255, 87, 87, 0.04) !important;
         }
 
         .timeCell strong {
@@ -3164,18 +3195,19 @@
         }
 
         .expandBtn {
-            background: rgba(0, 255, 136, 0.12) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: rgba(0, 255, 136, 0.06) !important;
+            border: 1px solid rgba(0, 255, 136, 0.25) !important;
             color: #00FF88 !important;
 
             &:hover {
-                background: #00FF88 !important;
-                color: #050d09 !important;
+                background: #047857 !important;
+                border-color: #047857 !important;
+                color: #ffffff !important;
             }
         }
 
         .expandedRow td {
-            background: rgba(4, 20, 14, 0.95) !important;
+            background: #070707 !important;
         }
     }
 }
@@ -3224,9 +3256,9 @@
     font-family: var(--font-plus-jakarta), sans-serif;
 
     :global(.dark) & {
-        background: linear-gradient(145deg, rgba(8, 28, 20, 0.98) 0%, rgba(3, 16, 11, 0.99) 100%) !important;
-        border-color: rgba(0, 255, 136, 0.3) !important;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 255, 136, 0.15) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(4, 120, 87, 0.2) !important;
     }
 
     @include respond-to('sm') {
@@ -3253,7 +3285,7 @@
     animation: spinDashed 12s linear infinite;
 
     :global(.dark) & {
-        border-color: rgba(0, 255, 136, 0.4) !important;
+        border-color: rgba(16, 185, 129, 0.4) !important;
     }
 }
 
@@ -3266,8 +3298,8 @@
     animation: pulseRing 2s ease-in-out infinite;
 
     :global(.dark) & {
-        border-color: rgba(0, 255, 136, 0.6) !important;
-        box-shadow: 0 0 15px rgba(0, 255, 136, 0.3) !important;
+        border-color: rgba(16, 185, 129, 0.6) !important;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3) !important;
     }
 }
 
@@ -3286,10 +3318,10 @@
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 
     :global(.dark) & {
-        background: rgba(0, 255, 136, 0.15) !important;
-        border-color: #00FF88 !important;
-        color: #00FF88 !important;
-        box-shadow: 0 0 20px rgba(0, 255, 136, 0.4) !important;
+        background: rgba(16, 185, 129, 0.12) !important;
+        border-color: #10B981 !important;
+        color: #10B981 !important;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.35) !important;
     }
 
     svg {
@@ -3303,16 +3335,20 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
 @keyframes pulseRing {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.8;
     }
+
     50% {
         transform: scale(1.08);
         opacity: 1;
@@ -3359,8 +3395,8 @@
     margin-bottom: 24px;
 
     :global(.dark) & {
-        background: rgba(0, 255, 136, 0.08) !important;
-        border-color: rgba(0, 255, 136, 0.28) !important;
+        background: #0A0D0B !important;
+        border-color: rgba(0, 255, 136, 0.15) !important;
     }
 
     svg {
@@ -3368,7 +3404,7 @@
         flex-shrink: 0;
 
         :global(.dark) & {
-            color: #00FF88 !important;
+            color: #10B981 !important;
         }
     }
 }
@@ -3393,7 +3429,7 @@
     font-weight: 700;
 
     :global(.dark) & {
-        color: #00FF88 !important;
+        color: #10B981 !important;
     }
 }
 
@@ -3425,8 +3461,8 @@
     transition: width 0.3s ease;
 
     :global(.dark) & {
-        background: linear-gradient(90deg, #00FF88 0%, #10B981 100%) !important;
-        box-shadow: 0 0 12px rgba(0, 255, 136, 0.6) !important;
+        background: linear-gradient(90deg, #059669 0%, #10B981 100%) !important;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5) !important;
     }
 }
 
@@ -3439,7 +3475,7 @@
     font-family: var(--font-plus-jakarta), sans-serif;
 
     :global(.dark) & {
-        color: #00FF88 !important;
+        color: #10B981 !important;
     }
 }
 
@@ -3457,8 +3493,8 @@
     box-sizing: border-box;
 
     :global(.dark) & {
-        background: rgba(0, 0, 0, 0.35) !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
+        background: #0A0D0B !important;
+        border-color: rgba(0, 255, 136, 0.12) !important;
     }
 }
 
@@ -3476,14 +3512,15 @@
         background: #ECFDF5;
 
         :global(.dark) & {
-            background: rgba(0, 255, 136, 0.08) !important;
+            background: rgba(16, 185, 129, 0.06) !important;
+            border: 1px solid rgba(16, 185, 129, 0.15) !important;
         }
 
         .rowTextCell strong {
             color: #065F46;
 
             :global(.dark) & {
-                color: #00FF88 !important;
+                color: #FFFFFF !important;
             }
         }
 
@@ -3491,7 +3528,7 @@
             color: #047857;
 
             :global(.dark) & {
-                color: rgba(0, 255, 136, 0.8) !important;
+                color: rgba(255, 255, 255, 0.6) !important;
             }
         }
     }
@@ -3503,9 +3540,9 @@
         box-shadow: 0 2px 10px rgba(16, 185, 129, 0.12);
 
         :global(.dark) & {
-            background: rgba(8, 38, 25, 0.95) !important;
-            border-color: rgba(0, 255, 136, 0.4) !important;
-            box-shadow: none !important;
+            background: #0E1511 !important;
+            border-color: #047857 !important;
+            box-shadow: 0 2px 12px rgba(4, 120, 87, 0.25) !important;
         }
 
         .rowTextCell strong {
@@ -3547,9 +3584,9 @@
         justify-content: center;
 
         :global(.dark) & {
-            background: rgba(0, 255, 136, 0.15) !important;
-            border-color: #00FF88 !important;
-            color: #00FF88 !important;
+            background: #047857 !important;
+            border-color: #047857 !important;
+            color: #FFFFFF !important;
         }
     }
 
@@ -3564,8 +3601,8 @@
         justify-content: center;
 
         :global(.dark) & {
-            background: rgba(0, 255, 136, 0.15) !important;
-            border-color: #00FF88 !important;
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: #10B981 !important;
         }
 
         .dotCore {
@@ -3577,8 +3614,8 @@
             animation: pulseDot 1.2s ease-in-out infinite;
 
             :global(.dark) & {
-                background: #00FF88 !important;
-                box-shadow: 0 0 10px #00FF88 !important;
+                background: #10B981 !important;
+                box-shadow: 0 0 10px #10B981 !important;
             }
         }
     }
@@ -3622,10 +3659,13 @@
 }
 
 @keyframes pulseDot {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(0.65);
         opacity: 0.5;
@@ -3649,7 +3689,7 @@
         color: #059669;
 
         :global(.dark) & {
-            color: #00FF88 !important;
+            color: #10B981 !important;
         }
     }
 }

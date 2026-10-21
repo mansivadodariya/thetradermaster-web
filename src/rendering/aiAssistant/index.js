@@ -18,6 +18,7 @@ import rehypeRaw from 'rehype-raw';
 import ReportPanel from './ReportPanel';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps, bidiMarkdownComponents } from '@/lib/bidi';
+import { useAiAssistantJobs } from '@/context/AiAssistantJobContext';
 
 const UploadIcon = '/assets/icons/upload-xs.svg';
 const Logo = '/assets/icons/AIChat.svg';
@@ -94,8 +95,9 @@ const buildAssistantMessage = (parsed) => ({
     visualData: parsed.visualData
 });
 
-const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
+const AiAssistant = ({ initialTab, initialOpenId, initialOpenJob, initialPrompt } = {}) => {
     const { t } = useLanguage();
+    const { activeJobs, isAnalyzing, latestActiveJob, startAnalysis, getJob } = useAiAssistantJobs();
 
     // Authentication & Identification
     const [userId, setUserId] = useState(null);
@@ -205,6 +207,100 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialOpenId, chatHistory]);
 
+    // Initial prompt support from query param (/ai-assistant?prompt=...)
+    useEffect(() => {
+        if (initialPrompt && !chatInput) {
+            setChatInput(initialPrompt);
+        }
+    }, [initialPrompt]);
+
+    // Deep-link support for background worker job: /ai-assistant?openJob=<id>
+    useEffect(() => {
+        if (!initialOpenJob) return;
+        const job = getJob(initialOpenJob);
+        if (job) {
+            if (job.status === 'completed' && job.result) {
+                const parsed = parseAssistantResponse(job.result);
+                setChatMessages([
+                    { role: 'user', content: job.message, pair: job.pair },
+                    buildAssistantMessage(parsed)
+                ]);
+                if (job.pair && ALL_PAIRS.includes(job.pair)) {
+                    setSelectedPair(job.pair);
+                }
+                setPendingRequest(false);
+            } else if (job.status === 'processing' || job.status === 'queued') {
+                setChatMessages([
+                    { role: 'user', content: job.message, pair: job.pair }
+                ]);
+                if (job.pair && ALL_PAIRS.includes(job.pair)) {
+                    setSelectedPair(job.pair);
+                }
+                setPendingRequest(true);
+            }
+        }
+    }, [initialOpenJob, getJob]);
+
+    // Restore active in-flight background job on mount / navigation
+    useEffect(() => {
+        if (chatMessages.length === 0 && latestActiveJob && (latestActiveJob.status === 'queued' || latestActiveJob.status === 'processing')) {
+            setChatMessages([
+                { role: 'user', content: latestActiveJob.message, pair: latestActiveJob.pair }
+            ]);
+            if (latestActiveJob.pair && ALL_PAIRS.includes(latestActiveJob.pair)) {
+                setSelectedPair(latestActiveJob.pair);
+            }
+            setPendingRequest(true);
+        }
+    }, [latestActiveJob, chatMessages.length]);
+
+    // Listen for background worker job completion / failure
+    useEffect(() => {
+        const handleJobCompleted = (e) => {
+            const completedJob = e?.detail?.job;
+            if (!completedJob || !completedJob.result) return;
+
+            const parsed = parseAssistantResponse(completedJob.result);
+            const assistantMsg = buildAssistantMessage(parsed);
+
+            setChatMessages(prev => {
+                const userIndex = prev.findIndex(m => m.role === 'user' && m.content === completedJob.message);
+                if (userIndex !== -1) {
+                    const prefix = prev.filter((m, i) => i <= userIndex || (m.role === 'assistant' && !m.isPending));
+                    return [...prefix, assistantMsg];
+                }
+                return [
+                    { role: 'user', content: completedJob.message, pair: completedJob.pair },
+                    assistantMsg
+                ];
+            });
+
+            if (completedJob.pair && ALL_PAIRS.includes(completedJob.pair)) {
+                setSelectedPair(completedJob.pair);
+            }
+            setPendingRequest(false);
+            if (userId) fetchChatHistory(userId);
+        };
+
+        const handleJobFailed = (e) => {
+            const failedJob = e?.detail?.job;
+            if (failedJob) {
+                setChatMessages(prev => [
+                    ...prev,
+                    { role: 'assistant', content: failedJob.error || 'AI Analysis failed. Please try again.' }
+                ]);
+                setPendingRequest(false);
+            }
+        };
+
+        window.addEventListener('ai-assistant:job-completed', handleJobCompleted);
+        window.addEventListener('ai-assistant:job-failed', handleJobFailed);
+        return () => {
+            window.removeEventListener('ai-assistant:job-completed', handleJobCompleted);
+            window.removeEventListener('ai-assistant:job-failed', handleJobFailed);
+        };
+    }, [userId]);
+
     // Actions
 
     const handleCreateNew = () => {
@@ -304,27 +400,23 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
 
     const handleSendChatMessage = async () => {
         if (!chatInput.trim() || pendingRequest) return;
-        const msg = chatInput;
+        const msg = chatInput.trim();
+        const pair = selectedPair;
         setChatInput('');
         setPendingRequest(true);
 
-        const newUserMsg = { role: 'user', content: msg, pair: selectedPair };
+        const newUserMsg = { role: 'user', content: msg, pair };
         setChatMessages(prev => [...prev, newUserMsg]);
 
         try {
-            const result = await fxApi.chat(selectedPair, msg, userId);
-            const parsed = parseAssistantResponse(result);
-            const assistantMsg = buildAssistantMessage(parsed);
-            setChatMessages(prev => [...prev, assistantMsg]);
-            fetchChatHistory(userId);
-            syncCreditsAfterAction(result);
+            await startAnalysis({ pair, message: msg, userId });
         } catch (err) {
+            console.error('Failed to start analysis:', err);
             const errorMessage = err?.message || "I apologize, but the FX Copilot API is currently unavailable. Please verify the endpoint or try again later.";
             setChatMessages(prev => [...prev, { role: 'assistant', content: errorMessage }]);
             if (err?.detail?.error_code === 'INSUFFICIENT_CREDITS' || err?.message?.toLowerCase().includes('insufficient credits')) {
                 notifyCreditsUpdated(0);
             }
-        } finally {
             setPendingRequest(false);
         }
     };
@@ -625,7 +717,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                         </div>
                         <div className={styles.headerInfo}>
                             <h3>Trader Master Copilot</h3>
-                            <span>{t('aiChat.activePair', 'Active Pair')}: {selectedPair}</span>
+                            <span>{t('aiChat.activePair', 'Active Pair')}: <strong>{selectedPair}</strong></span>
                         </div>
                         <div className={styles.headerAction}>
                             <Button
@@ -693,12 +785,30 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                             ))
                         )}
                         {pendingRequest && (
-                            <div className={styles.messageRow}>
-                                <div className={styles.assistantMessage}>
-                                    <div className={styles.loadingDots}>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
+                            <div className={`${styles.messageRow} ${styles.reportRow}`}>
+                                <div className={`${styles.assistantMessage} ${styles.analyzingCard}`}>
+                                    <div className={styles.analyzingHeader}>
+                                        <div className={styles.analyzingSpinner} />
+                                        <div className={styles.analyzingInfo}>
+                                            <div className={styles.analyzingTitle}>
+                                                {t('aiChat.analysisStarted', 'Analysis started – you can continue using the platform.')}
+                                            </div>
+                                            <div className={styles.analyzingSubtitle}>
+                                                {t('aiChat.analysisSubtitle', 'Quantitative engine is analyzing multi-timeframe trends, order blocks, and key liquidity levels for')}{' '}
+                                                <strong>{selectedPair}</strong>.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={styles.progressBarWrapper}>
+                                        <div className={styles.progressBarAnimated} />
+                                    </div>
+                                    <div className={styles.analyzingFooter}>
+                                        <div className={styles.workerStatus}>
+                                            <span className={styles.workerDot} />
+                                            <span>
+                                                {t('aiChat.backgroundActive', 'Background worker active • Feel free to navigate to Dashboard or Chart Scanner')}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,41 +1,41 @@
-@use '../../scss/main.scss' as *;
-@use '../../scss/breakpoints/breakpoints.scss' as *;
+    @use '../../scss/main.scss' as *;
+    @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-.brokerCard {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-
-    @include respond-to(sm) {
-        padding: 16px;
-        border-radius: 16px;
-    }
-
-    &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 30px rgba(16, 185, 129, 0.12);
-        border-color: #A7F3D0;
+    .brokerCard {
         background: #FFFFFF;
-    }
-
-    .bannerHeader {
-        height: 90px;
-        background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
-        border-radius: 12px;
-        padding: 14px 16px;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        margin-bottom: 14px;
         border: 1px solid #E2E8F0;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+
+        @include respond-to(sm) {
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        &:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.12);
+            border-color: #A7F3D0;
+            background: #FFFFFF;
+        }
+
+        .bannerHeader {
+            height: 90px;
+            background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
+            border-radius: 12px;
+            padding: 14px 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            border: 1px solid #E2E8F0;
 
         .logoWrapper {
             z-index: 2;
@@ -48,325 +48,355 @@
             backdrop-filter: blur(4px);
             border: 1px solid #00ff8859 !important;
 
-            img {
-                max-height: 34px;
-                max-width: 130px;
-                object-fit: contain;
+                img {
+                    max-height: 28px;
+                    max-width: 140px;
+                    width: auto;
+                    height: auto;
+                    object-fit: contain;
+                }
+
+                :global([dir="rtl"]) & {
+                    margin-right: 0;
+                    margin-left: auto;
+                }
             }
 
-            :global([dir="rtl"]) & {
-                margin-right: 0;
-                margin-left: auto;
-            }
-        }
+            .chartGraphic {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 170px;
+                pointer-events: none;
+                z-index: 1;
 
-        .chartGraphic {
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 170px;
-            pointer-events: none;
-            z-index: 1;
-
-            :global([dir="rtl"]) & {
-                right: auto;
-                left: 0;
-                transform: scaleX(-1);
-            }
-        }
-    }
-
-    .badgeRow {
-        margin-bottom: 10px;
-        display: flex;
-
-        .infrastructureBadge {
-            background: #ECFDF5;
-            border: 1px solid #A7F3D0;
-            color: #047857;
-            border-radius: 8px;
-            padding: 4px 9px;
-            font-size: 11px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-
-            .badgeIcon {
-                font-size: 12px;
-            }
-        }
-    }
-
-    .cardBody {
-        flex: 1;
-        margin-bottom: 14px;
-
-        .cardTitle {
-            font-size: 18px;
-            font-weight: 700;
-            color: #0F172A;
-            margin: 0 0 4px 0;
-            line-height: 1.25;
-            font-family: var(--font-plus-jakarta);
-
-            @include respond-to(sm) {
-                font-size: 16px;
+                :global([dir="rtl"]) & {
+                    right: auto;
+                    left: 0;
+                    transform: scaleX(-1);
+                }
             }
         }
 
-        .subtitleTag {
-            font-size: 12px;
-            font-weight: 600;
-            color: #059669;
-            margin: 0 0 8px 0;
-            display: inline-block;
-        }
-
-        .cardDescription {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #475569;
-            margin: 0;
-            min-height: 56px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            font-family: var(--font-plus-jakarta);
-
-            @include respond-to(sm) {
-                font-size: 12px;
-            }
-        }
-    }
-
-    .highlightsGrid {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 16px;
-
-        .highlightItem {
+        .badgeRow {
+            margin-bottom: 10px;
             display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            width: 100%;
 
-            .iconBox {
-                width: 30px;
-                height: 30px;
+            .infrastructureBadge {
+                background: #ECFDF5;
+                border: 1px solid #A7F3D0;
+                color: #047857;
                 border-radius: 8px;
+                padding: 4px 9px;
+                font-size: 11px;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+
+                .badgeIcon {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .cardBody {
+            flex: 1;
+            margin-bottom: 14px;
+
+            .cardTitle {
+                font-size: 18px;
+                font-weight: 700;
+                color: #0F172A;
+                margin: 0 0 4px 0;
+                line-height: 1.25;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to(sm) {
+                    font-size: 16px;
+                }
+            }
+
+            .subtitleTag {
+                font-size: 11px;
+                font-weight: 600;
+                color: #047857;
+                background: #ECFDF5;
+                border: 1px solid #A7F3D0;
+                border-radius: 20px;
+                padding: 3px 10px;
+                margin: 0 0 10px 0;
+                display: inline-flex;
+                align-items: center;
+                letter-spacing: 0.3px;
+                width: fit-content;
+            }
+
+            .cardDescription {
+                font-size: 14px;
+                line-height: 1.55;
+                color: #475569;
+                margin: 0;
+                min-height: 56px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                font-family: var(--font-plus-jakarta);
+
+                @include respond-to(sm) {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .highlightsGrid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+
+            .highlightItem {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 12px;
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+                border-radius: 12px;
+                width: 100%;
+
+                .iconBox {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    background: #ECFDF5;
+                    border: 1px solid #A7F3D0;
+                    color: #059669;
+                }
+
+                .highlightText {
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+
+                    .hlTitle {
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #0F172A;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-family: var(--font-plus-jakarta);
+                    }
+
+                    .hlSub {
+                        font-size: 11px;
+                        color: #64748B;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-family: var(--font-plus-jakarta);
+                    }
+                }
+            }
+        }
+
+        .cardFooter {
+            border-top: 1px solid #E2E8F0;
+            padding-top: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+
+            .visitSiteBtn {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+                color: #334155;
+                border-radius: 10px;
+                padding: 10px 8px;
+                font-size: 12px;
+                font-weight: 600;
+                text-decoration: none;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                flex-shrink: 0;
-                background: #ECFDF5;
-                border: 1px solid #A7F3D0;
-                color: #059669;
-            }
+                gap: 6px;
+                transition: all 0.25s ease;
+                font-family: var(--font-plus-jakarta);
 
-            .highlightText {
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-
-                .hlTitle {
-                    font-size: 12px;
-                    font-weight: 700;
-                    color: #0F172A;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    font-family: var(--font-plus-jakarta);
+                &:hover {
+                    background: #ECFDF5;
+                    border-color: #A7F3D0;
+                    color: #059669;
+                    transform: translateY(-1px);
                 }
 
-                .hlSub {
-                    font-size: 11px;
-                    color: #64748B;
+                span {
                     white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    font-family: var(--font-plus-jakarta);
                 }
             }
-        }
-    }
 
-    .cardFooter {
-        border-top: 1px solid #E2E8F0;
-        padding-top: 14px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        align-items: center;
-
-        .visitSiteBtn {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            color: #334155;
-            border-radius: 10px;
-            padding: 10px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.25s ease;
-            font-family: var(--font-plus-jakarta);
-
-            &:hover {
-                background: #ECFDF5;
-                border-color: #A7F3D0;
-                color: #059669;
-                transform: translateY(-1px);
-            }
-
-            span {
-                white-space: nowrap;
-            }
-        }
-
-        .viewDetailsBtn {
-            background: #10B981;
-            color: #FFFFFF;
-            border: 1px solid #10B981;
-            border-radius: 10px;
-            padding: 10px 8px;
-            font-size: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: var(--font-plus-jakarta);
-
-            &:hover {
-                background: #059669;
-                border-color: #059669;
+            .viewDetailsBtn {
+                background: #047857;
                 color: #FFFFFF;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-            }
+                border: 1px solid #10B981;
+                border-radius: 10px;
+                padding: 10px 8px;
+                font-size: 12px;
+                font-weight: 700;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: var(--font-plus-jakarta);
 
-            .btnLabel {
-                white-space: nowrap;
+                &:hover {
+                    background: #059669;
+                    border-color: #059669;
+                    color: #FFFFFF;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+                }
+
+                .btnLabel {
+                    white-space: nowrap;
+                }
             }
         }
     }
-}
 
-:global(.dark) .brokerCard,
-:global([class*="ecosystemSection"]) .brokerCard,
-:global(#ecosystem) .brokerCard,
-.darkThemeCard {
-    background: rgba(8, 24, 17, 0.85);
-    border-color: rgba(0, 255, 136, 0.18);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    :global(.dark) .brokerCard,
+    :global([class*="ecosystemSection"]) .brokerCard,
+    :global(#ecosystem) .brokerCard,
+    .darkThemeCard {
+        background: #070707;
+        border-color: rgba(0, 255, 136, 0.14);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-    &:hover {
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 255, 136, 0.15);
-        border-color: rgba(0, 255, 136, 0.5);
-        background: rgba(10, 30, 21, 0.9);
-    }
+        &:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            background: #0A0A0A;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(4, 120, 87, 0.3);
+        }
 
-    .bannerHeader {
-        background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(4, 20, 14, 0.95) 100%);
-        border-color: rgba(0, 255, 136, 0.25);
+        .bannerHeader {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.06) 0%, #0A0D0B 100%);
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
         .logoWrapper {
             background: #122a23 !important;
             border: 1px solid #00ff8859 !important;
          
 
-            img {
-                filter: brightness(1.8) drop-shadow(0 0 6px rgba(0, 255, 136, 0.3));
+                img {
+                    filter: none;
+                }
             }
         }
-    }
 
-    .badgeRow {
-        .infrastructureBadge {
-            background: rgba(0, 255, 136, 0.1);
-            border-color: rgba(0, 255, 136, 0.3);
-            color: #00FF88;
-        }
-    }
-
-    .cardBody {
-        .cardTitle {
-            color: #FFFFFF;
-        }
-
-        .subtitleTag {
-            color: #00FF88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-        }
-
-        .cardDescription {
-            color: rgba(255, 255, 255, 0.72);
-        }
-    }
-
-    .highlightsGrid {
-        .highlightItem {
-            background: rgba(0, 255, 136, 0.04);
-            border-color: rgba(0, 255, 136, 0.15);
-
-            .iconBox {
-                background: rgba(0, 255, 136, 0.12);
+        .badgeRow {
+            .infrastructureBadge {
+                background: rgba(0, 255, 136, 0.06);
                 border-color: rgba(0, 255, 136, 0.25);
-                color: inherit;
-            }
-
-            .highlightText {
-                .hlTitle {
-                    color: #FFFFFF;
-                }
-
-                .hlSub {
-                    color: rgba(255, 255, 255, 0.6);
-                }
-            }
-        }
-    }
-
-    .cardFooter {
-        border-top-color: rgba(0, 255, 136, 0.15);
-
-        .visitSiteBtn {
-            background: rgba(0, 255, 136, 0.08);
-            border-color: rgba(0, 255, 136, 0.25);
-            color: #00FF88;
-
-            &:hover {
-                background: rgba(0, 255, 136, 0.18);
-                border-color: rgba(0, 255, 136, 0.45);
                 color: #00FF88;
             }
         }
 
-        .viewDetailsBtn {
-            background: linear-gradient(135deg, #00FF88 0%, #00C868 100%);
-            color: #050d09;
-            border: none;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.35);
+        .cardBody {
+            .cardTitle {
+                color: #FFFFFF;
+            }
 
-            &:hover {
-                background: linear-gradient(135deg, #22FF99 0%, #00E676 100%);
-                color: #050d09;
-                box-shadow: 0 0 30px rgba(0, 255, 136, 0.55);
+            .subtitleTag {
+                background: #10b9811a;
+                border: 1px solid #10b98147;
+                color: #34d399;
+                text-shadow: none;
+            }
+
+            .cardDescription {
+                color: rgba(255, 255, 255, 0.65);
+            }
+        }
+
+        .highlightsGrid {
+            .highlightItem {
+                background: #070707;
+                border-color: rgba(0, 255, 136, 0.12);
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(0, 255, 136, 0.05);
+                    border-color: rgba(0, 255, 136, 0.3);
+                }
+
+                .iconBox {
+                    background: rgba(0, 255, 136, 0.08);
+                    border-color: rgba(0, 255, 136, 0.2);
+                    color: #00FF88;
+                }
+
+                .highlightText {
+                    .hlTitle {
+                        color: #FFFFFF;
+                    }
+
+                    .hlSub {
+                        color: rgba(255, 255, 255, 0.55);
+                    }
+                }
+            }
+        }
+
+        .cardFooter {
+            border-top-color: rgba(0, 255, 136, 0.12);
+
+            .visitSiteBtn {
+                background: rgba(0, 255, 136, 0.06);
+                border-color: rgba(0, 255, 136, 0.25);
+                color: #00FF88;
+                font-weight: 600;
+
+                &:hover {
+                    background: rgba(0, 255, 136, 0.15);
+                    border-color: rgba(0, 255, 136, 0.4);
+                    color: #00FF88;
+                }
+
+                svg {
+                    stroke: #00FF88;
+                }
+            }
+
+            .viewDetailsBtn {
+                background: #047857;
+                border: 1px solid #047857;
+                color: #FFFFFF;
+                font-weight: 700;
+                box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3);
+
+                &:hover {
+                    background: #059669;
+                    border-color: #10B981;
+                    color: #FFFFFF;
+                    box-shadow: 0 4px 14px rgba(4, 120, 87, 0.45);
+                }
+
+                svg {
+                    stroke: #FFFFFF;
+                }
             }
         }
     }
-}

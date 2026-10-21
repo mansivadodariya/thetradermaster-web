@@ -320,21 +320,21 @@
     .brokerDetailPage {
         .topNav {
             .backLink {
-                background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-                border-color: rgba(0, 255, 136, 0.2) !important;
+                background: #070707 !important;
+                border: 1px solid rgba(0, 255, 136, 0.14) !important;
                 color: #FFFFFF !important;
 
                 &:hover {
-                    background: $primary !important;
-                    border-color: $primary !important;
+                    background: #047857 !important;
+                    border-color: #047857 !important;
                     color: #FFFFFF !important;
                 }
             }
         }
 
         .heroBanner {
-            background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
+            background: #070707 !important;
+            border: 1px solid rgba(0, 255, 136, 0.14) !important;
             color: #FFFFFF !important;
 
             .title {
@@ -342,7 +342,7 @@
             }
 
             .subtitle {
-                color: rgba(255, 255, 255, 0.85) !important;
+                color: rgba(255, 255, 255, 0.75) !important;
             }
 
             .logoRow {
@@ -352,15 +352,15 @@
                 }
 
                 .badges .categoryBadge {
-                    background: rgba(255, 255, 255, 0.15) !important;
-                    border-color: rgba(255, 255, 255, 0.25) !important;
+                    background: rgba(255, 255, 255, 0.08) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
                     color: #FFFFFF !important;
                 }
 
                 .badges .statusBadge {
-                    background: rgba(16, 185, 129, 0.25) !important;
-                    color: #34D399 !important;
-                    border-color: rgba(16, 185, 129, 0.4) !important;
+                    background: rgba(0, 255, 136, 0.08) !important;
+                    color: #00FF88 !important;
+                    border: 1px solid rgba(0, 255, 136, 0.25) !important;
                 }
             }
         }
@@ -368,23 +368,23 @@
         .contentGrid {
             .mainContent {
                 .cardSection {
-                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-                    border-color: rgba(0, 255, 136, 0.2) !important;
+                    background: #070707 !important;
+                    border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
                     h3 {
                         color: #FFFFFF !important;
                     }
 
                     .description {
-                        color: rgba(255, 255, 255, 0.7) !important;
+                        color: rgba(255, 255, 255, 0.75) !important;
                     }
 
                     .featureList .featureItem {
                         color: #FFFFFF !important;
 
                         .checkIconBox {
-                            background: rgba(16, 185, 129, 0.2) !important;
-                            border: none !important;
+                            background: rgba(0, 255, 136, 0.08) !important;
+                            border: 1px solid rgba(0, 255, 136, 0.2) !important;
                             color: #00FF88 !important;
                         }
                     }
@@ -393,36 +393,43 @@
 
             .sidebar {
                 .actionCard {
-                    background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-                    border-color: rgba(0, 255, 136, 0.2) !important;
+                    background: #070707 !important;
+                    border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
                     h4 {
                         color: #FFFFFF !important;
                     }
 
                     p {
-                        color: rgba(255, 255, 255, 0.7) !important;
+                        color: rgba(255, 255, 255, 0.75) !important;
                     }
 
                     .urlBox {
-                        background: rgba(0, 16, 11, 0.65) !important;
-                        border-color: rgba(0, 255, 136, 0.25) !important;
+                        background: #070707 !important;
+                        border: 1px solid rgba(0, 255, 136, 0.25) !important;
                         color: #00FF88 !important;
                     }
 
                     .visitOfficialBtn {
-                        background: $primary !important;
+                        background: #047857 !important;
+                        border: 1px solid #047857 !important;
                         color: #FFFFFF !important;
 
                         &:hover {
                             background: #059669 !important;
+                            border-color: #059669 !important;
                         }
                     }
 
                     .syncBtn {
-                        background: linear-gradient(135deg, rgba(2, 36, 27, 0.95) 0%, rgba(1, 20, 15, 0.98) 100%) !important;
-                        border-color: rgba(0, 255, 136, 0.25) !important;
-                        color: #FFFFFF !important;
+                        background: rgba(0, 255, 136, 0.06) !important;
+                        border: 1px solid rgba(0, 255, 136, 0.25) !important;
+                        color: #00FF88 !important;
+
+                        &:hover {
+                            background: rgba(0, 255, 136, 0.15) !important;
+                            color: #FFFFFF !important;
+                        }
                     }
                 }
             }

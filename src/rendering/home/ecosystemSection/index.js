@@ -1,12 +1,37 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
 import styles from './ecosystemSection.module.scss';
 import LineText from '@/components/lineText';
 import BrokerCard from '@/components/brokerCard';
 import { BrokerCardSkeleton } from '@/components/brokerSkeleton';
 import { fetchBrokers, brokerList } from '@/lib/brokersData';
 import { useLanguage } from '@/context/LanguageContext';
+
+function AnimatedNumber({ value, prefix = '', suffix = '', duration = 2.5 }) {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: "-50px" });
+    const [displayValue, setDisplayValue] = useState(0);
+
+    useEffect(() => {
+        if (inView) {
+            const controls = animate(0, value, {
+                duration: duration,
+                ease: [0.16, 1, 0.3, 1],
+                onUpdate(val) {
+                    setDisplayValue(Math.floor(val));
+                }
+            });
+            return controls.stop;
+        }
+    }, [inView, value, duration]);
+
+    return (
+        <span ref={ref}>
+            {prefix}{displayValue}{suffix}
+        </span>
+    );
+}
 
 export default function EcosystemSection() {
     const { t } = useLanguage();
@@ -111,12 +136,16 @@ export default function EcosystemSection() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>1</span>
+                        <span className={styles.statNumber}>
+                            <AnimatedNumber value={1} />
+                        </span>
                         <span className={styles.statLabel}>{t('home.ecoStat1', 'Regulated Partners')}</span>
                     </div>
                     <div className={styles.statDivider}></div>
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>&lt; 100ms</span>
+                        <span className={styles.statNumber}>
+                            <AnimatedNumber value={100} prefix="< " suffix="ms" duration={2} />
+                        </span>
                         <span className={styles.statLabel}>{t('home.ecoStat2', 'Execution Latency')}</span>
                     </div>
                     <div className={styles.statDivider}></div>
@@ -126,7 +155,9 @@ export default function EcosystemSection() {
                     </div>
                     <div className={styles.statDivider}></div>
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>$50M+</span>
+                        <span className={styles.statNumber}>
+                            <AnimatedNumber value={50} prefix="$" suffix="M+" duration={3} />
+                        </span>
                         <span className={styles.statLabel}>{t('home.ecoStat4', 'Monthly Volume')}</span>
                     </div>
                 </motion.div>

@@ -123,7 +123,7 @@ $border: #E2E8F0;
 }
 
 .subNavItemActive {
-    background: #10B981 !important;
+    background: #047857 !important;
     border-color: #10B981 !important;
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
     color: #FFFFFF !important;
@@ -877,8 +877,8 @@ $border: #E2E8F0;
     }
 
     .subSidebar {
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-        border-color: rgba(0, 255, 136, 0.2) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
     }
 
     .subNavItem {
@@ -893,7 +893,7 @@ $border: #E2E8F0;
         }
 
         &:hover {
-            background: rgba(16, 185, 129, 0.15) !important;
+            background: rgba(0, 255, 136, 0.08) !important;
 
             .subNavItemIcon {
                 color: #00FF88 !important;
@@ -906,9 +906,9 @@ $border: #E2E8F0;
     }
 
     .subNavItemActive {
-        background: #10B981 !important;
-        border-color: #10B981 !important;
-        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+        background: #047857 !important;
+        border-color: #047857 !important;
+        box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35) !important;
 
         .subNavItemTitle {
             color: #ffffff !important;
@@ -920,18 +920,18 @@ $border: #E2E8F0;
 
         .subNavItemBadge {
             background: #ffffff !important;
-            color: #10B981 !important;
+            color: #047857 !important;
         }
     }
 
     .card {
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-        border-color: rgba(0, 255, 136, 0.2) !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
     }
 
     .cardHeader {
-        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+        border-bottom-color: rgba(0, 255, 136, 0.14) !important;
 
         h2 {
             color: #ffffff !important;
@@ -947,21 +947,21 @@ $border: #E2E8F0;
     }
 
     .emailDisplay {
-        border-color: rgba(0, 255, 136, 0.2) !important;
-        color: rgba(255, 255, 255, 0.7) !important;
-        background: rgba(0, 16, 11, 0.65) !important;
+        border: 1px solid rgba(0, 255, 136, 0.2) !important;
+        color: rgba(255, 255, 255, 0.75) !important;
+        background: #070707 !important;
     }
 
     .referralInput {
-        border-color: rgba(0, 255, 136, 0.2) !important;
+        border: 1px solid rgba(0, 255, 136, 0.2) !important;
         color: #ffffff !important;
-        background: rgba(0, 16, 11, 0.65) !important;
+        background: #070707 !important;
     }
 
     .referralBadge {
-        background: rgba(16, 185, 129, 0.15) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
-        color: #00FF88 !important;
+        background: #10b9811a;
+       border: 1px solid #10b98147;
+        color: #34d399 !important;
 
         svg {
             color: #00FF88 !important;
@@ -969,7 +969,7 @@ $border: #E2E8F0;
     }
 
     .referralCountNumber {
-        background: #10B981 !important;
+        background: #047857 !important;
         color: #ffffff !important;
     }
 
@@ -982,12 +982,12 @@ $border: #E2E8F0;
 
         &:hover {
             color: #00FF88 !important;
-            background-color: rgba(16, 185, 129, 0.15) !important;
+            background-color: rgba(0, 255, 136, 0.1) !important;
         }
     }
 
     .sectionHeader {
-        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+        border-bottom-color: rgba(0, 255, 136, 0.14) !important;
     }
 
     .sectionTitle {
@@ -999,39 +999,42 @@ $border: #E2E8F0;
     }
 
     .maxBadge {
-        background: rgba(16, 185, 129, 0.15) !important;
+        background: rgba(0, 255, 136, 0.06) !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
         color: #00FF88 !important;
     }
 
     .loginItem {
-        background: rgba(0, 16, 11, 0.6) !important;
-        border-color: rgba(0, 255, 136, 0.2) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
 
         &:hover {
-            border-color: rgba(0, 255, 136, 0.4) !important;
-            background: rgba(0, 255, 136, 0.1) !important;
+            border-color: rgba(0, 255, 136, 0.35) !important;
+            background: rgba(0, 255, 136, 0.04) !important;
         }
     }
 
     .latestLoginItem {
-        background: rgba(0, 32, 22, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.4) !important;
-        box-shadow: 0 4px 16px rgba(0, 255, 136, 0.15) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.3) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
 
         &:hover {
             border-color: #00FF88 !important;
-            background: rgba(4, 48, 36, 0.9) !important;
+            background: rgba(0, 255, 136, 0.06) !important;
         }
     }
 
     .deviceIconBox {
-        background: rgba(0, 255, 136, 0.15) !important;
-        color: rgba(255, 255, 255, 0.65) !important;
+        background: rgba(0, 255, 136, 0.08) !important;
+        border: 1px solid rgba(0, 255, 136, 0.2) !important;
+        color: rgba(255, 255, 255, 0.75) !important;
     }
 
     .activeDeviceIcon {
-        background: rgba(16, 185, 129, 0.15) !important;
+        background: rgba(0, 255, 136, 0.08) !important;
         color: #00FF88 !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
     }
 
     .loginTimeRow {
@@ -1047,14 +1050,15 @@ $border: #E2E8F0;
     }
 
     .activeBadge {
-        background: rgba(16, 185, 129, 0.15) !important;
-        color: #34d399 !important;
-        border-color: rgba(16, 185, 129, 0.3) !important;
+        background: rgba(0, 255, 136, 0.08) !important;
+        color: #00FF88 !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
     }
 
     .pastBadge {
-        background: rgba(0, 255, 136, 0.15) !important;
+        background: rgba(255, 255, 255, 0.06) !important;
         color: rgba(255, 255, 255, 0.65) !important;
+        border: 1px solid rgba(255, 255, 255, 0.14) !important;
     }
 
     .emptyLogins {
@@ -1062,8 +1066,8 @@ $border: #E2E8F0;
     }
 
     .recentActivityBtn {
-        background: rgba(15, 23, 42, 0.8) !important;
-        border-color: rgba(0, 255, 136, 0.3) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
         color: #00FF88 !important;
 
         svg {
@@ -1071,13 +1075,13 @@ $border: #E2E8F0;
         }
 
         .activityBadgeCount {
-            background: rgba(16, 185, 129, 0.15) !important;
+            background: #047857 !important;
             color: #FFFFFF !important;
         }
 
         &:hover {
-            background: #10B981 !important;
-            border-color: #00FF88 !important;
+            background: #047857 !important;
+            border-color: #047857 !important;
             color: #FFFFFF !important;
 
             svg {
@@ -1086,23 +1090,24 @@ $border: #E2E8F0;
 
             .activityBadgeCount {
                 background: #FFFFFF !important;
-                color: #10B981 !important;
+                color: #047857 !important;
             }
         }
     }
 
     .modalContent {
-        background: linear-gradient(135deg, rgba(2, 36, 27, 0.85) 0%, rgba(1, 20, 15, 0.95) 100%) !important;
-        border-color: rgba(0, 255, 136, 0.2) !important;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+        background: #070707 !important;
+        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8) !important;
     }
 
     .modalHeader {
-        border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+        border-bottom-color: rgba(0, 255, 136, 0.14) !important;
     }
 
     .modalIconBox {
-        background: rgba(16, 185, 129, 0.15) !important;
+        background: rgba(0, 255, 136, 0.08) !important;
+        border: 1px solid rgba(0, 255, 136, 0.25) !important;
         color: #00FF88 !important;
     }
 
@@ -1124,14 +1129,14 @@ $border: #E2E8F0;
     }
 
     .modalFooter {
-        background: rgba(0, 16, 11, 0.6) !important;
-        border-top-color: rgba(0, 255, 136, 0.2) !important;
+        background: #070707 !important;
+        border-top-color: rgba(0, 255, 136, 0.14) !important;
     }
 
     .verifiedBadge {
-        background: rgba(0, 255, 136, 0.15) !important;
-        border-color: rgba(0, 255, 136, 0.35) !important;
-        color: #00FF88 !important;
+        background: #10b9811a;
+        border: 1px solid #10b98147;
+        color: #34d399 !important;
     }
 
     .unverifiedBtn {

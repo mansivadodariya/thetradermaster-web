@@ -255,8 +255,8 @@
 :global(.dark),
 :global(html.dark) {
   .toggleButton {
-    background: rgba(0, 255, 136, 0.08);
-    border-color: rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.06);
+    border: 1px solid rgba(0, 255, 136, 0.25);
     color: #FFFFFF;
 
     .chevronIcon {
@@ -264,22 +264,22 @@
     }
 
     &:hover {
-      background: rgba(0, 255, 136, 0.18);
+      background: rgba(0, 255, 136, 0.14);
       color: #00FF88;
-      box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
     }
   }
 
   .dropdownMenu {
-    background: linear-gradient(145deg, rgba(6, 32, 22, 0.96) 0%, rgba(3, 18, 12, 0.98) 100%);
-    border-color: rgba(0, 255, 136, 0.35);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 255, 136, 0.15);
+    background: #070707;
+    border: 1px solid rgba(0, 255, 136, 0.14);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
   }
 
   .dropdownHeader {
-    border-bottom-color: rgba(0, 255, 136, 0.15);
+    border-bottom-color: rgba(0, 255, 136, 0.14);
   }
 
   .dropdownHeaderLeft {
@@ -291,14 +291,14 @@
   }
 
   .badge {
-    background: rgba(0, 255, 136, 0.15);
+    background: rgba(0, 255, 136, 0.06);
     color: #00FF88;
-    border-color: rgba(0, 255, 136, 0.3);
+    border: 1px solid rgba(0, 255, 136, 0.25);
   }
 
   .dropdownOption {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: #070707;
+    border: 1px solid rgba(0, 255, 136, 0.14);
     color: #FFFFFF;
 
     .countryLabel {
@@ -310,8 +310,8 @@
     }
 
     &:hover {
-      background: rgba(0, 255, 136, 0.15);
-      border-color: rgba(0, 255, 136, 0.4);
+      background: rgba(0, 255, 136, 0.06);
+      border-color: rgba(0, 255, 136, 0.35);
 
       .nativeLabel {
         color: #00FF88;
@@ -319,15 +319,19 @@
     }
 
     &.activeOption {
-      background: rgba(0, 255, 136, 0.2);
-      border-color: #00FF88;
-      box-shadow: 0 0 15px rgba(0, 255, 136, 0.25);
+      background: #047857;
+      border-color: #047857;
+      box-shadow: 0 0 12px rgba(4, 120, 87, 0.35);
 
       .countryLabel {
-        color: #00FF88;
+        color: rgba(255, 255, 255, 0.85);
       }
 
       .nativeLabel {
+        color: #FFFFFF;
+      }
+
+      .checkIcon {
         color: #FFFFFF;
       }
     }

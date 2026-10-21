@@ -113,9 +113,12 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         : (broker.features || []);
 
     const effectiveTheme = isPublicLanding ? 'dark' : theme;
-    const logoSrc = (broker.logo && (broker.logo.includes('logo-light') || broker.id === 'newera'))
-        ? (effectiveTheme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp')
-        : broker.logo;
+    let logoSrc = broker.logo || '/assets/images/site-logo-20y-on-light.svg';
+    if (broker.id === 'avatrade' || logoSrc.includes('site-logo-20y')) {
+        logoSrc = '/assets/images/site-logo-20y-on-light.svg';
+    } else if (logoSrc.includes('logo-light') || broker.id === 'newera') {
+        logoSrc = effectiveTheme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
+    }
 
     return (
         <div className={`${styles.brokerDetailPage} ${isPublicLanding ? styles.publicContainer : ''}`}>

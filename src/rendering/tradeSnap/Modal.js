@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import styles from './tradeSnap.module.scss';
 import { getBidiProps } from '@/lib/bidi';
 
-export default function Modal({ open, onClose, title, description, children, footer }) {
+export default function Modal({ open, onClose, title, description, children, footer, className }) {
     useEffect(() => {
         if (!open) return;
         const onKey = (e) => {
@@ -17,7 +17,7 @@ export default function Modal({ open, onClose, title, description, children, foo
 
     return (
         <div className={styles.modalOverlay} role="dialog" aria-modal="true" onClick={onClose}>
-            <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
+            <div className={`${styles.modalBox} ${className || ''}`} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
                     {title && <h2 {...getBidiProps(title)}>{title}</h2>}
                     {description && <p {...getBidiProps(description)}>{description}</p>}

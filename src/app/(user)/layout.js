@@ -13,6 +13,7 @@ import { captureUtmParameters } from '@/lib/utm';
 import { getStoredUserId } from '@/lib/authSession';
 import { dashboardApi, neweraApi } from '@/lib/api';
 import { supabase } from '@/lib/supabaseClient';
+import { AiAssistantJobProvider } from '@/context/AiAssistantJobContext';
 import './layout.scss';
 
 const ROUTE_TAB_MAP = {
@@ -217,41 +218,43 @@ const layout = ({ children }) => {
         <MaintenanceGuard>
             <AuthGuard>
                 <ThemeProvider>
-                    <div className={`user-layout ${effectiveCollapsed ? 'collapsed' : ''}`}>
-                        <div className={`sidebar-wrapper ${effectiveCollapsed ? 'collapsed' : ''} ${isSidebarOpen ? 'open' : ''}`}>
-                            <Sidebar
-                                onClose={() => setIsSidebarOpen(false)}
-                                isCollapsed={effectiveCollapsed}
-                                onToggleCollapse={toggleCollapse}
-                            />
-                        </div>
-                        {isSidebarOpen && (
-                            <div className='sidebar-overlay' onClick={() => setIsSidebarOpen(false)} />
-                        )}
-                        <div className='children-wrapper'>
-                            <Topbar onMenuClick={handleMenuClick} />
-                            <div className='children-spacing'>
-                                {children}
+                    <AiAssistantJobProvider>
+                        <div className={`user-layout ${effectiveCollapsed ? 'collapsed' : ''}`}>
+                            <div className={`sidebar-wrapper ${effectiveCollapsed ? 'collapsed' : ''} ${isSidebarOpen ? 'open' : ''}`}>
+                                <Sidebar
+                                    onClose={() => setIsSidebarOpen(false)}
+                                    isCollapsed={effectiveCollapsed}
+                                    onToggleCollapse={toggleCollapse}
+                                />
+                            </div>
+                            {isSidebarOpen && (
+                                <div className='sidebar-overlay' onClick={() => setIsSidebarOpen(false)} />
+                            )}
+                            <div className='children-wrapper'>
+                                <Topbar onMenuClick={handleMenuClick} />
+                                <div className='children-spacing'>
+                                    {children}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {showCreditsModal && (
-                        <NeweraCreditsModal
-                            userId={userId}
-                            onClose={() => setShowCreditsModal(false)}
-                            onSuccess={(creditsVal) => {
-                                setShowCreditsModal(false);
-                                if (creditsVal !== undefined && creditsVal !== null) {
-                                    notifyCreditsUpdated(creditsVal);
-                                } else {
-                                    refreshCreditsFromServer();
-                                }
-                            }}
-                        />
-                    )}
+                        {showCreditsModal && (
+                            <NeweraCreditsModal
+                                userId={userId}
+                                onClose={() => setShowCreditsModal(false)}
+                                onSuccess={(creditsVal) => {
+                                    setShowCreditsModal(false);
+                                    if (creditsVal !== undefined && creditsVal !== null) {
+                                        notifyCreditsUpdated(creditsVal);
+                                    } else {
+                                        refreshCreditsFromServer();
+                                    }
+                                }}
+                            />
+                        )}
 
-                    <PaymentStatusModal />
+                        <PaymentStatusModal />
+                    </AiAssistantJobProvider>
                 </ThemeProvider>
             </AuthGuard>
         </MaintenanceGuard>

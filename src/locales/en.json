@@ -225,7 +225,12 @@
     "suggestedTag1": "XAU/USD Strategy",
     "suggestedTag2": "XAU/USD Breakouts",
     "suggestedTag3": "XAU/USD Trend Analysis",
-    "suggestedTag4": "Analyze XAU/USD on H4"
+    "suggestedTag4": "Analyze XAU/USD on H4",
+    "analysisStarted": "Analysis started – you can continue using the platform.",
+    "analysisSubtitle": "Quantitative engine is analyzing multi-timeframe trends, order blocks, and key liquidity levels for",
+    "backgroundActive": "Background worker active • Feel free to navigate to Dashboard or Chart Scanner",
+    "analysisReady": "Analysis ready",
+    "analysisReadyDesc": "Quantitative report completed. Click to view."
   },
   "aiStrategy": {
     "title": "AI Strategy Generator",

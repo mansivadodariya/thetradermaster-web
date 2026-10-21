@@ -7,7 +7,13 @@ import { analyzeTradeScreenshots, dataUrlToBlob, extractTradesFromPayload } from
 import { tradeSnapApi } from '@/lib/api';
 import { getStoredUserId } from '@/lib/authSession';
 import { toast } from '@/components/toast';
-import { CREDITS_UPDATED_EVENT, refreshCreditsFromServer } from '@/lib/credits';
+import { CREDITS_UPDATED_EVENT, refreshCreditsFromServer, notifyCreditsUpdated } from '@/lib/credits';
+import {
+    getChartScannerSession,
+    saveChartScannerSession,
+    clearSingleTimeframeSession,
+    clearMultiTimeframeSession,
+} from '@/lib/chartScannerSession';
 import AnalysisResultItem from './AnalysisResultItem';
 import NextScreenshotTimer from './NextScreenshotTimer';
 import Modal from './Modal';
@@ -30,6 +36,8 @@ import {
     CoinsIcon,
     LowerTfIcon,
     HigherTfIcon,
+    EyeIcon,
+    TrashIcon,
 } from './icons';
 
 const AUTO_CAPTURE_OPTIONS = [
@@ -111,6 +119,7 @@ export default function TradeSnap() {
 
     const [selectedAnalysis, setSelectedAnalysis] = useState(null);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
     // Upload mode
     const [uploadedImages, setUploadedImages] = useState([]);
@@ -124,6 +133,44 @@ export default function TradeSnap() {
     const [pendingDeleteHistory, setPendingDeleteHistory] = useState(null);
     const [showTabSwitchConfirm, setShowTabSwitchConfirm] = useState(false);
     const [pendingTab, setPendingTab] = useState(null);
+
+    // Rehydrate analysis session across page navigations
+    useEffect(() => {
+        const session = getChartScannerSession();
+        if (session) {
+            if (session.activeTab) setActiveTab(session.activeTab);
+            if (session.capturedImage) {
+                setCapturedImage(session.capturedImage);
+                setShowSnapshot(session.showSnapshot ?? true);
+            }
+            if (session.capturedImage1) {
+                setCapturedImage1(session.capturedImage1);
+                setShowSnapshot1(session.showSnapshot1 ?? true);
+            }
+            if (session.capturedImage2) {
+                setCapturedImage2(session.capturedImage2);
+                setShowSnapshot2(session.showSnapshot2 ?? true);
+            }
+            if (session.tfLower) setTfLower(session.tfLower);
+            if (session.tfHigher) setTfHigher(session.tfHigher);
+            if (Array.isArray(session.allAnalyses) && session.allAnalyses.length > 0) {
+                setAllAnalyses(session.allAnalyses);
+                if (session.showAnalysis) setShowAnalysis(true);
+            }
+        }
+    }, []);
+
+    // Cleanup live media tracks on unmount while preserving session
+    useEffect(() => {
+        return () => {
+            if (stream) {
+                stream.getTracks().forEach((t) => t.stop());
+            }
+            if (stream2) {
+                stream2.getTracks().forEach((t) => t.stop());
+            }
+        };
+    }, [stream, stream2]);
     const [isDesktop, setIsDesktop] = useState(true);
     const [isScreenShareSupported, setIsScreenShareSupported] = useState(true);
 
@@ -239,26 +286,15 @@ export default function TradeSnap() {
         }
         if (videoRef.current) videoRef.current.srcObject = null;
         setIsSharing(false);
-        setCapturedImage(null);
-        // Multi: ensure old lower timeframe snapshot never lingers
-        setCapturedImage1(null);
-        setShowSnapshot1(false);
-        setAutoCaptureInterval1(null);
-        setNextScreenshotEndTime1(null);
-        setAllAnalyses([]);
-        setShowAnalysis(false);
-        setShowSnapshot(false);
+        // Stopping screen sharing must NOT delete the captured snapshot or analysis session
         setAutoCaptureInterval(null);
         setNextScreenshotEndTime(null);
+        setAutoCaptureInterval1(null);
+        setNextScreenshotEndTime1(null);
     }, [stream]);
 
     const startScreenShare = useCallback(async () => {
         try {
-            // Clear prior captures (prevents reusing old screenshots)
-            setCapturedImage(null);
-            setShowSnapshot(false);
-            setCapturedImage1(null);
-            setShowSnapshot1(false);
             setAutoCaptureInterval(null);
             setAutoCaptureInterval1(null);
             setNextScreenshotEndTime(null);
@@ -312,18 +348,13 @@ export default function TradeSnap() {
         }
         if (videoRef2.current) videoRef2.current.srcObject = null;
         setIsSharing2(false);
-        // Multi: ensure old higher timeframe snapshot never lingers
-        setCapturedImage2(null);
-        setShowSnapshot2(false);
+        // Stopping screen sharing must NOT delete the captured snapshot or analysis session
         setAutoCaptureInterval2(null);
         setNextScreenshotEndTime2(null);
     }, [stream2]);
 
     const startScreenShare2 = useCallback(async () => {
         try {
-            // Clear prior higher timeframe captures (prevents reusing old screenshots)
-            setCapturedImage2(null);
-            setShowSnapshot2(false);
             setAutoCaptureInterval2(null);
             setNextScreenshotEndTime2(null);
 
@@ -395,6 +426,13 @@ export default function TradeSnap() {
         }
         setCapturedImage(image);
         setShowSnapshot(true);
+        setShowAnalysis(false);
+        saveChartScannerSession({
+            activeTab: 'single',
+            capturedImage: image,
+            showSnapshot: true,
+            showAnalysis: false,
+        });
     }, [captureFromVideo]);
 
     const captureScreenshot1 = useCallback(() => {
@@ -405,6 +443,11 @@ export default function TradeSnap() {
         }
         setCapturedImage1(image);
         setShowSnapshot1(true);
+        saveChartScannerSession({
+            activeTab: 'multi',
+            capturedImage1: image,
+            showSnapshot1: true,
+        });
     }, [captureFromVideo]);
 
     const captureScreenshot2 = useCallback(() => {
@@ -415,6 +458,11 @@ export default function TradeSnap() {
         }
         setCapturedImage2(image);
         setShowSnapshot2(true);
+        saveChartScannerSession({
+            activeTab: 'multi',
+            capturedImage2: image,
+            showSnapshot2: true,
+        });
     }, [captureFromVideo]);
 
     const pushAnalysis = (analysisData) => {
@@ -423,10 +471,17 @@ export default function TradeSnap() {
             : extractTradesFromPayload({ ai_response: analysisData });
         if (!trades.length) return;
 
-        setAllAnalyses([
+        const nextAnalyses = [
             { data: trades, timestamp: new Date().toISOString() },
-        ]);
+        ];
+        setAllAnalyses(nextAnalyses);
         setShowAnalysis(true);
+        setSelectedAnalysis(null);
+        setIsResultModalOpen(true);
+        saveChartScannerSession({
+            allAnalyses: nextAnalyses,
+            showAnalysis: true,
+        });
     };
 
     const applyAnalyzeResult = (result, { onInvalidChart } = {}) => {
@@ -454,8 +509,13 @@ export default function TradeSnap() {
         try {
             const blob = await dataUrlToBlob(capturedImage);
             const result = await analyzeTradeScreenshots([blob], getUserId());
-            if (applyAnalyzeResult(result, { onInvalidChart: () => setShowSnapshot(true) })) {
+            if (applyAnalyzeResult(result, { onInvalidChart: () => {
+                setShowSnapshot(true);
+                setShowAnalysis(false);
+                saveChartScannerSession({ showSnapshot: true, showAnalysis: false });
+            } })) {
                 setShowSnapshot(false);
+                saveChartScannerSession({ showSnapshot: false });
             }
         } catch (err) {
             setError(err?.message || 'Failed to analyze image');
@@ -480,6 +540,7 @@ export default function TradeSnap() {
             if (applyAnalyzeResult(result)) {
                 setShowSnapshot1(false);
                 setShowSnapshot2(false);
+                saveChartScannerSession({ showSnapshot1: false, showSnapshot2: false });
             }
         } catch (err) {
             setError(err?.message || 'Failed to analyze images');
@@ -628,25 +689,46 @@ export default function TradeSnap() {
         }
     };
 
+    const handleRemoveSingleSnapshot = () => {
+        setCapturedImage(null);
+        setShowSnapshot(false);
+        clearSingleTimeframeSession();
+    };
+
+    const handleRemoveMultiSnapshots = () => {
+        setCapturedImage1(null);
+        setCapturedImage2(null);
+        setShowSnapshot1(false);
+        setShowSnapshot2(false);
+        clearMultiTimeframeSession();
+    };
+
+    const applyTabSwitch = (nextTab) => {
+        saveChartScannerSession({ activeTab: nextTab });
+        setActiveTab(nextTab);
+    };
+
     const requestTabSwitch = (tab) => {
-        if ((isSharing || isSharing2) && activeTab !== tab) {
+        if (activeTab === tab) return;
+        if (isSharing || isSharing2) {
             setPendingTab(tab);
             setShowTabSwitchConfirm(true);
         } else {
-            setActiveTab(tab);
+            applyTabSwitch(tab);
         }
     };
 
     const confirmTabSwitch = () => {
         if (isSharing) stopScreenShare();
         if (isSharing2) stopScreenShare2();
-        setCapturedImage(null);
-        setCapturedImage1(null);
-        setCapturedImage2(null);
         setAutoCaptureInterval(null);
         setAutoCaptureInterval1(null);
         setAutoCaptureInterval2(null);
-        if (pendingTab) setActiveTab(pendingTab);
+        setNextScreenshotEndTime(null);
+        setNextScreenshotEndTime1(null);
+        setNextScreenshotEndTime2(null);
+        const targetTab = pendingTab || (activeTab === 'single' ? 'multi' : 'single');
+        applyTabSwitch(targetTab);
         setPendingTab(null);
         setShowTabSwitchConfirm(false);
     };
@@ -720,6 +802,19 @@ export default function TradeSnap() {
 
 
                     <div className={styles.headerActions}>
+                        {allAnalyses.length > 0 && (
+                            <button
+                                type="button"
+                                className={styles.btnSecondary}
+                                onClick={() => {
+                                    setSelectedAnalysis(null);
+                                    setIsResultModalOpen(true);
+                                }}
+                            >
+                                <EyeIcon />
+                                {t('tradeSnap.viewResults', 'View Results')}
+                            </button>
+                        )}
                         <HistoryButton
                             text={t('tradeSnap.history', 'History')}
                             onClick={openHistory}
@@ -840,7 +935,10 @@ export default function TradeSnap() {
                                         <select
                                             className={styles.tfSelectDropdown}
                                             value={tfLower}
-                                            onChange={(e) => setTfLower(e.target.value)}
+                                            onChange={(e) => {
+                                                setTfLower(e.target.value);
+                                                saveChartScannerSession({ tfLower: e.target.value });
+                                            }}
                                             aria-label="Lower Timeframe Select"
                                         >
                                             <option value="1m">1m</option>
@@ -916,7 +1014,10 @@ export default function TradeSnap() {
                                         <select
                                             className={styles.tfSelectDropdown}
                                             value={tfHigher}
-                                            onChange={(e) => setTfHigher(e.target.value)}
+                                            onChange={(e) => {
+                                                setTfHigher(e.target.value);
+                                                saveChartScannerSession({ tfHigher: e.target.value });
+                                            }}
                                             aria-label="Higher Timeframe Select"
                                         >
                                             <option value="1h">1h</option>
@@ -972,33 +1073,86 @@ export default function TradeSnap() {
                                 </div>
                             </div>
 
-                            {(isSharing || isSharing2) && (showSnapshot1 || showSnapshot2) && (
+                            {(showSnapshot1 || showSnapshot2 || capturedImage1 || capturedImage2) && (
                                 <div className={`${styles.panel} ${styles.snapshotPanel}`}>
                                     <div className={styles.snapshotHeader}>
                                         <h3>
                                             <CameraIcon />
                                             {t('tradeSnap.latestSnapshot', 'Latest Timeframe Snapshot')}
                                         </h3>
-                                        <button
-                                            type="button"
-                                            className={styles.btnAnalyze}
-                                            onClick={analyzeMulti}
-                                            disabled={isAnalyzingMulti || !capturedImage1 || !capturedImage2}
-                                        >
-                                            {isAnalyzingMulti ? t('tradeSnap.analyzing', 'Analyzing...') : t('tradeSnap.analyze', 'Analyze')}
-                                        </button>
+                                        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                                            <button
+                                                type="button"
+                                                className={styles.btnRemove}
+                                                onClick={handleRemoveMultiSnapshots}
+                                            >
+                                                <TrashIcon />
+                                                {t('common.remove', 'Remove')}
+                                            </button>
+                                            {allAnalyses.length > 0 && (
+                                                <button
+                                                    type="button"
+                                                    className={styles.btnSecondary}
+                                                    onClick={() => {
+                                                        setSelectedAnalysis(null);
+                                                        setIsResultModalOpen(true);
+                                                    }}
+                                                >
+                                                    <EyeIcon />
+                                                    {t('tradeSnap.viewResults', 'View Results')}
+                                                </button>
+                                            )}
+                                            <button
+                                                type="button"
+                                                className={styles.btnAnalyze}
+                                                onClick={analyzeMulti}
+                                                disabled={isAnalyzingMulti || !capturedImage1 || !capturedImage2}
+                                            >
+                                                {isAnalyzingMulti ? t('tradeSnap.analyzing', 'Analyzing...') : t('tradeSnap.analyze', 'Analyze')}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div className={styles.dualSnapshot}>
-                                        <div>
+                                        <div style={{ position: 'relative' }}>
                                             {capturedImage1 ? (
-                                                <img src={capturedImage1} alt="Lower timeframe" />
+                                                <>
+                                                    <img src={capturedImage1} alt="Lower timeframe" />
+                                                    <button
+                                                        type="button"
+                                                        className={styles.removeThumbnailBtn}
+                                                        onClick={() => {
+                                                            setCapturedImage1(null);
+                                                            setShowSnapshot1(false);
+                                                            saveChartScannerSession({ capturedImage1: null, showSnapshot1: false });
+                                                        }}
+                                                        title="Remove lower timeframe snapshot"
+                                                        aria-label="Remove lower timeframe snapshot"
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                </>
                                             ) : (
                                                 <div className={styles.snapshotEmpty}>{t('tradeSnap.captureLowerTimeframe', 'Capture lower timeframe')}</div>
                                             )}
                                         </div>
-                                        <div>
+                                        <div style={{ position: 'relative' }}>
                                             {capturedImage2 ? (
-                                                <img src={capturedImage2} alt="Higher timeframe" />
+                                                <>
+                                                    <img src={capturedImage2} alt="Higher timeframe" />
+                                                    <button
+                                                        type="button"
+                                                        className={styles.removeThumbnailBtn}
+                                                        onClick={() => {
+                                                            setCapturedImage2(null);
+                                                            setShowSnapshot2(false);
+                                                            saveChartScannerSession({ capturedImage2: null, showSnapshot2: false });
+                                                        }}
+                                                        title="Remove higher timeframe snapshot"
+                                                        aria-label="Remove higher timeframe snapshot"
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                </>
                                             ) : (
                                                 <div className={styles.snapshotEmpty}>{t('tradeSnap.captureHigherTimeframe', 'Capture higher timeframe')}</div>
                                             )}
@@ -1010,7 +1164,7 @@ export default function TradeSnap() {
                     )}
                 </div>
 
-                {activeTab === 'single' && isSharing && showSnapshot && (
+                {activeTab === 'single' && showSnapshot && capturedImage && (
                     <div className={styles.sideColumn}>
                         <div className={styles.panel}>
                             <div className={styles.snapshotHeader}>
@@ -1018,66 +1172,43 @@ export default function TradeSnap() {
                                     <CameraIcon />
                                     Latest Snapshot
                                 </h3>
-                                <button
-                                    type="button"
-                                    className={styles.btnAnalyze}
-                                    onClick={analyzeImage}
-                                    disabled={isAnalyzing || !capturedImage}
-                                >
-                                    {isAnalyzing ? 'Analyzing...' : 'Analyze'}
-                                </button>
+                                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                                    <button
+                                        type="button"
+                                        className={styles.btnRemove}
+                                        onClick={handleRemoveSingleSnapshot}
+                                    >
+                                        <TrashIcon />
+                                        {t('common.remove', 'Remove')}
+                                    </button>
+                                    {allAnalyses.length > 0 && (
+                                        <button
+                                            type="button"
+                                            className={styles.btnSecondary}
+                                            onClick={() => {
+                                                setSelectedAnalysis(null);
+                                                setIsResultModalOpen(true);
+                                            }}
+                                        >
+                                            <EyeIcon />
+                                            {t('tradeSnap.viewResults', 'View Results')}
+                                        </button>
+                                    )}
+                                    <button
+                                        type="button"
+                                        className={styles.btnAnalyze}
+                                        onClick={analyzeImage}
+                                        disabled={isAnalyzing || !capturedImage}
+                                    >
+                                        {isAnalyzing ? 'Analyzing...' : 'Analyze'}
+                                    </button>
+                                </div>
                             </div>
                             {capturedImage ? (
                                 <img src={capturedImage} alt="Captured screenshot" className={styles.snapshotImg} />
                             ) : (
                                 <div className={styles.snapshotEmpty}>Capture a screenshot to analyze</div>
                             )}
-                        </div>
-                    </div>
-                )}
-
-                {(showAnalysis || allAnalyses.length > 0) && (
-                    <div className={styles.resultsColumn}>
-                        <div className={styles.resultsPanel}>
-                            <div className={styles.resultsHeader}>
-                                <h3>Analysis Results</h3>
-                            </div>
-                            <div className={styles.resultsBody}>
-                                {isAnalyzing && (
-                                    <div className={styles.spinnerWrap}>
-                                        <Loader centered />
-                                    </div>
-                                )}
-                                {allAnalyses.map((analysis, analysisIndex) => {
-                                    const formatted = new Date(analysis.timestamp).toLocaleString('en-US', {
-                                        year: 'numeric',
-                                        month: 'short',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour12: true,
-                                    });
-                                    return (
-                                        <div key={`history-${analysisIndex}`} className={styles.historyGroup}>
-                                            <div className={styles.historyTime}>
-                                                <ClockIcon />
-                                                Analysis at {formatted}
-                                            </div>
-                                            {analysis.data.map((trade, tradeIndex) => (
-                                                <AnalysisResultItem
-                                                    key={`trade-${analysisIndex}-${tradeIndex}`}
-                                                    trade={trade}
-                                                    index={tradeIndex}
-                                                    onViewDetails={(t) => {
-                                                        setSelectedAnalysis(t);
-                                                        setIsDetailModalOpen(true);
-                                                    }}
-                                                />
-                                            ))}
-                                        </div>
-                                    );
-                                })}
-                            </div>
                         </div>
                     </div>
                 )}
@@ -1112,6 +1243,103 @@ export default function TradeSnap() {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                open={isResultModalOpen}
+                onClose={() => {
+                    setIsResultModalOpen(false);
+                    setSelectedAnalysis(null);
+                }}
+                className={styles.resultModalBox}
+                title={t('tradeSnap.analysisResults', 'Analysis Results')}
+                description={
+                    allAnalyses[0]?.timestamp
+                        ? `${t('tradeSnap.analyzedAt', 'Analysis at')} ${new Date(allAnalyses[0].timestamp).toLocaleString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              hour12: true,
+                          })}`
+                        : t('tradeSnap.aiGeneratedInsights', 'AI-generated trade insights')
+                }
+                footer={
+                    <div style={{ display: 'flex', width: '100%', justifyContent: selectedAnalysis ? 'space-between' : 'flex-end', alignItems: 'center' }}>
+                        {selectedAnalysis ? (
+                            <button
+                                type="button"
+                                className={styles.btnSecondary}
+                                onClick={() => setSelectedAnalysis(null)}
+                            >
+                                ← {t('common.back', 'Back to Summary')}
+                            </button>
+                        ) : <span />}
+                        <button
+                            type="button"
+                            className={styles.btnPrimary}
+                            onClick={() => {
+                                setIsResultModalOpen(false);
+                                setSelectedAnalysis(null);
+                            }}
+                        >
+                            {t('common.close', 'Close')}
+                        </button>
+                    </div>
+                }
+            >
+                {selectedAnalysis ? (
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                            <div className={styles.resultTitleRow}>
+                                <h3 style={{ margin: 0 }}>{selectedAnalysis.symbol}</h3>
+                                {selectedAnalysis.Trade && (
+                                    <span className={styles.tradeTypeBadge}>{String(selectedAnalysis.Trade).toUpperCase()}</span>
+                                )}
+                                {selectedAnalysis.timeframe && (
+                                    <span className={styles.timeframeBadge}>
+                                        <ClockIcon />
+                                        {selectedAnalysis.timeframe}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        {selectedAnalysis?.risk_reward && selectedAnalysis.risk_reward !== 'N/A' && (
+                            <div className={styles.riskReward}>
+                                <span>Risk/Reward</span>
+                                <strong>{selectedAnalysis.risk_reward}</strong>
+                            </div>
+                        )}
+                        {selectedAnalysis?.rationale && (
+                            <div className={styles.rationale}>
+                                <h4>Analysis & Market Structure</h4>
+                                <p>{selectedAnalysis.rationale}</p>
+                            </div>
+                        )}
+                        {selectedAnalysis?.entry?.includes('(') && (
+                            <p className={styles.entryNote}>{selectedAnalysis.entry.match(/\(([^)]+)\)/)?.[1]}</p>
+                        )}
+                    </div>
+                ) : (
+                    <div className={styles.historyList}>
+                        {allAnalyses.map((analysis, analysisIndex) => (
+                            <div key={`modal-analysis-${analysisIndex}`} className={styles.historyGroup}>
+                                {analysis.data.map((trade, tradeIndex) => (
+                                    <AnalysisResultItem
+                                        key={`modal-trade-${analysisIndex}-${tradeIndex}`}
+                                        trade={trade}
+                                        index={tradeIndex}
+                                        onViewDetails={(t) => {
+                                            setSelectedAnalysis(t);
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </Modal>
 
             <Modal
                 open={isDetailModalOpen}
@@ -1181,9 +1409,17 @@ export default function TradeSnap() {
                                             type="button"
                                             className={styles.btnSecondary}
                                             onClick={() => {
-                                                // load this history into results view
-                                                setAllAnalyses([{ data: h.data, timestamp: h.timestamp }]);
-                                                setShowAnalysis(true);
+                                                // load this history into results modal
+                                                const historyPayload = [{ data: h.data, timestamp: h.timestamp }];
+                                                setAllAnalyses(historyPayload);
+                                                setSelectedAnalysis(null);
+                                                setIsResultModalOpen(true);
+                                                setShowSnapshot(false);
+                                                saveChartScannerSession({
+                                                    allAnalyses: historyPayload,
+                                                    showAnalysis: true,
+                                                    showSnapshot: false,
+                                                });
                                                 setHistoryOpen(false);
                                             }}
                                         >

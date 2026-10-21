@@ -26,8 +26,6 @@ const QuoteIcon = () => (
 export default function ClientSection() {
     const { t } = useLanguage();
     const [visibleCards, setVisibleCards] = useState(3);
-    const [isPaused, setIsPaused] = useState(false);
-    const [isTransitioning, setIsTransitioning] = useState(true);
 
     const testimonials = [
         {
@@ -72,9 +70,7 @@ export default function ClientSection() {
         }
     ];
 
-    const displayTestimonials = [...testimonials, ...testimonials, ...testimonials];
-    const N = testimonials.length;
-    const [currentIndex, setCurrentIndex] = useState(N);
+    const displayTestimonials = [...testimonials, ...testimonials];
 
     useEffect(() => {
         const updateVisible = () => {
@@ -91,52 +87,7 @@ export default function ClientSection() {
         return () => window.removeEventListener('resize', updateVisible);
     }, []);
 
-    // Handle silent seamless reset when reaching duplicated boundaries
-    useEffect(() => {
-        let timer;
-        if (currentIndex >= N * 2) {
-            timer = setTimeout(() => {
-                setIsTransitioning(false);
-                setCurrentIndex(N);
-                setTimeout(() => setIsTransitioning(true), 50);
-            }, 500);
-        } else if (currentIndex <= 0) {
-            timer = setTimeout(() => {
-                setIsTransitioning(false);
-                setCurrentIndex(N);
-                setTimeout(() => setIsTransitioning(true), 50);
-            }, 500);
-        }
-        return () => clearTimeout(timer);
-    }, [currentIndex, N]);
-
-    // Auto-rotate effect with pause on hover/touch
-    useEffect(() => {
-        if (isPaused) return;
-        const interval = setInterval(() => {
-            setIsTransitioning(true);
-            setCurrentIndex((prev) => prev + 1);
-        }, 4000);
-        return () => clearInterval(interval);
-    }, [isPaused]);
-
-    const handleNext = () => {
-        setIsTransitioning(true);
-        setCurrentIndex(prev => prev + 1);
-    };
-
-    const handlePrev = () => {
-        setIsTransitioning(true);
-        setCurrentIndex(prev => prev - 1);
-    };
-
     const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { type: "spring", stiffness: 100, damping: 15 }
-        },
         hover: {
             y: 0,
             borderColor: "rgba(16, 185, 129, 0.15)",
@@ -171,27 +122,25 @@ export default function ClientSection() {
                     </motion.p>
                 </div>
 
-                <div 
-                    className={styles.sliderWrapper}
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                    onTouchStart={() => setIsPaused(true)}
-                    onTouchEnd={() => setIsPaused(false)}
-                >
+                <div className={styles.sliderWrapper}>
                     <div className={styles.sliderContainer}>
                         <motion.div
                             className={styles.sliderTrack}
-                            animate={{ x: `calc(-${currentIndex} * (100% / ${visibleCards} + ${24 / visibleCards}px))` }}
-                            transition={isTransitioning ? { type: "spring", stiffness: 100, damping: 18 } : { duration: 0 }}
+                            animate={{ x: [0, `calc(-${testimonials.length} * (100% / ${visibleCards} + ${24 / visibleCards}px))` ] }}
+                            transition={{
+                                x: {
+                                    repeat: Infinity,
+                                    repeatType: "loop",
+                                    duration: 35,
+                                    ease: "linear",
+                                },
+                            }}
                         >
                             {displayTestimonials.map((item, index) => (
                                 <motion.div
                                     key={`${item.id}-${index}`}
                                     className={styles.slide}
                                     variants={cardVariants}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true }}
                                     whileHover="hover"
                                 >
                                     <div className={styles.testimonialCard}>
@@ -226,29 +175,6 @@ export default function ClientSection() {
                                 </motion.div>
                             ))}
                         </motion.div>
-                    </div>
-
-                    <div className={styles.navigation}>
-                        <button
-                            className={styles.navBtn}
-                            onClick={handlePrev}
-                            aria-label="Previous testimonials"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M9.57031 5.92969L3.50031 11.9997L9.57031 18.0697" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M20.5 12H3.67" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                        <button
-                            className={styles.navBtn}
-                            onClick={handleNext}
-                            aria-label="Next testimonials"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M3.5 12H20.33" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>

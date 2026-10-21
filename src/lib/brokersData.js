@@ -49,25 +49,30 @@ export const brokerList = [
         subtitle_ar: 'وسيط الفوركس والعقود مقابل الفروقات',
         subtitle_ph: 'Forex & CFD Broker',
         logo: '/assets/images/site-logo-20y-on-light.svg',
+        subtitle_ph: 'Forex & CFD Broker',
+        logo: '/assets/images/site-logo-20y-on-light.svg',
         category: 'Brokers',
+        description: 'A leading global broker, highly secure and regulated, offering diverse instruments, advanced platforms, and strong trading conditions for every trader.',
+        description_ar: 'وسيط عالمي رائد، آمن للغاية ومنظم، يقدم أدوات تداول متنوعة ومنصات متقدمة وشروط تداول قوية لكل متداول.',
+        description_ph: 'Isang nangungunang pandaigdigang broker, lubos na ligtas at kinokontrol, nag-aalok ng magkakaibang mga instrumento, mga advanced na platform, at matibay na mga kondisyon sa pag-trade para sa bawat mangangalakal.',
         description: 'A leading global broker, highly secure and regulated, offering diverse instruments, advanced platforms, and strong trading conditions for every trader.',
         description_ar: 'وسيط عالمي رائد، آمن للغاية ومنظم، يقدم أدوات تداول متنوعة ومنصات متقدمة وشروط تداول قوية لكل متداول.',
         description_ph: 'Isang nangungunang pandaigdigang broker, lubos na ligtas at kinokontrol, nag-aalok ng magkakaibang mga instrumento, mga advanced na platform, at matibay na mga kondisyon sa pag-trade para sa bawat mangangalakal.',
         features: [
             'Forex & multi-asset trading',
-            '2,000+ trading instruments',
-            'MetaTrader 5 & WebTrader',
-            'Spreads from 0.0 pips',
-            'Leverage up to 1:500',
-            'Standard, Raw & Pro accounts'
+            '1,250+ trading instruments',
+            'MetaTrader 4, MetaTrader 5 & AvaTradeGO',
+            'Competitive spreads & transparent fees',
+            'Leverage up to 1:400',
+            'Standard & Professional accounts'
         ],
         features_ar: [
             'تداول الفوركس والأصول المتعددة',
-            'أكثر من 2000 أداة تداول',
-            'منصتا MetaTrader 5 و WebTrader',
-            'فروق أسعار تبدأ من 0.0 نقطة',
-            'رافعة مالية تصل إلى 1:500',
-            'حسابات Standard و Raw و Pro'
+            'أكثر من 1250 أداة تداول',
+            'منصات MetaTrader 4 و MetaTrader 5 و AvaTradeGO',
+            'فروق أسعار تنافسية ورسوم شفافة',
+            'رافعة مالية تصل إلى 1:400',
+            'حسابات Standard و Professional'
         ],
         highlights: [
             { id: '1', type: 'link', title: 'Best Arbitrage Brokers', title_ar: 'أفضل وسطاء المراجحة', sub: 'Ultra-low latency arbitrage', sub_ar: 'تداول مراجحة بفترة كمون فائقة الانخفاض' },
@@ -165,7 +170,8 @@ export async function fetchBrokerById(id) {
 
 export function getBrokerById(id) {
     if (!id) return null;
-    return brokerList.find((b) => b.id.toLowerCase() === String(id).toLowerCase()) || null;
+    const lowerId = String(id).toLowerCase();
+    return brokerList.find((b) => b.id.toLowerCase() === lowerId || (lowerId === 'newera' && b.id === 'avatrade')) || brokerList[0] || null;
 }
 
 

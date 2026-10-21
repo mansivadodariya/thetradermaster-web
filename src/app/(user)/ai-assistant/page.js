@@ -7,7 +7,16 @@ function AiAssistantWithParams() {
     const params = useSearchParams();
     const initialTab = params.get('tab') || undefined;
     const initialOpenId = params.get('open') || undefined;
-    return <AiAssistant initialTab={initialTab} initialOpenId={initialOpenId} />;
+    const initialOpenJob = params.get('openJob') || undefined;
+    const initialPrompt = params.get('prompt') || undefined;
+    return (
+        <AiAssistant
+            initialTab={initialTab}
+            initialOpenId={initialOpenId}
+            initialOpenJob={initialOpenJob}
+            initialPrompt={initialPrompt}
+        />
+    );
 }
 
 export default function Page() {

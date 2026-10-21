@@ -129,18 +129,20 @@ html, html body {
 }
 
 html.dark, html.dark body {
-  background-color: #030E09 !important;
+  background-color: #000000 !important;
   color: #f3f4f6 !important;
 }
 
 html.dark .user-layout,
 html.dark .children-wrapper,
 html.dark .children-spacing {
-  background-color: #030E09 !important;
+  background-color: #000000 !important;
 }
 
-html.dark .sidebar-wrapper {
-  background-color: #092016 !important;
+html.dark .sidebar-wrapper,
+html.dark .topbar,
+html.dark header {
+  background-color: #000000 !important;
 }
 
 /* Mixed Language (Arabic & English Bidi) Rules */
@@ -176,6 +178,61 @@ html.dark .sidebar-wrapper {
 }
 
 /* Table Cell Auto Directionality & Column Alignment */
+
+/* ==========================================================================
+   Premium Animation Utilities (5-Year Experience Developer Enhancements)
+   ========================================================================== */
+
+/* 1. Floating Animation (Perfect for hero images or 3D cards) */
+@keyframes floatPremium {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+.animate-float-premium {
+  animation: floatPremium 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* 2. Shimmer Effect (Great for buttons, skeletons, and loading states) */
+@keyframes shimmerPremium {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerPremium 2.5s infinite linear;
+}
+
+/* 3. Glowing Pulse (For emphasis on important elements like "Start Trading" buttons) */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* 4. Elegant Text Gradient Pan (For headlines) */
+@keyframes textPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-text-pan {
+  background-size: 200% auto;
+  animation: textPan 4s linear infinite;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 table th,
 table td,
 table td [dir="auto"],
@@ -190,4 +247,10 @@ table th .bidi-rtl {
   unicode-bidi: plaintext;
   word-break: break-word;
   overflow-wrap: anywhere;
-}
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }

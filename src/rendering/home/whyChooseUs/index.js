@@ -92,15 +92,19 @@ export default function WhyChooseUs() {
     }
 
     const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 50, scale: 0.95 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { type: 'spring', stiffness: 100, damping: 15 },
+            scale: 1,
+            transition: { type: 'spring', stiffness: 70, damping: 14, mass: 1 },
         },
         hover: {
-            y: -6,
-            transition: { duration: 0.3 },
+            y: -10,
+            scale: 1.03,
+            boxShadow: "0px 20px 40px rgba(0, 255, 136, 0.15), 0px 0px 20px rgba(0, 255, 136, 0.1)",
+            borderColor: "rgba(0, 255, 136, 0.4)",
+            transition: { duration: 0.4, ease: "easeOut" },
         },
     }
 

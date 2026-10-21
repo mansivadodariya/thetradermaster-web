@@ -215,6 +215,10 @@
             gap: 10px;
             align-items: center;
 
+            &.singleActionFooter {
+                grid-template-columns: 1fr;
+            }
+
             .visitSiteBtn {
                 background: #F8FAFC;
                 border: 1px solid #E2E8F0;

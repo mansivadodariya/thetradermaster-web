@@ -12,8 +12,9 @@ import Loader from '@/components/loader';
 import EcosystemSection from '../home/ecosystemSection';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
-import { getBidiProps } from '@/lib/bidi';
 import DashboardWatchlist from './DashboardWatchlist';
+import BrokerCard from '@/components/brokerCard';
+import { fetchBrokers } from '@/lib/brokersData';
 
 const CardIcon = '/assets/icons/dashboardCard.svg'
 const iconOne = '/assets/icons/IconOne.svg'
@@ -155,13 +156,11 @@ const TradeSmarterWatermark = () => (
     </div>
 );
 
-const TRADING_QUOTES = [
-    {
-        quote: "Discipline is the bridge between your goals and your results.",
-        author: "The Trader Master",
-    }
-
-];
+const BrokerSectionIcon = () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4" />
+    </svg>
+);
 
 export default function Dashboard() {
     const router = useRouter();
@@ -173,9 +172,23 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
-    const [quoteIndex, setQuoteIndex] = useState(0);
+    const [brokers, setBrokers] = useState([]);
+    const [brokersLoading, setBrokersLoading] = useState(true);
     const [hoveredTooltip, setHoveredTooltip] = useState(null);
     const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        let isMounted = true;
+        fetchBrokers().then((data) => {
+            if (isMounted) {
+                setBrokers(Array.isArray(data) ? data : []);
+                setBrokersLoading(false);
+            }
+        }).catch(() => {
+            if (isMounted) setBrokersLoading(false);
+        });
+        return () => { isMounted = false; };
+    }, []);
 
     useEffect(() => {
         setHasMounted(true);
@@ -440,12 +453,6 @@ export default function Dashboard() {
         router.push(`/ai-assistant?${params.toString()}`);
     };
 
-    const nextQuote = () => {
-        setQuoteIndex((prev) => (prev + 1) % TRADING_QUOTES.length);
-    };
-
-    const currentQuote = TRADING_QUOTES[quoteIndex] || TRADING_QUOTES[0];
-
     return (
         <div className={styles.dashboard}>
             {/* Top Hero Banner */}
@@ -617,29 +624,44 @@ export default function Dashboard() {
                         <DashboardWatchlist />
                     </section>
 
-                    {/* Trading Quote Section */}
-                    <section className={styles.tradingQuoteSection}>
+                    {/* Associated Brokers Section */}
+                    <section className={styles.brokersSection}>
                         <div className={styles.sectionHeaderRow}>
-                            <h2 className={styles.sectionTitle}>{t('dashboard.tradingQuote', 'Trading Quote')}</h2>
-                        </div>
-                        <div className={styles.tradingQuoteCard}>
-                            <div className={styles.quoteCardInner}>
-                                <div className={styles.quoteIconBadge}>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                                    </svg>
+                            <div className={styles.sectionTitleWithBadge}>
+                                <div className={styles.brokerSectionIcon}>
+                                    <BrokerSectionIcon />
                                 </div>
-                                <div className={styles.quoteBody}>
-                                    <p className={styles.quoteText}>"{currentQuote.quote}"</p>
-                                    <div className={styles.quoteFooter}>
-                                        <div className={styles.quoteAuthorInfo}>
-                                            <span className={styles.quoteAuthor}>{currentQuote.author}</span>
-                                           
-                                        </div>
+                                <h2 className={styles.sectionTitle}>{t('dashboard.associatedBrokers', 'Associated Brokers')}</h2>
+                            </div>
+                            <Link href="/broker" className={styles.viewAllLink}>
+                                {t('dashboard.viewAllBrokers', 'View all brokers')} &rarr;
+                            </Link>
+                        </div>
 
+                        <div className={styles.brokerCardWrapper}>
+                            {brokersLoading ? (
+                                <div className={styles.brokerCardSkeleton}>
+                                    <div className={styles.skeletonBanner} />
+                                    <div className={styles.skeletonBody}>
+                                        <div className={styles.skeletonLine} />
+                                        <div className={styles.skeletonLineShort} />
                                     </div>
                                 </div>
-                            </div>
+                            ) : brokers.length > 0 ? (
+                                <BrokerCard
+                                    broker={brokers.find((b) => b.id === 'avatrade') || brokers[0]}
+                                    detailHref="/broker"
+                                    hideHighlights={true}
+                                    hideVisitSite={true}
+                                />
+                            ) : (
+                                <div className={styles.emptyBrokersCard}>
+                                    <p>{t('dashboard.noBrokers', 'No broker connected yet.')}</p>
+                                    <Link href="/broker" className={styles.connectBrokerBtn}>
+                                        {t('dashboard.connectBroker', 'Connect Broker')}
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </section>
                 </div>

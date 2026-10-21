@@ -60,7 +60,7 @@ function renderWithBoldPlaceholders(templateText, replacements) {
     return parts;
 }
 
-export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
+export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInline = false }) {
     const activeUserId = userId || getStoredUserId();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(true);
@@ -132,9 +132,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                 }
 
                 if (isMounted && Array.isArray(brokerData)) {
-                    // Filter out any legacy newera entries
+                    // Filter out any legacy newera entries and inactive brokers
                     const cleanList = brokerData.filter(
-                        (b) => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera')
+                        (b) => b.id !== 'newera' && !b.name?.toLowerCase().includes('newera') && b.is_active !== false && b.is_active !== 'false'
                     );
                     const finalList = cleanList.length > 0 ? cleanList : brokerData;
                     setBrokers(finalList);
@@ -270,7 +270,15 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
         fetchLinkedAccount();
     }, [userId]);
 
-    const brokerName = selectedBroker?.name || 'AvaTrade';
+    const getBrokerDisplayName = (b) => {
+        if (!b) return 'Broker';
+        if (b.name && b.name !== 'Forex & CFD Trading') return b.name;
+        if (b.name_ph && b.name_ph !== 'Forex at CFD Trading' && b.name_ph !== 'Forex & CFD Trading') return b.name_ph;
+        if (b.website_url?.includes('tickmill') || b.websiteUrl?.includes('tickmill')) return 'Tickmill';
+        return b.name || 'Broker';
+    };
+
+    const brokerName = getBrokerDisplayName(selectedBroker);
     const brokerLogo = selectedBroker?.logo || (theme === 'light' ? '/assets/images/site-logo-20y-on-light.svg' : '/assets/images/site-logo-20y-on-light.svg');
 
     // Helper for syncing Phase 2 or Phase 3
@@ -334,7 +342,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
 
                 notifyCreditsUpdated(earnedAmount);
                 if (onSuccess) onSuccess(earnedAmount);
-                onClose?.();
+                if (!isInline) onClose?.();
                 return;
             } else {
                 setSyncChecked(true);
@@ -435,7 +443,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                     notifyCreditsUpdated(earnedAmount);
                     toast.success(`Congratulations! You have received ${earnedAmount} welcome credits for linking your ${brokerName} account.`);
                     if (onSuccess) onSuccess(earnedAmount);
-                    onClose?.();
+                    if (!isInline) onClose?.();
                     return;
                 }
 
@@ -457,9 +465,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
     };
 
     const handleRegisterRedirect = () => {
-        const targetUrl = selectedBroker?.website_url || selectedBroker?.websiteUrl || 'https://www.avatrade.com/?tag=226362';
+        const targetUrl = selectedBroker?.website_url || selectedBroker?.websiteUrl ;
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
-        toast(`${brokerName} registration opened. Enter your email address here when done!`);
+       
     };
 
     // Determine current phase (Only rendered when loading is false)
@@ -467,32 +475,31 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
     const isPhase2 = welcomeAwarded && !depositAwarded;
     const isPhase3 = welcomeAwarded && depositAwarded;
 
-    return (
-        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <div className={styles.box}>
-                {/* Visual Brand Border accent */}
-                <div className={styles.accentLayer}></div>
+    const boxContent = (
+        <div className={`${styles.box} ${isInline ? styles.inlineBox : ''}`}>
+            {/* Visual Brand Border accent */}
+            <div className={styles.accentLayer}></div>
 
-                {/* If multiple brokers exist, render the broker selector at top */}
-                {brokers.length > 1 && (
-                    <div className={styles.brokerSelectorContainer}>
-                        <span className={styles.selectorTitle}>
-                            {t('neweraModal.selectBroker', 'Select Your Broker')}
-                        </span>
-                        <div className={styles.brokerGrid}>
-                            {brokers.map((b) => {
-                                const isSelected = selectedBroker?.id === b.id;
-                                return (
-                                    <button
-                                        key={b.id}
-                                        type="button"
-                                        onClick={() => setSelectedBroker(b)}
-                                        className={`${styles.brokerCardBtn} ${isSelected ? styles.selected : ''}`}
-                                    >
-                                        <div className={styles.brokerCardLogoBox}>
-                                            <img src={b.logo} alt={b.name} />
-                                        </div>
-                                        <span className={styles.brokerCardName}>{b.name}</span>
+            {/* If multiple brokers exist, render the broker selector at top */}
+            {brokers.length > 1 && (
+                <div className={styles.brokerSelectorContainer}>
+                    <span className={styles.selectorTitle}>
+                        {t('neweraModal.selectBroker', 'Select Your Broker')}
+                    </span>
+                    <div className={styles.brokerGrid}>
+                        {brokers.map((b) => {
+                            const isSelected = selectedBroker?.id === b.id;
+                            return (
+                                <button
+                                    key={b.id}
+                                    type="button"
+                                    onClick={() => setSelectedBroker(b)}
+                                    className={`${styles.brokerCardBtn} ${isSelected ? styles.selected : ''}`}
+                                >
+                                    <div className={styles.brokerCardLogoBox}>
+                                        <img src={b.logo} alt={getBrokerDisplayName(b)} />
+                                    </div>
+                                    <span className={styles.brokerCardName}>{getBrokerDisplayName(b)}</span>
                                         {isSelected && (
                                             <span className={styles.selectedCheck}>✓</span>
                                         )}
@@ -796,8 +803,19 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                     )}
                 </div>
 
+            {!isInline && (
                 <button className={styles.closeBtn} onClick={onClose} aria-label="Close modal">✕</button>
-            </div>
+            )}
+        </div>
+    );
+
+    if (isInline) {
+        return <div className={styles.inlineWrapper}>{boxContent}</div>;
+    }
+
+    return (
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            {boxContent}
         </div>
     );
 }

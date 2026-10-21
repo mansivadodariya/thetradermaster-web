@@ -43,7 +43,7 @@ const ShieldHighlightIcon = () => (
     </svg>
 );
 
-export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
+export default function BrokerCard({ broker, detailHref, isDarkTheme, hideHighlights = false, hideVisitSite = false }) {
     const { t, tDynamic } = useLanguage();
     const { theme } = useTheme();
     if (!broker) return null;
@@ -120,13 +120,13 @@ export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
 
             {/* Title & Description */}
             <div className={styles.cardBody}>
-                {!logoSrc && name && <h3 className={styles.cardTitle}>{name}</h3>}
+                {name && <h3 className={styles.cardTitle}>{name}</h3>}
                 {subtitle && <span className={styles.subtitleTag}>{subtitle}</span>}
                 {description && <p className={styles.cardDescription}>{description}</p>}
             </div>
 
             {/* Mini Highlights Grid */}
-            {Array.isArray(broker.highlights) && broker.highlights.length > 0 && (
+            {!hideHighlights && Array.isArray(broker.highlights) && broker.highlights.length > 0 && (
                 <div className={styles.highlightsGrid}>
                     {broker.highlights.map((hl, idx) => {
                         const hlTitle = tDynamic(hl, 'title', 'title_ar') || hl.title;
@@ -147,8 +147,8 @@ export default function BrokerCard({ broker, detailHref, isDarkTheme }) {
             )}
 
             {/* Footer Action Buttons */}
-            <div className={styles.cardFooter}>
-                {broker.websiteUrl && (
+            <div className={`${styles.cardFooter} ${hideVisitSite ? styles.singleActionFooter : ''}`}>
+                {!hideVisitSite && broker.websiteUrl && (
                     <a
                         href={broker.websiteUrl}
                         target="_blank"

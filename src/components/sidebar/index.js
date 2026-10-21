@@ -72,7 +72,7 @@ const getMainNav = (t) => [
   },
   
   { section: 'more', label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
-  { section: 'more', label: t('nav.broker', 'Associated Brokers'), href: "/broker", icon: BrokerIcon },
+  { section: 'more', label: t('nav.broker', 'Brokers'), href: "/broker", icon: BrokerIcon },
   { section: 'more', label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
   { section: 'more', label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
 ];
@@ -377,7 +377,8 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   const mainNav = visibleTabNames
     ? rawNav.filter((item) => {
         const tabName = ROUTE_TAB_MAP[item.href] || item.label;
-        return visibleTabNames.has(tabName.toLowerCase());
+        const lower = tabName.toLowerCase();
+        return visibleTabNames.has(lower) || (lower === 'broker' && visibleTabNames.has('brokers')) || (lower === 'brokers' && visibleTabNames.has('broker'));
       })
     : [];
 

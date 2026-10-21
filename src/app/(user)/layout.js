@@ -82,13 +82,20 @@ const layout = ({ children }) => {
 
     const checkAndShowModalIfZero = (currentCredits) => {
         if (currentCredits !== undefined && currentCredits !== null) {
-            if (Number(currentCredits) <= 0) {
+            const isBrokerPage = pathname === '/broker' || pathname === '/brokers';
+            if (Number(currentCredits) <= 0 && !isBrokerPage) {
                 setShowCreditsModal(true);
             } else {
                 setShowCreditsModal(false);
             }
         }
     };
+
+    useEffect(() => {
+        if (pathname === '/broker' || pathname === '/brokers') {
+            setShowCreditsModal(false);
+        }
+    }, [pathname]);
 
     useEffect(() => {
         captureUtmParameters();

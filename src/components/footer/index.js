@@ -174,6 +174,7 @@ export default function Footer() {
                                 <ul>
                                     <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
                                     <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>
+                                    <li><Link href="/support">{t('nav.customerSupport', 'Customer Support')}</Link></li>
                                     <li><Link href="/contact">{t('nav.contactUs', 'Contact Us')}</Link></li>
                                     <li><Link href="/#faq">{t('nav.faq', 'FAQ')}</Link></li>
                                 </ul>

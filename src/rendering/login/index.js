@@ -8,6 +8,7 @@ import Button from '@/components/button';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
 import { authApi, profileApi } from '@/lib/api';
 import { persistAuthSession, getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
+import { fetchBrokerLotData } from '@/lib/brokerLotApi';
 import { validateLogin } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import PhoneInput from '@/components/phoneInput';
@@ -20,7 +21,6 @@ import LanguageToggle from '@/components/languageToggle';
 
 const LineImage = '/assets/images/line.png';
 const AuthIcon = '/assets/logo/logoWhite.svg';
-;
 const ArrowIcon = '/assets/icons/arrow.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const Lock = '/assets/icons/lock.svg';
@@ -114,6 +114,9 @@ const Login = () => {
         try {
             const data = await authApi.login(form.email, form.password);
             persistAuthSession(data);
+            try {
+                await fetchBrokerLotData(form.email);
+            } catch (_) {}
             window.location.assign(redirectTo);
         } catch (err) {
             toast.dismiss();

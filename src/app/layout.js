@@ -4,6 +4,8 @@ import "./globals.css";
 import { ToastProvider } from "@/components/toast";
 import WhatsappButton from "@/components/whatsappButton";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { AiAssistantJobProvider } from "@/context/AiAssistantJobContext";
+import NotificationPopup from "@/components/notificationPopup";
 
 const plusSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -20,15 +22,15 @@ const robotoSans = Roboto({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://thetradermaster.com"),
+  metadataBase: new URL("https://thetradeexpert.com"),
   title: {
-    default: "Trader Master — AI-Powered Forex Intelligence",
-    template: "%s | Trader Master",
+    default: "The Trade Expert — AI-Powered Forex Intelligence",
+    template: "%s | The Trade Expert",
   },
   description:
-    "Trader Master delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the AvaTrade brokerage stack.",
-  keywords: ["forex", "trading", "AI", "trade analysis", "MT5", "trade signals", "Trader Master"],
-  authors: [{ name: "Trader Master" }],
+    "The Trade Expert delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the Newera brokerage stack.",
+  keywords: ["forex", "trading", "AI", "trade analysis", "MT5", "trade signals", "The Trade Expert"],
+  authors: [{ name: "The Trade Expert" }],
   robots: {
     index: true,
     follow: true,
@@ -37,24 +39,24 @@ export const metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Trader Master — AI-Powered Forex Intelligence",
+    title: "The Trade Expert — AI-Powered Forex Intelligence",
     description:
       "AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation.",
-    siteName: "Trader Master",
-    url: "https://thetradermaster.com",
+    siteName: "The Trade Expert",
+    url: "https://thetradeexpert.com",
     type: "website",
     images: [
       {
         url: "/assets/images/new-hero-banner.png",
         width: 1200,
         height: 630,
-        alt: "Trader Master AI Trading",
+        alt: "The Trade Expert AI Trading",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Trader Master — AI-Powered Forex Intelligence",
+    title: "The Trade Expert — AI-Powered Forex Intelligence",
     description:
       "AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation.",
     images: ["/assets/images/new-hero-banner.png"],
@@ -72,7 +74,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                var isDashboard = /^\\/(dashboard|ai-assistant|ai-strategy|credit-history|economic-calendar|profile|settings|trade-snap)/.test(window.location.pathname);
+                var isDashboard = /^\\/(dashboard|ai-assistant|ai-strategy|credit-history|economic-calendar|profile|settings|trade-snap|ai-chart-scanner)/.test(window.location.pathname);
                 if (isDashboard && localStorage.getItem('theme') !== 'light') {
                   document.documentElement.classList.add('dark');
                 } else {
@@ -80,9 +82,13 @@ export default function RootLayout({ children }) {
                 }
 
                 var storedLang = localStorage.getItem('app_language');
-                if (storedLang === 'ar') {
-                  document.documentElement.setAttribute('lang', 'ar');
-                  document.documentElement.setAttribute('dir', 'rtl');
+                if (storedLang) {
+                  document.documentElement.setAttribute('lang', storedLang);
+                  if (storedLang === 'ar' || storedLang === 'ma') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                  } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                  }
                 }
               } catch (_) {}
             `,
@@ -91,21 +97,24 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-TWNPPGX2CM"
-          strategy="lazyOnload"
+          src="https://www.googletagmanager.com/gtag/js?id=G-PX1KYEDKMJ"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="lazyOnload">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-TWNPPGX2CM');
+            gtag('config', 'G-PX1KYEDKMJ');
           `}
         </Script>
         <LanguageProvider>
           <ToastProvider>
-            {children}
+            <AiAssistantJobProvider>
+              {children}
+            </AiAssistantJobProvider>
+            <NotificationPopup />
             <WhatsappButton />
           </ToastProvider>
         </LanguageProvider>

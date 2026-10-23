@@ -296,7 +296,7 @@ export default function AiTradeAnalysis() {
                             {t('aiTradeAnalysis.heroBadge', 'STATEMENT AUDIT & BEHAVIORAL QUANT')}
                         </span>
                         <h2>{t('aiTradeAnalysis.heroTitle', 'AI Past Trade Analyzer')}</h2>
-                        <p>{t('aiTradeAnalysis.heroSub', 'Upload your broker statement (MT4, MT5, cTrader, CSV) to reveal execution leaks, win-rate edge, and psychological biases.')}</p>
+                        <p>{t('aiTradeAnalysis.heroSub', 'Upload your broker statement to reveal execution leaks, win-rate edge, and psychological biases.')}</p>
                     </div>
                 </div>
 

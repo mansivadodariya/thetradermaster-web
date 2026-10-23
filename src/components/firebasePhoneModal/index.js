@@ -20,8 +20,8 @@ export default function FirebasePhoneModal({
     isOpen,
     phoneNumber: initialPhoneNumber = '',
     onClose,
-    onSkip,
     onSuccess,
+    autoTriggerSend = true,
     isPhoneReadOnly = false,
 }) {
     const { t } = useLanguage();
@@ -38,16 +38,7 @@ export default function FirebasePhoneModal({
     const inputRefs = useRef([]);
     const recaptchaVerifierRef = useRef(null);
 
-    const handleSkip = () => {
-        if (typeof window !== 'undefined') {
-            sessionStorage.setItem('skip_phone_verification', 'true');
-        }
-        if (onSkip) {
-            onSkip();
-        } else if (onClose) {
-            onClose();
-        }
-    };
+    const hasAutoSentRef = useRef(false);
 
     useEffect(() => {
         if (!isOpen) {
@@ -56,9 +47,11 @@ export default function FirebasePhoneModal({
             setError('');
             setLoading(false);
             setConfirmationResult(null);
+            hasAutoSentRef.current = false;
             return;
         }
 
+        const phoneToUse = initialPhoneNumber || phone;
         if (initialPhoneNumber) {
             setPhone(initialPhoneNumber);
         }
@@ -72,6 +65,11 @@ export default function FirebasePhoneModal({
         } catch (err) {
             console.warn('Recaptcha init warning:', err);
         }
+
+        if (autoTriggerSend && phoneToUse && !hasAutoSentRef.current) {
+            hasAutoSentRef.current = true;
+            handleSendSms(phoneToUse);
+        }
     }, [isOpen, initialPhoneNumber]);
 
     // Resend cooldown timer
@@ -83,11 +81,7 @@ export default function FirebasePhoneModal({
         return () => clearInterval(timer);
     }, [isOpen, resendCooldown]);
 
-    const handleSendSms = async (targetPhone, triggeredByUser = false) => {
-        if (!triggeredByUser) {
-            return;
-        }
-
+    const handleSendSms = async (targetPhone) => {
         const phoneToUse = targetPhone || phone;
         if (!phoneToUse) {
             setError(t('auth.validPhoneRequired', 'Please enter a valid phone number.'));
@@ -209,7 +203,7 @@ export default function FirebasePhoneModal({
 
     return (
         <AnimatePresence>
-            <div className={styles.modalOverlay} onClick={handleSkip}>
+            <div className={styles.modalOverlay} onClick={onClose}>
                 <div id="firebase-recaptcha-container" style={{ display: 'none' }}></div>
                 <motion.div
                     className={styles.modalCard}
@@ -221,8 +215,8 @@ export default function FirebasePhoneModal({
                 >
                     <div className={styles.topGlowLayer} />
 
-                    {(onClose || onSkip) && step !== 'success' && (
-                        <button className={styles.closeBtn} onClick={handleSkip} aria-label={t('common.close', 'Close')}>
+                    {onClose && step !== 'success' && (
+                        <button className={styles.closeBtn} onClick={onClose} aria-label={t('common.close', 'Close')}>
                             ✕
                         </button>
                     )}
@@ -254,21 +248,11 @@ export default function FirebasePhoneModal({
                             <div className={styles.actionBtnWrapper}>
                                 <Button
                                     text={loading ? t('auth.sendingCode', 'Sending Code...') : t('auth.continue', 'Continue')}
-                                    onClick={() => handleSendSms(phone, true)}
+                                    onClick={() => handleSendSms()}
                                     disabled={loading || !phone}
                                     fullWidth
                                     icon={ArrowIcon}
                                 />
-                            </div>
-
-                            <div className={styles.skipWrapper}>
-                                <button
-                                    type="button"
-                                    className={styles.skipBtn}
-                                    onClick={handleSkip}
-                                >
-                                    {t('common.skipForNow', 'Skip for now')}
-                                </button>
                             </div>
                         </div>
                     )}
@@ -318,22 +302,12 @@ export default function FirebasePhoneModal({
                                     <button
                                         type="button"
                                         className={styles.resendBtn}
-                                        onClick={() => handleSendSms(phone, true)}
+                                        onClick={() => handleSendSms()}
                                         disabled={loading}
                                     >
                                         {t('auth.resendSmsOtp', 'Resend SMS OTP')}
                                     </button>
                                 )}
-                            </div>
-
-                            <div className={styles.skipWrapper}>
-                                <button
-                                    type="button"
-                                    className={styles.skipBtn}
-                                    onClick={handleSkip}
-                                >
-                                    {t('common.skipForNow', 'Skip for now')}
-                                </button>
                             </div>
                         </div>
                     )}

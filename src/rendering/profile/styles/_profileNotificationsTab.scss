@@ -1,0 +1,491 @@
+/* ── Notifications Tab in Profile ── */
+.tabHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+    flex-wrap: wrap;
+    gap: 12px;
+
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        border-bottom-color: #E2E8F0;
+    }
+
+    .tabTitle {
+        color: #FFFFFF;
+        font-size: 17px;
+        font-weight: 700;
+        font-family: "Euclid-Bold", sans-serif;
+        margin: 0 0 4px;
+
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            color: #0F172A;
+        }
+    }
+
+    .tabSubtitle {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        margin: 0;
+
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            color: #64748B;
+        }
+    }
+
+    .markAllNotificationsBtn {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #18C98B;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #059669;
+
+            &:hover {
+                background: #10B981;
+                color: #FFFFFF;
+                border-color: #10B981;
+            }
+        }
+
+        &:hover {
+            background: #18C98B;
+            color: #040605;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.notificationStatusTabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 4px;
+    border-radius: 10px;
+    width: fit-content;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #F1F5F9;
+        border: 1px solid #E2E8F0;
+    }
+
+    .notifTabBtn {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            color: #64748B;
+
+            &:hover {
+                color: #0F172A;
+            }
+
+            &.activeNotifTab {
+                background: #FFFFFF;
+                color: #059669;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        &:hover {
+            color: #FFFFFF;
+        }
+
+        &.activeNotifTab {
+            background: rgba(24, 201, 139, 0.2);
+            color: #18C98B;
+            font-weight: 700;
+        }
+    }
+}
+
+.notificationCategoryFilterRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+    scrollbar-width: thin;
+
+    .notifCategoryPill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 99px;
+        padding: 5px 14px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+            color: #64748B;
+
+            &:hover {
+                background: #F8FAFC;
+                border-color: rgba(24, 201, 139, 0.4);
+                color: #059669;
+            }
+
+            &.activeCategoryPill {
+                background: #ECFDF5;
+                border-color: #10B981;
+                color: #059669;
+            }
+
+            .notifCountBadge {
+                background: #059669;
+                color: #FFFFFF;
+            }
+        }
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.3);
+            color: #FFFFFF;
+        }
+
+        &.activeCategoryPill {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.4);
+            color: #00F2FE;
+            font-weight: 700;
+        }
+
+        .notifCountBadge {
+            background: #18C98B;
+            color: #040605;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 99px;
+        }
+    }
+}
+
+.notificationsFeedArea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .notificationsList {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .profileNotifCard {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.45);
+            background: rgba(24, 201, 139, 0.04);
+            transform: translateX(2px);
+        }
+
+        &.clickableProfileNotif {
+            cursor: pointer;
+
+            &:hover {
+                border-color: rgba(24, 201, 139, 0.5);
+                background: rgba(24, 201, 139, 0.06);
+
+                .notifActionBtn {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    box-shadow: 0 0 12px rgba(24, 201, 139, 0.35);
+
+                    svg {
+                        transform: translateX(2px);
+                    }
+                }
+            }
+        }
+
+        &.unreadProfileNotif {
+            border-left: 3px solid #18C98B;
+            background: rgba(24, 201, 139, 0.06);
+
+            :global(html.light) &,
+            :global([data-theme='light']) & {
+                border-left: 3px solid #10B981;
+                background: #F0FDF4;
+            }
+        }
+
+        &.slidingOut {
+            transform: translateX(100%);
+            opacity: 0;
+            margin-top: -6px;
+            margin-bottom: -6px;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .notifCardHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+
+            .cardHeaderRight {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .profileNotifDismissBtn {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                color: rgba(255, 255, 255, 0.6);
+                width: 22px;
+                height: 22px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                padding: 0;
+
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    background: #F1F5F9;
+                    border-color: #E2E8F0;
+                    color: #64748B;
+
+                    &:hover {
+                        background: #FEE2E2;
+                        border-color: #FECACA;
+                        color: #EF4444;
+                    }
+                }
+
+                &:hover {
+                    background: rgba(239, 68, 68, 0.2);
+                    border-color: rgba(239, 68, 68, 0.4);
+                    color: #EF4444;
+                    transform: scale(1.1);
+                }
+            }
+
+            .notifCategoryTag {
+                font-size: 10px;
+                font-weight: 700;
+                color: #18C98B;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                padding: 2px 7px;
+                border-radius: 5px;
+                text-transform: uppercase;
+
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    color: #059669;
+                    background: #ECFDF5;
+                    border-color: #A7F3D0;
+                }
+            }
+            }
+
+            .notifTime {
+                font-size: 11.5px;
+                color: rgba(255, 255, 255, 0.45);
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    color: #94A3B8;
+                }
+            }
+        }
+
+        .notifCardTitle {
+            font-size: 14px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 0;
+            font-family: "Euclid-Bold", sans-serif;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #0F172A;
+            }
+        }
+
+        .notifCardMessage {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            line-height: 1.45;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #475569;
+            }
+        }
+
+        .notifCardFooter {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 6px;
+            padding-top: 4px;
+
+            .notifActionBtn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.32);
+                color: #18C98B;
+                font-size: 11.5px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-family: inherit;
+
+                svg {
+                    transition: transform 0.2s ease;
+                }
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    box-shadow: 0 0 12px rgba(24, 201, 139, 0.35);
+
+                    svg {
+                        transform: translateX(2px);
+                    }
+                }
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    background: rgba(16, 185, 129, 0.1);
+                    border-color: rgba(16, 185, 129, 0.35);
+                    color: #059669;
+
+                    &:hover {
+                        background: #10B981;
+                        color: #FFFFFF;
+                        border-color: #10B981;
+                    }
+                }
+            }
+        }
+    }
+
+    .notificationsEmptyState {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 16px;
+        gap: 12px;
+        text-align: center;
+
+        .emptyBellWrap {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(24, 201, 139, 0.08) 50%, transparent 70%);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 24px rgba(245, 158, 11, 0.25);
+            color: #F59E0B;
+            animation: pulseAura 2.5s infinite ease-in-out;
+
+            svg {
+                filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.5));
+            }
+        }
+
+        h4 {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #0F172A;
+            }
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin: 0;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #64748B;
+            }
+        }
+    }
+
+    .notificationsLoader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        color: #18C98B;
+        font-size: 13px;
+    }

@@ -149,6 +149,7 @@
                     color: #00FF88;
                     text-decoration: underline;
                     font-weight: 600;
+                    margin: 0 2px;
                     transition: all 0.3s ease;
                     text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 
@@ -362,6 +363,7 @@
                 a {
                     color: rgba(255, 255, 255, 0.85);
                     text-decoration: underline;
+                    margin: 0 2px;
                     transition: color 0.3s;
 
                     &:hover {

@@ -1899,6 +1899,92 @@ $bgSoft: rgba(2, 30, 22, 0.75);
     }
 }
 
+/* Skeleton Loaders for Watchlist & Chart Header */
+@keyframes aiSkeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeletonScoreBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonScoreLabel {
+    width: 44px;
+    height: 10px;
+    border-radius: 4px;
+    margin-top: 3px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonItemPrice {
+    width: 65px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonItemChange {
+    width: 42px;
+    height: 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.chartHeaderOHLCSkeleton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 16px;
+    flex-wrap: wrap;
+
+    @include respond-to('tab') {
+        margin-left: 0;
+        gap: 6px 10px;
+        width: 100%;
+    }
+
+    @include respond-to('sm') {
+        margin-left: 0;
+        gap: 4px 8px;
+        width: 100%;
+    }
+}
+
+.skeletonOhlcItem {
+    width: 60px;
+    height: 15px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonOhlcItemWide {
+    width: 85px;
+    height: 15px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: aiSkeletonShimmer 1.6s infinite ease-in-out;
+}
 
 /* ─── Chart Panel ─── */
 .chartPanel {
@@ -4327,6 +4413,16 @@ $bgSoft: rgba(2, 30, 22, 0.75);
             .itemPrice {
                 color: #ffffff;
             }
+        }
+
+        .skeletonScoreBadge,
+        .skeletonScoreLabel,
+        .skeletonItemPrice,
+        .skeletonItemChange,
+        .skeletonOhlcItem,
+        .skeletonOhlcItemWide {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(0, 255, 136, 0.14) 50%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 200% 100%;
         }
 
         .loaderContainer {

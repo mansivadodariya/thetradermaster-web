@@ -11,6 +11,7 @@ import SettingsIcon from "@/icons/settingsIcon";
 import AiIcon from "@/icons/aiIcon";
 import BrokerIcon from "@/icons/brokerIcon";
 import AnalyticsIcon from "@/icons/analyticsIcon";
+import SupportIcon from "@/icons/supportIcon";
 import { clearAuthSession, getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
 import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -70,10 +71,11 @@ const getMainNav = (t) => [
       { label: t('nav.aiStrategy', 'AI Strategy'), href: "/ai-strategy/strategy", icon: StrategyIcon },
     ]
   },
-  
+
   { section: 'more', label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
   { section: 'more', label: t('nav.broker', 'Brokers'), href: "/broker", icon: BrokerIcon },
   { section: 'more', label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
+  { section: 'more', label: t('nav.customerSupport', 'Customer Support'), href: "/customer-support", icon: SupportIcon },
   { section: 'more', label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
 ];
 
@@ -368,6 +370,8 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',
     '/brokers': 'Broker',
+    '/customer-support': 'Customer Support',
+    '/support': 'Customer Support',
     '/profile': 'Profile',
     '/settings': 'Profile',
   };
@@ -376,11 +380,12 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   const rawNav = getMainNav(t);
   const mainNav = visibleTabNames
     ? rawNav.filter((item) => {
-        const tabName = ROUTE_TAB_MAP[item.href] || item.label;
-        const lower = tabName.toLowerCase();
-        return visibleTabNames.has(lower) || (lower === 'broker' && visibleTabNames.has('brokers')) || (lower === 'brokers' && visibleTabNames.has('broker'));
-      })
-    : [];
+      if (item.href === '/customer-support') return true;
+      const tabName = ROUTE_TAB_MAP[item.href] || item.label;
+      const lower = tabName.toLowerCase();
+      return visibleTabNames.has(lower) || (lower === 'broker' && visibleTabNames.has('brokers')) || (lower === 'brokers' && visibleTabNames.has('broker'));
+    })
+    : rawNav;
 
   const mainItems = mainNav.filter(item => item.section === 'main');
   const moreItems = mainNav.filter(item => item.section === 'more');

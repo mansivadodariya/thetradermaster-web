@@ -865,6 +865,14 @@
         .itemBearish {
             color: #FF5252 !important;
         }
+
+        .skeletonScoreBadge,
+        .skeletonScoreLabel,
+        .skeletonItemPrice,
+        .skeletonItemChange {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(0, 255, 136, 0.14) 50%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 200% 100%;
+        }
     }
 
     .brokerSectionIcon {
@@ -1192,6 +1200,54 @@
     color: #DC2626;
 }
 
+/* Skeleton Loaders for Dashboard Watchlist */
+@keyframes dashboardSkeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeletonScoreBadge {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: dashboardSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonScoreLabel {
+    width: 36px;
+    height: 8px;
+    border-radius: 3px;
+    margin-top: 3px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: dashboardSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonItemPrice {
+    width: 55px;
+    height: 12px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: dashboardSkeletonShimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonItemChange {
+    width: 35px;
+    height: 9px;
+    border-radius: 3px;
+    margin-top: 3px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: dashboardSkeletonShimmer 1.6s infinite ease-in-out;
+}
 
 /* Market Overview Card */
 .marketOverviewCard {

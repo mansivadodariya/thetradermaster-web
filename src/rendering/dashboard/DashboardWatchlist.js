@@ -13,16 +13,6 @@ const PAIRS = [
     "USD/CAD"
 ];
 
-// Presets matching target AI Strategy watchlist scores
-const PRESET_SCORES = {
-    "XAU/USD": 50,
-    "EUR/USD": 49,
-    "GBP/USD": 30,
-    "GBP/JPY": 37,
-    "EUR/JPY": 56,
-    "USD/CAD": 63
-};
-
 function formatPairCurrency(val, symbol) {
     if (typeof val !== 'number' || isNaN(val)) return '-';
     const symUpper = (symbol || '').toUpperCase().replace("/", "");
@@ -33,66 +23,71 @@ function formatPairCurrency(val, symbol) {
     return val.toFixed(2);
 }
 
-function getMockInitialData(pair) {
-    const symUpper = pair.toUpperCase().replace("/", "");
-    let basePrice = 1.25000;
-    if (symUpper.endsWith("JPY")) basePrice = 195.450;
-    else if (symUpper.includes("XAU") || symUpper.includes("GOLD")) basePrice = 2658.40;
-    else if (symUpper === "EURUSD") basePrice = 1.08420;
-    else if (symUpper === "GBPUSD") basePrice = 1.31280;
-    else if (symUpper === "EURJPY") basePrice = 162.300;
-    else if (symUpper === "USDCAD") basePrice = 1.36500;
-    else if (symUpper === "AUDUSD") basePrice = 0.65940;
-
-    const multiplier = symUpper.endsWith("JPY") ? 100 : (symUpper.includes("XAU") || symUpper.includes("GOLD")) ? 1000 : 1;
-    const now = Math.floor(Date.now() / 1000);
-    return {
-        "15m": {
-            time: now - 340,
-            open: basePrice - 0.0015 * multiplier,
-            high: basePrice + 0.004 * multiplier,
-            low: basePrice - 0.003 * multiplier,
-            close: basePrice,
-            tick_volume: 1250
-        }
-    };
-}
-
-function getHashedScore(pair) {
-    if (PRESET_SCORES[pair] !== undefined) {
-        return PRESET_SCORES[pair];
-    }
-    const hash = pair.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return (hash % 50) + 30;
-}
-
 function getScoreSeverityClass(score) {
+    if (score === null || score === undefined) return '';
     if (score >= 70) return styles.scoreBullish;
     if (score >= 45) return styles.scoreNeutral;
     return styles.scoreBearish;
 }
 
-function getScoreLabel(score) {
+function getScoreLabel(score, explicitLabel) {
+    if (explicitLabel) return explicitLabel.toUpperCase();
+    if (score === null || score === undefined) return '';
     if (score >= 70) return 'BULLISH';
     if (score >= 45) return 'NEUTRAL';
     return 'BEARISH';
 }
 
-const WatchlistItem = memo(({ pair, onClick }) => {
+const WatchlistItem = memo(({ pair, onClick, scoreData }) => {
+    // Starts as null so skeletons display until REAL data arrives from API or WebSocket
     const [liveData, setLiveData] = useState(null);
     const [tickClass, setTickClass] = useState('normal');
 
     const wsRef = useRef(null);
     const reconnectTimerRef = useRef(null);
-    const lastWsTickTime = useRef(0);
     const prevPriceRef = useRef(0);
 
-    // Initial Mock Seed
+    // Initial real candle fetch from REST so real price shows even before socket handshake
     useEffect(() => {
-        setLiveData(getMockInitialData(pair));
+        let active = true;
+        const fetchInitialCandle = async () => {
+            const baseUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || 'https://api.thetradermaster.com').replace(/\/+$/, '');
+            const pairClean = pair.replace("/", "").toUpperCase();
+            try {
+                const res = await fetch(`${baseUrl}/api/v1/chart/candles?symbol=${pairClean}&timeframe=15M&strategy_id=3e8d2b78-0e86-4fdf-9759-338276db1742`, {
+                    headers: { 'accept': 'application/json', 'ngrok-skip-browser-warning': 'true' }
+                });
+                if (res.ok && active) {
+                    const data = await res.json();
+                    if (Array.isArray(data?.candles) && data.candles.length > 0) {
+                        const last = data.candles[data.candles.length - 1];
+                        const ts = typeof last.time === 'number' ? last.time : Math.floor(new Date(last.time).getTime() / 1000);
+                        setLiveData(prev => {
+                            if (prev && prev["15m"]) return prev;
+                            return {
+                                ...prev,
+                                "15m": {
+                                    time: ts,
+                                    open: Number(last.open),
+                                    high: Number(last.high),
+                                    low: Number(last.low),
+                                    close: Number(last.close),
+                                    tick_volume: Number(last.tick_volume || 0)
+                                }
+                            };
+                        });
+                    }
+                }
+            } catch (err) {
+                // Ignore fallback error; socket will provide data
+            }
+        };
+
+        fetchInitialCandle();
+        return () => { active = false; };
     }, [pair]);
 
-    // WebSocket connection with live fallback
+    // WebSocket connection with real live feed
     useEffect(() => {
         let active = true;
 
@@ -108,7 +103,7 @@ const WatchlistItem = memo(({ pair, onClick }) => {
                     const host = backendUrl.replace(/^(https?:\/\/)/, '');
                     base = `${protocol}${host}/api/v1/ws/live`;
                 } else {
-                    base = 'wss://thirsty-spoiler-cartel.ngrok-free.dev/api/v1/ws/live';
+                    base = 'wss://api.thetradermaster.com/api/v1/ws/live';
                 }
             }
             const wsUrl = `${base}?symbol=${pairClean}`;
@@ -122,7 +117,6 @@ const WatchlistItem = memo(({ pair, onClick }) => {
                     try {
                         const payload = JSON.parse(event.data);
                         if (payload.type === 'initial_state' || payload.type === 'candle_update') {
-                            lastWsTickTime.current = Date.now();
                             const parsedData = {};
                             if (payload.data) {
                                 for (const tf in payload.data) {
@@ -167,44 +161,7 @@ const WatchlistItem = memo(({ pair, onClick }) => {
         };
     }, [pair]);
 
-    // Local price simulator fallback if live websocket is not sending ticks
-    useEffect(() => {
-        const checkAndSimulate = () => {
-            const now = Date.now();
-            setLiveData((prevData) => {
-                if (!prevData) return prevData;
-
-                const lastTick = lastWsTickTime.current || 0;
-                if (now - lastTick > 1500) {
-                    const candle = prevData["15m"];
-                    if (candle) {
-                        const symUpper = pair.toUpperCase().replace("/", "");
-                        const tickSize = symUpper.endsWith("JPY") ? 0.001 : (symUpper.includes("XAU") || symUpper.includes("GOLD")) ? 0.02 : 0.00001;
-                        const moveTicks = Math.floor(Math.random() * 5) - 2;
-                        if (moveTicks !== 0) {
-                            const change = moveTicks * tickSize;
-                            const newClose = Number(candle.close) + change;
-                            return {
-                                ...prevData,
-                                "15m": {
-                                    ...candle,
-                                    close: newClose,
-                                    high: newClose > Number(candle.high) ? newClose : Number(candle.high),
-                                    low: newClose < Number(candle.low) ? newClose : Number(candle.low)
-                                }
-                            };
-                        }
-                    }
-                }
-                return prevData;
-            });
-        };
-
-        const timer = setInterval(checkAndSimulate, 1200);
-        return () => clearInterval(timer);
-    }, [pair]);
-
-    const candle = liveData ? liveData["15m"] : null;
+    const candle = liveData ? liveData["15m"] || liveData["1h"] || Object.values(liveData)[0] : null;
     const currentPrice = candle?.close || 0;
 
     useEffect(() => {
@@ -222,9 +179,12 @@ const WatchlistItem = memo(({ pair, onClick }) => {
     const changePct = candle && candle.open > 0 ? (changeVal / candle.open) * 100 : 0;
     const isBullish = changeVal >= 0;
 
-    const score = getHashedScore(pair);
+    const score = scoreData?.score;
+    const scoreLabel = scoreData?.label ? getScoreLabel(score, scoreData.label) : (score !== undefined && score !== null ? getScoreLabel(score) : '');
     const scoreClass = getScoreSeverityClass(score);
-    const scoreLabel = getScoreLabel(score);
+
+    const isPriceLoaded = candle !== null && candle !== undefined;
+    const isScoreLoaded = score !== null && score !== undefined;
 
     return (
         <div
@@ -233,22 +193,39 @@ const WatchlistItem = memo(({ pair, onClick }) => {
             title={`View ${pair} in AI Strategy Live Feed`}
         >
             <div className={styles.itemLeft}>
-                <div className={`${styles.itemScoreBadge} ${scoreClass}`}>
-                    {score}
-                </div>
+                {isScoreLoaded ? (
+                    <div className={`${styles.itemScoreBadge} ${scoreClass}`}>
+                        {score}
+                    </div>
+                ) : (
+                    <div className={styles.skeletonScoreBadge} />
+                )}
                 <div className={styles.itemSymbolMeta}>
                     <span className={styles.itemSymbolName}>{pair}</span>
-                    <span className={styles.itemSymbolLabel}>{scoreLabel}</span>
+                    {isScoreLoaded ? (
+                        <span className={styles.itemSymbolLabel}>{scoreLabel}</span>
+                    ) : (
+                        <div className={styles.skeletonScoreLabel} />
+                    )}
                 </div>
             </div>
 
             <div className={styles.itemRight}>
-                <span className={`${styles.itemPrice} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
-                    {candle ? formatPairCurrency(candle.close, pair) : '-'}
-                </span>
-                <span className={`${styles.itemChangePct} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
-                    {isBullish ? '+' : ''}{changePct.toFixed(2)}%
-                </span>
+                {isPriceLoaded ? (
+                    <>
+                        <span className={`${styles.itemPrice} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
+                            {formatPairCurrency(candle.close, pair)}
+                        </span>
+                        <span className={`${styles.itemChangePct} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
+                            {isBullish ? '+' : ''}{changePct.toFixed(2)}%
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        <div className={styles.skeletonItemPrice} />
+                        <div className={styles.skeletonItemChange} />
+                    </>
+                )}
             </div>
         </div>
     );
@@ -259,6 +236,45 @@ WatchlistItem.displayName = 'WatchlistItem';
 export default function DashboardWatchlist() {
     const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
+    const [scoresMap, setScoresMap] = useState({});
+
+    // Fetch real technical scores for all watchlist pairs concurrently
+    useEffect(() => {
+        let active = true;
+        const fetchAllScores = async () => {
+            const baseUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || 'https://api.thetradermaster.com').replace(/\/+$/, '');
+            await Promise.allSettled(
+                PAIRS.map(async (pair) => {
+                    const symClean = pair.replace('/', '').toUpperCase();
+                    try {
+                        const res = await fetch(`${baseUrl}/api/v1/chart/analysis?symbol=${symClean}`, {
+                            headers: {
+                                'accept': 'application/json',
+                                'ngrok-skip-browser-warning': 'true'
+                            }
+                        });
+                        if (res.ok && active) {
+                            const data = await res.json();
+                            if (data?.analysis?.technical_score) {
+                                setScoresMap(prev => ({
+                                    ...prev,
+                                    [symClean]: {
+                                        score: data.analysis.technical_score.total,
+                                        label: data.analysis.technical_score.label
+                                    }
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        // Ignore individual analysis fetch errors
+                    }
+                })
+            );
+        };
+
+        fetchAllScores();
+        return () => { active = false; };
+    }, []);
 
     const filteredPairs = PAIRS.filter(pair =>
         pair.toLowerCase().includes(searchQuery.toLowerCase().trim())
@@ -309,13 +325,19 @@ export default function DashboardWatchlist() {
             {/* List of Watchlist Items */}
             <div className={styles.watchlistItemsList}>
                 {filteredPairs.length > 0 ? (
-                    filteredPairs.map((pair) => (
-                        <WatchlistItem
-                            key={pair}
-                            pair={pair}
-                            onClick={() => handleSelectPair(pair)}
-                        />
-                    ))
+                    filteredPairs.map((pair) => {
+                        const cleanPair = pair.replace('/', '').toUpperCase();
+                        const scoreInfo = scoresMap[cleanPair] || null;
+
+                        return (
+                            <WatchlistItem
+                                key={pair}
+                                pair={pair}
+                                onClick={() => handleSelectPair(pair)}
+                                scoreData={scoreInfo}
+                            />
+                        );
+                    })
                 ) : (
                     <div className={styles.noPairsFound}>
                         No pairs match "{searchQuery}"
@@ -325,3 +347,4 @@ export default function DashboardWatchlist() {
         </div>
     );
 }
+

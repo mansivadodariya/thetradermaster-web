@@ -111,7 +111,7 @@ export default function Header() {
                         </div>
                         <div className={styles.body}>
                             <Link href="/" aria-label='Home' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.home', 'Home')}</Link>
-                            <Link href={getAuthHref('/trade-snap')} aria-label='AI Chart Scanner' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiTrade', 'AI Chart Scanner')}</Link>
+                            <Link href={getAuthHref('/ai-chart-scanner')} aria-label='AI Chart Scanner' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiTrade', 'AI Chart Scanner')}</Link>
                             <Link href={getAuthHref('/ai-assistant')} aria-label='AI Trade Assistant' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiChat', 'AI Trade Assistant')}</Link>
                             <Link href="/ai-strategy" aria-label='AI Strategy' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.aiStrategy', 'AI Strategy')}</Link>
                             <Link href="/past-trade-analyzer" aria-label='AI Past Trade Analyzer' onClick={() => setIsMobileMenuOpen(false)}>{t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer')}</Link>

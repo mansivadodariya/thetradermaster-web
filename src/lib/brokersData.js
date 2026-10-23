@@ -49,7 +49,7 @@ export const brokerList = [
         subtitle: 'Forex & CFD Trading',
         subtitle_ar: 'تداول الفوركس والعقود مقابل الفروقات',
         subtitle_ph: 'Forex at CFD Trading',
-        logo: '/assets/images/site-logo-20y-on-light.svg',
+        logo: '/assets/logo/tickmill-logo-dark-animated.webp',
         category: 'Brokers',
         description: 'Tickmill provides access to global Forex and CFD markets with competitive pricing, fast execution and a range of desktop, web and mobile trading platforms.',
         description_ar: 'توفر تيكميل إمكانية الوصول إلى أسواق الفوركس والعقود مقابل الفروقات العالمية مع أسعار تنافسية وتنفيذ سريع ومجموعة من منصات التداول المكتبية والويب والهاتف المحمول.',
@@ -82,7 +82,11 @@ export const brokerList = [
 export function formatBroker(item) {
     if (!item) return null;
     let logoUrl = item.logo || '';
-    if (logoUrl.includes('Img1.svg') || !logoUrl) {
+    const isTickmill = (item.name || '').toLowerCase().includes('tickmill') || (item.name_ph || '').toLowerCase().includes('tickmill') || (item.website_url || '').toLowerCase().includes('tickmill') || (item.websiteUrl || '').toLowerCase().includes('tickmill');
+
+    if (isTickmill) {
+        logoUrl = '/assets/logo/tickmill-logo-dark-animated.webp';
+    } else if (logoUrl.includes('Img1.svg') || !logoUrl) {
         logoUrl = '/assets/images/site-logo-20y-on-light.svg';
     }
 

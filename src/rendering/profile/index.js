@@ -12,6 +12,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import { profileApi } from '@/lib/api';
+import ProfileNotificationsTab from './components/ProfileNotificationsTab';
+import { getUnreadCount } from '@/services/notificationService';
 
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -48,9 +50,19 @@ export default function Profile() {
     const { t, language } = useLanguage();
 
     const [activeTab, setActiveTab] = useState(tabParam || 'profile');
+    const [unreadNotifCount, setUnreadNotifCount] = useState(0);
+
+    const refreshUnreadNotifs = async (uid) => {
+        const id = uid || userId;
+        if (!id) return;
+        try {
+            const count = await getUnreadCount(id);
+            setUnreadNotifCount(count || 0);
+        } catch (_) {}
+    };
 
     useEffect(() => {
-        if (tabParam && ['profile', 'recent_activity', 'credit_history'].includes(tabParam)) {
+        if (tabParam && ['profile', 'recent_activity', 'credit_history', 'notifications'].includes(tabParam)) {
             setActiveTab(tabParam);
         }
     }, [tabParam]);
@@ -95,6 +107,13 @@ export default function Profile() {
         }
 
         fetchProfile(id);
+        refreshUnreadNotifs(id);
+
+        const onNotifSync = () => {
+            refreshUnreadNotifs(id);
+        };
+        window.addEventListener('notification:updated', onNotifSync);
+        return () => window.removeEventListener('notification:updated', onNotifSync);
     }, []);
 
     const fetchProfile = async (id) => {
@@ -371,8 +390,18 @@ export default function Profile() {
                     <line x1="2" y1="10" x2="22" y2="10" />
                 </svg>
             )
+        },
+        {
+            id: 'notifications',
+            title: t('notifications.title', 'Notifications'),
+            count: unreadNotifCount,
+            icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+            )
         }
-        // Additional submenus can easily be registered here in the future
     ];
 
     return (
@@ -625,6 +654,14 @@ export default function Profile() {
 
                     {activeTab === 'credit_history' && (
                         <CreditHistory embedMode={true} />
+                    )}
+
+                    {activeTab === 'notifications' && (
+                        <ProfileNotificationsTab
+                            userId={userId}
+                            t={t}
+                            onUnreadCountChanged={() => refreshUnreadNotifs(userId)}
+                        />
                     )}
                 </div>
             </div>

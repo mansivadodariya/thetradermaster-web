@@ -29,6 +29,8 @@ const ROUTE_TAB_MAP = {
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',
     '/brokers': 'Broker',
+    '/customer-support': 'Customer Support',
+    '/support': 'Customer Support',
     '/profile': 'Profile',
     '/settings': 'Profile',
 };

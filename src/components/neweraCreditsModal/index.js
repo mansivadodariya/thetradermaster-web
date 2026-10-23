@@ -139,16 +139,17 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
                     const finalList = cleanList.length > 0 ? cleanList : brokerData;
                     setBrokers(finalList);
 
-                    if (finalList.length === 1) {
-                        setSelectedBroker(finalList[0]);
-                    } else if (finalList.length > 1) {
-                        // For multiple brokers, wait for user selection
-                        setSelectedBroker(null);
-                    }
+                    const preferredBroker = finalList.find((b) => {
+                        const name = (b.name || b.name_ph || b.website_url || b.websiteUrl || '').toLowerCase();
+                        return name.includes('tickmill');
+                    }) || finalList[0];
+
+                    setSelectedBroker(preferredBroker || null);
                 }
             } catch (e) {
                 console.error('Failed to load brokers:', e);
                 if (isMounted) {
+
                     setBrokers(brokerList);
                     setSelectedBroker(brokerList[0]);
                 }
@@ -278,8 +279,19 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
         return b.name || 'Broker';
     };
 
+    const getBrokerLinkName = (b) => {
+        const name = getBrokerDisplayName(b || selectedBroker || null);
+        const lower = String(name || '').toLowerCase();
+        if (lower.includes('tickmill')) return 'tickmill';
+        if (lower.includes('avatrade')) return 'avatrade';
+        return lower.replace(/[^a-z0-9]+/g, '').replace(/^newera$/, 'newera') || 'tickmill';
+    };
+
     const brokerName = getBrokerDisplayName(selectedBroker);
-    const brokerLogo = selectedBroker?.logo || (theme === 'light' ? '/assets/images/site-logo-20y-on-light.svg' : '/assets/images/site-logo-20y-on-light.svg');
+    const brokerLinkName = getBrokerLinkName(selectedBroker);
+    const brokerLogo = brokerLinkName === 'tickmill'
+        ? '/assets/logo/tickmill-logo-dark-animated.webp'
+        : (selectedBroker?.logo || (theme === 'light' ? '/assets/images/site-logo-20y-on-light.svg' : '/assets/images/site-logo-20y-on-light.svg'));
 
     // Helper for syncing Phase 2 or Phase 3
     const syncCredits = useCallback(async () => {
@@ -289,7 +301,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
         setAutoSyncing(true);
 
         try {
-            const res = await neweraApi.linkAccount(uid, email);
+            const res = await neweraApi.linkAccount(uid, email, brokerLinkName);
 
             // Synchronize flags returned by API response if available
             const apiRes = res?.data || res;
@@ -342,7 +354,6 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
 
                 notifyCreditsUpdated(earnedAmount);
                 if (onSuccess) onSuccess(earnedAmount);
-                if (!isInline) onClose?.();
                 return;
             } else {
                 setSyncChecked(true);
@@ -366,22 +377,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
         }
     }, [activeUserId, email, welcomeAwarded, depositAwarded, onSuccess, onClose, brokerName]);
 
-    // Hit syncCredits when tab visibility changes to visible
-    useEffect(() => {
-        if (!activeUserId || !hasExistingLink || !welcomeAwarded || loading) return;
-
-        const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                syncCredits();
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-        return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
-    }, [activeUserId, hasExistingLink, welcomeAwarded, loading, syncCredits]);
-
+    // Manual-only credit request flow: no automatic sync when the modal is opened.
     // Phase 1 - Submit account connection
     const handleLinkAccount = async (e) => {
         e.preventDefault();
@@ -396,7 +392,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
         setError('');
 
         try {
-            const res = await neweraApi.linkAccount(uid, normalizedEmail);
+            const res = await neweraApi.linkAccount(uid, normalizedEmail, brokerLinkName);
             if (res.success) {
                 // Store in mt5_accounts
                 try {
@@ -443,7 +439,6 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
                     notifyCreditsUpdated(earnedAmount);
                     toast.success(`Congratulations! You have received ${earnedAmount} welcome credits for linking your ${brokerName} account.`);
                     if (onSuccess) onSuccess(earnedAmount);
-                    if (!isInline) onClose?.();
                     return;
                 }
 
@@ -465,9 +460,9 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
     };
 
     const handleRegisterRedirect = () => {
-        const targetUrl = selectedBroker?.website_url || selectedBroker?.websiteUrl ;
+        const fallbackTickmillUrl = 'https://my.tickmill.com?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&lp=https%3A%2F%2Fmy.tickmill.com%2Fen%2Fsign-up';
+        const targetUrl = selectedBroker?.website_url || selectedBroker?.websiteUrl || fallbackTickmillUrl;
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
-       
     };
 
     // Determine current phase (Only rendered when loading is false)
@@ -488,6 +483,7 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
                     </span>
                     <div className={styles.brokerGrid}>
                         {brokers.map((b) => {
+                            
                             const isSelected = selectedBroker?.id === b.id;
                             return (
                                 <button
@@ -718,8 +714,8 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
                                                                 onClick={syncCredits}
                                                                 disabled={autoSyncing}
                                                             >
-                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
-                                                                    {t('neweraModal.checkAgainBtn', 'Check Again')}
+                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Request'))}>
+                                                                    {t('neweraModal.checkAgainBtn', 'Request')}
                                                                 </span>
                                                             </button>
                                                         </>
@@ -787,8 +783,8 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
                                                                 onClick={syncCredits}
                                                                 disabled={autoSyncing}
                                                             >
-                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Check Again'))}>
-                                                                    {t('neweraModal.checkAgainBtn', 'Check Again')}
+                                                                <span {...getBidiProps(t('neweraModal.checkAgainBtn', 'Request'))}>
+                                                                    {t('neweraModal.checkAgainBtn', 'Request')}
                                                                 </span>
                                                             </button>
                                                         </>

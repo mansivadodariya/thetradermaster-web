@@ -260,31 +260,6 @@
     }
 }
 
-.skipWrapper {
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.skipBtn {
-    background: transparent;
-    border: none;
-    color: #64748B;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 6px 14px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-
-    &:hover {
-        color: #0F172A;
-    }
-}
-
 :global(.dark) {
     .modalOverlay {
         background: rgba(3, 14, 9, 0.85);
@@ -388,15 +363,6 @@
 
     .resendBtn {
         color: #00FF88;
-    }
-
-    .skipBtn {
-        color: rgba(255, 255, 255, 0.6);
-
-        &:hover {
-            color: #00FF88;
-            text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
-        }
     }
 }
 

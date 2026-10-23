@@ -1,6 +1,7 @@
 import { extractAvailableCredits, notifyCreditsUpdated } from '@/lib/credits';
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
+const CrBase_URl = `${process.env.NEXT_PUBLIC_CR_BACKEND_URL}`;
 
 const DEFAULT_ROLE_ID = '44b71348-74d5-42ef-831a-be7c2da4882e';
 
@@ -105,7 +106,7 @@ async function request(path, options = {}, _isRetry = false) {
                     const parsed = JSON.parse(jsonMatch[0]);
                     errorMessage = parsed?.msg || parsed?.detail || parsed?.message;
                 }
-            } catch (_) {}
+            } catch (_) { }
             if (!errorMessage) {
                 errorMessage = data.detail;
             }
@@ -281,19 +282,48 @@ export const tradeSnapApi = {
 };
 
 export const neweraApi = {
-    linkAccount: async (user_id, email) => {
+    linkAccount: async (user_id, email, brokerName = 'tickmill') => {
         const cleanEmail = String(email || '').trim().toLowerCase();
-        const res = await request('/newera/credit', {
-            method: 'POST',
-            headers: getAuthHeaders(),
-            body: JSON.stringify({ email: cleanEmail }),
-        });
+        const cleanBrokerName = String(brokerName || 'tickmill')
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '');
 
-        return {
-            success: true,
-            message: res?.message || 'Newera account linked successfully!',
-            data: res?.data || res || {}
+        const payload = {
+            email: cleanEmail,
+            broker_name: cleanBrokerName || 'tickmill',
         };
+
+        try {
+            const res = await request('/broker/link-account', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify(payload),
+            });
+
+            return {
+                success: true,
+                message: res?.message || `${cleanBrokerName} account linked successfully!`,
+                data: res?.data || res || {}
+            };
+        } catch (error) {
+            if (error?.status === 404 || error?.status === 405) {
+                const legacyRes = await request('/newera/credit', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ email: cleanEmail, broker_name: cleanBrokerName || 'tickmill' }),
+                });
+
+                return {
+                    success: true,
+                    message: legacyRes?.message || `${cleanBrokerName} account linked successfully!`,
+                    data: legacyRes?.data || legacyRes || {}
+                };
+            }
+
+            throw error;
+        }
     }
 };
 
@@ -337,6 +367,151 @@ export const depositApi = {
         }),
 };
 
+export const supportApi = {
+    createTicket: async (formData) => {
+        if (formData instanceof FormData && !formData.has('project_id')) {
+            formData.append('project_id', '2');
+        }
 
+        const res = await fetch(`${CrBase_URl}/api/v1/support/tickets`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+            },
+            body: formData,
+        });
 
+        const data = await res.json().catch(() => ({}));
 
+        if (!res.ok) {
+            let errorMsg = 'Failed to submit support ticket';
+            if (typeof data?.detail === 'string') {
+                errorMsg = data.detail;
+            } else if (Array.isArray(data?.detail) && data.detail[0]?.msg) {
+                errorMsg = data.detail.map(d => `${d.loc?.slice(-1)[0] || 'field'}: ${d.msg}`).join(', ');
+            } else if (data?.message) {
+                errorMsg = data.message;
+            } else if (data?.error) {
+                errorMsg = data.error;
+            }
+            const err = new Error(errorMsg);
+            err.status = res.status;
+            err.data = data;
+            throw err;
+        }
+
+        return data;
+    },
+};
+
+export const notificationsApi = {
+    getNotifications: async ({ page = 1, limit = 20, category = null, readStatus = null } = {}) => {
+        const params = new URLSearchParams();
+        if (page) params.set('page', String(page));
+        if (limit) params.set('limit', String(limit));
+        if (category && category !== 'all') params.set('category', category);
+        if (readStatus && readStatus !== 'all') params.set('read_status', readStatus);
+        const qs = params.toString();
+      
+        const res = await fetch(`${CrBase_URl}/notifications${qs ? `?${qs}` : ''}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+                ...getAuthHeaders(),
+            },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data?.detail || data?.message || 'Failed to fetch notifications');
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    },
+
+    getUnreadCount: async () => {
+        
+        const res = await fetch(`${CrBase_URl}/notifications/unread-count`, {
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+                ...getAuthHeaders(),
+            },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data?.detail || data?.message || 'Failed to fetch unread count');
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    },
+
+    getWebsiteUpdates: async ({ page = 1, limit = 20 } = {}) => {
+        const params = new URLSearchParams();
+        if (page) params.set('page', String(page));
+        if (limit) params.set('limit', String(limit));
+        params.set('category', 'website_updates');
+        
+        const res = await fetch(`${CrBase_URl}/notifications?${params.toString()}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+                ...getAuthHeaders(),
+            },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data?.detail || data?.message || 'Failed to fetch website updates');
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    },
+
+    markAsRead: async (id) => {
+       
+        const res = await fetch(`${CrBase_URl}/notifications/${id}/read`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+                ...getAuthHeaders(),
+            },
+            body: JSON.stringify({}),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data?.detail || data?.message || 'Failed to mark notification as read');
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    },
+
+    markAllAsRead: async () => {
+
+        const res = await fetch(`${baseUrl}/notifications/read-all`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+                ...getAuthHeaders(),
+            },
+            body: JSON.stringify({}),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data?.detail || data?.message || 'Failed to mark all as read');
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    },
+};

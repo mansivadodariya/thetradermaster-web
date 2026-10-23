@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import styles from './topbar.module.scss';
 import { dashboardApi } from '@/lib/api';
 import { getStoredUser, getStoredUserId, clearAuthSession, hydrateUserFromProfile } from '@/lib/authSession';
@@ -10,15 +10,20 @@ import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 import { useAiAssistantJobs } from '@/context/AiAssistantJobContext';
+import NotificationsModal from '@/components/notificationsModal';
+import { getUnreadCount } from '@/services/notificationService';
 
 const Topbar = ({ onMenuClick }) => {
     const router = useRouter();
+    const pathname = usePathname();
     const { theme, toggleTheme } = useTheme();
     const { t } = useLanguage();
     const { latestActiveJob } = useAiAssistantJobs();
     const [user, setUser] = useState(null);
     const [credits, setCredits] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [unreadCount, setUnreadCount] = useState(0);
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -33,7 +38,14 @@ const Topbar = ({ onMenuClick }) => {
         }
     };
 
-
+    const refreshUnreadCount = async (uid) => {
+        const targetUid = uid || user?.id || getStoredUserId();
+        if (!targetUid) return;
+        try {
+            const count = await getUnreadCount(targetUid);
+            setUnreadCount(count || 0);
+        } catch (_) {}
+    };
 
     useEffect(() => {
         const init = async () => {
@@ -41,17 +53,30 @@ const Topbar = ({ onMenuClick }) => {
                 const parsed = getStoredUser();
                 const userId = getStoredUserId();
                 if (!parsed && !userId) {
+                    if (pathname === '/customer-support' || pathname?.startsWith('/customer-support')) {
+                        router.replace('/support');
+                        return;
+                    }
                     router.replace('/login');
                     return;
                 }
                 const resolvedUser = await hydrateUserFromProfile(userId, parsed || { id: userId, user_id: userId });
                 setUser(resolvedUser);
                 await fetchCredits(userId);
+                await refreshUnreadCount(userId);
             } catch { /* ignore */ } finally { setLoading(false); }
         };
         init();
         window.addEventListener('user:updated', init);
-        return () => window.removeEventListener('user:updated', init);
+        const onNotifSync = () => {
+            const uid = getStoredUserId();
+            if (uid) refreshUnreadCount(uid);
+        };
+        window.addEventListener('notification:updated', onNotifSync);
+        return () => {
+            window.removeEventListener('user:updated', init);
+            window.removeEventListener('notification:updated', onNotifSync);
+        };
     }, [router]);
 
     useEffect(() => {
@@ -143,6 +168,24 @@ const Topbar = ({ onMenuClick }) => {
                             </span>
                         </button>
                     )}
+                    {/* Notification Bell */}
+                    {/* <button
+                        type="button"
+                        className={styles.bellBtn}
+                        onClick={() => setIsNotificationsOpen(true)}
+                        title={t('topbar.notifications', 'Notifications')}
+                        aria-label="Notifications"
+                    >
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        {unreadCount > 0 && (
+                            <span className={styles.bellBadge}>
+                                {unreadCount > 99 ? '99+' : unreadCount}
+                            </span>
+                        )}
+                    </button> */}
                     <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle Theme" type="button">
                         {theme === 'light' ? (
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -167,6 +210,14 @@ const Topbar = ({ onMenuClick }) => {
                     </div>
                 </div>
             </div>
+
+            {/* Notifications Modal */}
+            <NotificationsModal
+                isOpen={isNotificationsOpen}
+                onClose={() => setIsNotificationsOpen(false)}
+                userId={user?.id || getStoredUserId()}
+                onUnreadCountChanged={() => refreshUnreadCount(user?.id || getStoredUserId())}
+            />
         </>
     );
 };

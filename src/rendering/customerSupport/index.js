@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './customerSupport.module.scss';
+import Button from '@/components/button';
 import PhoneInput from '@/components/phoneInput';
 import { supportApi } from '@/lib/api';
 import { toast } from '@/components/toast';
@@ -110,7 +111,6 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
         name: '',
         email: '',
         contact_no: '',
-        category: 'Technical Issue',
         description: '',
     });
 
@@ -261,11 +261,7 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
             formData.append('email', form.email.trim());
             formData.append('contact_no', form.contact_no.trim());
             
-            // Include category in description or field
-            const fullDescription = form.category
-                ? `[Category: ${form.category}]\n\n${form.description.trim()}`
-                : form.description.trim();
-            formData.append('description', fullDescription);
+            formData.append('description', form.description.trim());
             formData.append('project_id', '2');
 
             if (imageFile) {
@@ -280,7 +276,6 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
                 name: ticketData?.name || form.name.trim(),
                 email: ticketData?.email || form.email.trim(),
                 contact_no: ticketData?.contact_no || form.contact_no.trim(),
-                category: form.category,
                 description: form.description.trim(),
                 image_url: ticketData?.image_url || imagePreview,
                 status: ticketData?.status || 'OPEN',
@@ -486,7 +481,7 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
                                         </div>
                                     </div>
 
-                                    {/* Row 2: Contact Number & Topic */}
+                                    {/* Row 2: Contact Number */}
                                     <div className={styles.twoColRow}>
                                         <div className={styles.fieldGroup}>
                                             <label htmlFor="sup-phone" className={styles.fieldLabel}>
@@ -502,23 +497,10 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
                                         </div>
 
                                         <div className={styles.fieldGroup}>
-                                            <label htmlFor="sup-category" className={styles.fieldLabel}>
-                                                <span>Topic / Category</span>
-                                            </label>
-                                            <select
-                                                id="sup-category"
-                                                name="category"
-                                                value={form.category}
-                                                onChange={handleInputChange}
-                                                disabled={submitting}
-                                            >
-                                                <option value="Technical Issue">Technical & Tool Issue</option>
-                                                <option value="MT5 Connectivity">MT5 Connection & Terminal</option>
-                                                <option value="Broker & Lots">Broker Lot Sync & Verification</option>
-                                                <option value="Billing & Credits">Subscriptions & Credits</option>
-                                                <option value="General Feedback">Feature Request / Feedback</option>
-                                                <option value="Other">Other Inquiry</option>
-                                            </select>
+                                            <div className={styles.fieldLabel}>
+                                                <span>&nbsp;</span>
+                                            </div>
+                                            <div className={styles.emptyFieldSpacer} aria-hidden="true" />
                                         </div>
                                     </div>
 
@@ -612,19 +594,13 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
 
                                     {/* Submit Action */}
                                     <div className={styles.submitAction}>
-                                        <button type="submit" disabled={submitting}>
-                                            {submitting ? (
-                                                <>
-                                                    <Loader size="sm" />
-                                                    <span>Submitting Ticket...</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <SendIcon />
-                                                    <span>Submit Support Ticket</span>
-                                                </>
-                                            )}
-                                        </button>
+                                        <Button
+                                            text={submitting ? 'Submitting Ticket...' : 'Submit Support Ticket'}
+                                            icon="/assets/icons/arrow.svg"
+                                            type="submit"
+                                            disabled={submitting}
+                                            fullWidth
+                                        />
                                     </div>
                                 </form>
                             </div>
@@ -667,12 +643,6 @@ export default function CustomerSupport({ isDashboard: propIsDashboard }) {
                                             {submittedTicket.status || 'OPEN'}
                                         </span>
                                     </div>
-                                    {submittedTicket.category && (
-                                        <div className={styles.detailRow}>
-                                            <span className={styles.key}>Category</span>
-                                            <span className={styles.val}>{submittedTicket.category}</span>
-                                        </div>
-                                    )}
                                     <div className={styles.detailRow}>
                                         <span className={styles.key}>Submitted By</span>
                                         <span className={styles.val}>{submittedTicket.name}</span>

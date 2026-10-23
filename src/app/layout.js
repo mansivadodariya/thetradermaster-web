@@ -22,15 +22,15 @@ const robotoSans = Roboto({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://thetradeexpert.com"),
+  metadataBase: new URL("https://thetradermaster.com"),
   title: {
-    default: "The Trade Expert — AI-Powered Forex Intelligence",
-    template: "%s | The Trade Expert",
+    default: "The Trade Master — AI-Powered Forex Intelligence",
+    template: "%s | The Trade Master",
   },
   description:
-    "The Trade Expert delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the Newera brokerage stack.",
-  keywords: ["forex", "trading", "AI", "trade analysis", "MT5", "trade signals", "The Trade Expert"],
-  authors: [{ name: "The Trade Expert" }],
+    "The Trade Master delivers AI-powered Forex analysis, chart reading, trade signals, and strategy generation built around MT5 and the Newera brokerage stack.",
+  keywords: ["forex", "trading", "AI", "trade analysis", "MT5", "trade signals", "The Trade Master"],
+  authors: [{ name: "The Trade Master" }],
   robots: {
     index: true,
     follow: true,
@@ -39,24 +39,24 @@ export const metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "The Trade Expert — AI-Powered Forex Intelligence",
+    title: "The Trade Master — AI-Powered Forex Intelligence",
     description:
       "AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation.",
-    siteName: "The Trade Expert",
-    url: "https://thetradeexpert.com",
+    siteName: "The Trade Master",
+    url: "https://thetradermaster.com",
     type: "website",
     images: [
       {
         url: "/assets/images/new-hero-banner.png",
         width: 1200,
         height: 630,
-        alt: "The Trade Expert AI Trading",
+        alt: "The Trade Master AI Trading",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Trade Expert — AI-Powered Forex Intelligence",
+    title: "The Trade Master — AI-Powered Forex Intelligence",
     description:
       "AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation.",
     images: ["/assets/images/new-hero-banner.png"],

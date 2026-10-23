@@ -439,7 +439,7 @@
     "depositBonusDesc": "Deposit {threshold} into your {broker} trading account to receive {credits} additional credits.",
     "syncingCredits": "Syncing credits from {broker}...",
     "checkedJustNow": "Checked just now.",
-    "checkAgainBtn": "Request",
+    "checkAgainBtn": "Check Again",
     "earnByTradingTitle": "Earn Credits by Trading",
     "earnByTradingDesc": "You've used all your available credits. Continue trading with your {broker} account and earn {credits} credits for every lot traded.",
     "syncingVolume": "Syncing trading volume...",

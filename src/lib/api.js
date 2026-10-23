@@ -1,7 +1,7 @@
 import { extractAvailableCredits, notifyCreditsUpdated } from '@/lib/credits';
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
-const CrBase_URl = `${process.env.NEXT_PUBLIC_CR_BACKEND_URL}`;
+const CrBase_URl = `${process.env.NEXT_PUBLIC_CR_BACKEND_URL}/api/v1`;
 
 const DEFAULT_ROLE_ID = '44b71348-74d5-42ef-831a-be7c2da4882e';
 
@@ -373,7 +373,7 @@ export const supportApi = {
             formData.append('project_id', '2');
         }
 
-        const res = await fetch(`${CrBase_URl}/api/v1/support/tickets`, {
+        const res = await fetch(`${CrBase_URl}/support/tickets`, {
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -413,7 +413,7 @@ export const notificationsApi = {
         if (category && category !== 'all') params.set('category', category);
         if (readStatus && readStatus !== 'all') params.set('read_status', readStatus);
         const qs = params.toString();
-      
+
         const res = await fetch(`${CrBase_URl}/notifications${qs ? `?${qs}` : ''}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -432,7 +432,7 @@ export const notificationsApi = {
     },
 
     getUnreadCount: async () => {
-        
+
         const res = await fetch(`${CrBase_URl}/notifications/unread-count`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -455,7 +455,7 @@ export const notificationsApi = {
         if (page) params.set('page', String(page));
         if (limit) params.set('limit', String(limit));
         params.set('category', 'website_updates');
-        
+
         const res = await fetch(`${CrBase_URl}/notifications?${params.toString()}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -474,7 +474,7 @@ export const notificationsApi = {
     },
 
     markAsRead: async (id) => {
-       
+
         const res = await fetch(`${CrBase_URl}/notifications/${id}/read`, {
             method: 'POST',
             headers: {
@@ -496,7 +496,7 @@ export const notificationsApi = {
 
     markAllAsRead: async () => {
 
-        const res = await fetch(`${baseUrl}/notifications/read-all`, {
+        const res = await fetch(`${CrBase_URl}/notifications/read-all`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

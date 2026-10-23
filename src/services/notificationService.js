@@ -200,11 +200,14 @@ function stripLocalePrefix(path) {
 
 export function getLocalizedHref(href, lang) {
     if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//')) return href;
+
+    // This app does not use locale-prefixed routes like /en/dashboard.
+    // Internal routes are mounted directly at the root (for example /dashboard),
+    // so prepending a locale segment causes the 404 seen in the notification click flow.
     const [pathname, search] = href.split('?');
-    const clean = stripLocalePrefix(pathname);
-    const currentLang = lang || 'en';
-    const localizedPath = clean === '/' ? `/${currentLang}` : `/${currentLang}${clean}`;
-    return search ? `${localizedPath}?${search}` : localizedPath;
+    const cleanPath = stripLocalePrefix(pathname);
+    const normalized = cleanPath === '/' ? '/' : cleanPath;
+    return search ? `${normalized}?${search}` : normalized;
 }
 
 export function isProtectedRoute(path) {

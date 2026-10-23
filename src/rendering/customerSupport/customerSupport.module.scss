@@ -190,8 +190,8 @@
         gap: 18px;
 
         .sideCard {
-            background: rgba(10, 24, 17, 0.7);
-            border: 1px solid rgba(0, 255, 136, 0.15);
+            background: radial-gradient(70% 80% at 100% 0, #18c98b24 0, #10b9810a 50%, #0000 80%), radial-gradient(60% 60% at 100%, #00f2fe14 0, #0000 70%), #121514bf;
+            border: 1px solid #18c98b38;
             border-radius: 16px;
             padding: 22px;
             backdrop-filter: blur(16px);
@@ -199,7 +199,7 @@
 
             &:hover {
                 border-color: rgba(0, 255, 136, 0.28);
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+                box-shadow: 0 8px 24px #0006, inset 0 1px #ffffff0f;
             }
 
             .cardTitle {
@@ -382,12 +382,12 @@
         min-width: 0;
 
         .formCard {
-            background: rgba(10, 24, 17, 0.75);
-            border: 1px solid rgba(0, 255, 136, 0.16);
+            background: radial-gradient(70% 80% at 100% 0, #18c98b24 0, #10b9810a 50%, #0000 80%), radial-gradient(60% 60% at 100%, #00f2fe14 0, #0000 70%), #121514bf;
+            border: 1px solid #18c98b38;
             border-radius: 18px;
             padding: 30px 32px;
             backdrop-filter: blur(20px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 24px #0006, inset 0 1px #ffffff0f;
 
             @include respond-to('sm') {
                 padding: 20px 16px;
@@ -491,10 +491,14 @@
                         color: rgba(255, 255, 255, 0.38);
                     }
 
+                    &:hover {
+                        border-color: rgba(255, 255, 255, 0.2);
+                    }
+
                     &:focus {
-                        border-color: #00FF88;
-                        background: rgba(0, 255, 136, 0.03);
-                        box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.12);
+                        border-color: rgba(255, 255, 255, 0.2);
+                        background: rgba(255, 255, 255, 0.05);
+                        box-shadow: none;
                     }
 
                     &:disabled {
@@ -523,9 +527,9 @@
 
             // Compact drag & drop zone
             .dropzone {
-                border: 1.5px dashed rgba(0, 255, 136, 0.25);
+                border: 1.5px dashed rgba(255, 255, 255, 0.14);
                 border-radius: 12px;
-                background: rgba(0, 255, 136, 0.02);
+                background: rgba(255, 255, 255, 0.02);
                 padding: 18px 16px;
                 text-align: center;
                 cursor: pointer;
@@ -534,9 +538,9 @@
 
                 &:hover,
                 &.dragOver {
-                    border-color: #00FF88;
-                    background: rgba(0, 255, 136, 0.06);
-                    box-shadow: 0 0 14px rgba(0, 255, 136, 0.12);
+                    border-color: rgba(255, 255, 255, 0.22);
+                    background: rgba(255, 255, 255, 0.03);
+                    box-shadow: none;
                 }
 
                 .hiddenInput {
@@ -706,8 +710,8 @@
 
                 button {
                     width: 100%;
-                    background: linear-gradient(135deg, #00FF88 0%, #00C868 100%);
-                    color: #03140C;
+                    background: #047857 !important;
+                    color: #fff;
                     font-size: 14.5px;
                     font-weight: 700;
                     font-family: var(--font-plus-jakarta);
@@ -719,14 +723,14 @@
                     align-items: center;
                     justify-content: center;
                     gap: 8px;
-                    box-shadow: 0 4px 18px rgba(0, 255, 136, 0.28);
+
                     transition: all 0.2s ease;
 
-                    &:hover:not(:disabled) {
-                        transform: translateY(-1px);
-                        box-shadow: 0 6px 24px rgba(0, 255, 136, 0.42);
-                        background: linear-gradient(135deg, #1aff96 0%, #00d670 100%);
-                    }
+                    // &:hover:not(:disabled) {
+                    //     transform: translateY(-1px);
+                    //     box-shadow: 0 6px 24px rgba(0, 255, 136, 0.42);
+                    //     background: linear-gradient(135deg, #1aff96 0%, #00d670 100%);
+                    // }
 
                     &:disabled {
                         opacity: 0.65;
@@ -994,10 +998,13 @@
 }
 
 @keyframes pulseGlow {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.45;
         transform: scale(0.85);
@@ -1009,6 +1016,7 @@
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

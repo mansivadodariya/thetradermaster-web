@@ -266,6 +266,10 @@
         border-right: 1px solid rgba(15, 23, 42, 0.08);
         border-left: none;
         border-top: none;
+
+        .logo img {
+            filter: none;
+        }
     }
 
     .quickJumpWrapper {

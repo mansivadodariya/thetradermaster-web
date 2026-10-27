@@ -1,0 +1,68 @@
+@use '../../scss/main.scss' as *;
+
+.glowWrapper {
+  position: relative;
+  border-radius: 24px;
+  background: #050d09;
+  padding: 1.5px;
+  box-sizing: border-box;
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+  }
+}
+
+.glowBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  padding: 1.5px;
+  box-sizing: border-box;
+  opacity: calc(var(--glow-opacity, 0) * var(--edge-factor, 1));
+  transition: opacity 0.25s ease-out;
+
+  /* XOR Mask to restrict glow strictly to the 1.5px border boundary */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  background: radial-gradient(
+    var(--glow-radius, 180px) circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--glow-color-1, #00FF88) 0%,
+    var(--glow-color-2, #00F0FF) 45%,
+    var(--glow-color-3, rgba(0, 255, 136, 0.2)) 70%,
+    transparent 100%
+  );
+}
+
+.glowInner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.animated {
+  .glowBorder {
+    background: conic-gradient(
+      from var(--mouse-angle, 0deg) at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      var(--glow-color-1, #00FF88) 0deg,
+      var(--glow-color-2, #00F0FF) calc(var(--cone-spread, 30deg) / 2),
+      var(--glow-color-3, #10b981) var(--cone-spread, 30deg),
+      transparent calc(var(--cone-spread, 30deg) + 25deg),
+      transparent 360deg
+    );
+  }
+}

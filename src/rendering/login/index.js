@@ -18,6 +18,7 @@ import {
     isUserOnboardingCompleted
 } from '@/lib/authSession';
 import { validateLogin } from '@/lib/validation';
+import { fetchBrokerLotData } from '@/lib/brokerLotApi';
 import { toast } from '@/components/toast';
 import PhoneInput from '@/components/phoneInput';
 import FirebasePhoneModal from '@/components/firebasePhoneModal';
@@ -176,6 +177,10 @@ const Login = () => {
             const sessionUser = persistAuthSession(data);
             const uid = sessionUser?.id || getStoredUserId();
             const cleanEmail = form.email.trim().toLowerCase();
+
+            try {
+                await fetchBrokerLotData(cleanEmail);
+            } catch (_) {}
 
             // Fetch authenticated user's onboarding status
             const status = await fetchUserOnboardingStatus(uid, cleanEmail);

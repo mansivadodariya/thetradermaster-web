@@ -388,130 +388,138 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    {/* Desktop Navigation */}
-                    <nav className={styles.menu} aria-label="Main Navigation">
-                        <ul>
-                            {navItems.map((item) => {
-                                const active = isLinkActive(item);
-                                const isItemOpen = activeDropdown === item.label;
+                    {pathname === '/philippines' ? (
+                        <div className={styles.webinarTitle}>
+                            Trader Master Webinar- 25 September 2026
+                        </div>
+                    ) : (
+                        <>
+                            {/* Desktop Navigation */}
+                            <nav className={styles.menu} aria-label="Main Navigation">
+                                <ul>
+                                    {navItems.map((item) => {
+                                        const active = isLinkActive(item);
+                                        const isItemOpen = activeDropdown === item.label;
 
-                                if (item.hasDropdown) {
-                                    return (
-                                        <li
-                                            key={item.label}
-                                            className={`${styles.dropdownParent} ${active ? styles.active : ''} ${isItemOpen ? styles.dropdownOpen : ''}`}
-                                            onMouseEnter={() => setActiveDropdown(item.label)}
-                                            onMouseLeave={() => setActiveDropdown(null)}
-                                        >
-                                            <button
-                                                type="button"
-                                                className={styles.dropdownTrigger}
-                                                aria-expanded={isItemOpen}
-                                                onClick={() => setActiveDropdown(prev => prev === item.label ? null : item.label)}
-                                            >
-                                                <span>{item.label}</span>
-                                                <svg
-                                                    className={styles.chevron}
-                                                    width="12"
-                                                    height="12"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2.5"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
+                                        if (item.hasDropdown) {
+                                            return (
+                                                <li
+                                                    key={item.label}
+                                                    className={`${styles.dropdownParent} ${active ? styles.active : ''} ${isItemOpen ? styles.dropdownOpen : ''}`}
+                                                    onMouseEnter={() => setActiveDropdown(item.label)}
+                                                    onMouseLeave={() => setActiveDropdown(null)}
                                                 >
-                                                    <polyline points="6 9 12 15 18 9" />
-                                                </svg>
-                                            </button>
+                                                    <button
+                                                        type="button"
+                                                        className={styles.dropdownTrigger}
+                                                        aria-expanded={isItemOpen}
+                                                        onClick={() => setActiveDropdown(prev => prev === item.label ? null : item.label)}
+                                                    >
+                                                        <span>{item.label}</span>
+                                                        <svg
+                                                            className={styles.chevron}
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2.5"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                        >
+                                                            <polyline points="6 9 12 15 18 9" />
+                                                        </svg>
+                                                    </button>
 
-                                            {/* Hover Dropdown Menu */}
-                                            <div className={`${styles.dropdownMenu} ${item.twoColumns ? styles.twoColMenu : ''}`}>
-                                                <div className={styles.dropdownCard}>
-                                                    <div className={styles.dropdownHeaderTag}>
-                                                        <span>{item.dropdownTag}</span>
+                                                    {/* Hover Dropdown Menu */}
+                                                    <div className={`${styles.dropdownMenu} ${item.twoColumns ? styles.twoColMenu : ''}`}>
+                                                        <div className={styles.dropdownCard}>
+                                                            <div className={styles.dropdownHeaderTag}>
+                                                                <span>{item.dropdownTag}</span>
+                                                            </div>
+
+                                                            <div className={`${styles.dropdownGrid} ${item.twoColumns ? styles.twoColGrid : ''}`}>
+                                                                {item.dropdownItems.map((subItem) => (
+                                                                    <Link
+                                                                        key={subItem.label}
+                                                                        href={subItem.href}
+                                                                        className={styles.dropdownItem}
+                                                                        onClick={() => setActiveDropdown(null)}
+                                                                    >
+                                                                        <div className={styles.itemIconBox}>
+                                                                            {subItem.icon}
+                                                                        </div>
+                                                                        <div className={styles.itemContent}>
+                                                                            <div className={styles.itemTitleRow}>
+                                                                                <span className={styles.itemTitle}>{subItem.label}</span>
+                                                                                {subItem.badge && (
+                                                                                    <span className={styles.itemBadge}>{subItem.badge}</span>
+                                                                                )}
+                                                                            </div>
+                                                                            <p className={styles.itemDesc}>{subItem.desc}</p>
+                                                                        </div>
+                                                                    </Link>
+                                                                ))}
+                                                            </div>
+
+                                                            <div className={styles.dropdownFooter}>
+                                                                <span className={styles.footerGlowDot} />
+                                                                <span>{item.dropdownFooter}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </li>
+                                            );
+                                        }
 
-                                                    <div className={`${styles.dropdownGrid} ${item.twoColumns ? styles.twoColGrid : ''}`}>
-                                                        {item.dropdownItems.map((subItem) => (
-                                                            <Link
-                                                                key={subItem.label}
-                                                                href={subItem.href}
-                                                                className={styles.dropdownItem}
-                                                                onClick={() => setActiveDropdown(null)}
-                                                            >
-                                                                <div className={styles.itemIconBox}>
-                                                                    {subItem.icon}
-                                                                </div>
-                                                                <div className={styles.itemContent}>
-                                                                    <div className={styles.itemTitleRow}>
-                                                                        <span className={styles.itemTitle}>{subItem.label}</span>
-                                                                        {subItem.badge && (
-                                                                            <span className={styles.itemBadge}>{subItem.badge}</span>
-                                                                        )}
-                                                                    </div>
-                                                                    <p className={styles.itemDesc}>{subItem.desc}</p>
-                                                                </div>
-                                                            </Link>
-                                                        ))}
-                                                    </div>
+                                        return (
+                                            <li key={item.label} className={active ? styles.active : ''}>
+                                                <Link href={item.href}>
+                                                    {item.label}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </nav>
 
-                                                    <div className={styles.dropdownFooter}>
-                                                        <span className={styles.footerGlowDot} />
-                                                        <span>{item.dropdownFooter}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    );
-                                }
+                            {/* Right Desktop CTA */}
+                            <div className={styles.desktopAction}>
+                                <LanguageToggle variant="headerNav" />
+                                <ThemeToggle />
+                                <Button
+                                    text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')}
+                                    icon={isLoggedIn ? DashboardGridIcon : RightIcon}
+                                    onClick={() => {
+                                        if (isLoggedIn) {
+                                            router.push('/dashboard');
+                                        } else {
+                                            authNavigate(router, '/dashboard');
+                                        }
+                                    }}
+                                />
+                            </div>
 
-                                return (
-                                    <li key={item.label} className={active ? styles.active : ''}>
-                                        <Link href={item.href}>
-                                            {item.label}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </nav>
-
-                    {/* Right Desktop CTA */}
-                    <div className={styles.desktopAction}>
-                        <LanguageToggle variant="headerNav" />
-                        <ThemeToggle />
-                        <Button
-                            text={isLoggedIn ? t('nav.dashboard', 'Dashboard') : t('nav.getStarted', 'Get Started')}
-                            icon={isLoggedIn ? DashboardGridIcon : RightIcon}
-                            onClick={() => {
-                                if (isLoggedIn) {
-                                    router.push('/dashboard');
-                                } else {
-                                    authNavigate(router, '/dashboard');
-                                }
-                            }}
-                        />
-                    </div>
-
-                    {/* Mobile Hamburger Button */}
-                    <button
-                        type="button"
-                        className={`${styles.hamburgerBtn} ${mobileMenuOpen ? styles.hamburgerActive : ''}`}
-                        onClick={() => setMobileMenuOpen(prev => !prev)}
-                        aria-label="Toggle navigation menu"
-                        aria-expanded={mobileMenuOpen}
-                    >
-                        <span className={styles.line} />
-                        <span className={styles.line} />
-                        <span className={styles.line} />
-                    </button>
+                            {/* Mobile Hamburger Button */}
+                            <button
+                                type="button"
+                                className={`${styles.hamburgerBtn} ${mobileMenuOpen ? styles.hamburgerActive : ''}`}
+                                onClick={() => setMobileMenuOpen(prev => !prev)}
+                                aria-label="Toggle navigation menu"
+                                aria-expanded={mobileMenuOpen}
+                            >
+                                <span className={styles.line} />
+                                <span className={styles.line} />
+                                <span className={styles.line} />
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
 
             {/* Mobile Navigation Drawer */}
             <AnimatePresence>
-                {mobileMenuOpen && (
+                {pathname !== '/philippines' && mobileMenuOpen && (
                     <motion.div
                         className={styles.mobileDrawer}
                         initial={{ opacity: 0, y: -20, scale: 0.96 }}

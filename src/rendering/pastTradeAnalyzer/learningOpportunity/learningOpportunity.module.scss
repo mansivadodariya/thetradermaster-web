@@ -1,0 +1,115 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.learningOpportunity {
+    padding: 80px 0;
+    background-color: #030E09;
+
+    .neonText {
+        color: #00FF88;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        display: inline-block;
+    }
+
+    .sectionHeader {
+        text-align: center;
+        max-width: 860px;
+        margin: 0 auto 50px auto;
+
+        h2 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-top: 16px;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('md') {
+                font-size: 32px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 25px;
+            }
+        }
+    }
+
+    .scenariosGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        @include respond-to('md') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .scenarioCard {
+            background: rgba(8, 24, 17, 0.7);
+            border: 1px solid rgba(0, 255, 136, 0.18);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &:hover {
+                transform: translateY(-5px);
+                border-color: rgba(0, 255, 136, 0.4);
+                box-shadow: 0 12px 30px rgba(0, 255, 136, 0.1);
+            }
+
+            .badgeTag {
+                display: inline-block;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 16px;
+            }
+
+            &.losing .badgeTag {
+                background: rgba(255, 95, 86, 0.15);
+                color: #FF6B6B;
+                border: 1px solid rgba(255, 95, 86, 0.3);
+            }
+
+            &.winning .badgeTag {
+                background: rgba(0, 255, 136, 0.15);
+                color: #00FF88;
+                border: 1px solid rgba(0, 255, 136, 0.3);
+            }
+
+            &.repeating .badgeTag {
+                background: rgba(255, 189, 46, 0.15);
+                color: #FFC107;
+                border: 1px solid rgba(255, 189, 46, 0.3);
+            }
+
+            &.unsure .badgeTag {
+                background: rgba(56, 189, 248, 0.15);
+                color: #38BDF8;
+                border: 1px solid rgba(56, 189, 248, 0.3);
+            }
+
+            h4 {
+                font-size: 16px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.7);
+                margin: 0;
+            }
+        }
+    }
+}

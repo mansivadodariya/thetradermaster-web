@@ -1,0 +1,97 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.readyToAnalyze {
+    padding: 80px 0;
+    background-color: #030E09;
+
+    .neonText {
+        color: #00FF88;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        display: inline-block;
+    }
+
+    .ctaSection {
+        background: rgba(8, 24, 17, 0.85);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 255, 136, 0.22);
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        padding: 70px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        @include respond-to('sm') {
+            padding: 40px 20px;
+            border-radius: 20px;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, rgba(16, 185, 129, 0.02) 50%, transparent 75%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-plus-jakarta);
+
+            @include respond-to('md') {
+                font-size: 30px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 24px;
+            }
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 720px;
+            margin: 0 auto 28px auto;
+            position: relative;
+            z-index: 2;
+
+            @include respond-to('sm') {
+                font-size: 14px;
+            }
+        }
+
+        .ctaCallout {
+            font-weight: 700;
+            color: #00FF88;
+            margin-bottom: 28px;
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+
+            @include respond-to('sm') {
+                font-size: 15px;
+            }
+        }
+
+        .ctaBtnWrap {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+    }
+}

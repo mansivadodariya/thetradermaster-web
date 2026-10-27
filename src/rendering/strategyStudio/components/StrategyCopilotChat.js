@@ -26,6 +26,8 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 import { StreamingAiBubble, CircuitStrategyDivider, DynamicThinkingLoader, InteractiveErrorBubble } from './StudioChatBubbles';
 import { categorizeChatError } from '../utils/strategyApi';
+import { TranslateResponseButton } from '@/components/translateButton';
+import { translateResponseText } from '@/lib/translateService';
 
 const EXPLORE_TAGLINES = [
     'Start with a message, TraderMaster takes it from there',
@@ -56,7 +58,7 @@ export default function StrategyCopilotChat({
     onOpenBacktest,
     isEditingForm = false,
 }) {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const prefersReducedMotion = useReducedMotion();
 
     const [inputValue, setInputValue] = useState('');
@@ -64,8 +66,56 @@ export default function StrategyCopilotChat({
     const [isWhatToIncludeOpen, setIsWhatToIncludeOpen] = useState(false);
     const [isOptionBoxDismissed, setIsOptionBoxDismissed] = useState(false);
     const [user, setUser] = useState(null);
+    const [messageTranslations, setMessageTranslations] = useState({});
     const [dynamicOptions, setDynamicOptions] = useState(() => getStrategyExploreSuggestions());
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
+    const pendingCopilotTranslationsRef = useRef(new Set());
+
+    const handleMessageTranslated = useCallback((key, text, lang, isTranslated, userReverted = false) => {
+        setMessageTranslations((prev) => ({
+            ...prev,
+            [key]: { text, lang, isTranslated, userReverted, targetLang: lang }
+        }));
+    }, []);
+
+    // Auto-translate AI copilot messages to active site language
+    useEffect(() => {
+        if (!language || language === 'en') return;
+
+        messages.forEach((msg, idx) => {
+            if (msg.role !== 'ai' || msg.isThinking) return;
+
+            const key = msg.id || idx;
+            const existing = messageTranslations[key];
+
+            if (existing?.userReverted && existing?.targetLang === language) {
+                return;
+            }
+
+            if (existing?.isTranslated && existing?.lang === language) {
+                return;
+            }
+
+            if (pendingCopilotTranslationsRef.current.has(key)) {
+                return;
+            }
+
+            if (!msg.text || typeof msg.text !== 'string' || !msg.text.trim()) return;
+
+            pendingCopilotTranslationsRef.current.add(key);
+
+            translateResponseText(msg.text, language)
+                .then((translated) => {
+                    handleMessageTranslated(key, translated, language, true, false);
+                })
+                .catch((err) => {
+                    console.warn(`[AutoTranslate] Copilot translation error for ${key}:`, err);
+                })
+                .finally(() => {
+                    pendingCopilotTranslationsRef.current.delete(key);
+                });
+        });
+    }, [messages, language, messageTranslations, handleMessageTranslated]);
 
     const strategyMenuRef = useRef(null);
 
@@ -533,20 +583,38 @@ export default function StrategyCopilotChat({
                                                     )
                                                 )}
                                             </div>
-                                        ) : (
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '86%' }}>
-                                                <StreamingAiBubble
-                                                    text={msg.text}
-                                                    shouldStream={shouldStream}
-                                                    onStreamProgress={handleStreamProgress}
-                                                    onStreamComplete={() => {
-                                                        completedStreamsRef.current.add(msgKey);
-                                                        forceUpdate((n) => n + 1);
-                                                        setTimeout(() => scrollToBottom(true), 60);
-                                                    }}
-                                                />
-                                            </div>
-                                        )}
+                                        ) : (() => {
+                                            const translation = messageTranslations[msg.id || index];
+                                            const displayText = translation?.isTranslated && translation.text ? translation.text : msg.text;
+                                            const isRTL = translation?.isTranslated && (translation.lang === 'ar' || translation.lang === 'ary');
+
+                                            return (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '86%' }} dir={isRTL ? 'rtl' : undefined}>
+                                                    <StreamingAiBubble
+                                                        text={displayText}
+                                                        shouldStream={shouldStream}
+                                                        onStreamProgress={handleStreamProgress}
+                                                        onStreamComplete={() => {
+                                                            completedStreamsRef.current.add(msgKey);
+                                                            forceUpdate((n) => n + 1);
+                                                            setTimeout(() => scrollToBottom(true), 60);
+                                                        }}
+                                                    />
+                                                    {!shouldStream && (
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                            <TranslateResponseButton
+                                                                originalText={msg.text}
+                                                                isTranslated={translation?.isTranslated}
+                                                                activeLang={translation?.lang}
+                                                                onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
+                                                                    handleMessageTranslated(msg.id || index, translatedText, langCode, isTranslated, userReverted);
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })()}
                                     </div>
                                 </React.Fragment>
                             );

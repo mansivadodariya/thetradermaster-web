@@ -168,12 +168,12 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={lang} dir={dir} className={`${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
       <head>
-        <Script
-          id="organization-jsonld"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body suppressHydrationWarning>
         <Script
           id="theme-initializer"
           strategy="beforeInteractive"
@@ -244,8 +244,6 @@ export default async function RootLayout({ children }) {
             `,
           }}
         />
-      </head>
-      <body suppressHydrationWarning>
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"

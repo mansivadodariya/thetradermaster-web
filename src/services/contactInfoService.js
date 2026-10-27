@@ -7,7 +7,7 @@ export const DEFAULT_CONTACT_INFO = {
     email: {
         platform: 'email',
         label: 'EMAIL',
-        value: 'support@chronosx.com',
+        value: 'support@thetradermaster.com',
         helper: 'Average response time: < 15 mins',
     },
     phone: {

@@ -22,8 +22,8 @@ export function useTelegramSignal() {
     // ── Config ────────────────────────────────────────────────────────────────
     const [config, setConfig] = useState({
         enabled: true,
-        bot_username: 'ChronosXSignalBot',
-        channel_url: 'https://t.me/ChronosX_Signals'
+        bot_username: 'TraderMasterSignalBot',
+        channel_url: 'https://t.me/TraderMaster_Signals'
     });
 
     // ── User Status ───────────────────────────────────────────────────────────

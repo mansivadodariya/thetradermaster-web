@@ -1,24 +1,24 @@
 import PublicTechnicalSupport from '@/rendering/publicTechnicalSupport';
 
 export const metadata = {
-    title: 'Customer Support — Raise a Query | ChronosX',
+    title: 'Customer Support — Raise a Query | TraderMaster',
     description:
-        'Submit a ChronosX customer support query with your contact details and an optional screenshot. Our team responds within hours.',
+        'Submit a TraderMaster customer support query with your contact details and an optional screenshot. Our team responds within hours.',
     alternates: {
-        canonical: 'https://chronosx.com/customer-support',
+        canonical: 'https://thetradermaster.com/customer-support',
     },
     openGraph: {
-        title: 'Customer Support — Raise a Query | ChronosX',
+        title: 'Customer Support — Raise a Query | TraderMaster',
         description:
-            'Submit a ChronosX customer support query with your contact details and an optional screenshot. Our team responds within hours.',
-        url: 'https://chronosx.com/customer-support',
-        siteName: 'ChronosX',
+            'Submit a TraderMaster customer support query with your contact details and an optional screenshot. Our team responds within hours.',
+        url: 'https://thetradermaster.com/customer-support',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Customer Support',
+                alt: 'TraderMaster Customer Support',
             },
         ],
         locale: 'en_US',
@@ -26,25 +26,25 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Customer Support — Raise a Query | ChronosX',
+        title: 'Customer Support — Raise a Query | TraderMaster',
         description:
-            'Submit a ChronosX customer support query with your contact details and an optional screenshot for faster diagnosis.',
-        images: ['/assets/logo/logo.png'],
+            'Submit a TraderMaster customer support query with your contact details and an optional screenshot for faster diagnosis.',
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'ChronosX Customer Support',
-    url: 'https://chronosx.com/customer-support',
+    name: 'TraderMaster Customer Support',
+    url: 'https://thetradermaster.com/customer-support',
     description:
-        'Submit a ChronosX customer support query with your contact details and an optional screenshot. Our team responds within hours.',
+        'Submit a TraderMaster customer support query with your contact details and an optional screenshot. Our team responds within hours.',
     mainEntity: {
         '@type': 'Organization',
-        name: 'ChronosX',
-        url: 'https://chronosx.com',
-        logo: 'https://chronosx.com/assets/logo/logo.png',
+        name: 'TraderMaster',
+        url: 'https://thetradermaster.com',
+        logo: 'https://thetradermaster.com/assets/logo/logo.png',
         contactPoint: {
             '@type': 'ContactPoint',
             contactType: 'Customer Support',

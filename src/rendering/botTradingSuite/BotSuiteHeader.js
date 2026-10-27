@@ -3,7 +3,7 @@
 import React from 'react';
 import CommonSectionHeader from '@/components/CommonSectionHeader';
 
-export default function BotSuiteHeader({ title, subtitle, rightAction, badge = 'CHRONOSX AI TRADING BOT SUITE', ...rest }) {
+export default function BotSuiteHeader({ title, subtitle, rightAction, badge = 'TRADERMASTER AI TRADING BOT SUITE', ...rest }) {
     return (
         <CommonSectionHeader
             badge={badge}

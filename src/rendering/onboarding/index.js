@@ -123,7 +123,7 @@ export default function Onboarding() {
         };
 
         if (typeof window !== 'undefined') {
-            localStorage.setItem('chronosx_onboarding', JSON.stringify(onboardingData));
+            localStorage.setItem('tradermaster_onboarding', JSON.stringify(onboardingData));
             setOnboardingCompletedInSession();
         }
 

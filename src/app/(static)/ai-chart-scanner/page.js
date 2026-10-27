@@ -5,17 +5,17 @@ export const metadata = {
     description:
         "Upload any TradingView, MT4/MT5, or broker chart screenshot and get instant institutional AI trade signals. Dual Vision AI and live MT5 indicator confluence with precise Entry, Stop-Loss, and Multi-TP targets.",
     openGraph: {
-        title: "AI Chart Scanner — Instant Vision AI Technical Pattern Scanner | ChronosX",
+        title: "AI Chart Scanner — Instant Vision AI Technical Pattern Scanner | TraderMaster",
         description:
             "Upload any TradingView, MT4/MT5, or broker chart screenshot and get instant institutional AI trade signals.",
-        url: "https://chronosx.com/ai-chart-scanner",
-        siteName: "ChronosX",
+        url: "https://thetradermaster.com/ai-chart-scanner",
+        siteName: "TraderMaster",
         images: [
             {
                 url: "/assets/images/ai-trade.png",
                 width: 1200,
                 height: 630,
-                alt: "ChronosX AI Chart Scanner"
+                alt: "TraderMaster AI Chart Scanner"
             }
         ],
         locale: "en_US",
@@ -23,23 +23,23 @@ export const metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "AI Chart Scanner — ChronosX Vision Scanner",
+        title: "AI Chart Scanner — TraderMaster Vision Scanner",
         description:
             "Upload any chart screenshot and receive precise BUY / SELL / NO-TRADE execution setups in seconds.",
         images: ["/assets/images/ai-trade.png"]
     },
     alternates: {
-        canonical: "https://chronosx.com/ai-chart-scanner"
+        canonical: "https://thetradermaster.com/ai-chart-scanner"
     }
 };
 
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "ChronosX AI Chart Scanner",
+    "name": "TraderMaster AI Chart Scanner",
     "operatingSystem": "Web",
     "applicationCategory": "FinanceApplication",
-    "url": "https://chronosx.com/ai-chart-scanner",
+    "url": "https://thetradermaster.com/ai-chart-scanner",
     "description": "Upload any TradingView, MT4/MT5, or broker chart screenshot and get instant institutional AI trade signals with Entry, Stop-Loss, and Multi-TP targets.",
     "offers": {
         "@type": "Offer",

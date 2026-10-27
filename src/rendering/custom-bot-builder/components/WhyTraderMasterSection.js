@@ -26,7 +26,7 @@ const WHY_CARDS = [
   },
   {
     title: "Built for Testing",
-    desc: "Connect your bot workflow with ChronosX Backtesting to evaluate strategy behavior on historical data.",
+    desc: "Connect your bot workflow with TraderMaster Backtesting to evaluate strategy behavior on historical data.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -46,7 +46,7 @@ const WHY_CARDS = [
   },
   {
     title: "One Unified Workflow",
-    desc: "Create and manage your bots from the same ChronosX ecosystem.",
+    desc: "Create and manage your bots from the same TraderMaster ecosystem.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
@@ -57,15 +57,15 @@ const WHY_CARDS = [
   }
 ];
 
-export default function WhyChronosXSection() {
+export default function WhyTraderMasterSection() {
   return (
     <section className={styles.whySection}>
       <div className="container">
         <SectionHeader
-          badge="WHY BUILD WITH CHRONOSX?"
+          badge="WHY BUILD WITH TRADERMASTER?"
           title1="Not Just a Bot Generator."
           title2="A Complete Strategy Workflow."
-          description="ChronosX connects every stage of the algorithmic development lifecycle into a cohesive, high-speed engine."
+          description="TraderMaster connects every stage of the algorithmic development lifecycle into a cohesive, high-speed engine."
         />
 
         {/* 5 Feature Cards */}

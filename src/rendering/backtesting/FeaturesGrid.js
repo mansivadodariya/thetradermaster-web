@@ -99,7 +99,7 @@ export default function FeaturesGrid() {
           badge="backTESTING SUITE"
           title1="Everything You Need for"
           title2="Smarter Strategy Testing"
-          description="From simple inputs to advanced configurations, ChronosX Backtesting gives you the flexibility and insights to evaluate your trading ideas."
+          description="From simple inputs to advanced configurations, TraderMaster Backtesting gives you the flexibility and insights to evaluate your trading ideas."
         />
 
         {/* 6 Features Grid */}

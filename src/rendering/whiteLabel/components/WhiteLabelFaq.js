@@ -7,11 +7,11 @@ import styles from '../whiteLabel.module.scss';
 
 const FAQS = [
     {
-        q: 'What is ChronosX White Label?',
-        a: 'ChronosX White Label is a turnkey B2B technology solution designed to allow eligible businesses to create a fully branded AI trading platform using selected AI-powered and quantitative capabilities from the ChronosX institutional ecosystem.'
+        q: 'What is TraderMaster White Label?',
+        a: 'TraderMaster White Label is a turnkey B2B technology solution designed to allow eligible businesses to create a fully branded AI trading platform using selected AI-powered and quantitative capabilities from the TraderMaster institutional ecosystem.'
     },
     {
-        q: 'Who can use ChronosX White Label?',
+        q: 'Who can use TraderMaster White Label?',
         a: 'The solution is purpose-built for forex and CFD brokers, prop trading firms, fintech startups, trading communities, educators, and enterprise teams building customer experiences around global financial markets.'
     },
     {
@@ -19,7 +19,7 @@ const FAQS = [
         a: 'Yes. The white-label offering provides a completely branded customer experience. You can customize your logo, typography, primary color palettes, custom sub-domain (e.g. app.yourbrand.com), and interface styling.'
     },
     {
-        q: 'Which ChronosX features can be included?',
+        q: 'Which TraderMaster features can be included?',
         a: 'Depending on your agreed package, you can include the AI Chart Scanner (Neural Vision OCR), AI Market Assistant, AI Trading Intelligence & Signals, AI Past Trade Analyzer, Strategy Backtesting suite, and Custom Bot Builder.'
     },
     {
@@ -53,7 +53,7 @@ export default function WhiteLabelFaq() {
                 <SectionHeader
                     badge="FAQ"
                     title="Frequently Asked Questions."
-                    description="Everything you need to know about ChronosX White-Label platform deployment."
+                    description="Everything you need to know about TraderMaster White-Label platform deployment."
                 />
 
                 <div className={styles.faqList}>

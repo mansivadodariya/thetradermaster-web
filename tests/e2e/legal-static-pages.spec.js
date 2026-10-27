@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Institutional & Legal Compliance Suite', () => {
+test.describe('TraderMaster Institutional & Legal Compliance Suite', () => {
   const staticRoutes = [
     { path: '/about-us', title: /About/i },
     { path: '/affiliate-program', title: /Affiliate/i },

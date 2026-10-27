@@ -1,7 +1,7 @@
 'use client';
 
-const LATEST_BACKTEST_KEY = 'chronosx_backtest_latest_session';
-const STRAT_BACKTEST_PREFIX = 'chronosx_backtest_strat_';
+const LATEST_BACKTEST_KEY = 'tradermaster_backtest_latest_session';
+const STRAT_BACKTEST_PREFIX = 'tradermaster_backtest_strat_';
 const LEGACY_STORAGE_PREFIX = 'backtest_result_';
 
 /**

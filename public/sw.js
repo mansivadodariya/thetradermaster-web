@@ -1,5 +1,5 @@
-// ChronosX PWA Service Worker
-const CACHE_NAME = 'chronosx-pwa-v2';
+// TraderMaster PWA Service Worker
+const CACHE_NAME = 'tradermaster-pwa-v2';
 const PRECACHE_ASSETS = [
   '/',
   '/manifest.json',
@@ -7,8 +7,8 @@ const PRECACHE_ASSETS = [
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
   '/icons/apple-touch-icon.png',
-  '/assets/logo/logo.png',
-  '/assets/logo/smallLogo.png'
+  "/assets/logo/logoWhite.svg",
+  "/assets/logo/smallLogo.svg"
 ];
 
 // Install Event: Pre-cache shell assets

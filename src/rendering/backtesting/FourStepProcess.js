@@ -44,7 +44,7 @@ const STEPS = [
     num: "02",
     icon: <PlayIcon />,
     title: "Run the Backtest",
-    desc: "ChronosX processes historical market data and simulates your strategy based on the configured rules and conditions."
+    desc: "TraderMaster processes historical market data and simulates your strategy based on the configured rules and conditions."
   },
   {
     num: "03",

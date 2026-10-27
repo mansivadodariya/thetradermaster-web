@@ -1,7 +1,7 @@
 import Dashboard from '@/rendering/dashboard';
 
 export const metadata = {
-    title: 'Trading Desk Dashboard | ChronosX',
+    title: 'Trading Desk Dashboard | TraderMaster',
     description: 'Real-time multi-timeframe algorithmic pattern detection, neural OCR chart vision, and institutional trading signals.',
 };
 

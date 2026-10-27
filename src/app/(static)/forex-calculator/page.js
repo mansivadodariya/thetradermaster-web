@@ -4,19 +4,19 @@ export const metadata = {
     title: 'Free Forex & Trading Calculators',
     description: 'Precision pip value calculator, margin requirements, Fibonacci retracements, pivot points, and position sizing risk calculator.',
     alternates: {
-        canonical: 'https://chronosx.com/forex-calculator',
+        canonical: 'https://thetradermaster.com/forex-calculator',
     },
     openGraph: {
-        title: 'Free Forex & Trading Calculators | ChronosX',
+        title: 'Free Forex & Trading Calculators | TraderMaster',
         description: 'Precision pip value calculator, margin requirements, Fibonacci retracements, pivot points, and position sizing risk calculator.',
-        url: 'https://chronosx.com/forex-calculator',
-        siteName: 'ChronosX',
+        url: 'https://thetradermaster.com/forex-calculator',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Free Forex & Trading Calculators',
+                alt: 'TraderMaster Free Forex & Trading Calculators',
             },
         ],
         locale: 'en_US',
@@ -24,17 +24,17 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Free Forex & Trading Calculators | ChronosX',
+        title: 'Free Forex & Trading Calculators | TraderMaster',
         description: 'Precision pip value calculator, margin requirements, Fibonacci retracements, pivot points, and position sizing risk calculator.',
-        images: ['/assets/logo/logo.png'],
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    'name': 'ChronosX Precision Forex & Trading Calculators',
-    'url': 'https://chronosx.com/forex-calculator',
+    'name': 'TraderMaster Precision Forex & Trading Calculators',
+    'url': 'https://thetradermaster.com/forex-calculator',
     'applicationCategory': 'FinanceApplication',
     'operatingSystem': 'Web',
     'description': 'Precision pip value calculator, margin requirements, Fibonacci retracements, pivot points, and position sizing risk calculator.',

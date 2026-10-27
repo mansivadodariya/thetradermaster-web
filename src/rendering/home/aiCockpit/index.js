@@ -271,7 +271,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                   <span>{t('homeSections.aiCockpit.footerLive', 'AI STREAM ACTIVE · REAL-TIME WEBSOCKET')}</span>
                 </div>
                 <div className={styles.footerRight}>
-                  <span>{t('homeSections.aiCockpit.footerFeed', 'CHRONOSX AI TERMINAL · ZERO-LATENCY')}</span>
+                  <span>{t('homeSections.aiCockpit.footerFeed', 'TRADERMASTER AI TERMINAL · ZERO-LATENCY')}</span>
                 </div>
               </div>
 

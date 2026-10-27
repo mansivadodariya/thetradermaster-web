@@ -35,7 +35,7 @@ import {
 import { fetchIndicatorsFromSupabase, getStrategyExploreSuggestions } from '@/lib/indicatorsData';
 
 const EXPLORE_TAGLINES = [
-    'Start with a message, ChronosX takes it from there',
+    'Start with a message, TraderMaster takes it from there',
     'Trade with data. Execute with discipline.',
     'Build smarter strategies. Trade with confidence.',
     'Every great trade starts with a clear plan.',

@@ -436,7 +436,7 @@ export function useTradeAnalysisExport() {
                 <div class="pdfHeaderBox" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; margin-bottom: 14px; width: 100%; box-sizing: border-box; page-break-inside: avoid; break-inside: avoid;">
                     <div>
                         <div style="margin-bottom: 6px;">
-                            <img src="${logoDataUrl || '/assets/logo/darklogo.png'}" alt="ChronosX" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block;" />
+                            <img src="${logoDataUrl || "/assets/logo/logo.svg"}" alt="TraderMaster" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block;" />
                         </div>
                         <div class="pdfTitle" style="font-size: 15px; font-weight: 800; color: #0F172A; margin: 0 0 3px 0;">Statement Audit & Behavioral Quant Report</div>
                         <div class="pdfSub" style="font-size: 10px; color: #64748B; margin: 0;">Statement: <strong>${fileName}</strong> • Uploaded: ${dateStr} • Trades: <strong>${totalTradesCount}</strong></div>
@@ -652,7 +652,7 @@ export function useTradeAnalysisExport() {
 
             const opt = {
                 margin: [6, 6, 6, 6],
-                filename: `ChronosX_Statement_Analysis_${cleanName}_${dateStr}.pdf`,
+                filename: `TraderMaster_Statement_Analysis_${cleanName}_${dateStr}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
                     scale: 2,

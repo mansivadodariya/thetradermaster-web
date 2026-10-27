@@ -1,5 +1,5 @@
 /**
- * ChronosX Affiliate Service
+ * TraderMaster Affiliate Service
  * Integration client for connecting to FastAPI / Next.js backend affiliate endpoints.
  */
 

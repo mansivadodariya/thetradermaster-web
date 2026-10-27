@@ -2,21 +2,21 @@ import PublicAffiliateView from '@/rendering/publicAffiliate';
 
 export const metadata = {
   title: 'Affiliate Program — Earn Recurring Commissions',
-  description: 'Join the ChronosX Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
+  description: 'Join the TraderMaster Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
   alternates: {
-    canonical: 'https://chronosx.com/affiliate-program',
+    canonical: 'https://thetradermaster.com/affiliate-program',
   },
   openGraph: {
-    title: 'Affiliate Program — Earn Recurring Commissions | ChronosX',
-    description: 'Join the ChronosX Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
-    url: 'https://chronosx.com/affiliate-program',
-    siteName: 'ChronosX',
+    title: 'Affiliate Program — Earn Recurring Commissions | TraderMaster',
+    description: 'Join the TraderMaster Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
+    url: 'https://thetradermaster.com/affiliate-program',
+    siteName: 'TraderMaster',
     images: [
       {
-        url: '/assets/logo/logo.png',
+        url: "/assets/logo/logoWhite.svg",
         width: 1200,
         height: 630,
-        alt: 'ChronosX Affiliate Program',
+        alt: 'TraderMaster Affiliate Program',
       },
     ],
     locale: 'en_US',
@@ -24,22 +24,22 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Affiliate Program — Earn Recurring Commissions | ChronosX',
-    description: 'Join the ChronosX Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
-    images: ['/assets/logo/logo.png'],
+    title: 'Affiliate Program — Earn Recurring Commissions | TraderMaster',
+    description: 'Join the TraderMaster Affiliate Program and earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
+    images: ["/assets/logo/logoWhite.svg"],
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FinancialProduct',
-  'name': 'ChronosX Affiliate Program',
-  'url': 'https://chronosx.com/affiliate-program',
+  'name': 'TraderMaster Affiliate Program',
+  'url': 'https://thetradermaster.com/affiliate-program',
   'description': 'Earn up to 20% recurring commissions by sharing AI-powered trading tools with your audience.',
   'provider': {
     '@type': 'Organization',
-    'name': 'ChronosX',
-    'url': 'https://chronosx.com'
+    'name': 'TraderMaster',
+    'url': 'https://thetradermaster.com'
   }
 };
 

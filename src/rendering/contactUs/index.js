@@ -143,7 +143,7 @@ export default function ContactUs() {
         } catch (err) {
             console.error('Contact submission error:', err);
             setIsSubmitting(false);
-            toast.error(err?.message || 'Failed to send message. Please try again or email support@chronosx.com directly.');
+            toast.error(err?.message || 'Failed to send message. Please try again or email support@thetradermaster.com directly.');
         }
     };
 
@@ -231,15 +231,15 @@ export default function ContactUs() {
                                         </div>
                                         <div className={styles.infoContent}>
                                             <span className={styles.infoLabel}>{contactInfo?.email?.label || t('contactUs.labelEmail', 'EMAIL')}</span>
-                                            <a href={`mailto:${contactInfo?.email?.value || 'support@chronosx.com'}`} className={styles.infoValue}>
-                                                {contactInfo?.email?.value || 'support@chronosx.com'}
+                                            <a href={`mailto:${contactInfo?.email?.value || 'support@thetradermaster.com'}`} className={styles.infoValue}>
+                                                {contactInfo?.email?.value || 'support@thetradermaster.com'}
                                             </a>
                                             <span className={styles.infoHelper}>{contactInfo?.email?.helper || t('contactUs.emailHelper', 'Average response time: < 15 mins')}</span>
                                         </div>
                                         <button
                                             type="button"
                                             className={styles.itemCopyBtn}
-                                            onClick={() => handleCopy(contactInfo?.email?.value || 'support@chronosx.com', 'Email')}
+                                            onClick={() => handleCopy(contactInfo?.email?.value || 'support@thetradermaster.com', 'Email')}
                                             title="Copy email"
                                             aria-label="Copy Email"
                                         >
@@ -409,7 +409,7 @@ export default function ContactUs() {
                                                             id="email"
                                                             type="email"
                                                             name="email"
-                                                            placeholder={t('contactUs.placeholderEmail', 'example@chronosx.com')}
+                                                            placeholder={t('contactUs.placeholderEmail', 'example@thetradermaster.com')}
                                                             value={formData.email}
                                                             onChange={handleInputChange}
                                                             required
@@ -575,7 +575,7 @@ export default function ContactUs() {
                 badge={t('contactUs.ctaBadge', 'READY FOR INSTITUTIONAL EXECUTION?')}
                 title1={t('contactUs.ctaTitle1', 'Ready to Trade with')}
                 title2={t('contactUs.ctaTitle2', 'Institutional AI Intelligence?')}
-                description={t('contactUs.ctaDesc', 'Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals.')}
+                description={t('contactUs.ctaDesc', 'Join thousands of elite forex and crypto traders leveraging TraderMaster real-time neural vision and high-probability signals.')}
                 primaryBtnText={t('contactUs.ctaBtn', 'GET STARTED NOW')}
                 primaryBtnAction="/signup"
             />

@@ -1,7 +1,7 @@
 import CustomBotBuilderView from '@/rendering/customBotBuilder';
 
 export const metadata = {
-    title: 'Custom Bot Builder — AI Trading Bot | ChronosX',
+    title: 'Custom Bot Builder — AI Trading Bot | TraderMaster',
     description: 'Design deterministic algorithmic trading bots with no-code indicator logic, risk controls, and automated backtesting.',
 };
 

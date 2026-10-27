@@ -548,7 +548,7 @@ export default function AiStrategy({ initialTab = 'live' }) {
         <div className={styles.aiStrategyWrapper}>
             {/* Page Title */}
             <CommonSectionHeader
-                badge={activeTab === 'live' ? t('aiStrategy.liveAnalysisBadge', 'CHRONOSX LIVE ANALYSIS FEED') : t('aiStrategy.algorithmicSuiteBadge', 'CHRONOSX ALGORITHMIC SUITE')}
+                badge={activeTab === 'live' ? t('aiStrategy.liveAnalysisBadge', 'TRADERMASTER LIVE ANALYSIS FEED') : t('aiStrategy.algorithmicSuiteBadge', 'TRADERMASTER ALGORITHMIC SUITE')}
                 badgeIcon={
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />

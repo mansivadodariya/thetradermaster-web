@@ -4,19 +4,19 @@ export const metadata = {
     title: 'Risk Disclosure Statement',
     description: 'Understand the risks involved in foreign exchange, leveraged trading, and algorithmic market analysis.',
     alternates: {
-        canonical: 'https://chronosx.com/risk-disclosure',
+        canonical: 'https://thetradermaster.com/risk-disclosure',
     },
     openGraph: {
-        title: 'Risk Disclosure Statement | ChronosX',
+        title: 'Risk Disclosure Statement | TraderMaster',
         description: 'Understand the risks involved in foreign exchange, leveraged trading, and algorithmic market analysis.',
-        url: 'https://chronosx.com/risk-disclosure',
-        siteName: 'ChronosX',
+        url: 'https://thetradermaster.com/risk-disclosure',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Risk Disclosure Statement',
+                alt: 'TraderMaster Risk Disclosure Statement',
             },
         ],
         locale: 'en_US',
@@ -24,22 +24,22 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Risk Disclosure Statement | ChronosX',
+        title: 'Risk Disclosure Statement | TraderMaster',
         description: 'Understand the risks involved in foreign exchange, leveraged trading, and algorithmic market analysis.',
-        images: ['/assets/logo/logo.png'],
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    'name': 'ChronosX Risk Disclosure Statement',
-    'url': 'https://chronosx.com/risk-disclosure',
+    'name': 'TraderMaster Risk Disclosure Statement',
+    'url': 'https://thetradermaster.com/risk-disclosure',
     'description': 'Understand the risks involved in foreign exchange, leveraged trading, and algorithmic market analysis.',
     'publisher': {
         '@type': 'Organization',
-        'name': 'ChronosX',
-        'url': 'https://chronosx.com'
+        'name': 'TraderMaster',
+        'url': 'https://thetradermaster.com'
     }
 };
 

@@ -1,7 +1,7 @@
 import EconomicCalendar from '@/rendering/economicCalendar';
 
 export const metadata = {
-    title: 'Economic Calendar & Macro Events | ChronosX',
+    title: 'Economic Calendar & Macro Events | TraderMaster',
     description: 'Track high-impact global macroeconomic news, central bank rate decisions, and volatility events impacting Forex and commodities.',
 };
 

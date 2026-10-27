@@ -24,7 +24,7 @@ export default function TradingProfileAnalysisCard({
     const latestAnalysis = dataObj.latest_analysis ||
                            dataObj.analysis ||
                            dataObj.assessment ||
-                           dataObj.chronosx_assessment ||
+                           dataObj.tradermaster_assessment ||
                            tradingProfileData?.latest_analysis ||
                            tradingProfileData?.analysis ||
                            tradingProfileData?.assessment ||
@@ -160,7 +160,7 @@ export default function TradingProfileAnalysisCard({
                 </div>
             </div>
 
-            {/* ChronosX AI Trading Assessment Response */}
+            {/* TraderMaster AI Trading Assessment Response */}
             <AiAssessmentCard
                 analysis={latestAnalysis || dataObj}
                 preferences={preferences}

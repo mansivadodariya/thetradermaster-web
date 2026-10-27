@@ -6,7 +6,7 @@ import InstallModal from './InstallModal';
 
 /**
  * PwaInstaller Component
- * Registers the Service Worker, captures beforeinstallprompt, and manages the center Install ChronosX modal.
+ * Registers the Service Worker, captures beforeinstallprompt, and manages the center Install TraderMaster modal.
  */
 export default function PwaInstaller() {
   const pathname = usePathname();
@@ -65,11 +65,11 @@ export default function PwaInstaller() {
       };
 
       window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.addEventListener('chronosx:open-install-modal', handleOpenModal);
+      window.addEventListener('TraderMaster:open-install-modal', handleOpenModal);
 
       return () => {
         window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        window.removeEventListener('chronosx:open-install-modal', handleOpenModal);
+        window.removeEventListener('TraderMaster:open-install-modal', handleOpenModal);
       };
     }
   }, [isAuthRoute]);

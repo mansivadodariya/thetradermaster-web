@@ -2,7 +2,7 @@ import { toast } from '@/components/toast';
 import { renderRadarSvgHtml, renderCandlestickSvgHtml } from './pdfChartGenerators';
 
 /**
- * Universal White-Theme PDF Exporter for ChronosX AI Assistant
+ * Universal White-Theme PDF Exporter for TraderMaster AI Assistant
  * Exports any chat message (Vision Analysis, Deep Analysis, Markdown, or Technical Advice)
  * strictly formatted in institutional white-theme with cover header, proper margins, and zero line cutting.
  */
@@ -551,7 +551,7 @@ export async function exportAssistantMessageToPdf(msg, defaultPair = 'XAU/USD', 
             <div class="pdfBlock" style="border-bottom: 2px solid #0F172A; padding-bottom: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; page-break-inside: avoid; break-inside: avoid; width: 100%;">
                 <div>
                     <div style="margin-bottom: 6px;">
-                        <img src="${logoDataUrl || '/assets/logo/darklogo.png'}" alt="ChronosX" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block;" />
+                        <img src="${logoDataUrl || "/assets/logo/logo.svg"}" alt="TraderMaster" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block;" />
                     </div>
                     <div style="font-size: 15px; font-weight: 900; color: #0F172A; margin: 0; letter-spacing: -0.3px;">${reportType}</div>
                     <div style="font-size: 9.5px; color: #64748B; margin-top: 2px;">
@@ -571,14 +571,14 @@ export async function exportAssistantMessageToPdf(msg, defaultPair = 'XAU/USD', 
 
             <!-- FOOTER -->
             <div class="pdfBlock" style="border-top: 1px solid #E2E8F0; padding-top: 8px; margin-top: 10px; display: flex; justify-content: space-between; font-size: 8px; color: #94A3B8; page-break-inside: avoid; break-inside: avoid; width: 100%;">
-                <span>ChronosX Quantitative AI Engine • Execution Reference Only</span>
+                <span>TraderMaster Quantitative AI Engine • Execution Reference Only</span>
                 <span>Institutional Audit • Continuous Stream</span>
             </div>
         `;
 
         const opt = {
             margin: [6, 6, 6, 6],
-            filename: `ChronosX_AI_Assistant_${cleanPair}_${dateStr}.pdf`,
+            filename: `TraderMaster_AI_Assistant_${cleanPair}_${dateStr}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: {
                 scale: 2,

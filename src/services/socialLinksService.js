@@ -7,7 +7,7 @@ export const SOCIAL_PLATFORM_META = {
     x: {
         platform: 'x',
         label: 'X / Twitter',
-        defaultUrl: 'https://x.com/ChronosX_Official',
+        defaultUrl: 'https://x.com/thetradermaster',
         icon: '/assets/icons/twitter.svg',
         brandColor: '#0F1419',
         darkColor: '#FFFFFF',
@@ -18,7 +18,7 @@ export const SOCIAL_PLATFORM_META = {
     telegram: {
         platform: 'telegram',
         label: 'Telegram',
-        defaultUrl: 'https://t.me/chronosxofficial',
+        defaultUrl: 'https://t.me/thetradermaster',
         icon: '/assets/icons/telegram.svg',
         brandColor: '#24A1DE',
         darkColor: '#24A1DE',
@@ -29,7 +29,7 @@ export const SOCIAL_PLATFORM_META = {
     youtube: {
         platform: 'youtube',
         label: 'YouTube',
-        defaultUrl: 'https://www.youtube.com/@Chronosx_Official',
+        defaultUrl: 'https://www.youtube.com/@thetradermaster',
         icon: '/assets/icons/youtube.svg',
         brandColor: '#FF0000',
         darkColor: '#FF0000',
@@ -40,7 +40,7 @@ export const SOCIAL_PLATFORM_META = {
     instagram: {
         platform: 'instagram',
         label: 'Instagram',
-        defaultUrl: 'https://www.instagram.com/chronosx_official/',
+        defaultUrl: 'https://www.instagram.com/thetradermaster',
         icon: '/assets/icons/instagram.svg',
         brandColor: '#E1306C',
         darkColor: '#E1306C',

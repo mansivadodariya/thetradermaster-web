@@ -32,7 +32,7 @@ export default function HowItWorksSection({ refProp, onJoinClick }) {
           badge={t('publicAffiliate.howItWorksBadge', 'HOW IT WORKS')}
           title1="Three Simple Steps to"
           title2="Start Earning"
-          description={t('publicAffiliate.howItWorksSubtitle', 'Join the ChronosX affiliate program, share your unique referral link, and earn commissions when qualifying activity is generated through your referrals.')}
+          description={t('publicAffiliate.howItWorksSubtitle', 'Join the TraderMaster affiliate program, share your unique referral link, and earn commissions when qualifying activity is generated through your referrals.')}
         />
 
         <div className={styles.stepsGrid}>

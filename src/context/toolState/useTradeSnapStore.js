@@ -3,11 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const SNAP_KEYS = {
-    ANALYSES: 'chronosx_tradesnap_analyses',
-    SELECTED: 'chronosx_tradesnap_selected',
-    SHOW: 'chronosx_tradesnap_show_analysis',
-    CAPTURED: 'chronosx_tradesnap_captured_image',
-    ACTIVE_JOB: 'chronosx_tradesnap_active_job'
+    ANALYSES: 'tradermaster_tradesnap_analyses',
+    SELECTED: 'tradermaster_tradesnap_selected',
+    SHOW: 'tradermaster_tradesnap_show_analysis',
+    CAPTURED: 'tradermaster_tradesnap_captured_image',
+    ACTIVE_JOB: 'tradermaster_tradesnap_active_job'
 };
 
 export function useCreateTradeSnapStore() {

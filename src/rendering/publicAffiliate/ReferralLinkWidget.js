@@ -9,7 +9,7 @@ export default function ReferralLinkWidget() {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
-  const referralLink = "https://chronosx.com/signup?ref=YOUR-CODE";
+  const referralLink = "https://thetradermaster.com/signup?ref=YOUR-CODE";
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(referralLink);
@@ -19,7 +19,7 @@ export default function ReferralLinkWidget() {
 
   const handleSocialShare = (platform) => {
     const encodedUrl = encodeURIComponent(referralLink);
-    const text = encodeURIComponent("Join ChronosX - The Next-Gen AI Trading Platform!");
+    const text = encodeURIComponent("Join TraderMaster - The Next-Gen AI Trading Platform!");
     let url = "";
 
     if (platform === 'x') url = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
@@ -37,7 +37,7 @@ export default function ReferralLinkWidget() {
           badge={t('publicAffiliate.referralLinkBadge', 'YOUR REFERRAL LINK')}
           title1="One-Click Instant"
           title2="Social Sharing"
-          description={t('publicAffiliate.referralLinkSubtitle', 'Share your unique referral link across social media, trading communities, websites, and direct channels. Make it easy to share ChronosX wherever your audience is active.')}
+          description={t('publicAffiliate.referralLinkSubtitle', 'Share your unique referral link across social media, trading communities, websites, and direct channels. Make it easy to share TraderMaster wherever your audience is active.')}
         />
 
         <div className={styles.widgetContainer}>
@@ -91,7 +91,7 @@ export default function ReferralLinkWidget() {
               onClick={(e) => e.stopPropagation()}
             >
               <h3 className={styles.qrModalTitle}>Your Referral QR Code</h3>
-              <p className={styles.qrModalDesc}>Scan with smartphone camera to join ChronosX</p>
+              <p className={styles.qrModalDesc}>Scan with smartphone camera to join TraderMaster</p>
 
               <div className={styles.qrCodeWrapper}>
                 <svg width="180" height="180" viewBox="0 0 100 100" fill="#060B0E">

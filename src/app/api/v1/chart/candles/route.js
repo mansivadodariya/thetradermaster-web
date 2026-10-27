@@ -175,7 +175,7 @@ export async function GET(request) {
         const backendBase = (process.env.NEXT_PUBLIC_BACKEND_URL || process.env.BACKEND_URL || '').replace(/\/+$/, '');
         const candidateBases = [
             backendBase,
-            'https://api.chronosx.com'
+            'https://api.thetradermaster.com'
         ].filter(Boolean);
 
         for (const base of Array.from(new Set(candidateBases))) {
@@ -188,7 +188,7 @@ export async function GET(request) {
                     closeConnection: true,
                     headers: {
                         'accept': 'application/json',
-                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ChronosXApp'
+                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) TraderMasterApp'
                     }
                 });
 

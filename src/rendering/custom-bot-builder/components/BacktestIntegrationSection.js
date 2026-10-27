@@ -35,7 +35,7 @@ export default function BacktestIntegrationSection({ onExploreClick }) {
             badge="BACKTEST YOUR BOT"
             title1="Don't Just Build It."
             title2="Test It With Precision."
-            description="Once your bot is created, move directly into the ChronosX Backtesting engine. Test your bot using historical market data and analyze performance under chosen simulation conditions."
+            description="Once your bot is created, move directly into the TraderMaster Backtesting engine. Test your bot using historical market data and analyze performance under chosen simulation conditions."
           />
 
           {/* Metric Pills */}

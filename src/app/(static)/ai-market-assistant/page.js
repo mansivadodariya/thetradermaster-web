@@ -5,17 +5,17 @@ export const metadata = {
     description:
         "Meet your institutional AI market copilot. Ask any question about technical setups, macroeconomic trends, and risk management with real-time financial context.",
     openGraph: {
-        title: "AI Market Assistant — Instant Conversational Market Intelligence | ChronosX",
+        title: "AI Market Assistant — Instant Conversational Market Intelligence | TraderMaster",
         description:
-            "Instant answers to technical setups, macroeconomic analysis, and strategy feedback powered by ChronosX AI.",
-        url: "https://chronosx.com/ai-market-assistant",
-        siteName: "ChronosX",
+            "Instant answers to technical setups, macroeconomic analysis, and strategy feedback powered by TraderMaster AI.",
+        url: "https://thetradermaster.com/ai-market-assistant",
+        siteName: "TraderMaster",
         images: [
             {
                 url: "/assets/images/ai-chat.png",
                 width: 1200,
                 height: 630,
-                alt: "ChronosX AI Market Assistant"
+                alt: "TraderMaster AI Market Assistant"
             }
         ],
         locale: "en_US",
@@ -23,22 +23,22 @@ export const metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "AI Market Assistant — ChronosX",
+        title: "AI Market Assistant — TraderMaster",
         description: "Your 24/7 AI-powered market copilot.",
         images: ["/assets/images/ai-chat.png"]
     },
     alternates: {
-        canonical: "https://chronosx.com/ai-market-assistant"
+        canonical: "https://thetradermaster.com/ai-market-assistant"
     }
 };
 
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "ChronosX AI Market Assistant",
+    "name": "TraderMaster AI Market Assistant",
     "operatingSystem": "Web",
     "applicationCategory": "FinanceApplication",
-    "url": "https://chronosx.com/ai-market-assistant",
+    "url": "https://thetradermaster.com/ai-market-assistant",
     "description": "Meet your institutional AI market copilot. Ask any question about technical setups, macroeconomic trends, and risk management with real-time financial context.",
     "offers": {
         "@type": "Offer",

@@ -25,9 +25,9 @@ import {
   SupportTicketIcon,
 } from '@/icons/sidebarIcons';
 
-export const BrandDarkLogo = "/assets/logo/darklogo.png";
-export const BrandLightLogo = "/assets/logo/logo.png";
-export const SmallLogo = "/assets/logo/smallLogo.png";
+export const BrandDarkLogo = "/assets/logo/logo.svg";
+export const BrandLightLogo = "/assets/logo/logoWhite.svg";
+export const SmallLogo = "/assets/logo/smallLogo.svg";
 
 export const ChevronRightIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

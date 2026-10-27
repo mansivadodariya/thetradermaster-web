@@ -62,7 +62,7 @@ export default function MyBotsEmptyState({
 
                         <div className={styles.botBody}>
                             <p className={styles.botDescription}>
-                                {t('myBots.aiCardDesc', 'Describe your trading strategy concept or archetype in plain English. ChronosX AI handles quantitative parameter formulas, indicator conditions, and backtest simulations instantly.')}
+                                {t('myBots.aiCardDesc', 'Describe your trading strategy concept or archetype in plain English. TraderMaster AI handles quantitative parameter formulas, indicator conditions, and backtest simulations instantly.')}
                             </p>
 
                             <div className={styles.featureList}>

@@ -92,7 +92,7 @@ export function InteractiveErrorBubble({
                 <div className={styles.errorDesc}>
                     {error?.message || error?.text || (isCredits
                         ? 'You do not have enough AI compute credits to continue.'
-                        : 'Unable to communicate with the ChronosX Copilot API. The service may be temporarily unavailable.')}
+                        : 'Unable to communicate with the TraderMaster Copilot API. The service may be temporarily unavailable.')}
                 </div>
                 {error?.suggestion && (
                     <div className={styles.errorSuggestion}>{error.suggestion}</div>

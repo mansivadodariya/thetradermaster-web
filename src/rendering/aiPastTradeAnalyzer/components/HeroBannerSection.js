@@ -112,7 +112,7 @@ export default function HeroBannerSection({ scrollToAudit }) {
                             onClick={() => authNavigate(router, '/dashboard')}
                             className={styles.heroSecondaryBtn}
                         >
-                            <span>{t('tradeAudit.exploreChronosX', 'EXPLORE CHRONOSX')}</span>
+                            <span>{t('tradeAudit.exploreTraderMaster', 'EXPLORE TRADERMASTER')}</span>
                         </button>
                     </motion.div>
                 </div>

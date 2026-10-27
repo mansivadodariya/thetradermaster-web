@@ -14,8 +14,8 @@ import Button from '@/components/button';
 import { supabase } from '@/lib/supabaseClient';
 
 const LineImage = '/assets/images/line.png';
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 const AuthIcon = '/assets/icons/auth.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
@@ -297,7 +297,7 @@ export default function FirebasePhoneModal({
                     )}
 
                     <div className={styles.brandLogoHeader}>
-                        <img src={logoSrc} alt="ChronosX" className={styles.brandLogoImg} />
+                        <img src={logoSrc} alt="TraderMaster" className={styles.brandLogoImg} />
                     </div>
 
                     {step === 'phone' && (

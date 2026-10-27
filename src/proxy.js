@@ -132,7 +132,7 @@ export async function proxy(request) {
   const isMaintenanceEnv =
     process.env.MAINTENANCE_MODE === "true" ||
     process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true";
-  const forceMaintenanceCookie = request.cookies.get("chronosx_maintenance")?.value === "true";
+  const forceMaintenanceCookie = request.cookies.get("tradermaster_maintenance")?.value === "true";
   const forceMaintenanceQuery = searchParams.get("force_maintenance") === "true";
   const isMaintenanceActive =
     maintenanceStatus.isActive ||
@@ -143,7 +143,7 @@ export async function proxy(request) {
   // Check Developer / Admin Bypass Key
   const bypassParam = searchParams.get("bypass_maintenance");
   const bypassCookie = request.cookies.get("maintenance_bypass")?.value;
-  const validBypassSecret = process.env.MAINTENANCE_BYPASS_KEY || "chronosx-secret";
+  const validBypassSecret = process.env.MAINTENANCE_BYPASS_KEY || "TraderMaster-secret";
   const isBypassed =
     bypassCookie === "true" ||
     bypassCookie === validBypassSecret ||
@@ -292,7 +292,7 @@ export async function proxy(request) {
     targetUrl.search = request.nextUrl.search;
 
     const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-chronosx-lang", matchedLocale);
+    requestHeaders.set("x-tradermaster-lang", matchedLocale);
 
     const response = NextResponse.rewrite(targetUrl, {
       request: {
@@ -301,7 +301,7 @@ export async function proxy(request) {
     });
     response.cookies.set("app_language", matchedLocale, { path: "/", maxAge: 31536000, sameSite: "lax" });
     response.cookies.set("NEXT_LOCALE", matchedLocale, { path: "/", maxAge: 31536000, sameSite: "lax" });
-    response.headers.set("x-chronosx-lang", matchedLocale);
+    response.headers.set("x-tradermaster-lang", matchedLocale);
     return response;
   }
 

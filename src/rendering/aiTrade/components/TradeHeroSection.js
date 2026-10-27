@@ -23,7 +23,7 @@ export default function TradeHeroSection({ scrollToDemo }) {
                         badge={t('aiTrade.heroBadge', 'NEXT-GEN AI CHART SCANNER')}
                         title1={t('aiTrade.heroTitle1', 'Show Your Chart.')}
                         title2={t('aiTrade.heroTitle2', 'Get Instant AI Market Analysis.')}
-                        description={t('aiTrade.heroSubtitle', 'Stop spending hours analyzing charts manually. Upload your trading chart or share your screen, and ChronosX AI analyzes the market structure, trend, price action, support & resistance, and key technical signals to give you a clear, easy-to-understand market analysis in seconds.')}
+                        description={t('aiTrade.heroSubtitle', 'Stop spending hours analyzing charts manually. Upload your trading chart or share your screen, and TraderMaster AI analyzes the market structure, trend, price action, support & resistance, and key technical signals to give you a clear, easy-to-understand market analysis in seconds.')}
                         align="center"
                     />
 

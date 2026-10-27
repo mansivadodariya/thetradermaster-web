@@ -4,11 +4,11 @@ import { useState, useCallback, useEffect } from 'react';
 import { MOCK_LIVE_DATA, MOCK_STRATEGY_SIGNAL, MOCK_SCANNER_DATA } from '@/rendering/aiStrategy/strategyUtils';
 
 const STRAT_KEYS = {
-    SYMBOL: 'chronosx_aistrat_symbol',
-    STRAT_ID: 'chronosx_aistrat_id',
-    TIMEFRAME: 'chronosx_aistrat_tf',
-    STRAT_SYMBOL: 'chronosx_aistrat_strat_symbol',
-    ANALYSIS: 'chronosx_aistrat_analysis'
+    SYMBOL: 'tradermaster_aistrat_symbol',
+    STRAT_ID: 'tradermaster_aistrat_id',
+    TIMEFRAME: 'tradermaster_aistrat_tf',
+    STRAT_SYMBOL: 'tradermaster_aistrat_strat_symbol',
+    ANALYSIS: 'tradermaster_aistrat_analysis'
 };
 
 export function useCreateAiStrategyStore() {

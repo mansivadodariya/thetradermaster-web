@@ -1,12 +1,12 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Homepage Top-to-Bottom Suite', () => {
+test.describe('TraderMaster Homepage Top-to-Bottom Suite', () => {
   test('Complete vertical scroll and section verification', async ({ page }) => {
     await page.goto('/');
 
     // 1. Page Title & Hero Section
-    await expect(page).toHaveTitle(/CHRONOS/i);
+    await expect(page).toHaveTitle(/TRADERMASTER|Trader Master/i);
     const heroH1 = page.locator('h1').first();
     await expect(heroH1).toBeVisible();
 

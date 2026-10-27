@@ -37,7 +37,7 @@ export default function BlogsListing() {
                 {/* Uniform Section Header */}
                 <SectionHeader
                     as="h1"
-                    badge={t('blogs.badge', 'CHRONOSX TRADING RESEARCH & INSIGHTS')}
+                    badge={t('blogs.badge', 'TRADERMASTER TRADING RESEARCH & INSIGHTS')}
                     title1={t('blogs.title1', 'Institutional Trading Intelligence &')}
                     title2={t('blogs.title2', 'Macro Insights')}
                     description={t('blogs.description', 'Comprehensive guides, quantitative frameworks, smart money concepts, and real-time market playbooks written by institutional traders.')}

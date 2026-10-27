@@ -60,7 +60,7 @@ export default function HeroSection({ onStartClick, onCustomClick }) {
 
         {/* Hero Subtext */}
         <p className={styles.heroSubtext}>
-          Turn your trading ideas into configurable algorithmic bots with ChronosX. Choose an AI-powered workflow to describe your strategy in plain English, or build every rule manually with the Custom Bot Builder.
+          Turn your trading ideas into configurable algorithmic bots with TraderMaster. Choose an AI-powered workflow to describe your strategy in plain English, or build every rule manually with the Custom Bot Builder.
         </p>
 
         {/* Hero CTAs */}

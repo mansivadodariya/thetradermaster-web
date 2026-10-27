@@ -39,12 +39,12 @@ export const COUNTRIES = [
 
 export const getContactFaqs = (t) => [
     {
-        q: t('contactUs.faqQ1', 'How fast will I receive a response from the ChronosX team?'),
+        q: t('contactUs.faqQ1', 'How fast will I receive a response from the TraderMaster team?'),
         a: t('contactUs.faqA1', 'Our support routing system prioritizes urgent trading requests immediately. General inquiries are typically answered within 15 minutes, while VIP and Institutional partners receive direct Slack/Telegram channels with sub-5-minute SLA.')
     },
     {
-        q: t('contactUs.faqQ2', 'Can I integrate ChronosX AI signals directly into my MT5 or broker account?'),
-        a: t('contactUs.faqA2', 'Yes! ChronosX provides ultra-low latency webhook APIs, MT5 bridge connectors, and automated signal alerts compatible with leading prop firms and global brokers.')
+        q: t('contactUs.faqQ2', 'Can I integrate TraderMaster AI signals directly into my MT5 or broker account?'),
+        a: t('contactUs.faqA2', 'Yes! TraderMaster provides ultra-low latency webhook APIs, MT5 bridge connectors, and automated signal alerts compatible with leading prop firms and global brokers.')
     },
     {
         q: t('contactUs.faqQ3', 'Do you offer 1-on-1 personalized demo onboarding?'),
@@ -56,6 +56,6 @@ export const getContactFaqs = (t) => [
     },
     {
         q: t('contactUs.faqQ5', 'What is your security and data privacy protocol for trading accounts?'),
-        a: t('contactUs.faqA5', 'ChronosX adheres to strict zero-knowledge encryption protocols. We never store personal broker credentials or execute unauthorized trades. All analytical and OCR chart vision data is transmitted via end-to-end TLS 1.3 encryption.')
+        a: t('contactUs.faqA5', 'TraderMaster adheres to strict zero-knowledge encryption protocols. We never store personal broker credentials or execute unauthorized trades. All analytical and OCR chart vision data is transmitted via end-to-end TLS 1.3 encryption.')
     }
 ];

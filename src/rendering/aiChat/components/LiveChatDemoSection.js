@@ -65,7 +65,7 @@ export default function LiveChatDemoSection({
                         </div>
                         <div className={`${styles.terminalTitle} ${styles.terminalBrand}`}>
                             <span className={styles.terminalLiveDot} />
-                            <span>CHRONOSX QUANT DESK // MT5 LIVE STREAM ({selectedPrompt.demoData.pair})</span>
+                            <span>TRADERMASTER QUANT DESK // MT5 LIVE STREAM ({selectedPrompt.demoData.pair})</span>
                         </div>
                         <div className={`${styles.terminalStatus} ${styles.terminalLiveIndicator}`}>STATUS: READY</div>
                     </div>

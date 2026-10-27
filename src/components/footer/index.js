@@ -8,8 +8,8 @@ import { useTabPermission } from '@/lib/useTabPermission';
 import { useSocialLinks } from '@/services/socialLinksService';
 import SocialIcon from './SocialIcon';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -66,14 +66,14 @@ export default function Footer() {
           onMouseLeave={handleMouseLeave}
         >
           <h2 className={`${styles.signatureTypography} ${styles.baseLayer}`} aria-hidden="true">
-            ChronosX
+            TraderMaster
           </h2>
 
           <h2
             ref={spotlightRef}
             className={`${styles.signatureTypography} ${styles.spotlightLayer}`}
           >
-            ChronosX
+            TraderMaster
           </h2>
         </div>
 
@@ -82,8 +82,8 @@ export default function Footer() {
           {/* Brand Info */}
           <div className={styles.brandCol}>
             <div className={styles.brandLogo}>
-              <Link href="/" aria-label="ChronosX FrontPage">
-                <img src={activeLogo} alt='ChronosX Logo' />
+              <Link href="/" aria-label="TraderMaster FrontPage">
+                <img src={activeLogo} alt='TraderMaster Logo' />
               </Link>
             </div>
             <p className={styles.brandDesc}>
@@ -148,7 +148,7 @@ export default function Footer() {
 
         <div className={styles.disclaimerSection}>
           <div className={styles.companyRegLine} dir="ltr">
-            <strong>ChronosX Financial Technologies FZ-LLC</strong> | Dubai Silicon Oasis, IFZA Business Park, Building A1, Dubai, United Arab Emirates (UAE). Reg No: FZ-LLC-2024-CX8901
+            <strong>The Trader Master</strong> | Dubai Silicon Oasis, IFZA Business Park, Building A1, Dubai, United Arab Emirates (UAE). Reg No: FZ-LLC-2024-CX8901
           </div>
           <p>{t('footer.disclaimerP1')}</p>
           <p>{t('footer.disclaimerP2')}</p>
@@ -167,7 +167,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className={styles.bottomSection}>
-          <p>{t('footer.copyright', '© 2026 ChronosX Financial Technologies FZ-LLC. All rights reserved.')}</p>
+          <p>{t('footer.copyright', '© 2026 The Trader Master. All rights reserved.')}</p>
 
           <div className={styles.allsociallinks}>
             {socialLinks

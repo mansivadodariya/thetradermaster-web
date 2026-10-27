@@ -68,7 +68,7 @@ export function getWsCandidateUrls(symbol = 'XAUUSD', timeframe = 'H1', strategy
 
     const isPublicHost = (url = '') => {
         const u = url.toLowerCase();
-        return u.includes('chronosx.com') || u.includes('thetradermaster.com') ||
+        return u.includes('thetradermaster.com') || u.includes('thetradermaster.com') ||
                (!u.includes('localhost') && !u.includes('127.0.0.1') && !u.includes('192.168.') && !u.includes('10.'));
     };
 

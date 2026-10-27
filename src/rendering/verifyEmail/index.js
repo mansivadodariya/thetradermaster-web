@@ -8,8 +8,8 @@ import Loader from '@/components/loader';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 
 const STATUS = { LOADING: 'loading', SUCCESS: 'success', ERROR: 'error' };
 
@@ -48,8 +48,8 @@ export default function VerifyEmail() {
                 <div className={styles.authCard}>
                     {/* Redesigned Logo */}
                     <div className={styles.logoWrapper}>
-                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
-                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        <Link href="/" className={styles.logoLink} title="TraderMaster Home">
+                            <img src={Logo} alt="TraderMaster Logo" className={styles.logoImg} />
                         </Link>
                     </div>
 

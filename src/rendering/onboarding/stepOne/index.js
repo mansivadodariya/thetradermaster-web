@@ -121,7 +121,7 @@ export default function StepOne({ selectedOptions: controlledOptions, onToggleOp
                     {t('onboarding.step2.title', 'What is your primary')} <span className={styles.accentText}>{t('onboarding.step2.titleAccent', 'trading style?')}</span>
                 </h1>
                 <p className={styles.subtitle}>
-                    {t('onboarding.step2.subtitle', 'Select one or more styles. ChronosX configures strategy models and alert cadences accordingly.')}
+                    {t('onboarding.step2.subtitle', 'Select one or more styles. TraderMaster configures strategy models and alert cadences accordingly.')}
                 </p>
             </div>
 

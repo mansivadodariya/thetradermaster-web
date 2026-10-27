@@ -98,7 +98,7 @@ export default function AiCockpitLiveChart({ livePrice = 4308.18, isPositiveChan
       },
     });
 
-    // Candlestick Series (ChronosX Emerald / Rose Palette)
+    // Candlestick Series (TraderMaster Emerald / Rose Palette)
     const candleSeries = chart.addSeries(CandlestickSeries, {
       upColor: '#10B981',
       downColor: '#F43F5E',

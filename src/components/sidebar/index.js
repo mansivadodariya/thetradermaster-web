@@ -243,12 +243,12 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
         <div className={styles.logoHeader}>
           {!isCollapsed ? (
             <div className={styles.logo} onClick={() => router.push('/')}>
-              <img src={BrandTextLogo} alt="CHRONOS X" />
+              <img src={BrandTextLogo} alt="TraderMaster" />
             </div>
           ) : (
             <div className={styles.logoMark} onClick={() => router.push('/')}>
-              <img src={SmallLogo} alt="ChronosX" className={styles.smallLogoImg} />
-              <span className={styles.tooltip}>ChronosX</span>
+              <img src={SmallLogo} alt="TraderMaster" className={styles.smallLogoImg} />
+              <span className={styles.tooltip}>TraderMaster</span>
             </div>
           )}
           {onToggleCollapse && (

@@ -46,8 +46,8 @@ export default function ClientOnlyWidgets() {
         if (typeof window !== 'undefined' && pathname && !pathname.includes('/maintenance') && !pathname.startsWith('/api/')) {
             try {
                 const full = window.location.pathname + window.location.search;
-                sessionStorage.setItem('chronosx_last_visited_page', full);
-                localStorage.setItem('chronosx_last_visited_page', full);
+                sessionStorage.setItem('tradermaster_last_visited_page', full);
+                localStorage.setItem('tradermaster_last_visited_page', full);
             } catch (_) {}
         }
     }, [pathname]);

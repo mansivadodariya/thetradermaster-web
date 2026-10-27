@@ -28,13 +28,13 @@ CREATE POLICY "Allow admin full access to social links"
     USING (true)
     WITH CHECK (true);
 
--- Insert Seed Data (official ChronosX links)
+-- Insert Seed Data (official TraderMaster links)
 INSERT INTO public.social_links (platform, label, url, sort_order, is_active)
 VALUES 
-    ('x', 'X / Twitter', 'https://x.com/ChronosX_Official', 1, true),
-    ('telegram', 'Telegram', 'https://t.me/chronosxofficial', 2, true),
-    ('youtube', 'YouTube', 'https://www.youtube.com/@Chronosx_Official', 3, true),
-    ('instagram', 'Instagram', 'https://www.instagram.com/chronosx_official/', 4, true),
+    ('x', 'X / Twitter', 'https://x.com/thetradermaster', 1, true),
+    ('telegram', 'Telegram', 'https://t.me/thetradermaster', 2, true),
+    ('youtube', 'YouTube', 'https://www.youtube.com/@thetradermaster', 3, true),
+    ('instagram', 'Instagram', 'https://www.instagram.com/thetradermaster', 4, true),
     ('facebook', 'Facebook', 'https://www.facebook.com/profile.php?id=61594721187286', 5, true),
     ('discord', 'Discord', 'https://discord.gg/uPTwM59wY', 6, true)
 ON CONFLICT (platform) 

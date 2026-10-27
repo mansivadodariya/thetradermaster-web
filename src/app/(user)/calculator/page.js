@@ -1,7 +1,7 @@
 import ForexCalculator from '@/rendering/calculator';
 
 export const metadata = {
-    title: 'Forex & Trading Calculators | ChronosX',
+    title: 'Forex & Trading Calculators | TraderMaster',
     description: 'Precision pip value, margin requirements, Fibonacci retracements, pivot points, and position sizing risk calculator.',
 };
 

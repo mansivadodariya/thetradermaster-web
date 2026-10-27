@@ -17,7 +17,7 @@ export default function CockpitStage({ selectedTrade, onSelectPreset }) {
             <div className={styles.cockpitNavHeader}>
                 <div className={styles.cockpitBrand}>
                     <span className={styles.cockpitDotGreen} />
-                    <span className={styles.cockpitTitleText}>{t('aiPastTradeAnalyzer.cockpit.title', 'CHRONOSX // NEURAL AUDITOR COCKPIT')}</span>
+                    <span className={styles.cockpitTitleText}>{t('aiPastTradeAnalyzer.cockpit.title', 'TRADERMASTER // NEURAL AUDITOR COCKPIT')}</span>
                 </div>
 
                 {/* Quick Preset Selector */}

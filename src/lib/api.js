@@ -575,8 +575,8 @@ export const affiliateApi = {
                     total_withdrawn: 710.00,
                     referral_count: 24,
                     active_traders: 18,
-                    referral_code: 'CHRONOS-8921',
-                    referral_url: (typeof window !== 'undefined' ? window.location.origin : 'https://chronosx.com') + '/signup?ref=CHRONOS-8921',
+                    referral_code: 'TRADERMASTER-8921',
+                    referral_url: (typeof window !== 'undefined' ? window.location.origin : 'https://thetradermaster.com') + '/signup?ref=TRADERMASTER-8921',
                     current_tier: {
                         level: 1,
                         name: 'Tier 1 - Standard Partner',

@@ -50,16 +50,16 @@ export default function HeroSection({ onJoinClick, onHowItWorksClick }) {
       <div className="container">
         <div className={styles.heroBadge}>
           <span className={styles.pulseDot} />
-          ChronosX Affiliate Program
+          TraderMaster Affiliate Program
         </div>
 
         <h1 className={styles.heroTitle}>
           Earn More with <br />
-          <span className={styles.highlight}>ChronosX Affiliate Program</span>
+          <span className={styles.highlight}>TraderMaster Affiliate Program</span>
         </h1>
 
         <p className={styles.heroSubtext}>
-          Share ChronosX with your audience and earn recurring commissions from qualifying referral activity. It's simple, transparent, and built to help you grow your network.
+          Share TraderMaster with your audience and earn recurring commissions from qualifying referral activity. It's simple, transparent, and built to help you grow your network.
         </p> 
 
         <div className={styles.heroCtaGroup}>

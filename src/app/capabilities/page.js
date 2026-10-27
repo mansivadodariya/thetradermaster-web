@@ -6,8 +6,8 @@ import BreakoutDetection from "@/rendering/home/breakoutDetection";
 import AiAnalyst from "@/rendering/home/aiAnalyst";
 
 export const metadata = {
-  title: "Platform Capabilities | ChronosX",
-  description: "Explore the ChronosX 4-tool trading cockpit, real-time breakout detection, and live AI market analysis.",
+  title: "Platform Capabilities | TraderMaster",
+  description: "Explore the TraderMaster 4-tool trading cockpit, real-time breakout detection, and live AI market analysis.",
 };
 
 export default function CapabilitiesPage() {

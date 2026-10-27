@@ -16,7 +16,7 @@ export default function NoRefundPolicy() {
                 </div>
                 <div className={styles.content}>
                     <p>
-                        {t('noRefundPolicy.intro', 'At ChronosX, we provide AI-powered trading intelligence, analytical tools, market research features, software functionality, subscriptions, credits, and other digital services. Because these products and services are delivered digitally and may provide immediate access after purchase, all purchases are generally final and non-refundable, except where otherwise required by applicable law or expressly stated below.')}
+                        {t('noRefundPolicy.intro', 'At TraderMaster, we provide AI-powered trading intelligence, analytical tools, market research features, software functionality, subscriptions, credits, and other digital services. Because these products and services are delivered digitally and may provide immediate access after purchase, all purchases are generally final and non-refundable, except where otherwise required by applicable law or expressly stated below.')}
                     </p>
                     <br />
                     <br />
@@ -32,7 +32,7 @@ export default function NoRefundPolicy() {
                             <li>{t('noRefundPolicy.sec1Item5', 'AI-generated reports or analyses')}</li>
                             <li>{t('noRefundPolicy.sec1Item6', 'Backtesting usage')}</li>
                             <li>{t('noRefundPolicy.sec1Item7', 'Trading tools or platform access')}</li>
-                            <li>{t('noRefundPolicy.sec1Item8', 'Other digital products or features made available through ChronosX')}</li>
+                            <li>{t('noRefundPolicy.sec1Item8', 'Other digital products or features made available through TraderMaster')}</li>
                         </ul>
                         <p>{t('noRefundPolicy.sec1Footer', 'By completing a purchase, you acknowledge and agree to this No Refund Policy.')}</p>
                     </section>
@@ -60,14 +60,14 @@ export default function NoRefundPolicy() {
 
                     <section>
                         <h2>{t('noRefundPolicy.sec4Title', '4. Free Trials and Promotional Offers')}</h2>
-                        <p>{t('noRefundPolicy.sec4P1', 'Where ChronosX offers a free trial, promotional period, discount, coupon, or other special offer, the terms of that specific promotion will apply.')}</p>
+                        <p>{t('noRefundPolicy.sec4P1', 'Where TraderMaster offers a free trial, promotional period, discount, coupon, or other special offer, the terms of that specific promotion will apply.')}</p>
                         <p>{t('noRefundPolicy.sec4P2', 'A promotional offer does not create an automatic right to a refund unless the applicable offer explicitly states otherwise.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('noRefundPolicy.sec5Title', '5. Duplicate or Incorrect Charges')}</h2>
                         <p>{t('noRefundPolicy.sec5P1', 'If you believe that you have been charged more than once for the same transaction or have identified an obvious billing error, please contact our support team.')}</p>
-                        <p>{t('noRefundPolicy.sec5P2', 'After reviewing the transaction, ChronosX may correct an eligible duplicate or erroneous charge where appropriate.')}</p>
+                        <p>{t('noRefundPolicy.sec5P2', 'After reviewing the transaction, TraderMaster may correct an eligible duplicate or erroneous charge where appropriate.')}</p>
                     </section>
 
                     <section>
@@ -80,20 +80,20 @@ export default function NoRefundPolicy() {
                     <section>
                         <h2>{t('noRefundPolicy.sec7Title', '7. Service Issues')}</h2>
                         <p>{t('noRefundPolicy.sec7P1', 'Temporary interruptions, maintenance, technical issues, delays, or inability to access a particular feature do not automatically create an entitlement to a refund.')}</p>
-                        <p>{t('noRefundPolicy.sec7P2', 'ChronosX may, at its discretion and where appropriate, investigate service-related issues and provide a technical resolution, account adjustment, extension, or other remedy.')}</p>
+                        <p>{t('noRefundPolicy.sec7P2', 'TraderMaster may, at its discretion and where appropriate, investigate service-related issues and provide a technical resolution, account adjustment, extension, or other remedy.')}</p>
                         <p>{t('noRefundPolicy.sec7P3', 'Any such remedy will depend on the circumstances and does not establish a general refund entitlement.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('noRefundPolicy.sec8Title', '8. Trading Performance Does Not Qualify for a Refund')}</h2>
-                        <p>{t('noRefundPolicy.sec8P1', 'ChronosX provides AI-powered analytical and informational tools. Trading results, profits, losses, strategy performance, backtesting results, market conditions, or investment outcomes are not grounds for a refund.')}</p>
-                        <p>{t('noRefundPolicy.sec8P2', 'ChronosX does not guarantee that any analysis, signal, strategy, backtest, AI-generated output, or trading-related information will result in profits or prevent losses.')}</p>
+                        <p>{t('noRefundPolicy.sec8P1', 'TraderMaster provides AI-powered analytical and informational tools. Trading results, profits, losses, strategy performance, backtesting results, market conditions, or investment outcomes are not grounds for a refund.')}</p>
+                        <p>{t('noRefundPolicy.sec8P2', 'TraderMaster does not guarantee that any analysis, signal, strategy, backtest, AI-generated output, or trading-related information will result in profits or prevent losses.')}</p>
                         <p>{t('noRefundPolicy.sec8P3', 'Past performance and simulated results do not guarantee future results.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('noRefundPolicy.sec9Title', '9. User Responsibility')}</h2>
-                        <p>{t('noRefundPolicy.sec9Desc', 'Before purchasing a ChronosX product or subscription, you are responsible for reviewing:')}</p>
+                        <p>{t('noRefundPolicy.sec9Desc', 'Before purchasing a TraderMaster product or subscription, you are responsible for reviewing:')}</p>
                         <ul>
                             <li>{t('noRefundPolicy.sec9Item1', 'The selected plan')}</li>
                             <li>{t('noRefundPolicy.sec9Item2', 'Pricing')}</li>
@@ -115,13 +115,13 @@ export default function NoRefundPolicy() {
                     <section>
                         <h2>{t('noRefundPolicy.sec11Title', '11. Exceptions Required by Law')}</h2>
                         <p>{t('noRefundPolicy.sec11P1', 'Nothing in this policy is intended to exclude, restrict, or override any refund, cancellation, consumer-protection, or other legal rights that cannot lawfully be excluded under applicable law.')}</p>
-                        <p>{t('noRefundPolicy.sec11P2', 'Where applicable law requires a refund or other remedy, ChronosX will comply with those requirements.')}</p>
+                        <p>{t('noRefundPolicy.sec11P2', 'Where applicable law requires a refund or other remedy, TraderMaster will comply with those requirements.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('noRefundPolicy.sec12Title', '12. Contact Us')}</h2>
-                        <p>{t('noRefundPolicy.sec12P1', 'If you have a billing question, believe you were charged incorrectly, or need assistance with your account, please contact ChronosX Support.')}</p>
-                        <p><strong>{(t('noRefundPolicy.sec12Email', 'Email:') || 'Email:').replace(/support@chronosx\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@chronosx.com">support@chronosx.com</a></p>
+                        <p>{t('noRefundPolicy.sec12P1', 'If you have a billing question, believe you were charged incorrectly, or need assistance with your account, please contact TraderMaster Support.')}</p>
+                        <p><strong>{(t('noRefundPolicy.sec12Email', 'Email:') || 'Email:').replace(/support@TraderMaster\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a></p>
                         <p>{t('noRefundPolicy.sec12P2', 'Please include your registered email address and relevant transaction details so we can locate your account and investigate the matter.')}</p>
                     </section>
                 </div>

@@ -53,11 +53,11 @@ export default function WhiteLabel() {
             <CommonCta
                 badge="READY TO GET STARTED?"
                 title1="Build Your Trading Platform"
-                title2="With ChronosX."
+                title2="With TraderMaster."
                 description="Your business already has the vision. Now build the technology around it. Launch an AI-powered trading experience under your own brand with everything you need in one connected environment."
                 primaryBtnText="TALK TO OUR TEAM"
                 primaryBtnAction={scrollToInquiryForm}
-                secondaryBtnText="EXPLORE CHRONOSX"
+                secondaryBtnText="EXPLORE TRADERMASTER"
                 secondaryBtnAction="/capabilities"
             />
         </main>

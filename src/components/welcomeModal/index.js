@@ -21,7 +21,7 @@ export default function WelcomeModal({ autoShowDelay = 1200 }) {
         {
             step: 1,
             tag: t('welcomeModal.step1.tag', 'GETTING STARTED'),
-            title: t('welcomeModal.step1.title', 'Welcome to ChronosX!'),
+            title: t('welcomeModal.step1.title', 'Welcome to TraderMaster!'),
             subtitle: t('welcomeModal.step1.subtitle', 'Sign up with email or Google to activate your institutional AI trading desk & neural market feed.'),
             badge: t('welcomeModal.step1.badge', 'Quick 30s Signup'),
             actionText: t('welcomeModal.step1.actionText', 'Create Account'),
@@ -83,8 +83,8 @@ export default function WelcomeModal({ autoShowDelay = 1200 }) {
         if (forceWelcome) {
             setIsOpen(true);
         } else {
-            const sessionDismissed = sessionStorage.getItem('chronosx_welcome_dismissed');
-            const localDismissed = localStorage.getItem('chronosx_welcome_permanent_dismissed');
+            const sessionDismissed = sessionStorage.getItem('tradermaster_welcome_dismissed');
+            const localDismissed = localStorage.getItem('tradermaster_welcome_permanent_dismissed');
 
             if (!sessionDismissed && !localDismissed) {
                 const timer = setTimeout(() => {
@@ -95,13 +95,13 @@ export default function WelcomeModal({ autoShowDelay = 1200 }) {
         }
 
         const handleManualOpen = () => setIsOpen(true);
-        window.addEventListener('chronosx:open-welcome', handleManualOpen);
+        window.addEventListener('TraderMaster:open-welcome', handleManualOpen);
         window.addEventListener('user:updated', checkAuth);
         window.addEventListener('auth:logout', checkAuth);
         window.addEventListener('storage', checkAuth);
 
         return () => {
-            window.removeEventListener('chronosx:open-welcome', handleManualOpen);
+            window.removeEventListener('TraderMaster:open-welcome', handleManualOpen);
             window.removeEventListener('user:updated', checkAuth);
             window.removeEventListener('auth:logout', checkAuth);
             window.removeEventListener('storage', checkAuth);
@@ -123,9 +123,9 @@ export default function WelcomeModal({ autoShowDelay = 1200 }) {
     const handleClose = useCallback(() => {
         setIsOpen(false);
         try {
-            sessionStorage.setItem('chronosx_welcome_dismissed', 'true');
+            sessionStorage.setItem('tradermaster_welcome_dismissed', 'true');
             if (dontShowAgain) {
-                localStorage.setItem('chronosx_welcome_permanent_dismissed', 'true');
+                localStorage.setItem('tradermaster_welcome_permanent_dismissed', 'true');
             }
         } catch (_) {
             /* ignore storage quota issues */
@@ -235,7 +235,7 @@ export default function WelcomeModal({ autoShowDelay = 1200 }) {
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src="/assets/images/welcome_tour_preview.jpg"
-                                            alt="ChronosX AI Platform"
+                                            alt="TraderMaster AI Platform"
                                             className={styles.tourBannerImage}
                                         />
                                         <div className={styles.graphicOverlayFade} />

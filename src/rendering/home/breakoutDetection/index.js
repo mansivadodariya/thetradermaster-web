@@ -15,7 +15,7 @@ export default function BreakoutDetection() {
     {
       step: '01',
       title: t('homeSections.breakoutDetection.step1Title', 'Track the Key Level.'),
-      desc: t('homeSections.breakoutDetection.step1Desc', 'ChronosX continuously maps key multi-day resistance and liquidity pools. Real-time telemetry detects when price approaches major decision zones.'),
+      desc: t('homeSections.breakoutDetection.step1Desc', 'TraderMaster continuously maps key multi-day resistance and liquidity pools. Real-time telemetry detects when price approaches major decision zones.'),
       ticker: 'XAU/USD · Bullish Momentum',
       status: t('homeSections.breakoutDetection.statusApproaching', 'APPROACHING RESISTANCE'),
       stage: 1

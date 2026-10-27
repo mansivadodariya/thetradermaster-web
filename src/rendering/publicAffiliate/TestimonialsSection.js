@@ -7,13 +7,13 @@ import styles from './publicAffiliate.module.scss';
 
 const TESTIMONIALS = [
   {
-    quote: "The ChronosX affiliate program gives me a simple way to share the platform with my trading audience while keeping track of my referral activity in one place.",
+    quote: "The TraderMaster affiliate program gives me a simple way to share the platform with my trading audience while keeping track of my referral activity in one place.",
     author: "Daniel Carter",
     role: "Forex Educator",
     stars: "★★★★★"
   },
   {
-    quote: "I've been sharing ChronosX with my trading community and the dashboard makes it easy to monitor referrals and commissions.",
+    quote: "I've been sharing TraderMaster with my trading community and the dashboard makes it easy to monitor referrals and commissions.",
     author: "Sarah Khan",
     role: "Trading Community Manager",
     stars: "★★★★★"
@@ -35,7 +35,7 @@ export default function TestimonialsSection() {
           badge={t('publicAffiliate.testimonialsBadge', 'SUCCESS STORIES')}
           title1="What Our"
           title2="Affiliates Say"
-          description={t('publicAffiliate.testimonialsSubtitle', 'Hear from partners using the ChronosX Affiliate Program to share the platform with their audience and manage their referral activity.')}
+          description={t('publicAffiliate.testimonialsSubtitle', 'Hear from partners using the TraderMaster Affiliate Program to share the platform with their audience and manage their referral activity.')}
         />
 
         <div className={styles.testimonialsGrid}>

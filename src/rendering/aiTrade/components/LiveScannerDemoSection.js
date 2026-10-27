@@ -41,7 +41,7 @@ export default function LiveScannerDemoSection({
                             <span className={`${styles.dot} ${styles.dotRed}`} />
                             <span className={`${styles.dot} ${styles.dotYellow}`} />
                             <span className={`${styles.dot} ${styles.dotGreen}`} />
-                            <span className={styles.brandTitle}>CHRONOSX // VISION AI TRADE ENGINE</span>
+                            <span className={styles.brandTitle}>TRADERMASTER // VISION AI TRADE ENGINE</span>
                         </div>
 
                         {/* Preset Tabs */}

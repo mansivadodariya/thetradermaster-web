@@ -8,7 +8,7 @@ import styles from './publicAffiliate.module.scss';
 const FAQS = [
   {
     q: "How do I join the affiliate program?",
-    a: "Create or sign in to your ChronosX account and complete the available affiliate onboarding process."
+    a: "Create or sign in to your TraderMaster account and complete the available affiliate onboarding process."
   },
   {
     q: "How much can I earn?",
@@ -20,23 +20,23 @@ const FAQS = [
   },
   {
     q: "What payment methods are available?",
-    a: "Available payout methods depend on the current ChronosX Affiliate Program configuration and supported withdrawal options."
+    a: "Available payout methods depend on the current TraderMaster Affiliate Program configuration and supported withdrawal options."
   },
   {
     q: "Is there a minimum traffic requirement?",
-    a: "Eligibility and tier requirements depend on the official ChronosX Affiliate Program terms. No specific traffic requirement is enforced unless stated in the program terms."
+    a: "Eligibility and tier requirements depend on the official TraderMaster Affiliate Program terms. No specific traffic requirement is enforced unless stated in the program terms."
   },
   {
-    q: "Can I promote ChronosX on social media?",
+    q: "Can I promote TraderMaster on social media?",
     a: "Yes, affiliates can share their referral links through permitted social media channels, communities, websites, content platforms, and other approved promotional channels."
   },
   {
     q: "Do you provide marketing materials?",
-    a: "ChronosX provides promotional assets, referral links, product information, and materials to support affiliate promotion."
+    a: "TraderMaster provides promotional assets, referral links, product information, and materials to support affiliate promotion."
   },
   {
     q: "Who can I contact for support?",
-    a: "Affiliate partners can use the available ChronosX support channels for questions related to their partner account, referrals, commissions, and withdrawals."
+    a: "Affiliate partners can use the available TraderMaster support channels for questions related to their partner account, referrals, commissions, and withdrawals."
   }
 ];
 
@@ -55,7 +55,7 @@ export default function FaqSection() {
           badge={t('publicAffiliate.faqBadge', 'FAQ')}
           title1="Common"
           title2="Questions"
-          description={t('publicAffiliate.faqSubtitle', 'Find answers to the most frequently asked questions about the ChronosX Affiliate Program.')}
+          description={t('publicAffiliate.faqSubtitle', 'Find answers to the most frequently asked questions about the TraderMaster Affiliate Program.')}
         />
 
         <div className={styles.faqAccordionList}>

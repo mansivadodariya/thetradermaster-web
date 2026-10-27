@@ -406,16 +406,16 @@ export default function MarketIntelligence() {
 
         {/* Section Header */}
         <SectionHeader
-          badge={t('homeSections.marketIntelligence.badge', 'CHRONOSX CORE ENGINE')}
+          badge={t('homeSections.marketIntelligence.badge', 'TRADERMASTER CORE ENGINE')}
           title1={t('homeSections.marketIntelligence.title1', 'Three Layers of Market')}
           title2={t('homeSections.marketIntelligence.title2', 'Intelligence.')}
-          description={t('homeSections.marketIntelligence.description', 'ChronosX stacks multi-timeframe trend alignment, smart money liquidity flow, and AI execution filters into one synchronized institutional engine.')}
+          description={t('homeSections.marketIntelligence.description', 'TraderMaster stacks multi-timeframe trend alignment, smart money liquidity flow, and AI execution filters into one synchronized institutional engine.')}
         />
 
         {/* 3-Column Interactive Moving Cards with Hover Flip */}
         <div className={styles.layersGrid}>
 
-          {/* CARD 1: MULTI-TIMEFRAME · CHRONOSX AI */}
+          {/* CARD 1: MULTI-TIMEFRAME · TRADERMASTER AI */}
           <div 
             className={styles.cardContainer} 
             onMouseEnter={() => setFlippedCards(prev => ({ ...prev, 0: true }))}
@@ -426,7 +426,7 @@ export default function MarketIntelligence() {
               {/* FRONT: Live Canvas 1 (fc1c) */}
               <div className={styles.cardFace}>
                 <div className={styles.terminalHeader}>
-                  <span className={styles.terminalTitle}>{t('homeSections.marketIntelligence.card1Title', 'MULTI-TIMEFRAME · CHRONOSX AI')}</span>
+                  <span className={styles.terminalTitle}>{t('homeSections.marketIntelligence.card1Title', 'MULTI-TIMEFRAME · TRADERMASTER AI')}</span>
                   <div className={styles.liveBadge}>
                     <span className={styles.liveDot}></span>
                     <span>{t('homeSections.marketIntelligence.live', 'LIVE')}</span>
@@ -551,7 +551,7 @@ export default function MarketIntelligence() {
           </div>
 
 
-          {/* CARD 3: SIGNAL FILTER · CHRONOSX PRO */}
+          {/* CARD 3: SIGNAL FILTER · TRADERMASTER PRO */}
           <div 
             className={styles.cardContainer} 
             onMouseEnter={() => setFlippedCards(prev => ({ ...prev, 2: true }))}
@@ -562,7 +562,7 @@ export default function MarketIntelligence() {
               {/* FRONT: Live Canvas 3 (fc3c) */}
               <div className={styles.cardFace}>
                 <div className={styles.terminalHeader}>
-                  <span className={styles.terminalTitle}>{t('homeSections.marketIntelligence.card3Title', 'SIGNAL FILTER · CHRONOSX PRO')}</span>
+                  <span className={styles.terminalTitle}>{t('homeSections.marketIntelligence.card3Title', 'SIGNAL FILTER · TRADERMASTER PRO')}</span>
                   <div className={styles.liveBadge}>
                     <span className={styles.liveDot}></span>
                     <span>{t('homeSections.marketIntelligence.live', 'LIVE')}</span>

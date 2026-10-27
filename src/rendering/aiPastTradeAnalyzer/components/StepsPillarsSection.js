@@ -62,7 +62,7 @@ export default function StepsPillarsSection() {
                         badge={t('tradeAudit.howItWorksBadge', 'HOW IT WORKS')}
                         title1={t('tradeAudit.howItWorksTitle1', '3 SIMPLE')}
                         title2={t('tradeAudit.howItWorksTitle2', 'STEPS')}
-                        description={t('tradeAudit.howItWorksSubtitle', 'How ChronosX AI Past Trade Analyzer reviews and upgrades your execution.')}
+                        description={t('tradeAudit.howItWorksSubtitle', 'How TraderMaster AI Past Trade Analyzer reviews and upgrades your execution.')}
                         align="center"
                     />
 

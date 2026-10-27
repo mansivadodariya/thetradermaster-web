@@ -6,9 +6,9 @@ import { analyzeTradesReport, analyzeIndividualTrade, validateStatementFiles } f
 import { formatCurrency } from '@/icons/tradeAnalysisIcons';
 
 const STORAGE_KEYS = {
-    DATA: 'chronosx_trade_analysis_data',
-    FILE_META: 'chronosx_trade_analysis_file_meta',
-    TAB: 'chronosx_trade_analysis_tab'
+    DATA: 'tradermaster_trade_analysis_data',
+    FILE_META: 'tradermaster_trade_analysis_file_meta',
+    TAB: 'tradermaster_trade_analysis_tab'
 };
 
 export function useCreateTradeAnalysisStore() {

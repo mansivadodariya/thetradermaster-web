@@ -6,8 +6,8 @@ import styles from '../customBotBuilder.module.scss';
 
 const FAQS = [
   {
-    q: "What is the ChronosX AI Custom Bot Builder?",
-    a: "The ChronosX AI Custom Bot Builder lets you discover existing bots, create bots with AI assistance, or manually build your own bot through a guided workflow."
+    q: "What is the TraderMaster AI Custom Bot Builder?",
+    a: "The TraderMaster AI Custom Bot Builder lets you discover existing bots, create bots with AI assistance, or manually build your own bot through a guided workflow."
   },
   {
     q: "Can I create a bot using AI?",
@@ -27,7 +27,7 @@ const FAQS = [
   },
   {
     q: "Can I backtest a bot I create?",
-    a: "Yes. Created bots can be sent directly to the ChronosX Backtesting workflow for historical simulation."
+    a: "Yes. Created bots can be sent directly to the TraderMaster Backtesting workflow for historical simulation."
   },
   {
     q: "Can I modify a bot after backtesting?",
@@ -57,7 +57,7 @@ export default function FaqSection() {
           badge="FREQUENTLY ASKED QUESTIONS"
           title1="Everything You Need to Know"
           title2="About Bot Builder"
-          description="Have questions? Here is everything you need to know about creating, customizing, and backtesting bots on ChronosX."
+          description="Have questions? Here is everything you need to know about creating, customizing, and backtesting bots on TraderMaster."
         />
 
         <div className={styles.faqAccordionList}>

@@ -73,7 +73,7 @@ export default function StrategyStudio() {
     const [chatWidthPercent, setChatWidthPercent] = useState(() => {
         if (typeof window !== 'undefined') {
             try {
-                const saved = localStorage.getItem('chronosx_ai_bot_studio_chat_width');
+                const saved = localStorage.getItem('tradermaster_ai_bot_studio_chat_width');
                 if (saved) {
                     const parsed = parseFloat(saved);
                     if (!isNaN(parsed) && parsed >= 22 && parsed <= 58) return parsed;
@@ -156,7 +156,7 @@ export default function StrategyStudio() {
     useEffect(() => {
         if (typeof window !== 'undefined' && chatWidthPercent) {
             try {
-                localStorage.setItem('chronosx_ai_bot_studio_chat_width', String(chatWidthPercent));
+                localStorage.setItem('tradermaster_ai_bot_studio_chat_width', String(chatWidthPercent));
             } catch (_) {}
         }
     }, [chatWidthPercent]);

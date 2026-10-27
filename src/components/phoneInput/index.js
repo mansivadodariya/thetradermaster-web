@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import styles from './phoneInput.module.scss';
 
 /**
- * Custom Country Select Component with modern ChronosX dropdown UI
+ * Custom Country Select Component with modern TraderMaster dropdown UI
  */
 const CustomCountrySelect = ({ value, onChange, options, disabled, iconComponent: FlagIcon }) => {
     const [isOpen, setIsOpen] = useState(false);

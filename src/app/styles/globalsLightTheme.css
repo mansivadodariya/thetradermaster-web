@@ -1,5 +1,5 @@
 /* ============================================================
-   CHRONOSX GLOBAL LIGHT THEME ESSENTIALS
+   TRADERMASTER GLOBAL LIGHT THEME ESSENTIALS
    ============================================================ */
 
 /* Section Dividers in Light Mode */
@@ -47,17 +47,17 @@ html.light svg circle[stroke="white"] {
   stroke: #334155;
 }
 
-html.light svg:not([data-social="youtube"]) path[fill="#ffffff"]:not(.cx-yt-play):not([data-preserve-white]),
-html.light svg:not([data-social="youtube"]) path[fill="#FFFFFF"]:not(.cx-yt-play):not([data-preserve-white]),
-html.light svg:not([data-social="youtube"]) path[fill="white"]:not(.cx-yt-play):not([data-preserve-white]) {
+html.light svg:not([data-social="youtube"]) path[fill="#ffffff"]:not(.tm-yt-play):not([data-preserve-white]),
+html.light svg:not([data-social="youtube"]) path[fill="#FFFFFF"]:not(.tm-yt-play):not([data-preserve-white]),
+html.light svg:not([data-social="youtube"]) path[fill="white"]:not(.tm-yt-play):not([data-preserve-white]) {
   fill: #0F172A;
 }
 
-html.light .cx-yt-play,
+html.light .tm-yt-play,
 html.light [data-social="youtube"] path:last-child,
 html.light svg[data-social="youtube"] path[fill="#FFFFFF"],
 html.light svg[data-social="youtube"] path[fill="#ffffff"],
-html.light svg path.cx-yt-play {
+html.light svg path.tm-yt-play {
   fill: #FFFFFF;
 }
 

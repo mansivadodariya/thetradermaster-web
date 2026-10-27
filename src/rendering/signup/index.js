@@ -30,8 +30,8 @@ import { useTheme } from '@/context/ThemeContext';
 
 import { getHeroFeatures } from '@/lib/authHeroFeatures';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 const UserIcon = '/assets/icons/user.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const Lock = '/assets/icons/lock.svg';
@@ -67,18 +67,18 @@ const Signup = () => {
         if (paramRef) {
             const item = { code: paramRef.trim(), expiry: now + THIRTY_DAYS_MS };
             try {
-                localStorage.setItem('chronosx_referral_code', JSON.stringify(item));
+                localStorage.setItem('tradermaster_referral_code', JSON.stringify(item));
             } catch (e) { /* ignore */ }
             setForm(f => ({ ...f, referral_code: paramRef.trim() }));
         } else {
             try {
-                const storedRaw = localStorage.getItem('chronosx_referral_code');
+                const storedRaw = localStorage.getItem('tradermaster_referral_code');
                 if (storedRaw) {
                     const parsed = JSON.parse(storedRaw);
                     if (parsed && parsed.code && parsed.expiry > now) {
                         setForm(f => f.referral_code ? f : ({ ...f, referral_code: parsed.code }));
                     } else {
-                        localStorage.removeItem('chronosx_referral_code');
+                        localStorage.removeItem('tradermaster_referral_code');
                     }
                 }
             } catch (e) { /* ignore */ }
@@ -334,8 +334,8 @@ const Signup = () => {
                 <div className={styles.authContainer}>
                     <div className={styles.authCardSingle}>
                         <div className={styles.logoWrapper}>
-                            <Link href="/" className={styles.logoLink} title="ChronosX Home">
-                                <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                            <Link href="/" className={styles.logoLink} title="TraderMaster Home">
+                                <img src={Logo} alt="TraderMaster Logo" className={styles.logoImg} />
                             </Link>
                         </div>
                         <div className={styles.text}>
@@ -378,8 +378,8 @@ const Signup = () => {
                             {/* Center/Bottom Info Stack */}
                             <div className={styles.leftMainBlock}>
                                 {/* Brand Logo */}
-                                <Link href="/" className={styles.brandHeaderLink} title="ChronosX Home">
-                                    <img src={Logo} alt="ChronosX" className={styles.leftLogoImg} />
+                                <Link href="/" className={styles.brandHeaderLink} title="TraderMaster Home">
+                                    <img src={Logo} alt="TraderMaster" className={styles.leftLogoImg} />
                                 </Link>
 
                                 {/* Header & Subtitle (Aligned with Landing Page) */}
@@ -431,8 +431,8 @@ const Signup = () => {
                         <div className={styles.formInnerContainer}>
                             {/* Mobile Brand Logo */}
                             <div className={styles.mobileLogoWrapper}>
-                                <Link href="/" className={styles.mobileLogoLink} title="ChronosX Home">
-                                    <img src={Logo} alt="ChronosX" className={styles.mobileLogoImg} />
+                                <Link href="/" className={styles.mobileLogoLink} title="TraderMaster Home">
+                                    <img src={Logo} alt="TraderMaster" className={styles.mobileLogoImg} />
                                 </Link>
                             </div>
 

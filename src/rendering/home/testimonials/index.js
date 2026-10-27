@@ -62,7 +62,7 @@ export default function Testimonials() {
           badge={t('homeSections.testimonials.badge', 'TESTIMONIALS')}
           title1={t('homeSections.testimonials.title1', 'Used by Serious')}
           title2={t('homeSections.testimonials.title2', 'Forex Traders')}
-          description={t('homeSections.testimonials.description', 'Real reviews from active traders using ChronosX.')}
+          description={t('homeSections.testimonials.description', 'Real reviews from active traders using TraderMaster.')}
         />
       </div>
       {/* Standard Width Marquee with Foggy Edge Layers */}

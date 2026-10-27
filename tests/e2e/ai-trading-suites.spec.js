@@ -1,14 +1,14 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX AI Intelligence & Trading Suites', () => {
+test.describe('TraderMaster AI Intelligence & Trading Suites', () => {
   test.beforeEach(async ({ context, page }) => {
     await context.addCookies([
-      { name: 'auth_token', value: 'mock_jwt_token_chronosx', domain: 'localhost', path: '/' }
+      { name: 'auth_token', value: 'mock_jwt_token_tradermaster', domain: 'localhost', path: '/' }
     ]);
     await page.addInitScript(() => {
       window.localStorage.setItem('has_seen_welcome_modal', 'true');
-      window.localStorage.setItem('chronosx_welcome_dismissed', 'true');
+      window.localStorage.setItem('tradermaster_welcome_dismissed', 'true');
     });
   });
 

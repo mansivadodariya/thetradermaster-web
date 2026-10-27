@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Authentication & Onboarding Suite', () => {
+test.describe('TraderMaster Authentication & Onboarding Suite', () => {
   test('1. Login Page: elements, inputs, validations, and links', async ({ page }) => {
     await page.goto('/login', { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveURL(/.*login/);

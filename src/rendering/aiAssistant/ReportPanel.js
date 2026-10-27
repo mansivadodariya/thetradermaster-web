@@ -312,8 +312,8 @@ const ReportPanel = ({ fullReport, visualData, symbol, isLoading, scrollToTopSig
             <div className={styles.inlineReportContainer}>
                 {forceLight && (
                     <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #E2E8F0', paddingBottom: '10px' }}>
-                        <img src={getPdfLogoDataUrl(false) || "/assets/logo/darklogo.png"} alt="ChronosX" style={{ height: '28px', width: 'auto', maxHeight: '28px', objectFit: 'contain' }} />
-                        <span style={{ fontSize: '10px', color: '#64748B', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>ChronosX AI Intelligence Report</span>
+                        <img src={getPdfLogoDataUrl(false) || "/assets/logo/logo.svg"} alt="TraderMaster" style={{ height: '28px', width: 'auto', maxHeight: '28px', objectFit: 'contain' }} />
+                        <span style={{ fontSize: '10px', color: '#64748B', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>TraderMaster AI Intelligence Report</span>
                     </div>
                 )}
                 <h3>{fullReport ? 'Analysis Center' : 'No Report Selected'}</h3>

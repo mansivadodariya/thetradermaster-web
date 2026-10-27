@@ -18,7 +18,7 @@ export default function StatsSection() {
     <section className={styles.statsSection}>
       <div className="container">
         <SectionHeader
-          badge={t('publicAffiliate.growBadge', 'GROW WITH CHRONOSX')}
+          badge={t('publicAffiliate.growBadge', 'GROW WITH TRADERMASTER')}
           title1="Build Your Network."
           title2="Track Your Growth."
           description={t('publicAffiliate.growSubtitle', 'Use your affiliate dashboard to monitor your referral activity, earnings, pending commissions, and withdrawals.')}

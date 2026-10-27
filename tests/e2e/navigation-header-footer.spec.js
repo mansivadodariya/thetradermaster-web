@@ -1,11 +1,11 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Global Header & Footer Navigation Suite', () => {
+test.describe('TraderMaster Global Header & Footer Navigation Suite', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       window.localStorage.setItem('has_seen_welcome_modal', 'true');
-      window.localStorage.setItem('chronosx_welcome_dismissed', 'true');
+      window.localStorage.setItem('tradermaster_welcome_dismissed', 'true');
     });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
   });

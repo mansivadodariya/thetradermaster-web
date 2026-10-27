@@ -78,7 +78,7 @@ export default function TestYourWay() {
           badge="FLEXIBLE WORKFLOWS"
           title1="Test Your"
           title2="Way"
-          description="Whether you're following a strategy, using a bot, or building your own, ChronosX gives you a flexible backtesting workflow."
+          description="Whether you're following a strategy, using a bot, or building your own, TraderMaster gives you a flexible backtesting workflow."
         />
 
         {/* 4 Trading Modes Grid */}

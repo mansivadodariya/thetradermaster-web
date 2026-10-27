@@ -28,7 +28,7 @@ function getFirebaseAdmin() {
 
     // Fallback: Default initialization using project ID
     return admin.initializeApp({
-        projectId: projectId || 'chronosx-webapp',
+        projectId: projectId || 'TraderMaster-webapp',
     });
 }
 

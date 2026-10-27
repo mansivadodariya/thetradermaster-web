@@ -81,7 +81,7 @@ export default function PredefinedStrategies() {
     return (
         <div className={styles.predefinedStrategiesPage}>
             <CommonSectionHeader
-                badge="CHRONOSX ALGORITHMIC PLAYBOOKS"
+                badge="TRADERMASTER ALGORITHMIC PLAYBOOKS"
                 badgeIcon={<TrophyHeaderIcon />}
                 title={t('nav.predefinedStrategies', 'Predefined Strategies')}
                 subtitle={t('predefinedStrategies.subtitle', 'Explore institutional pre-configured trading strategies with verified backtest results, risk telemetry, and automated playbook parameters.')}

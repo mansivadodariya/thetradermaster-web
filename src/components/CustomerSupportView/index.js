@@ -243,7 +243,7 @@ export default function CustomerSupportView({ isDashboard = false }) {
             <CommonCta
                 badge={t('technicalSupport.ctaBadge', 'NEED FASTER RESOLUTION?')}
                 title1={t('technicalSupport.ctaTitle1', 'Start Trading with')}
-                title2={t('technicalSupport.ctaTitle2', 'ChronosX AI Intelligence')}
+                title2={t('technicalSupport.ctaTitle2', 'TraderMaster AI Intelligence')}
                 description={t(
                     'technicalSupport.ctaDesc',
                     'Join thousands of elite traders leveraging real-time neural vision, algorithmic signals, and institutional-grade execution.'

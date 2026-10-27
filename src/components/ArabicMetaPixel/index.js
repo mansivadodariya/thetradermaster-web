@@ -48,7 +48,7 @@ function MetaPixelInner({ initialIsArabic = false }) {
 
     return (
         <>
-            {/* Meta Pixel Code for ChronosX Arabic Landing Page */}
+            {/* Meta Pixel Code for TraderMaster Arabic Landing Page */}
             <Script
                 id="meta-pixel-arabic"
                 strategy="afterInteractive"

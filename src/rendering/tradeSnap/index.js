@@ -246,7 +246,7 @@ export default function TradeSnap() {
                 if ('Notification' in window && Notification.permission === 'default') {
                     Notification.requestPermission().catch(() => {});
                 }
-                sessionStorage.setItem('chronosx_tradesnap_active_job', JSON.stringify({
+                sessionStorage.setItem('tradermaster_tradesnap_active_job', JSON.stringify({
                     startedAt: Date.now(),
                     isRunning: true
                 }));
@@ -265,12 +265,12 @@ export default function TradeSnap() {
                 );
                 toast.success(t('tradeSnap.analysisSuccessToast', 'AI Chart analysis complete! Trade setup generated.'));
                 if (typeof window !== 'undefined') {
-                    try { sessionStorage.removeItem('chronosx_tradesnap_active_job'); } catch (_) {}
+                    try { sessionStorage.removeItem('tradermaster_tradesnap_active_job'); } catch (_) {}
                 }
             }
         } catch (err) {
             if (typeof window !== 'undefined') {
-                try { sessionStorage.removeItem('chronosx_tradesnap_active_job'); } catch (_) {}
+                try { sessionStorage.removeItem('tradermaster_tradesnap_active_job'); } catch (_) {}
             }
 
             if (err?.message?.includes('timed out') || err?.name === 'AbortError') {

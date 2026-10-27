@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import HeroSection from './components/HeroSection';
 import ThreeWaysSection from './components/ThreeWaysSection';
 import AiBuilderSection from './components/AiBuilderSection';
-import WhyChronosXSection from './components/WhyChronosXSection';
+import WhyTraderMasterSection from './components/WhyTraderMasterSection';
 import ComparisonSection from './components/ComparisonSection';
 import FaqSection from './components/FaqSection';
 import CommonCta from '@/components/commonCta';
@@ -77,8 +77,8 @@ export default function CustomBotBuilderView() {
 
         {/* AI BOT BUILDER */}
 
-        {/* WHY BUILD WITH CHRONOSX? */}
-        <WhyChronosXSection />
+        {/* WHY BUILD WITH TRADERMASTER? */}
+        <WhyTraderMasterSection />
         <AiBuilderSection refProp={aiBuilderRef} />
 
         {/* AI VS CUSTOM COMPARISON */}
@@ -97,7 +97,7 @@ export default function CustomBotBuilderView() {
           badge="AI TRADING BOT BUILDER"
           title1="Your Strategy Shouldn't"
           title2="Stay on Paper."
-          description="Build it. Test it. Refine it. Turn your trading logic into a bot with ChronosX."
+          description="Build it. Test it. Refine it. Turn your trading logic into a bot with TraderMaster."
           primaryBtnText="CREATE YOUR FIRST BOT"
           primaryBtnAction={scrollToAiBuilder}
         />

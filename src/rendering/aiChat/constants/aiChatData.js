@@ -220,37 +220,37 @@ export const COMPARISON_DATA = [
     {
         feature: "Live MT5 Price Stream",
         generic: { status: 'cross', text: "No (Outdated static knowledge cutoffs)" },
-        chronosx: { status: 'check', text: "Direct MT5 Integration (Real-time live tick stream)" },
+        TraderMaster: { status: 'check', text: "Direct MT5 Integration (Real-time live tick stream)" },
         highlight: true
     },
     {
         feature: "Exact Pip & Lot Calculations",
         generic: { status: 'warn', text: "Unreliable (Frequent math hallucinations)" },
-        chronosx: { status: 'check', text: "100% Precision Math (Strict broker contract sizing)" },
+        TraderMaster: { status: 'check', text: "100% Precision Math (Strict broker contract sizing)" },
         highlight: true
     },
     {
         feature: "Custom FX Indicators",
         generic: { status: 'cross', text: "No (Guesses from outdated web text)" },
-        chronosx: { status: 'check', text: "EMAs, SuperTrend & Pivots (Computed live on chart)" },
+        TraderMaster: { status: 'check', text: "EMAs, SuperTrend & Pivots (Computed live on chart)" },
         highlight: true
     },
     {
         feature: "Zero Delay Execution Setup",
         generic: { status: 'cross', text: "No (No real-time market depth)" },
-        chronosx: { status: 'check', text: "Real-Time Data & Precise Entry/SL/TP Structures" },
+        TraderMaster: { status: 'check', text: "Real-Time Data & Precise Entry/SL/TP Structures" },
         highlight: true
     },
     {
         feature: "Institutional Risk:Reward Enforcement",
         generic: { status: 'warn', text: "Basic text advice without sizing rules" },
-        chronosx: { status: 'check', text: "Strict Capital Preservation & Dynamic RRR Rules" },
+        TraderMaster: { status: 'check', text: "Strict Capital Preservation & Dynamic RRR Rules" },
         highlight: false
     },
     {
         feature: "Multi-Timeframe Confluence",
         generic: { status: 'cross', text: "Limited to single-view context" },
-        chronosx: { status: 'check', text: "Simultaneous M1, M15, H1, H4 & Daily Analysis" },
+        TraderMaster: { status: 'check', text: "Simultaneous M1, M15, H1, H4 & Daily Analysis" },
         highlight: false
     }
 ];
@@ -271,10 +271,10 @@ export const FAQS = [
     },
     {
         question: "What currency pairs and asset classes are supported?",
-        answer: "ChronosX AI Chat supports all major, minor, and exotic Forex currency pairs (EURUSD, GBPUSD, USDJPY, AUDUSD, etc.), precious metals (XAUUSD Gold, XAGUSD Silver), energies (USOIL, UKOIL), and global indices (US30, NAS100)."
+        answer: "TraderMaster AI Chat supports all major, minor, and exotic Forex currency pairs (EURUSD, GBPUSD, USDJPY, AUDUSD, etc.), precious metals (XAUUSD Gold, XAGUSD Silver), energies (USOIL, UKOIL), and global indices (US30, NAS100)."
     },
     {
         question: "Do I need coding experience or manual MT5 configuration?",
-        answer: "None at all. ChronosX handles all server-side MT5 terminal routing and algorithmic analysis automatically in the cloud. You interact through a clean, conversational natural-language chat interface."
+        answer: "None at all. TraderMaster handles all server-side MT5 terminal routing and algorithmic analysis automatically in the cloud. You interact through a clean, conversational natural-language chat interface."
     }
 ];

@@ -25,7 +25,7 @@ export default function InteractiveAuditSection({
                         </div>
                         <h2 className={styles.columnTitle}>{t('aiAuditPillars.title', "WHAT YOU'LL GET")}</h2>
                         <p className={styles.columnSubtitle}>
-                            {t('aiAuditPillars.subtitle', 'Stop guessing why you lost. Discover exactly what ChronosX analyzes on your chart:')}
+                            {t('aiAuditPillars.subtitle', 'Stop guessing why you lost. Discover exactly what TraderMaster analyzes on your chart:')}
                         </p>
 
                         <div className={styles.pillarsList}>

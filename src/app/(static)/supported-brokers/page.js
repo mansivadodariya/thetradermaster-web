@@ -1,7 +1,7 @@
 import BrokerPage from '@/rendering/broker';
 
 export const metadata = {
-    title: 'Supported Brokers & Liquidity Partners | ChronosX',
+    title: 'Supported Brokers & Liquidity Partners | TraderMaster',
     description: 'Explore verified broker partners with Tier-1 liquidity, zero-latency MT5 bridges, and raw spreads.',
 };
 

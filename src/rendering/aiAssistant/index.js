@@ -13,7 +13,7 @@ import ChatInputBar from './components/ChatInputBar';
 import AssistantModals from './components/AssistantModals';
 import { useAiAssistantStore } from '@/context/toolState';
 
-const Logo = '/assets/logo/smallLogo.png';
+const Logo = "/assets/logo/smallLogo.svg";
 
 export { PAIR_GROUPS, ALL_PAIRS, SYMBOL_DATABASE, normalizeSymbol };
 
@@ -320,7 +320,7 @@ const AiAssistant = ({ initialTab, initialOpenId, initialPrompt } = {}) => {
                     : 'MARKET';
 
                 const dateStr = new Date().toISOString().split('T')[0];
-                const filename = `ChronosX_Trading_Report_${cleanPair}_${dateStr}.pdf`;
+                const filename = `TraderMaster_Trading_Report_${cleanPair}_${dateStr}.pdf`;
 
                 // ── PDF page dimensions (A4 portrait in mm) ──
                 const PDF_W = 210;
@@ -507,7 +507,7 @@ const AiAssistant = ({ initialTab, initialOpenId, initialPrompt } = {}) => {
                     <div className={styles.chatCard}>
                         <div className={`${styles.chatHeader} ${chatWidthPercent <= 42 ? styles.compactHeader : ''}`}>
                             <div className={styles.headerInfo}>
-                                <h3>{t('aiAssistant.copilotTitle', 'ChronosX Copilot')}</h3>
+                                <h3>{t('aiAssistant.copilotTitle', 'TraderMaster Copilot')}</h3>
                                 <span>{t('aiAssistant.activePair', 'Active Pair')}: {selectedPair}</span>
                             </div>
                             <div className={styles.headerAction}>

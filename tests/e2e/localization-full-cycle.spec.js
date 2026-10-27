@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Full-Cycle 9-Language Localization Suite', () => {
+test.describe('TraderMaster Full-Cycle 9-Language Localization Suite', () => {
   const languages = [
     { code: 'en', dir: 'ltr' },
     { code: 'ar', dir: 'rtl' },

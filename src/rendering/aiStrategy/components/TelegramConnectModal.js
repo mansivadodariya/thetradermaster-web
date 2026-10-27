@@ -352,11 +352,11 @@ export default function TelegramConnectModal({
                                     )}
                                     <div className={styles.qrCenterLogoWrap}>
                                         <img
-                                            src="/assets/logo/cx-mark.png"
-                                            alt="ChronosX"
+                                            src="/assets/logo/smallLogo.svg"
+                                            alt="TraderMaster"
                                             className={styles.qrCenterLogo}
                                             onError={(e) => {
-                                                e.currentTarget.src = '/assets/logo/smallLogo.png';
+                                                e.currentTarget.src = "/assets/logo/smallLogo.svg";
                                             }}
                                         />
                                     </div>
@@ -373,7 +373,7 @@ export default function TelegramConnectModal({
                                 <div className={styles.stepRow}>
                                     <span className={styles.stepNum}>1</span>
                                     <p className={styles.stepText}>
-                                        Tap <strong>Open in Telegram</strong> below. Your browser will launch the ChronosX bot.
+                                        Tap <strong>Open in Telegram</strong> below. Your browser will launch the TraderMaster bot.
                                     </p>
                                 </div>
                                 <div className={styles.stepRow}>

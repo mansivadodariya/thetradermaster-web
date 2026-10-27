@@ -111,7 +111,7 @@ export default function BlogDetailView({ slug }) {
                     {/* Sidebar CTA & Tags */}
                     <aside className={styles.sidebarWidget}>
                         <div className={styles.ctaCard}>
-                            <h4>Deploy on ChronosX AI Desk</h4>
+                            <h4>Deploy on TraderMaster AI Desk</h4>
                             <p>Test institutional smart money order blocks and chart vision scanning in real-time.</p>
                             <Link href="/ai-chart-scanner" className={styles.ctaBtn}>
                                 <span>Launch AI Trade Vision</span>

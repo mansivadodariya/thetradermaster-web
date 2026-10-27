@@ -54,7 +54,7 @@ export default function HowitWorks() {
   const current = steps[activeStep];
 
   return (
-    <section className={styles.howitWorks} aria-label="How ChronosX Works">
+    <section className={styles.howitWorks} aria-label="How TraderMaster Works">
       <div className="container">
         <div className={styles.row}>
 

@@ -89,7 +89,7 @@ export default function Profile() {
     const [tradingProfileData, setTradingProfileData] = useState(() => {
         try {
             if (typeof window !== 'undefined') {
-                const cached = localStorage.getItem('chronosx_trading_profile_data');
+                const cached = localStorage.getItem('tradermaster_trading_profile_data');
                 return cached ? JSON.parse(cached) : null;
             }
         } catch (_) {}
@@ -175,7 +175,7 @@ export default function Profile() {
         }
 
         try {
-            const cachedOnboarding = localStorage.getItem('chronosx_onboarding');
+            const cachedOnboarding = localStorage.getItem('tradermaster_onboarding');
             if (cachedOnboarding) {
                 setOnboardingData(JSON.parse(cachedOnboarding));
             }
@@ -261,7 +261,7 @@ export default function Profile() {
                             };
                             setOnboardingData(surveyObj);
                             try {
-                                localStorage.setItem('chronosx_onboarding', JSON.stringify(surveyObj));
+                                localStorage.setItem('tradermaster_onboarding', JSON.stringify(surveyObj));
                             } catch (_) {}
                         }
                     }
@@ -333,7 +333,7 @@ export default function Profile() {
                 if (tData) {
                     setTradingProfileData(tData);
                     try {
-                        localStorage.setItem('chronosx_trading_profile_data', JSON.stringify(tData));
+                        localStorage.setItem('tradermaster_trading_profile_data', JSON.stringify(tData));
                     } catch (_) {}
                 }
             } catch (analysisErr) {
@@ -665,7 +665,7 @@ export default function Profile() {
                 onSuccess={(updated) => {
                     setTradingProfileData(updated);
                     try {
-                        localStorage.setItem('chronosx_trading_profile_data', JSON.stringify(updated));
+                        localStorage.setItem('tradermaster_trading_profile_data', JSON.stringify(updated));
                     } catch (_) {}
                 }}
                 initialPreferences={tradingProfileData?.preferences}

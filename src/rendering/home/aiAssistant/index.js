@@ -42,7 +42,7 @@ const featureData = [
 
 const modelConfigurations = {
   'Neural-v4.2': {
-    name: 'Chronos Neural Engine v4.2',
+    name: 'TraderMaster Neural Engine v4.2',
     category: 'Multi-Modal Reasoning',
     activeTabLabel: 'REAL-TIME ANALYSIS',
     prompt: 'Identify structural liquidity gaps and optimal risk-reward parameters for high-probability setups.',

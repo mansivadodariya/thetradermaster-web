@@ -80,7 +80,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         // Multi-candidate resilient endpoint list:
         // 1. Internal Next.js proxy route (queries backend + Supabase with full indicator pipeline)
         // 2. Configured NEXT_PUBLIC_BACKEND_URL
-        // 3. Direct Production API (https://api.chronosx.com)
+        // 3. Direct Production API (https://api.thetradermaster.com)
         const candidateUrls = [];
         if (typeof window !== 'undefined') {
             candidateUrls.push(`/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
@@ -89,7 +89,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         if (envBackend && !candidateUrls.some(u => u.startsWith(envBackend))) {
             candidateUrls.push(`${envBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
         }
-        const prodBackend = 'https://api.chronosx.com';
+        const prodBackend = 'https://api.thetradermaster.com';
         if (!candidateUrls.some(u => u.startsWith(prodBackend))) {
             candidateUrls.push(`${prodBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
         }

@@ -98,7 +98,7 @@ export default function TeamUp() {
               <div className={styles.bannerInfo}>
                 <span className={styles.verifiedTag}>{t('homeSections.teamUp.vaultTag', 'ENTERPRISE SECURITY VAULT')}</span>
                 <h4>{t('homeSections.teamUp.vaultTitle', '100% NON-CUSTODIAL & SEGREGATED')}</h4>
-                <p>{t('homeSections.teamUp.vaultBody', 'You maintain 100% custody of your trading capital. ChronosX operates purely as an analytical AI layer and bridge. We never hold, manage, or custody user funds—your capital remains securely deposited with your regulated MT5 broker.')}</p>
+                <p>{t('homeSections.teamUp.vaultBody', 'You maintain 100% custody of your trading capital. TraderMaster operates purely as an analytical AI layer and bridge. We never hold, manage, or custody user funds—your capital remains securely deposited with your regulated MT5 broker.')}</p>
               </div>
               <div className={styles.shieldVisual}>
                 <svg width="100" height="90" viewBox="0 0 100 90" fill="none" className={styles.shieldSvg} aria-hidden="true">

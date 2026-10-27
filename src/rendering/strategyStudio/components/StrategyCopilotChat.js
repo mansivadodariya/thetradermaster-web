@@ -28,7 +28,7 @@ import { StreamingAiBubble, CircuitStrategyDivider, DynamicThinkingLoader, Inter
 import { categorizeChatError } from '../utils/strategyApi';
 
 const EXPLORE_TAGLINES = [
-    'Start with a message, ChronosX takes it from there',
+    'Start with a message, TraderMaster takes it from there',
     'Trade with data. Execute with discipline.',
     'Build smarter strategies. Trade with confidence.',
     'Every great trade starts with a clear plan.',
@@ -332,7 +332,7 @@ export default function StrategyCopilotChat({
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, overflow: 'hidden', position: 'relative' }}>
-            {/* ── TOP RIGHT HEADER ACTIONS (History button matching original ChronosX UI) ── */}
+            {/* ── TOP RIGHT HEADER ACTIONS (History button matching original TraderMaster UI) ── */}
             <div className={styles.advisorChatTopHeader}>
                 <div className={styles.advisorChatTopRight}>
                     {/* New Chat Button in header when active in chat */}

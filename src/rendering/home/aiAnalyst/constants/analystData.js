@@ -99,7 +99,7 @@ export const featurePoints = [
   {
     num: "01",
     title: "Grounded in Live Platform Telemetry.",
-    desc: "ChronosX inspects real-time tick data, scanner rankings, and your active charts. It reasons directly from live market reality—not generic internet guesses."
+    desc: "TraderMaster inspects real-time tick data, scanner rankings, and your active charts. It reasons directly from live market reality—not generic internet guesses."
   },
   {
     num: "02",

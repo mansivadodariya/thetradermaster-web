@@ -260,7 +260,7 @@ export default function WhiteLabelInquiryForm() {
         } catch (err) {
             console.error('White-label inquiry error:', err);
             setIsSubmitting(false);
-            toast.error(err?.message || 'Failed to submit inquiry. Please try again or email support@chronosx.com');
+            toast.error(err?.message || 'Failed to submit inquiry. Please try again or email support@thetradermaster.com');
         }
     };
 

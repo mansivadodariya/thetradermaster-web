@@ -1,6 +1,6 @@
 'use client';
 
-const BOT_SESSION_STORAGE_KEY = 'chronosx_ai_bot_studio_session';
+const BOT_SESSION_STORAGE_KEY = 'tradermaster_ai_bot_studio_session';
 
 /**
  * Save active Bot Builder session state into localStorage

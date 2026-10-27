@@ -40,7 +40,7 @@ export default function AiIntelligenceSummarySection({
                         background: 'rgba(24, 201, 139, 0.1)'
                     }}
                 >
-                    CHRONOSX NEURAL MODEL
+                    TRADERMASTER NEURAL MODEL
                 </div>
             </div>
 

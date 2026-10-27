@@ -13,8 +13,8 @@ import ThemeToggle from '../themeToggle';
 import LanguageToggle from '../languageToggle';
 import { useTabPermission } from '@/lib/useTabPermission';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 const RightIcon = '/assets/icons/right.svg';
 
 export default function Header() {
@@ -224,7 +224,7 @@ export default function Header() {
         },
         {
             label: t('header.company.affiliate.title', 'Affiliate Program'),
-            desc: t('header.company.affiliate.desc', 'Earn up to 20% recurring commissions sharing ChronosX'),
+            desc: t('header.company.affiliate.desc', 'Earn up to 20% recurring commissions sharing TraderMaster'),
             href: '/affiliate-program',
             badge: t('header.company.affiliate.badge', 'EARN 20%'),
             icon: (
@@ -317,7 +317,7 @@ export default function Header() {
                 href: '/',
                 hasDropdown: true,
                 dropdownTag: t('header.aiTradingEcosystem', 'AI TRADING ECOSYSTEM'),
-                dropdownFooter: t('header.aiTradingEcosystemDesc', 'Powered by ChronosX Real-Time Neural Engines'),
+                dropdownFooter: t('header.aiTradingEcosystemDesc', 'Powered by TraderMaster Real-Time Neural Engines'),
                 dropdownItems: productDropdownItems
             },
             {
@@ -334,7 +334,7 @@ export default function Header() {
                 hasDropdown: true,
                 twoColumns: true,
                 dropdownTag: t('header.companyResources', 'COMPANY & RESOURCES'),
-                dropdownFooter: t('header.companyResourcesDesc', 'ChronosX Global Financial Intelligence Network'),
+                dropdownFooter: t('header.companyResourcesDesc', 'TraderMaster Global Financial Intelligence Network'),
                 dropdownItems: companyDropdownItems
             },
         ];
@@ -383,8 +383,8 @@ export default function Header() {
                 <div className={`${styles.headerAlignment} ${scrolled ? styles.alignmentScrolled : ''}`}>
                     {/* Brand Logo */}
                     <div className={styles.logo}>
-                        <Link href="/" aria-label="ChronosX Home">
-                            <img src={activeLogo} alt="ChronosX Logo" />
+                        <Link href="/" aria-label="TraderMaster Home">
+                            <img src={activeLogo} alt="TraderMaster Logo" />
                         </Link>
                     </div>
 

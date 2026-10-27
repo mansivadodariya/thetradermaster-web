@@ -1,7 +1,7 @@
 import BrokerDetailPage from '@/rendering/broker/detail';
 
 export const metadata = {
-    title: 'Broker & Platform Details | ChronosX Dashboard',
+    title: 'Broker & Platform Details | TraderMaster Dashboard',
     description: 'Explore full features, liquidity specs, and direct connectivity for verified trading partners.',
 };
 

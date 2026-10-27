@@ -361,9 +361,9 @@ export default function CustomBotBuilderView() {
             };
 
             try {
-                const current = JSON.parse(localStorage.getItem('chronosx_user_bots') || '[]');
+                const current = JSON.parse(localStorage.getItem('tradermaster_user_bots') || '[]');
                 current.unshift(newBot);
-                localStorage.setItem('chronosx_user_bots', JSON.stringify(current));
+                localStorage.setItem('tradermaster_user_bots', JSON.stringify(current));
             } catch (storageErr) {
                 console.warn('LocalStorage save notice:', storageErr);
             }
@@ -408,7 +408,7 @@ export default function CustomBotBuilderView() {
         <div className={styles.builderContainer}>
             {/* Common Section Header */}
             <CommonSectionHeader
-                badge={t('botBuilder.badge', 'CHRONOSX QUANT SUITE')}
+                badge={t('botBuilder.badge', 'TRADERMASTER QUANT SUITE')}
                 icon={<CustomBotIcon width={26} height={26} />}
                 title={t('nav.customBotBuilder', 'Custom Bot Builder')}
                 subtitle={t('botBuilder.subtitle', 'Build custom algorithmic trading bots step-by-step with technical entry signals, exit targets, and risk parameters.')}

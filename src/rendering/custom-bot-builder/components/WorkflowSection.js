@@ -33,7 +33,7 @@ const STEPS = [
   {
     num: "06",
     title: "Deploy Your Bot",
-    desc: "Once your strategy is ready, move it into your ChronosX bot workflow."
+    desc: "Once your strategy is ready, move it into your TraderMaster bot workflow."
   }
 ];
 

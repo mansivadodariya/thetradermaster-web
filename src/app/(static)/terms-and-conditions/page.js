@@ -2,21 +2,21 @@ import TermsAndConditions from '@/rendering/termsAndConditions';
 
 export const metadata = {
     title: 'Terms and Conditions',
-    description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+    description: 'Read the terms and conditions governing your use of the TraderMaster AI trading platform.',
     alternates: {
-        canonical: 'https://chronosx.com/terms-and-conditions',
+        canonical: 'https://thetradermaster.com/terms-and-conditions',
     },
     openGraph: {
-        title: 'Terms and Conditions | ChronosX',
-        description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
-        url: 'https://chronosx.com/terms-and-conditions',
-        siteName: 'ChronosX',
+        title: 'Terms and Conditions | TraderMaster',
+        description: 'Read the terms and conditions governing your use of the TraderMaster AI trading platform.',
+        url: 'https://thetradermaster.com/terms-and-conditions',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Terms and Conditions',
+                alt: 'TraderMaster Terms and Conditions',
             },
         ],
         locale: 'en_US',
@@ -24,22 +24,22 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Terms and Conditions | ChronosX',
-        description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
-        images: ['/assets/logo/logo.png'],
+        title: 'Terms and Conditions | TraderMaster',
+        description: 'Read the terms and conditions governing your use of the TraderMaster AI trading platform.',
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    'name': 'ChronosX Terms and Conditions',
-    'url': 'https://chronosx.com/terms-and-conditions',
-    'description': 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+    'name': 'TraderMaster Terms and Conditions',
+    'url': 'https://thetradermaster.com/terms-and-conditions',
+    'description': 'Read the terms and conditions governing your use of the TraderMaster AI trading platform.',
     'publisher': {
         '@type': 'Organization',
-        'name': 'ChronosX',
-        'url': 'https://chronosx.com'
+        'name': 'TraderMaster',
+        'url': 'https://thetradermaster.com'
     }
 };
 

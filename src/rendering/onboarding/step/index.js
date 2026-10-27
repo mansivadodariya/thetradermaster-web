@@ -96,7 +96,7 @@ export default function Step({ selectedLevel: controlledLevel, onSelectLevel }) 
                     {t('onboarding.step1.title', 'What is your')} <span className={styles.accentText}>{t('onboarding.step1.titleAccent', 'trading experience?')}</span>
                 </h1>
                 <p className={styles.subtitle}>
-                    {t('onboarding.step1.subtitle', 'ChronosX calibrates its AI advisor, risk telemetry, and scanner thresholds to your exact experience level.')}
+                    {t('onboarding.step1.subtitle', 'TraderMaster calibrates its AI advisor, risk telemetry, and scanner thresholds to your exact experience level.')}
                 </p>
             </div>
 

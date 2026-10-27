@@ -23,14 +23,14 @@ export default function RiskDisclosure() {
 
                     <section>
                         <h2>{t('riskDisclosure.sec2Title', '2. Informational and Educational Purpose Only')}</h2>
-                        <p>{t('riskDisclosure.sec2P1', 'ChronosX is an artificial intelligence-driven research, market analysis, and educational platform. All content, market commentary, automated chart analysis, algorithmic indicators, strategy signals, chatbot responses, and tools provided by ChronosX are strictly for educational and informational purposes only.')}</p>
+                        <p>{t('riskDisclosure.sec2P1', 'TraderMaster is an artificial intelligence-driven research, market analysis, and educational platform. All content, market commentary, automated chart analysis, algorithmic indicators, strategy signals, chatbot responses, and tools provided by TraderMaster are strictly for educational and informational purposes only.')}</p>
                         <p>{t('riskDisclosure.sec2P2', 'Nothing on this platform constitutes, or is intended to constitute, financial advice, investment recommendations, endorsement, solicitation, or a recommendation to buy, sell, or hold any financial instrument or engage in any specific investment strategy.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('riskDisclosure.sec3Title', '3. Artificial Intelligence and Algorithmic Limitations')}</h2>
-                        <p>{t('riskDisclosure.sec3P1', 'ChronosX employs machine learning models, statistical neural networks, and technical indicators to analyze market structures and detect chart patterns. While these algorithms are engineered for high precision, financial markets are influenced by unpredictable geopolitical events, market sentiment, macroeconomic shifts, and institutional order flows.')}</p>
-                        <p>{t('riskDisclosure.sec3P2', 'AI-generated analysis may contain delays, calculation variances, or false signals. ChronosX does not guarantee the accuracy, completeness, timeliness, or profitability of any signal, indicator, or automated insight generated on the platform.')}</p>
+                        <p>{t('riskDisclosure.sec3P1', 'TraderMaster employs machine learning models, statistical neural networks, and technical indicators to analyze market structures and detect chart patterns. While these algorithms are engineered for high precision, financial markets are influenced by unpredictable geopolitical events, market sentiment, macroeconomic shifts, and institutional order flows.')}</p>
+                        <p>{t('riskDisclosure.sec3P2', 'AI-generated analysis may contain delays, calculation variances, or false signals. TraderMaster does not guarantee the accuracy, completeness, timeliness, or profitability of any signal, indicator, or automated insight generated on the platform.')}</p>
                     </section>
 
                     <section>
@@ -45,18 +45,18 @@ export default function RiskDisclosure() {
 
                     <section>
                         <h2>{t('riskDisclosure.sec6Title', '6. Third-Party Integrations and Broker Disclaimer')}</h2>
-                        <p>{t('riskDisclosure.sec6Content', 'ChronosX does not operate as a broker, custodian, fund manager, or exchange. ChronosX does not hold customer funds, accept deposits, or execute financial transactions. Any connectivity with third-party brokers, MT5 bridges, or liquidity providers is facilitated solely at the user\'s discretion. Users are responsible for evaluating the regulatory compliance, solvency, and security of any broker they select.')}</p>
+                        <p>{t('riskDisclosure.sec6Content', 'TraderMaster does not operate as a broker, custodian, fund manager, or exchange. TraderMaster does not hold customer funds, accept deposits, or execute financial transactions. Any connectivity with third-party brokers, MT5 bridges, or liquidity providers is facilitated solely at the user\'s discretion. Users are responsible for evaluating the regulatory compliance, solvency, and security of any broker they select.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('riskDisclosure.sec7Title', '7. User Responsibility and Risk Management')}</h2>
-                        <p>{t('riskDisclosure.sec7Content', 'You acknowledge that you are solely responsible for all trading decisions, position sizing, stop-loss configurations, risk parameters, and financial outcomes. You agree that ChronosX, its developers, founders, affiliates, and partners shall not be held liable for any direct, indirect, incidental, or consequential trading losses or damages resulting from the use of the platform.')}</p>
+                        <p>{t('riskDisclosure.sec7Content', 'You acknowledge that you are solely responsible for all trading decisions, position sizing, stop-loss configurations, risk parameters, and financial outcomes. You agree that TraderMaster, its developers, founders, affiliates, and partners shall not be held liable for any direct, indirect, incidental, or consequential trading losses or damages resulting from the use of the platform.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('riskDisclosure.sec8Title', '8. Contact for Inquiries')}</h2>
                         <p>{t('riskDisclosure.sec8P1', 'If you have any questions regarding this Risk Disclosure Statement, please reach out to our legal and compliance desk at:')}</p>
-                        <p><strong>{(t('riskDisclosure.sec8Email', 'Email:') || 'Email:').replace(/support@chronosx\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@chronosx.com">support@chronosx.com</a></p>
+                        <p><strong>{(t('riskDisclosure.sec8Email', 'Email:') || 'Email:').replace(/support@TraderMaster\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a></p>
                     </section>
                 </div>
             </div>

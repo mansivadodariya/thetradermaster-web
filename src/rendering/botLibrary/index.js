@@ -113,9 +113,9 @@ export default function BotLibraryView() {
         };
 
         try {
-            const current = JSON.parse(localStorage.getItem('chronosx_user_bots') || '[]');
+            const current = JSON.parse(localStorage.getItem('tradermaster_user_bots') || '[]');
             current.unshift(cloned);
-            localStorage.setItem('chronosx_user_bots', JSON.stringify(current));
+            localStorage.setItem('tradermaster_user_bots', JSON.stringify(current));
             toast.success(`"${template.name}" cloned to My Bots!`);
             if (typeof window !== 'undefined') {
                 window.dispatchEvent(new CustomEvent('page:loading:start'));
@@ -145,7 +145,7 @@ export default function BotLibraryView() {
         <div className={styles.libraryContainer}>
             {/* Common Section Header */}
             <CommonSectionHeader
-                badge="CHRONOSX AI TRADING BOT SUITE"
+                badge="TRADERMASTER AI TRADING BOT SUITE"
                 icon={<BotLibraryIcon width={28} height={28} />}
                 title={t('nav.botLibrary', 'Browse Bots Library')}
                 subtitle="Explore, backtest, and clone verified algorithmic trading bot templates across forex, crypto, and commodities."

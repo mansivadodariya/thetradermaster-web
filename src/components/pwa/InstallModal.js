@@ -49,7 +49,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
       }
     } else {
       if (typeof window !== 'undefined' && (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone)) {
-        setInstallFeedback('ChronosX is already installed on this device.');
+        setInstallFeedback('TraderMaster is already installed on this device.');
       } else if (activeTab === 'iphone') {
         setInstallFeedback("Tap the Share icon in Safari's bottom toolbar, then tap 'Add to Home Screen' ➕");
       } else if (activeTab === 'android') {
@@ -74,7 +74,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </div>
-            <h2 id="install-modal-title" className={styles.title}>Install ChronosX</h2>
+            <h2 id="install-modal-title" className={styles.title}>Install TraderMaster</h2>
             <button
               type="button"
               className={styles.closeBtn}
@@ -88,7 +88,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
             </button>
           </div>
           <p className={styles.subtitle}>
-            Add ChronosX to your device for faster access, a full-screen experience, and an app-like feel.
+            Add TraderMaster to your device for faster access, a full-screen experience, and an app-like feel.
           </p>
         </div>
 
@@ -144,7 +144,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>1</span>
                 <p className={styles.stepText}>
-                  Open ChronosX in <strong>Chrome</strong> or <strong>Edge</strong>.
+                  Open TraderMaster in <strong>Chrome</strong> or <strong>Edge</strong>.
                 </p>
               </div>
               <div className={styles.stepItem}>
@@ -170,7 +170,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>4</span>
                 <p className={styles.stepText}>
-                  ChronosX opens in its own window and is added to your dock or taskbar.
+                  TraderMaster opens in its own window and is added to your dock or taskbar.
                 </p>
               </div>
             </>
@@ -181,7 +181,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>1</span>
                 <p className={styles.stepText}>
-                  Open ChronosX in <strong>Safari</strong> on your iPhone or iPad.
+                  Open TraderMaster in <strong>Safari</strong> on your iPhone or iPad.
                 </p>
               </div>
               <div className={styles.stepItem}>
@@ -207,7 +207,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>4</span>
                 <p className={styles.stepText}>
-                  Tap <strong>Add</strong> in the top-right corner to place ChronosX on your home screen.
+                  Tap <strong>Add</strong> in the top-right corner to place TraderMaster on your home screen.
                 </p>
               </div>
             </>
@@ -218,7 +218,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>1</span>
                 <p className={styles.stepText}>
-                  Open ChronosX in <strong>Chrome</strong> on your Android device.
+                  Open TraderMaster in <strong>Chrome</strong> on your Android device.
                 </p>
               </div>
               <div className={styles.stepItem}>
@@ -236,7 +236,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <div className={styles.stepItem}>
                 <span className={styles.stepNumber}>4</span>
                 <p className={styles.stepText}>
-                  Confirm the prompt to install ChronosX directly into your app drawer.
+                  Confirm the prompt to install TraderMaster directly into your app drawer.
                 </p>
               </div>
             </>
@@ -256,7 +256,7 @@ export default function InstallModal({ isOpen, onClose, deferredPrompt, onInstal
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            <span>{isInstalling ? 'Installing ChronosX...' : 'Install ChronosX App'}</span>
+            <span>{isInstalling ? 'Installing TraderMaster...' : 'Install TraderMaster App'}</span>
           </button>
           {installFeedback && (
             <p className={styles.actionHelpText}>{installFeedback}</p>

@@ -35,7 +35,7 @@ export async function generateInvoicePdf(item, index = 1) {
 
         const user = getStoredUser() || {};
         const userName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.name || user.email?.split('@')[0] || 'Valued Trader';
-        const userEmail = user.email || 'trader@chronosx.com';
+        const userEmail = user.email || 'trader@thetradermaster.com';
         const userUid = user.id || user.user_id || 'UID-00842';
 
         const txnId = formatTransactionId(item?.invoice_number || item?.id, index);
@@ -63,7 +63,7 @@ export async function generateInvoicePdf(item, index = 1) {
         doc.setFillColor(255, 255, 255);
         doc.rect(0, 0, 210, 297, 'F');
 
-        // Top decorative accent bar (ChronosX Emerald green)
+        // Top decorative accent bar (TraderMaster Emerald green)
         doc.setFillColor(24, 201, 139);
         doc.rect(0, 0, 210, 5, 'F');
 
@@ -77,13 +77,13 @@ export async function generateInvoicePdf(item, index = 1) {
                 doc.setTextColor(24, 201, 139);
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(20);
-                doc.text('CHRONOSX', 16, 24);
+                doc.text('TRADERMASTER', 16, 24);
             }
         } else {
             doc.setTextColor(24, 201, 139);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(22);
-            doc.text('CHRONOSX', 16, 24);
+            doc.text('TRADERMASTER', 16, 24);
         }
 
         // Right Header: INVOICE title & Transaction ID
@@ -139,7 +139,7 @@ export async function generateInvoicePdf(item, index = 1) {
         // ================= 2. FROM / TO ADDRESS BLOCK =================
         let y = 50;
 
-        // Column 1: FROM (ChronosX)
+        // Column 1: FROM (TraderMaster)
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(8);
         doc.setTextColor(100, 116, 139); // slate 500
@@ -148,15 +148,15 @@ export async function generateInvoicePdf(item, index = 1) {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(10.5);
         doc.setTextColor(15, 23, 42);
-        doc.text('ChronosX', 16, y + 6);
+        doc.text('TraderMaster', 16, y + 6);
 
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8.5);
         doc.setTextColor(71, 85, 105);
         doc.text('Autonomous Quant Intelligence Desk', 16, y + 11);
         doc.text('DIFC FinTech District, Dubai, UAE', 16, y + 16);
-        doc.text('Support & Compliance: billing@chronosx.com', 16, y + 21);
-        doc.text('Portal: https://chronosx.com', 16, y + 26);
+        doc.text('Support & Compliance: billing@thetradermaster.com', 16, y + 21);
+        doc.text('Portal: https://thetradermaster.com', 16, y + 26);
 
         // Column 2: TO (User details)
         doc.setFont('helvetica', 'bold');
@@ -201,7 +201,7 @@ export async function generateInvoicePdf(item, index = 1) {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(9.5);
         doc.setTextColor(15, 23, 42);
-        doc.text(`ChronosX ${planName} Access`, 22, y + 6);
+        doc.text(`TraderMaster ${planName} Access`, 22, y + 6);
 
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(7.5);
@@ -301,11 +301,11 @@ export async function generateInvoicePdf(item, index = 1) {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(7.5);
         doc.setTextColor(148, 163, 184);
-        doc.text('ChronosX - Subscription fees cover high-availability GPU cloud inferences and market research tools.', 105, 275, { align: 'center' });
-        doc.text('Questions or custom enterprise requirements? Email support@chronosx.com or visit https://chronosx.com', 105, 279, { align: 'center' });
+        doc.text('TraderMaster - Subscription fees cover high-availability GPU cloud inferences and market research tools.', 105, 275, { align: 'center' });
+        doc.text('Questions or custom enterprise requirements? Email support@thetradermaster.com or visit https://thetradermaster.com', 105, 279, { align: 'center' });
 
         // ================= 7. TRIGGER DOWNLOAD =================
-        const fileName = `ChronosX_Invoice_${txnId}.pdf`;
+        const fileName = `TraderMaster_Invoice_${txnId}.pdf`;
         doc.save(fileName);
         return true;
     } catch (error) {

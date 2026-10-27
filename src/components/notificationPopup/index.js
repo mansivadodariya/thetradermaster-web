@@ -18,7 +18,7 @@ import styles from './notificationPopup.module.scss';
 function getDismissedGuestUpdates() {
     try {
         if (typeof window === 'undefined') return [];
-        const raw = localStorage.getItem('chronosx_dismissed_updates');
+        const raw = localStorage.getItem('tradermaster_dismissed_updates');
         return raw ? JSON.parse(raw) : [];
     } catch (_) {
         return [];
@@ -31,7 +31,7 @@ function saveDismissedGuestUpdate(id) {
         const current = getDismissedGuestUpdates();
         if (!current.includes(id)) {
             current.push(id);
-            localStorage.setItem('chronosx_dismissed_updates', JSON.stringify(current));
+            localStorage.setItem('tradermaster_dismissed_updates', JSON.stringify(current));
         }
     } catch (_) { }
 }
@@ -83,7 +83,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
     const loadUnreadPopups = useCallback(async () => {
         if (!hasNotificationsPermission) return;
         if (isAuthRoute) return;
-        if (typeof window !== 'undefined' && sessionStorage.getItem('chronosx_popup_dismissed') === 'true') {
+        if (typeof window !== 'undefined' && sessionStorage.getItem('tradermaster_popup_dismissed') === 'true') {
             return;
         }
 
@@ -178,7 +178,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
 
         try {
             if (typeof window !== 'undefined') {
-                sessionStorage.setItem('chronosx_popup_dismissed', 'true');
+                sessionStorage.setItem('tradermaster_popup_dismissed', 'true');
             }
         } catch (_) {}
 
@@ -222,7 +222,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
                 setIsSlidingOut(false);
                 try {
                     if (typeof window !== 'undefined') {
-                        sessionStorage.setItem('chronosx_popup_dismissed', 'true');
+                        sessionStorage.setItem('tradermaster_popup_dismissed', 'true');
                         window.dispatchEvent(new CustomEvent('notification:popup:visibility', { detail: { visible: false } }));
                     }
                 } catch (_) {}
@@ -280,7 +280,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
         setUnreadQueue([]);
         try {
             if (typeof window !== 'undefined') {
-                sessionStorage.setItem('chronosx_popup_dismissed', 'true');
+                sessionStorage.setItem('tradermaster_popup_dismissed', 'true');
                 window.dispatchEvent(new CustomEvent('notification:popup:visibility', { detail: { visible: false } }));
             }
         } catch (_) {}

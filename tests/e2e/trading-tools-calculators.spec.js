@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Trading Calculators & Utilities Suite', () => {
+test.describe('TraderMaster Trading Calculators & Utilities Suite', () => {
   test('1. Forex Calculators: verify tabs and interactive calculations', async ({ page }) => {
     await page.goto('/forex-calculator');
 

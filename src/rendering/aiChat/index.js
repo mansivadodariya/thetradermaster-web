@@ -85,7 +85,7 @@ export default function AiChat() {
     };
 
     const handleCopySetup = () => {
-        const text = `CHRONOSX AI TRADE SETUP:
+        const text = `TRADERMASTER AI TRADE SETUP:
 Pair: ${selectedPrompt.demoData.pair}
 Outlook: ${selectedPrompt.demoData.title}
 Trend: ${selectedPrompt.demoData.trend}

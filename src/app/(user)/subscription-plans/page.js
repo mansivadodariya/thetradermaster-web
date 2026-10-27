@@ -1,7 +1,7 @@
 import SubscriptionPlansView from '@/rendering/plans';
 
 export const metadata = {
-    title: 'Subscription Plans & AI Credits | ChronosX Dashboard',
+    title: 'Subscription Plans & AI Credits | TraderMaster Dashboard',
     description: 'Manage your active subscription plan and AI credits directly inside your user dashboard.',
 };
 

@@ -99,13 +99,13 @@ export async function exportDashboardPdf({ name, stats }) {
                 doc.setTextColor(24, 201, 139);
                 doc.setFontSize(22);
                 doc.setFont('helvetica', 'bold');
-                doc.text('CHRONOSX', 15, 20);
+                doc.text('TRADERMASTER', 15, 20);
             }
         } else {
             doc.setTextColor(24, 201, 139);
             doc.setFontSize(22);
             doc.setFont('helvetica', 'bold');
-            doc.text('CHRONOSX', 15, 20);
+            doc.text('TRADERMASTER', 15, 20);
         }
 
         doc.setTextColor(255, 255, 255);
@@ -158,9 +158,9 @@ export async function exportDashboardPdf({ name, stats }) {
         // Footer
         doc.setFontSize(9);
         doc.setTextColor(120, 120, 120);
-        doc.text('ChronosX AI Quantitative Intelligence Platform • Confidential Export', 105, 285, { align: 'center' });
+        doc.text('TraderMaster AI Quantitative Intelligence Platform • Confidential Export', 105, 285, { align: 'center' });
 
-        doc.save(`ChronosX_AI_Telemetry_${(name || 'Trader').replace(/\s+/g, '_')}.pdf`);
+        doc.save(`TraderMaster_AI_Telemetry_${(name || 'Trader').replace(/\s+/g, '_')}.pdf`);
     } catch (err) {
         console.error('Failed to export PDF report:', err);
     }

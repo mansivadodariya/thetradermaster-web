@@ -236,5 +236,5 @@ export function getSampleTradeCsvFile() {
 849208,2026.02.18 16:20:00,sell,0.10,GBPUSD,1.26800,1.27400,1.25800,2026.02.18 18:05:30,1.27150,0.00,0.00,0.00,-35.00`;
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
-    return new File([blob], 'chronosx_institutional_sample_statement.csv', { type: 'text/csv' });
+    return new File([blob], 'tradermaster_institutional_sample_statement.csv', { type: 'text/csv' });
 }

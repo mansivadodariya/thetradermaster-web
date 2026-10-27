@@ -43,7 +43,7 @@ const REASONS = [
       </svg>
     ),
     title: "Marketing Resources",
-    desc: "Access referral links, promotional resources, and materials to help you share ChronosX."
+    desc: "Access referral links, promotional resources, and materials to help you share TraderMaster."
   },
   {
     icon: (
@@ -61,7 +61,7 @@ const REASONS = [
       </svg>
     ),
     title: "Trusted Platform",
-    desc: "Promote ChronosX and provide your audience with access to AI-powered trading tools."
+    desc: "Promote TraderMaster and provide your audience with access to AI-powered trading tools."
   }
 ];
 
@@ -73,8 +73,8 @@ export default function WhyJoinSection() {
         <SectionHeader
           badge={t('publicAffiliate.whyJoinBadge', 'WHY JOIN')}
           title1="Why Become a"
-          title2="ChronosX Affiliate?"
-          description={t('publicAffiliate.whyJoinSubtitle', 'Whether you are a trader, educator, content creator, community manager, or partner, ChronosX gives you the tools to build and manage your referral network.')}
+          title2="TraderMaster Affiliate?"
+          description={t('publicAffiliate.whyJoinSubtitle', 'Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network.')}
         />
 
         <div className={styles.whyJoinGrid}>

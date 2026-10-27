@@ -7,25 +7,25 @@ import ArabicMetaPixel from "@/components/ArabicMetaPixel";
 
 export const metadata = {
   title: {
-    absolute: "ChronosX — Trade Smarter With AI Signals That Never Sleep",
+    absolute: "TraderMaster — Trade Smarter With AI Signals That Never Sleep",
   },
   description:
     "Get real-time AI trading signals, market insights, and trade recommendations across Forex, Crypto, Stocks, and Global Markets.",
   alternates: {
-    canonical: "https://chronosx.com",
+    canonical: "https://thetradermaster.com",
   },
   openGraph: {
-    title: "ChronosX — Trade Smarter With AI Signals That Never Sleep",
+    title: "TraderMaster — Trade Smarter With AI Signals That Never Sleep",
     description:
       "Get real-time AI trading signals, market insights, and trade recommendations across Forex, Crypto, Stocks, and Global Markets.",
-    url: "https://chronosx.com",
-    siteName: "ChronosX",
+    url: "https://thetradermaster.com",
+    siteName: "TraderMaster",
     images: [
       {
-        url: "/assets/logo/logo.png",
+        url: "/assets/logo/logoWhite.svg",
         width: 1200,
         height: 630,
-        alt: "ChronosX AI Trading Platform",
+        alt: "TraderMaster AI Trading Platform",
       },
     ],
     locale: "en_US",
@@ -33,10 +33,10 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ChronosX — Trade Smarter With AI Signals That Never Sleep",
+    title: "TraderMaster — Trade Smarter With AI Signals That Never Sleep",
     description:
       "Get real-time AI trading signals, market insights, and trade recommendations across Forex, Crypto, Stocks, and Global Markets.",
-    images: ["/assets/logo/logo.png"],
+    images: ["/assets/logo/logoWhite.svg"],
   },
 };
 
@@ -45,22 +45,22 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://chronosx.com/#organization",
-      "name": "ChronosX",
-      "url": "https://chronosx.com",
-      "logo": "https://chronosx.com/assets/logo/logo.png",
+      "@id": "https://thetradermaster.com/#organization",
+      "name": "TraderMaster",
+      "url": "https://thetradermaster.com",
+      "logo": "https://thetradermaster.com/assets/logo/logo.png",
       "description": "Next-Gen AI Trading Platform & Institutional Market Intelligence Desk."
     },
     {
       "@type": "WebSite",
-      "@id": "https://chronosx.com/#website",
-      "url": "https://chronosx.com",
-      "name": "ChronosX",
-      "publisher": { "@id": "https://chronosx.com/#organization" }
+      "@id": "https://thetradermaster.com/#website",
+      "url": "https://thetradermaster.com",
+      "name": "TraderMaster",
+      "publisher": { "@id": "https://thetradermaster.com/#organization" }
     },
     {
       "@type": "SoftwareApplication",
-      "name": "ChronosX AI Trading Platform",
+      "name": "TraderMaster AI Trading Platform",
       "operatingSystem": "Web",
       "applicationCategory": "FinanceApplication",
       "description": "Get real-time AI trading signals, market insights, and trade recommendations across Forex, Crypto, Stocks, and Global Markets.",
@@ -77,7 +77,7 @@ export default async function Home() {
   let isArabicSSR = false;
   try {
     const headerStore = await headers();
-    const headerLang = headerStore.get('x-chronosx-lang');
+    const headerLang = headerStore.get('x-tradermaster-lang');
     const cookieStore = await cookies();
     const cookieLang = cookieStore.get('app_language')?.value || cookieStore.get('NEXT_LOCALE')?.value;
     isArabicSSR = headerLang === 'ar' || headerLang === 'ary' || cookieLang === 'ar' || cookieLang === 'ary';

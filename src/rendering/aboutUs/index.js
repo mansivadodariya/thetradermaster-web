@@ -78,7 +78,7 @@ const TIMELINE = [
     {
         year: '2024',
         title: 'Genesis & Deep Model Training',
-        desc: 'ChronosX was founded by quantitative engineers and market makers. Initial deep neural models trained on over a decade of institutional tick-level market data.'
+        desc: 'TraderMaster was founded by quantitative engineers and market makers. Initial deep neural models trained on over a decade of institutional tick-level market data.'
     },
     {
         year: '2025',
@@ -109,7 +109,7 @@ const LEADERSHIP = [
     {
         name: 'Marcus Vance',
         role: 'VP of Distributed Infrastructure',
-        bio: 'Ex-telecoms and high-frequency trading infrastructure architect. Oversees ChronosX zero-latency global edge network and MT5 bridge stability.',
+        bio: 'Ex-telecoms and high-frequency trading infrastructure architect. Oversees TraderMaster zero-latency global edge network and MT5 bridge stability.',
         tag: 'INFRASTRUCTURE'
     },
     {
@@ -124,7 +124,7 @@ const LEADERSHIP = [
 const GLOBAL_HUBS = [
     { city: 'London', role: 'Fintech & Quant Engine Desk', timezone: 'UTC+0 (GMT)' },
     { city: 'New York', role: 'Market Intelligence & ML Operations', timezone: 'UTC-5 (EST)' },
-    { city: 'Dubai (HQ)', role: 'ChronosX Financial Technologies FZ-LLC, Dubai Silicon Oasis, IFZA Building A1, UAE', timezone: 'UTC+4 (GST)' },
+    { city: 'Dubai (HQ)', role: 'The Trader Master, Dubai Silicon Oasis, IFZA Building A1, UAE', timezone: 'UTC+4 (GST)' },
     { city: 'Singapore', role: 'APAC Ultra-Low Latency Gateway', timezone: 'UTC+8 (SGT)' }
 ];
 
@@ -153,7 +153,7 @@ export default function AboutUs() {
                         badge={t('aboutUs.heroBadge', 'INSTITUTIONAL AI // EST. 2024')}
                         title1={t('aboutUs.heroTitle1', 'Pioneering the Future of')}
                         title2={t('aboutUs.heroTitle2', 'Algorithmic Intelligence & Market Vision')}
-                        description={t('aboutUs.heroSubtitle', 'ChronosX was forged by quantitative researchers, deep learning engineers, and veteran market makers to eliminate retail information asymmetry by delivering institutional-grade neural intelligence to traders worldwide.')}
+                        description={t('aboutUs.heroSubtitle', 'TraderMaster was forged by quantitative researchers, deep learning engineers, and veteran market makers to eliminate retail information asymmetry by delivering institutional-grade neural intelligence to traders worldwide.')}
                         align="center"
                     />
                 </motion.header>
@@ -250,7 +250,7 @@ export default function AboutUs() {
                 <section className={styles.pillarsSection}>
                     <SectionHeader
                         badge={t('aboutUs.techBadge', 'TECHNOLOGY STACK')}
-                        title1={t('aboutUs.techTitle1', 'The ChronosX')}
+                        title1={t('aboutUs.techTitle1', 'The TraderMaster')}
                         title2={t('aboutUs.techTitle2', 'Architecture')}
                         description={t('aboutUs.techSubtitle', 'Engineered from the ground up for speed, predictive accuracy, and institutional resilience.')}
                         align="center"
@@ -384,7 +384,7 @@ export default function AboutUs() {
             <CommonCta
                 badge="ENTERPRISE FINANCIAL INTELLIGENCE"
                 title1="Experience the Power of"
-                title2="ChronosX AI Today"
+                title2="TraderMaster AI Today"
                 description="Join thousands of elite traders leveraging automated chart pattern recognition, predictive signals, and conversational market copilot."
                 primaryBtnText="GET STARTED FREE"
                 primaryBtnAction="/dashboard"

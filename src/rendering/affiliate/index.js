@@ -82,7 +82,7 @@ export default function AffiliatePage() {
         if (typeof window !== 'undefined') {
             return `${window.location.origin}/signup?ref=${referralCode}`;
         }
-        return `https://chronosx.com/signup?ref=${referralCode}`;
+        return `https://thetradermaster.com/signup?ref=${referralCode}`;
     }, [stats.referral_link, referralCode]);
 
     // Fetch dynamic affiliate data from backend
@@ -146,17 +146,17 @@ export default function AffiliatePage() {
 
     // Social Sharing Triggers
     const shareToTwitter = () => {
-        const text = encodeURIComponent('Join me on ChronosX — the AI trading cockpit for multi-timeframe chart detection & quantitative algorithmic execution. Sign up with my link for exclusive perks:');
+        const text = encodeURIComponent('Join me on TraderMaster — the AI trading cockpit for multi-timeframe chart detection & quantitative algorithmic execution. Sign up with my link for exclusive perks:');
         window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(referralUrl)}`, '_blank');
     };
 
     const shareToTelegram = () => {
-        const text = encodeURIComponent('Elevate your trading with ChronosX AI Desk. Instant vision pattern detection & automated bot strategies.');
+        const text = encodeURIComponent('Elevate your trading with TraderMaster AI Desk. Instant vision pattern detection & automated bot strategies.');
         window.open(`https://t.me/share/url?url=${encodeURIComponent(referralUrl)}&text=${text}`, '_blank');
     };
 
     const shareToWhatsApp = () => {
-        const text = encodeURIComponent(`Check out ChronosX AI Trading Assistant: ${referralUrl}`);
+        const text = encodeURIComponent(`Check out TraderMaster AI Trading Assistant: ${referralUrl}`);
         window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     };
 
@@ -262,7 +262,7 @@ export default function AffiliatePage() {
         <div className={styles.affiliatePage}>
             {/* 1. Header Section */}
             <CommonSectionHeader
-                badge={t('affiliate.badge', 'CHRONOSX PARTNER & AFFILIATE PORTAL')}
+                badge={t('affiliate.badge', 'TRADERMASTER PARTNER & AFFILIATE PORTAL')}
                 badgeIcon={<SparkleIcon />}
                 title={t('affiliate.title', 'Affiliate & Partner Program')}
                 subtitle={t('affiliate.subtitle', "Earn up to 20% recurring crypto commissions across your network's trade volume and deposits with instant on-chain USDT/USDC settlements.")}

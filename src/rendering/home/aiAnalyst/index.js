@@ -15,7 +15,7 @@ export default function AiAnalyst() {
   const router = useRouter();
   const { theme } = useTheme();
   const { t } = useLanguage();
-  const terminalLogo = theme === 'light' ? '/assets/logo/darklogo.png' : '/assets/logo/logo.png';
+  const terminalLogo = theme === 'light' ? "/assets/logo/logo.svg" : "/assets/logo/logoWhite.svg";
   const [activeSidebarTab, setActiveSidebarTab] = useState('chat');
   const [messages, setMessages] = useState([]);
   const [isThinking, setIsThinking] = useState(false);
@@ -150,7 +150,7 @@ export default function AiAnalyst() {
   };
 
   return (
-    <section className={styles.aiAnalystSection} aria-label="ChronosX AI Market Assistant Section">
+    <section className={styles.aiAnalystSection} aria-label="TraderMaster AI Market Assistant Section">
       <div className="container">
         <div className={styles.mainGrid}>
           
@@ -264,7 +264,7 @@ export default function AiAnalyst() {
                 {/* Top Header Bar */}
                 <header className={styles.terminalHeader}>
                   <div className={styles.brandTitleRow}>
-                    <img src={terminalLogo} alt="ChronosX" className={styles.terminalLogoImg} />
+                    <img src={terminalLogo} alt="TraderMaster" className={styles.terminalLogoImg} />
                     <span className={styles.headerDivider}>|</span>
                     <span className={styles.headerSubtitle}>{t('homeSections.aiAnalyst.aiAssistantTitle', 'AI MARKET ASSISTANT')}</span>
                   </div>
@@ -310,7 +310,7 @@ export default function AiAnalyst() {
                             </div>
                           </div>
                         ) : (
-                          /* ChronosX AI Luminescent Glowing Response Card */
+                          /* TraderMaster AI Luminescent Glowing Response Card */
                           <div className={styles.aiResponseCard}>
                             
                             {/* Header row */}
@@ -321,7 +321,7 @@ export default function AiAnalyst() {
                                     <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
                                   </svg>
                                 </div>
-                                <span className={styles.aiBotName}>{t('homeSections.aiAnalyst.botName', 'ChronosX Assistant')}</span>
+                                <span className={styles.aiBotName}>{t('homeSections.aiAnalyst.botName', 'TraderMaster Assistant')}</span>
                                 <span className={styles.verifiedSignalBadge}>
                                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="10"/>
@@ -428,7 +428,7 @@ export default function AiAnalyst() {
                     type="text"
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
-                    placeholder={t('homeSections.aiAnalyst.inputPlaceholder', 'Ask ChronosX Assistant anything...')}
+                    placeholder={t('homeSections.aiAnalyst.inputPlaceholder', 'Ask TraderMaster Assistant anything...')}
                     className={styles.terminalInput}
                   />
 
@@ -464,10 +464,10 @@ export default function AiAnalyst() {
           >
             <SectionHeader
               align="left"
-              badge={t('homeSections.aiAnalyst.badge', 'CHRONOSX · AI MARKET ASSISTANT')}
+              badge={t('homeSections.aiAnalyst.badge', 'TRADERMASTER · AI MARKET ASSISTANT')}
               title1={t('homeSections.aiAnalyst.title1', 'AI on Top of Verified Data.')}
               title2={t('homeSections.aiAnalyst.title2', 'Not Instead of It.')}
-              description={t('homeSections.aiAnalyst.description', 'Raw signals and setups originate from real-time market data and quantitative algorithms. ChronosX translates complex charts into plain English—explaining exactly why a setup triggered, filtering market scans, and validating your risk parameters in milliseconds.')}
+              description={t('homeSections.aiAnalyst.description', 'Raw signals and setups originate from real-time market data and quantitative algorithms. TraderMaster translates complex charts into plain English—explaining exactly why a setup triggered, filtering market scans, and validating your risk parameters in milliseconds.')}
             />
 
             {/* Feature List Points */}

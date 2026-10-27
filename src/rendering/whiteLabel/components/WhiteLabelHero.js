@@ -47,7 +47,7 @@ export default function WhiteLabelHero({ onContactClick }) {
                     transition={{ duration: 0.55, delay: 0.25 }}
                     className={styles.heroFoundationNote}
                 >
-                    With ChronosX White Label, you get the technology foundation to build a modern trading experience without starting your AI infrastructure from scratch.
+                    With TraderMaster White Label, you get the technology foundation to build a modern trading experience without starting your AI infrastructure from scratch.
                 </motion.div>
 
                 {/* CTA Buttons */}
@@ -78,7 +78,7 @@ export default function WhiteLabelHero({ onContactClick }) {
                 </motion.div>
 
                 <div className={styles.heroPoweredTag}>
-                    <span>Powered by</span> ChronosX AI Infrastructure
+                    <span>Powered by</span> TraderMaster AI Infrastructure
                 </div>
 
                 {/* 3D Dashboard Showcase Mockup */}
@@ -91,7 +91,7 @@ export default function WhiteLabelHero({ onContactClick }) {
                     <div className={styles.heroVisualInner}>
                         <Image
                             src="/assets/images/hero-whitelabel.png"
-                            alt="ChronosX White Label Trading Platform Dashboard Mockup"
+                            alt="TraderMaster White Label Trading Platform Dashboard Mockup"
                             width={1200}
                             height={675}
                             priority

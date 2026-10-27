@@ -11,8 +11,8 @@ import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 const EmailIcon = '/assets/icons/sms.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
@@ -65,8 +65,8 @@ const ForgotPassword = () => {
                 <div className={styles.authCard}>
                     {/* Redesigned Logo */}
                     <div className={styles.logoWrapper}>
-                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
-                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        <Link href="/" className={styles.logoLink} title="TraderMaster Home">
+                            <img src={Logo} alt="TraderMaster Logo" className={styles.logoImg} />
                         </Link>
                     </div>
 

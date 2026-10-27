@@ -102,7 +102,7 @@ export default function WhiteLabelMakeItYours() {
                         <div className={styles.customizationMockupWrap}>
                             <Image
                                 src="/assets/images/customization-suite.png"
-                                alt={t('whiteLabel.mockupAlt', 'ChronosX Brand Customization Suite Mockup')}
+                                alt={t('whiteLabel.mockupAlt', 'TraderMaster Brand Customization Suite Mockup')}
                                 width={800}
                                 height={600}
                                 priority

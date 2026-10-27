@@ -75,7 +75,7 @@ export function categorizeChatError(errOrBody, status) {
         return {
             errorType: 'api_unavailable',
             title: 'AI Service Temporarily Unavailable',
-            message: 'Unable to communicate with the ChronosX AI API at this moment. The backend service may be offline or restarting.',
+            message: 'Unable to communicate with the TraderMaster AI API at this moment. The backend service may be offline or restarting.',
             suggestion: 'Please try again in a few moments. Your request has been preserved and can be retried immediately.',
             action: 'retry',
             actionLabel: 'Try Again',

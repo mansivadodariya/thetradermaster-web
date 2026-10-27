@@ -117,7 +117,7 @@ export default function AiBuilderSection({ refProp }) {
             <div className={styles.imageWrapper}>
               <img
                 src="/assets/images/ai-robot-builder.png"
-                alt="ChronosX AI Bot Builder Robot"
+                alt="TraderMaster AI Bot Builder Robot"
                 className={styles.robotImage}
               />
               <div className={styles.imageOverlayGradient} />

@@ -39,7 +39,7 @@ export default function StrategySimulatorSection({
                             <span className={`${styles.dot} ${styles.dotRed}`} />
                             <span className={`${styles.dot} ${styles.dotYellow}`} />
                             <span className={`${styles.dot} ${styles.dotGreen}`} />
-                            <span className={styles.brandTitle}>CHRONOSX // 100-PT QUANT ENGINE</span>
+                            <span className={styles.brandTitle}>TRADERMASTER // 100-PT QUANT ENGINE</span>
                         </div>
 
                         {/* Active Strategy Selector */}

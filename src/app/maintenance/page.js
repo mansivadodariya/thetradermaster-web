@@ -38,7 +38,7 @@ export default function MaintenancePage() {
     }
 
     // 2. Check stored last visited page
-    const storedPage = sessionStorage.getItem('chronosx_last_visited_page') || localStorage.getItem('chronosx_last_visited_page');
+    const storedPage = sessionStorage.getItem('tradermaster_last_visited_page') || localStorage.getItem('tradermaster_last_visited_page');
     if (storedPage && !storedPage.includes('/maintenance')) {
       router.push(storedPage);
       return;
@@ -164,8 +164,8 @@ export default function MaintenancePage() {
           {/* Brand Logo Header */}
           <div className={styles.logoRow}>
             <Image
-              src="/assets/logo/logo.png"
-              alt="ChronosX"
+              src="/assets/logo/logoWhite.svg"
+              alt="TraderMaster"
               width={190}
               height={44}
               priority

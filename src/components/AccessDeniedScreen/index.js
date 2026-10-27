@@ -8,8 +8,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 import styles from './accessDenied.module.scss';
 
-const DarkLogo = '/assets/logo/logo.png';
-const LightLogo = '/assets/logo/darklogo.png';
+const DarkLogo = "/assets/logo/logoWhite.svg";
+const LightLogo = "/assets/logo/logo.svg";
 
 export default function AccessDeniedScreen() {
     const { t } = useLanguage();
@@ -33,8 +33,8 @@ export default function AccessDeniedScreen() {
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
                 {/* Brand Logo */}
-                <Link href="/" className={styles.logoLink} title="ChronosX">
-                    <img src={logoSrc} alt="ChronosX Logo" className={styles.logoImg} />
+                <Link href="/" className={styles.logoLink} title="TraderMaster">
+                    <img src={logoSrc} alt="TraderMaster Logo" className={styles.logoImg} />
                 </Link>
 
                 {/* Status Badge */}

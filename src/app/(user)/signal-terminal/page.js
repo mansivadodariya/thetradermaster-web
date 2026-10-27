@@ -1,7 +1,7 @@
 import AiStrategy from '@/rendering/aiStrategy';
 
 export const metadata = {
-    title: 'Signal Terminal | ChronosX',
+    title: 'Signal Terminal | TraderMaster',
     description: 'Real-time multi-indicator algorithmic analysis, live candlestick charts, pivot points, and technical conviction scores.',
 };
 

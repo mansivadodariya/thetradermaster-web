@@ -1,11 +1,11 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.describe('ChronosX Localization & Navigation Tests', () => {
+test.describe('TraderMaster Localization & Navigation Tests', () => {
   test('should render home page and check brand title', async ({ page }) => {
     await page.goto('/');
-    // Check page title contains Chronos
-    await expect(page).toHaveTitle(/CHRONOS/i);
+    // Check page title contains TraderMaster
+    await expect(page).toHaveTitle(/TRADERMASTER|Trader Master/i);
   });
 
   test('should check about-us page loads', async ({ page }) => {

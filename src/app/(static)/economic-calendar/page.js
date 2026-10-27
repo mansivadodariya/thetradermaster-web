@@ -4,19 +4,19 @@ export const metadata = {
     title: 'Global Economic Calendar & Macro Desk',
     description: 'Track high-impact macroeconomic events, central bank interest rate decisions, inflation, and volatility releases in real-time.',
     alternates: {
-        canonical: 'https://chronosx.com/economic-calendar',
+        canonical: 'https://thetradermaster.com/economic-calendar',
     },
     openGraph: {
-        title: 'Global Economic Calendar & Macro Desk | ChronosX',
+        title: 'Global Economic Calendar & Macro Desk | TraderMaster',
         description: 'Track high-impact macroeconomic events, central bank interest rate decisions, inflation, and volatility releases in real-time.',
-        url: 'https://chronosx.com/economic-calendar',
-        siteName: 'ChronosX',
+        url: 'https://thetradermaster.com/economic-calendar',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Global Economic Calendar & Macro Desk',
+                alt: 'TraderMaster Global Economic Calendar & Macro Desk',
             },
         ],
         locale: 'en_US',
@@ -24,22 +24,22 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Global Economic Calendar & Macro Desk | ChronosX',
+        title: 'Global Economic Calendar & Macro Desk | TraderMaster',
         description: 'Track high-impact macroeconomic events, central bank interest rate decisions, inflation, and volatility releases in real-time.',
-        images: ['/assets/logo/logo.png'],
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'DataFeed',
-    'name': 'ChronosX Global Economic Calendar',
-    'url': 'https://chronosx.com/economic-calendar',
+    'name': 'TraderMaster Global Economic Calendar',
+    'url': 'https://thetradermaster.com/economic-calendar',
     'description': 'Track high-impact macroeconomic events, central bank interest rate decisions, inflation, and volatility releases in real-time.',
     'publisher': {
         '@type': 'Organization',
-        'name': 'ChronosX',
-        'url': 'https://chronosx.com'
+        'name': 'TraderMaster',
+        'url': 'https://thetradermaster.com'
     }
 };
 

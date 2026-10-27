@@ -126,7 +126,7 @@ export default function StepTwo({ selectedOptions: controlledOptions, onToggleOp
                     <span>{t('onboarding.step3.badge', 'CAPABILITIES · STEP 03')}</span>
                 </div>
                 <h1 className={styles.mainTitle}>
-                    {t('onboarding.step3.title', 'How would you like')} <span className={styles.accentText}>{t('onboarding.step3.titleAccent', 'ChronosX to help?')}</span>
+                    {t('onboarding.step3.title', 'How would you like')} <span className={styles.accentText}>{t('onboarding.step3.titleAccent', 'TraderMaster to help?')}</span>
                 </h1>
                 <p className={styles.subtitle}>
                     {t('onboarding.step3.subtitle', 'Choose the AI toolsets and workflows you want tailored to your trading terminal.')}

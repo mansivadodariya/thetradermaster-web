@@ -81,8 +81,8 @@ const ChevronDownIcon = () => (
 
 const faqs = [
     {
-        q: "How do ChronosX AI Credits work?",
-        a: "Credits power high-compute neural model inferences on the ChronosX platform. For example, an automated Chart Pattern Vision Scan consumes 10 credits, a deep Conversational Market Query consumes 15 credits, and an in-depth AI Past Trade Audit consumes 50 credits. Credits refresh automatically with your active subscription."
+        q: "How do TraderMaster AI Credits work?",
+        a: "Credits power high-compute neural model inferences on the TraderMaster platform. For example, an automated Chart Pattern Vision Scan consumes 10 credits, a deep Conversational Market Query consumes 15 credits, and an in-depth AI Past Trade Audit consumes 50 credits. Credits refresh automatically with your active subscription."
     },
     {
         q: "Can I upgrade or renew my plan at any time?",
@@ -90,7 +90,7 @@ const faqs = [
     },
     {
         q: "Which financial markets and instruments can I analyze?",
-        a: "ChronosX supports multi-asset analysis across major & minor Forex pairs (EUR/USD, GBP/USD, USD/JPY), Global Indices (US30, NAS100, SPX500), and Commodities (Gold/XAUUSD, Crude Oil)."
+        a: "TraderMaster supports multi-asset analysis across major & minor Forex pairs (EUR/USD, GBP/USD, USD/JPY), Global Indices (US30, NAS100, SPX500), and Commodities (Gold/XAUUSD, Crude Oil)."
     },
     {
         q: "What payment methods are supported for checkout?",
@@ -317,7 +317,7 @@ export default function SubscriptionPlansView() {
                 {isDashboard ? (
                     <CommonSectionHeader
                         as="h1"
-                        badge={t('plans.pricingTiersBadge', 'CHRONOSX PRICING TIERS')}
+                        badge={t('plans.pricingTiersBadge', 'TRADERMASTER PRICING TIERS')}
                         badgeIcon={
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -331,7 +331,7 @@ export default function SubscriptionPlansView() {
                 ) : (
                     <SectionHeader
                         as="h1"
-                        badge={t('plans.pricingTiersBadge', 'CHRONOSX PRICING TIERS')}
+                        badge={t('plans.pricingTiersBadge', 'TRADERMASTER PRICING TIERS')}
                         title1={t('plans.heroTitle1', 'Institutional AI Power,')}
                         title2={t('plans.heroTitle2', 'Tailored For Your Edge')}
                         breakLine={false}
@@ -572,7 +572,7 @@ export default function SubscriptionPlansView() {
                         title1={t('plans.faqTitle1', 'Frequently Asked')}
                         title2={t('plans.faqTitle2', 'Questions')}
                         breakLine={false}
-                        description={t('plans.faqSubtitle', 'Everything you need to know about ChronosX subscription tiers and AI compute allocation.')}
+                        description={t('plans.faqSubtitle', 'Everything you need to know about TraderMaster subscription tiers and AI compute allocation.')}
                         align="center"
                     />
 
@@ -628,7 +628,7 @@ export default function SubscriptionPlansView() {
                     <div className="container" style={{ paddingBottom: 60 }}>
                         <div className={styles.disclaimerBox}>
                             <p>
-                                {t('plans.disclaimer', 'ChronosX provides software, technical tools, and market intelligence algorithms for educational and research purposes only. Subscription fees cover cloud server infrastructure and AI compute processing. Past performance in backtests or simulations is not indicative of future market results.')}
+                                {t('plans.disclaimer', 'TraderMaster provides software, technical tools, and market intelligence algorithms for educational and research purposes only. Subscription fees cover cloud server infrastructure and AI compute processing. Past performance in backtests or simulations is not indicative of future market results.')}
                             </p>
                         </div>
                     </div>

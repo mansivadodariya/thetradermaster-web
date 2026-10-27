@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
                 <div className={styles.content}>
                     <section>
                         <h2>{t('privacyPolicy.sec1Title', 'Introduction')}</h2>
-                        <p>{t('privacyPolicy.sec1Content', 'ChronosX ("ChronosX", "we", "our", or "us") is committed to protecting your privacy and safeguarding the personal information you provide while using our platform. ChronosX provides AI-powered trading analysis, market insights, forex and global market information, economic calendar data, educational resources, chart analysis tools, and AI chatbot services. This Privacy Policy explains how we collect, use, process, store, and protect your information when you access or use our services. By accessing or using ChronosX, you agree to the collection and use of information in accordance with this Privacy Policy.')}</p>
+                        <p>{t('privacyPolicy.sec1Content', 'TraderMaster ("TraderMaster", "we", "our", or "us") is committed to protecting your privacy and safeguarding the personal information you provide while using our platform. TraderMaster provides AI-powered trading analysis, market insights, forex and global market information, economic calendar data, educational resources, chart analysis tools, and AI chatbot services. This Privacy Policy explains how we collect, use, process, store, and protect your information when you access or use our services. By accessing or using TraderMaster, you agree to the collection and use of information in accordance with this Privacy Policy.')}</p>
                     </section>
 
                     <section>
@@ -36,20 +36,20 @@ export default function PrivacyPolicy() {
 
                     <section>
                         <h2>{t('privacyPolicy.sec4Title', 'AI Services and Data Processing')}</h2>
-                        <p>{t('privacyPolicy.sec4P1', 'ChronosX utilizes artificial intelligence and machine learning technologies to provide market insights, chart analysis, trading information, and educational content. Information submitted through AI-powered tools, including chatbot conversations and analysis requests, may be processed, stored, and analyzed to improve service quality, system accuracy, and user experience.')}</p>
+                        <p>{t('privacyPolicy.sec4P1', 'TraderMaster utilizes artificial intelligence and machine learning technologies to provide market insights, chart analysis, trading information, and educational content. Information submitted through AI-powered tools, including chatbot conversations and analysis requests, may be processed, stored, and analyzed to improve service quality, system accuracy, and user experience.')}</p>
                         <p>{t('privacyPolicy.sec4P2', 'Although we strive to provide accurate and relevant information, AI-generated content may contain inaccuracies, incomplete information, or outdated market data. Users should independently verify all information before making financial or trading decisions.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('privacyPolicy.sec5Title', 'Data Sharing and Disclosure')}</h2>
-                        <p>{t('privacyPolicy.sec5P1', 'ChronosX does not sell personal information to third parties. We may share information with trusted service providers, contractors, affiliates, and technology partners who assist us in operating, securing, maintaining, and improving our services. These parties are required to protect information and use it only for authorized purposes.')}</p>
+                        <p>{t('privacyPolicy.sec5P1', 'TraderMaster does not sell personal information to third parties. We may share information with trusted service providers, contractors, affiliates, and technology partners who assist us in operating, securing, maintaining, and improving our services. These parties are required to protect information and use it only for authorized purposes.')}</p>
                         <p>{t('privacyPolicy.sec5P2', 'Information may also be disclosed when required by law, court order, regulatory request, legal process, or governmental authority, or when necessary to protect our rights, users, property, security, or legal interests.')}</p>
                         <p>{t('privacyPolicy.sec5P3', 'In connection with mergers, acquisitions, business transfers, restructurings, or asset sales, information may be transferred as part of the transaction subject to applicable legal requirements.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('privacyPolicy.sec6Title', 'Data Security')}</h2>
-                        <p>{t('privacyPolicy.sec6P1', 'ChronosX implements reasonable administrative, technical, and organizational safeguards designed to protect personal information from unauthorized access, disclosure, alteration, misuse, or destruction. Security measures may include encryption, access controls, authentication systems, monitoring technologies, secure infrastructure, and periodic security assessments.')}</p>
+                        <p>{t('privacyPolicy.sec6P1', 'TraderMaster implements reasonable administrative, technical, and organizational safeguards designed to protect personal information from unauthorized access, disclosure, alteration, misuse, or destruction. Security measures may include encryption, access controls, authentication systems, monitoring technologies, secure infrastructure, and periodic security assessments.')}</p>
                         <p>{t('privacyPolicy.sec6P2', 'While we strive to protect information using industry-standard practices, no method of electronic transmission or storage can be guaranteed to be completely secure. Users acknowledge that information transmitted over the internet may be subject to inherent security risks.')}</p>
                     </section>
 
@@ -61,12 +61,12 @@ export default function PrivacyPolicy() {
 
                     <section>
                         <h2>{t('privacyPolicy.sec8Title', 'Cookies and Similar Technologies')}</h2>
-                        <p>{t('privacyPolicy.sec8Content', 'ChronosX uses cookies, pixels, local storage technologies, and similar tracking tools to improve functionality, remember preferences, enhance user experience, analyze usage patterns, measure performance, and provide relevant content. Users may manage cookie preferences through browser settings; however, disabling certain cookies may affect platform functionality.')}</p>
+                        <p>{t('privacyPolicy.sec8Content', 'TraderMaster uses cookies, pixels, local storage technologies, and similar tracking tools to improve functionality, remember preferences, enhance user experience, analyze usage patterns, measure performance, and provide relevant content. Users may manage cookie preferences through browser settings; however, disabling certain cookies may affect platform functionality.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('privacyPolicy.sec9Title', 'International Data Transfers')}</h2>
-                        <p>{t('privacyPolicy.sec9Content', 'Information collected through ChronosX may be processed, stored, and transferred to servers and service providers located in different countries. By using our services, you acknowledge and consent to such transfers where permitted by applicable law. Appropriate safeguards may be implemented to ensure the protection of personal information during international transfers.')}</p>
+                        <p>{t('privacyPolicy.sec9Content', 'Information collected through TraderMaster may be processed, stored, and transferred to servers and service providers located in different countries. By using our services, you acknowledge and consent to such transfers where permitted by applicable law. Appropriate safeguards may be implemented to ensure the protection of personal information during international transfers.')}</p>
                     </section>
 
                     <section>
@@ -77,18 +77,18 @@ export default function PrivacyPolicy() {
 
                     <section>
                         <h2>{t('privacyPolicy.sec11Title', "Children's Privacy")}</h2>
-                        <p>{t('privacyPolicy.sec11Content', 'ChronosX is intended solely for individuals who are at least eighteen (18) years of age. We do not knowingly collect, solicit, or process personal information from minors. If we become aware that information from a minor has been collected, we will take reasonable steps to delete such information.')}</p>
+                        <p>{t('privacyPolicy.sec11Content', 'TraderMaster is intended solely for individuals who are at least eighteen (18) years of age. We do not knowingly collect, solicit, or process personal information from minors. If we become aware that information from a minor has been collected, we will take reasonable steps to delete such information.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('privacyPolicy.sec12Title', 'Changes to This Privacy Policy')}</h2>
-                        <p>{t('privacyPolicy.sec12Content', 'We reserve the right to modify, update, or revise this Privacy Policy at any time. Any changes will become effective upon publication on the platform. Continued use of ChronosX following the publication of changes constitutes acceptance of the updated Privacy Policy.')}</p>
+                        <p>{t('privacyPolicy.sec12Content', 'We reserve the right to modify, update, or revise this Privacy Policy at any time. Any changes will become effective upon publication on the platform. Continued use of TraderMaster following the publication of changes constitutes acceptance of the updated Privacy Policy.')}</p>
                     </section>
 
                     <section>
                         <h2>{t('privacyPolicy.sec13Title', 'Contact Information')}</h2>
                         <p>{t('privacyPolicy.sec13P1', 'If you have any questions, concerns, requests, or complaints regarding this Privacy Policy or our privacy practices, please contact us at:')}</p>
-                        <p><strong>{(t('privacyPolicy.sec13Email', 'Email:') || 'Email:').replace(/support@chronosx\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@chronosx.com">support@chronosx.com</a></p>
+                        <p><strong>{(t('privacyPolicy.sec13Email', 'Email:') || 'Email:').replace(/support@TraderMaster\.com/gi, '').trim() || 'Email:'}</strong> <a href="mailto:support@thetradermaster.com">support@thetradermaster.com</a></p>
                     </section>
                 </div>
             </div>

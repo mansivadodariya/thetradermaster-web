@@ -2,21 +2,21 @@ import ContactUs from '@/rendering/contactUs';
 
 export const metadata = {
     title: 'Contact Us — 24/7 AI Trading Desk & Support',
-    description: 'Get in touch with the ChronosX AI trading team, quantitative support desk, and institutional partnership specialists. 24/7 live assistance.',
+    description: 'Get in touch with the TraderMaster AI trading team, quantitative support desk, and institutional partnership specialists. 24/7 live assistance.',
     alternates: {
-        canonical: 'https://chronosx.com/contact-us',
+        canonical: 'https://thetradermaster.com/contact-us',
     },
     openGraph: {
-        title: 'Contact Us — 24/7 AI Trading Desk & Support | ChronosX',
-        description: 'Get in touch with the ChronosX AI trading team, quantitative support desk, and institutional partnership specialists. 24/7 live assistance.',
-        url: 'https://chronosx.com/contact-us',
-        siteName: 'ChronosX',
+        title: 'Contact Us — 24/7 AI Trading Desk & Support | TraderMaster',
+        description: 'Get in touch with the TraderMaster AI trading team, quantitative support desk, and institutional partnership specialists. 24/7 live assistance.',
+        url: 'https://thetradermaster.com/contact-us',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'Contact ChronosX AI Trading Desk',
+                alt: 'Contact TraderMaster AI Trading Desk',
             },
         ],
         locale: 'en_US',
@@ -24,23 +24,23 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Contact Us — 24/7 AI Trading Desk & Support | ChronosX',
-        description: 'Get in touch with the ChronosX AI trading team, quantitative support desk, and institutional partnership specialists.',
-        images: ['/assets/logo/logo.png'],
+        title: 'Contact Us — 24/7 AI Trading Desk & Support | TraderMaster',
+        description: 'Get in touch with the TraderMaster AI trading team, quantitative support desk, and institutional partnership specialists.',
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    'name': 'Contact ChronosX AI Trading Desk',
-    'url': 'https://chronosx.com/contact-us',
-    'description': 'Get in touch with the ChronosX AI trading team, quantitative support desk, and institutional partnership specialists.',
+    'name': 'Contact TraderMaster AI Trading Desk',
+    'url': 'https://thetradermaster.com/contact-us',
+    'description': 'Get in touch with the TraderMaster AI trading team, quantitative support desk, and institutional partnership specialists.',
     'mainEntity': {
         '@type': 'Organization',
-        'name': 'ChronosX',
-        'url': 'https://chronosx.com',
-        'logo': 'https://chronosx.com/assets/logo/logo.png',
+        'name': 'TraderMaster',
+        'url': 'https://thetradermaster.com',
+        'logo': 'https://thetradermaster.com/assets/logo/logo.png',
         'contactPoint': {
             '@type': 'ContactPoint',
             'contactType': 'Customer Support',

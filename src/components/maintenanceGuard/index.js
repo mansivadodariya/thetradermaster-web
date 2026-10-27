@@ -176,8 +176,8 @@ export default function MaintenanceGuard() {
           {/* Brand Logo */}
           <div className={styles.logoRow}>
             <Image
-              src="/assets/logo/logo.png"
-              alt="ChronosX"
+              src="/assets/logo/logoWhite.svg"
+              alt="TraderMaster"
               width={190}
               height={44}
               priority

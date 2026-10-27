@@ -179,7 +179,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
                     <div className={styles.cardSection}>
                         <h3>{t('broker.infraHeader', 'Integration & Trading Infrastructure')}</h3>
                         <p className={styles.description}>
-                            {t('broker.infraDesc', 'ChronosX connects with verified brokerage APIs and market trading environments to ensure execution speed, real-time logging, and secure data sync.')}
+                            {t('broker.infraDesc', 'TraderMaster connects with verified brokerage APIs and market trading environments to ensure execution speed, real-time logging, and secure data sync.')}
                         </p>
                     </div>
                 </div>

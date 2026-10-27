@@ -4,19 +4,19 @@ export const metadata = {
   title: 'Backtesting Engine — Test Ideas & Trade With Confidence',
   description: 'Validate your trading strategies, bots, and custom ideas using historical market data. Analyze win rate, profit factor, drawdown, and optimize before going live.',
   alternates: {
-    canonical: 'https://chronosx.com/backtesting',
+    canonical: 'https://thetradermaster.com/backtesting',
   },
   openGraph: {
-    title: 'Backtesting Engine — Test Ideas & Trade With Confidence | ChronosX',
+    title: 'Backtesting Engine — Test Ideas & Trade With Confidence | TraderMaster',
     description: 'Validate your trading strategies, bots, and custom ideas using historical market data. Analyze win rate, profit factor, drawdown, and optimize before going live.',
-    url: 'https://chronosx.com/backtesting',
-    siteName: 'ChronosX',
+    url: 'https://thetradermaster.com/backtesting',
+    siteName: 'TraderMaster',
     images: [
       {
-        url: '/assets/logo/logo.png',
+        url: "/assets/logo/logoWhite.svg",
         width: 1200,
         height: 630,
-        alt: 'ChronosX Backtesting Engine',
+        alt: 'TraderMaster Backtesting Engine',
       },
     ],
     locale: 'en_US',
@@ -24,19 +24,19 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Backtesting Engine — Test Ideas & Trade With Confidence | ChronosX',
+    title: 'Backtesting Engine — Test Ideas & Trade With Confidence | TraderMaster',
     description: 'Validate your trading strategies, bots, and custom ideas using historical market data.',
-    images: ['/assets/logo/logo.png'],
+    images: ["/assets/logo/logoWhite.svg"],
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  'name': 'ChronosX Backtesting Engine',
+  'name': 'TraderMaster Backtesting Engine',
   'operatingSystem': 'Web',
   'applicationCategory': 'FinanceApplication',
-  'url': 'https://chronosx.com/backtesting',
+  'url': 'https://thetradermaster.com/backtesting',
   'description': 'Validate your trading strategies, bots, and custom ideas using historical market data. Analyze win rate, profit factor, drawdown, and optimize before going live.',
   'offers': {
     '@type': 'Offer',

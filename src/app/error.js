@@ -44,7 +44,7 @@ export default function ErrorBoundary({ error, reset }) {
   }, [performHardRefresh]);
 
   useEffect(() => {
-    console.error('ChronosX Segment Error caught:', error);
+    console.error('TraderMaster Segment Error caught:', error);
 
     const errorMessage = String(error?.message || '');
     const errorName = String(error?.name || '');

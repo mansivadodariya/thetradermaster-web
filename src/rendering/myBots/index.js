@@ -117,7 +117,7 @@ export default function MyBots() {
             let localCustomBots = [];
             try {
                 if (typeof window !== 'undefined') {
-                    const saved = JSON.parse(localStorage.getItem('chronosx_user_bots') || '[]');
+                    const saved = JSON.parse(localStorage.getItem('tradermaster_user_bots') || '[]');
                     if (Array.isArray(saved) && saved.length > 0) {
                         localCustomBots = saved.map((item, idx) => ({
                             id: item.id || `local_custom_${idx}`,
@@ -209,9 +209,9 @@ export default function MyBots() {
 
         try {
             if (typeof window !== 'undefined') {
-                const current = JSON.parse(localStorage.getItem('chronosx_user_bots') || '[]');
+                const current = JSON.parse(localStorage.getItem('tradermaster_user_bots') || '[]');
                 const filtered = current.filter(b => b.id !== botId && b.strategyId !== botId);
-                localStorage.setItem('chronosx_user_bots', JSON.stringify(filtered));
+                localStorage.setItem('tradermaster_user_bots', JSON.stringify(filtered));
             }
         } catch (_) {}
 
@@ -297,7 +297,7 @@ export default function MyBots() {
         <div className={styles.container}>
             {/* Common Section Header */}
             <CommonSectionHeader
-                badge={t('myBots.headerBadge', 'CHRONOSX AI TRADING BOT SUITE')}
+                badge={t('myBots.headerBadge', 'TRADERMASTER AI TRADING BOT SUITE')}
                 icon={<MyBotsIcon width={28} height={28} />}
                 title={t('nav.myBots', 'My Trading Bots')}
                 subtitle={t('myBots.headerSubtitle', 'Manage, monitor, and deploy your algorithmic trading bots with real-time performance analytics.')}

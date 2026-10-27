@@ -1,11 +1,11 @@
 /**
- * Web App Manifest for ChronosX PWA (Next.js App Router)
+ * Web App Manifest for TraderMaster PWA (Next.js App Router)
  * @returns {import('next').MetadataRoute.Manifest}
  */
 export default function manifest() {
   return {
-    name: 'ChronosX — Next-Gen AI Trading Platform',
-    short_name: 'ChronosX',
+    name: 'TraderMaster — Next-Gen AI Trading Platform',
+    short_name: 'TraderMaster',
     description: 'Next-gen AI trading platform providing real-time AI trading signals, instant neural chart pattern recognition, and quantitative intelligence.',
     start_url: '/',
     id: '/',
@@ -45,7 +45,7 @@ export default function manifest() {
       {
         name: 'AI Terminal',
         short_name: 'Terminal',
-        description: 'Open ChronosX AI Trading Desk',
+        description: 'Open TraderMaster AI Trading Desk',
         url: '/terminal',
         icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }]
       },

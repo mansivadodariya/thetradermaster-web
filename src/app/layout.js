@@ -39,21 +39,21 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://chronosx.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thetradermaster.com'),
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'ChronosX',
+    title: 'TraderMaster',
   },
   title: {
-    default: "ChronosX — Next-Gen AI Trading Platform & Intelligence Desk",
-    template: "%s | ChronosX"
+    default: "TraderMaster — Next-Gen AI Trading Platform & Intelligence Desk",
+    template: "%s | TraderMaster"
   },
   description: "Next-gen AI trading platform providing real-time AI trading signals, instant neural chart pattern recognition, and multi-market insights across Forex, Stocks, and Commodities.",
-  authors: [{ name: "ChronosX Financial Technologies FZ-LLC", url: "https://chronosx.com" }],
-  creator: "ChronosX Financial Technologies FZ-LLC",
-  publisher: "ChronosX Financial Technologies FZ-LLC",
+  authors: [{ name: "The Trader Master", url: "https://thetradermaster.com" }],
+  creator: "The Trader Master",
+  publisher: "The Trader Master",
   category: "Finance & Trading Technology",
   robots: {
     index: true,
@@ -67,43 +67,43 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: 'https://chronosx.com',
+    canonical: 'https://thetradermaster.com',
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://chronosx.com",
-    title: "ChronosX — Next-Gen AI Trading Platform & Intelligence Desk",
+    url: "https://thetradermaster.com",
+    title: "TraderMaster — Next-Gen AI Trading Platform & Intelligence Desk",
     description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant neural chart insights, and algorithmic market analysis.",
-    siteName: "ChronosX",
+    siteName: "TraderMaster",
     images: [
       {
-        url: "/assets/logo/logo.png",
+        url: "/assets/logo/logoWhite.svg",
         width: 1200,
         height: 630,
-        alt: "ChronosX AI Trading Desk"
+        alt: "TraderMaster AI Trading Desk"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "ChronosX — Next-Gen AI Trading Platform & Intelligence Desk",
+    title: "TraderMaster — Next-Gen AI Trading Platform & Intelligence Desk",
     description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant neural chart insights, and algorithmic market analysis.",
-    images: ["/assets/logo/logo.png"],
-    creator: "@ChronosX_AI",
-    site: "@ChronosX_AI",
+    images: ["/assets/logo/logoWhite.svg"],
+    creator: "@thetradermaster",
+    site: "@thetradermaster",
   },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
-      { url: "/assets/logo/smallLogo.png", type: "image/png" },
+      { url: "/assets/logo/smallLogo.svg", type: "image/png" },
     ],
     shortcut: "/favicon.svg",
     apple: [
       { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/assets/logo/smallLogo.png", type: "image/png" },
+      { url: "/assets/logo/smallLogo.svg", type: "image/png" },
     ],
   },
 };
@@ -112,7 +112,7 @@ export default async function RootLayout({ children }) {
   let lang = 'en';
   try {
     const headerStore = await headers();
-    const headerLang = headerStore.get('x-chronosx-lang');
+    const headerLang = headerStore.get('x-tradermaster-lang');
     const cookieStore = await cookies();
     const cookieLang = cookieStore.get('app_language')?.value || cookieStore.get('NEXT_LOCALE')?.value;
     const candidate = normalizeLocale(headerLang || cookieLang);
@@ -129,12 +129,12 @@ export default async function RootLayout({ children }) {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://chronosx.com/#organization",
-        "name": "ChronosX Financial Technologies FZ-LLC",
-        "alternateName": "ChronosX AI Trading Platform",
-        "url": "https://chronosx.com",
-        "logo": "https://chronosx.com/assets/logo/logo.png",
-        "description": "ChronosX is a financial technology software provider delivering non-custodial AI market intelligence, neural chart pattern recognition, and quantitative trading signals.",
+        "@id": "https://thetradermaster.com/#organization",
+        "name": "The Trader Master",
+        "alternateName": "TraderMaster AI Trading Platform",
+        "url": "https://thetradermaster.com",
+        "logo": "https://thetradermaster.com/assets/logo/logo.png",
+        "description": "TraderMaster is a financial technology software provider delivering non-custodial AI market intelligence, neural chart pattern recognition, and quantitative trading signals.",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Dubai Silicon Oasis, IFZA Business Park, Building A1",
@@ -143,24 +143,24 @@ export default async function RootLayout({ children }) {
         },
         "contactPoint": {
           "@type": "ContactPoint",
-          "email": "support@chronosx.com",
+          "email": "support@thetradermaster.com",
           "contactType": "customer support"
         },
         "sameAs": [
-          "https://x.com/ChronosX_Official",
-          "https://t.me/chronosxofficial",
-          "https://www.youtube.com/@Chronosx_Official",
-          "https://www.instagram.com/chronosx_official/",
+          "https://x.com/thetradermaster",
+          "https://t.me/thetradermaster",
+          "https://www.youtube.com/@thetradermaster",
+          "https://www.instagram.com/thetradermaster",
           "https://www.facebook.com/profile.php?id=61594721187286",
           "https://discord.gg/uPTwM59wY"
         ]
       },
       {
         "@type": "WebSite",
-        "@id": "https://chronosx.com/#website",
-        "url": "https://chronosx.com",
-        "name": "ChronosX",
-        "publisher": { "@id": "https://chronosx.com/#organization" }
+        "@id": "https://thetradermaster.com/#website",
+        "url": "https://thetradermaster.com",
+        "name": "TraderMaster",
+        "publisher": { "@id": "https://thetradermaster.com/#organization" }
       }
     ]
   };

@@ -350,9 +350,9 @@ export default function QuickJump({ isCollapsed = false }) {
                                 <span className={styles.resultsCount}>
                                     {flatItems.length} {flatItems.length === 1 ? t('quickJump.item', 'item') : t('quickJump.items', 'items')}
                                 </span>
-                                <span className={styles.chronosXTag}>
+                                <span className={styles.traderMasterTag}>
                                     <span className={styles.pulsingDot}></span>
-                                    CHRONOSX
+                                    TRADERMASTER
                                 </span>
                             </div>
                         </div>

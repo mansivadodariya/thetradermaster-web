@@ -27,7 +27,7 @@ function parseAnalysisPayload(analysis) {
         const paragraphs = raw.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
         if (paragraphs.length === 0) return null;
         return {
-            title: "ChronosX's Assessment",
+            title: "TraderMaster's Assessment",
             personaTitle: null,
             executiveSummary: null,
             paragraphs,
@@ -43,9 +43,9 @@ function parseAnalysisPayload(analysis) {
 
     if (typeof raw !== 'object') return null;
 
-    const chronosx = raw.chronosx_assessment || raw.assessment_data || {};
-    const text = chronosx.assessment_text ||
-        chronosx.assessment ||
+    const TraderMaster = raw.tradermaster_assessment || raw.assessment_data || {};
+    const text = TraderMaster.assessment_text ||
+        TraderMaster.assessment ||
         raw.assessment_text ||
         raw.assessment ||
         raw.response ||
@@ -60,18 +60,18 @@ function parseAnalysisPayload(analysis) {
         ? (typeof text === 'string' ? text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean) : Array.isArray(text) ? text : [])
         : (Array.isArray(raw.paragraphs) ? raw.paragraphs : []);
 
-    const executiveSummary = raw.executive_summary || chronosx.executive_summary || raw.summary || null;
+    const executiveSummary = raw.executive_summary || TraderMaster.executive_summary || raw.summary || null;
 
-    const flaggedNote = chronosx.target_flag_note ||
+    const flaggedNote = TraderMaster.target_flag_note ||
         raw.flagged_note ||
         raw.target_flag_note ||
-        (chronosx.ai_adjusted_monthly_target ? `AI-Adjusted Target: ${chronosx.ai_adjusted_monthly_target} monthly for sustainable compounding.` : null);
+        (TraderMaster.ai_adjusted_monthly_target ? `AI-Adjusted Target: ${TraderMaster.ai_adjusted_monthly_target} monthly for sustainable compounding.` : null);
 
-    const strategy = raw.suggested_strategy || raw.strategy || chronosx.suggested_strategy || null;
-    const riskFramework = raw.risk_framework || raw.risk_management || chronosx.risk_framework || null;
-    const strengths = Array.isArray(raw.strengths) ? raw.strengths : (Array.isArray(chronosx.strengths) ? chronosx.strengths : []);
-    const blindspots = Array.isArray(raw.blindspots) ? raw.blindspots : (Array.isArray(chronosx.blindspots) ? chronosx.blindspots : []);
-    const roadmap = Array.isArray(raw.roadmap_30_day) ? raw.roadmap_30_day : (Array.isArray(raw.roadmap) ? raw.roadmap : (Array.isArray(chronosx.roadmap) ? chronosx.roadmap : []));
+    const strategy = raw.suggested_strategy || raw.strategy || TraderMaster.suggested_strategy || null;
+    const riskFramework = raw.risk_framework || raw.risk_management || TraderMaster.risk_framework || null;
+    const strengths = Array.isArray(raw.strengths) ? raw.strengths : (Array.isArray(TraderMaster.strengths) ? TraderMaster.strengths : []);
+    const blindspots = Array.isArray(raw.blindspots) ? raw.blindspots : (Array.isArray(TraderMaster.blindspots) ? TraderMaster.blindspots : []);
+    const roadmap = Array.isArray(raw.roadmap_30_day) ? raw.roadmap_30_day : (Array.isArray(raw.roadmap) ? raw.roadmap : (Array.isArray(TraderMaster.roadmap) ? TraderMaster.roadmap : []));
 
     // If no text or structured content is found, return null so empty card doesn't show
     if (paragraphs.length === 0 && !executiveSummary && !strategy && !riskFramework && strengths.length === 0 && blindspots.length === 0 && roadmap.length === 0 && !flaggedNote) {
@@ -79,14 +79,14 @@ function parseAnalysisPayload(analysis) {
     }
 
     return {
-        title: raw.title || chronosx.title || "ChronosX's Assessment",
-        personaTitle: raw.persona_title || chronosx.persona_title || null,
+        title: raw.title || TraderMaster.title || "TraderMaster's Assessment",
+        personaTitle: raw.persona_title || TraderMaster.persona_title || null,
         executiveSummary,
         paragraphs,
         flaggedNote,
         strategy,
         riskFramework,
-        strategySetup: raw.strategy_setup || chronosx.strategy_setup || null,
+        strategySetup: raw.strategy_setup || TraderMaster.strategy_setup || null,
         strengths,
         blindspots,
         roadmap
@@ -222,7 +222,7 @@ export default function AiAssessmentCard({
 
                         {Array.isArray(strategy.bot_configuration) && strategy.bot_configuration.length > 0 && (
                             <div className={styles.strategyDetailBox}>
-                                <h5>ChronosX Bot & Signal Configuration:</h5>
+                                <h5>TraderMaster Bot & Signal Configuration:</h5>
                                 <ul>
                                     {strategy.bot_configuration.map((item, i) => (
                                         <li key={i}>{item}</li>

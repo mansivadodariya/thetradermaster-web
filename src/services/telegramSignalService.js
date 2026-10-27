@@ -9,11 +9,11 @@ export async function fetchTelegramConfig() {
         const res = await telegramSignalApi.getConfig();
         return {
             enabled: res?.data?.enabled !== false,
-            bot_username: res?.data?.bot_username || 'ChronosXSignalBot',
-            channel_url: res?.data?.channel_url || 'https://t.me/ChronosX_Signals'
+            bot_username: res?.data?.bot_username || 'TraderMasterSignalBot',
+            channel_url: res?.data?.channel_url || 'https://t.me/TraderMaster_Signals'
         };
     } catch {
-        return { enabled: true, bot_username: 'ChronosXSignalBot', channel_url: 'https://t.me/ChronosX_Signals' };
+        return { enabled: true, bot_username: 'TraderMasterSignalBot', channel_url: 'https://t.me/TraderMaster_Signals' };
     }
 }
 

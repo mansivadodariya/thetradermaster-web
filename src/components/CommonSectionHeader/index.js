@@ -21,7 +21,7 @@ const PATH_ICON_MAP = {
 };
 
 export default function CommonSectionHeader({
-    badge = 'CHRONOSX AI TRADING DESK',
+    badge = 'TRADERMASTER AI TRADING DESK',
     badgeIcon = null,
     icon,
     title,

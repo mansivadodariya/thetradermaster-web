@@ -22,7 +22,7 @@ export default function ComparisonFaqSection({ openFaq, setOpenFaq }) {
                         badge={t('aiChat.comparisonBadge', 'SYSTEM COMPARISON MATRIX')}
                         title1={t('aiChat.comparisonTitle1', 'WHY USE OUR')}
                         title2={t('aiChat.comparisonTitle2', 'SPECIALIZED AI COPILOT?')}
-                        description={t('aiChat.comparisonSubtitle', 'See how ChronosX compares against generic, uncalibrated language models in live trading conditions.')}
+                        description={t('aiChat.comparisonSubtitle', 'See how TraderMaster compares against generic, uncalibrated language models in live trading conditions.')}
                         align="center"
                     />
 
@@ -33,8 +33,8 @@ export default function ComparisonFaqSection({ openFaq, setOpenFaq }) {
                                     <tr>
                                         <th className={styles.thFeature}>{t('aiChat.faq.coreCapability', 'CORE CAPABILITY')}</th>
                                         <th className={styles.thGeneric}>{t('aiChat.faq.genericBots', 'GENERIC CHATBOTS (ChatGPT / Free AI)')}</th>
-                                        <th className={styles.thChronosX}>
-                                            <div className={styles.chronosHeaderBadge}>
+                                        <th className={styles.thTraderMaster}>
+                                            <div className={styles.traderMasterHeaderBadge}>
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                                                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#18C98B" fillOpacity="0.3" />
                                                 </svg>
@@ -70,14 +70,14 @@ export default function ComparisonFaqSection({ openFaq, setOpenFaq }) {
                                                     <span className={styles.genericText}>{row.generic.text}</span>
                                                 </div>
                                             </td>
-                                            <td className={styles.tdChronosX}>
-                                                <div className={styles.chronosTextWrap}>
+                                            <td className={styles.tdTraderMaster}>
+                                                <div className={styles.traderMasterTextWrap}>
                                                     <span className={styles.statusIconCheck}>
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                                             <polyline points="20 6 9 17 4 12" />
                                                         </svg>
                                                     </span>
-                                                    <span className={styles.chronosText}>{row.chronosx.text}</span>
+                                                    <span className={styles.traderMasterText}>{row.TraderMaster.text}</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -99,7 +99,7 @@ export default function ComparisonFaqSection({ openFaq, setOpenFaq }) {
                         badge={t('aiChat.faqBadge', 'FREQUENTLY ASKED QUESTIONS')}
                         title1={t('aiChat.faqTitle1', 'ANSWERS TO')}
                         title2={t('aiChat.faqTitle2', 'YOUR QUESTIONS')}
-                        description={t('aiChat.faqSubtitle', 'Everything you need to know about ChronosX AI Chat, MT5 feeds, and risk calculation.')}
+                        description={t('aiChat.faqSubtitle', 'Everything you need to know about TraderMaster AI Chat, MT5 feeds, and risk calculation.')}
                         align="center"
                     />
 

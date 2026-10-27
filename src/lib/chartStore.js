@@ -70,7 +70,7 @@ export async function fetchChartCandlesOnce(symbol, timeframe = '15m', strategyI
         }
 
         // 3. Guaranteed Production Endpoint
-        const prodBackend = 'https://api.chronosx.com';
+        const prodBackend = 'https://api.thetradermaster.com';
         if (!candidateEndpoints.some(u => u.startsWith(prodBackend))) {
             candidateEndpoints.push(`${prodBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}`);
         }

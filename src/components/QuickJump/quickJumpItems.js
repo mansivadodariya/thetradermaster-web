@@ -61,7 +61,7 @@ export const getQuickJumpSections = (t) => [
             {
                 id: 'home',
                 title: t('nav.home', 'Home'),
-                subtitle: t('quickJump.homeSub', 'Return to ChronosX main landing'),
+                subtitle: t('quickJump.homeSub', 'Return to TraderMaster main landing'),
                 href: '/',
                 keywords: ['home', 'landing', 'main', 'start'],
                 icon: <HomeIcon />,

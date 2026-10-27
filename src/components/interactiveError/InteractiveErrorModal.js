@@ -127,7 +127,7 @@ export function InteractiveErrorModal({
                     <div className={styles.errorModalDesc}>
                         {error?.message || error?.text || (isCredits
                             ? 'You do not have enough AI compute credits to continue chatting and generating analyses.'
-                            : 'Unable to communicate with the ChronosX Copilot backend API. The service may be offline or restarting.')}
+                            : 'Unable to communicate with the TraderMaster Copilot backend API. The service may be offline or restarting.')}
                     </div>
 
                     {error?.suggestion && (

@@ -52,7 +52,7 @@ export default function CreateBotModal({
                                 <span className={styles.modalBadge}>{t('myBots.aiCopilotBadge', 'AI Copilot')}</span>
                             </div>
                             <h4>{t('myBots.aiCardTitle', 'AI Bot Builder')}</h4>
-                            <p>{t('myBots.aiCardDesc', 'Describe your trading strategy concept or archetype in plain English. ChronosX AI handles quantitative parameter formulas, indicator conditions, and backtest simulations instantly.')}</p>
+                            <p>{t('myBots.aiCardDesc', 'Describe your trading strategy concept or archetype in plain English. TraderMaster AI handles quantitative parameter formulas, indicator conditions, and backtest simulations instantly.')}</p>
                             <div className={styles.modalCardAction}>
                                 <span>{t('myBots.launchAi', 'Launch AI Builder')}</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

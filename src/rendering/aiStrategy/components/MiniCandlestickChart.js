@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 
 /**
- * High-precision quantitative chart matching the ChronosX design:
+ * High-precision quantitative chart matching the TraderMaster design:
  * - Upper Pane: Candlestick series + Fast EMA (orange) + Slow EMA (green)
  * - Right Y-Axis: Dynamic price scale with gridlines and real-time highlighted price badge
  * - Lower Pane: Sub-indicator oscillator panel with dual wave curves and indicator Y-axis

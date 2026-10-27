@@ -26,7 +26,7 @@ export default function ContactFaqSection({ t }) {
                 </div>
                 <h2 className={styles.faqTitle}>{t('contactUs.faqTitle', 'Frequently Asked Questions')}</h2>
                 <p className={styles.faqSubtitle}>
-                    {t('contactUs.faqSubtitle', 'Quick answers to common questions about ChronosX AI tools, account setup, and features.')}
+                    {t('contactUs.faqSubtitle', 'Quick answers to common questions about TraderMaster AI tools, account setup, and features.')}
                 </p>
             </div>
 

@@ -163,7 +163,7 @@ export default function BeforeAfterComparison() {
         <SectionHeader
           badge={t('homeSections.comparison.badge', 'ALGORITHM COMPARISON')}
           title1={t('homeSections.comparison.title1', 'See the Difference.')}
-          title2={t('homeSections.comparison.title2', 'Raw Chart vs ChronosX Algo.')}
+          title2={t('homeSections.comparison.title2', 'Raw Chart vs TraderMaster Algo.')}
           description={t('homeSections.comparison.description', 'Transform noisy raw market price action into institutional trade execution setups. Drag the slider to reveal high-impact AI Buy/Sell signals, liquidity sweeps, and multi-timeframe backtest confluence.')}
         />
 
@@ -214,12 +214,12 @@ export default function BeforeAfterComparison() {
             </svg>
           </div>
 
-          {/* LAYER 2: AFTER CHRONOSX ALGO (Full Signals Revealed Across Entire Chart Width) */}
+          {/* LAYER 2: AFTER TRADERMASTER ALGO (Full Signals Revealed Across Entire Chart Width) */}
           <div
             className={styles.layerAfter}
             style={{ clipPath: `polygon(${sliderPos}% 0, 100% 0, 100% 100%, ${sliderPos}% 100%)` }}
           >
-            <div className={styles.badgeAfter}>{t('homeSections.comparison.after', 'CHRONOSX ALGORITHM')}</div>
+            <div className={styles.badgeAfter}>{t('homeSections.comparison.after', 'TRADERMASTER ALGORITHM')}</div>
 
             <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgChart} preserveAspectRatio="none">
               <defs>

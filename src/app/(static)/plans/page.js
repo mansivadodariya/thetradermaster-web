@@ -4,19 +4,19 @@ export const metadata = {
     title: 'Pricing Plans & AI Credits',
     description: 'Choose from flexible credit packages to power your AI trading analyses, strategy backtests, and real-time market queries.',
     alternates: {
-        canonical: 'https://chronosx.com/plans',
+        canonical: 'https://thetradermaster.com/plans',
     },
     openGraph: {
-        title: 'Pricing Plans & AI Credits | ChronosX',
+        title: 'Pricing Plans & AI Credits | TraderMaster',
         description: 'Choose from flexible credit packages to power your AI trading analyses, strategy backtests, and real-time market queries.',
-        url: 'https://chronosx.com/plans',
-        siteName: 'ChronosX',
+        url: 'https://thetradermaster.com/plans',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'ChronosX Pricing Plans and AI Credits',
+                alt: 'TraderMaster Pricing Plans and AI Credits',
             },
         ],
         locale: 'en_US',
@@ -24,21 +24,21 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Pricing Plans & AI Credits | ChronosX',
+        title: 'Pricing Plans & AI Credits | TraderMaster',
         description: 'Choose from flexible credit packages to power your AI trading analyses, strategy backtests, and real-time market queries.',
-        images: ['/assets/logo/logo.png'],
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    'name': 'ChronosX AI Trading Credits & Subscriptions',
-    'url': 'https://chronosx.com/plans',
+    'name': 'TraderMaster AI Trading Credits & Subscriptions',
+    'url': 'https://thetradermaster.com/plans',
     'description': 'Choose from flexible credit packages to power your AI trading analyses, strategy backtests, and real-time market queries.',
     'brand': {
         '@type': 'Brand',
-        'name': 'ChronosX'
+        'name': 'TraderMaster'
     },
     'offers': {
         '@type': 'AggregateOffer',

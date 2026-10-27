@@ -32,8 +32,8 @@ const hasPort = extraArgs.includes('-p') || extraArgs.includes('--port');
 const defaultArgs = ['dev', '--webpack', ...(hasPort ? [] : ['-p', '3001'])];
 const args = [...defaultArgs, ...extraArgs];
 
-console.log(`\x1b[32m[ChronosX]\x1b[0m Starting Next.js with .env.tunnel on port ${hasPort ? 'custom' : '3001'}...`);
-console.log(`\x1b[32m[ChronosX]\x1b[0m Backend URL: ${process.env.NEXT_PUBLIC_BACKEND_URL}`);
+console.log(`\x1b[32m[TraderMaster]\x1b[0m Starting Next.js with .env.tunnel on port ${hasPort ? 'custom' : '3001'}...`);
+console.log(`\x1b[32m[TraderMaster]\x1b[0m Backend URL: ${process.env.NEXT_PUBLIC_BACKEND_URL}`);
 
 const child = spawn(process.execPath, [nextBin, ...args], {
   stdio: 'inherit',

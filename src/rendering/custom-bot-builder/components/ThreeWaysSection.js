@@ -31,7 +31,7 @@ const WAYS = [
     icon: <AiSparkIcon />,
     title: "AI BOT BUILDER",
     tagline: "Describe your strategy. Let AI structure it.",
-    desc: "Explain your trading idea in plain English and let ChronosX help transform it into an algorithmic strategy.",
+    desc: "Explain your trading idea in plain English and let TraderMaster help transform it into an algorithmic strategy.",
     highlights: [
       "Convert natural-language strategy ideas into structured trading rules",
       "Define indicators, entry conditions and exits with AI assistance",
@@ -68,7 +68,7 @@ export default function ThreeWaysSection({ onSelectWay }) {
           badge="TWO WAYS TO BUILD"
           title1="Your Strategy. Your Rules."
           title2="Your Bot."
-          description="Whether you have a strategy in your head or already know every entry and exit condition, ChronosX gives you two ways to turn it into a trading bot."
+          description="Whether you have a strategy in your head or already know every entry and exit condition, TraderMaster gives you two ways to turn it into a trading bot."
         />
 
         <div className={styles.twoCardsGrid}>

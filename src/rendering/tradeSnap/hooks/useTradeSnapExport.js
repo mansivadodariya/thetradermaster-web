@@ -27,7 +27,7 @@ export function useTradeSnapExport() {
 
             const opt = {
                 margin: [6, 6, 6, 6],
-                filename: `ChronosX_Chart_Scan_${cleanSymbol}_${cleanTf}_${dateStr}.pdf`,
+                filename: `TraderMaster_Chart_Scan_${cleanSymbol}_${cleanTf}_${dateStr}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
                     scale: 2,
@@ -68,7 +68,7 @@ export function useTradeSnapExport() {
                                 brandedHeader.style.cssText = 'display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; margin-bottom: 14px; width: 100%; box-sizing: border-box; page-break-inside: avoid; break-inside: avoid;';
                                 brandedHeader.innerHTML = `
                                     <div>
-                                        <img src="${logoDataUrl || '/assets/logo/darklogo.png'}" alt="ChronosX" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block; margin-bottom: 4px;" />
+                                        <img src="${logoDataUrl || "/assets/logo/logo.svg"}" alt="TraderMaster" style="height: 28px; width: auto; max-width: 150px; object-fit: contain; display: block; margin-bottom: 4px;" />
                                         <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 0;">AI Neural Chart Vision & Pattern Scan</div>
                                         <div style="font-size: 10px; color: #64748B; margin-top: 2px;">Instrument: <strong style="color: #0F172A;">${cleanSymbol}</strong> (${cleanTf}) • Generated: ${dateStr}</div>
                                     </div>

@@ -2,21 +2,21 @@ import AboutUs from '@/rendering/aboutUs';
 
 export const metadata = {
     title: 'About Us — Institutional AI Market Infrastructure',
-    description: 'Learn about ChronosX, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
+    description: 'Learn about TraderMaster, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
     alternates: {
-        canonical: 'https://chronosx.com/about-us',
+        canonical: 'https://thetradermaster.com/about-us',
     },
     openGraph: {
-        title: 'About Us — Institutional AI Market Infrastructure | ChronosX',
-        description: 'Learn about ChronosX, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
-        url: 'https://chronosx.com/about-us',
-        siteName: 'ChronosX',
+        title: 'About Us — Institutional AI Market Infrastructure | TraderMaster',
+        description: 'Learn about TraderMaster, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
+        url: 'https://thetradermaster.com/about-us',
+        siteName: 'TraderMaster',
         images: [
             {
-                url: '/assets/logo/logo.png',
+                url: "/assets/logo/logoWhite.svg",
                 width: 1200,
                 height: 630,
-                alt: 'About ChronosX Institutional AI Market Infrastructure',
+                alt: 'About TraderMaster Institutional AI Market Infrastructure',
             },
         ],
         locale: 'en_US',
@@ -24,23 +24,23 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'About Us — Institutional AI Market Infrastructure | ChronosX',
-        description: 'Learn about ChronosX, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
-        images: ['/assets/logo/logo.png'],
+        title: 'About Us — Institutional AI Market Infrastructure | TraderMaster',
+        description: 'Learn about TraderMaster, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
+        images: ["/assets/logo/logoWhite.svg"],
     },
 };
 
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
-    'name': 'About ChronosX',
-    'url': 'https://chronosx.com/about-us',
-    'description': 'Learn about ChronosX, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
+    'name': 'About TraderMaster',
+    'url': 'https://thetradermaster.com/about-us',
+    'description': 'Learn about TraderMaster, our quantitative research team, deep learning chart vision models, and institutional trading architecture.',
     'mainEntity': {
         '@type': 'Organization',
-        'name': 'ChronosX',
-        'url': 'https://chronosx.com',
-        'logo': 'https://chronosx.com/assets/logo/logo.png'
+        'name': 'TraderMaster',
+        'url': 'https://thetradermaster.com',
+        'logo': 'https://thetradermaster.com/assets/logo/logo.png'
     }
 };
 

@@ -1,6 +1,6 @@
 {
-  "name": "ChronosX — Next-Gen AI Trading Platform",
-  "short_name": "ChronosX",
+  "name": "TraderMaster — Next-Gen AI Trading Platform",
+  "short_name": "TraderMaster",
   "description": "Next-gen AI trading platform providing real-time AI trading signals, instant neural chart pattern recognition, and quantitative intelligence.",
   "start_url": "/",
   "id": "/",
@@ -40,7 +40,7 @@
     {
       "name": "AI Terminal",
       "short_name": "Terminal",
-      "description": "Open ChronosX AI Trading Desk",
+      "description": "Open TraderMaster AI Trading Desk",
       "url": "/terminal",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     },

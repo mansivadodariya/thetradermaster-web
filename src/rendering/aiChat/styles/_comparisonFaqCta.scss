@@ -56,7 +56,7 @@
             width: 34%;
         }
 
-        .thChronosX {
+        .thTraderMaster {
             width: 34%;
             background: rgba(24, 201, 139, 0.08);
         }
@@ -150,26 +150,26 @@
             color: #D1D5DB;
         }
 
-        .tdChronosX {
+        .tdTraderMaster {
             background: rgba(24, 201, 139, 0.04);
             border-left: 1px solid rgba(24, 201, 139, 0.15);
             border-right: 1px solid rgba(24, 201, 139, 0.15);
         }
 
-        .chronosTextWrap {
+        .traderMasterTextWrap {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .chronosText {
+        .traderMasterText {
             color: #18C98B;
             font-weight: 700;
         }
     }
 }
 
-.chronosHeaderBadge {
+.traderMasterHeaderBadge {
     display: inline-flex;
     align-items: center;
     gap: 8px;

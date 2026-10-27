@@ -489,44 +489,217 @@ $border-gold: rgba(24, 201, 139, 0.28);
 }
 
 /* Specific Light Mode Rules for Newera Credits Modal */
+:global(html.light) .overlay,
+:global(html[data-theme='light']) .overlay,
+:global([data-theme='light']) .overlay,
+.overlay.lightTheme {
+    background: rgba(15, 23, 42, 0.48);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
 :global(html.light) .box,
 :global(html[data-theme='light']) .box,
 :global([data-theme='light']) .box,
-:global(.light) .box {
+.lightTheme .box {
     background: #FFFFFF;
-    border-color: rgba(15, 23, 42, 0.09);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.14), 0 8px 24px rgba(16, 185, 129, 0.06);
 
-    .title,
-    .criteriaTitle,
-    .successTitle,
-    .stepTitle {
+    .title {
         color: #0F172A;
+
+        .titleIconBadge {
+            background: #ECFDF5;
+            border-color: rgba(16, 185, 129, 0.4);
+
+            svg {
+                stroke: #059669;
+
+                polygon {
+                    fill: rgba(16, 185, 129, 0.2);
+                }
+            }
+        }
     }
 
-    .welcomeText,
-    .criteriaDesc,
-    .stepDesc,
-    .modalDesc,
-    .noticeText,
-    .syncStatusText {
-        color: #475569;
+    .welcomeText {
+        p {
+            color: #475569;
+
+            strong {
+                color: #059669;
+            }
+        }
     }
 
-    .criteriaCard,
-    .stepItem,
-    .statusIndicator,
-    .infoBox {
+    .optionCard {
         background: #F8FAFC;
-        border-color: rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.28);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+
+        &:hover {
+            background: #FFFFFF;
+            border-color: rgba(16, 185, 129, 0.6);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+        }
+    }
+
+    .optionHeader {
+        h3 {
+            color: #0F172A;
+        }
+    }
+
+    .badgeStep {
+        background: #ECFDF5;
+        border-color: rgba(16, 185, 129, 0.4);
+        color: #059669;
+    }
+
+    .optionDesc {
+        color: #64748B;
+
+        strong {
+            color: #059669;
+        }
+    }
+
+    .registerBtn {
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+
+        svg {
+            stroke: #FFFFFF;
+        }
+
+        &:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+
+            svg {
+                stroke: #FFFFFF;
+            }
+        }
+    }
+
+    .inputWrapper {
+        :global(.input) {
+            :global(.inputWrapper) {
+                background: #FFFFFF !important;
+                border: 1px solid rgba(16, 185, 129, 0.35) !important;
+                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+
+                &:focus-within {
+                    border-color: #059669 !important;
+                    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2) !important;
+                }
+
+                input {
+                    color: #0F172A !important;
+                    background: transparent !important;
+
+                    &::placeholder {
+                        color: #94A3B8 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .submitBtn {
+        background: #ECFDF5;
+        border: 1px solid rgba(16, 185, 129, 0.5);
+        color: #059669;
+
+        &:hover:not(:disabled) {
+            background: #10B981;
+            color: #FFFFFF;
+            border-color: #10B981;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        &:disabled {
+            background: #F1F5F9;
+            border-color: #E2E8F0;
+            color: #94A3B8;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     }
 
     .closeBtn {
         background: #F1F5F9;
-        color: #0F172A;
+        border: 1px solid #E2E8F0;
+        color: #475569;
 
         &:hover {
             background: #E2E8F0;
+            color: #0F172A;
+            border-color: #CBD5E1;
+        }
+    }
+
+    .autoStatusCard {
+        background: #F8FAFC;
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .accountInfoBadge {
+        background: #ECFDF5;
+        border-color: rgba(16, 185, 129, 0.35);
+        color: #059669;
+
+        svg {
+            color: #059669;
+        }
+    }
+
+    .statusMessage {
+        color: #334155;
+
+        strong {
+            color: #059669;
+        }
+    }
+
+    .statusIndicator {
+        background: #FFFFFF;
+        border-color: rgba(16, 185, 129, 0.25);
+        color: #334155;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+
+        svg {
+            color: #059669;
+        }
+    }
+
+    .recheckBtn {
+        background: #ECFDF5;
+        border-color: rgba(16, 185, 129, 0.4);
+        color: #059669;
+
+        &:hover:not(:disabled) {
+            background: #10B981;
+            color: #FFFFFF;
+            border-color: #10B981;
+        }
+    }
+
+    .pulseDot {
+        background-color: #059669;
+    }
+
+    .spinner {
+        border-color: rgba(16, 185, 129, 0.25);
+        border-top-color: #059669;
+    }
+
+    .loadingContainer {
+        p {
+            color: #475569;
         }
     }
 }

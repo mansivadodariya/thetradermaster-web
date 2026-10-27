@@ -375,7 +375,13 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
     const isPhase3 = welcomeAwarded && depositAwarded;
 
     return (
-        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div 
+            className={`${styles.overlay} ${theme === 'light' ? styles.lightTheme : styles.darkTheme}`} 
+            data-theme={theme}
+            role="dialog" 
+            aria-modal="true" 
+            aria-labelledby="modal-title"
+        >
             <div className={styles.box}>
                 {/* Visual Brand Border accent */}
                 <div className={styles.accentLayer}></div>
@@ -472,8 +478,8 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                                                         name="email"
                                                         value={email}
                                                         onChange={(e) => setEmail(e.target.value)}
-                                                            required
-                                                            disabled
+                                                        required
+                                                        disabled={submitting}
                                                     />
                                                 </div>
                                                 {error && <p className={styles.error} role="alert">{error}</p>}

@@ -13,13 +13,14 @@
 }
 
 @include respond-to('lg') {
-    .user-layout {
+    .user-layout,
+    .user-layout.collapsed {
         .sidebar-wrapper {
             position: fixed;
-            left: -300px;
+            left: -280px;
             top: 0;
             height: 100dvh;
-            width: 270px;
+            width: 250px;
             z-index: 100;
             transition: left 0.3s ease;
 
@@ -28,12 +29,14 @@
             }
 
             &.collapsed {
-                width: 270px;
+                width: 250px;
             }
         }
 
-        .children-wrapper {
-            width: 100% !important;
+        .children-wrapper,
+        .sidebar-wrapper ~ .children-wrapper,
+        .sidebar-wrapper.collapsed ~ .children-wrapper {
+            width: 100%;
         }
     }
 }

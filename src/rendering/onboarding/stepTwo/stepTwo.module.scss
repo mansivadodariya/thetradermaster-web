@@ -1,0 +1,226 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.stepContainer {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0 20px;
+}
+
+.headerSection {
+    text-align: center;
+    max-width: 680px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include respond-to('md') {
+        margin-bottom: 24px;
+    }
+
+    .tagBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        background: rgba(24, 201, 139, 0.08);
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        color: #18C98B;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+
+        .tagDot {
+            width: 6px;
+            height: 6px;
+            border-radius: 2px;
+            background: #18C98B;
+            box-shadow: 0 0 6px #18C98B;
+        }
+    }
+
+    .mainTitle {
+        font-size: 34px;
+        font-weight: 700;
+        color: #FFFFFF;
+        line-height: 1.15;
+        margin: 0 0 10px 0;
+        font-family: "Euclid-Bold", sans-serif;
+        letter-spacing: -0.5px;
+
+        @include respond-to('lg') {
+            font-size: 30px;
+        }
+
+        @include respond-to('sm') {
+            font-size: 26px;
+        }
+
+        .accentText {
+            color: #18c98b;
+            background: #18c98b;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline;
+        }
+    }
+
+    .subtitle {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 14.5px;
+        line-height: 1.5;
+        margin: 0;
+        font-family: "Euclid-Regular", sans-serif;
+
+        @include respond-to('sm') {
+            font-size: 13px;
+        }
+    }
+}
+
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+
+    @include respond-to('lg') {
+        gap: 12px;
+    }
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .optionCard {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 18px 18px;
+        border-radius: 8px;
+        background: linear-gradient(180deg, rgba(12, 17, 21, 0.9) 0%, rgba(6, 10, 12, 0.96) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.45);
+            background: linear-gradient(180deg, rgba(16, 23, 28, 0.95) 0%, rgba(8, 14, 17, 0.98) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 12px rgba(24, 201, 139, 0.08);
+        }
+
+        &.selected {
+            border-color: #18C98B;
+            background: linear-gradient(180deg, rgba(24, 201, 139, 0.09) 0%, rgba(6, 12, 10, 0.96) 100%);
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.18), inset 0 0 12px rgba(24, 201, 139, 0.03);
+        }
+
+        .cardHeaderRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+
+            .iconBox {
+                width: 36px;
+                height: 36px;
+                border-radius: 6px;
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .badgeAndCheckbox {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .featureTag {
+                    font-size: 9.5px;
+                    font-weight: 700;
+                    color: rgba(255, 255, 255, 0.6);
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 2.5px 6px;
+                    border-radius: 4px;
+                    letter-spacing: 0.5px;
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                }
+
+                .checkbox {
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 4px;
+                    border: 1.5px solid rgba(255, 255, 255, 0.25);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: transparent;
+                    transition: all 0.2s ease;
+
+                    &.checked {
+                        border-color: #18C98B;
+                        background: #18C98B;
+                        box-shadow: 0 0 8px rgba(24, 201, 139, 0.5);
+                    }
+                }
+            }
+        }
+
+        .cardBody {
+            .optionTitle {
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 700;
+                margin: 0 0 5px 0;
+                font-family: "Euclid-Bold", sans-serif;
+            }
+
+            .optionDesc {
+                color: rgba(255, 255, 255, 0.65);
+                font-size: 13px;
+                line-height: 1.45;
+                margin: 0;
+                font-family: "Euclid-Regular", sans-serif;
+            }
+        }
+
+        &.selected .cardHeaderRow .iconBox {
+            background: rgba(24, 201, 139, 0.2);
+            border-color: #18C98B;
+            box-shadow: 0 0 10px rgba(24, 201, 139, 0.25);
+        }
+
+        &.selected .cardHeaderRow .badgeAndCheckbox .featureTag {
+            color: #18C98B;
+            border-color: rgba(24, 201, 139, 0.3);
+            background: rgba(24, 201, 139, 0.1);
+        }
+    }
+}

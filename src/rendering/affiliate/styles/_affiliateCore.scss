@@ -1,0 +1,673 @@
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #0C0E0D;
+$border: transparent;
+$borderSubtle: rgba(255, 255, 255, 0.04);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$amber: #F59E0B;
+$danger: #F87171;
+
+
+.affiliatePage {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 32px;
+
+    /* Primary CTA in Header */
+    .primaryWithdrawBtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+        border: none;
+        border-radius: 9999px;
+        padding: 9px 20px;
+        color: #040300;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: "Euclid-Bold", sans-serif;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(24, 201, 139, 0.5);
+            background: linear-gradient(135deg, #22e6a1 0%, #18C98B 100%);
+        }
+    }
+
+    /* KPI Grid in Header */
+    .kpiGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .kpiCard {
+            background: #090B0A;
+            border: none;
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #0E1110;
+                transform: translateY(-1px);
+            }
+
+            .kpiTop {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+
+                .kpiLabel {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                .kpiBadge {
+                    background: rgba(24, 201, 139, 0.12);
+                    border: none;
+                    color: #18C98B;
+                    padding: 3px 8px;
+                    border-radius: 99px;
+                    font-size: 10px;
+                    font-weight: 700;
+                }
+
+                .readyBadge {
+                    background: rgba(24, 201, 139, 0.16);
+                    border: none;
+                    color: #18C98B;
+                    padding: 3px 8px;
+                    border-radius: 99px;
+                    font-size: 10px;
+                    font-weight: 700;
+                }
+
+                .pendingBadge {
+                    background: rgba(245, 158, 11, 0.12);
+                    border: none;
+                    color: #F59E0B;
+                    padding: 3px 8px;
+                    border-radius: 99px;
+                    font-size: 10px;
+                    font-weight: 700;
+                }
+            }
+
+            .kpiValue {
+                color: #FFFFFF;
+                font-size: 22px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                line-height: 1.2;
+
+                .unitText {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+
+            .kpiValueEmerald {
+                color: #18C98B;
+                font-size: 26px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                line-height: 1.2;
+            }
+
+            .kpiValueAmber {
+                color: #F59E0B;
+                font-size: 22px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                line-height: 1.2;
+            }
+
+            .kpiSub {
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 11px;
+                line-height: 1.4;
+            }
+
+            &.highlightCard {
+                background: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(24, 201, 139, 0.1) 0%, #090B0A 100%);
+                border: none;
+                box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(24, 201, 139, 0.15);
+            }
+        }
+    }
+
+    /* Tab Navigation */
+    .tabNavContainer {
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        padding-bottom: 2px;
+
+        .tabNavRow {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #090B0A;
+            border: none;
+            border-radius: 9999px;
+            padding: 4px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+            .tabItem {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: transparent;
+                border: none;
+                border-radius: 9999px;
+                padding: 8px 18px;
+                color: rgba(255, 255, 255, 0.65);
+                font-size: 13px;
+                font-weight: 600;
+                font-family: "Euclid-Medium", sans-serif;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+
+                .countBadge {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 20px;
+                    height: 18px;
+                    padding: 0 6px;
+                    border-radius: 9999px;
+                    font-size: 11px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                    line-height: 1;
+                    background: rgba(255, 255, 255, 0.08);
+                    color: rgba(255, 255, 255, 0.85);
+                    border: none;
+                    transition: all 0.2s ease;
+                }
+
+                &:hover {
+                    color: #FFFFFF;
+                    background: rgba(255, 255, 255, 0.04);
+                }
+
+                &.tabActive {
+                    background: rgba(24, 201, 139, 0.12);
+                    border: none;
+                    color: #18C98B;
+                    font-weight: 700;
+
+                    .countBadge {
+                        background: #18C98B;
+                        color: #040300;
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Overview Grid */
+    .overviewGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+        }
+
+        /* Tier Box Card */
+        .tierBoxCard {
+            background: #0B0E0D;
+            border: none;
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+            .tierHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .tierBadgeGroup {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .tierTag {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        background: rgba(24, 201, 139, 0.12);
+                        border: none;
+                        color: #18C98B;
+                        padding: 4px 12px;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+
+                    .tierRate {
+                        color: #FFFFFF;
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                }
+
+                .tierStatus {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+            }
+
+            .tierProgressBlock {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .progressLabels {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: rgba(255, 255, 255, 0.8);
+                    font-size: 13px;
+
+                    strong {
+                        color: #18C98B;
+                    }
+                }
+
+                .progressBarTrack {
+                    width: 100%;
+                    height: 8px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 99px;
+                    overflow: hidden;
+                    border: none;
+
+                    .progressBarFill {
+                        height: 100%;
+                        background: linear-gradient(90deg, #10B981 0%, #18C98B 100%);
+                        border-radius: 99px;
+                        box-shadow: 0 0 10px rgba(24, 201, 139, 0.4);
+                        transition: width 0.4s ease;
+                    }
+                }
+
+                .progressHint {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12px;
+                    line-height: 1.5;
+                    margin: 0;
+
+                    strong {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .tierPerksGrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+
+                @include respond-to('sm') {
+                    grid-template-columns: 1fr;
+                }
+
+                .perkCard {
+                    background: rgba(255, 255, 255, 0.025);
+                    border: none;
+                    border-radius: 12px;
+                    padding: 14px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .perkTitle {
+                        font-size: 13px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+
+                        li {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 8px;
+                            color: rgba(255, 255, 255, 0.7);
+                            font-size: 12px;
+                            line-height: 1.4;
+
+                            .bulletIcon {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #18C98B;
+                                flex-shrink: 0;
+                                margin-top: 1px;
+                            }
+
+                            .starBullet {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #F59E0B;
+                                flex-shrink: 0;
+                                margin-top: 1px;
+                            }
+                        }
+                    }
+
+                    &.currentPerk {
+                        border: none;
+                        background: rgba(24, 201, 139, 0.06);
+                    }
+
+                    &.vipPerk {
+                        border: none;
+                        background: rgba(245, 158, 11, 0.05);
+
+                        .perkTitle {
+                            color: #F59E0B;
+                        }
+
+                        li strong {
+                            color: #F59E0B;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Share Box Card */
+        .shareBoxCard {
+            background: #0B0E0D;
+            border: none;
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+            .shareCardHeader {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin: 0;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 13px;
+                    margin: 0;
+                    line-height: 1.4;
+                }
+            }
+
+            .linkBox {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: #060807;
+                border: none;
+                border-radius: 12px;
+                padding: 6px 6px 6px 14px;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+                transition: all 0.2s ease;
+
+                &:focus-within {
+                    box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.5), inset 0 1px 3px rgba(0, 0, 0, 0.5);
+                }
+
+                .linkInput {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: #FFFFFF;
+                    font-size: 13px;
+                    font-family: monospace;
+                    width: 100%;
+                }
+
+                .copyBtn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    background: #18C98B;
+                    border: none;
+                    color: #040605;
+                    padding: 8px 16px;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 2px 10px rgba(24, 201, 139, 0.3);
+
+                    &:hover {
+                        background: #2DE0A1;
+                        transform: translateY(-1px);
+                    }
+
+                    &.copied {
+                        background: #10B981;
+                    }
+                }
+            }
+
+            .codeRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .codeGroup {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    .codeLabel {
+                        color: rgba(255, 255, 255, 0.6);
+                        font-size: 13px;
+                    }
+
+                    .codeBadge {
+                        background: rgba(255, 255, 255, 0.04);
+                        border: none;
+                        padding: 4px 10px;
+                        border-radius: 6px;
+                        color: #18C98B;
+                        font-family: monospace;
+                        font-weight: 700;
+                        font-size: 13px;
+                    }
+
+                    .miniCopyBtn {
+                        background: transparent;
+                        border: none;
+                        color: rgba(255, 255, 255, 0.6);
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        padding: 4px;
+
+                        &:hover {
+                            color: #18C98B;
+                        }
+                    }
+                }
+
+                .qrBtn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: none;
+                    color: rgba(255, 255, 255, 0.75);
+                    padding: 6px 12px;
+                    border-radius: 8px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.08);
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .socialShareSection {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                padding-top: 12px;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+                .socialTitle {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                .socialButtonsRow {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 8px;
+
+                    @include respond-to('sm') {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+
+                    button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        border-radius: 8px;
+                        padding: 8px 10px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        border: none;
+                        transition: all 0.2s ease;
+                    }
+
+                    .socialBtnX {
+                        background: rgba(255, 255, 255, 0.05);
+                        color: #FFF;
+
+                        &:hover {
+                            background: #222;
+                            border-color: #555;
+                        }
+                    }
+
+                    .socialBtnTg {
+                        background: rgba(36, 161, 222, 0.12);
+                        color: #24A1DE;
+
+                        &:hover {
+                            background: #24A1DE;
+                            color: #FFF;
+                        }
+                    }
+
+                    .socialBtnWa {
+                        background: rgba(37, 211, 102, 0.12);
+                        color: #25D366;
+
+                        &:hover {
+                            background: #25D366;
+                            color: #FFF;
+                        }
+                    }
+
+                    .socialBtnIn {
+                        background: rgba(10, 102, 194, 0.12);
+                        color: #0A66C2;
+
+                        &:hover {
+                            background: #0A66C2;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* Skeleton Loading Placeholder */
+    .skeletonPulse {
+        background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(24, 201, 139, 0.16) 50%,
+                rgba(255, 255, 255, 0.05) 100%);
+        background-size: 200% 100%;
+        animation: affiliateShimmer 1.5s infinite ease-in-out;
+        border-radius: 6px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+@keyframes affiliateShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}

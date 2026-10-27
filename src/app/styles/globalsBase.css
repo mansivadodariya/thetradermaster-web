@@ -1,0 +1,616 @@
+@font-face {
+  font-family: "Euclid-Bold";
+  src: url("/assets/font/Euclid%20Circular%20A%20Bold.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid-SemiBold";
+  src: url("/assets/font/Euclid%20Circular%20A%20SemiBold.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid-Medium";
+  src: url("/assets/font/Euclid%20Circular%20A%20Medium.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid-Regular";
+  src: url("/assets/font/Euclid%20Circular%20A%20Regular.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/assets/font/Euclid%20Circular%20A%20Bold.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/assets/font/Euclid%20Circular%20A%20SemiBold.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/assets/font/Euclid%20Circular%20A%20Medium.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/assets/font/Euclid%20Circular%20A%20Regular.ttf") format("truetype"),
+       url("/assets/font/Euclid Circular A Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root,
+html.dark,
+html[data-theme="dark"] {
+  
+  --bg-global: #040605;
+  --bg-surface: #0a0e0b;
+
+  --bg-surface-elevated: #0d120f;
+  --bg-card: rgba(10, 14, 11, 0.75);
+  --bg-card-solid: #0d120f;
+  --bg-hover: rgba(24, 201, 139, 0.08);
+  --text-white: #ffffff;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dark: #0f172a;
+  --primary-green: #18c98b;
+  
+  --primary-green-glow: rgba(24, 201, 139, 0.4);
+  --primary-green-light: rgba(24, 201, 139, 0.12);
+  --accent-bullish: #10b981;
+  --accent-bearish: #f43f5e;
+  --accent-gold: #f59e0b;
+  --border-color: rgba(24, 201, 139, 0.18);
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #18c98b;
+  --color-scheme: dark;
+
+}
+
+html,
+body,
+input,
+button,
+select,
+::placeholder,
+textarea {
+  font-family: "Euclid-Regular", "Euclid Circular A", "Euclid-Medium", "Euclid-SemiBold", "Euclid-Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+body {
+  margin: 0;
+  background: var(--bg-global);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  background-color: var(--bg-global);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 1024px) {
+  .lenis.lenis-smooth [data-lenis-prevent]:not([role="dialog"]):not([class*="modal"]):not([class*="Modal"]) {
+    overscroll-behavior: auto;
+  }
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.heading {
+  font-family: var(--font-plus-jakarta), var(--font-inter-tight), sans-serif;
+}
+
+.container {
+  max-width: calc(1280px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.asas {
+  font-family: var(--font-anton);
+}
+
+.container-xs {
+  max-width: calc(1360px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xl {
+  max-width: calc(1474px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xs2 {
+  max-width: calc(1240px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xs4 {
+  max-width: calc(960px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container,
+.container-xs,
+.container-xl,
+.container-xs2,
+.container-xs4,
+.container-xs3 {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+
+  .container,
+  .container-xs,
+  .container-xl,
+  .container-xs2,
+  .container-xs4,
+  .container-xs3 {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .container,
+  .container-xs,
+  .container-xl,
+  .container-xs2,
+  .container-xs4,
+  .container-xs3 {
+    padding: 0 14px;
+  }
+}
+
+/* User Dashboard Layout */
+.user-layout {
+  display: flex;
+  background-color: #040605;
+  min-height: 100vh;
+}
+
+html.light .user-layout,
+html.light .children-wrapper {
+  background-color: #F8FAFC;
+}
+
+.sidebar-wrapper {
+  width: 250px;
+  position: relative;
+  z-index: 1005;
+  overflow: visible;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #040605;
+}
+
+.sidebar-wrapper.collapsed {
+  width: 68px;
+}
+
+.children-wrapper {
+  width: calc(100% - 250px);
+  position: relative;
+  z-index: auto;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #040605;
+  min-height: 100vh;
+}
+
+.sidebar-wrapper.collapsed~.children-wrapper,
+.user-layout.collapsed .children-wrapper {
+  width: calc(100% - 68px);
+}
+
+@media (max-width: 1200px) {
+  .children-wrapper,
+  .sidebar-wrapper.collapsed~.children-wrapper,
+  .user-layout.collapsed .children-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    overflow: visible;
+    min-height: 100vh;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+}
+
+/* PWA Standalone Mode Native Scrolling */
+@media all and (display-mode: standalone) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+}
+
+.children-spacing {
+  padding: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .children-spacing {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .children-spacing {
+    padding: 10px;
+  }
+}
+
+/* Responsive Table Wrappers & Touch Scrolling */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nsm7Bb-HzV7m-LgbsSe {
+  border: none;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+  font-weight: 500;
+  font-style: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+/* Dark Mode Core Theme */
+html.dark,
+html.dark body {
+  background-color: #040605;
+  color: #ffffff;
+}
+
+html.dark .children-wrapper {
+  background-color: #040605;
+}
+
+/* Mixed Language (Arabic & English Bidi) Rules */
+.message,
+[dir="auto"],
+.bidi-auto {
+  unicode-bidi: plaintext;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+
+/* Force LTR direction and left alignment for English content inside RTL dashboard */
+[dir="rtl"] .message[lang="en"],
+[dir="rtl"] .message[data-lang="en"],
+.message.ltr,
+.bidi-ltr,
+[dir="auto"].bidi-ltr,
+[dir="auto"][data-dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Force RTL direction and right alignment for Arabic content */
+[dir="rtl"] .message[lang="ar"],
+[dir="rtl"] .message[data-lang="ar"],
+.message.rtl,
+.bidi-rtl,
+[dir="auto"].bidi-rtl,
+[dir="auto"][data-dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Table Cell Auto Directionality & Column Alignment */
+table th,
+table td,
+table td [dir="auto"],
+table td .bidi-auto,
+table td .bidi-ltr,
+table td .bidi-rtl,
+table th [dir="auto"],
+table th .bidi-auto,
+table th .bidi-ltr,
+table th .bidi-rtl {
+  text-align: start;
+  unicode-bidi: plaintext;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.auth-layout {
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #040605;
+  background-image:
+    radial-gradient(circle at 50% 15%, rgba(24, 201, 139, 0.15) 0%, transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(24, 201, 139, 0.08) 0%, transparent 60%);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Custom Sleek Thin Mint Green Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6EE7B7 0%, #18c98b 50%, #059669 100%);
+  border-radius: 99px;
+  box-shadow: 0 0 8px rgba(24, 201, 139, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #18c98b 100%);
+  box-shadow: 0 0 12px rgba(24, 201, 139, 0.7);
+}
+
+/* Scrollbar Standards */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #18c98b transparent;
+}
+
+/* Light Theme Scrollbars Across Everything in Light Mode */
+html.light,
+html.light *,
+html[data-theme="light"],
+html[data-theme="light"] *,
+[data-theme="light"],
+[data-theme="light"] *,
+.light,
+.light *,
+body.light-theme,
+body.light-theme * {
+  scrollbar-width: thin;
+  scrollbar-color: #10B981 transparent;
+}
+
+html.light ::-webkit-scrollbar-track,
+html.light *::-webkit-scrollbar-track,
+html[data-theme="light"] ::-webkit-scrollbar-track,
+html[data-theme="light"] *::-webkit-scrollbar-track,
+[data-theme="light"] ::-webkit-scrollbar-track,
+[data-theme="light"] *::-webkit-scrollbar-track,
+.light ::-webkit-scrollbar-track,
+.light *::-webkit-scrollbar-track,
+body.light-theme ::-webkit-scrollbar-track,
+body.light-theme *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.light ::-webkit-scrollbar-thumb,
+html.light *::-webkit-scrollbar-thumb,
+html[data-theme="light"] ::-webkit-scrollbar-thumb,
+html[data-theme="light"] *::-webkit-scrollbar-thumb,
+[data-theme="light"] ::-webkit-scrollbar-thumb,
+[data-theme="light"] *::-webkit-scrollbar-thumb,
+.light ::-webkit-scrollbar-thumb,
+.light *::-webkit-scrollbar-thumb,
+body.light-theme ::-webkit-scrollbar-thumb,
+body.light-theme *::-webkit-scrollbar-thumb {
+  background: #10B981;
+  box-shadow: none;
+  border-radius: 99px;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover,
+html.light *::-webkit-scrollbar-thumb:hover,
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover,
+html[data-theme="light"] *::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] *::-webkit-scrollbar-thumb:hover,
+.light ::-webkit-scrollbar-thumb:hover,
+.light *::-webkit-scrollbar-thumb:hover,
+body.light-theme ::-webkit-scrollbar-thumb:hover,
+body.light-theme *::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+/* ============================================================
+   CHRONOSX LIGHT MODE DESIGN SYSTEM - THEME TOKENS
+   ============================================================ */
+html.light,
+html[data-theme="light"] {
+  --bg-global: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F5F9;
+  --bg-card: #FFFFFF;
+  --bg-card-solid: #FFFFFF;
+  --bg-hover: rgba(5, 150, 105, 0.08);
+  --text-white: #0F172A;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-dark: #0F172A;
+  --primary-green: #059669;
+  --primary-green-glow: rgba(5, 150, 105, 0.25);
+  --primary-green-light: rgba(5, 150, 105, 0.1);
+  --accent-bullish: #10B981;
+  --accent-bearish: #EF4444;
+  --accent-gold: #D97706;
+  --border-color: rgba(15, 23, 42, 0.12);
+  --border-subtle: rgba(15, 23, 42, 0.06);
+  --border-focus: #059669;
+  --color-scheme: light;
+  color-scheme: light;
+  background-color: #F8FAFC;
+}
+
+/* Global Canvas & Layout Containers */
+html.light body,
+html.light .user-layout,
+html.light .children-wrapper,
+html.light .sidebar-wrapper,
+html.light main {
+  background-color: var(--bg-global);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   CIRCULAR REVEAL THEME VIEW TRANSITIONS
+   ============================================================ */
+:root {
+  --theme-x: 90%;
+  --theme-y: 40px;
+  --theme-r: 150vmax;
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.45s;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: theme-circle-reveal 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  mix-blend-mode: normal;
+  z-index: 9999;
+}
+
+@keyframes theme-circle-reveal {
+  0% {
+    clip-path: circle(0px at var(--theme-x, 90%) var(--theme-y, 40px));
+  }
+  100% {
+    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 90%) var(--theme-y, 40px));
+  }
+}
+
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+  transition-delay: 0s;
+}

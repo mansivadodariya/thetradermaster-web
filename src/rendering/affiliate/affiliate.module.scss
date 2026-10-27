@@ -1,0 +1,7 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+@import './styles/affiliateCore';
+@import './styles/affiliateTables';
+@import './styles/affiliateModals';
+@import './styles/affiliateLight';

@@ -1,0 +1,125 @@
+.howItWorksSection {
+  padding: 90px 0;
+  position: relative;
+  background: rgba(11, 19, 25, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+
+  @media (max-width: 992px) {
+    padding: 70px 0;
+  }
+
+  @media (max-width: 576px) {
+    padding: 50px 0;
+  }
+
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) & {
+    background: #FFFFFF;
+    border-top-color: #E2E8F0;
+    border-bottom-color: #E2E8F0;
+  }
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 52px;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 36px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 16px;
+    margin-top: 28px;
+  }
+}
+
+.stepCard {
+  background: rgba(13, 22, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s ease;
+
+  @media (max-width: 768px) {
+    padding: 28px 22px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  &:hover {
+    border-color: rgba(24, 201, 139, 0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .stepNumBadge {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #18C98B;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+  }
+
+  .stepTitle {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+
+    @media (max-width: 576px) {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+  }
+
+  .stepDesc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.68);
+    margin: 0;
+
+    @media (max-width: 576px) {
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+  }
+
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) & {
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+
+    .stepTitle {
+      color: #0F172A;
+    }
+
+    .stepDesc {
+      color: #64748B;
+    }
+  }
+}
+
+.ctaContainer {
+  text-align: center;
+  margin-top: 48px;
+}

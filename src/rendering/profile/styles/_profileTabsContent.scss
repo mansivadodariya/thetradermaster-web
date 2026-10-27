@@ -1,0 +1,603 @@
+/* ============================================================
+   PROFILE: TABS, TIMELINES, MODALS & LIGHT THEME
+   ============================================================ */
+
+/* Tab Content Panels (Security, Activity, Credit History) */
+.tabContentPanel,
+.tabCardContainer {
+    background: #040605;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 22px 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('md') {
+        padding: 18px 20px;
+    }
+
+    @include respond-to('sm') {
+        padding: 16px 14px;
+        border-radius: 14px;
+    }
+
+    .panelHeaderRow,
+    .cardHeaderBox {
+        margin-bottom: 18px;
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            margin: 0 0 4px;
+
+            @include respond-to('sm') {
+                font-size: 15px;
+            }
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #0F172A;
+            }
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 13px;
+            margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 12px;
+            }
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #64748B;
+            }
+        }
+    }
+}
+
+/* Tab Content Panel (wrapper for Security / Activity / Payment History tabs) */
+.tabContentPanel {
+    background:
+        radial-gradient(ellipse 40% 70% at 100% 0%, rgba(24, 201, 139, 0.18) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 80%),
+        radial-gradient(ellipse 40% 70% at 0% 100%, rgba(0, 242, 254, 0.1) 0%, transparent 75%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 8px;
+    padding: 20px 22px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: visible;
+    flex: 1;
+
+    .panelHeaderRow {
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            margin: 0 0 4px;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #0F172A;
+            }
+        }
+
+        p,
+        .panelSubtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin: 0;
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                color: #64748B;
+            }
+        }
+    }
+
+    .activityCardsList {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Security Banner Card */
+.securityBannerCard {
+    background: rgba(13, 14, 19, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .securityBannerLeft {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 0;
+
+        .shieldIconWrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(24, 201, 139, 0.1);
+            border: 1px solid rgba(24, 201, 139, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bannerTexts {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            h4 {
+                color: #FFFFFF;
+                font-size: 15px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                margin: 0;
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.55);
+                font-size: 13px;
+                margin: 0;
+                line-height: 1.4;
+            }
+        }
+    }
+
+    .bannerActionBtn {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.4);
+        color: #18C98B;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: "Euclid-Medium", sans-serif;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #18C98B;
+            color: #040605;
+            border-color: #18C98B;
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+/* Activity Timeline */
+.activityTimeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timelineItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .timelineDot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #18C98B;
+        border: 2px solid rgba(24, 201, 139, 0.3);
+        box-shadow: 0 0 8px rgba(24, 201, 139, 0.4);
+        flex-shrink: 0;
+        margin-top: 5px;
+    }
+
+    .timelineContent {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+
+        .timelineHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            @include respond-to('sm') {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .timelineTitle {
+                color: #FFFFFF;
+                font-size: 14px;
+                font-weight: 600;
+                font-family: "Euclid-SemiBold", sans-serif;
+            }
+
+            .timelineTime {
+                color: rgba(255, 255, 255, 0.45);
+                font-size: 12px;
+                font-weight: 500;
+                white-space: nowrap;
+            }
+        }
+
+        .timelineDetails {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+
+            .ipBadge {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 5px;
+                padding: 1px 7px;
+                font-size: 11px;
+                font-family: monospace, sans-serif;
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+    }
+}
+
+.emptyActivityState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px 20px;
+    text-align: center;
+
+    p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 13px;
+        margin: 0;
+    }
+}
+
+.securityActionsList,
+.activityList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.securityActionRow {
+    background: #0D0E13;
+    border: 1px solid $borderSubtle;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0 0 2px;
+    }
+
+    span {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+    }
+}
+
+@keyframes activePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.35;
+        transform: scale(0.85);
+    }
+}
+
+.activityCardsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activityItemRow {
+    background: rgba(13, 14, 19, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.3);
+        background: rgba(18, 19, 26, 0.95);
+        transform: translateY(-1px);
+    }
+
+    &.activeActivityRow {
+        border-color: rgba(24, 201, 139, 0.3);
+        background: rgba(24, 201, 139, 0.04);
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.5);
+            background: rgba(24, 201, 139, 0.08);
+        }
+    }
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 16px;
+        gap: 12px;
+
+        .activityItemRight {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+
+    .activityItemLeft {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+        flex: 1;
+
+        .activityIconBox {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+
+            &.activeActivityIconBox {
+                background: rgba(24, 201, 139, 0.12);
+                border-color: rgba(24, 201, 139, 0.35);
+                color: #18C98B;
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
+            }
+
+            svg {
+                display: block;
+            }
+        }
+
+        .activityMeta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+
+            .activityDateRow {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+
+                .activityDateText {
+                    color: #FFFFFF;
+                    font-size: 14px;
+                    font-weight: 600;
+                    font-family: "Euclid-SemiBold", sans-serif;
+                    letter-spacing: -0.1px;
+                }
+
+                .dateDotSeparator {
+                    color: rgba(255, 255, 255, 0.3);
+                    font-size: 10px;
+                    line-height: 1;
+                    user-select: none;
+                }
+
+                .activityTimeText {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 13px;
+                    font-family: monospace, sans-serif;
+                    font-weight: 500;
+                }
+            }
+
+            .activityDescText {
+                color: rgba(255, 255, 255, 0.65);
+                font-size: 13px;
+                line-height: 1.4;
+            }
+        }
+    }
+
+    .activityItemRight {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        .activeSessionBadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 14px;
+            border-radius: 9999px;
+            background: rgba(24, 201, 139, 0.12);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #18C98B;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+
+            .activePulseDot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #18C98B;
+                box-shadow: 0 0 8px #18C98B;
+                animation: activePulse 2s infinite ease-in-out;
+            }
+        }
+
+        .pastSessionBadge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+    }
+}
+
+/* Activity Log Timeline */
+.activityTimeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .timelineItem {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        background: rgba(13, 14, 19, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        padding: 14px 16px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.35);
+            background: rgba(18, 19, 26, 0.95);
+        }
+
+        .timelineDot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #18C98B;
+            box-shadow: 0 0 8px #18C98B;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .timelineContent {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+
+            .timelineHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                flex-wrap: wrap;
+
+                .timelineTitle {
+                    color: #FFFFFF;
+                    font-size: 14px;
+                    font-weight: 700;
+                    font-family: "Euclid-SemiBold", sans-serif;
+                }
+
+                .timelineTime {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 12px;
+                }
+            }
+
+            .timelineDetails {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 13px;
+                flex-wrap: wrap;
+
+                .ipBadge {
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+                    color: #18C98B;
+                    padding: 1px 7px;
+                    border-radius: 4px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    font-family: monospace;
+                }
+            }
+        }
+    }
+}
+
+.emptyActivityState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 16px;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 14px;
+    text-align: center;
+}

@@ -1,0 +1,284 @@
+/* ============================================================
+   CHRONOSX GLOBAL UTILITIES & FORM NORMALIZE
+   ============================================================ */
+
+/* Light Mode Base Form Controls */
+html.light input:not([type="checkbox"]):not([type="radio"]):not([class*="input"]):not([class*="Input"]),
+html.light select,
+html.light textarea {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  border-color: rgba(15, 23, 42, 0.15);
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94A3B8;
+}
+
+html.light select option {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+/* Light Mode Input Wrapper Neutral Light Grey Style */
+html.light [class*="inputWrapper"],
+html[data-theme='light'] [class*="inputWrapper"] {
+  background-color: #F1F5F9;
+  border-radius: 10px;
+}
+
+html.light [class*="inputWrapper"] input,
+html[data-theme='light'] [class*="inputWrapper"] input {
+  background: transparent;
+  background-color: transparent;
+  color: #0F172A;
+}
+
+/* Custom Pointer / Futuristic Cursor Global Rules */
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor-enabled,
+  html.custom-cursor-enabled body,
+  html.custom-cursor-enabled a,
+  html.custom-cursor-enabled button,
+  html.custom-cursor-enabled input,
+  html.custom-cursor-enabled select,
+  html.custom-cursor-enabled textarea,
+  html.custom-cursor-enabled label,
+  html.custom-cursor-enabled [role="button"],
+  html.custom-cursor-enabled [data-cursor] {
+    cursor: none; /* Suppress browser default pointer on interactive elements when custom cursor is active */
+  }
+}
+
+/* ============================================================
+   APEXCHARTS TOOLBAR & DOWNLOAD DROPDOWN MENU
+   Third-party library override: ApexCharts injects inline positioning
+   ============================================================ */
+.apexcharts-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.apexcharts-toolbar button,
+.apexcharts-toolbar > [class*="-icon"],
+.apexcharts-toolbar > div:not(.apexcharts-menu) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #94A3B8;
+  transition: all 0.15s ease;
+}
+
+.apexcharts-toolbar button:hover,
+.apexcharts-toolbar > [class*="-icon"]:hover,
+.apexcharts-toolbar > div:not(.apexcharts-menu):hover {
+  background: rgba(24, 201, 139, 0.16);
+  color: #18C98B;
+}
+
+.apexcharts-toolbar button.apexcharts-selected,
+.apexcharts-toolbar > [class*="-icon"].apexcharts-selected,
+.apexcharts-toolbar > div:not(.apexcharts-menu).apexcharts-selected {
+  background: rgba(24, 201, 139, 0.25);
+  color: #18C98B;
+}
+
+.apexcharts-toolbar svg,
+.apexcharts-toolbar svg * {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.apexcharts-toolbar svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  pointer-events: none;
+}
+
+/* Light Theme: Toolbar Icons */
+html.light .apexcharts-toolbar button,
+html.light .apexcharts-toolbar > [class*="-icon"],
+html.light .apexcharts-toolbar > div:not(.apexcharts-menu),
+html[data-theme="light"] .apexcharts-toolbar button,
+html[data-theme="light"] .apexcharts-toolbar > [class*="-icon"],
+html[data-theme="light"] .apexcharts-toolbar > div:not(.apexcharts-menu),
+.light .apexcharts-toolbar button,
+.light .apexcharts-toolbar > [class*="-icon"],
+.light .apexcharts-toolbar > div:not(.apexcharts-menu) {
+  color: #475569;
+}
+
+html.light .apexcharts-toolbar button:hover,
+html.light .apexcharts-toolbar > [class*="-icon"]:hover,
+html.light .apexcharts-toolbar > div:not(.apexcharts-menu):hover,
+html[data-theme="light"] .apexcharts-toolbar button:hover,
+html[data-theme="light"] .apexcharts-toolbar > [class*="-icon"]:hover,
+html[data-theme="light"] .apexcharts-toolbar > div:not(.apexcharts-menu):hover,
+.light .apexcharts-toolbar button:hover,
+.light .apexcharts-toolbar > [class*="-icon"]:hover,
+.light .apexcharts-toolbar > div:not(.apexcharts-menu):hover {
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+}
+
+html.light .apexcharts-toolbar button.apexcharts-selected,
+html.light .apexcharts-toolbar > [class*="-icon"].apexcharts-selected,
+html.light .apexcharts-toolbar > div:not(.apexcharts-menu).apexcharts-selected,
+html[data-theme="light"] .apexcharts-toolbar button.apexcharts-selected,
+html[data-theme="light"] .apexcharts-toolbar > [class*="-icon"].apexcharts-selected,
+html[data-theme="light"] .apexcharts-toolbar > div:not(.apexcharts-menu).apexcharts-selected,
+.light .apexcharts-toolbar button.apexcharts-selected,
+.light .apexcharts-toolbar > [class*="-icon"].apexcharts-selected,
+.light .apexcharts-toolbar > div:not(.apexcharts-menu).apexcharts-selected {
+  background: rgba(5, 150, 105, 0.2);
+  color: #059669;
+}
+
+/* ApexCharts Dropdown Menu Vertical Stacking */
+.apexcharts-toolbar .apexcharts-menu,
+.apexcharts-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: auto;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  min-width: 140px;
+  height: auto;
+  max-height: none;
+  background: #0D1424;
+  border: 1px solid rgba(24, 201, 139, 0.35);
+  border-radius: 8px;
+  padding: 6px 0;
+  margin: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(24, 201, 139, 0.15);
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+}
+
+.apexcharts-toolbar .apexcharts-menu.apexcharts-menu-open,
+.apexcharts-menu.apexcharts-menu-open {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item,
+.apexcharts-menu .apexcharts-menu-item,
+.apexcharts-menu-item {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  white-space: nowrap;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 8px 16px;
+  line-height: 1.4;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item:hover,
+.apexcharts-menu .apexcharts-menu-item:hover,
+.apexcharts-menu-item:hover {
+  background: rgba(24, 201, 139, 0.18);
+  color: #18C98B;
+}
+
+/* Light Theme: ApexCharts Menu */
+html.light .apexcharts-toolbar .apexcharts-menu,
+html.light .apexcharts-menu,
+html[data-theme="light"] .apexcharts-toolbar .apexcharts-menu,
+html[data-theme="light"] .apexcharts-menu,
+.light .apexcharts-toolbar .apexcharts-menu,
+.light .apexcharts-menu {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+html.light .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item,
+html.light .apexcharts-menu-item,
+html[data-theme="light"] .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item,
+html[data-theme="light"] .apexcharts-menu-item,
+.light .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item,
+.light .apexcharts-menu-item {
+  color: #0F172A;
+}
+
+html.light .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item:hover,
+html.light .apexcharts-menu-item:hover,
+html[data-theme="light"] .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item:hover,
+html[data-theme="light"] .apexcharts-menu-item:hover,
+.light .apexcharts-toolbar .apexcharts-menu .apexcharts-menu-item:hover,
+.light .apexcharts-menu-item:hover {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+/* ============================================================
+   CHRONOSX SIGNATURE GRADIENT TEXT UTILITIES
+   Emerald-to-cyan gradient matching White Label Hero
+   ============================================================ */
+.header-gradient-text,
+.gradient-text,
+.text-gradient,
+.title-gradient,
+.gradientText {
+  color: #18c98b;
+  background: #18c98b;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+}
+
+html.light .header-gradient-text,
+html.light .gradient-text,
+html.light .text-gradient,
+html.light .title-gradient,
+html.light .gradientText,
+[data-theme='light'] .header-gradient-text,
+[data-theme='light'] .gradient-text,
+[data-theme='light'] .text-gradient,
+[data-theme='light'] .title-gradient,
+[data-theme='light'] .gradientText {
+  color: #059669;
+  background: #059669;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

@@ -1,0 +1,189 @@
+.howitWorks {
+  padding: 120px 0 130px;
+  background: radial-gradient(ellipse at 50% 0%, #060d0d 0%, #030606 60%, #020202 100%);
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  :global(.container) {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ─── Side-by-side row ─── */
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 70px;
+    align-items: center;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    @include respond-to("sm") {
+      gap: 36px;
+    }
+  }
+
+  /* ══════════════════════════════ LEFT ══════════════════════════════ */
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .title {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: #FFFFFF;
+      margin: 0 0 22px;
+
+      span {
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
+      }
+
+      @include respond-to("tab") {
+        font-size: 38px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 28px;
+        line-height: 1.15;
+      }
+    }
+
+    .desc {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.55;
+      color: #FFFFFF;
+      margin: 0 0 14px;
+      max-width: 440px;
+    }
+
+    .sub {
+      @include font-normal;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0 0 34px;
+      max-width: 440px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 13px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-bottom: 36px;
+      transition: all 0.3s ease;
+
+      span {
+        transition: transform 0.25s ease;
+      }
+
+      &:hover {
+        background: #6EE7B7;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
+
+        span:last-child {
+          transform: translateX(4px);
+        }
+      }
+    }
+
+    /* Step progress dots */
+    .dots {
+      display: flex;
+      gap: 8px;
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.4s ease;
+
+        &.dotActive {
+          width: 22px;
+          border-radius: 3px;
+          background: #18c98b;
+        }
+      }
+    }
+  }
+}
+
+/* ─── Keyframes ─── */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes laserSweep {
+  0% {
+    left: 8%;
+  }
+
+  100% {
+    left: 88%;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

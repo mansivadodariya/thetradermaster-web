@@ -126,34 +126,46 @@ export default function InteractiveCandlestickChart() {
         const width = containerRef.current.clientWidth || 800;
         const height = 440;
 
-        // Cyber Green Dark Theme Chart Setup
+        // White Theme Chart Setup
         const chart = createChart(containerRef.current, {
             width,
             height,
             layout: {
-                background: { type: 'solid', color: '#04140D' },
-                textColor: 'rgba(255, 255, 255, 0.75)',
+                background: { type: 'solid', color: '#FFFFFF' },
+                textColor: '#475569',
                 fontSize: 12,
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: 'rgba(0, 255, 136, 0.08)' },
-                horzLines: { color: 'rgba(0, 255, 136, 0.08)' },
+                vertLines: { color: 'rgba(0, 0, 0, 0.05)' },
+                horzLines: { color: 'rgba(0, 0, 0, 0.05)' },
             },
             crosshair: {
-                vertLine: { color: '#00FF88', width: 1, style: 3 },
-                horzLine: { color: '#00FF88', width: 1, style: 3 },
+                vertLine: { color: '#0047FF', width: 1, style: 3 },
+                horzLine: { color: '#0047FF', width: 1, style: 3 },
+            },
+            handleScroll: {
+                mouseWheel: false,
+                pressedMouseMove: true,
+                horzTouchDrag: true,
+                vertTouchDrag: true,
+            },
+            handleScale: {
+                axisPressedMouseMove: true,
+                axisDoubleClickReset: true,
+                mouseWheel: true,
+                pinch: true,
             },
             timeScale: {
-                borderColor: 'rgba(0, 255, 136, 0.2)',
+                borderColor: '#E2E8F0',
                 timeVisible: true,
                 secondsVisible: false,
                 barSpacing: 9,
                 rightOffset: 12,
             },
             rightPriceScale: {
-                borderColor: 'rgba(0, 255, 136, 0.2)',
+                borderColor: '#E2E8F0',
                 scaleMargins: { top: 0.1, bottom: 0.25 },
             },
         });
@@ -181,7 +193,7 @@ export default function InteractiveCandlestickChart() {
 
         // EMA 20 Series
         const ema20Series = chart.addSeries(LineSeries, {
-            color: '#10B981',
+            color: '#2563EB',
             lineWidth: 2,
             title: 'EMA 20',
         });
@@ -350,7 +362,7 @@ export default function InteractiveCandlestickChart() {
             )}
 
             {/* Interactive Canvas Container */}
-            <div ref={containerRef} className={styles.canvasContainer} />
+            <div ref={containerRef} className={styles.canvasContainer} style={{ cursor: 'crosshair' }} />
 
             {/* Chart Footer Indicator Legend */}
             <div className={styles.chartFooterLegend}>
@@ -363,7 +375,7 @@ export default function InteractiveCandlestickChart() {
                     <span>Bearish Candle</span>
                 </div>
                 <div className={styles.legendItem}>
-                    <span className={styles.colorDot} style={{ background: '#10B981' }} />
+                    <span className={styles.colorDot} style={{ background: '#2563EB' }} />
                     <span>EMA 20</span>
                 </div>
                 <div className={styles.legendItem}>

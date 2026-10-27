@@ -1,0 +1,500 @@
+.howitWorks {
+
+  /* ══════════════════════════════ RIGHT: TV ══════════════════════════════ */
+  .right {
+    width: 100%;
+
+    .tvBox {
+      width: 100%;
+      min-height: 540px;
+      background: #04050A;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      outline: 1px solid rgba(24, 201, 139, 0.22);
+      outline-offset: 4px;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 50px 120px rgba(0, 0, 0, 0.95),
+        0 0 90px rgba(24, 201, 139, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 48px;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 0, 0, 0.06) 3px,
+            rgba(0, 0, 0, 0.06) 4px);
+        pointer-events: none;
+        z-index: 0;
+        border-radius: 22px;
+      }
+
+      @include respond-to("tab") {
+        min-height: 440px;
+        padding: 36px 28px;
+      }
+
+      @include respond-to("sm") {
+        min-height: 360px;
+        padding: 20px 14px;
+        border-radius: 16px;
+        outline: none;
+      }
+    }
+  }
+
+  /* ─── Phase 1: Intro ─── */
+  .introState {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+
+    .introIcon {
+      font-size: 28px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .introLabel {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.3px;
+
+      @include respond-to("tab") {
+        font-size: 22px;
+      }
+    }
+  }
+
+  /* ─── Phase 2: Live simulation ─── */
+  .simState {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sim {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+
+    .simHead {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+      .numTag {
+        font-family: system-ui, monospace;
+        font-size: 10px;
+        font-weight: 900;
+        color: #000;
+        background: #6EE7B7;
+        padding: 3px 7px;
+        border-radius: 5px;
+        flex-shrink: 0;
+      }
+
+      .simTitle {
+        font-family: var(--font-syne), "Syne", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        color: #FFFFFF;
+        flex: 1;
+      }
+
+      .statusGreen {
+        font-size: 10px;
+        font-weight: 800;
+        color: #34D399;
+        font-family: system-ui, monospace;
+        white-space: nowrap;
+      }
+
+      .statusGold {
+        font-size: 10px;
+        font-weight: 800;
+        color: #6EE7B7;
+        font-family: system-ui, monospace;
+        white-space: nowrap;
+      }
+
+      .signal {
+        font-size: 10px;
+        font-weight: 800;
+        color: #00E5FF;
+        background: rgba(0, 229, 255, 0.1);
+        padding: 3px 8px;
+        border-radius: 5px;
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        font-family: system-ui, monospace;
+      }
+    }
+
+    /* ── Screen 01 ── */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .lbl {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .input {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        padding: 13px 16px;
+        font-family: system-ui, monospace;
+        font-size: 14px;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+
+        .cursor {
+          color: #6EE7B7;
+          font-weight: 700;
+          margin-left: 2px;
+          animation: blink 1s infinite;
+        }
+      }
+
+      .btn {
+        background: linear-gradient(90deg, #18c98b 0%, #6EE7B7 100%);
+        border-radius: 10px;
+        padding: 13px 18px;
+        color: #040605;
+        font-family: var(--font-syne), "Syne", sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(24, 201, 139, 0.3);
+      }
+    }
+
+    .alert {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(52, 211, 153, 0.07);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 12px;
+      padding: 14px 18px;
+
+      .check {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #34D399;
+        color: #000;
+        font-weight: 900;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      strong {
+        display: block;
+        color: #FFFFFF;
+        font-size: 13px;
+      }
+
+      .alertSub {
+        display: block;
+        color: #34D399;
+        font-size: 12px;
+        margin-top: 3px;
+      }
+    }
+
+    /* ── Screen 02 ── */
+    .brokerRow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 14px 18px;
+
+      .brokerLogo {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #10B981 0%, #18C98B 100%);
+        color: #000;
+        font-weight: 900;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      h4 {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 800;
+        margin: 0 0 3px;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+
+    .mt5Row {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      border-radius: 10px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: system-ui, monospace;
+      font-size: 13px;
+
+      span {
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      strong {
+        color: #6EE7B7;
+      }
+    }
+
+    .reward {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(24, 201, 139, 0.1);
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      border-radius: 12px;
+      padding: 14px 18px;
+
+      .star {
+        font-size: 22px;
+        color: #6EE7B7;
+      }
+
+      strong {
+        display: block;
+        color: #6EE7B7;
+        font-size: 13px;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 12px;
+        margin: 3px 0 0;
+      }
+    }
+
+    /* ── Screen 03: Chart ── */
+    .chart {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+      position: relative;
+      overflow: hidden;
+
+      .sessions {
+        display: flex;
+        gap: 10px;
+
+        span {
+          font-family: system-ui, monospace;
+          font-size: 9.5px;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.05);
+          padding: 2px 7px;
+          border-radius: 4px;
+        }
+      }
+
+      .sessionZone {
+        position: absolute;
+        left: 30%;
+        width: 35%;
+        top: 0;
+        bottom: 0;
+        background: rgba(24, 201, 139, 0.04);
+        border-left: 1px dashed rgba(24, 201, 139, 0.3);
+        border-right: 1px dashed rgba(24, 201, 139, 0.3);
+        pointer-events: none;
+      }
+
+      .laser {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1.5px;
+        background: linear-gradient(180deg, transparent 0%, #00E5FF 50%, transparent 100%);
+        box-shadow: 0 0 14px #00E5FF;
+        animation: laserSweep 3.5s infinite ease-in-out alternate;
+      }
+
+      .candles {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 10px;
+        height: 140px;
+        padding-bottom: 10px;
+
+        .candle {
+          width: 13px;
+          border-radius: 2px;
+
+          &.green {
+            background: #34D399;
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+          }
+
+          &.red {
+            background: #FF4D6A;
+            box-shadow: 0 0 8px rgba(255, 77, 106, 0.4);
+          }
+        }
+      }
+
+      .callouts {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: system-ui, monospace;
+        font-size: 11px;
+        font-weight: 800;
+
+        .tp {
+          color: #34D399;
+        }
+
+        .sl {
+          color: #FF4D6A;
+        }
+      }
+    }
+
+    /* ── Screen 04: Credit loop ── */
+    .loop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 0;
+      position: relative;
+
+      .ring1 {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(52, 211, 153, 0.35);
+        animation: spin 14s linear infinite;
+      }
+
+      .ring2 {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 1px dashed rgba(52, 211, 153, 0.2);
+        animation: spin 8s linear infinite reverse;
+      }
+
+      .loopCenter {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(52, 211, 153, 0.18) 0%, rgba(4, 5, 10, 0.95) 70%);
+        border: 2px solid #34D399;
+        box-shadow: 0 0 40px rgba(52, 211, 153, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        position: relative;
+
+        .loopIcon {
+          font-size: 18px;
+          color: #34D399;
+          line-height: 1;
+        }
+
+        .loopNum {
+          font-family: var(--font-syne), "Syne", sans-serif;
+          font-size: 26px;
+          font-weight: 900;
+          color: #FFFFFF;
+          line-height: 1;
+          margin-top: 2px;
+        }
+
+        .loopLabel {
+          font-size: 7px;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+          color: #34D399;
+          margin-top: 4px;
+          text-align: center;
+        }
+      }
+    }
+
+    .meta {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .metaRow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+
+        span {
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .green {
+          color: #34D399;
+        }
+
+        .gold {
+          color: #6EE7B7;
+        }
+      }
+    }
+  }
+}

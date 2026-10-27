@@ -1,0 +1,345 @@
+/* ============================================================
+   PANEL 2: CHART PANEL (DASHBOARD THEME)
+   ============================================================ */
+.chartPanel {
+    background:
+        radial-gradient(ellipse 50% 60% at 50% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    position: relative;
+    height: 100%;
+    min-height: 0;
+
+    .chartPanelHeader {
+        background: rgba(13, 14, 19, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        flex-shrink: 0;
+
+        @media (max-height: 850px) {
+            padding: 8px 14px;
+            gap: 8px;
+        }
+
+        .chartTitleArea {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+
+            h3 {
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", "Inter", sans-serif;
+                margin: 0;
+
+                [data-theme='light'] &,
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    color: #0F172A;
+                }
+            }
+
+            .chartTimeframeBadge {
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                color: #18C98B;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 2px 7px;
+                border-radius: 5px;
+
+                [data-theme='light'] &,
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    background: #ECFDF5;
+                    border-color: rgba(16, 185, 129, 0.3);
+                    color: #059669;
+                }
+            }
+
+            .chartFeedBadge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 2px 7px;
+                border-radius: 5px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                color: #18C98B;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                cursor: help;
+
+                .chartFeedDot {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background: #18C98B;
+                    box-shadow: 0 0 5px #18C98B;
+                    animation: pulseFeedDot 1.8s infinite ease-in-out;
+                }
+
+                [data-theme='light'] &,
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    background: #ECFDF5;
+                    border-color: rgba(16, 185, 129, 0.3);
+                    color: #059669;
+                }
+            }
+        }
+
+        .chartHeaderOHLCSkeleton {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            .ohlcSkelBox {
+                width: 58px;
+                height: 18px;
+                border-radius: 4px;
+            }
+        }
+
+        .chartHeaderOHLCInfo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            flex-wrap: wrap;
+
+            .ohlcItem {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+
+                .ohlcLabel {
+                    color: #94A3B8;
+                    font-weight: 600;
+                    font-size: 12px;
+                }
+
+                .ohlcValue {
+                    color: #FFFFFF;
+                    font-weight: 600;
+                    font-size: 12px;
+                }
+
+                .itemBullish {
+                    color: #18C98B;
+                }
+
+                .itemBearish {
+                    color: #EF5350;
+                }
+            }
+        }
+    }
+
+    .chartCanvasContainer {
+        flex: 1;
+        min-height: 250px;
+        height: 100%;
+        position: relative;
+        background: #08090c;
+        cursor: crosshair;
+
+        :global(canvas) {
+            cursor: crosshair;
+        }
+
+        :global(.tv-lightweight-charts) {
+            cursor: crosshair;
+
+            :global(canvas) {
+                cursor: crosshair;
+            }
+        }
+    }
+
+    .chartCanvas {
+        width: 100%;
+        height: 100%;
+        min-height: 250px;
+        cursor: crosshair;
+
+        :global(canvas) {
+            cursor: crosshair;
+        }
+
+        :global(.tv-lightweight-charts) {
+            cursor: crosshair;
+
+            :global(canvas) {
+                cursor: crosshair;
+            }
+        }
+    }
+
+    .chartOverlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(8, 9, 12, 0.78);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 13.5px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        z-index: 20;
+        transition: opacity 0.25s ease;
+
+        :global(.isLight) &,
+        :global(.light) & {
+            background: rgba(255, 255, 255, 0.82);
+            color: #0F172A;
+        }
+
+        .chartSpinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(24, 201, 139, 0.18);
+            border-top-color: #18C98B;
+            border-radius: 50%;
+            animation: spin 0.75s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
+        }
+
+        .chartErrorText {
+            color: #EF5350;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .chartRetryBtn {
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            color: #18C98B;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #18C98B;
+                color: #FFFFFF;
+                box-shadow: 0 4px 14px rgba(24, 201, 139, 0.4);
+            }
+        }
+    }
+
+    .chartDotsOverlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+
+        .chartIndicatorDot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #FFFFFF;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+        }
+    }
+
+    .chartLegendContainer {
+        background: rgba(13, 14, 19, 0.95);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 6px 18px;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        .chartLegend {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 11.5px;
+            font-weight: 600;
+
+            .legendItem {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: transparent;
+                border: 1px solid transparent;
+                padding: 3px 8px;
+                border-radius: 6px;
+                color: rgba(255, 255, 255, 0.75);
+                cursor: pointer;
+                transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                user-select: none;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.06);
+                    color: #FFFFFF;
+                }
+
+                &.legendDisabled {
+                    opacity: 0.38;
+                    color: rgba(255, 255, 255, 0.35);
+
+                    .legendColor {
+                        filter: grayscale(1);
+                        opacity: 0.5;
+                    }
+                }
+
+                .legendColor {
+                    width: 14px;
+                    height: 3px;
+                    border-radius: 2px;
+                    display: inline-block;
+
+                    &.ema20 {
+                        background: #60A5FA;
+                    }
+
+                    &.ema50 {
+                        background: #F59E0B;
+                    }
+
+                    &.supertrend {
+                        background: #26A69A;
+                    }
+                }
+
+                .eyeIcon {
+                    width: 12px;
+                    height: 12px;
+                    opacity: 0.6;
+                    transition: opacity 0.2s ease, transform 0.2s ease;
+                }
+
+                &:hover .eyeIcon {
+                    opacity: 1;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}

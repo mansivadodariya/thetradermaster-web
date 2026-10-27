@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './brokerDetail.module.scss';
-import { fetchBrokerById, getBrokerById, brokerList } from '@/lib/brokersData';
+import { useLogoLuminance } from '@/lib/useLogoLuminance';
+import { fetchBrokerById, getBrokerById } from '@/lib/brokersData';
 import { BrokerDetailSkeleton } from '@/components/brokerSkeleton';
 import { useLanguage } from '@/context/LanguageContext';
-import { useTheme } from '@/context/ThemeContext';
 
 const BackArrowIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -41,9 +41,9 @@ const GlobeIcon = () => (
 export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) {
     const router = useRouter();
     const { t, tDynamic, language } = useLanguage();
-    const { theme } = useTheme();
     const [broker, setBroker] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const isDarkLogo = useLogoLuminance(broker);
 
     useEffect(() => {
         let isMounted = true;
@@ -55,10 +55,18 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
             try {
                 const data = await fetchBrokerById(brokerId);
                 if (isMounted) {
-                    setBroker(data || getBrokerById(brokerId));
+                    const found = data || getBrokerById(brokerId);
+                    if (found && found.is_active !== false) {
+                        setBroker(found);
+                    } else {
+                        setBroker(null);
+                    }
                 }
             } catch (_) {
-                if (isMounted) setBroker(getBrokerById(brokerId));
+                if (isMounted) {
+                    const fallback = getBrokerById(brokerId);
+                    setBroker(fallback && fallback.is_active !== false ? fallback : null);
+                }
             } finally {
                 if (isMounted) setIsLoading(false);
             }
@@ -67,7 +75,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         return () => { isMounted = false; };
     }, [brokerId]);
 
-    const backPath = isPublicLanding ? '/#ecosystem' : '/broker';
+    const backPath = isPublicLanding ? '/#ecosystem' : '/brokers';
 
     const handleBackClick = () => {
         if (isPublicLanding) {
@@ -79,7 +87,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
                 }
             }, 150);
         } else {
-            router.push('/broker');
+            router.push('/brokers');
         }
     };
 
@@ -91,11 +99,11 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         );
     }
 
-    if (!broker) {
+    if (!broker || broker.is_active === false) {
         return (
             <div className={styles.notFound}>
                 <h2>{t('broker.notFoundTitle', 'Broker Not Found')}</h2>
-                <p>{t('broker.notFoundDesc', 'The requested broker or platform does not exist.')}</p>
+                <p>{t('broker.notFoundDesc', 'The requested broker or platform does not exist or is inactive.')}</p>
                 <Link href={backPath} className={styles.backBtn}>
                     <BackArrowIcon /> {t('broker.backToBrokers', 'Back to Brokers')}
                 </Link>
@@ -112,14 +120,6 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         ? broker.features_ar
         : (broker.features || []);
 
-    const effectiveTheme = isPublicLanding ? 'dark' : theme;
-    let logoSrc = broker.logo || '/assets/images/site-logo-20y-on-light.svg';
-    if (broker.id === 'avatrade' || logoSrc.includes('site-logo-20y')) {
-        logoSrc = '/assets/images/site-logo-20y-on-light.svg';
-    } else if (logoSrc.includes('logo-light') || broker.id === 'newera') {
-        logoSrc = effectiveTheme === 'light' ? '/assets/images/logo-light1.webp' : '/assets/images/logo-light.webp';
-    }
-
     return (
         <div className={`${styles.brokerDetailPage} ${isPublicLanding ? styles.publicContainer : ''}`}>
             {/* Top Navigation */}
@@ -131,11 +131,11 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
             </div>
 
             {/* Main Header Banner */}
-            <div className={styles.heroBanner}>
+            <div className={`${styles.heroBanner} ${isDarkLogo ? styles.hasWhiteHeader : styles.hasBlackHeader}`}>
                 <div className={styles.logoRow}>
-                    {logoSrc && (
+                    {broker.logo && (
                         <div className={styles.logoBox}>
-                            <img src={logoSrc} alt={name || 'Broker Logo'} />
+                            <img src={broker.logo} alt={name || 'Broker Logo'} />
                         </div>
                     )}
                     {broker.category && (
@@ -145,7 +145,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
                     )}
                 </div>
 
-                {!logoSrc && name && <h1 className={styles.title}>{name}</h1>}
+                {name && <h1 className={styles.title}>{name}</h1>}
                 {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
             </div>
 
@@ -179,7 +179,7 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
                     <div className={styles.cardSection}>
                         <h3>{t('broker.infraHeader', 'Integration & Trading Infrastructure')}</h3>
                         <p className={styles.description}>
-                            {t('broker.infraDesc', 'Trader Master connects with verified brokerage APIs and market trading environments to ensure execution speed, real-time logging, and secure data sync.')}
+                            {t('broker.infraDesc', 'ChronosX connects with verified brokerage APIs and market trading environments to ensure execution speed, real-time logging, and secure data sync.')}
                         </p>
                     </div>
                 </div>
@@ -212,4 +212,3 @@ export default function BrokerDetailPage({ brokerId, isPublicLanding = false }) 
         </div>
     );
 }
-

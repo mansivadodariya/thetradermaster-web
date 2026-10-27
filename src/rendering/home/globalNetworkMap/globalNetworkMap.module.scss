@@ -1,0 +1,430 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.networkMapSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #040e0a 0%, #020705 55%, #000000 100%);
+
+  :global(html.light) & {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+    .mapCard {
+      background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.14) 0%, transparent 60%), #07130F;
+      border: 1px solid rgba(24, 201, 139, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  :global(.container) {
+    position: relative;
+    z-index: 9;
+  }
+
+  /* Map Card Container */
+  .mapCard {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.12) 0%, transparent 60%), #07130F;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(24, 201, 139, 0.12);
+    overflow: hidden;
+    padding: 0;
+    contain: layout paint;
+    transform: translate3d(0, 0, 0);
+
+    /* Scanning Green Light Border Beams */
+    .scanlineTop,
+    .scanlineBottom {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.9) 50%, transparent 100%);
+      opacity: 0.75;
+      z-index: 5;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .scanlineTop {
+      top: 0;
+      animation: scanlineSweep 5s ease-in-out infinite alternate;
+    }
+
+    .scanlineBottom {
+      bottom: 0;
+      animation: scanlineSweep 5s ease-in-out infinite alternate-reverse;
+    }
+
+    /* Atmospheric Smoky / Foggy Green Mist Sweep */
+    .lightShineSweep,
+    .lightShineSweep2 {
+      position: absolute;
+      top: -15%;
+      bottom: -15%;
+      height: 130%;
+      width: 320px;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%,
+          rgba(24, 201, 139, 0.12) 0%,
+          rgba(24, 201, 139, 0.06) 40%,
+          rgba(255, 255, 255, 0.038) 70%,
+          transparent 100%);
+      filter: blur(36px);
+      animation: verticalLineSweep 14s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 4;
+      will-change: left, opacity;
+    }
+
+    .lightShineSweep2 {
+      animation-delay: 7s;
+
+    }
+
+    /* Clear, High-Visibility Cyber Background Grid Dots */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(24, 201, 139, 0.35) 1.2px, transparent 1.2px);
+      background-size: 16px 16px;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+
+  /* SVG Map Wrapper */
+  .svgWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 833 / 415;
+    z-index: 2;
+    contain: layout paint;
+    transform: translate3d(0, 0, 0);
+
+    .globeMapBg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      transform: translate3d(0, 0, 0);
+
+      .mapImg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.95;
+        user-select: none;
+      }
+    }
+
+    .overlaySvg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      display: block;
+      overflow: visible;
+    }
+
+    /* Latitude Grid Lines */
+    .latitudeLines {
+      pointer-events: none;
+
+      .latitudeLineTop,
+      .latitudeLineBottom {
+        stroke: rgba(24, 201, 139, 0.35);
+        stroke-width: 0.85;
+        stroke-dasharray: 4 6;
+      }
+    }
+
+    /* Golden Connection Curve Lines */
+    .routeCurve {
+      stroke: url(#goldRouteGrad);
+      stroke-width: 1.25;
+      stroke-dasharray: 4 5;
+      fill: none;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, stroke-width 0.2s ease;
+
+      &.highlighted {
+        opacity: 1;
+        stroke-width: 1.2;
+        stroke-dasharray: none;
+        stroke: #6EE7B7;
+      }
+    }
+
+    .particleComet {
+      will-change: transform;
+    }
+
+    /* Trading Hub Group */
+    .hubGroup {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover,
+      &.activeHub {
+        .hubGlowRing {
+          opacity: 0.95;
+          animation: sonarPulse 1.1s ease-out infinite;
+        }
+
+        .hubRippleRing {
+          opacity: 0.55;
+          animation: hubPulse 1.1s ease-in-out infinite;
+        }
+
+        .hubBadgeRect {
+          fill: rgba(4, 16, 12, 0.96);
+          stroke: #6EE7B7;
+          stroke-width: 1.15;
+          animation: badgeHoverShimmer 2.4s ease-in-out infinite;
+        }
+
+        .hubBadgeShimmerLayer {
+          opacity: 0.85;
+          mix-blend-mode: screen;
+        }
+
+        .hubBadgeText {
+          fill: #FFFFFF;
+          font-weight: 700;
+          animation: textHoverGlow 2.4s ease-in-out infinite;
+        }
+      }
+    }
+
+    /* GPU Accelerated Sonar Pulse Rings */
+    .hubGlowRing {
+      fill: none;
+      stroke: #18c98b;
+      stroke-width: 1.2;
+      opacity: 0.45;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: sonarPulse 2.6s ease-out infinite;
+    }
+
+    .hubRippleRing {
+      fill: #18c98b;
+      opacity: 0.25;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: hubPulse 2.6s ease-in-out infinite;
+    }
+
+    .hubCoreDot {
+      fill: #18c98b;
+    }
+
+    /* Native SVG City Tag Badge */
+    .hubBadgeG {
+      pointer-events: none;
+    }
+
+    .hubBadgeRect {
+      fill: rgba(4, 12, 9, 0.9);
+      stroke: rgba(24, 201, 139, 0.45);
+      stroke-width: 0.85;
+      transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+      animation: badgeBorderShimmer 5.5s ease-in-out infinite;
+
+      &.specialBadgeRect {
+        fill: rgba(5, 18, 14, 0.95);
+        stroke: #6EE7B7;
+      }
+    }
+
+    .hubBadgeShimmerLayer {
+      pointer-events: none;
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      transition: opacity 0.3s ease;
+    }
+
+    .hubBadgeText {
+      font-family: inherit;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      fill: #6EE7B7;
+      dominant-baseline: central;
+      text-anchor: middle;
+      transition: fill 0.3s ease, filter 0.3s ease;
+      animation: textAmbientShimmer 5.5s ease-in-out infinite;
+
+      &.specialBadgeText {
+        fill: #6EE7B7;
+        font-weight: 700;
+      }
+    }
+  }
+
+  /* GPU-Accelerated Keyframes */
+  @keyframes pulseDot {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.3);
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes hubPulse {
+
+    0%,
+    100% {
+      transform: scale(0.85);
+      opacity: 0.2;
+    }
+
+    50% {
+      transform: scale(1.25);
+      opacity: 0.45;
+    }
+  }
+
+  @keyframes sonarPulse {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.85;
+    }
+
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes scanlineSweep {
+    0% {
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(100%, 0, 0);
+    }
+  }
+
+  @keyframes verticalLineSweep {
+    0% {
+      left: -350px;
+      opacity: 0;
+    }
+
+    8% {
+      opacity: 1;
+    }
+
+    78% {
+      opacity: 1;
+    }
+
+    88%,
+    100% {
+      left: calc(100% + 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes badgeBorderShimmer {
+
+    0%,
+    100% {
+      stroke: rgba(24, 201, 139, 0.4);
+      filter: drop-shadow(0 0 1px rgba(24, 201, 139, 0.15));
+      fill: rgba(4, 12, 9, 0.9);
+    }
+
+    50% {
+      stroke: rgba(24, 201, 139, 0.85);
+      filter: drop-shadow(0 0 4px rgba(24, 201, 139, 0.45));
+      fill: rgba(4, 20, 15, 0.94);
+    }
+  }
+
+  @keyframes badgeHoverShimmer {
+
+    0%,
+    100% {
+      stroke: #18c98b;
+      filter: drop-shadow(0 0 4px rgba(24, 201, 139, 0.5));
+      fill: rgba(5, 22, 17, 0.95);
+    }
+
+    50% {
+      stroke: #6EE7B7;
+      filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.9));
+      fill: rgba(6, 28, 21, 0.98);
+    }
+  }
+
+  @keyframes textAmbientShimmer {
+
+    0%,
+    100% {
+      fill: #6EE7B7;
+      filter: drop-shadow(0 0 0px transparent);
+    }
+
+    50% {
+      fill: #A7F3D0;
+      filter: drop-shadow(0 0 2.5px rgba(24, 201, 139, 0.55));
+    }
+  }
+
+  @keyframes textHoverGlow {
+
+    0%,
+    100% {
+      fill: #FFFFFF;
+      filter: drop-shadow(0 0 3px rgba(24, 201, 139, 0.6));
+    }
+
+    50% {
+      fill: #E6FFFA;
+      filter: drop-shadow(0 0 7px rgba(24, 201, 139, 1));
+    }
+  }
+}

@@ -3,21 +3,22 @@ import React, { useState } from 'react';
 import styles from './input.module.scss';
 
 const EyeOpen = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
         <circle cx="12" cy="12" r="3" />
     </svg>
 );
 
 const EyeClosed = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-        <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-        <line x1="1" y1="1" x2="23" y2="23" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+        <line x1="2" y1="2" x2="22" y2="22" />
     </svg>
 );
 
-const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon, error, dark = false, className = '', ...rest }) => {
+const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon, error, autoComplete = 'off', ...rest }) => {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === 'password';
     const resolvedType = isPassword ? (showPassword ? 'text' : 'password') : type;
@@ -38,10 +39,16 @@ const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon,
     };
 
     return (
-        <div className={`${styles.input} ${dark ? styles.darkInput : ''} ${className}`}>
+        <div className={styles.input}>
             {label && <label htmlFor={name}>{label}</label>}
-            <div className={`${styles.inputWrapper} ${dark ? styles.dark : ''} ${error ? styles.hasError : ''}`}>
-                {icon && <img src={icon} alt="" aria-hidden="true" className={styles.iconLeft} />}
+            <div className={`${styles.inputWrapper} ${error ? styles.hasError : ''}`}>
+                {icon && (
+                    typeof icon === 'string' ? (
+                        <img src={icon} alt="" aria-hidden="true" className={styles.iconLeft} />
+                    ) : (
+                        <span className={styles.iconLeft}>{icon}</span>
+                    )
+                )}
                 <input
                     id={name}
                     type={resolvedType}
@@ -49,18 +56,25 @@ const Input = ({ label, placeholder, type = 'text', value, onChange, name, icon,
                     placeholder={placeholder}
                     value={value}
                     onChange={handleChange}
+                    autoComplete={autoComplete}
                     aria-invalid={!!error}
                     aria-describedby={error ? `${name}-error` : undefined}
+                    className={`${styles.inputField} ${icon ? styles.hasIconLeft : ''} ${isPassword ? styles.hasEyeBtn : ''}`}
                     {...rest}
                 />
                 {isPassword && (
                     <button
                         type="button"
                         className={styles.eyeBtn}
-                        onClick={() => setShowPassword((v) => !v)}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setShowPassword((v) => !v);
+                        }}
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        title={showPassword ? 'Hide password' : 'Show password'}
                     >
-                        {showPassword ? <EyeOpen /> : <EyeClosed />}
+                        {showPassword ? <EyeClosed /> : <EyeOpen />}
                     </button>
                 )}
             </div>

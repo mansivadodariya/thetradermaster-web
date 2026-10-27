@@ -1,0 +1,252 @@
+/* ══════════════════════════════════════════════════════════════
+   INTERACTIVE CHAT ERROR BUBBLE (CREDITS & SERVICE UNAVAILABILITY)
+   ══════════════════════════════════════════════════════════════ */
+
+.errorBubble {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: 14px;
+    padding: 16px 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 4px 0;
+    transition: all 0.2s ease;
+
+    /* ── Insufficient Credits / No Credits ── */
+    &.errorCredits {
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), 0 0 16px rgba(245, 158, 11, 0.08);
+
+        .errorIconBadge {
+            background: rgba(245, 158, 11, 0.16);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .errorTag {
+            background: rgba(245, 158, 11, 0.16);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .errorPrimaryBtn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000000;
+            font-weight: 800;
+
+            &:hover:not(:disabled) {
+                box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+    /* ── API Unreachable / Offline / Failed to fetch ── */
+    &.errorApi {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.35);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), 0 0 16px rgba(239, 68, 68, 0.08);
+
+        .errorIconBadge {
+            background: rgba(239, 68, 68, 0.16);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .errorTag {
+            background: rgba(239, 68, 68, 0.16);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .errorPrimaryBtn {
+            background: #18c98b;
+            color: #040806;
+            font-weight: 800;
+
+            &:hover:not(:disabled) {
+                background: #15b37b;
+                box-shadow: 0 0 16px rgba(24, 201, 139, 0.45);
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+    /* ── Header ── */
+    .errorHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .errorHeaderLeft {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .errorIconBadge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+
+    .errorTitle {
+        font-size: 15px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.01em;
+    }
+
+    .errorTag {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 99px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    /* ── Body ── */
+    .errorBody {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .errorDesc {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: #e2e8f0;
+    }
+
+    .errorSuggestion {
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: #94a3b8;
+    }
+
+    /* ── Action Buttons ── */
+    .errorActions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        flex-wrap: wrap;
+    }
+
+    .errorPrimaryBtn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        line-height: 1;
+
+        svg {
+            display: block;
+            flex-shrink: 0;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .errorSecondaryBtn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #cbd5e1;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        line-height: 1;
+
+        svg {
+            display: block;
+            flex-shrink: 0;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+    }
+
+    /* ── Light Mode Overrides ── */
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        &.errorCredits {
+            background: #fffbeb;
+            border-color: #fde68a;
+            box-shadow: 0 4px 18px rgba(245, 158, 11, 0.1);
+
+            .errorTitle { color: #92400e; }
+            .errorDesc { color: #78350f; }
+            .errorSuggestion { color: #b45309; }
+            .errorTag {
+                background: #fef3c7;
+                color: #92400e;
+                border-color: #fde68a;
+            }
+        }
+
+        &.errorApi {
+            background: #fef2f2;
+            border-color: #fecaca;
+            box-shadow: 0 4px 18px rgba(239, 68, 68, 0.1);
+
+            .errorTitle { color: #991b1b; }
+            .errorDesc { color: #7f1d1d; }
+            .errorSuggestion { color: #b91c1c; }
+            .errorTag {
+                background: #fee2e2;
+                color: #991b1b;
+                border-color: #fecaca;
+            }
+            .errorPrimaryBtn {
+                background: #059669;
+                color: #ffffff;
+            }
+        }
+
+        .errorSecondaryBtn {
+            background: #ffffff;
+            border-color: #e2e8f0;
+            color: #475569;
+
+            &:hover {
+                background: #f8fafc;
+                color: #0f172a;
+            }
+        }
+    }
+}

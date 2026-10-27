@@ -1,0 +1,661 @@
+/* INDIVIDUAL TRADE AUDIT MODAL */
+.tradeAuditModalContainer {
+    background: #0D0F12;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 18px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(24, 201, 139, 0.15);
+    display: flex;
+    flex-direction: column;
+    animation: modalIn 0.25s ease-out;
+
+    /* Custom smooth scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #18C98B rgba(255, 255, 255, 0.05);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 999px;
+        margin: 8px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #18C98B;
+        border-radius: 999px;
+
+        &:hover {
+            background: #22E7A0;
+        }
+    }
+
+    .modalHeader {
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .modalHeaderTitleGroup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .sparkleIconBox {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: rgba(244, 209, 122, 0.12);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $primaryGold;
+            }
+
+            h3 {
+                font-size: 16px;
+                font-weight: 800;
+                color: $textWhite;
+                margin: 0;
+            }
+
+            .modalSub {
+                font-size: 12px;
+                color: $textMuted;
+                display: block;
+                margin-top: 2px;
+            }
+        }
+
+        .closeBtn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: $textMuted;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .tradeModalBody {
+        padding: 22px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        .tradeDetailsBanner {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+
+            @include respond-to('sm') {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .detailItem {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+
+                .detailLabel {
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    color: $textMuted;
+                    letter-spacing: 0.4px;
+                }
+
+                .detailValue {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: $textWhite;
+                }
+
+                .detailValueBold {
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: $textWhite;
+                }
+
+                .greenPill {
+                    font-size: 11px;
+                    font-weight: 800;
+                    color: #34D399;
+                    background: rgba(16, 185, 129, 0.15);
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+
+                .redPill {
+                    font-size: 11px;
+                    font-weight: 800;
+                    color: #F87171;
+                    background: rgba(239, 68, 68, 0.15);
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+
+                .detailValueGreen {
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: #34D399;
+                }
+
+                .detailValueRed {
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: #F87171;
+                }
+            }
+        }
+
+        .modalTabRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+
+            .modalTabBtn {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 14px;
+                border-radius: 8px;
+                background: transparent;
+                border: 1px solid transparent;
+                color: $textDim;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                svg {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                &:hover {
+                    color: $textWhite;
+                    background: rgba(255, 255, 255, 0.04);
+                }
+
+                &.active {
+                    color: $primaryGold;
+                    background: rgba(244, 209, 122, 0.1);
+                    border-color: rgba(244, 209, 122, 0.3);
+                }
+            }
+        }
+
+        .auditResultContent {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .auditScoreCard {
+                background: linear-gradient(135deg, rgba(244, 209, 122, 0.08) 0%, rgba(16, 185, 129, 0.06) 100%);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                border-radius: 12px;
+                padding: 16px 20px;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+
+                .scoreCircle {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    background: rgba(0, 0, 0, 0.5);
+                    border: 2px solid $primaryGold;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+
+                    .scoreNum {
+                        font-size: 16px;
+                        font-weight: 800;
+                        color: $primaryGold;
+                        line-height: 1;
+                    }
+
+                    .scoreMax {
+                        font-size: 9px;
+                        color: $textMuted;
+                    }
+                }
+
+                .scoreText {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .scoreTitleRow {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        h4 {
+                            font-size: 15px;
+                            font-weight: 800;
+                            color: $textWhite;
+                            margin: 0;
+                        }
+
+                        .auditApiBadge {
+                            font-size: 10px;
+                            font-weight: 800;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            color: #34D399;
+                            background: rgba(16, 185, 129, 0.15);
+                            border: 1px solid rgba(16, 185, 129, 0.3);
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                        }
+                    }
+
+                    p {
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.8);
+                        margin: 0;
+                        line-height: 1.5;
+                    }
+                }
+            }
+
+            .subScoresMatrixGrid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+
+                .subScoreCard {
+                    background: rgba(0, 0, 0, 0.35);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 10px;
+                    padding: 10px 12px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .subScoreLabel {
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: $textDim;
+                        text-transform: uppercase;
+                    }
+
+                    .subScoreValueBox {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 2px;
+
+                        .scoreGreen {
+                            color: #34D399;
+                            font-size: 15px;
+                            font-weight: 800;
+                        }
+
+                        .scoreAmber {
+                            color: #38BDF8;
+                            font-size: 15px;
+                            font-weight: 800;
+                        }
+
+                        .scoreRed {
+                            color: #F87171;
+                            font-size: 15px;
+                            font-weight: 800;
+                        }
+
+                        .subScoreDenom {
+                            font-size: 10px;
+                            color: $textDim;
+                        }
+                    }
+                }
+            }
+
+            .macroContextCard {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 14px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+
+                    .newsRiskBadge {
+                        font-size: 10px;
+                        font-weight: 800;
+                        padding: 2px 7px;
+                        border-radius: 4px;
+                        text-transform: uppercase;
+                        margin-left: auto;
+
+                        &.riskHigh {
+                            background: rgba(248, 113, 113, 0.15);
+                            color: #F87171;
+                            border: 1px solid rgba(248, 113, 113, 0.3);
+                        }
+
+                        &.riskLow {
+                            background: rgba(52, 211, 153, 0.15);
+                            color: #34D399;
+                            border: 1px solid rgba(52, 211, 153, 0.3);
+                        }
+                    }
+                }
+
+                .regimeRow {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+
+                    .regimeTag,
+                    .sentimentTag {
+                        font-size: 12px;
+                        font-weight: 700;
+                        padding: 3px 8px;
+                        border-radius: 6px;
+                        background: rgba(255, 255, 255, 0.05);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        color: rgba(255, 255, 255, 0.9);
+                    }
+                }
+
+                .macroAssessmentText {
+                    font-size: 13px;
+                    color: rgba(255, 255, 255, 0.8);
+                    margin: 0;
+                    line-height: 1.5;
+                }
+
+                .economicEventsStack {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    margin-top: 4px;
+
+                    .eventStackLabel {
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: $textDim;
+                        text-transform: uppercase;
+                    }
+
+                    .eventRowItem {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 8px;
+                        font-size: 12px;
+                        background: rgba(0, 0, 0, 0.25);
+                        padding: 6px 10px;
+                        border-radius: 6px;
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+
+                        .eventBadge {
+                            font-size: 10px;
+                            font-weight: 800;
+                            color: #38BDF8;
+                        }
+
+                        .eventName {
+                            color: $textWhite;
+                            font-weight: 600;
+                        }
+
+                        .eventValues {
+                            margin-left: auto;
+                            color: $textDim;
+
+                            strong {
+                                color: #34D399;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .mistakesBox,
+            .recommendationsBox,
+            .suggestionsBox {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 14px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+                }
+
+                .auditList {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .auditItemBad {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.85);
+
+                        span {
+                            color: #F87171;
+                            font-weight: 800;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+
+                    .auditItemGood {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.85);
+
+                        span {
+                            color: #34D399;
+                            font-weight: 800;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+
+                    .auditItemSuggestion {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.9);
+
+                        .bulbIcon {
+                            font-size: 13px;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+                }
+            }
+
+            .diagnosticDetailsBox {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 14px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+                }
+
+                .diagnosticGrid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 12px;
+
+                    .diagCard {
+                        background: rgba(0, 0, 0, 0.3);
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+                        border-radius: 8px;
+                        padding: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+
+                        h5 {
+                            font-size: 12px;
+                            font-weight: 700;
+                            color: $primaryGold;
+                            margin: 0;
+                            text-transform: uppercase;
+                        }
+
+                        p {
+                            font-size: 12px;
+                            color: rgba(255, 255, 255, 0.8);
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modalReportWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            .reportHeaderActions {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+.reportTakeawayBox {
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    strong {
+        color: $primaryGold;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 13px;
+        color: #FFFFFF;
+        line-height: 1.5;
+    }
+}
+
+@include respond-to('md') {
+    .analyzerGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .topMetricsRow {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stepperCard {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@include respond-to('sm') {
+    .strengthsImprovementsGrid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,276 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+/* Trade Setup Plan Box */
+.tradePlanBox {
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(22, 18, 12, 0.8);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    box-shadow: inset 0 0 15px rgba(24, 201, 139, 0.03);
+
+    .planHeader {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+
+        .targetIconBox {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+            flex-shrink: 0;
+        }
+
+        h5 {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #18C98B;
+        }
+    }
+}
+
+.planItemsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.planRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include respond-to('sm') {
+        font-size: 13px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+}
+
+.planKey {
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+.planValHighlight {
+    color: #18C98B;
+    font-weight: 700;
+}
+
+.planValSl {
+    color: #EF4444;
+    font-weight: 700;
+}
+
+.planValTp {
+    color: #10B981;
+    font-weight: 700;
+}
+
+.planValRrr {
+    color: #FFFFFF;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(24, 201, 139, 0.15);
+}
+
+/* Position Sizing Calc Box */
+.calcBreakdownBox {
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.04);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+
+    .calcHeader {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+
+        .calcIconBox {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        h5 {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: #10B981;
+        }
+    }
+}
+
+.calcGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.calcItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #D1D5DB;
+
+    strong {
+        color: #FFFFFF;
+    }
+
+    .lotHighlight {
+        color: #10B981;
+        font-weight: 800;
+    }
+}
+
+/* Indicators Confluence Row */
+.indicatorsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.indPill {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .indName {
+        color: #9CA3AF;
+        font-weight: 600;
+    }
+
+    .indStatus {
+        color: #10B981;
+        font-weight: 700;
+    }
+}
+
+/* Alert Box */
+.alertNoteBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #FECACA;
+    font-size: 13px;
+    line-height: 1.5;
+
+    .alertIconBox {
+        width: 22px;
+        height: 22px;
+        border-radius: 5px;
+        background: rgba(239, 68, 68, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #EF4444;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+}
+
+/* Terminal Input Bar */
+.terminalInputBar {
+    padding: 16px 20px;
+    background: rgba(14, 12, 8, 0.98);
+    border-top: 1px solid rgba(24, 201, 139, 0.18);
+}
+
+.inputForm {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 12px;
+    padding: 6px 10px 6px 14px;
+    transition: border-color 0.2s ease;
+
+    &:focus-within {
+        border-color: #18C98B;
+    }
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+        gap: 10px;
+    }
+}
+
+.inputPrefix {
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+}
+
+.chatInputField {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 14px;
+
+    &::placeholder {
+        color: #6B7280;
+    }
+}
+
+.launchFullDeskBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+    color: #040300;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+}

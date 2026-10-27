@@ -1,0 +1,287 @@
+/* ============================================================
+   BOT LIBRARY SCSS
+   Cyberpunk catalog cards with verified stats and clone actions
+   ============================================================ */
+
+.libraryContainer {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+.filterRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.categoriesTrack {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.catBtn {
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94A3B8;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.08);
+        color: #64748B;
+    }
+}
+
+.catActive {
+    background: rgba(24, 201, 139, 0.12);
+    border-color: rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 14px;
+    min-width: 280px;
+    color: #94A3B8;
+
+    input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #FFFFFF;
+        font-size: 13px;
+        width: 100%;
+
+        &::placeholder {
+            color: #64748B;
+        }
+
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+}
+
+.templatesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+}
+
+.templateCard {
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+        }
+    }
+}
+
+.cardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tagGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.symbolTag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.1);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.timeframeTag {
+    font-size: 10px;
+    font-weight: 600;
+    color: #94A3B8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.featureBadge {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #00F2FE;
+    background: rgba(0, 242, 254, 0.1);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.tplName {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.tplDesc {
+    font-size: 12.5px;
+    color: #94A3B8;
+    line-height: 1.5;
+    margin: 0;
+    min-height: 38px;
+
+    :global(html.light) & {
+        color: #64748B;
+    }
+}
+
+.metricsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.metricItem {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mLabel {
+    font-size: 10px;
+    color: #94A3B8;
+    font-weight: 600;
+}
+
+.mVal {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.winRateColor {
+    color: #18C98B;
+}
+
+.cardActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cloneBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+    color: #04100A;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(24, 201, 139, 0.25);
+    transition: all 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 6px 16px rgba(24, 201, 139, 0.4);
+    }
+}
+
+.backtestBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #CBD5E1;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+    }
+}
+
+@media (max-width: 768px) {
+    .filterRow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .searchBox {
+        width: 100%;
+        min-width: 0;
+    }
+    .templatesGrid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}

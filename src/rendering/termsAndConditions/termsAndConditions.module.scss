@@ -2,37 +2,22 @@
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .termsAndConditions {
-    padding: 160px 0 80px 0;
-    background-color: #050d09;
-    min-height: 100vh;
-    position: relative;
-    overflow: hidden;
+    padding: 180px 0 80px 0;
+    min-height: 80vh;
+    background: #040605;
+    color: #ffffff;
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        height: 60%;
-        background: radial-gradient(circle, rgba(0, 255, 136, 0.06) 0%, rgba(16, 185, 129, 0.01) 50%, transparent 75%);
-        filter: blur(100px);
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    :global(.container-xs) {
-        position: relative;
-        z-index: 2;
+    :global(html.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
     }
 
     @include respond-to('md') {
-        padding: 130px 0 60px 0;
+        padding: 140px 0 60px 0;
     }
 
     @include respond-to('sm') {
-        padding: 140px 0 40px 0;
+        padding: 100px 0 40px 0;
     }
 
     .header {
@@ -40,27 +25,27 @@
 
         h1 {
             color: #FFFFFF;
-            font-size: 46px;
-            font-weight: 800;
-            font-family: var(--font-plus-jakarta);
+            font-size: 44px;
+            font-weight: 700;
+            font-family: var(--font-plus-jakarta), sans-serif;
             margin-bottom: 16px;
 
             @include respond-to('md') {
-                font-size: 38px;
+                font-size: 36px;
             }
 
             @include respond-to('sm') {
-                font-size: 30px;
+                font-size: 28px;
             }
         }
 
         p {
-            color: rgba(255, 255, 255, 0.78);
-            font-size: 18px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 16px;
             font-weight: 500;
 
             @include respond-to('sm') {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     }
@@ -75,10 +60,10 @@
 
             h2 {
                 color: #FFFFFF;
-                font-size: 25px;
+                font-size: 26px;
                 font-weight: 700;
-                margin-bottom: 20px;
-                font-family: var(--font-plus-jakarta);
+                margin-bottom: 18px;
+                font-family: var(--font-plus-jakarta), sans-serif;
                 position: relative;
                 padding-left: 16px;
 
@@ -86,27 +71,27 @@
                     content: '';
                     position: absolute;
                     left: 0;
-                    top: 5px;
-                    bottom: 5px;
+                    top: 4px;
+                    bottom: 4px;
                     width: 4px;
-                    background: #00FF88;
+                    background: #18C98B;
                     border-radius: 4px;
-                    box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+                    box-shadow: 0 0 8px rgba(24, 201, 139, 0.4);
                 }
 
                 @include respond-to('md') {
-                    font-size: 24px;
+                    font-size: 20px;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 20px;
-                    margin-bottom: 16px;
+                    font-size: 18px;
+                    margin-bottom: 14px;
                 }
             }
 
             p {
-                color: rgba(255, 255, 255, 0.78);
-                font-size: 17px;
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 16px;
                 line-height: 1.8;
                 margin-bottom: 16px;
 
@@ -115,29 +100,60 @@
                 }
 
                 @include respond-to('md') {
-                    font-size: 16px;
+                    font-size: 15px;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 15px;
+                    font-size: 14px;
                     line-height: 1.6;
                 }
             }
 
             a {
-                color: #00FF88;
+                color: #18C98B;
                 text-decoration: none;
                 font-weight: 600;
                 transition: opacity 0.2s;
 
                 &:hover {
-                    color: #22FF99;
+                    opacity: 0.8;
                     text-decoration: underline;
                 }
             }
 
             strong {
                 color: #FFFFFF;
+            }
+        }
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
+
+        .header {
+            h1 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #475569;
+            }
+        }
+
+        .content {
+            section {
+                h2 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #334155;
+                }
+
+                strong {
+                    color: #0F172A;
+                }
             }
         }
     }

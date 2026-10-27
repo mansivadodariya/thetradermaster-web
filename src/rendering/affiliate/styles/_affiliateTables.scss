@@ -1,0 +1,405 @@
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #0C0E0D;
+$border: transparent;
+$borderSubtle: rgba(255, 255, 255, 0.04);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$amber: #F59E0B;
+$danger: #F87171;
+
+
+.affiliatePage {
+
+    /* Tables */
+    .tableWrapperCard {
+        background: #0B0E0D;
+        border: none;
+        border-radius: 18px;
+        padding: 28px 30px;
+        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+        @include respond-to('sm') {
+            padding: 20px 16px;
+            gap: 18px;
+        }
+
+        .tableToolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-bottom: 4px;
+
+            .tableTitleGroup {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 19px;
+                    font-weight: 700;
+                    margin: 0;
+                    font-family: "Euclid-Bold", sans-serif;
+                    letter-spacing: -0.2px;
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12.8px;
+                    margin: 0;
+                    line-height: 1.45;
+                }
+            }
+
+            .searchBar {
+                input {
+                    background: #060807;
+                    border: none;
+                    border-radius: 9999px;
+                    padding: 9px 20px;
+                    color: #FFF;
+                    font-size: 13px;
+                    outline: none;
+                    width: 260px;
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+
+                    &:focus {
+                        box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.5), inset 0 1px 3px rgba(0, 0, 0, 0.5);
+                    }
+                }
+            }
+
+            .secondaryWithdrawBtn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(24, 201, 139, 0.12);
+                border: none;
+                border-radius: 9999px;
+                padding: 9px 20px;
+                color: #18C98B;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040300;
+                }
+            }
+        }
+
+        .tableScroll {
+            overflow-x: auto;
+            width: 100%;
+
+            .customTable {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+
+                th {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 11.5px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.6px;
+                    padding: 14px 18px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                }
+
+                td {
+                    color: rgba(255, 255, 255, 0.85);
+                    font-size: 13px;
+                    padding: 16px 18px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+                    .timeSub {
+                        color: rgba(255, 255, 255, 0.45);
+                        font-size: 12px;
+                        margin-left: 4px;
+                    }
+
+                    .tierPill {
+                        background: rgba(24, 201, 139, 0.15);
+                        color: #18C98B;
+                        padding: 2px 8px;
+                        border-radius: 4px;
+                        font-weight: 700;
+                        font-size: 12px;
+                    }
+
+                    .commissionVal {
+                        color: #18C98B;
+                        font-weight: 700;
+                    }
+
+                    .withdrawAmountVal {
+                        color: #FFFFFF;
+                        font-weight: 700;
+                    }
+
+                    .monoId {
+                        font-family: monospace;
+                        color: rgba(255, 255, 255, 0.6);
+                    }
+
+                    .assetBadge {
+                        background: rgba(255, 255, 255, 0.08);
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                        font-weight: 700;
+                        margin-right: 6px;
+                    }
+
+                    .networkSub {
+                        color: rgba(255, 255, 255, 0.5);
+                        font-size: 12px;
+                    }
+
+                    .addressBox {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-family: monospace;
+                        font-size: 12px;
+
+                        .miniCopyIconBtn {
+                            background: transparent;
+                            border: none;
+                            color: rgba(255, 255, 255, 0.5);
+                            cursor: pointer;
+                            padding: 0;
+
+                            &:hover {
+                                color: #18C98B;
+                            }
+                        }
+                    }
+
+                    .txLink {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 4px;
+                        color: #18C98B;
+                        text-decoration: none;
+                        font-size: 12px;
+                        font-family: monospace;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    .pendingTxText {
+                        color: #F59E0B;
+                        font-size: 12px;
+                        font-style: italic;
+                    }
+                }
+
+                .statusBadge {
+                    display: inline-block;
+                    padding: 3px 9px;
+                    border-radius: 99px;
+                    font-size: 11px;
+                    font-weight: 700;
+
+                    &.statusCredited,
+                    &.statusApproved {
+                        background: rgba(24, 201, 139, 0.15);
+                        border: 1px solid rgba(24, 201, 139, 0.4);
+                        color: #18C98B;
+                    }
+
+                    &.statusPending {
+                        background: rgba(245, 158, 11, 0.15);
+                        border: 1px solid rgba(245, 158, 11, 0.4);
+                        color: #F59E0B;
+                    }
+
+                    &.statusRejected {
+                        background: rgba(248, 113, 113, 0.15);
+                        border: 1px solid rgba(248, 113, 113, 0.4);
+                        color: #F87171;
+                    }
+                }
+
+                .emptyTableRow {
+                    text-align: center;
+                    padding: 36px 16px;
+                    color: rgba(255, 255, 255, 0.45);
+                    font-style: italic;
+                }
+            }
+        }
+    }
+
+    /* Marketing Kit */
+    .marketingKitGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        align-items: stretch;
+
+        .marketingPitchCard {
+            background: #040D09;
+            border: 1px solid rgba(24, 201, 139, 0.18);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.25s ease;
+
+            &:hover {
+                border-color: rgba(24, 201, 139, 0.35);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .pitchHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+
+                h4 {
+                    color: #FFFFFF;
+                    font-size: 15px;
+                    font-weight: 700;
+                    margin: 0;
+                    font-family: "Euclid-Bold", sans-serif;
+                    line-height: 1.3;
+                }
+
+                .copyPitchBtn,
+                .copyTemplateBtn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    color: #18C98B;
+                    padding: 6px 14px;
+                    border-radius: 9999px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    flex-shrink: 0;
+                    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    outline: none;
+
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                        flex-shrink: 0;
+                    }
+
+                    &:hover {
+                        background: #18C98B;
+                        color: #040605;
+                        border-color: #18C98B;
+                        box-shadow: 0 0 14px rgba(24, 201, 139, 0.35);
+                    }
+
+                    &:active {
+                        transform: scale(0.96);
+                    }
+                }
+            }
+
+            .pitchText,
+            .pitchBody {
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(24, 201, 139, 0.12);
+                border-left: 3px solid #18C98B;
+                border-radius: 10px;
+                padding: 14px 16px;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 13px;
+                line-height: 1.6;
+                margin: 0;
+                font-style: italic;
+                flex-grow: 1;
+
+                .linkHighlight {
+                    color: #18C98B;
+                    word-break: break-all;
+                }
+            }
+
+            .pitchFooter {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding-top: 14px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                margin-top: auto;
+                flex-wrap: wrap;
+
+                .channelTag {
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: #18C98B;
+                    background: rgba(24, 201, 139, 0.08);
+                    border: 1px solid rgba(24, 201, 139, 0.2);
+                    padding: 5px 12px;
+                    border-radius: 6px;
+                    letter-spacing: 0.2px;
+                }
+
+                .pitchLength {
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #9CA3AF;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    padding: 5px 12px;
+                    border-radius: 6px;
+                }
+            }
+
+            .featureBulletList {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 13px;
+                    line-height: 1.5;
+
+                    .bulletIcon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                    }
+
+                    strong {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+
+}

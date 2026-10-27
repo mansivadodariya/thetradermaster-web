@@ -1,0 +1,584 @@
+.analysisPanel {
+
+    /* Evidence accordion styles */
+    .evidenceOutlinedGroup {
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 6px;
+
+        .evidenceGroupClickableHeader {
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+
+            .evidenceTitleGroup {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .groupTypeTitle {
+                    color: #FFFFFF;
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+
+                .groupTypeAction {
+                    font-size: 11px;
+                    font-weight: 700;
+                }
+            }
+
+            .subChevron {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .evidenceCollapsedBulletArea {
+            padding: 8px 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+            .evidenceOutlineBulletList {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                .evidenceBulletItem {
+                    display: flex;
+                    align-items: flex-start;
+                    font-size: 12px;
+                    line-height: 1.4;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+            }
+        }
+    }
+
+    /* Trend Analysis styles */
+    .trendRowHeader {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .trendBoxIcon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.bullish {
+                background: rgba(16, 185, 129, 0.15);
+                border: 1px solid rgba(16, 185, 129, 0.35);
+                color: #34D399;
+            }
+
+            &.bearish {
+                background: rgba(239, 68, 68, 0.15);
+                border: 1px solid rgba(239, 68, 68, 0.35);
+                color: #F87171;
+            }
+        }
+
+        .trendHeaderText {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            h4 {
+                color: #FFFFFF;
+                font-size: 15px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                margin: 0;
+            }
+
+            span {
+                color: rgba(255, 255, 255, 0.55);
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .indicatorMetricGrid {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .metricGridItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #080705;
+            border: 1px solid rgba(24, 201, 139, 0.18);
+            border-radius: 8px;
+            padding: 8px 12px;
+
+            .indicatorLabelBox {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 12px;
+                font-weight: 600;
+
+                .dotDot {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+
+                    &.ema20 {
+                        background: #38bdf8;
+                    }
+
+                    &.ema50 {
+                        background: #3b82f6;
+                    }
+
+                    &.supertrend {
+                        background: #10b981;
+                    }
+                }
+            }
+
+            .indicatorValueAction {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+                .positionTxt {
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .trendConfidenceContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: #08110D;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .confidenceTexts {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+
+            strong {
+                color: #FFFFFF;
+                font-weight: 700;
+            }
+        }
+
+        .confidenceTrack {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+
+            .confidenceFill {
+                height: 100%;
+                border-radius: 3px;
+                transition: width 0.4s ease;
+            }
+        }
+    }
+
+    /* Momentum styles */
+    .momentumSliderContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #08110D;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .sliderLabelRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+
+            .sliderName {
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+            }
+
+            .sliderValTxt {
+                color: #FFFFFF;
+                font-weight: 700;
+            }
+        }
+
+        .gradientTrackBg {
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #10b981 0%, #38bdf8 50%, #ef4444 100%);
+            position: relative;
+            margin: 4px 0 10px;
+
+            .sliderPinPointer {
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .pinDot {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: #FFFFFF;
+                    border: 2px solid #18C98B;
+                    box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+                }
+            }
+
+            .axisMarker {
+                position: absolute;
+                top: 10px;
+                transform: translateX(-50%);
+                font-size: 9.5px;
+                color: rgba(255, 255, 255, 0.4);
+                font-weight: 600;
+            }
+        }
+
+        .sliderStatusLabel {
+            font-size: 11px;
+            font-weight: 700;
+            color: #18C98B;
+            text-align: right;
+        }
+    }
+
+    .macdMetricsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .macdHeaderRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+
+            .macdTitle {
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+            }
+
+            .macdLabelValue {
+                font-weight: 700;
+                font-size: 12px;
+            }
+        }
+
+        .macdHistogramTrack {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+
+            .centerLine {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background: rgba(255, 255, 255, 0.4);
+            }
+
+            .histogramFillBar {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                border-radius: 2px;
+                transition: width 0.3s ease;
+            }
+        }
+
+        .macdSubDetailsRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 600;
+        }
+    }
+
+    .stochasticSubProgressList {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .stochProgressRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+
+            .stochLabel {
+                min-width: 65px;
+                color: rgba(255, 255, 255, 0.7);
+                font-weight: 600;
+            }
+
+            .stochTrackBg {
+                flex: 1;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 3px;
+                overflow: hidden;
+
+                .stochFillBar {
+                    height: 100%;
+                    border-radius: 3px;
+                    transition: width 0.3s ease;
+                }
+            }
+
+            .stochValText {
+                min-width: 26px;
+                text-align: right;
+                color: #FFFFFF;
+                font-weight: 700;
+            }
+        }
+    }
+
+    /* Volume Analysis styles */
+    .relativeVolumeContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .volHeaderRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+
+            strong {
+                color: #FFFFFF;
+                font-weight: 700;
+            }
+        }
+
+        .relativeVolumeTrack {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            position: relative;
+            margin: 4px 0 10px;
+
+            .relativeVolPointer {
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #18C98B;
+                border: 2px solid #FFFFFF;
+                box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+            }
+
+            .volMarker {
+                position: absolute;
+                top: 10px;
+                transform: translateX(-50%);
+                font-size: 9.5px;
+                color: rgba(255, 255, 255, 0.4);
+                font-weight: 600;
+            }
+        }
+    }
+
+    .volumeCompareGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+
+        .volCompareCard {
+            background: #080705;
+            border: 1px solid rgba(24, 201, 139, 0.18);
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .volCompareLabel {
+                font-size: 10.5px;
+                color: rgba(255, 255, 255, 0.5);
+                font-weight: 600;
+            }
+
+            .volCompareValue {
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .volumePressureContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 8px;
+        padding: 10px 12px;
+
+        .pressureHeaderRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+
+            strong {
+                font-weight: 700;
+            }
+        }
+
+        .segmentedPressureBar {
+            height: 14px;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+
+            .buySegment {
+                background: #10b981;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 9.5px;
+                font-weight: 800;
+                color: #FFFFFF;
+            }
+
+            .sellSegment {
+                background: #ef4444;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 9.5px;
+                font-weight: 800;
+                color: #FFFFFF;
+            }
+        }
+
+        .pressureLabelsRow {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10.5px;
+            font-weight: 700;
+
+            .buyText {
+                color: #34D399;
+            }
+
+            .sellText {
+                color: #F87171;
+            }
+        }
+    }
+
+    /* AI Summary card styles */
+    .purpleAiSummaryCard {
+        background: #080705;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .purpleAiHeader {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #18C98B;
+
+            h5 {
+                margin: 0;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .purpleAiHeadline,
+        .greenAiHeadline {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.45;
+            margin: 0;
+            font-family: "Euclid-Bold", sans-serif;
+        }
+
+        .purpleAiBulletsList {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .aiBulletSection {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                .sectionLabel {
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    letter-spacing: 0.5px;
+                }
+
+                p {
+                    margin: 0;
+                    font-size: 12px;
+                    line-height: 1.5;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+            }
+        }
+    }
+}

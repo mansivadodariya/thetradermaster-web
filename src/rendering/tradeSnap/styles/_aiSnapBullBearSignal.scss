@@ -1,0 +1,569 @@
+// Section B: Dynamic Bull & Bear Hero Banner
+.heroBanner {
+    position: relative;
+    border-radius: 14px;
+    padding: 18px 20px;
+    overflow: hidden;
+    border: 1px solid;
+    container-type: inline-size;
+    width: 100%;
+    box-sizing: border-box;
+
+    &.bullishHero {
+        background: var(--bull-hero-bg);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.12);
+    }
+
+    &.bearishHero {
+        background: var(--bear-hero-bg);
+        border-color: rgba(239, 68, 68, 0.4);
+        box-shadow: 0 0 30px rgba(239, 68, 68, 0.12);
+    }
+
+    &.neutralHero {
+        background: var(--neutral-hero-bg);
+        border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    @container (max-width: 760px) {
+        padding: 14px 16px;
+
+        .bannerContent {
+            gap: 14px;
+        }
+
+        .bannerLeft {
+            gap: 14px;
+        }
+
+        .bannerImageContainer {
+            width: 120px;
+            height: 100px;
+            min-width: 100px;
+        }
+
+        .bannerTitle {
+            font-size: 16px;
+        }
+
+        .bannerSubtitle {
+            font-size: 12px;
+        }
+
+        .bannerRight {
+            width: 110px;
+            min-width: 100px;
+            gap: 6px;
+        }
+    }
+
+    @container (max-width: 520px) {
+        padding: 12px 14px;
+
+        .bannerContent {
+            gap: 10px;
+        }
+
+        .bannerLeft {
+            gap: 10px;
+        }
+
+        .bannerImageContainer {
+            width: 85px;
+            height: 75px;
+            min-width: 75px;
+        }
+
+        .bannerTitle {
+            font-size: 14px;
+        }
+
+        .bannerSubtitle {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .bannerRight {
+            width: 100px;
+            min-width: 90px;
+            gap: 6px;
+        }
+
+        .bannerStatCard,
+        .bannerStatCardRed,
+        .bannerStatCardAmber {
+            padding: 6px 8px;
+        }
+    }
+}
+
+.bannerWaveGlow {
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.bannerWaveGlowBear {
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.bannerContent {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+.bannerLeft {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.bannerImageContainer {
+    position: relative;
+    width: 150px;
+    height: 120px;
+    min-width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bullBannerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.85));
+}
+
+.bearBannerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 28px rgba(239, 68, 68, 0.85));
+}
+
+.bullGlowAura {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.bearGlowAura {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.45) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.neutralBannerImages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-shrink: 0;
+
+    @media (max-width: 860px) {
+        width: 100%;
+    }
+}
+
+.neutralBullImg {
+    width: 85px;
+    height: 76px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.7));
+
+    @media (max-width: 640px) {
+        width: 65px;
+        height: 58px;
+    }
+}
+
+.neutralBearImg {
+    width: 85px;
+    height: 76px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.7));
+
+    @media (max-width: 640px) {
+        width: 65px;
+        height: 58px;
+    }
+}
+
+.neutralVsBadge {
+    font-size: 10px;
+    font-weight: 900;
+    color: #38BDF8;
+    background: rgba(14, 165, 233, 0.18);
+    border: 1px solid rgba(14, 165, 233, 0.4);
+    padding: 3px 6px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.bannerTextCol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.bannerTagRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+
+    .pulseDot {
+        width: 8px;
+        height: 8px;
+        background: #10B981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10B981;
+    }
+
+    .bannerTagText {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: #10B981;
+    }
+}
+
+.bannerTagRowRed {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+
+    .pulseDotRed {
+        width: 8px;
+        height: 8px;
+        background: #EF4444;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #EF4444;
+    }
+
+    .bannerTagText {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: #EF4444;
+    }
+}
+
+.bannerTagRowAmber {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+
+    .pulseDotAmber {
+        width: 8px;
+        height: 8px;
+        background: #38BDF8;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #38BDF8;
+    }
+
+    .bannerTagText {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: #38BDF8;
+    }
+}
+
+.bannerTitle {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--title-color);
+    margin: 0;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.bannerSubtitle {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 6px 0 0 0;
+    line-height: 1.55;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.bannerRight {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    width: 120px;
+    min-width: 110px;
+    flex-shrink: 0;
+}
+
+.bannerStatCard {
+    background: var(--stat-card-bg);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
+    width: 100%;
+
+    .bannerStatLabel {
+        font-size: 10px;
+        color: var(--text-muted);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .bannerStatValue {
+        font-size: 17px;
+        font-weight: 800;
+        color: #10B981;
+    }
+
+    .bannerStatBadge {
+        font-size: 12px;
+        font-weight: 800;
+        color: #10B981;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        background: rgba(16, 185, 129, 0.08);
+        border-radius: 6px;
+        margin-top: 2px;
+    }
+}
+
+.bannerStatCardRed {
+    background: var(--stat-card-bg);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
+    width: 100%;
+
+    .bannerStatLabel {
+        font-size: 10px;
+        color: var(--text-muted);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .bannerStatValueRed {
+        font-size: 17px;
+        font-weight: 800;
+        color: #EF4444;
+    }
+
+    .bannerStatBadgeRed {
+        font-size: 12px;
+        font-weight: 800;
+        color: #EF4444;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        background: rgba(239, 68, 68, 0.08);
+        border-radius: 6px;
+        margin-top: 2px;
+    }
+}
+
+.bannerStatCardAmber {
+    background: var(--stat-card-bg);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
+    width: 100%;
+
+    .bannerStatLabel {
+        font-size: 10px;
+        color: var(--text-muted);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .bannerStatValueAmber {
+        font-size: 15px;
+        font-weight: 800;
+        color: #38BDF8;
+    }
+
+    .bannerStatBadgeAmber {
+        font-size: 12px;
+        font-weight: 800;
+        color: #38BDF8;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        background: rgba(56, 189, 248, 0.08);
+        border-radius: 6px;
+        margin-top: 2px;
+    }
+}
+
+.convictionCircleRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 0;
+}
+
+.convictionCircleBox {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.convictionCircleSvg {
+    transform: rotate(-90deg);
+    display: block;
+}
+
+.convictionTextOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.convictionValText {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    line-height: 1;
+}
+
+.actionThumbImg {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+/* Light Mode Overrides for Hero Banner */
+:global(html.light),
+:global(html[data-theme='light']),
+:global([data-theme='light']),
+:global(.light),
+:global(.pdfExportLight) {
+    .heroBanner {
+        background: #FFFFFF;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
+        .bannerTitle {
+            color: #0F172A;
+        }
+
+        .bannerSubtitle {
+            color: #475569;
+        }
+
+        &.bullishHero {
+            background: #FFFFFF;
+            border-color: rgba(16, 185, 129, 0.4);
+
+            .bannerStatCard {
+                background: #FFFFFF;
+                border-color: rgba(16, 185, 129, 0.35);
+
+                .bannerStatLabel {
+                    color: #475569;
+                }
+            }
+        }
+
+        &.bearishHero {
+            background: #FFFFFF;
+            border-color: rgba(239, 68, 68, 0.4);
+
+            .bannerStatCardRed {
+                background: #FFFFFF;
+                border-color: rgba(239, 68, 68, 0.35);
+
+                .bannerStatLabel {
+                    color: #475569;
+                }
+            }
+        }
+
+        &.neutralHero {
+            background: #FFFFFF;
+            border-color: rgba(14, 165, 233, 0.35);
+
+            .bannerStatCardAmber {
+                background: #FFFFFF;
+                border-color: rgba(14, 165, 233, 0.35);
+
+                .bannerStatLabel {
+                    color: #475569;
+                }
+            }
+        }
+    }
+}

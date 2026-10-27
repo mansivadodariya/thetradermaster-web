@@ -1,0 +1,575 @@
+.lightThemePane {
+    background: #ffffff;
+    color: #0f172a;
+
+    .chartHeaderControls {
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom-color: #cbd5e1;
+        color: #0f172a;
+
+        .livePriceText {
+            color: #0f172a;
+        }
+
+        .iconControlBtn {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #cbd5e1;
+
+            &:hover,
+            &.activeControl {
+                background: #f1f5f9;
+                color: #18C98B;
+            }
+        }
+    }
+
+    .insideChartControlPill {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        color: #0f172a;
+
+        .pillSelect,
+        .pillSelectIcon,
+        .headerTitleBtn,
+        .pillTimeframeBtn,
+        .pillChartTypeBtn,
+        .pillIconBtn {
+            color: #0f172a;
+
+            &:hover,
+            &.activeControl {
+                background: rgba(0, 0, 0, 0.06);
+                color: #18C98B;
+            }
+        }
+
+        .pillDivider {
+            background: #cbd5e1;
+        }
+
+        .selectArrow {
+            color: #64748b;
+        }
+    }
+
+    .dropdownMenuFloating {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+        color: #0f172a;
+
+        .dropdownMenuItem {
+            color: #0f172a;
+
+            &:hover {
+                background: #f1f5f9;
+                color: #18C98B;
+            }
+
+            &.activeItem {
+                background: #e2e8f0;
+                color: #18C98B;
+                font-weight: 700;
+            }
+
+            svg {
+                color: #64748b;
+            }
+        }
+    }
+
+    .tickerSearchDropdownMenu {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        color: #0f172a;
+
+        .searchIcon {
+            color: #64748b;
+        }
+
+        .tickerSearchInput {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+
+            &::placeholder {
+                color: #94a3b8;
+            }
+
+            &:focus {
+                border-color: #18C98B;
+            }
+        }
+
+        .categoryTabBtn {
+            color: #64748b;
+
+            &:hover {
+                background: #f1f5f9;
+                color: #0f172a;
+            }
+
+            &.activeTab {
+                background: #18C98B;
+                color: #ffffff;
+            }
+        }
+
+        .tickerItemRow {
+            color: #0f172a;
+
+            &:hover {
+                background: #f1f5f9;
+            }
+
+            .tickerSymbolName {
+                color: #0f172a;
+            }
+
+            .tickerSubName {
+                color: #64748b;
+            }
+        }
+    }
+
+    .indicatorWidgetPill {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #cbd5e1;
+        color: #0f172a;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+
+        .indicatorWidgetTitle {
+            color: #0f172a;
+        }
+
+        .indicatorActionBtn {
+            color: #64748b;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.06);
+                color: #18C98B;
+            }
+        }
+
+        &:hover {
+            border-color: #18C98B;
+            background: #ffffff;
+        }
+    }
+
+    .timeframeBar {
+        background: #ffffff;
+        border-top-color: #e2e8f0;
+    }
+
+    .tfBtn {
+        color: #64748b;
+
+        &:hover {
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+
+        &.activeTf {
+            background: #18C98B;
+            color: #ffffff;
+        }
+    }
+}
+
+/* ==========================================================================
+   TradingView Style Indicator Settings Modal (Dark & Light Theme)
+   ========================================================================== */
+.indicatorModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 16px;
+}
+
+.indicatorModalCard {
+    width: 400px;
+    max-width: 95vw;
+    background: #0f1218;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.indicatorModalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0f1218;
+
+    h3 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.3px;
+    }
+
+    .closeBtn {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        border-radius: 0;
+        transition: color 0.15s ease, background 0.15s ease;
+
+        &:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+.indicatorModalTabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0a0c10;
+}
+
+.indicatorTabBtn {
+    background: transparent;
+    border: none;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    position: relative;
+    border-radius: 0;
+    transition: all 0.15s ease;
+
+    &:hover {
+        color: #ffffff;
+    }
+
+    &.activeTab {
+        color: #18C98B;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #18C98B;
+        }
+    }
+}
+
+.indicatorModalBody {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 380px;
+    overflow-y: auto;
+    background: #0f1218;
+}
+
+.settingFieldRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #cbd5e1;
+    }
+
+    .settingInput,
+    .settingSelect {
+        background: #181d27;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+        padding: 6px 10px;
+        border-radius: 0;
+        font-size: 13px;
+        width: 120px;
+        outline: none;
+        transition: border-color 0.15s ease, background 0.15s ease;
+
+        &:focus {
+            border-color: #18C98B;
+        }
+
+        option {
+            background: #181d27;
+            color: #ffffff;
+        }
+    }
+
+    .colorInputWrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 0;
+            cursor: pointer;
+            background: transparent;
+        }
+    }
+}
+
+.indicatorModalFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0a0c10;
+
+    .resetBtn {
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #cbd5e1;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+    }
+
+    .doneBtn,
+    .applyBtn {
+        padding: 6px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #ffffff;
+        background: #18C98B;
+        border: 1px solid #18C98B;
+        border-radius: 0;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background: #10B981;
+            border-color: #10B981;
+        }
+    }
+}
+
+/* ==========================================================================
+   Indicator Settings Modal — Light Theme Override
+   ========================================================================== */
+.lightIndicatorModal {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    color: #0f172a;
+
+    .indicatorModalHeader {
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+
+        h3 {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .closeBtn {
+            color: #64748b;
+
+            &:hover {
+                color: #0f172a;
+                background: #f1f5f9;
+            }
+        }
+    }
+
+    .indicatorModalTabs {
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+
+        .indicatorTabBtn {
+            color: #64748b;
+
+            &:hover {
+                color: #0f172a;
+            }
+
+            &.activeTab {
+                color: #18C98B;
+
+                &::after {
+                    background: #18C98B;
+                }
+            }
+        }
+    }
+
+    .indicatorModalBody {
+        background: #ffffff;
+
+        .settingFieldRow {
+            label {
+                color: #334155;
+                font-weight: 500;
+            }
+
+            .settingInput,
+            .settingSelect {
+                background: #f8fafc;
+                border: 1px solid #cbd5e1;
+                color: #0f172a;
+
+                &:focus {
+                    border-color: #18C98B;
+                    background: #ffffff;
+                }
+
+                option {
+                    background: #ffffff;
+                    color: #0f172a;
+                }
+            }
+        }
+    }
+
+    .indicatorModalFooter {
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+
+        .resetBtn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+
+            &:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+        }
+
+        .doneBtn,
+        .applyBtn {
+            background: #18C98B;
+            color: #ffffff;
+            border: 1px solid #18C98B;
+
+            &:hover {
+                background: #10B981;
+            }
+        }
+    }
+}
+
+
+
+
+/* ==========================================================================
+   Chart Settings Modal — Light Theme Override
+   ========================================================================== */
+.lightSettingsModal {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    color: #0f172a;
+
+    .settingsHeader {
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+
+        h3 {
+            color: #0f172a;
+        }
+
+        .closeBtn {
+            color: #64748b;
+
+            &:hover {
+                color: #0f172a;
+                background: #f1f5f9;
+            }
+        }
+    }
+
+    .settingsBody {
+        background: #ffffff;
+
+        .settingSection {
+            h4 {
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            .settingRow {
+                label {
+                    color: #334155;
+                }
+            }
+        }
+    }
+
+    .settingsFooter {
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+
+        .resetBtn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+
+            &:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+        }
+
+        .applyBtn {
+            background: #18C98B;
+            color: #ffffff;
+            border: 1px solid #18C98B;
+
+            &:hover {
+                background: #10B981;
+            }
+        }
+    }
+}

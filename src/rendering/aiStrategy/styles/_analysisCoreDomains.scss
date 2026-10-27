@@ -1,0 +1,489 @@
+.analysisPanel {
+
+    .unifiedDomainCard,
+    .aiIntelligenceShowcaseCard {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 24px 0;
+        margin-bottom: 0;
+        box-shadow: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .domainHeaderRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+            .domainTitleGroup {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .domainIconWrap {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background: rgba(16, 185, 129, 0.1);
+                    border: 1px solid rgba(16, 185, 129, 0.25);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #18C98B;
+                    flex-shrink: 0;
+                }
+
+                .domainMainTitle {
+                    margin: 0;
+                    color: #FFFFFF;
+                    font-size: 14px;
+                    font-weight: 700;
+                    letter-spacing: 0.5px;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                .domainSubtitle {
+                    font-size: 11px;
+                    color: #94A3B8;
+                    display: block;
+                    margin-top: 2px;
+                }
+            }
+
+            .domainSentimentBadge {
+                font-size: 11px;
+                font-weight: 700;
+                padding: 3px 12px;
+                border-radius: 6px;
+                border: 1px solid;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .domainContentGrid {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 28px;
+            align-items: start;
+            margin-top: 14px;
+
+            @media (max-width: 992px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .domainSpeedometerCol {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .domainDetailsCol {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .domainContentGridSingle {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        /* Unified 3-Column in ONE ROW Architecture with light divider lines */
+        .threeColumnUnifiedRow {
+            display: grid;
+            grid-template-columns: minmax(260px, 1.05fr) minmax(290px, 1.25fr) minmax(260px, 1.15fr);
+            gap: 24px;
+            align-items: stretch;
+            width: 100%;
+            margin-top: 14px;
+
+            >div:nth-child(1),
+            >div:nth-child(2) {
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding-right: 24px;
+            }
+
+            @media (max-width: 1380px) {
+                grid-template-columns: minmax(240px, 1fr) minmax(280px, 1.2fr) minmax(240px, 1.1fr);
+                gap: 16px;
+
+                >div:nth-child(1),
+                >div:nth-child(2) {
+                    padding-right: 16px;
+                }
+            }
+
+            @media (max-width: 1140px) {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+
+                >div:nth-child(1) {
+                    border-right: 1px solid rgba(255, 255, 255, 0.08);
+                    padding-right: 20px;
+                }
+
+                >div:nth-child(2) {
+                    border-right: none;
+                    padding-right: 0;
+                }
+
+                >div:nth-child(3) {
+                    grid-column: 1 / -1;
+                    border-top: 1px solid rgba(255, 255, 255, 0.08);
+                    padding-top: 18px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+                gap: 20px;
+
+                >div:nth-child(1),
+                >div:nth-child(2) {
+                    border-right: none;
+                    padding-right: 0;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    padding-bottom: 20px;
+                }
+
+                >div:nth-child(3) {
+                    border-top: none;
+                    padding-top: 0;
+                }
+            }
+        }
+
+        /* Column 1: Momentum Sliders Column (All 3 boxes stacked vertically in 1 column) */
+        .momentumSlidersColumn {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            .visualSliderBlock {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                padding: 10px 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                .sliderHeaderRow {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .sliderName {
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                    }
+
+                    .sliderValueText {
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                        font-family: monospace;
+                    }
+
+                    .macdActionTag {
+                        font-size: 11px;
+                        font-weight: 700;
+                    }
+                }
+
+                .rsiTrack {
+                    position: relative;
+                    height: 5px;
+                    border-radius: 3px;
+                    background: linear-gradient(90deg, #38BDF8 0%, #38BDF8 30%, #EAB308 50%, #EF4444 70%, #EF4444 100%);
+                    margin: 4px 0;
+
+                    .rsiNeedlePin {
+                        position: absolute;
+                        top: -3px;
+                        width: 11px;
+                        height: 11px;
+                        border-radius: 50%;
+                        background: #FFFFFF;
+                        box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+                        transform: translateX(-50%);
+                    }
+                }
+
+                .rsiThresholds {
+                    position: relative;
+                    height: 12px;
+
+                    span {
+                        position: absolute;
+                        font-size: 9.5px;
+                        color: #94A3B8;
+                        transform: translateX(-50%);
+                        font-family: monospace;
+                    }
+                }
+
+                .macdTrack {
+                    position: relative;
+                    height: 5px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border-radius: 3px;
+                    margin: 4px 0;
+
+                    .macdZeroLine {
+                        position: absolute;
+                        left: 50%;
+                        top: -2px;
+                        bottom: -2px;
+                        width: 1.5px;
+                        background: rgba(255, 255, 255, 0.4);
+                    }
+
+                    .macdBarFill {
+                        position: absolute;
+                        height: 100%;
+                        border-radius: 2px;
+                    }
+                }
+
+                .macdDetailsRow {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 10px;
+                    color: #94A3B8;
+                    font-family: monospace;
+                }
+
+                .stochRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-size: 11px;
+
+                    .stochLabel {
+                        width: 60px;
+                        color: #94A3B8;
+                        font-size: 10.5px;
+                    }
+
+                    .stochBarTrack {
+                        flex: 1;
+                        height: 4px;
+                        background: rgba(255, 255, 255, 0.08);
+                        border-radius: 2px;
+                        overflow: hidden;
+
+                        .stochBarFill {
+                            height: 100%;
+                            background: #18C98B;
+                            border-radius: 2px;
+                        }
+                    }
+
+                    .stochValue {
+                        width: 24px;
+                        text-align: right;
+                        font-family: monospace;
+                        font-size: 11px;
+                        color: #FFFFFF;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+
+        /* Column 1: Structure Confluence Score Card Column */
+        .structureScoreCardColumn {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .structureScoreCard {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                padding: 16px 14px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                .structScoreCardTop {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .structCardHeading {
+                        font-size: 13px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                    }
+
+                    .structCardFraction {
+                        font-size: 14px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                        font-family: monospace;
+                    }
+                }
+
+                .structProgressTrack {
+                    width: 100%;
+                    height: 7px;
+                    background: rgba(255, 255, 255, 0.07);
+                    border-radius: 4px;
+                    overflow: hidden;
+
+                    .structProgressFill {
+                        height: 100%;
+                        border-radius: 4px;
+                        transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                }
+
+                .structScoreCardBottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .structSentimentTag {
+                        font-size: 10.5px;
+                        font-weight: 800;
+                        letter-spacing: 0.5px;
+                        color: #38BDF8;
+                    }
+
+                    .structPctText {
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+                        font-family: monospace;
+                    }
+                }
+            }
+        }
+
+        /* Side-by-Side Indicators & Evidence Row (One Row, No Cards, No Borders) */
+        .sideBySideDetailsRow {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 36px;
+            align-items: start;
+            width: 100%;
+            margin-top: 6px;
+
+            @media (max-width: 1024px) {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .seamlessListColumn {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .seamlessEvidenceColumn {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            padding-top: 0;
+
+            .evidenceHeaderTag {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 12px;
+                border-radius: 6px;
+                margin-bottom: 4px;
+                width: 100%;
+                box-sizing: border-box;
+
+                .evidenceTitleWrap {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .evidenceTagDot {
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: #18C98B;
+                    box-shadow: 0 0 8px rgba(24, 201, 139, 0.8);
+                    flex-shrink: 0;
+                }
+
+                .evidenceTitleText {
+                    font-size: 13px;
+                    font-weight: 800;
+                    letter-spacing: 0.8px;
+                    color: #FFFFFF;
+                    font-family: "Euclid-Bold", "Inter", sans-serif;
+                    text-transform: uppercase;
+                }
+
+                .evidenceVerifiedBadge {
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: #18C98B;
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+                    padding: 2px 7px;
+                    border-radius: 4px;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                    font-family: "Euclid-Bold", "Inter", sans-serif;
+                }
+            }
+
+            .domainEvidenceList {
+                list-style: none;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                li,
+                .domainEvidenceItem {
+                    list-style: none;
+                    list-style-type: none;
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+                    font-size: 13px;
+                    line-height: 1.55;
+                    color: rgba(255, 255, 255, 0.82);
+                    font-family: "Euclid-Regular", "Inter", sans-serif;
+
+                    &::marker {
+                        display: none;
+                        content: "";
+                    }
+
+                    svg {
+                        flex-shrink: 0;
+                        margin-top: 3px;
+                    }
+                }
+            }
+        }
+
+        /* Clean Borderless Indicators Table List (No card background, no outer borders) */
+    }
+}

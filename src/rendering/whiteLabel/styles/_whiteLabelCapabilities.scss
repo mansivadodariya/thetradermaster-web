@@ -1,0 +1,447 @@
+/* ============================================================
+   02 — ENTERPRISE INTRO & ARCHITECTURE PILLARS
+   ============================================================ */
+.introSection {
+    padding: 80px 0;
+    position: relative;
+
+    @include respond-to('md') {
+        padding: 60px 0;
+    }
+}
+
+.introPillarsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+
+    @include respond-to('lg') {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+.introPillarCard {
+    background: rgba(13, 14, 19, 0.75);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 16px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(14px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        border-color: #18C98B;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(24, 201, 139, 0.15);
+
+        .pillarIconWrap {
+            border-color: #18C98B;
+            background: rgba(24, 201, 139, 0.2);
+            color: #18C98B;
+            transform: scale(1.05);
+        }
+    }
+
+    @include respond-to('sm') {
+        padding: 24px;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 12px 36px rgba(24, 201, 139, 0.12);
+        }
+    }
+}
+
+.pillarHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.pillarIconWrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #047857;
+        background: #F0FDF4;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+}
+
+.pillarTag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #18C98B;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #047857;
+        background: #F0FDF4;
+    }
+}
+
+.pillarTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+    line-height: 1.3;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #0F172A;
+    }
+}
+
+.pillarDesc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.68);
+    margin-bottom: 22px;
+    flex-grow: 1;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #64748B;
+    }
+}
+
+.pillarChecklist {
+    list-style: none;
+    padding: 18px 0 0 0;
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+
+        svg {
+            color: #18C98B;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        :global(html.light) &,
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(.light) & {
+            color: #334155;
+
+            svg {
+                color: #047857;
+            }
+        }
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        border-top-color: rgba(15, 23, 42, 0.08);
+    }
+}
+
+.pillarCardGlow {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ============================================================
+   04 — CORE CAPABILITIES
+   ============================================================ */
+.capabilitiesSection {
+    padding: 90px 0;
+    position: relative;
+
+    @include respond-to('md') {
+        padding: 60px 0;
+    }
+}
+
+.capabilitiesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.capabilityCard {
+    background: linear-gradient(180deg, rgba(16, 20, 28, 0.85) 0%, rgba(10, 13, 19, 0.9) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 18px;
+    padding: 30px 26px;
+    backdrop-filter: blur(16px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(24, 201, 139, 0.8), transparent);
+        opacity: 0;
+        transition: opacity 0.35s ease, left 0.35s ease, right 0.35s ease;
+    }
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.6);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(24, 201, 139, 0.15);
+
+        &::before {
+            opacity: 1;
+            left: 5%;
+            right: 5%;
+        }
+
+        .capabilityCardGlow {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .capabilityIconWrap {
+            border-color: #18C98B;
+            background: rgba(24, 201, 139, 0.25);
+            color: #18C98B;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.4);
+            transform: scale(1.06);
+        }
+
+        .capabilityBigNum {
+            transform: translateY(-2px) scale(1.05);
+            opacity: 0.95;
+            text-shadow: 0 0 25px rgba(24, 201, 139, 0.4);
+        }
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 14px 36px rgba(24, 201, 139, 0.14);
+        }
+    }
+}
+
+.capabilityCardGlow {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.capabilityIconRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.capabilityIconWrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(24, 201, 139, 0.15);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #047857;
+        background: #F0FDF4;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+}
+
+/* Big Fancy Shadow / Watermark Number */
+.capabilityBigNum {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1;
+    font-family: 'Space Grotesk', var(--font-display), monospace, sans-serif;
+    letter-spacing: -1.5px;
+    color: transparent;
+    background: linear-gradient(180deg, rgba(24, 201, 139, 0.55) 0%, rgba(24, 201, 139, 0.08) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgba(24, 201, 139, 0.35);
+    text-shadow: 0 0 20px rgba(24, 201, 139, 0.2);
+    user-select: none;
+    transition: all 0.35s ease;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: linear-gradient(180deg, rgba(4, 120, 87, 0.35) 0%, rgba(4, 120, 87, 0.06) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 1px rgba(4, 120, 87, 0.25);
+    }
+}
+
+.capabilityTitle {
+    font-size: 19px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #0F172A;
+    }
+}
+
+.capabilityDesc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.68);
+    margin-bottom: 20px;
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #64748B;
+    }
+}
+
+.capabilityTagList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+
+    span {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.25s ease;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.12);
+            border-color: rgba(24, 201, 139, 0.4);
+            color: #18C98B;
+            transform: translateY(-1px);
+        }
+
+        :global(html.light) &,
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(.light) & {
+            background: #F1F5F9;
+            color: #334155;
+            border-color: rgba(15, 23, 42, 0.08);
+
+            &:hover {
+                background: #F0FDF4;
+                border-color: rgba(24, 201, 139, 0.3);
+                color: #047857;
+            }
+        }
+    }
+}

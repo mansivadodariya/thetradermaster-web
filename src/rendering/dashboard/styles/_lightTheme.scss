@@ -1,0 +1,676 @@
+/* ============================================================
+   COMPLETE & THOROUGH LIGHT MODE OVERRIDES FOR DASHBOARD
+   ============================================================ */
+:global(html.light) .modernDashboard,
+:global([data-theme='light']) .modernDashboard {
+    color: #0F172A;
+
+    /* Barometer */
+    .marketBarometer {
+        background:
+            radial-gradient(ellipse 40% 90% at 0% 50%, rgba(24, 201, 139, 0.08) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 90% at 100% 50%, rgba(24, 201, 139, 0.08) 0%, transparent 70%),
+            #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        box-shadow: 0 4px 20px -2px rgba(24, 201, 139, 0.08);
+
+        .baroLabel {
+            color: #64748B;
+        }
+
+        .macroEventBadge {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.25);
+            color: #0F172A;
+        }
+    }
+
+    /* 1. Hologram Hero Terminal in Light Mode */
+    .hologramHero {
+        background:
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .heroBackdropWrap {
+            display: none;
+        }
+
+        .heroHeadline {
+            color: #0F172A;
+
+            .nameGradient {
+                color: #059669;
+                background: #059669;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                display: inline;
+            }
+        }
+
+        .heroSubtext {
+            color: #475569;
+        }
+
+    }
+
+    /* Hero Chart Section in Light Mode */
+    .heroChartSection {
+        background:
+            radial-gradient(ellipse 60% 60% at 50% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%),
+            #F8FAFC;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        box-shadow: 0 4px 16px rgba(24, 201, 139, 0.06);
+
+        .chartTitleGroup {
+            .titleTextCol {
+                .chartTitle {
+                    color: #0F172A;
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                .chartSubtitle {
+                    color: #64748B;
+                }
+            }
+        }
+
+        .headerRightGroup {
+            .chartSubBadge {
+                background: rgba(24, 201, 139, 0.12);
+                border-color: rgba(24, 201, 139, 0.3);
+                color: #047857;
+            }
+
+            .timeframeFilterGroup {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.1);
+                border-radius: 50px;
+
+                .tfBtn {
+                    color: #64748B;
+                    border-radius: 50px;
+
+                    &:hover {
+                        color: #0F172A;
+                    }
+
+                    &.activeTf {
+                        background: #18C98B;
+                        color: #040605;
+                    }
+                }
+            }
+        }
+
+        .splineCanvasWrap {
+            .floatingChartTooltip {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+
+                .tooltipDay {
+                    color: #64748B;
+                }
+
+                .tooltipVal {
+                    color: #047857;
+                }
+            }
+
+            .splineSvg line {
+                stroke: rgba(15, 23, 42, 0.08);
+            }
+
+            .chartPointsOverlay {
+                .dataPointMarker {
+                    .pointHalo {
+                        background: rgba(16, 185, 129, 0.22);
+                    }
+
+                    .pointDot {
+                        background: #10B981;
+                        border: 2px solid #FFFFFF;
+                        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45);
+                    }
+
+                    &:hover,
+                    &.activeMarker {
+                        .pointHalo {
+                            background: rgba(5, 150, 105, 0.3);
+                        }
+
+                        .pointDot {
+                            background: #059669;
+                            border-color: #FFFFFF;
+                            box-shadow: 0 0 12px rgba(5, 150, 105, 0.6);
+                        }
+                    }
+
+                    &.todayMarker .pointDot {
+                        background: #059669;
+                        box-shadow: 0 0 10px rgba(5, 150, 105, 0.5);
+                    }
+                }
+            }
+
+            .chartTimeLabels {
+                .dayLabelItem {
+                    .dayName {
+                        color: #64748B;
+                    }
+
+                    .dayVal {
+                        color: #0F172A;
+                    }
+
+                    &.todayLabel {
+                        .dayName {
+                            color: #047857;
+                        }
+
+                        .dayVal {
+                            color: #047857;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* 2. Daily Stats Side Card in Light Mode */
+    .dailyStatsSideCard {
+        background:
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .dailyStatsHeader {
+            .headerTitleWrap {
+                color: #0F172A;
+                font-size: 16px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+
+                .infoBtn {
+                    background: #F1F5F9;
+                    color: #64748B;
+
+                    &:hover {
+                        background: #E2E8F0;
+                        color: #0F172A;
+                    }
+                }
+            }
+
+            .shareBtn {
+                background: #F1F5F9;
+                color: #64748B;
+
+                &:hover {
+                    background: #E2E8F0;
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .dailyStatsRows {
+            .statPillRow {
+                background:
+                    radial-gradient(ellipse 60% 80% at 0% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%),
+                    #F8FAFC;
+                border: 1px solid rgba(24, 201, 139, 0.18);
+                box-shadow: 0 2px 8px rgba(24, 201, 139, 0.04);
+
+                &:hover {
+                    background:
+                        radial-gradient(ellipse 60% 80% at 0% 0%, rgba(24, 201, 139, 0.14) 0%, transparent 70%),
+                        #F1F5F9;
+                    border-color: rgba(24, 201, 139, 0.45);
+                    box-shadow: 0 6px 20px rgba(24, 201, 139, 0.12);
+
+                    .rowCtaLink {
+                        color: #047857;
+                    }
+                }
+
+                .rowTopHeader {
+                    .rowTitleWrap {
+                        .rowTitle {
+                            color: #0F172A;
+                        }
+
+                        .rowDesc {
+                            color: #64748B;
+                        }
+                    }
+
+                    .rowIconWrap.greenIcon {
+                        background: rgba(24, 201, 139, 0.14);
+                        border: 1px solid rgba(24, 201, 139, 0.3);
+                        color: #047857;
+                        border-radius: 9px;
+                        box-shadow: none;
+                    }
+                }
+
+                .bigNumWrap {
+                    .statBigNum {
+                        color: #0F172A;
+                        text-shadow: none;
+                    }
+                }
+
+                .rowCtaLink {
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    /* Featured Brokers Section in Light Mode */
+    .featuredBrokersSection {
+        .featuredBrokersHeader {
+            .featuredBrokersTitle {
+                color: #0F172A;
+            }
+        }
+
+        :global([data-component="broker-card"]),
+        :global(.brokerCard) {
+            background: #faf9f9;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+    }
+
+    /* 3. Recent Activity & Feed Column in Light Mode */
+    .feedColumn {
+        .feedHeader {
+            .feedTitleWrap h3 {
+                color: #0F172A;
+                font-size: 16px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+            }
+
+            .filterPills {
+                background: #F1F5F9;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+
+                .filterTab {
+                    color: #64748B;
+
+                    &.filterTabActive {
+                        background: #18C98B;
+                        color: #040605;
+                    }
+                }
+            }
+        }
+
+        .feedCardContainer {
+            .activityRowItem {
+                background:
+                    radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                    radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                    radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                    #f3f3f3;
+                border: 1px solid rgba(24, 201, 139, 0.2);
+                box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+                &:hover {
+                    background:
+                        radial-gradient(ellipse 60% 80% at 0% 0%, rgba(24, 201, 139, 0.14) 0%, transparent 70%),
+                        #F8FAFC;
+                    border-color: rgba(24, 201, 139, 0.45);
+                    box-shadow: 0 6px 20px rgba(24, 201, 139, 0.1);
+
+                    .actAction {
+                        color: #047857;
+                    }
+
+                    .actIndexBadge {
+                        background: rgba(24, 201, 139, 0.22);
+                    }
+                }
+
+                .actIndexBadge {
+                    background: rgba(24, 201, 139, 0.14);
+                    border: none;
+                    color: #047857;
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+
+                .skeletonBar {
+                    background: linear-gradient(90deg,
+                            #E2E8F0 25%,
+                            rgba(24, 201, 139, 0.2) 50%,
+                            #E2E8F0 75%);
+                    background-size: 200% 100%;
+                }
+
+                .actContent {
+                    .actHeaderRow {
+                        .actMainTitle {
+                            color: #0F172A;
+                            font-size: 14px;
+                            font-weight: 700;
+                            font-family: "Euclid-Bold", sans-serif;
+                        }
+
+                        .actTypeTag {
+                            background: rgba(24, 201, 139, 0.1);
+                            border-color: rgba(24, 201, 139, 0.25);
+                            color: #047857;
+                        }
+
+                        .actSignalTag {
+                            &.signalSell {
+                                background: rgba(239, 68, 68, 0.12);
+                                border-color: rgba(239, 68, 68, 0.3);
+                                color: #DC2626;
+                            }
+
+                            &.signalBuy {
+                                background: rgba(16, 185, 129, 0.12);
+                                border-color: rgba(16, 185, 129, 0.3);
+                                color: #047857;
+                            }
+                        }
+
+                        .actTime {
+                            color: #64748B;
+                        }
+                    }
+
+                    .actDescription {
+                        color: #475569;
+                    }
+                }
+
+                .actAction {
+                    color: #047857;
+                    background: rgba(24, 201, 139, 0.08);
+                    border-color: rgba(24, 201, 139, 0.2);
+                }
+            }
+
+            .emptyFeed {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.09);
+                color: #64748B;
+
+                p {
+                    color: #475569;
+                }
+
+                .firstScanBtn {
+                    background: rgba(24, 201, 139, 0.12);
+                    border-color: rgba(24, 201, 139, 0.3);
+                    color: #047857;
+                }
+            }
+
+            .loadingBox {
+                color: #64748B;
+            }
+        }
+    }
+
+    /* 4. Quick Actions Hub in Light Mode */
+    .quickHubColumn {
+        .hubHeader {
+            .hubHeaderLeft {
+                .hubHeaderIcon {
+                    background: rgba(24, 201, 139, 0.14);
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+                    border-radius: 9px;
+                }
+
+                h3 {
+                    color: #0F172A;
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+            }
+        }
+
+        .modernToolCard {
+            background:
+                radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                #f3f3f3;
+            border: none;
+            box-shadow: none;
+
+            &:hover {
+                background:
+                    radial-gradient(ellipse 60% 70% at 0% 0%, rgba(24, 201, 139, 0.24) 0%, transparent 70%),
+                    radial-gradient(ellipse 60% 70% at 100% 100%, rgba(24, 201, 139, 0.2) 0%, transparent 70%),
+                    #E3F4EC;
+                border-color: rgba(24, 201, 139, 0.5);
+                box-shadow: 0 8px 24px rgba(24, 201, 139, 0.16);
+
+                .toolCardTop .toolIconBadge {
+                    background: rgba(24, 201, 139, 0.25);
+                    border-color: #10B981;
+                    color: #047857;
+                }
+
+                .toolCardFooter {
+                    .toolCtaText {
+                        color: #047857;
+                    }
+
+                    .toolCtaArrow {
+                        background: #10B981;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .toolCardTop,
+            .toolCardBody,
+            .toolCardFooter {
+                background: transparent;
+                background-color: transparent;
+            }
+
+            .toolCardTop {
+                .toolIconBadge {
+                    background: rgba(24, 201, 139, 0.14);
+                    border: 1px solid rgba(24, 201, 139, 0.28);
+                    color: #047857;
+                    border-radius: 9px;
+                }
+
+                .toolBadgeTag {
+                    background: rgba(24, 201, 139, 0.1);
+                    border-color: rgba(24, 201, 139, 0.25);
+                    color: #047857;
+                }
+            }
+
+            .toolCardBody {
+                .toolTitle {
+                    color: #0F172A;
+                    font-size: 14px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                    background: transparent;
+                    background-color: transparent;
+                }
+
+                .toolDescription {
+                    color: #475569;
+                    background: transparent;
+                    background-color: transparent;
+                }
+            }
+
+            .toolCardFooter {
+                border-top-color: rgba(24, 201, 139, 0.15);
+
+                .toolCtaText {
+                    color: #047857;
+                    background: transparent;
+                    background-color: transparent;
+                }
+
+                .toolCtaArrow {
+                    background: rgba(24, 201, 139, 0.14);
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    /* 5. Market Overview in Light Mode */
+    .marketOverviewColumn {
+        .overviewHeader {
+            .overviewTitleWrap {
+                .overviewIconPulse {
+                    background: rgba(24, 201, 139, 0.14);
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+                    border-radius: 8px;
+                }
+
+                .overviewTitleText {
+                    h3 {
+                        color: #0F172A;
+                        font-size: 16px;
+                        font-weight: 700;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+                }
+            }
+
+            .overviewTabsRow {
+                background: #F1F5F9;
+                border: 1px solid #E2E8F0;
+
+                .overviewTabBtn {
+                    color: #64748B;
+
+                    &:hover {
+                        color: #0F172A;
+                        background: #E2E8F0;
+                    }
+
+                    &.overviewTabActive {
+                        color: #059669;
+                        background: #ECFDF5;
+                        border: 1px solid #A7F3D0;
+                    }
+                }
+            }
+        }
+
+        .marketOverviewCard {
+            background:
+                radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                #f3f3f3;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+            .overviewTableWrapper {
+                .overviewTableBody {
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                        width: 0;
+                        height: 0;
+                    }
+
+                    &::-webkit-scrollbar-button {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    /* 6. Matrix & Other Legacy Cards in Light Mode */
+    .glassStatCard {
+        background:
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .statNum {
+            color: #0F172A;
+        }
+
+        .statTitle {
+            color: #0F172A;
+        }
+
+        .statDesc {
+            color: #64748B;
+        }
+
+        .cardActionLink {
+            color: #047857;
+            border-top-color: rgba(15, 23, 42, 0.08);
+        }
+    }
+
+    .watchlistSection {
+        background:
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .sectionTitleBlock {
+            h2 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #64748B;
+            }
+        }
+
+        .watchCard {
+            background:
+                radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                #f3f3f3;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+            .watchSymbol,
+            .watchPrice {
+                color: #0F172A;
+            }
+
+            .watchName,
+            .rangeInfo {
+                color: #64748B;
+            }
+        }
+    }
+}

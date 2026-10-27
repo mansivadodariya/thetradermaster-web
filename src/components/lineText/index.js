@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './lineText.module.scss';
 import classNames from 'classnames';
 export default function LineText({ text, start }) {

@@ -1,0 +1,116 @@
+/* Stepper Header Track - Full Width Matching Form Cards Below */
+.stepperContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 12px auto 32px auto;
+    padding: 0 4px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.stepperTrack {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    min-width: 680px;
+}
+
+.stepPill {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+    }
+
+    &:not(:disabled):hover {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #FFFFFF;
+    }
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #64748B;
+
+        &:not(:disabled):hover {
+            background: rgba(24, 201, 139, 0.12);
+            color: #047857;
+        }
+    }
+}
+
+.stepPillActive {
+    background: #18C98B;
+    border-color: #18C98B;
+    color: #040605;
+    box-shadow: 0 0 18px rgba(24, 201, 139, 0.5);
+
+    :global(html.light) & {
+        background: #18C98B;
+        border-color: #18C98B;
+        color: #040605;
+    }
+}
+
+.stepPillCompleted {
+    background: rgba(24, 201, 139, 0.1);
+    border-color: rgba(24, 201, 139, 0.45);
+    color: #18C98B;
+
+    :global(html.light) & {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: #18C98B;
+        color: #047857;
+    }
+}
+
+.stepPillIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepPillLabel {
+    letter-spacing: 0.2px;
+}
+
+.stepConnector {
+    flex: 1;
+    min-width: 20px;
+    height: 2px;
+    margin: 0 12px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+
+    :global(html.light) & {
+        background: #CBD5E1;
+    }
+}
+
+.stepConnectorActive {
+    background: #18C98B;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.6);
+}

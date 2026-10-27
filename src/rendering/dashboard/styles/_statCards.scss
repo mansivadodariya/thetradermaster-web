@@ -1,0 +1,687 @@
+/* ============================================================
+   2. FUTURISTIC HOLOGRAPHIC HERO TERMINAL
+   ============================================================ */
+.topHeroRowGrid {
+    display: grid;
+    grid-template-columns: 1fr 580px;
+    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 1400px) {
+        grid-template-columns: 1fr 480px;
+    }
+
+    @include respond-to('lg') {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    @include respond-to('sm') {
+        gap: 12px;
+    }
+}
+
+.hologramHero {
+    background:
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include respond-to('md') {
+        padding: 20px 18px;
+        border-radius: 18px;
+    }
+
+    @include respond-to('sm') {
+        padding: 16px 14px;
+        border-radius: 16px;
+    }
+
+    @media (max-width: 420px) {
+        padding: 14px 12px;
+    }
+}
+
+.heroBackdropWrap {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    .heroBackdropImg {
+        object-fit: cover;
+        object-position: center right;
+        opacity: 0.25;
+    }
+
+    .heroOverlayFade {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 75% 50%, transparent 0%, rgba(4, 6, 5, 0.85) 60%, #040605 100%),
+            linear-gradient(90deg, #040605 0%, rgba(4, 6, 5, 0.6) 45%, transparent 100%);
+    }
+}
+
+.heroGrid {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.heroLeftCol {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .heroTagPill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(24, 201, 139, 0.14);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #18C98B;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 99px;
+        width: fit-content;
+        letter-spacing: 0.5px;
+    }
+
+    .heroHeadline {
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: 700;
+        font-family: "Euclid-Bold", sans-serif;
+        margin: 0;
+        line-height: 1.25;
+
+        @include respond-to('md') {
+            font-size: 22px;
+        }
+
+        @include respond-to('sm') {
+            font-size: 19px;
+        }
+
+        @media (max-width: 420px) {
+            font-size: 17px;
+        }
+
+        .nameGradient {
+            color: #18c98b;
+            background: #18c98b;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline;
+        }
+
+        .wave {
+            font-size: 20px;
+            display: inline-block;
+            animation: waveHand 2s infinite ease-in-out;
+            -webkit-text-fill-color: initial;
+        }
+    }
+
+    .heroSubtext {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 0;
+        max-width: 680px;
+
+        @include respond-to('sm') {
+            font-size: 12px;
+        }
+    }
+}
+
+.heroChartSection {
+    margin-top: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include respond-to('sm') {
+        padding: 12px 10px;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .chartHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+
+        .chartTitleGroup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .chartPulseDot {
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: #18C98B;
+                box-shadow: 0 0 12px #18C98B;
+                flex-shrink: 0;
+            }
+
+            .titleTextCol {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                .chartTitle {
+                    color: #FFFFFF;
+                    font-size: 15px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                .chartSubtitle {
+                    color: rgba(255, 255, 255, 0.48);
+                    font-size: 12px;
+                    font-family: "Euclid-Regular", sans-serif;
+                }
+            }
+        }
+
+        .headerRightGroup {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @include respond-to('sm') {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .chartSubBadge {
+                background: rgba(24, 201, 139, 0.16);
+                color: #18C98B;
+                font-size: 12px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 99px;
+
+                @include respond-to('sm') {
+                    font-size: 11px;
+                    padding: 3px 10px;
+                }
+            }
+
+            .timeframeFilterGroup {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 50px;
+                padding: 3px;
+
+                .tfBtn {
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 3px 10px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    @include respond-to('sm') {
+                        padding: 3px 8px;
+                        font-size: 10px;
+                    }
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+
+                    &.activeTf {
+                        background: #18C98B;
+                        color: #040605;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+
+    .splineCanvasWrap {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 4px;
+
+        .floatingChartTooltip {
+            position: absolute;
+            transform: translate(-50%, -100%);
+            background: #0B0E0D;
+            border: 1px solid rgba(24, 201, 139, 0.45);
+            border-radius: 8px;
+            padding: 5px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+            z-index: 20;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: left 0.15s ease, top 0.15s ease;
+
+            .tooltipDay {
+                color: rgba(255, 255, 255, 0.65);
+                font-size: 12px;
+                font-family: "Euclid-Regular", sans-serif;
+            }
+
+            .tooltipVal {
+                color: #18C98B;
+                font-size: 13px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+            }
+        }
+
+        .chartCanvasInner {
+            position: relative;
+            width: 100%;
+            height: 165px;
+
+            @include respond-to('sm') {
+                height: 125px;
+            }
+
+            .splineSvg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                overflow: visible;
+            }
+
+            .chartPointsOverlay {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+
+                .dataPointMarker {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    width: 26px;
+                    height: 26px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    pointer-events: auto;
+                    z-index: 5;
+
+                    .pointHalo {
+                        position: absolute;
+                        width: 22px;
+                        height: 22px;
+                        border-radius: 50%;
+                        background: rgba(24, 201, 139, 0.22);
+                        transform: scale(0.7);
+                        opacity: 0.6;
+                        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .pointDot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: #18C98B;
+                        border: 2px solid #0B0E0D;
+                        box-shadow: 0 0 10px #18C98B;
+                        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                        z-index: 2;
+                    }
+
+                    &:hover,
+                    &.activeMarker {
+                        .pointHalo {
+                            transform: scale(1.6);
+                            background: rgba(0, 242, 254, 0.35);
+                            opacity: 1;
+                        }
+
+                        .pointDot {
+                            transform: scale(1.35);
+                            background: #00F2FE;
+                            box-shadow: 0 0 14px #00F2FE;
+                            border-color: #FFFFFF;
+                        }
+                    }
+
+                    &.todayMarker .pointDot {
+                        background: #34D399;
+                        box-shadow: 0 0 12px #34D399;
+                    }
+                }
+            }
+        }
+
+        .chartTimeLabels {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+
+            @include respond-to('sm') {
+                padding: 0 4px;
+            }
+
+            .dayLabelItem {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+
+                .dayName {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 11px;
+                    font-family: "Euclid-Medium", sans-serif;
+
+                    @include respond-to('sm') {
+                        font-size: 9.5px;
+                    }
+                }
+
+                .dayVal {
+                    color: #FFFFFF;
+                    font-size: 12px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+
+                    @include respond-to('sm') {
+                        font-size: 10.5px;
+                    }
+                }
+
+                &.todayLabel {
+                    .dayName {
+                        color: #18C98B;
+                        font-weight: 700;
+                    }
+
+                    .dayVal {
+                        color: #18C98B;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.heroFastActions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+
+    .actionButtonGold {
+        background: #FFFFFF;
+        color: #040605;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: "Euclid-Bold", sans-serif;
+        padding: 10px 22px;
+        border-radius: 99px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        border: none;
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(255, 255, 255, 0.35);
+            color: #040605;
+        }
+    }
+
+    .actionButtonOutline {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 99px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+        }
+    }
+}
+
+.heroRightCol {
+    display: flex;
+    justify-content: flex-end;
+
+    @include respond-to('md') {
+        justify-content: stretch;
+    }
+}
+
+.signalOracleCard {
+    background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.18) 0%, rgba(10, 16, 13, 0.95) 50%, #040605 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    .oracleHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .oraclePairTitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .oracleSymbol {
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+            }
+
+            .oracleCategory {
+                font-size: 10px;
+                font-weight: 700;
+                color: rgba(255, 255, 255, 0.45);
+                background: rgba(255, 255, 255, 0.08);
+                padding: 2px 6px;
+                border-radius: 4px;
+            }
+        }
+
+        .oracleBadgeGreen {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34D399;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .pulseGreenMini {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #34D399;
+                box-shadow: 0 0 6px #34D399;
+            }
+        }
+    }
+
+    .oraclePriceRow {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        .oracleLivePrice {
+            color: #FFFFFF;
+            font-size: 22px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+
+            .priceUp {
+                color: #34D399;
+                font-size: 12px;
+                font-weight: 700;
+                margin-left: 6px;
+            }
+        }
+
+        .oracleConfidence {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1px;
+
+            span {
+                font-size: 10.5px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            strong {
+                color: #18C98B;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .oracleConfidenceBar {
+        height: 5px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 99px;
+        overflow: hidden;
+
+        .confidenceFill {
+            height: 100%;
+            background: linear-gradient(90deg, #18C98B 0%, #34D399 100%);
+            border-radius: 99px;
+        }
+    }
+
+    .oracleMetricsGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        background: #040605;
+        border: 1px solid $borderSubtle;
+        border-radius: 10px;
+        padding: 10px;
+
+        .oracleMetricBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+
+            .mLabel {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.5);
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+
+            .mValue {
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+
+                &.valGreen {
+                    color: #34D399;
+                }
+
+                &.valRed {
+                    color: #F87171;
+                }
+            }
+        }
+    }
+
+    .oracleExecuteBtn {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #18C98B;
+        border-radius: 9999px;
+        padding: 9px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #18C98B;
+            border-color: #18C98B;
+            color: #040605;
+        }
+
+        :global(html.light) & {
+            background: #FFFFFF;
+            border-color: rgba(24, 201, 139, 0.4);
+            color: #047857;
+
+            &:hover {
+                background: #18C98B;
+                color: #040605;
+            }
+        }
+    }
+}

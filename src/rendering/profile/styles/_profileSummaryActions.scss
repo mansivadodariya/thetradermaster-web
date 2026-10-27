@@ -1,0 +1,365 @@
+/* 3. Right Column: Account Summary & Quick Actions */
+.rightSidebar,
+.rightSummaryColumn {
+    background:
+        radial-gradient(ellipse 70% 80% at 100% 0%, rgba(24, 201, 139, 0.18) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 80%),
+        radial-gradient(ellipse 70% 80% at 0% 100%, rgba(0, 242, 254, 0.1) 0%, transparent 75%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(24, 201, 139, 0.2);
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.5);
+        }
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(24, 201, 139, 0.25) transparent;
+
+    @include respond-to('md') {
+        position: static;
+        height: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .rightCard {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0 0 18px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        box-shadow: none;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.14);
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .rightCardTitle {
+            color: #18C98B;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            margin: 0;
+            letter-spacing: 0.2px;
+        }
+
+        .summaryMetaRows {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .summaryRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 13px;
+                gap: 8px;
+
+                .summaryLabel {
+                    color: rgba(255, 255, 255, 0.6);
+                    white-space: nowrap;
+                }
+
+                .summaryProTag {
+                    color: #18C98B;
+                    font-weight: 700;
+                    font-size: 13px;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    padding: 0;
+                    white-space: nowrap;
+                }
+
+                .summaryActiveTag {
+                    color: #34D399;
+                    font-weight: 700;
+                    font-size: 13px;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    padding: 0;
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        /* Credits Box */
+        .creditsCardBox {
+            background: rgba(13, 14, 19, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .creditsHead {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .creditsLabel {
+                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                .viewPlansBtn {
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    color: #18C98B;
+                    font-size: 12px;
+                    font-weight: 600;
+                    transition: color 0.15s ease;
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .creditsValueRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+
+                .creditsNumbers {
+                    .creditsAmount {
+                        color: #FFFFFF;
+                        font-size: 22px;
+                        font-weight: 700;
+                        font-family: "Euclid-Bold", sans-serif;
+                        margin: 0;
+
+                        span {
+                            font-size: 13px;
+                            color: #18C98B;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Verification List */
+        .verificationList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .verifItem {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 13px;
+                background: rgba(13, 14, 19, 0.55);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                padding: 10px 14px;
+
+                .verifLeft {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: rgba(255, 255, 255, 0.85);
+                }
+
+                .verifStatusGreen {
+                    color: #34D399;
+                    font-weight: 700;
+                    font-size: 12px;
+                }
+
+                .verifStatusPending {
+                    color: #F59E0B;
+                    font-weight: 700;
+                    font-size: 12px;
+                }
+
+                .verifActionBtn {
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    border-radius: 999px;
+                    color: #18C98B;
+                    font-size: 11px;
+                    font-weight: 700;
+                    padding: 3px 10px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background: #18C98B;
+                        color: #040605;
+                    }
+                }
+            }
+        }
+
+        /* Quick Actions Grid */
+        .quickActionsGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+
+            .actionGridBtn {
+                background: rgba(13, 14, 19, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                padding: 12px 6px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 11px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                text-align: center;
+
+                &:hover {
+                    border-color: rgba(24, 201, 139, 0.6);
+                    background: rgba(24, 201, 139, 0.12);
+                    color: #18C98B;
+                    transform: translateY(-2px);
+                }
+            }
+        }
+
+        .logoutActionWrap {
+            margin-top: 6px;
+
+            .logoutBtn {
+                width: 100%;
+                background: rgba(239, 68, 68, 0.08);
+                border: 1px solid rgba(239, 68, 68, 0.25);
+                border-radius: 10px;
+                padding: 10px 14px;
+                color: #EF4444;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(239, 68, 68, 0.18);
+                    border-color: #EF4444;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}
+
+/* Security Priority Banner */
+.securityPriorityCard {
+    background: rgba(13, 14, 19, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .securityPriorityLeft {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .secShieldIcon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: rgba(24, 201, 139, 0.12);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .secPriorityTexts {
+            h5 {
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 700;
+                margin: 0 0 2px;
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 11px;
+                margin: 0;
+            }
+        }
+    }
+
+    :global(html.light) &,
+    :global([data-theme='light']) &,
+    :global(html[data-theme='light']) & {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+        .securityPriorityLeft {
+            .secShieldIcon {
+                background: #ECFDF5;
+                border-color: #A7F3D0;
+
+                svg {
+                    stroke: #059669;
+                }
+            }
+
+            .secPriorityTexts {
+                h5 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #64748B;
+                }
+            }
+        }
+    }
+}

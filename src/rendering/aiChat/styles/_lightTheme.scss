@@ -1,0 +1,643 @@
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI CHAT
+   ============================================================ */
+:global(html.light) .pageWrapper,
+:global(html.light) .aiChatWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .sectionDivider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+        margin: 40px 0;
+    }
+
+    /* Section Headings */
+    .sectionTitle {
+        color: #0F172A;
+    }
+
+    .sectionSubtitle {
+        color: #475569;
+    }
+
+    .sectionBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    /* 1. Hero Section & Status Pill */
+    .statusPill {
+        background: #FFFFFF;
+        border: 1px solid rgba(5, 150, 105, 0.25);
+        box-shadow: 0 4px 18px rgba(5, 150, 105, 0.08);
+
+        .pulseDot {
+            background: #059669;
+
+            .pulseRing {
+                border-color: #059669;
+            }
+        }
+
+        .pillTag {
+            color: #059669;
+        }
+
+        .pillText {
+            color: #0F172A;
+            font-weight: 700;
+        }
+
+        .pillBadge {
+            background: rgba(5, 150, 105, 0.1);
+            border: 1px solid rgba(5, 150, 105, 0.25);
+            color: #059669;
+            font-weight: 800;
+        }
+    }
+
+    .heroMainTitle {
+        color: #0F172A;
+    }
+
+    .heroSubtitle {
+        color: #475569;
+    }
+
+    .heroSecondaryBtn {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            background: #F8FAFC;
+            border-color: #18C98B;
+            color: #047857;
+        }
+    }
+
+    /* 2. Top 3 Value Badges */
+    .valueBadgeCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 30px rgba(24, 201, 139, 0.12);
+        }
+
+        .badgeIconWrap {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .iconGreen {
+            background: #F0FDF4;
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #047857;
+        }
+
+        .iconAmber {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .badgeContent {
+            background: transparent;
+
+            h4 {
+                color: #0F172A;
+                background: transparent;
+            }
+
+            p {
+                color: #64748B;
+                background: transparent;
+            }
+        }
+    }
+
+    /* 3. Pre-Built Quick Prompt Cards */
+    .promptCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.22);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        &:hover,
+        &.promptCardActive {
+            background: #FFFFFF;
+            border-color: #18C98B;
+            box-shadow: 0 8px 25px rgba(24, 201, 139, 0.14);
+        }
+
+        .promptIconWrap {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.3);
+            color: #047857;
+        }
+
+        .promptCategory {
+            color: #0F172A;
+        }
+
+        .promptText {
+            color: #475569;
+        }
+
+        .promptBadge {
+            background: rgba(24, 201, 139, 0.12);
+            color: #047857;
+            border: 1px solid rgba(24, 201, 139, 0.3);
+        }
+
+        .promptActionLink {
+            color: #047857;
+        }
+    }
+
+    /* 4. Live Interactive Chat Demo Cockpit */
+    .terminalCockpit,
+    .chatTerminalCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+
+        .terminalHeader,
+        .terminalWindowBar {
+            background: #F8FAFC;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+            .terminalBrand,
+            .terminalTitle {
+                color: #0F172A;
+                font-weight: 700;
+            }
+
+            .terminalStatus,
+            .terminalLiveIndicator {
+                color: #047857;
+                font-weight: 800;
+            }
+
+            .termTabBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #475569;
+
+                &:hover {
+                    color: #047857;
+                    border-color: #18C98B;
+                }
+
+                &.termTabActive {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .chatStreamArea,
+        .terminalMessageStream {
+            background: #FAFAFA;
+        }
+
+        .traderAvatar {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .traderBubble {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.28);
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+
+            .bubbleSender {
+                color: #047857;
+                font-weight: 700;
+            }
+
+            .bubbleText {
+                color: #0F172A;
+            }
+        }
+
+        .aiAvatar {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .aiResponseCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 6px 25px rgba(15, 23, 42, 0.05);
+
+            .aiCardHeader {
+                border-bottom: 1px solid #F1F5F9;
+
+                .aiName {
+                    color: #0F172A;
+                }
+
+                .aiTag {
+                    background: rgba(24, 201, 139, 0.12);
+                    color: #047857;
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+                }
+
+                .aiPairBadge {
+                    background: #F1F5F9;
+                    color: #334155;
+                    border: 1px solid #E2E8F0;
+                }
+
+                .copyBtn {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #475569;
+
+                    &:hover {
+                        background: #18C98B;
+                        color: #040605;
+                        border-color: #18C98B;
+                    }
+                }
+            }
+
+            .setupTitleRow {
+                .setupTitleIconBox {
+                    background: #F0FDF4;
+                    border-color: rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                }
+
+                .setupTitle {
+                    color: #0F172A;
+                }
+            }
+
+            .telemetryGrid {
+                background: #F1F5F9;
+                border: 1px solid #E2E8F0;
+
+                .telLabel {
+                    color: #64748B;
+                    font-weight: 700;
+                }
+
+                .telVal {
+                    color: #0F172A;
+                    font-weight: 700;
+                }
+
+                .telPrice {
+                    color: #047857;
+                    font-weight: 800;
+                }
+
+                .telBullish {
+                    color: #047857;
+                    font-weight: 700;
+                }
+
+                .telNeutral {
+                    color: #0284C7;
+                    font-weight: 700;
+                }
+            }
+
+            .tradePlanBox {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                box-shadow: 0 4px 15px rgba(24, 201, 139, 0.05);
+
+                .planHeader {
+                    .targetIconBox {
+                        background: #F0FDF4;
+                        border-color: rgba(24, 201, 139, 0.35);
+                        color: #047857;
+                    }
+
+                    h5 {
+                        color: #047857;
+                        font-weight: 800;
+                    }
+                }
+
+                .planRow {
+                    border-bottom: 1px dashed #E2E8F0;
+
+                    .planKey {
+                        color: #475569;
+                        font-weight: 600;
+                    }
+
+                    .planValHighlight {
+                        color: #047857;
+                        font-weight: 700;
+                    }
+
+                    .planValSl {
+                        color: #DC2626;
+                        font-weight: 700;
+                    }
+
+                    .planValTp {
+                        color: #047857;
+                        font-weight: 700;
+                    }
+
+                    .planValRrr {
+                        background: rgba(24, 201, 139, 0.14);
+                        color: #047857;
+                        font-weight: 800;
+                        border: 1px solid rgba(24, 201, 139, 0.3);
+                    }
+                }
+            }
+
+            .calcBreakdownBox {
+                background: #F8FAFC;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+
+                .calcHeader {
+                    .calcIconBox {
+                        background: #F0FDF4;
+                        border-color: rgba(24, 201, 139, 0.35);
+                        color: #047857;
+                    }
+
+                    h5 {
+                        color: #047857;
+                    }
+                }
+
+                .calcItem {
+                    color: #475569;
+
+                    strong {
+                        color: #0F172A;
+                    }
+
+                    .lotHighlight {
+                        color: #047857;
+                    }
+                }
+            }
+
+            .indPill {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+
+                .indName {
+                    color: #64748B;
+                }
+
+                .indStatus {
+                    color: #047857;
+                    font-weight: 700;
+                }
+            }
+
+            .alertNoteBox {
+                background: #FEF2F2;
+                border: 1px solid #FECACA;
+                color: #991B1B;
+
+                .alertIconBox {
+                    background: #FEE2E2;
+                    color: #DC2626;
+                }
+
+                p strong {
+                    color: #991B1B;
+                }
+            }
+        }
+
+        .terminalInputBar {
+            background: #FFFFFF;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+            .inputForm {
+                background: #F8FAFC;
+                border: 1px solid rgba(15, 23, 42, 0.15);
+
+                &:focus-within {
+                    border-color: #18C98B;
+                    box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15);
+                }
+
+                .inputPrefix {
+                    color: #047857;
+                }
+
+                .customChatInput,
+                .chatInputField {
+                    color: #0F172A;
+                    background: transparent;
+
+                    &::placeholder {
+                        color: #94A3B8;
+                    }
+                }
+
+                .inputSubmitBtn,
+                .launchFullDeskBtn {
+                    background: #18C98B;
+                    color: #040605;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    /* Direct traderBubble override for anywhere inside light mode */
+    .traderBubble {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+
+        .bubbleSender {
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .bubbleText {
+            color: #0F172A;
+        }
+    }
+
+    /* 5. 3 Steps Section */
+    .stepCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.22);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .stepNumBadge {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTag {
+            background: transparent;
+            background-color: transparent;
+            color: #64748B;
+            border: none;
+            box-shadow: none;
+        }
+
+        .stepIconWrap {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTitle {
+            color: #0F172A;
+        }
+
+        .stepDesc {
+            color: #475569;
+        }
+    }
+
+    /* 6. Key Features Grid */
+    .featureCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .cardGlowHover {
+            background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%);
+        }
+
+        .featureIconWrap {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .featureNum {
+            color: rgba(4, 120, 87, 0.45);
+        }
+
+        .featureBadgePill {
+            background: #F1F5F9;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            color: #475569;
+        }
+
+        .featureCardTitle,
+        .featureTitle {
+            color: #0F172A;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardDesc,
+        .featureDesc {
+            color: #475569;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardStat,
+        .statBox {
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+
+            .statLabel {
+                color: #64748B;
+                background: transparent;
+                border: none;
+            }
+
+            .statVal,
+            .statValue {
+                color: #047857;
+                font-weight: 800;
+                background: transparent;
+                border: none;
+            }
+        }
+    }
+
+    /* 7. Comparison Table */
+    .tableCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+
+        th {
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        td {
+            color: #1E293B;
+            border-bottom-color: #F1F5F9;
+        }
+
+        .genericText {
+            color: #64748B;
+        }
+
+        .chronosText {
+            color: #047857;
+            font-weight: 700;
+        }
+    }
+
+    /* 8. FAQs */
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+
+        .faqQuestionBtn {
+            color: #0F172A;
+            background: transparent;
+        }
+
+        .qText {
+            color: #0F172A;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9;
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+
+            p {
+                color: #475569;
+            }
+        }
+    }
+}

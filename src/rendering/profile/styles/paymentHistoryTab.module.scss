@@ -1,0 +1,493 @@
+@use '../../../scss/main.scss' as *;
+
+.paymentHistoryPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex: 1;
+    overflow: hidden;
+}
+
+.panelHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex-shrink: 0;
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0 0 4px 0;
+    }
+
+    .panelSubtitle {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0;
+    }
+}
+
+.statsRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.statCard {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(24, 201, 139, 0.22);
+    }
+
+    .statLabel {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+    }
+
+    .statValue {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #18c98b;
+        margin: 0;
+    }
+}
+
+.tableWrapper {
+    background: rgba(4, 13, 9, 0.75);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+    flex: 1;
+    min-height: 240px;
+    max-height: 100%;
+    position: relative;
+    overscroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y pan-x;
+    scroll-behavior: smooth;
+
+    /* Custom Sleek Emerald Scrollbar */
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(24, 201, 139, 0.35);
+        border-radius: 4px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.7);
+        }
+    }
+    scrollbar-width: thin;
+    scrollbar-color: rgba(24, 201, 139, 0.35) transparent;
+}
+
+.historyTable {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.8rem;
+    text-align: left;
+
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #0B130E;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 700;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.25);
+        white-space: nowrap;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    td {
+        padding: 13px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.85);
+        white-space: nowrap;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover td {
+        background: rgba(24, 201, 139, 0.04);
+    }
+}
+
+.invoiceCol {
+    font-family: monospace;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.planTierBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(24, 201, 139, 0.1);
+    color: #18c98b;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.amountText {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.creditsBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(24, 201, 139, 0.12);
+    color: #18c98b;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    white-space: nowrap;
+
+    svg {
+        flex-shrink: 0;
+    }
+}
+
+.cregisSub {
+    display: block;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: monospace;
+    margin-top: 2px;
+}
+
+.chainTag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 4px;
+    text-transform: uppercase;
+}
+
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    &.statusSuccess {
+        background: rgba(24, 201, 139, 0.12);
+        color: #18c98b;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+    }
+
+    &.statusPending {
+        background: rgba(234, 179, 8, 0.12);
+        color: #eab308;
+        border: 1px solid rgba(234, 179, 8, 0.25);
+    }
+
+    &.statusExpired {
+        background: rgba(148, 163, 184, 0.12);
+        color: #94a3b8;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    &.statusFailed {
+        background: rgba(239, 68, 68, 0.12);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+}
+
+.skeletonPulse {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(24, 201, 139, 0.14) 50%,
+        rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: paymentShimmer 1.5s infinite ease-in-out;
+    border-radius: 6px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@keyframes paymentShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.downloadBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+
+    &:hover:not(:disabled):not(.btnDisabled) {
+        background: rgba(24, 201, 139, 0.15);
+        border-color: #18c98b;
+        color: #18c98b;
+    }
+
+    &:disabled,
+    &.btnDisabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        pointer-events: none;
+        border-color: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.02);
+        color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.emptyState {
+    text-align: center;
+    padding: 48px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+
+    .emptyIcon {
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 12px;
+    }
+
+    h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 6px 0;
+    }
+
+    p {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.55);
+        max-width: 360px;
+        margin: 0 auto 18px auto;
+    }
+
+    .exploreBtn {
+        background: linear-gradient(135deg, #18c98b 0%, #10b981 100%);
+        color: #03130c;
+        font-weight: 800;
+        font-size: 0.82rem;
+        padding: 9px 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        &:hover {
+            box-shadow: 0 6px 20px rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+/* ========================================================================= */
+/* LIGHT THEME (html.light / [data-theme='light'])                           */
+/* ========================================================================= */
+:global(html.light) .paymentHistoryPanel,
+:global([data-theme='light']) .paymentHistoryPanel {
+    .panelHeaderRow {
+        h3 {
+            color: #0F172A;
+        }
+
+        .panelSubtitle {
+            color: #64748B;
+        }
+    }
+
+    .statCard {
+        background: #F8FAFC;
+        border: 1px solid rgba(24, 201, 139, 0.22);
+
+        &:hover {
+            background: #F1F5F9;
+            border-color: #18C98B;
+        }
+
+        .statLabel {
+            color: #64748B;
+        }
+
+        .statValue {
+            color: #047857;
+        }
+    }
+
+    .tableWrapper {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .historyTable {
+        th {
+            background: #F8FAFC;
+            color: #475569;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        td {
+            color: #334155;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        tr:hover td {
+            background: rgba(24, 201, 139, 0.04);
+        }
+    }
+
+    .invoiceCol {
+        color: #0F172A;
+    }
+
+    .amountText {
+        color: #0F172A;
+    }
+
+    .planTierBadge {
+        background: rgba(24, 201, 139, 0.12);
+        color: #047857;
+        border-color: rgba(24, 201, 139, 0.35);
+    }
+
+    .creditsBadge {
+        background: rgba(24, 201, 139, 0.12);
+        color: #047857;
+        border-color: rgba(24, 201, 139, 0.35);
+    }
+
+    .cregisSub {
+        color: #64748B;
+    }
+
+    .chainTag {
+        background: #E2E8F0;
+        color: #475569;
+    }
+
+    .statusPill {
+        &.statusExpired {
+            background: #F1F5F9;
+            color: #64748B;
+            border-color: #CBD5E1;
+        }
+    }
+
+    .skeletonPulse {
+        background: linear-gradient(
+            90deg,
+            rgba(15, 23, 42, 0.06) 0%,
+            rgba(24, 201, 139, 0.18) 50%,
+            rgba(15, 23, 42, 0.06) 100%
+        );
+        background-size: 200% 100%;
+    }
+
+    .downloadBtn {
+        background: #F1F5F9;
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        color: #0F172A;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+
+        &:hover:not(:disabled):not(.btnDisabled) {
+            background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
+            color: #047857;
+            box-shadow: 0 2px 8px rgba(24, 201, 139, 0.2);
+        }
+
+        &:disabled,
+        &.btnDisabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: #F1F5F9;
+            border-color: rgba(15, 23, 42, 0.08);
+            color: #94A3B8;
+            box-shadow: none;
+        }
+    }
+
+    .emptyState {
+        background: #F8FAFC;
+        border-color: rgba(15, 23, 42, 0.12);
+
+        .emptyIcon {
+            color: #94A3B8;
+        }
+
+        h4 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #64748B;
+        }
+    }
+}

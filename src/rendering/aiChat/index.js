@@ -1,311 +1,168 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { toast } from '@/components/toast';
+import CommonCta from '@/components/commonCta';
+import { QUICK_PROMPTS } from './constants/aiChatData';
+import ChatHeroSection from './components/ChatHeroSection';
+import PromptStartersSection from './components/PromptStartersSection';
+import LiveChatDemoSection from './components/LiveChatDemoSection';
+import ChatFeaturesSection from './components/ChatFeaturesSection';
+import ComparisonFaqSection from './components/ComparisonFaqSection';
 import styles from './aiChat.module.scss';
-import LineText from '@/components/lineText';
-import Button from '@/components/button';
-import { useRouter } from 'next/navigation';
-import { authNavigate } from '@/lib/authRedirect';
-import { useLanguage } from '@/context/LanguageContext';
 
 export default function AiChat() {
-    const router = useRouter();
-    const { t } = useLanguage();
-    const [prompt, setPrompt] = useState('');
+    const [selectedPrompt, setSelectedPrompt] = useState(QUICK_PROMPTS[0]);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [openFaq, setOpenFaq] = useState(0);
+    const [customInput, setCustomInput] = useState('');
+    const demoRef = useRef(null);
 
-    const handleSend = (textToSend) => {
-        const query = typeof textToSend === 'string' ? textToSend : prompt;
-        authNavigate(router, `/ai-assistant${query ? `?prompt=${encodeURIComponent(query)}` : ''}`);
-    };
+    const handleSelectPrompt = (promptItem) => {
+        setIsGenerating(true);
+        setSelectedPrompt(promptItem);
+        setCustomInput('');
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSend();
+        // Smooth scroll to demo section
+        if (demoRef.current) {
+            demoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+
+        setTimeout(() => {
+            setIsGenerating(false);
+            toast.success(`Loaded ${promptItem.category} AI Setup!`);
+        }, 350);
     };
 
-    const suggestedPrompts = [
-        t('aiChat.suggestedQuestion1', 'Analyze EUR/USD key levels for today'),
-        t('aiChat.suggestedQuestion2', 'What is the impact of the upcoming NFP release?'),
-        t('aiChat.suggestedQuestion3', 'Explain how to calculate position size for 1% risk'),
-        t('aiChat.suggestedQuestion4', 'Gold (XAU/USD) technical outlook & order blocks'),
-        t('aiChat.suggestedQuestion5', 'Explain Smart Money Concepts (SMC)')
-    ];
+    const handleCustomSubmit = (e) => {
+        e.preventDefault();
+        if (!customInput.trim()) return;
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.12, delayChildren: 0.1 }
+        setIsGenerating(true);
+        const dynamicSetup = {
+            id: 'custom-query',
+            category: 'Custom Pair Analysis',
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+            ),
+            badge: 'LIVE QUERY',
+            presetText: customInput,
+            demoData: {
+                pair: customInput.toUpperCase().slice(0, 8),
+                timeframe: 'M15 / H1 Analysis',
+                userPrompt: customInput,
+                title: `${customInput.toUpperCase().slice(0, 8)} Real-Time AI Outlook`,
+                price: "1.24850",
+                trend: "Bullish Trend Confluence",
+                trendType: "bullish",
+                resistance: "R1 = 1.25200 | R2 = 1.25800",
+                support: "S1 = 1.24500 | S2 = 1.23900",
+                setup: {
+                    entryZone: "1.24700 - 1.24900 (Pullback to EMA 20)",
+                    stopLoss: "1.24350 (35 Pips Below Support)",
+                    takeProfit1: "1.25350 (65 Pips)",
+                    takeProfit2: "1.25900 (120 Pips)",
+                    rrr: "1 : 2.5",
+                },
+                indicators: [
+                    { name: 'EMA 20 > 50', status: 'Bullish Crossover Active', val: '1.24650' },
+                    { name: 'RSI (14)', status: '56.2 (Healthy Inflow)', val: 'Bullish' },
+                    { name: 'Order Block', status: 'Institutional Liquidity Absorbed', val: 'Support @ 1.24400' }
+                ],
+                note: "Calculated with live MT5 feed algorithms. Manage risk with disciplined stop-loss sizing."
+            }
+        };
+
+        setTimeout(() => {
+            setSelectedPrompt(dynamicSetup);
+            setIsGenerating(false);
+            toast.success(`Generated setup for ${customInput}!`);
+        }, 500);
+    };
+
+    const handleCopySetup = () => {
+        const text = `CHRONOSX AI TRADE SETUP:
+Pair: ${selectedPrompt.demoData.pair}
+Outlook: ${selectedPrompt.demoData.title}
+Trend: ${selectedPrompt.demoData.trend}
+Entry: ${selectedPrompt.demoData.setup.entryZone}
+Stop Loss: ${selectedPrompt.demoData.setup.stopLoss}
+TP1: ${selectedPrompt.demoData.setup.takeProfit1}
+TP2: ${selectedPrompt.demoData.setup.takeProfit2}
+RRR: ${selectedPrompt.demoData.setup.rrr}`;
+
+        navigator.clipboard.writeText(text);
+        toast.success('Trade setup copied to clipboard!');
+    };
+
+    const scrollToDemo = () => {
+        if (demoRef.current) {
+            demoRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
     };
 
     return (
-        <div className={styles.aiChat}>
-            <div className='container-xs'>
-                <motion.div 
-                    className={styles.titleWrapper}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <div className={styles.badgeWrapper}>
-                        <LineText text={t('aiChat.lineText', 'Hello, I am AI Chat your creative assistant')} />
-                    </div>
-                    <div className={styles.title}>
-                        <h1>
-                            {t('aiChat.titlePart1', 'AI FOREX')}{' '}
-                            <span className={styles.neonText}>{t('aiChat.titlePart2', 'ASSISTANT')}</span>
-                        </h1>
-                        <p>
-                            {t('aiChat.subtitle', 'Ask questions about currency pairs, technical setups, economic news, or risk management with institutional accuracy.')}
-                        </p>
-                    </div>
-                </motion.div>
+        <div className={styles.pageWrapper}>
+            {/* Ambient Atmosphere Background Glows */}
+            <div className={styles.ambientTopGlow} aria-hidden="true" />
+            <div className={styles.ambientCenterGlow} aria-hidden="true" />
+            <div className={styles.ambientBottomGlow} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
 
-                <div className={styles.chatWrapper}>
-                    <motion.div 
-                        className={styles.textbox}
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                        <div className={styles.chatContainer}>
-                            <div className={styles.inputWrapper}>
-                                <textarea
-                                    placeholder={t('aiChat.inputPlaceholder', 'Ask AI about any pair, indicator, economic news, or market setup...')}
-                                    className={styles.chatInput}
-                                    rows={3}
-                                    value={prompt}
-                                    onChange={(e) => setPrompt(e.target.value)}
-                                    onKeyDown={handleKeyDown}
-                                />
-                            </div>
-                            <div className={styles.bottomRow}>
-                                <div className={styles.suggestionsWrapper}>
-                                    <div className={styles.suggestionsLabel}>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                        </svg>
-                                        <span>{t('aiChat.suggestedPrompts', 'Popular Prompts:')}</span>
-                                    </div>
-                                    <div className={styles.suggestions}>
-                                        {suggestedPrompts.map((item, idx) => (
-                                            <button 
-                                                key={idx} 
-                                                type="button" 
-                                            >
-                                                {item}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <button 
-                                    className={styles.sendButton} 
-                                    type="button" 
-                                    aria-label="Send prompt"
-                                >
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </motion.div>
+            {/* 1. PAGE HEADER & HERO SECTION */}
+            <ChatHeroSection />
 
-                    {/* Interactive AI Forex Assistant Quick Feature Cards */}
-                    <motion.div 
-                        className={styles.cardsGrid}
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
-                    >
-                        <motion.div 
-                            className={styles.card} 
-                            variants={itemVariants} 
-                        >
-                            <div className={styles.cardHeader}>
-                                <div className={styles.iconBox}>
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                                        <polyline points="17 6 23 6 23 12"></polyline>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.feature1Title', 'Real-Time FX Intelligence')}</h3>
-                            </div>
-                            <p>{t('aiChat.feature1Desc', 'Ask AI for instant multi-timeframe trend breakdowns, key support/resistance zones, and order block setups across 28+ Forex pairs and Spot Gold.')}</p>
-                          
-                        </motion.div>
+            {/* 3. PRE-BUILT QUICK PROMPT STARTERS */}
+            <PromptStartersSection
+                selectedPrompt={selectedPrompt}
+                onSelectPrompt={handleSelectPrompt}
+            />
 
-                        <motion.div 
-                            className={styles.card} 
-                            variants={itemVariants} 
-                        >
-                            <div className={styles.cardHeader}>
-                                <div className={styles.iconBox}>
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.feature2Title', 'Macro News & Calendar')}</h3>
-                            </div>
-                            <p>{t('aiChat.feature2Desc', 'Get immediate AI interpretations of NFP releases, CPI reports, FOMC rate decisions, and high-impact central bank announcements.')}</p>
-                         
-                        </motion.div>
+            {/* SECTION DIVIDER */}
+            <div className={styles.sectionDivider} aria-hidden="true" />
 
-                        <motion.div 
-                            className={styles.card} 
-                            variants={itemVariants} 
-                        >
-                            <div className={styles.cardHeader}>
-                                <div className={styles.iconBox}>
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.feature3Title', 'Risk & Position Sizing')}</h3>
-                            </div>
-                            <p>{t('aiChat.feature3Desc', 'Calculate precise position sizes, stop-loss distance, and risk-to-reward ratios customized to your exact account equity.')}</p>
-            
-                        </motion.div>
-                    </motion.div>
+            {/* 5. LIVE INTERACTIVE CHAT DEMO */}
+            <LiveChatDemoSection
+                demoRef={demoRef}
+                selectedPrompt={selectedPrompt}
+                onSelectPrompt={handleSelectPrompt}
+                isGenerating={isGenerating}
+                customInput={customInput}
+                setCustomInput={setCustomInput}
+                onCustomSubmit={handleCustomSubmit}
+                onCopySetup={handleCopySetup}
+            />
 
-                    {/* NEW SECTION 1: What You Can Ask Trader Master AI */}
-                    <motion.div 
-                        className={styles.capabilitiesSection}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <div className={styles.sectionHeader}>
-                            <h2>
-                                {t('aiChat.capabilitiesTitlePart1', 'What You Can Ask')}{' '}
-                                <span className={styles.neonText}>{t('aiChat.capabilitiesTitlePart2', 'Trader Master AI')}</span>
-                            </h2>
-                            <p>{t('aiChat.capabilitiesSubtitle', 'From instant market sentiment to complex macro news breakdowns, your AI assistant provides structured data.')}</p>
-                        </div>
+            {/* SECTION DIVIDER */}
+            <div className={styles.sectionDivider} aria-hidden="true" />
 
-                        <div className={styles.capabilitiesGrid}>
-                            <div className={styles.capCard}>
-                                <div className={styles.capIcon}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                                        <polyline points="17 6 23 6 23 12"></polyline>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.cap1Title', 'Real-Time Market Analysis')}</h3>
-                                <p>{t('aiChat.cap1Desc', 'Query key support and resistance levels, trend strength, and multi-timeframe candle structures for any asset class.')}</p>
-                            </div>
+            {/* 4. KEY FEATURES & CAPABILITIES */}
+            <ChatFeaturesSection />
 
-                            <div className={styles.capCard}>
-                                <div className={styles.capIcon}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.cap2Title', 'Economic News & Events')}</h3>
-                                <p>{t('aiChat.cap2Desc', 'Get immediate breakdowns of FOMC meetings, CPI releases, NFP reports, and how they impact currency volatility.')}</p>
-                            </div>
+            {/* 6. COMPARISON MATRIX & 7. FAQS */}
+            <ComparisonFaqSection openFaq={openFaq} setOpenFaq={setOpenFaq} />
 
-                            <div className={styles.capCard}>
-                                <div className={styles.capIcon}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.cap3Title', 'Risk Management Rules')}</h3>
-                                <p>{t('aiChat.cap3Desc', 'Calculate precise position sizing, stop-loss distance, and risk/reward ratios customized to your account equity.')}</p>
-                            </div>
-
-                            <div className={styles.capCard}>
-                                <div className={styles.capIcon}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF88" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                                    </svg>
-                                </div>
-                                <h3>{t('aiChat.cap4Title', 'Smart Money Concepts')}</h3>
-                                <p>{t('aiChat.cap4Desc', 'Deconstruct Order Blocks, Liquidity Sweeps, Fair Value Gaps (FVG), and institutional market structure.')}</p>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* NEW SECTION 2: Live AI Conversation Showcase */}
-                    <motion.div 
-                        className={styles.conversationShowcase}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <div className={styles.sectionHeader}>
-                            <h2>
-                                {t('aiChat.previewTitlePart1', 'Experience Interactive')}{' '}
-                                <span className={styles.neonText}>{t('aiChat.previewTitlePart2', 'Conversations')}</span>
-                            </h2>
-                            <p>{t('aiChat.previewSubtitle', 'Here is how Trader Master AI responds with structured, actionable insights.')}</p>
-                        </div>
-
-                        <div className={styles.chatPreviewBox}>
-                            <div className={styles.chatMessageUser}>
-                                <div className={styles.avatarUser}>Trader</div>
-                                <div className={styles.msgBubbleUser}>
-                                    <p>Is GBP/JPY a buy at current price on H4 timeframe?</p>
-                                </div>
-                            </div>
-
-                            <div className={styles.chatMessageAi}>
-                                <div className={styles.avatarAi}>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04100B" strokeWidth="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
-                                </div>
-                                <div className={styles.msgBubbleAi}>
-                                    <div className={styles.aiBadge}>Trader Master AI</div>
-                                    <p><strong>Structure:</strong> Bullish on H4 — price holds above the 188.40 swing low with higher highs.</p>
-                                    <p><strong>Momentum:</strong> RSI cooling from 72 toward 58 suggests healthy pullback complete.</p>
-                                    <p><strong>Plan:</strong> Wait for a rejection wick at 189.20–189.40. Stop below 188.60 (-10 pips), Target: 191.00. <strong>RR = 4.5</strong>.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* NEW SECTION 3: CTA Box */}
-                    <motion.div 
-                        className={styles.ctaCard}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className={styles.ctaContent}>
-                            <h2>{t('aiChat.ctaTitle', 'Ready to Chat with Trader Master AI?')}</h2>
-                            <p>{t('aiChat.ctaDesc', 'Join thousands of traders using AI to analyze market setups and improve win rate.')}</p>
-                            <Button
-                                text={t('aiChat.startAskingNow', 'Start Asking Now')}
-                                icon="/assets/icons/arrow.svg"
-                                href="/ai-assistant"
-                            />
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
+            {/* 8. BOTTOM CALL TO ACTION */}
+            <CommonCta
+                badge="ZERO-LATENCY AI TRADING INTELLIGENCE"
+                title1="Start Chatting with Your"
+                title2="AI Copilot Today"
+                description="Transform market noise into high-probability trading decisions in seconds."
+                primaryBtnText="LAUNCH AI CHAT NOW"
+                primaryBtnAction="/market-assistant"
+                primaryBtnIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                }
+                secondaryBtnText="VIEW LIVE DEMO"
+                secondaryBtnAction={scrollToDemo}
+            />
         </div>
     );
 }
-
-

@@ -1,0 +1,197 @@
+/* ============================================================
+   TELEGRAM CONNECT MODAL — LIGHT THEME SPECIFIC OVERRIDES
+   Institutional Light Palette with crisp contrast and blue accents
+   ============================================================ */
+
+.telegramModalOverlay {
+    &.themeLight,
+    :global(html.light) &,
+    :global(body.light) &,
+    :global([data-theme='light']) & {
+        background: rgba(15, 23, 42, 0.45);
+    }
+}
+
+.telegramModal {
+    &.themeLight,
+    :global(html.light) &,
+    :global(body.light) &,
+    :global([data-theme='light']) & {
+        background:
+            radial-gradient(ellipse 60% 50% at 50% 0%, rgba(42, 171, 238, 0.08) 0%, transparent 70%),
+            #FFFFFF;
+        border: 1px solid rgba(42, 171, 238, 0.22);
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+
+        .modalTitleGroup {
+            h3 { color: #0F172A; }
+            p  { color: #64748B; }
+        }
+
+        .modalCloseBtn {
+            background: #F1F5F9;
+            border-color: #E2E8F0;
+            color: #64748B;
+            &:hover {
+                background: #E2E8F0;
+                color: #0F172A;
+            }
+        }
+
+        .modalDivider {
+            background: linear-gradient(90deg, transparent, rgba(42, 171, 238, 0.25), transparent);
+        }
+
+        .symbolBadgeRow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .pendingSymbolBadge {
+            background: #F0F9FF;
+            border-color: rgba(42, 171, 238, 0.3);
+            color: #0284C7;
+            margin: 0 auto;
+            span.symbolLabel {
+                color: #64748B;
+            }
+        }
+
+        .methodToggle {
+            background: #F1F5F9;
+            border-color: #E2E8F0;
+        }
+
+        .methodBtn {
+            color: #64748B;
+            &:hover {
+                color: #0F172A;
+                background: rgba(255, 255, 255, 0.7);
+            }
+            &.activeMethod {
+                background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+                color: #FFFFFF;
+                box-shadow: 0 2px 8px rgba(42, 171, 238, 0.3);
+            }
+        }
+
+        .qrCodeWrapper {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+        }
+
+        .qrContainer {
+            background: #FFFFFF;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08), 0 0 12px rgba(42, 171, 238, 0.12);
+        }
+
+        .qrCenterLogoWrap {
+            background: #111A22;
+            border-color: rgba(42, 171, 238, 0.45);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+        }
+
+        .qrCenterLogo {
+            filter: drop-shadow(0 0 4px rgba(0, 242, 254, 0.5));
+        }
+
+        .qrHintText {
+            color: #64748B;
+            strong {
+                color: #0284C7;
+            }
+        }
+
+        .stepNum {
+            background: #E0F2FE;
+            border-color: rgba(42, 171, 238, 0.35);
+            color: #0284C7;
+        }
+
+        .stepText {
+            color: #475569;
+            strong { color: #0F172A; }
+        }
+
+        .otpSection .otpLabel {
+            color: #64748B;
+        }
+
+        .otpCode {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            .otpDigits {
+                color: #0F172A;
+            }
+        }
+
+        .otpCopyBtn {
+            background: #E2E8F0;
+            border-color: #CBD5E1;
+            color: #334155;
+            &:hover {
+                background: #CBD5E1;
+                color: #0F172A;
+            }
+            &.copied {
+                color: #059669;
+                border-color: rgba(5, 150, 105, 0.4);
+                background: #ECFDF5;
+            }
+        }
+
+        .expiresRow {
+            color: #64748B;
+            strong {
+                color: #334155;
+            }
+        }
+
+        .pollingRow {
+            color: #64748B;
+            .pollingDot {
+                background: #0284C7;
+            }
+        }
+
+        .channelCtaStrip {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+            .channelCtaText {
+                color: #64748B;
+                strong {
+                    color: #334155;
+                }
+            }
+            .channelCtaLink {
+                background: #E0F2FE;
+                border-color: rgba(42, 171, 238, 0.3);
+                color: #0284C7;
+                &:hover {
+                    background: rgba(42, 171, 238, 0.2);
+                }
+            }
+        }
+
+        .connectedState {
+            h4 { color: #0F172A; }
+            p  { color: #64748B; }
+            .disconnectLink {
+                color: #94A3B8;
+                &:hover { color: #DC2626; }
+            }
+        }
+
+        .modalErrorMsg {
+            background: #FEF2F2;
+            border-color: #FCA5A5;
+            color: #DC2626;
+        }
+
+        .modalLoadingWrap {
+            p { color: #64748B; }
+        }
+    }
+}

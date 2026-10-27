@@ -10,13 +10,12 @@ import {
     executeNotificationRedirect,
     getNotificationRedirectUrl
 } from '@/services/notificationService';
-import { getStoredUserId } from '@/lib/authSession';
+import Loader from '@/components/loader';
 import styles from '../profile.module.scss';
 
 export default function ProfileNotificationsTab({ userId, t, onUnreadCountChanged }) {
     const router = useRouter();
     const { language } = useLanguage();
-    const activeUserId = userId || (typeof window !== 'undefined' ? getStoredUserId() : '');
     const [activeTab, setActiveTab] = useState('unread'); // 'unread' | 'read'
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [notifications, setNotifications] = useState([]);
@@ -25,13 +24,10 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
     const [dismissingIds, setDismissingIds] = useState(new Set());
 
     const loadNotifications = useCallback(async () => {
-        if (!activeUserId) {
-            setLoading(false);
-            return;
-        }
+        if (!userId) return;
         setLoading(true);
         try {
-            const { data } = await fetchUserNotifications(activeUserId, {
+            const { data } = await fetchUserNotifications(userId, {
                 readStatus: activeTab,
                 limit: 100
             });
@@ -41,23 +37,23 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
         } finally {
             setLoading(false);
         }
-    }, [activeUserId, activeTab]);
+    }, [userId, activeTab]);
 
     useEffect(() => {
-        if (activeUserId) {
+        if (userId) {
             loadNotifications();
         }
-    }, [activeUserId, loadNotifications]);
+    }, [userId, loadNotifications]);
 
     useEffect(() => {
         const onNotifUpdated = () => {
-            if (activeUserId) {
+            if (userId) {
                 loadNotifications();
             }
         };
         window.addEventListener('notification:updated', onNotifUpdated);
         return () => window.removeEventListener('notification:updated', onNotifUpdated);
-    }, [activeUserId, loadNotifications]);
+    }, [userId, loadNotifications]);
 
     // Dynamically derive categories from actual notification records
     const dynamicCategories = useMemo(() => {
@@ -106,7 +102,7 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
                 next.delete(item.id);
                 return next;
             });
-            await markNotificationAsRead(item.id, activeUserId, item.is_broadcast);
+            await markNotificationAsRead(item.id, userId, item.is_broadcast);
             onUnreadCountChanged?.();
             window.dispatchEvent(new CustomEvent('notification:updated'));
         }, 280);
@@ -127,7 +123,7 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
             executeNotificationRedirect(item, {
                 router,
                 language,
-                isLoggedIn: Boolean(activeUserId),
+                isLoggedIn: Boolean(userId),
             });
         }
     };
@@ -141,7 +137,7 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
         } else {
             setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
         }
-        await markAllNotificationsAsRead(activeUserId, currentList);
+        await markAllNotificationsAsRead(userId, currentList);
         setMarkingAll(false);
         onUnreadCountChanged?.();
     };
@@ -228,9 +224,7 @@ export default function ProfileNotificationsTab({ userId, t, onUnreadCountChange
             {/* Notifications Feed */}
             <div className={styles.notificationsFeedArea}>
                 {loading ? (
-                    <div className={styles.notificationsLoader}>
-                        <span>{t ? t('notifications.loading', 'Loading notifications...') : 'Loading notifications...'}</span>
-                    </div>
+                    <Loader centered text={t ? t('notifications.loading', 'Loading notifications...') : 'Loading notifications...'} />
                 ) : filteredNotifications.length === 0 ? (
                     <div className={styles.notificationsEmptyState}>
                         <div className={styles.emptyBellWrap}>

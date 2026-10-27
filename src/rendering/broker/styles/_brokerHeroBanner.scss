@@ -1,0 +1,590 @@
+@keyframes pulseBeacon {
+    0% {
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(24, 201, 139, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(24, 201, 139, 0);
+    }
+    100% {
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(24, 201, 139, 0);
+    }
+}
+
+/* ── Luxury Hero Infrastructure Banner ── */
+.brokerHeroBanner {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(8, 16, 22, 0.95) 0%, rgba(4, 13, 9, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 20px;
+    padding: 26px 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45), 0 0 35px rgba(24, 201, 139, 0.08);
+
+    @include respond-to('sm') {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    /* Light Mode Overrides */
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+
+        &::before {
+            background: radial-gradient(circle, rgba(24, 201, 139, 0.1) 0%, rgba(16, 185, 129, 0.02) 45%, transparent 70%);
+        }
+
+        &::after {
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+
+        .heroLeftCol {
+            .hubBadge {
+                background: rgba(24, 201, 139, 0.12);
+                border-color: rgba(24, 201, 139, 0.35);
+                color: #047857;
+            }
+
+            .heroTitle {
+                color: #0F172A;
+            }
+
+            .heroSubtitle {
+                color: #475569;
+            }
+
+            .metricsGrid {
+                border-top-color: #E2E8F0;
+
+                .metricCard {
+                    background: #F8FAFC;
+                    border-color: #E2E8F0;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+                    &:hover {
+                        background: #FFFFFF;
+                        border-color: rgba(24, 201, 139, 0.4);
+                        box-shadow: 0 4px 12px rgba(24, 201, 139, 0.1);
+                        transform: translateY(-1px);
+                    }
+
+                    .metricIconWrap {
+                        background: rgba(24, 201, 139, 0.12);
+                        color: #059669;
+                    }
+
+                    .metricTexts {
+                        .metricVal {
+                            color: #0F172A;
+                        }
+
+                        .metricLbl {
+                            color: #059669;
+                        }
+                    }
+                }
+            }
+        }
+
+        .heroRightCol {
+            .telemetryCard {
+                background: #FFFFFF;
+                border-color: #CBD5E1;
+                box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+
+                .telemetryHeader {
+                    border-bottom-color: #F1F5F9;
+
+                    .telemetryTag {
+                        color: #64748B;
+                    }
+                }
+
+                .telemetryStatsList {
+                    .telemetryStatRow {
+                        .rowLabel {
+                            color: #64748B;
+                        }
+
+                        .rowValue {
+                            color: #0F172A;
+
+                            &.greenVal {
+                                color: #059669;
+                            }
+                        }
+                    }
+                }
+
+                .telemetryFooterNote {
+                    color: #94A3B8;
+                }
+            }
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.15) 0%, rgba(16, 185, 129, 0.04) 45%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .heroBannerContent {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: center;
+    }
+
+    /* Left Column: Title, Subtitle, 4 Micro Metrics */
+    .heroLeftCol {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .hubBadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(24, 201, 139, 0.1);
+            border: 1px solid rgba(24, 201, 139, 0.3);
+            border-radius: 9999px;
+            padding: 5px 14px;
+            width: fit-content;
+            color: #18C98B;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .heroTitle {
+            font-size: 26px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.4px;
+            line-height: 1.25;
+            margin: 0;
+            font-family: "Euclid-Bold", sans-serif;
+
+            .gradientText {
+                color: #18C98B;
+                display: inline;
+                font-weight: 800;
+
+                :global(html.light) &,
+                :global(html[data-theme='light']) &,
+                :global([data-theme='light']) &,
+                :global(.light) & {
+                    color: #059669;
+                    background: none;
+                    -webkit-text-fill-color: #059669;
+                }
+            }
+
+            @include respond-to('sm') {
+                font-size: 20px;
+            }
+        }
+
+        .heroSubtitle {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.68);
+            line-height: 1.5;
+            margin: 0;
+            max-width: 660px;
+
+            @include respond-to('sm') {
+                font-size: 13px;
+            }
+        }
+
+        /* 4 Micro Metrics Grid */
+        .metricsGrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 4px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            @include respond-to('md') {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include respond-to('sm') {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .metricCard {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 12px;
+                padding: 9px 12px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(24, 201, 139, 0.06);
+                    border-color: rgba(24, 201, 139, 0.28);
+                    transform: translateY(-1px);
+                }
+
+                .metricIconWrap {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 8px;
+                    background: rgba(24, 201, 139, 0.12);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    color: #18C98B;
+                }
+
+                .metricTexts {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1px;
+                    overflow: hidden;
+
+                    .metricVal {
+                        color: #FFFFFF;
+                        font-size: 12.5px;
+                        font-weight: 700;
+                        white-space: nowrap;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+
+                    .metricLbl {
+                        color: #18C98B;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Right Column: Telemetry Bridge Card */
+    .heroRightCol {
+        display: flex;
+        justify-content: flex-end;
+
+        @include respond-to('lg') {
+            justify-content: stretch;
+        }
+
+        .telemetryCard {
+            width: 100%;
+            background: rgba(6, 12, 16, 0.92);
+            border: 1px solid rgba(24, 201, 139, 0.32);
+            border-radius: 16px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+            .telemetryHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+                .telemetryTag {
+                    font-size: 11px;
+                    font-weight: 700;
+                    letter-spacing: 0.8px;
+                    color: #94A3B8;
+                    text-transform: uppercase;
+                    font-family: monospace;
+                }
+
+                .liveBadge {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: #18C98B;
+                    background: rgba(24, 201, 139, 0.12);
+                    padding: 2px 7px;
+                    border-radius: 9999px;
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+
+                    .liveDot {
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        background: #18C98B;
+                        box-shadow: 0 0 8px #18C98B;
+                        animation: pulseBeacon 1.8s infinite;
+                    }
+                }
+            }
+
+            .telemetryStatsList {
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+
+                .telemetryStatRow {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 11.5px;
+
+                    .rowLabel {
+                        color: #94A3B8;
+                    }
+
+                    .rowValue {
+                        color: #FFFFFF;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+
+                        &.greenVal {
+                            color: #18C98B;
+                        }
+                    }
+                }
+            }
+
+            .connectBridgeBtn {
+                width: 100%;
+                height: 36px;
+                border-radius: 9999px;
+                background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+                border: none;
+                color: #061510;
+                font-size: 12.5px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                cursor: pointer;
+                box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35);
+                transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+                &:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 6px 20px rgba(24, 201, 139, 0.5);
+                    filter: brightness(1.08);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+
+            .telemetryFooterNote {
+                font-size: 10px;
+                color: #64748B;
+                text-align: center;
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* ── Interactive Connect Modal for Brokers ── */
+.connectModalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.connectModalCard {
+    background: #08110E;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(24, 201, 139, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+
+    [data-theme='light'] &,
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+    }
+}
+
+.connectModalHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 0;
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+
+    p {
+        font-size: 12.5px;
+        color: #94A3B8;
+        margin: 4px 0 0;
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            color: #64748B;
+        }
+    }
+}
+
+.connectModalCloseBtn {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+
+    &:hover {
+        color: #FFFFFF;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.connectFormGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            color: #475569;
+        }
+    }
+
+    input, select {
+        width: 100%;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        color: #FFFFFF;
+        padding: 0 12px;
+        font-size: 13px;
+        outline: none;
+
+        &:focus {
+            border-color: #18C98B;
+            box-shadow: 0 0 10px rgba(24, 201, 139, 0.25);
+        }
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+            color: #0F172A;
+        }
+    }
+}
+
+.modalActionsRow {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+
+    .btnCancel {
+        flex: 1;
+        height: 36px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+    }
+
+    .btnConfirm {
+        flex: 2;
+        height: 36px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+        border: none;
+        color: #061510;
+        font-size: 12.5px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35);
+
+        &:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+    }
+}
+
+

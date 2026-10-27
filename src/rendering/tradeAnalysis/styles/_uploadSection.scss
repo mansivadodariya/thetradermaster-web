@@ -1,0 +1,514 @@
+/* UNANALYZED STATE VIEW (FULL WIDTH) */
+.fullWidthUploadSection {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+/* 1. NEXT-GEN 4-STEP PIPELINE STEPPER */
+.stepperCard {
+    background: $cardObsidian;
+    border: 1px solid $cardBlackBorder;
+    border-radius: 16px;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+
+    @media (max-width: 960px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 16px;
+
+        .stepConnector {
+            display: none;
+        }
+    }
+
+    @media (max-width: 580px) {
+        grid-template-columns: 1fr;
+    }
+
+    .stepItem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+
+        .stepCircle {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+
+            .stepNum {
+                font-size: 28px;
+                font-weight: 800;
+                color: $textDim;
+                // font-family: 'JetBrains Mono', monospace;
+            }
+        }
+
+        .stepMeta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .stepTitle {
+                font-size: 13px;
+                font-weight: 700;
+                color: rgba(255, 255, 255, 0.85);
+            }
+
+            .stepSub {
+                font-size: 11px;
+                color: $textDim;
+            }
+        }
+
+        &.stepActive {
+            .stepCircle {
+
+
+                .stepNum {
+                    color: #18C98B;
+                }
+
+                .pulseHalo {
+                    position: absolute;
+                    inset: -3px;
+                    border-radius: 12px;
+                    border: 1px solid rgba(24, 201, 139, 0.4);
+                    animation: pulseHaloAnim 2s infinite;
+                }
+            }
+
+            .stepMeta {
+                .stepTitle {
+                    color: $textWhite;
+                }
+
+                .stepSub {
+                    color: rgba(24, 201, 139, 0.8);
+                }
+            }
+        }
+    }
+
+    .stepConnector {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 0 10px;
+
+        .connectorLine {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(24, 201, 139, 0.25) 50%, rgba(255, 255, 255, 0.05) 100%);
+        }
+
+        .connectorDot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(24, 201, 139, 0.5);
+            box-shadow: 0 0 6px rgba(24, 201, 139, 0.8);
+        }
+    }
+}
+
+/* 2. TOP UPLOAD ROW (2 BOXES IN ONE ROW) */
+.topUploadRow {
+    display: grid;
+    grid-template-columns: 1.12fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+
+    @media (max-width: 1040px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CENTRAL HIGH-TECH OBSIDIAN DROPZONE (BOX 1) */
+.uploadCard {
+    background:
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border: 1px dashed rgba(24, 201, 139, 0.4);
+    border-radius: 20px;
+    padding: 38px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 22px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+
+    &:hover,
+    &.activeDrag {
+        border-color: #18C98B;
+        background:
+            radial-gradient(ellipse 30% 90% at 0% 50%, rgba(24, 201, 139, 0.28) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 75%),
+            radial-gradient(ellipse 55% 65% at 50% 30%, rgba(0, 242, 254, 0.18) 0%, rgba(110, 231, 183, 0.08) 50%, transparent 70%),
+            radial-gradient(ellipse 30% 90% at 100% 50%, rgba(24, 201, 139, 0.28) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 75%),
+            #121514;
+        box-shadow: 0 0 40px rgba(24, 201, 139, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+
+        .cornerBracket {
+            border-color: #18C98B;
+            box-shadow: 0 0 8px rgba(24, 201, 139, 0.4);
+        }
+
+        .iconPedestal .pedestalIcon {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 0 28px rgba(24, 201, 139, 0.4);
+        }
+    }
+
+
+    /* Floating Holographic Icon Pedestal */
+    .iconPedestal {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .pedestalGlow {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(24, 201, 139, 0.28) 0%, transparent 70%);
+            filter: blur(14px);
+        }
+
+        .pedestalIcon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(24, 201, 139, 0.16) 0%, rgba(16, 185, 129, 0.04) 100%);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.2);
+            transition: all 0.25s ease;
+
+            svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    }
+
+    .uploadHeadingGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 600px;
+
+        h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: $textWhite;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        p {
+            font-size: 14px;
+            color: $textMuted;
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+
+    .uploadButtonRow {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .chooseFileBtn {
+            background: linear-gradient(135deg, #6EE7B7 0%, #18C98B 50%, #10B981 100%);
+            border: none;
+            color: #040605;
+            padding: 13px 32px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(24, 201, 139, 0.35);
+            transition: all 0.2s ease;
+
+            svg {
+                width: 17px;
+                height: 17px;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 28px rgba(24, 201, 139, 0.55);
+            }
+        }
+
+    }
+
+    .dragDropText {
+        font-size: 12px;
+        color: $textDim;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .securityNotice {
+        font-size: 12px;
+        color: $textMuted;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+        svg {
+            color: #18C98B;
+            flex-shrink: 0;
+        }
+    }
+
+    .hiddenInput {
+        display: none;
+    }
+}
+
+/* 3. NEURAL DATA EXTRACTION ENGINE CARD (BOX 2) */
+.extractionCard {
+    background: $cardObsidian;
+    border: 1px solid $cardBlackBorder;
+    border-radius: 20px;
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    height: 100%;
+
+
+
+    .matrixHeader {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .matrixBadge {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(24, 201, 139, 0.1);
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+            flex-shrink: 0;
+
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0;
+            color: $textWhite;
+        }
+
+        p {
+            font-size: 12px;
+            color: $textMuted;
+            margin: 0;
+        }
+    }
+
+    .checklistGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+
+        @media (max-width: 540px) {
+            grid-template-columns: 1fr;
+        }
+
+        .checkItem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+
+            .checkIconBox {
+                width: 20px;
+                height: 20px;
+                border-radius: 6px;
+                background: rgba(24, 201, 139, 0.12);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #18C98B;
+                flex-shrink: 0;
+
+                svg {
+                    width: 11px;
+                    height: 11px;
+                }
+            }
+        }
+    }
+
+}
+
+/* 4. WHAT THE AI AUDIT DELIVERS BENTO GRID */
+.whatYouGetBox {
+    background: $cardObsidian;
+    border: 1px solid $cardBlackBorder;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+
+    .sectionHeadingRow {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        h3 {
+            font-size: 17px;
+            font-weight: 800;
+            margin: 0;
+            color: $textWhite;
+            letter-spacing: -0.2px;
+        }
+
+        p {
+            font-size: 13px;
+            color: $textMuted;
+            margin: 0;
+        }
+    }
+
+    .featureGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+
+        .featureCard {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all 0.22s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(24, 201, 139, 0.35);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(24, 201, 139, 0.1);
+                transform: translateY(-2px);
+            }
+
+            .featIconBox {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #18C98B;
+                flex-shrink: 0;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .featText {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                h5 {
+                    font-size: 14px;
+                    font-weight: 700;
+                    margin: 0;
+                    color: $textWhite;
+                }
+
+                p {
+                    font-size: 12px;
+                    color: $textMuted;
+                    margin: 0;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+}
+
+@keyframes pulseHaloAnim {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.2;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,708 @@
+/* ============================================================
+   COMPLETE LIGHT THEME (html.light) FOR PROFILE
+   ============================================================ */
+:global(html.light) .profile,
+:global(html[data-theme='light']) .profile,
+:global([data-theme='light']) .profile,
+:global(.light) .profile {
+    color: #0F172A;
+
+    .pageHeader {
+        .headerTitleMeta {
+            h1 {
+                color: #0F172A;
+            }
+            p {
+                color: #475569;
+            }
+        }
+    }
+
+    /* Left Navigation */
+    .leftSidebar {
+        .navMenuCard {
+            background: 
+                radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                #f3f3f3;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+    }
+
+    .navMenuItem {
+        color: #475569;
+
+        .navItemIcon {
+            color: #64748B;
+        }
+
+        &:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+
+            .navItemIcon {
+                color: #047857;
+            }
+        }
+    }
+
+    .navMenuItemActive {
+        background: #e7e7e7;
+        color: #047857;
+        border: none;
+        outline: none;
+        box-shadow: none;
+
+        &:hover {
+            background: #CED4D2;
+            border: none;
+            box-shadow: none;
+        }
+
+        .navItemIcon {
+            color: #047857;
+            filter: none;
+        }
+
+        &::after {
+            background: #10B981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+        }
+    }
+
+    /* Hero Profile Card & Personal Details Card */
+    .heroProfileCard,
+    .personalDetailsCard,
+    .tradingProfileAnalysisCard {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .heroCardHeader,
+        .detailsCardHeader {
+            border-bottom-color: rgba(24, 201, 139, 0.15);
+
+            .cardHeaderIcon {
+                background: rgba(24, 201, 139, 0.12);
+                border-color: rgba(24, 201, 139, 0.3);
+                color: #047857;
+            }
+
+            .cardHeaderTexts {
+                h3 { color: #0F172A; }
+                p { color: #64748B; }
+            }
+
+            .editProfileBtn {
+                background: #F8FAFC;
+                border: 1px solid rgba(24, 201, 139, 0.4);
+                color: #047857;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                }
+            }
+        }
+
+        .avatarCircle {
+            background: #F8FAFC;
+            border-color: #18C98B;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.2);
+
+            .avatarInitialsText {
+                color: #047857;
+            }
+        }
+
+        .userMetaDetails {
+            .userNameRow h2 {
+                color: #0F172A;
+            }
+
+            .userEmailRow {
+                .emailText {
+                    color: #475569;
+                }
+                .verifiedPill {
+                    background: #DCFCE7;
+                    border-color: #86EFAC;
+                    color: #15803D;
+                }
+            }
+
+            .metaBadgesRow {
+                .uidBadge {
+                    color: #475569;
+                    background: #E2E8F0;
+                    border: 1px solid #CBD5E1;
+                }
+
+                .joinedBadge {
+                    color: #64748B;
+
+                    svg {
+                        stroke: #64748B;
+                    }
+                    span {
+                        color: #64748B;
+                    }
+                }
+            }
+
+            .uidRow,
+            .joinedRow {
+                color: #64748B;
+
+                svg {
+                    stroke: #64748B;
+                }
+            }
+        }
+    }
+
+    /* Personal Details Card */
+    .personalDetailsCard {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .detailsCardHeader {
+            border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+            h3 { color: #0F172A; }
+            p { color: #64748B; }
+            .cardHeaderTexts {
+                h3 { color: #0F172A; }
+                p { color: #64748B; }
+            }
+            .cardHeaderIcon {
+                background: rgba(24, 201, 139, 0.12);
+                border-color: rgba(24, 201, 139, 0.3);
+                color: #047857;
+            }
+        }
+
+        .detailFieldItem,
+        .detailPillBox {
+            background: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+
+            &:hover {
+                background: #F8FAFC;
+                border-color: rgba(24, 201, 139, 0.4);
+            }
+
+            .fieldLabel,
+            .pillLabel {
+                color: #64748B;
+            }
+
+            .fieldValue,
+            .pillValue {
+                color: #0F172A;
+            }
+        }
+    }
+
+    /* Onboarding Survey & Strategy Profile Card */
+    .onboardingSurveyCard {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .surveyCardHeader {
+            border-bottom-color: rgba(15, 23, 42, 0.08);
+
+            .surveyHeaderLeft {
+                .surveyIconPulse {
+                    background: rgba(24, 201, 139, 0.12);
+                    border-color: rgba(24, 201, 139, 0.3);
+                    color: #047857;
+                }
+
+                .surveyHeaderTexts {
+                    h3 { color: #0F172A; }
+                    p { color: #64748B; }
+
+                    .calibratedBadge {
+                        background: #DCFCE7;
+                        border-color: #86EFAC;
+                        color: #15803D;
+
+                        .greenBeacon {
+                            background: #15803D;
+                            box-shadow: 0 0 6px rgba(21, 128, 61, 0.6);
+                        }
+                    }
+                }
+            }
+
+            .recalibrateBtn {
+                background: #F8FAFC;
+                border-color: rgba(24, 201, 139, 0.4);
+                color: #047857;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                }
+            }
+        }
+
+        .emptySurveyBanner {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.4);
+
+            .emptyTexts {
+                h4 { color: #0F172A; }
+                p { color: #64748B; }
+            }
+        }
+
+        .surveyBlockItem {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+
+            &:hover {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.4);
+            }
+
+            .blockHead {
+                .blockLabel { color: #64748B; }
+                .expBadgePill {
+                    background: #DCFCE7;
+                    border-color: #86EFAC;
+                    color: #15803D;
+                }
+                .countBadge {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #475569;
+                    white-space: nowrap;
+                    flex-shrink: 0;
+                }
+            }
+
+            .blockMainVal {
+                h4 { color: #0F172A; }
+                .blockSubDesc { color: #475569; }
+            }
+
+            .blockFooterTag span {
+                background: #DCFCE7;
+                border-color: #86EFAC;
+                color: #15803D;
+            }
+
+            .pillsCluster .emptyTextMuted {
+                color: #94A3B8;
+            }
+
+            .surveyPillTag,
+            .goalPillTag,
+            .assetPillTag {
+                background: #FFFFFF;
+                border-color: rgba(15, 23, 42, 0.12);
+
+                &:hover {
+                    border-color: rgba(24, 201, 139, 0.45);
+                    background: rgba(24, 201, 139, 0.06);
+                }
+
+                .pillLabel,
+                .goalText,
+                .assetName {
+                    color: #0F172A;
+                }
+
+                .pillTimeframe,
+                .assetCategory {
+                    color: #64748B;
+                }
+
+                .goalTagBadge {
+                    background: #DCFCE7;
+                    color: #15803D;
+                }
+            }
+        }
+    }
+
+    /* Right Column */
+    .rightSummaryColumn,
+    .rightSidebar {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .rightCard {
+            border-bottom-color: rgba(24, 201, 139, 0.15);
+
+            .rightCardTitle {
+                color: #0F172A;
+            }
+
+            .summaryMetaRows .summaryRow {
+                .summaryLabel {
+                    color: #64748B;
+                }
+
+                .summaryActiveTag {
+                    color: #059669;
+                    font-weight: 700;
+                    font-size: 13px;
+                    background: transparent;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    padding: 0;
+                }
+
+                .summaryProTag {
+                    color: #059669;
+                    font-weight: 700;
+                    font-size: 13px;
+                    background: transparent;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    padding: 0;
+                }
+            }
+
+            .creditsCardBox {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.2);
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+
+                .creditsHead {
+                    .creditsLabel { color: #64748B; }
+                    .viewPlansBtn { color: #047857; }
+                }
+
+                .creditsNumbers .creditsAmount {
+                    color: #0F172A;
+                    span { color: #047857; }
+                }
+            }
+
+            .verificationList .verifItem {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+
+                .verifLeft { color: #0F172A; }
+                .verifActionBtn {
+                    background: rgba(24, 201, 139, 0.12);
+                    color: #047857;
+                }
+            }
+
+            .quickActionsGrid .actionGridBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                color: #0F172A;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+
+                &:hover {
+                    background: #F1F5F9;
+                    border-color: rgba(24, 201, 139, 0.4);
+                    color: #047857;
+                }
+
+                &.actionDanger:hover {
+                    background: #FEE2E2;
+                    border-color: #EF4444;
+                    color: #DC2626;
+                }
+            }
+
+            .logoutActionWrap .logoutBtn {
+                background: #FEF2F2;
+                border-color: rgba(239, 68, 68, 0.25);
+                color: #DC2626;
+
+                &:hover {
+                    background: #EF4444;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .securityPriorityCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+            .securityPriorityLeft {
+                .secShieldIcon {
+                    background: #ECFDF5;
+                    border-color: #A7F3D0;
+
+                    svg {
+                        stroke: #059669;
+                    }
+                }
+
+                .secPriorityTexts {
+                    h5 {
+                        color: #0F172A;
+                    }
+
+                    p {
+                        color: #64748B;
+                    }
+                }
+            }
+        }
+    }
+
+    .securityPriorityCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+        .securityPriorityLeft {
+            .secShieldIcon {
+                background: #ECFDF5;
+                border-color: #A7F3D0;
+
+                svg {
+                    stroke: #059669;
+                }
+            }
+
+            .secPriorityTexts {
+                h5 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #64748B;
+                }
+            }
+        }
+    }
+
+    /* Tab Content Panels (Security, Activity) */
+    .tabContentPanel,
+    .tabCardContainer {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .panelHeaderRow h3,
+        .cardHeaderBox h3,
+        .tabHeaderRow .tabTitle {
+            color: #0F172A;
+        }
+
+        .panelHeaderRow p,
+        .panelHeaderRow .panelSubtitle,
+        .cardHeaderBox p,
+        .tabHeaderRow .tabSubtitle {
+            color: #64748B;
+        }
+
+        .securityBannerCard {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+
+            .securityBannerLeft {
+                .shieldIconWrap {
+                    background: rgba(24, 201, 139, 0.12);
+                    border-color: rgba(24, 201, 139, 0.3);
+                    color: #047857;
+                }
+
+                .bannerTexts {
+                    h4 { color: #0F172A; }
+                    p { color: #64748B; }
+                }
+            }
+
+            .bannerActionBtn {
+                background: #FFFFFF;
+                border-color: rgba(24, 201, 139, 0.4);
+                color: #047857;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                }
+            }
+        }
+
+        .activityTimeline .timelineItem {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+
+            &:hover {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.35);
+            }
+
+            .timelineContent {
+                .timelineHeader {
+                    .timelineTitle { color: #0F172A; }
+                    .timelineTime { color: #64748B; }
+                }
+
+                .timelineDetails {
+                    color: #475569;
+
+                    .ipBadge {
+                        background: rgba(24, 201, 139, 0.12);
+                        border-color: rgba(24, 201, 139, 0.25);
+                        color: #047857;
+                    }
+                }
+            }
+        }
+
+        .activityCardsList {
+            .activityItemRow {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+
+                &:hover {
+                    background: #F8FAFC;
+                    border-color: rgba(24, 201, 139, 0.4);
+                }
+
+                &.activeActivityRow {
+                    background: #F0FDF4;
+                    border-color: rgba(24, 201, 139, 0.35);
+
+                    &:hover {
+                        background: #DCFCE7;
+                    }
+                }
+
+                .activityItemLeft {
+                    .activityIconBox {
+                        background: #F1F5F9;
+                        border-color: #E2E8F0;
+                        color: #64748B;
+
+                        &.activeActivityIconBox {
+                            background: rgba(24, 201, 139, 0.12);
+                            border-color: rgba(24, 201, 139, 0.3);
+                            color: #047857;
+                        }
+                    }
+
+                    .activityMeta {
+                        .activityDateRow {
+                            .activityDateText { color: #0F172A; }
+                            .dateDotSeparator { color: #94A3B8; }
+                            .activityTimeText { color: #64748B; }
+                        }
+
+                        .activityDescText { color: #475569; }
+                    }
+                }
+
+                .activityItemRight {
+                    .activeSessionBadge {
+                        background: #DCFCE7;
+                        border-color: #86EFAC;
+                        color: #15803D;
+                    }
+
+                    .pastSessionBadge {
+                        background: #F1F5F9;
+                        border-color: #E2E8F0;
+                        color: #64748B;
+                    }
+                }
+            }
+        }
+
+        .emptyActivityState {
+            color: #64748B;
+        }
+    }
+
+    /* Modals */
+    .modalContent {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+
+        .modalHeader {
+            h3 { color: #0F172A; }
+            .closeBtn { color: #64748B; &:hover { color: #0F172A; } }
+        }
+
+        p { color: #475569; }
+
+        .modalFooter {
+            .cancelFormBtn {
+                background: #F1F5F9;
+                border: 1px solid #CBD5E1;
+                color: #334155;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+                &:hover:not(:disabled) {
+                    background: #E2E8F0;
+                    border-color: #94A3B8;
+                    color: #0F172A;
+                }
+            }
+
+            .submitModalBtn {
+                background: #18C98B;
+                border-color: #18C98B;
+                color: #040605;
+                box-shadow: 0 2px 8px rgba(24, 201, 139, 0.25);
+
+                &:hover:not(:disabled) {
+                    background: #15B77E;
+                    border-color: #15B77E;
+                    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35);
+                }
+            }
+
+            .confirmLogoutBtn {
+                background: #EF4444;
+                border-color: #EF4444;
+                color: #FFFFFF;
+                box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+
+                &:hover:not(:disabled) {
+                    background: #DC2626;
+                    border-color: #DC2626;
+                }
+            }
+        }
+    }
+}

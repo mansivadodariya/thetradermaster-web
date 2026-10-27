@@ -2,210 +2,252 @@
   0% {
     background-position: -200% 0;
   }
-
   100% {
     background-position: 200% 0;
   }
 }
 
 .skeletonPulse {
-  background: linear-gradient(90deg,
-      rgba(226, 232, 240, 0.6) 0%,
-      rgba(241, 245, 249, 0.95) 50%,
-      rgba(226, 232, 240, 0.6) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(24, 201, 139, 0.04) 0%,
+    rgba(24, 201, 139, 0.12) 50%,
+    rgba(24, 201, 139, 0.04) 100%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite ease-in-out;
   border-radius: 6px;
 }
 
-:global(.dark) .skeletonPulse,
-:global(html.dark) .skeletonPulse {
-  background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.12) 50%,
-      rgba(255, 255, 255, 0.05) 100%);
-  background-size: 200% 100%;
-}
-
-/* Card Skeleton */
+/* 1. Card Skeleton */
 .cardSkeleton {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 20px;
+  background: #080B0A;
+  border: 1px solid rgba(24, 201, 139, 0.2);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 420px;
-}
-
-:global(.dark) .cardSkeleton,
-:global(html.dark) .cardSkeleton {
-  background: #070707;
-  border-color: rgba(0, 255, 136, 0.14);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  min-height: 380px;
 }
 
 .bannerHeader {
-  height: 120px;
-  background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
+  height: 88px;
+  background: #0B0E0D;
   position: relative;
-  padding: 16px 20px;
-  border-bottom: 1px solid #E2E8F0;
-}
-
-:global(.dark) .bannerHeader,
-:global(html.dark) .bannerHeader {
-  background: linear-gradient(135deg, rgba(0, 255, 136, 0.06) 0%, #0A0D0B 100%);
-  border-bottom-color: rgba(0, 255, 136, 0.14);
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
 }
 
 .logoCircle {
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
+  width: 110px;
+  height: 36px;
+  border-radius: 10px;
 }
 
 .cardBody {
-  padding: 24px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
 }
 
 .titleLine {
-  width: 60%;
-  height: 24px;
+  width: 55%;
+  height: 20px;
 }
 
 .subtitleLine {
   width: 35%;
-  height: 16px;
+  height: 13px;
 }
 
 .descLine1 {
   width: 100%;
-  height: 14px;
-  margin-top: 8px;
+  height: 12px;
+  margin-top: 4px;
 }
 
 .descLine2 {
-  width: 80%;
-  height: 14px;
+  width: 75%;
+  height: 12px;
 }
 
 .highlightsGrid {
-  padding: 0 24px 20px 24px;
+  padding: 0 16px 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .highlightItem {
-  height: 42px;
+  height: 38px;
   border-radius: 10px;
+  background: rgba(24, 201, 139, 0.04);
+  border: 1px solid rgba(24, 201, 139, 0.12);
 }
 
 .cardFooter {
-  padding: 16px 24px;
-  border-top: 1px solid #E2E8F0;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(24, 201, 139, 0.1);
   display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-:global(.dark) .cardFooter,
-:global(html.dark) .cardFooter {
-  border-top-color: rgba(0, 255, 136, 0.15);
+  gap: 8px;
 }
 
 .btnSkeleton {
-  width: 110px;
+  flex: 1;
   height: 38px;
-  border-radius: 10px;
+  border-radius: 9999px;
+  background: rgba(24, 201, 139, 0.08);
+  border: 1px solid rgba(24, 201, 139, 0.2);
 }
 
-/* Detail Page Skeleton */
+/* 2. Detail Skeleton */
 .detailSkeleton {
-  padding: 40px 0 80px 0;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
+  width: 100%;
 }
 
 .detailBanner {
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 40px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #070A09;
+  border: 1px solid rgba(24, 201, 139, 0.28);
+  border-radius: 20px;
+  padding: 32px 36px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-:global(.dark) .detailBanner,
-:global(html.dark) .detailBanner {
-  background: #070707;
-  border-color: rgba(0, 255, 136, 0.14);
+  gap: 14px;
 }
 
 .detailLogo {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
+  width: 140px;
+  height: 48px;
+  border-radius: 12px;
 }
 
 .detailTitle {
-  width: 40%;
-  height: 36px;
+  width: 260px;
+  height: 32px;
 }
 
 .detailSub {
-  width: 25%;
-  height: 20px;
+  width: 180px;
+  height: 16px;
 }
 
 .detailGrid {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 32px;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 }
 
 .detailCardSection {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 32px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #080B0A;
+  border: 1px solid rgba(24, 201, 139, 0.18);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-:global(.dark) .detailCardSection,
-:global(html.dark) .detailCardSection {
-  background: #070707;
-  border-color: rgba(0, 255, 136, 0.14);
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .sectionTitle {
-  width: 30%;
-  height: 24px;
+  width: 180px;
+  height: 22px;
+  margin-bottom: 6px;
 }
 
 .paragraphLine {
   width: 100%;
-  height: 16px;
+  height: 14px;
 }
 
 .featureBox {
-  height: 24px;
-  width: 85%;
-  border-radius: 6px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(24, 201, 139, 0.04);
+  border: 1px solid rgba(24, 201, 139, 0.12);
 }
+
+/* ============================================================
+   LIGHT THEME OVERRIDES FOR SKELETON
+   ============================================================ */
+:global(html.light) {
+  .skeletonPulse {
+    background: linear-gradient(
+      90deg,
+      #E2E8F0 0%,
+      #F1F5F9 50%,
+      #E2E8F0 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  .cardSkeleton {
+    background: 
+      radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+      radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+      radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+      #f3f3f3;
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .bannerHeader {
+    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+    .logoCircle {
+      background: #FFFFFF;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  .highlightItem {
+    background: #F8FAFC;
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .cardFooter {
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .btnSkeleton {
+    background: #F1F5F9;
+    border-color: #E2E8F0;
+  }
+
+  .detailBanner {
+    background: linear-gradient(135deg, #F8FAFC 0%, #EDF8F3 100%);
+    border-color: rgba(24, 201, 139, 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+
+    .detailLogo {
+      background: #FFFFFF;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+    }
+  }
+
+  .detailCardSection {
+    background: #FFFFFF;
+    border-color: #E2E8F0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  .featureBox {
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+  }
+}
+

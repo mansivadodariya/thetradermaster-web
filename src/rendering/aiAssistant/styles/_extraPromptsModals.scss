@@ -1,0 +1,469 @@
+    :global(html.dark) & {
+        .chipsRow {
+            &::-webkit-scrollbar-thumb {
+                background: rgba(24, 201, 139, 0.3);
+            }
+
+            .chip {
+                background: #252529;
+                color: #18C98B;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #FFF;
+                }
+            }
+        }
+
+        .inputArea {
+            background: #040605;
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+            .textarea {
+                color: #ffffff;
+
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+
+            .sendBtn {
+                background: #ffffff;
+                color: #0D0E13;
+
+                &:hover:not(:disabled) {
+                    background: #18C98B;
+                    color: #ffffff;
+                }
+            }
+
+            .inputFooter {
+                .leftInputControls {
+                    .attachDropdownContainer {
+                        .attachPlusBtn {
+                            background: transparent;
+                            border: none;
+                            color: #94a3b8;
+
+                            &:hover {
+                                background: transparent;
+                                color: #ffffff;
+                            }
+
+                            &.attachPlusActive {
+                                background: transparent;
+                                color: #18C98B;
+                                box-shadow: none;
+
+                                .plusIconWrapper {
+                                    transform: rotate(45deg);
+                                }
+                            }
+                        }
+
+                        .attachFloatingMenu,
+                        .attachDropdownMenu {
+                            background: #040605;
+                            border: 1px solid rgba(255, 255, 255, 0.18);
+                            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+
+                            .attachMenuItem {
+                                color: #e2e8f0;
+
+                                svg {
+                                    color: #18C98B;
+                                }
+
+                                &:hover {
+                                    background: rgba(24, 201, 139, 0.15);
+                                    color: #18C98B;
+
+                                    svg {
+                                        color: #18C98B;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .dropdownContainer {
+                    .dropdownTrigger {
+                        background: #040605;
+                        border-color: rgba(255, 255, 255, 0.18);
+                        color: #ffffff;
+
+                        &:hover {
+                            border-color: #18C98B;
+                            background: rgba(24, 201, 139, 0.1);
+                            color: #ffffff;
+                        }
+                    }
+
+                    .dropdownMenu {
+                        background: #040605;
+                        border-color: rgba(255, 255, 255, 0.18);
+                        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+
+                        .dropdownHeader {
+                            color: #64748b;
+                            border-bottom-color: rgba(255, 255, 255, 0.1);
+                            background: #040605;
+                        }
+
+                        .dropdownList {
+                            .dropdownItem {
+                                color: #e2e8f0;
+
+                                &:hover {
+                                    background: rgba(24, 201, 139, 0.15);
+                                    color: #18C98B;
+                                }
+
+                                &.activePair {
+                                    background: rgba(24, 201, 139, 0.2);
+                                    color: #18C98B;
+                                }
+
+                                .checkmark {
+                                    color: #18C98B;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .toggleContainer {
+                    .toggleLabel {
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+
+                    .switch {
+                        .slider {
+                            background-color: rgba(255, 255, 255, 0.2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+
+    .reportPanel,
+    .inlineReportContainer {
+        h3 {
+            color: #ffffff;
+        }
+    }
+
+    .reportPanel {
+        border-color: #2d2d34;
+
+        .reportPanelHeader {
+            border-bottom-color: #2d2d34;
+            background: #1a1a1e;
+        }
+
+        .reportPanelBody {
+            background: #0f0f11;
+
+            .reportEmpty {
+                color: rgba(255, 255, 255, 0.5);
+
+                .reportEmptyTitle {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+
+    .inlineReportContainer {
+        .reportContent {
+            background: #1a1a1e;
+            border: 1px solid #2d2d34;
+            border-radius: 8px;
+            padding: 16px 20px;
+        }
+
+        .reportEmpty {
+            color: rgba(255, 255, 255, 0.5);
+
+            .reportEmptyTitle {
+                color: #ffffff;
+            }
+        }
+
+        .reportLoading {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+
+    .reportWidget {
+        background: #252529;
+        border-color: #2d2d34;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+        .reportWidgetTitle {
+            color: #ffffff;
+        }
+    }
+
+    .reportWidgetMissing {
+        background: #252529;
+        border-color: #2d2d34;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .reportMarkdown {
+        color: #f3f4f6;
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #ffffff;
+        }
+
+        h2 {
+            border-bottom-color: #2d2d34;
+        }
+
+        p,
+        li {
+            color: #d1d5db;
+        }
+
+        :global(table) {
+            border-color: #2d2d34;
+        }
+
+        :global(th),
+        :global(td) {
+            border-color: #2d2d34;
+        }
+
+        :global(th) {
+            background: #252529;
+            color: #ffffff;
+        }
+
+        :global(td) {
+            color: #e2e8f0;
+        }
+
+        :global(tr:nth-child(even) td) {
+            background: #1a1a1e;
+        }
+    }
+
+    .mdH2 {
+        color: #ffffff;
+        border-bottom-color: #2d2d34;
+    }
+
+    .mdH3 {
+        color: #e2e8f0;
+    }
+
+    .mdTableWrapper {
+        border-color: #2d2d34;
+    }
+
+    .mdTable {
+        th {
+            background: #252529;
+            color: #ffffff;
+            border-bottom-color: #2d2d34;
+        }
+
+        td {
+            color: #e2e8f0;
+            border-bottom-color: #2d2d34;
+        }
+
+        tr:nth-child(even) td {
+            background: #1a1a1e;
+        }
+    }
+
+    .mdChartBlock {
+        border-color: #2d2d34;
+        background: #1a1a1e;
+    }
+
+    .mdChartTitle {
+        color: #18C98B;
+        background: #252529;
+        border-bottom-color: #2d2d34;
+    }
+
+    .historyModalContent {
+        background: #1a1a1e;
+
+        .first {
+            .lineText {
+                color: rgba(255, 255, 255, 0.5);
+
+                &::before,
+                &::after {
+                    background: linear-gradient(to right, transparent, rgba(24, 201, 139, 0.4));
+                }
+            }
+        }
+
+        .allMessage {
+            border-top-color: #2d2d34;
+
+            &::-webkit-scrollbar-thumb {
+                background: rgba(24, 201, 139, 0.2);
+            }
+
+            .noHistory {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .messageBox {
+                background: #252529;
+                border-color: #2d2d34;
+
+                &:hover {
+                    background: #2d2d34;
+                    border-color: rgba(24, 201, 139, 0.4);
+                }
+
+                &.selectedBox {
+                    background: rgba(24, 201, 139, 0.1);
+                    border-color: #18C98B;
+
+                    p {
+                        color: #18C98B;
+                        font-weight: 600;
+                    }
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.85);
+                }
+
+                .icon {
+                    color: rgba(255, 255, 255, 0.4);
+
+                    &:hover {
+                        background-color: rgba(239, 68, 68, 0.2);
+                        color: #f87171;
+                    }
+                }
+            }
+        }
+    }
+
+    .modalCancelBtn {
+        background: #252529;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+            background: #2d2d34;
+            color: #ffffff;
+        }
+    }
+
+    .modalText {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Dark Mode Image Preview Modal Overrides */
+    .imagePreviewOverlay.darkModeModal,
+    .darkModeModal {
+        background: rgba(10, 12, 18, 0.88);
+
+        .imagePreviewCard {
+            background: #131722;
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .imagePreviewHeader {
+            background: #1e222d;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+
+            .titleGroup {
+                color: #18C98B;
+            }
+
+            .imagePreviewTitle {
+                color: #ffffff;
+            }
+
+            .previewActionBtn {
+                background: rgba(24, 201, 139, 0.15);
+                border-color: rgba(24, 201, 139, 0.3);
+                color: #18C98B;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #ffffff;
+                    border-color: #18C98B;
+                }
+            }
+
+            .previewCloseBtn {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.12);
+                color: #94a3b8;
+
+                &:hover {
+                    background: #ef4444;
+                    color: #ffffff;
+                    border-color: #ef4444;
+                }
+            }
+        }
+
+        .imagePreviewBody {
+            background: #0D0E13;
+
+            .fullPreviewImg {
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+                border: none;
+            }
+        }
+    }
+
+    .compactAttachmentCard {
+        background: #0f172a;
+        border: 1.5px solid rgba(148, 163, 184, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 6px 16px rgba(24, 201, 139, 0.25);
+        }
+    }
+
+    .compactCloseBtn {
+        background: #16130e;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        color: #94a3b8;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+        &:hover {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+        }
+    }
+
+
+@keyframes fadeInModalOverlay {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

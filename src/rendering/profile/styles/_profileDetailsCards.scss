@@ -1,0 +1,363 @@
+/* Middle Column: Main Content Column */
+.mainContentColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.profileTabWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+}
+
+/* Unified Personal Details & Profile Info Card */
+.personalDetailsCard,
+.heroProfileCard {
+    background:
+        radial-gradient(ellipse 40% 70% at 100% 0%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 80%),
+        radial-gradient(ellipse 40% 70% at 0% 100%, rgba(0, 242, 254, 0.12) 0%, transparent 75%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 8px;
+    padding: 22px 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+
+    .detailsCardHeader,
+    .heroCardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+
+        .heroCardHeaderLeft {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .cardHeaderIcon {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .cardHeaderTexts {
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                    margin: 0 0 2px;
+
+                    [data-theme='light'] &,
+                    :global(html.light) & {
+                        color: #0F172A;
+                    }
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 13px;
+                    margin: 0;
+
+                    [data-theme='light'] &,
+                    :global(html.light) & {
+                        color: #64748B;
+                    }
+                }
+            }
+        }
+
+        .editProfileBtn {
+            background: rgba(24, 201, 139, 0.12);
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            color: #18C98B;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: "Euclid-Medium", sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+
+            &:hover {
+                background: #18C98B;
+                color: #040605;
+                border-color: #18C98B;
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
+            }
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                background: #F8FAFC;
+                border-color: rgba(24, 201, 139, 0.4);
+                color: #047857;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                }
+            }
+        }
+    }
+
+    /* Hero User Meta */
+    .heroCardBody {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 18px;
+
+        @include respond-to('sm') {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    .avatarWrapper {
+        position: relative;
+        flex-shrink: 0;
+
+        .avatarCircle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 2px solid #18C98B;
+            background: #0D0E13;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.25);
+
+            .avatarInitialsText {
+                font-size: 26px;
+                font-weight: 700;
+                color: #18C98B;
+                font-family: "Euclid-Bold", sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                user-select: none;
+            }
+
+            [data-theme='light'] &,
+            :global(html.light) & {
+                background: #F8FAFC;
+                border-color: #18C98B;
+                box-shadow: 0 4px 16px rgba(24, 201, 139, 0.2);
+
+                .avatarInitialsText {
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    .userMetaDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+
+        .userNameRow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+
+            h2 {
+                color: #FFFFFF;
+                font-size: 20px;
+                font-weight: 700;
+                font-family: "Euclid-Bold", sans-serif;
+                margin: 0;
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .userEmailRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            .emailText {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 14px;
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    color: #475569;
+                }
+            }
+
+            .verifiedPill {
+                background: rgba(16, 185, 129, 0.15);
+                border: 1px solid rgba(16, 185, 129, 0.35);
+                color: #34D399;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 2px 7px;
+                border-radius: 5px;
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    background: #DCFCE7;
+                    border-color: #86EFAC;
+                    color: #15803D;
+                }
+            }
+        }
+
+        .metaBadgesRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+
+            .uidBadge {
+                color: rgba(255, 255, 255, 0.55);
+                font-size: 12px;
+                font-family: "Euclid-Medium", sans-serif;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 2px 8px;
+                border-radius: 6px;
+                letter-spacing: 0.3px;
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    color: #475569;
+                    background: #E2E8F0;
+                    border-color: #CBD5E1;
+                }
+            }
+
+            .joinedBadge {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 12px;
+
+                [data-theme='light'] &,
+                :global(html.light) & {
+                    color: #64748B;
+
+                    svg {
+                        stroke: #64748B;
+                    }
+                    span {
+                        color: #64748B;
+                    }
+                }
+            }
+        }
+    }
+
+    .cardDivider {
+        height: 1px;
+        background: rgba(24, 201, 139, 0.12);
+        margin-bottom: 18px;
+    }
+
+    /* Grid for View Mode */
+    .detailsViewGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .detailFieldItem {
+            background: rgba(13, 14, 19, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 13px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: border-color 0.2s ease;
+
+            &:hover {
+                border-color: rgba(24, 201, 139, 0.35);
+            }
+
+            .fieldLabel {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.5);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .fieldValue {
+                color: #FFFFFF;
+                font-size: 14px;
+                font-weight: 600;
+                font-family: "Euclid-Medium", sans-serif;
+                word-break: break-word;
+            }
+        }
+    }
+
+    /* Form for Edit Mode */
+    .editDetailsForm {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .formInputsGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+
+            @include respond-to('sm') {
+                grid-template-columns: 1fr;
+            }
+
+            .inputCol {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .formActionFooter {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 8px;
+        }
+    }
+}

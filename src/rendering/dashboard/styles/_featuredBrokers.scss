@@ -1,0 +1,105 @@
+/* ============================================================
+   FEATURED BROKERS CARDS ROW (Exact match to BrokerCard component)
+   ============================================================ */
+
+.featuredBrokersSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 2px;
+}
+
+.featuredBrokersHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 33px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.featuredBrokersHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .featuredBrokersIcon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            background: rgba(24, 201, 139, 0.14);
+            border: 1px solid rgba(24, 201, 139, 0.3);
+            border-radius: 9px;
+        }
+    }
+
+    .featuredBrokersTitle {
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 0;
+        font-family: "Euclid-Bold", sans-serif;
+        line-height: 1.2;
+
+        @include respond-to('sm') {
+            font-size: 15px;
+        }
+
+        [data-theme='light'] &,
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+}
+
+.viewAllBrokersLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #18C98B;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 6px;
+
+    &:hover {
+        color: #34D399;
+        background: rgba(24, 201, 139, 0.08);
+        transform: translateX(2px);
+    }
+}
+
+/* ── Broker Cards Responsive Grid (4 cards on bigger screens, 3 cards on <=1440px) ── */
+.featuredBrokersGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+
+    @media (max-width: 1440px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}

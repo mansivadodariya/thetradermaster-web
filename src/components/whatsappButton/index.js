@@ -1,55 +1,96 @@
 "use client";
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './whatsappButton.module.scss';
-
 import { usePathname } from 'next/navigation';
+import { useContactInfo } from '@/services/contactInfoService';
+
+const SUPPORTED_LOCALES = ['en', 'ar', 'ary', 'es', 'ru', 'zh', 'vi', 'id', 'fil', 'arabic', 'spanish', 'russian', 'chinese', 'vietnamese', 'indonesian', 'filipino', 'darija'];
+
+function stripLocalePrefix(path) {
+    if (!path) return '/';
+    const clean = path.split('?')[0].replace(/\/$/, '') || '/';
+    const parts = clean.split('/').filter(Boolean);
+    if (parts.length > 0 && SUPPORTED_LOCALES.includes(parts[0].toLowerCase())) {
+        const withoutLocale = '/' + parts.slice(1).join('/');
+        return withoutLocale === '' ? '/' : withoutLocale;
+    }
+    return clean;
+}
 
 export default function WhatsappButton() {
+    const { t } = useLanguage();
     const pathname = usePathname();
+    const { contactInfo } = useContactInfo();
 
-    // Hide WhatsApp button on dashboard, user, and auth pages
-    const hideOnPaths = [
-        '/dashboard',
-        '/trade-snap',
-        '/ai-assistant',
-        '/ai-strategy',
+    const publicLandingPages = [
+        '/',
+        '/',
+        '/capabilities',
         '/economic-calendar',
-        '/profile',
-        '/settings',
-        '/credit-history',
+        '/forex-calculator',
+        '/market-news',
+        '/blogs',
+        '/about-us',
+        '/contact-us',
+        '/terms-and-conditions',
+        '/privacy-policy',
+        '/risk-disclosure',
         '/plans',
-        '/broker',
-        '/brokers',
-        '/login',
-        '/signup',
-        '/forgot-password',
-        '/reset-password',
-        '/verify-email'
+        '/white-label',
+        '/affiliate-program',
+        '/ai-chart-scanner',
+        '/ai-market-assistant',
+        '/ai-strategy-core',
+        '/ai-strategy-hub',
+        '/ai-trade-advisor',
+        '/ai-trade-audit',
+        '/ai-trading-signal',
+        '/backtesting',
+        '/custom-bot-builder',
+        '/live-market-scanner',
+        '/no-refund-policy',
+        '/supported-brokers'
     ];
 
-    const shouldHide = pathname && hideOnPaths.some(path => pathname.startsWith(path));
+    const cleanPath = stripLocalePrefix(pathname);
 
-    if (shouldHide) {
+    const isPublicPage = Boolean(
+        cleanPath && (
+            publicLandingPages.includes(cleanPath) ||
+            publicLandingPages.some(page => page !== '/' && cleanPath.startsWith(page))
+        )
+    );
+
+    // If not a public landing page (i.e. user dashboard, tools, auth, onboarding), hide it completely
+    if (!isPublicPage) {
         return null;
     }
 
-    const whatsappNumber = "+971564940900";
-    const sanitizedWhatsappNumber = whatsappNumber.replace(/[^\d]/g, "");
-    const whatsappUrl = `https://wa.me/${sanitizedWhatsappNumber}`;
+    // Dynamic WhatsApp number from Supabase social_links (fallback to phone or default)
+    const rawNumber = contactInfo?.whatsapp?.value || contactInfo?.phone?.value || '+971 56 884 0900';
+    const whatsappUrl = (() => {
+        const trimmed = (rawNumber || '').trim();
+        if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+            return trimmed;
+        }
+        const digits = trimmed.replace(/[^\d]/g, '');
+        return `https://wa.me/${digits || '971568840900'}`;
+    })();
 
     return (
         <motion.div
             className={styles.whatsappWrapper}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 1, duration: 0.3 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
         >
             <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}
-                aria-label="Chat on WhatsApp"
+                aria-label={t('components.whatsapp.chatOnWhatsapp', 'Chat on WhatsApp')}
             >
                 <div className={styles.tooltip}>Chat with us</div>
                 <div className={styles.pulseRing}></div>

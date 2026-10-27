@@ -1,0 +1,391 @@
+.aiAssistant {
+  padding: 110px 0;
+  position: relative;
+  overflow: hidden;
+  background: #040302;
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 48px 0;
+  }
+
+  :global(.container) {
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Ambient Atmospheric Back-Glows */
+  .ambientGlowLeft {
+    position: absolute;
+    top: 20%;
+    left: -10%;
+    width: 550px;
+    height: 550px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.09) 0%, transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ambientGlowRight {
+    position: absolute;
+    bottom: 10%;
+    right: -5%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .gridWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.22fr;
+    gap: 48px;
+    align-items: center;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+
+  /* ============================================================
+     LEFT COLUMN: ULTRA-PREMIUM FEATURE SELECTION DECK
+     ============================================================ */
+  .leftContent {
+    display: flex;
+    flex-direction: column;
+
+    .badgeWrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+
+      .neuralEngineBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(24, 201, 139, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        padding: 5px 12px;
+        border-radius: 20px;
+        @include font-bold;
+        font-size: 10px;
+        letter-spacing: 0.6px;
+        color: #6EE7B7;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
+
+        .enginePulseDot {
+          width: 5.5px;
+          height: 5.5px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 8px #10B981;
+          animation: pulseGlow 1.5s infinite ease-in-out;
+        }
+      }
+    }
+
+    .mainTitle {
+      @include heading-white-gradient;
+      font-size: 54px;
+      font-weight: 400;
+      line-height: 1.14;
+      text-transform: uppercase;
+      font-family: var(--font-anton);
+      letter-spacing: 0.5px;
+      margin: 0 0 18px 0;
+
+      span,
+      .goldHighlight {
+        @include heading-gold-gradient;
+        display: inline-block;
+        text-shadow: 0 0 24px rgba(24, 201, 139, 0.25);
+      }
+
+      @include respond-to("tab") {
+        font-size: 40px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 32px;
+      }
+    }
+
+    .subtext {
+      color: #9E9C96;
+      font-size: 16px;
+      line-height: 1.68;
+      margin: 0 0 32px 0;
+      max-width: 540px;
+      @include font-normal;
+
+      .textHighlight {
+        color: #6EE7B7;
+        @include font-semibold;
+      }
+
+      @include respond-to("tab") {
+        font-size: 15px;
+      }
+    }
+
+    /* Interactive Feature Cards List */
+    .featuresList {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .featureItem {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0%, rgba(18, 14, 8, 0.6) 100%);
+      border: 1px solid rgba(24, 201, 139, 0.18);
+      border-radius: 18px;
+      padding: 20px 22px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      backdrop-filter: blur(14px);
+
+      &:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(28, 22, 12, 0.75) 100%);
+        border-color: rgba(24, 201, 139, 0.45);
+        transform: translateX(6px) translateY(-2px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.12);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #6EE7B7;
+        outline-offset: 2px;
+      }
+
+      /* Active Pillar Bar on Left Edge */
+      .activePillarBar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3.5px;
+        background: linear-gradient(180deg, #6EE7B7 0%, #18c98b 100%);
+        box-shadow: 0 0 12px rgba(24, 201, 139, 0.8);
+      }
+
+      /* Active Card State */
+      &.featureActive {
+        background: radial-gradient(circle at 0% 50%, rgba(24, 201, 139, 0.18) 0%, transparent 85%), rgba(16, 12, 7, 0.96);
+        border-color: rgba(24, 201, 139, 0.65);
+        box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 32px rgba(24, 201, 139, 0.22), inset 0 1px 0 rgba(24, 201, 139, 0.3);
+
+        .featureHeaderRow {
+          .iconCircle {
+            background: linear-gradient(135deg, #6EE7B7 0%, #18c98b 100%);
+            color: #0E0A04;
+            border-color: #6EE7B7;
+            box-shadow: 0 0 18px rgba(24, 201, 139, 0.7);
+          }
+
+          .featureText {
+            .titleMetaRow {
+              .titleWithStep {
+                .stepNum {
+                  color: #000000;
+                  @include font-bold;
+                  background: #6EE7B7;
+                }
+
+                .itemTitle {
+                  color: #FFFFFF;
+                  text-shadow: 0 0 14px rgba(24, 201, 139, 0.4);
+                }
+              }
+
+              .miniBadge {
+                background: rgba(24, 201, 139, 0.25);
+                border-color: rgba(24, 201, 139, 0.6);
+                color: #6EE7B7;
+                box-shadow: 0 0 10px rgba(24, 201, 139, 0.2);
+              }
+            }
+
+            .itemDesc {
+              color: #CBD5E1;
+            }
+
+            .metaFooterRow {
+              .metricBadge {
+                color: #6EE7B7;
+                background: rgba(24, 201, 139, 0.16);
+                border-color: rgba(24, 201, 139, 0.35);
+
+                .metricDot {
+                  background: #34D399;
+                  box-shadow: 0 0 8px #34D399;
+                }
+              }
+
+              .symbolTag {
+                color: #FFFFFF;
+                border-color: rgba(24, 201, 139, 0.4);
+                background: rgba(24, 201, 139, 0.2);
+              }
+            }
+          }
+        }
+      }
+
+      .featureHeaderRow {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+
+        .iconCircle {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(24, 201, 139, 0.18) 0%, rgba(10, 8, 4, 0.8) 100%);
+          border: 1px solid rgba(24, 201, 139, 0.3);
+          color: #6EE7B7;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all 0.35s ease;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+
+          svg {
+            display: block;
+            filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.5));
+          }
+        }
+
+        .featureText {
+          flex: 1;
+
+          .titleMetaRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+
+            .titleWithStep {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+
+              .stepNum {
+                @include font-bold;
+                font-size: 10px;
+                color: #18c98b;
+                background: rgba(24, 201, 139, 0.15);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                padding: 1px 6px;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+              }
+
+              .itemTitle {
+                color: #F3F4F6;
+                font-size: 17px;
+                margin: 0;
+                letter-spacing: -0.2px;
+                @include font-bold;
+                transition: color 0.3s ease;
+              }
+            }
+
+            .miniBadge {
+              @include font-bold;
+              font-size: 9px;
+              letter-spacing: 0.6px;
+              color: #9CA3AF;
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.09);
+              padding: 3px 9px;
+              border-radius: 6px;
+              transition: all 0.3s ease;
+              white-space: nowrap;
+            }
+          }
+
+          .itemDesc {
+            color: #9CA3AF;
+            font-size: 14px;
+            line-height: 1.52;
+            margin: 0 0 12px 0;
+            @include font-normal;
+            transition: color 0.3s ease;
+          }
+
+          .metaFooterRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            .metricBadge {
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              @include font-semibold;
+              font-size: 10.5px;
+              color: #94A3B8;
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.06);
+              padding: 3px 9px;
+              border-radius: 5px;
+              transition: all 0.3s ease;
+
+              .metricDot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #64748B;
+                transition: all 0.3s ease;
+              }
+            }
+
+            .symbolTag {
+              @include font-bold;
+              font-size: 10.5px;
+              color: #9CA3AF;
+              background: rgba(255, 255, 255, 0.04);
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              padding: 3px 8px;
+              border-radius: 5px;
+              transition: all 0.3s ease;
+            }
+          }
+        }
+      }
+
+      /* Animated Progress Bar along the bottom */
+      .progressBarTrack {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2.5px;
+        background: rgba(255, 255, 255, 0.06);
+
+        .progressBarFill {
+          height: 100%;
+          background: linear-gradient(90deg, #18c98b 0%, #6EE7B7 50%, #FFF4CC 100%);
+          box-shadow: 0 0 12px rgba(24, 201, 139, 0.9);
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,549 @@
+.aiAssistant {
+    .chatSingleBody {
+        display: flex;
+        flex-direction: column;
+        height: calc(100dvh - 112px);
+        min-height: 0;
+        gap: 12px;
+
+        @include respond-to('lg') {
+            height: 580px;
+            min-height: 480px;
+            max-height: 85vh;
+            flex-shrink: 0;
+            overscroll-behavior: contain;
+            touch-action: pan-y;
+        }
+
+        .chatCard {
+            flex: 1 1 0%;
+            min-height: 0;
+            background: #040605;
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            touch-action: pan-y;
+            overscroll-behavior: contain;
+
+            .chatHeader {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 0 16px;
+                height: 46px;
+                min-height: 46px;
+                max-height: 46px;
+                box-sizing: border-box;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                flex-shrink: 0;
+                background: #040605;
+
+                @include respond-to('md') {
+                    padding: 0 12px;
+                }
+
+                .avatar {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 8px;
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    overflow: hidden;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        object-fit: contain;
+                        filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.3));
+                    }
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                        color: #18C98B;
+                    }
+                }
+
+                .headerInfo {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2px;
+                    flex: 1;
+                    min-width: 0;
+
+                    h3 {
+                        color: #ffffff;
+                        font-size: 14px;
+                        font-weight: 600;
+                        margin: 0;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    span {
+                        color: #94a3b8;
+                        font-size: 11px;
+                        font-weight: 500;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .headerAction {
+                    margin-left: auto;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    .createNewBtn {
+                        height: 32px;
+                        min-height: 32px;
+                        max-height: 32px;
+                        box-sizing: border-box;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        background: #18C98B;
+                        color: #000000;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 0 12px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        cursor: pointer;
+                        white-space: nowrap;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.35);
+
+                        &:hover {
+                            background: #1cdf9a;
+                            transform: translateY(-1px);
+                            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.5);
+                        }
+
+                        svg {
+                            flex-shrink: 0;
+                            stroke: #000000;
+                        }
+                    }
+
+                    .historyHeaderBtn {
+                        height: 32px;
+                        min-height: 32px;
+                        max-height: 32px;
+                        box-sizing: border-box;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        background: rgba(24, 201, 139, 0.08);
+                        color: #18C98B;
+                        border: 1px solid rgba(24, 201, 139, 0.4);
+                        border-radius: 8px;
+                        padding: 0 12px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        white-space: nowrap;
+                        transition: all 0.2s ease;
+
+                        &:hover {
+                            background: rgba(24, 201, 139, 0.18);
+                            color: #6EE7B7;
+                            border-color: #18C98B;
+                            transform: translateY(-1px);
+                            box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
+                        }
+
+                        svg {
+                            flex-shrink: 0;
+                            color: #18C98B;
+                            stroke: currentColor;
+                        }
+
+                        @include respond-to('md') {
+                            width: 32px;
+                            min-width: 32px;
+                            max-width: 32px;
+                            padding: 0;
+                            gap: 0;
+                            justify-content: center;
+
+                            span {
+                                display: none;
+                            }
+
+                            svg {
+                                margin: 0;
+                            }
+                        }
+                    }
+
+                    button {
+                        height: 30px;
+                        min-height: 30px;
+                        max-height: 30px;
+                        box-sizing: border-box;
+                    }
+                }
+
+                &.compactHeader {
+                    padding: 0 10px;
+                    gap: 8px;
+
+                    .headerAction {
+                        gap: 6px;
+
+                        .createNewBtn,
+                        button {
+                            width: 30px;
+                            min-width: 30px;
+                            max-width: 30px;
+                            height: 30px;
+                            min-height: 30px;
+                            max-height: 30px;
+                            padding: 0;
+                            border-radius: 0;
+                            box-sizing: border-box;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .chatBody {
+                flex: 1 1 0%;
+                min-height: 0;
+                padding: 20px;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                touch-action: pan-y;
+                -webkit-overflow-scrolling: touch;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                @include respond-to('md') {
+                    padding: 16px;
+                }
+
+                @include respond-to('sm') {
+                    padding: 12px 14px;
+                    gap: 16px;
+                }
+
+                scrollbar-width: thin;
+                scrollbar-color: rgba(24, 201, 139, 0.25) transparent;
+
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: rgba(24, 201, 139, 0.25);
+                    border-radius: 4px;
+                }
+
+                :global(html.light) &,
+                :global([data-theme='light']) &,
+                :global(.light) &,
+                :global(body.light-theme) & {
+                    scrollbar-color: #10B981 #F1F5F9;
+
+                    &::-webkit-scrollbar-track {
+                        background: #F1F5F9;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #10B981;
+
+                        &:hover {
+                            background: #059669;
+                        }
+                    }
+                }
+
+                .welcomeContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    padding: 16px 12px 12px;
+                    max-width: 440px;
+                    width: 100%;
+                    margin: auto;
+
+                    @media (max-height: 580px) {
+                        margin: 16px auto;
+                    }
+
+                    @include respond-to('tab') {
+                        padding: 8px 10px 4px;
+                        margin: 12px auto;
+                        max-width: 380px;
+                    }
+
+                    .welcomeHeroBadge {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 7px;
+                        padding: 5px 14px;
+                        border-radius: 9999px;
+                        background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+                        border: 1px solid rgba(24, 201, 139, 0.35);
+                        box-shadow: 0 2px 8px rgba(24, 201, 139, 0.1);
+                        color: #946F21;
+                        font-size: 12px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        letter-spacing: 0.2px;
+
+                        span {
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                        }
+                    }
+
+                    .welcomeTitle {
+                        font-size: 26px;
+                        font-weight: 800;
+                        color: #ffffff;
+                        margin: 0 0 8px;
+                        letter-spacing: -0.3px;
+                        line-height: 1.25;
+                        font-family: var(--font-plus-jakarta), var(--font-roboto), sans-serif;
+
+                        @include respond-to('tab') {
+                            font-size: 20px;
+                            margin: 0 0 4px;
+                        }
+
+                        .titleGradient {
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                            filter: none;
+                        }
+                    }
+
+                    .welcomeSubtitle {
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.65);
+                        margin: 0 0 20px;
+                        line-height: 1.4;
+
+                        @include respond-to('tab') {
+                            font-size: 11px;
+                            margin: 0 0 10px;
+                            line-height: 1.3;
+                        }
+                    }
+
+                    .welcomeActionCards {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                        width: 100%;
+                        max-width: 440px;
+
+                        @include respond-to('tab') {
+                            gap: 8px;
+                            max-width: 400px;
+                        }
+
+                        .welcomeActionCard {
+                            display: flex;
+                            align-items: center;
+                            gap: 14px;
+                            width: 100%;
+                            background: linear-gradient(145deg, rgba(16, 18, 24, 0.92) 0%, rgba(8, 9, 12, 0.98) 100%);
+                            border: 1px solid rgba(24, 201, 139, 0.28);
+                            border-radius: 6px;
+                            padding: 12px 16px;
+                            cursor: pointer;
+                            text-align: left;
+                            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+                            position: relative;
+                            overflow: hidden;
+
+                            @include respond-to('tab') {
+                                padding: 8px 12px;
+                                gap: 10px;
+                            }
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: -100%;
+                                width: 50%;
+                                height: 100%;
+                                background: linear-gradient(90deg, transparent, rgba(24, 201, 139, 0.1), transparent);
+                                transform: skewX(-25deg);
+                                transition: left 0.75s ease;
+                                pointer-events: none;
+                            }
+
+                            .cardIconWrapper {
+                                width: 44px;
+                                height: 44px;
+                                border-radius: 6px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-shrink: 0;
+                                background: transparent;
+                                border: none;
+                                color: #18C98B;
+                                transition: all 0.25s ease;
+
+                                @include respond-to('tab') {
+                                    width: 32px;
+                                    height: 32px;
+                                }
+
+                                svg {
+                                    color: #18C98B;
+                                    transition: all 0.25s ease;
+
+                                    @include respond-to('tab') {
+                                        width: 18px;
+                                        height: 18px;
+                                    }
+                                }
+                            }
+
+                            .cardTextContent {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 2px;
+                                flex: 1;
+                                min-width: 0;
+
+                                @include respond-to('tab') {
+                                    gap: 1px;
+                                }
+
+                                .cardMainTitle {
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    color: #ffffff;
+                                    line-height: 1.25;
+                                    letter-spacing: 0.15px;
+                                    transition: all 0.2s ease;
+
+                                    @include respond-to('tab') {
+                                        font-size: 12px;
+                                        line-height: 1.2;
+                                    }
+                                }
+
+                                .cardSubTitle {
+                                    font-size: 11px;
+                                    color: rgba(255, 255, 255, 0.65);
+                                    line-height: 1.35;
+                                    transition: color 0.2s ease;
+
+                                    @include respond-to('tab') {
+                                        font-size: 10px;
+                                        line-height: 1.25;
+                                    }
+                                }
+                            }
+
+                            .cardArrow {
+                                width: 28px;
+                                height: 28px;
+                                border-radius: 6px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: rgba(24, 201, 139, 0.06);
+                                border: 1px solid rgba(24, 201, 139, 0.2);
+                                color: rgba(24, 201, 139, 0.7);
+                                flex-shrink: 0;
+                                transition: all 0.2s ease;
+
+                                @include respond-to('tab') {
+                                    width: 22px;
+                                    height: 22px;
+
+                                    svg {
+                                        width: 12px;
+                                        height: 12px;
+                                    }
+                                }
+                            }
+
+                            :global(html.dark) &:hover {
+                                background: linear-gradient(145deg, rgba(24, 26, 36, 0.95) 0%, rgba(14, 15, 22, 0.98) 100%);
+                                border-color: rgba(24, 201, 139, 0.7);
+                                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(24, 201, 139, 0.18), inset 0 1px 1px rgba(24, 201, 139, 0.2);
+                                transform: translateY(-2.5px);
+
+                                &::after {
+                                    left: 200%;
+                                }
+
+                                .cardIconWrapper {
+                                    background: linear-gradient(145deg, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.15) 100%);
+                                    border-color: #18C98B;
+                                    box-shadow: 0 0 20px rgba(24, 201, 139, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+                                    color: #6EE7B7;
+                                    transform: scale(1.06);
+
+                                    svg {
+                                        color: #6EE7B7;
+                                        filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.8));
+                                        transform: scale(1.05);
+                                    }
+                                }
+
+                                .cardMainTitle {
+                                    color: #6EE7B7;
+                                    text-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
+                                }
+
+                                .cardSubTitle {
+                                    color: rgba(255, 255, 255, 0.85);
+                                }
+
+                                .cardArrow {
+                                    background: rgba(24, 201, 139, 0.2);
+                                    border-color: #18C98B;
+                                    color: #6EE7B7;
+                                    box-shadow: 0 0 10px rgba(24, 201, 139, 0.3);
+                                    transform: translateX(3px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

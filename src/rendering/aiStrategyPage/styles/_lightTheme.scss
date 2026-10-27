@@ -1,0 +1,645 @@
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI STRATEGY PAGE
+   ============================================================ */
+:global(html.light) .pageWrapper,
+:global(html.light) .aiStrategyPageWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .sectionDivider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+        margin: 40px 0;
+    }
+
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: none;
+
+        .faqQuestionBtn {
+            color: #0F172A;
+            background: transparent;
+        }
+
+        .qText {
+            color: #0F172A;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9;
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+
+            p {
+                color: #475569;
+            }
+        }
+    }
+
+    /* Section Headings */
+    .sectionTitle {
+        color: #0F172A;
+    }
+
+    .sectionSubtitle {
+        color: #475569;
+    }
+
+    .sectionBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    /* 1. Hero Section */
+    .heroMainTitle {
+        color: #0F172A;
+    }
+
+    .heroSubtitle {
+        color: #475569;
+    }
+
+    .heroSecondaryBtn {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            background: #F8FAFC;
+            border-color: #18C98B;
+            color: #047857;
+        }
+    }
+
+    /* 2. Top Feature Highlights */
+    .highlightCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 30px rgba(24, 201, 139, 0.12);
+        }
+
+        .highlightIconBox {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .highlightContent {
+            background: transparent;
+
+            h4 {
+                color: #0F172A;
+                background: transparent;
+            }
+
+            p {
+                color: #64748B;
+                background: transparent;
+            }
+        }
+    }
+
+    /* 3. 3-Step Process Cards */
+    .stepCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.22);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .stepNumBadge {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTag {
+            background: transparent;
+            background-color: transparent;
+            color: #64748B;
+            border: none;
+            box-shadow: none;
+        }
+
+        .stepIconWrap {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTitle {
+            color: #0F172A;
+        }
+
+        .stepDesc {
+            color: #475569;
+        }
+    }
+
+    /* 4. Live Technical Score Feed Cockpit */
+    .feedCockpit {
+        background: #FFFFFF;
+        border: 1px solid rgba(5, 150, 105, 0.25);
+        box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+
+        .cockpitNavHeader {
+            background: #F8FAFC;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+            .brandTitle {
+                color: #0F172A;
+                font-weight: 800;
+            }
+
+            .stratLabel {
+                color: #475569;
+                font-weight: 800;
+            }
+
+            .stratBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #475569;
+
+                &:hover {
+                    color: #059669;
+                    border-color: #059669;
+                    background: #F0FDF4;
+                }
+
+                &.stratBtnActive {
+                    background: rgba(5, 150, 105, 0.12);
+                    color: #059669;
+                    border-color: #059669;
+                    font-weight: 800;
+                    box-shadow: none;
+                }
+            }
+
+            .liveTelemetryTag {
+                color: #059669;
+                font-weight: 800;
+
+                .pulsingDot {
+                    background: #059669;
+                    box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
+                }
+            }
+        }
+
+        /* Left Column: 6-Pair Interactive Watchlist */
+        .watchlistPane {
+            background: #F8FAFC;
+            border-right: 1px solid rgba(15, 23, 42, 0.08);
+
+            @include respond-to('md') {
+                border-right: none;
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            }
+
+            .paneHeader {
+                color: #64748B;
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            }
+
+            .paneCount {
+                color: #059669;
+                background: rgba(5, 150, 105, 0.1);
+                border-color: rgba(5, 150, 105, 0.25);
+            }
+
+            .pairItemBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+                &:hover {
+                    background: #F1F5F9;
+                    border-color: rgba(5, 150, 105, 0.3);
+                }
+
+                &.pairItemActive {
+                    background: #F0FDF4;
+                    border-color: #059669;
+                    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.12);
+                }
+
+                .pairSymbol {
+                    color: #0F172A;
+                }
+
+                .pairName {
+                    color: #64748B;
+                }
+
+                .pairPrice {
+                    color: #0F172A;
+                }
+
+                .scoreTag {
+                    &.bullish,
+                    &.strong_bullish {
+                        background: #F0FDF4;
+                        color: #059669;
+                        border-color: rgba(5, 150, 105, 0.3);
+                    }
+
+                    &.bearish,
+                    &.strong_bearish {
+                        background: #FEF2F2;
+                        color: #DC2626;
+                        border-color: rgba(220, 38, 38, 0.3);
+                    }
+
+                    &.neutral {
+                        background: #F0F9FF;
+                        color: #0284C7;
+                        border-color: rgba(2, 132, 199, 0.3);
+                    }
+                }
+            }
+
+            .deskHintBanner {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                color: #64748B;
+
+                svg {
+                    color: #059669;
+                }
+            }
+        }
+
+        /* Right Column: Detailed Quantitative Audit Scorecard */
+        .scorecardPane {
+            background: #FFFFFF;
+
+            .scorecardHeroBar {
+                border-bottom: 1px solid #F1F5F9;
+
+                .assetSymbolRow {
+                    h3 {
+                        color: #0F172A;
+                    }
+                }
+
+                .biasBadge {
+                    &.bullish,
+                    &.strong_bullish {
+                        background: #F0FDF4;
+                        color: #059669;
+                        border-color: rgba(5, 150, 105, 0.35);
+                    }
+
+                    &.bearish,
+                    &.strong_bearish {
+                        background: #FEF2F2;
+                        color: #DC2626;
+                        border-color: rgba(220, 38, 38, 0.35);
+                    }
+
+                    &.neutral {
+                        background: #F0F9FF;
+                        color: #0284C7;
+                        border-color: rgba(2, 132, 199, 0.35);
+                    }
+                }
+
+                .assetSubTitle {
+                    color: #64748B;
+
+                    strong {
+                        color: #059669;
+                    }
+                }
+
+                .scoreNumber {
+                    color: #0F172A;
+                }
+
+                .scoreDenominator {
+                    color: #64748B;
+                }
+
+                .confidenceLabel {
+                    color: #059669;
+                }
+            }
+
+            .pillarsGrid {
+                .pillarCard {
+                    background: #F8FAFC;
+                    border: 1px solid rgba(15, 23, 42, 0.08);
+                    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+
+                    &:hover {
+                        background: #FFFFFF;
+                        border-color: rgba(5, 150, 105, 0.3);
+                        box-shadow: 0 4px 14px rgba(5, 150, 105, 0.08);
+                    }
+
+                    .pillarHeader {
+                        color: #0F172A;
+                    }
+
+                    .pillarScore {
+                        color: #059669;
+                    }
+
+                    .pillarProgressBar {
+                        background: #E2E8F0;
+                    }
+
+                    .pillarProgressFill {
+                        background: linear-gradient(90deg, #059669 0%, #10B981 100%);
+                    }
+
+                    .pillarNote {
+                        color: #475569;
+                    }
+                }
+            }
+
+            .activeIndicatorsRow {
+                border-top: 1px solid #F1F5F9;
+
+                .indicatorsTitle {
+                    color: #64748B;
+                }
+
+                .indicatorTag {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .indName {
+                        color: #64748B;
+                    }
+
+                    .indVal {
+                        color: #0F172A;
+                    }
+
+                    &.bullish,
+                    &.strong_bullish {
+                        border-color: rgba(5, 150, 105, 0.3);
+                        .indVal {
+                            color: #059669;
+                        }
+                    }
+
+                    &.bearish,
+                    &.strong_bearish {
+                        border-color: rgba(220, 38, 38, 0.3);
+                        .indVal {
+                            color: #DC2626;
+                        }
+                    }
+
+                    &.neutral {
+                        border-color: rgba(2, 132, 199, 0.3);
+                        .indVal {
+                            color: #0284C7;
+                        }
+                    }
+                }
+            }
+
+            .cockpitFooter {
+                border-top: 1px solid #F1F5F9;
+
+                .evidenceSummary {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .evidenceTitle {
+                        color: #059669;
+
+                        svg {
+                            color: #059669;
+                        }
+                    }
+
+                    p {
+                        color: #334155;
+                    }
+                }
+
+                .launchDeskActionBtn {
+                    background: #18C98B;
+                    color: #040605;
+                    font-weight: 800;
+
+                    &:hover {
+                        background: #15b77e;
+                    }
+                }
+            }
+        }
+    }
+
+    /* 5. Key Features Grid */
+    .featureCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .cardGlowHover {
+            background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%);
+        }
+
+        .featureIconWrap {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .featureNum {
+            color: rgba(4, 120, 87, 0.45);
+        }
+
+        .featureBadgePill {
+            background: #F1F5F9;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            color: #475569;
+        }
+
+        .featureCardTitle,
+        .featureTitle {
+            color: #0F172A;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardDesc,
+        .featureDesc {
+            color: #475569;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardStat,
+        .statBox {
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+
+            .statLabel {
+                color: #64748B;
+                background: transparent;
+                border: none;
+            }
+
+            .statVal,
+            .statValue {
+                color: #047857;
+                font-weight: 800;
+                background: transparent;
+                border: none;
+            }
+        }
+    }
+
+    /* 6. Comparison Table */
+    .tableCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+
+        th {
+            background: #F1F5F9;
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .thFeature {
+            color: #0F172A;
+        }
+
+        .thManual {
+            color: #334155;
+        }
+
+        .thAiTrade {
+            background: rgba(24, 201, 139, 0.12);
+            color: #047857;
+        }
+
+        tr {
+            border-bottom: 1px solid #F1F5F9;
+
+            &:hover {
+                background: #F8FAFC;
+            }
+        }
+
+        .rowHighlight {
+            background: rgba(24, 201, 139, 0.04);
+        }
+
+        td {
+            color: #1E293B;
+            border-bottom-color: #F1F5F9;
+        }
+
+        .tdFeature {
+            color: #0F172A;
+            font-weight: 700;
+        }
+
+        .tdManual {
+            color: #334155;
+        }
+
+        .manualText {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .genericText {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .chronosText {
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .statusIconWarn {
+            background: rgba(2, 132, 199, 0.12);
+            border-color: rgba(2, 132, 199, 0.35);
+            color: #0284C7;
+        }
+
+        .statusIconCross {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #DC2626;
+        }
+
+        .statusIconCheck {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #059669;
+        }
+
+        .tdAiTrade {
+            background: rgba(24, 201, 139, 0.05);
+            border-left: 1px solid rgba(24, 201, 139, 0.18);
+            border-right: 1px solid rgba(24, 201, 139, 0.18);
+            color: #047857;
+            font-weight: 700;
+        }
+    }
+
+    /* 7. FAQs */
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+
+        .faqQuestionBtn {
+            color: #0F172A;
+            background: transparent;
+        }
+
+        .qText {
+            color: #0F172A;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9;
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+
+            p {
+                color: #475569;
+            }
+        }
+    }
+}

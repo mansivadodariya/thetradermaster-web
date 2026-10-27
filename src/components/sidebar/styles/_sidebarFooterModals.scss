@@ -1,0 +1,718 @@
+.sidebar {
+
+    /* Tooltips */
+    .tooltip {
+        position: absolute;
+        left: calc(100% + 12px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: #040D09;
+        color: #18C98B;
+        border: 1px solid rgba(24, 201, 139, 0.4);
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        pointer-events: none;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+        z-index: 1050;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+
+        :global([dir="rtl"]) & {
+            left: auto;
+            right: calc(100% + 12px);
+
+            &::before {
+                right: auto;
+                left: 100%;
+                border-color: transparent transparent transparent #040D09;
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #040D09 transparent transparent;
+        }
+    }
+
+    .menu:hover>.tooltip,
+    .compactUpgradeBtn:hover>.tooltip,
+    .userProfileCard:hover>.tooltip,
+    .logoMark:hover>.tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-50%) translateX(4px);
+
+        :global([dir="rtl"]) & {
+            transform: translateY(-50%) translateX(-4px);
+        }
+    }
+
+    .collapsedMenuGroup {
+        position: relative;
+
+        &:hover {
+            .flyoutMenu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) translateX(4px);
+
+                :global([dir="rtl"]) & {
+                    transform: translateY(0) translateX(-4px);
+                }
+            }
+        }
+    }
+
+    .flyoutMenu {
+        position: absolute;
+        left: calc(100% + 10px);
+        top: -6px;
+        background: #040D09;
+        border: 1px solid rgba(24, 201, 139, 0.4);
+        border-radius: 10px;
+        padding: 6px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(24, 201, 139, 0.15);
+        min-width: 170px;
+        z-index: 1050;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        transform: translateX(-4px);
+
+        .collapsedMenuGroup:hover & {
+            pointer-events: auto;
+        }
+
+        /* Subtle bridge so cursor can transition into flyout */
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -12px;
+            width: 14px;
+            background: transparent;
+        }
+
+        .flyoutTitle {
+            padding: 5px 8px 3px;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: "Euclid-Bold", sans-serif;
+            background: transparent;
+            border: none;
+        }
+
+        .flyoutItem {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 8px;
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            font-family: "Euclid-Medium", sans-serif;
+            border: none;
+
+            svg {
+                width: 15px;
+                height: 15px;
+                flex-shrink: 0;
+            }
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.12);
+                color: #18C98B;
+
+                svg {
+                    color: #18C98B;
+                }
+            }
+
+            &[data-active='true'] {
+                background: rgba(24, 201, 139, 0.2);
+                color: #6EE7B7;
+                font-weight: 600;
+
+                svg {
+                    color: #18C98B;
+                }
+            }
+        }
+    }
+}
+
+/* Confirm Logout Modal */
+.confirmOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+
+    .confirmBox {
+        background: #040D09;
+        border: 1px solid rgba(24, 201, 139, 0.45);
+        border-radius: 16px;
+        padding: 24px 22px;
+        max-width: 360px;
+        width: 100%;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(24, 201, 139, 0.2);
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+            font-family: "Euclid-Bold", sans-serif;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 0 0 18px 0;
+            line-height: 1.45;
+            font-family: "Euclid-Regular", sans-serif;
+        }
+
+        .confirmActions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+
+            .cancelBtn {
+                padding: 9px 16px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.15);
+                }
+            }
+
+            .confirmLogoutBtn {
+                padding: 9px 18px;
+                border-radius: 8px;
+                background: #e53e3e;
+                border: none;
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: #c53030;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeInSubmenu {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   COMPLETE & REFINED LIGHT MODE RULES FOR SIDEBAR
+   ============================================================ */
+:global(html.light) .sidebar,
+:global(html[data-theme='light']) .sidebar,
+:global([data-theme='light']) .sidebar,
+:global(.light) .sidebar {
+    background: #FFFFFF;
+    border: none;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+
+    .logoHeader {
+        background: #FFFFFF;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+        border-left: none;
+        border-top: none;
+    }
+
+    .quickJumpWrapper {
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .toggleBtn {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.16);
+        color: #047857;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.12);
+
+        svg {
+            color: #047857;
+            stroke: #047857;
+        }
+
+        &:hover {
+            background: #F1F5F9;
+            color: #047857;
+            border-color: rgba(24, 201, 139, 0.6);
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
+
+            svg {
+                color: #047857;
+                stroke: #047857;
+            }
+        }
+    }
+
+    .tooltip {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: #0F172A;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+
+        &::before {
+            border-color: transparent #FFFFFF transparent transparent;
+        }
+    }
+
+    .flyoutMenu {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+
+        .flyoutTitle {
+            color: #64748B;
+            background: transparent;
+            border: none;
+        }
+
+        .flyoutItem {
+            color: #334155;
+            background: transparent;
+            border: none;
+
+            svg {
+                color: #64748B;
+            }
+
+            &:hover {
+                background: #F1F5F9;
+                color: #047857;
+
+                svg {
+                    color: #047857;
+                }
+            }
+
+            &[data-active='true'] {
+                background: #e7e7e7;
+                color: #047857;
+                border: none;
+                box-shadow: none;
+
+                &:hover {
+                    background: #CED4D2;
+                    border: none;
+                    box-shadow: none;
+                }
+
+                svg {
+                    color: #047857;
+                    filter: none;
+                }
+            }
+        }
+    }
+
+    .sidebarmenu {
+        background: transparent;
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+
+        .menuGroup {
+            background: transparent;
+            border: none;
+        }
+
+        .menu {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #475569;
+
+            .icon {
+                color: #64748B;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            span {
+                color: #475569;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            .chevron {
+                color: #94A3B8;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            &:hover {
+                background: #F1F5F9;
+                border: none;
+                outline: none;
+                box-shadow: none;
+
+                .icon {
+                    color: #047857;
+                }
+
+                span {
+                    color: #0F172A;
+                }
+
+                .chevron {
+                    color: #047857;
+                }
+            }
+
+            &.active,
+            &[data-active='true'] {
+                background: #e7e7e7;
+                border: none;
+                outline: none;
+                box-shadow: none;
+
+                &:hover {
+                    background: #CED4D2;
+                    border: none;
+                    box-shadow: none;
+                }
+
+                .icon {
+                    color: #047857;
+                    filter: none;
+                }
+
+                span {
+                    color: #047857;
+                    font-weight: 600;
+                }
+
+                .chevron {
+                    color: #047857;
+                }
+
+                &::after {
+                    background: #10B981;
+                    box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+                }
+            }
+        }
+
+        .subItemsList {
+            border-left-color: rgba(24, 201, 139, 0.3);
+            background: transparent;
+            border-right: none;
+
+            .subMenuLink {
+                color: #64748B;
+                background: transparent;
+                border: none;
+                outline: none;
+
+                .subMenuIcon {
+                    color: #64748B;
+                    background: transparent;
+                    border: none;
+                }
+
+                span {
+                    color: #64748B;
+                    background: transparent;
+                    border: none;
+                }
+
+                &:hover {
+                    background: #F1F5F9;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+
+                    .subMenuIcon {
+                        color: #047857;
+                    }
+
+                    span {
+                        color: #0F172A;
+                    }
+                }
+
+                &[data-active='true'] {
+                    background: #e7e7e7;
+                    color: #047857;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+
+                    &:hover {
+                        background: #CED4D2;
+                        border: none;
+                        box-shadow: none;
+                    }
+
+                    .subMenuIcon {
+                        color: #047857;
+                        filter: none;
+                    }
+
+                    span {
+                        color: #047857;
+                        font-weight: 600;
+                    }
+
+                    &::after {
+                        background: #10B981;
+                        box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+                    }
+                }
+            }
+        }
+    }
+
+    .bottomSection {
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+        border-left: none;
+        border-bottom: none;
+        background: transparent;
+
+        .upgradeCard {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+
+            &:hover {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.35);
+                box-shadow: 0 4px 14px rgba(24, 201, 139, 0.1);
+            }
+
+            .upgradeIcon {
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                color: #047857;
+            }
+
+            .upgradeText {
+                background: transparent;
+                border: none;
+                box-shadow: none;
+
+                .upgradeSub {
+                    color: #64748B;
+                    background: transparent;
+                    border: none;
+                }
+
+                .upgradeMain {
+                    color: #047857;
+                    background: transparent;
+                    border: none;
+                }
+            }
+        }
+
+        .compactUpgradeBox {
+            background: transparent;
+            border: none;
+
+            .compactUpgradeBtn {
+                background: #F8FAFC;
+                border: 1px solid rgba(15, 23, 42, 0.08);
+
+                &:hover {
+                    background: #F1F5F9;
+                    border-color: rgba(24, 201, 139, 0.35);
+                }
+            }
+        }
+
+        .profileWrapper {
+            background: transparent;
+            border: none;
+        }
+
+        .userProfileCard {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+
+            &:hover {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.35);
+            }
+
+            .avatarBox {
+                background: rgba(24, 201, 139, 0.15);
+                border: none;
+
+                .avatarInitials {
+                    color: #047857;
+                    background: transparent;
+                }
+            }
+
+            .userInfo {
+                background: transparent;
+                border: none;
+                box-shadow: none;
+
+                .userName {
+                    color: #0F172A;
+                    background: transparent;
+                    border: none;
+                }
+
+                .userSubtitle {
+                    color: #64748B;
+                    background: transparent;
+                    border: none;
+                }
+            }
+
+            .chevronBox {
+                color: #047857;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+        .profileMenuDropdown {
+            background: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+
+            .dropdownHeader {
+                background: transparent;
+                border: none;
+
+                .dropdownName {
+                    color: #0F172A;
+                    background: transparent;
+                }
+
+                .dropdownEmail {
+                    color: #64748B;
+                    background: transparent;
+                }
+            }
+
+            .dropdownDivider {
+                background: rgba(15, 23, 42, 0.07);
+                border: none;
+            }
+
+            .dropdownItem {
+                color: #334155;
+                background: transparent;
+                border: none;
+
+                svg {
+                    stroke: #64748B;
+                }
+
+                &:hover {
+                    background: #F1F5F9;
+                    color: #047857;
+
+                    svg {
+                        stroke: #047857;
+                    }
+                }
+
+                &.logoutOption {
+                    color: #DC2626;
+
+                    svg {
+                        stroke: #DC2626;
+                    }
+
+                    &:hover {
+                        background: #FEE2E2;
+                        color: #B91C1C;
+
+                        svg {
+                            stroke: #B91C1C;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+:global(html.light) .confirmBox,
+:global([data-theme='light']) .confirmBox {
+    background: #FFFFFF;
+    border-color: rgba(15, 23, 42, 0.1);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1);
+
+    h3 {
+        color: #0F172A;
+    }
+
+    p {
+        color: #475569;
+    }
+
+    .cancelBtn {
+        background: #F1F5F9;
+        border-color: rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+
+        &:hover {
+            background: #E2E8F0;
+        }
+    }
+}

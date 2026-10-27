@@ -1,0 +1,23 @@
+.pointerGlow {
+    pointer-events: none;
+    user-select: none;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 100;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+
+    &.contained {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &.global {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}

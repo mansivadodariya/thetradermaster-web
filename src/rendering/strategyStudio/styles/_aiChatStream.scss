@@ -1,0 +1,553 @@
+/* ACTIVE CHAT VIEW (Tradezee Stream UI with Smooth Mouse Scroll) */
+.tradezeeChatViewContainer {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+
+    [data-theme='light'] & { background: transparent; }
+}
+
+.tradezeeChatScrollArea {
+    flex: 1 1 0%;
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scroll-behavior: smooth;
+    padding: 24px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+.tradezeeChatStream {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    pointer-events: auto;
+}
+
+/* Dedicated bottom spacer ensuring clean visual margin at bottom of stream */
+.chatBottomSpacer {
+    height: 36px;
+    min-height: 36px;
+    width: 100%;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.chatUserRow {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.chatUserBubble {
+    background: #18C98B;
+    color: #040605;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 12px 18px;
+    border-radius: 16px 16px 4px 16px;
+    max-width: 78%;
+    box-shadow: 0 4px 16px rgba(24, 201, 139, 0.25);
+    word-break: break-word;
+}
+
+.chatAiRow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.chatAiContentWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 85%;
+    width: 100%;
+}
+
+.chatAiBubble {
+    background: rgba(14, 20, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px 16px 16px 4px;
+    padding: 14px 18px;
+    color: #E2E8F0;
+    font-size: 14px;
+    line-height: 1.6;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-align: justify;
+    text-justify: inter-word;
+
+    p {
+        margin: 0 0 8px;
+        text-align: justify;
+        text-justify: inter-word;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+        color: #1E293B;
+    }
+}
+
+.chatLoadingBubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 20px;
+    background: rgba(14, 20, 26, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+    }
+}
+
+.typingDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #94A3B8;
+    opacity: 0.35;
+    animation: typingBounce 1.4s ease-in-out infinite;
+
+    &:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+}
+
+@keyframes typingBounce {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+    30% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+.chatSuggestionChipsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    [data-theme='light'] & {
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+}
+
+.chatSuggestionChip {
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #18C98B;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.15);
+        color: #ffffff;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+        background: rgba(24, 201, 139, 0.25);
+    }
+
+    [data-theme='light'] & {
+        background: transparent;
+        border: none;
+        color: #059669;
+
+        &:hover {
+            background: rgba(5, 150, 105, 0.08);
+            color: #064E3B;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+/* Blueprint Card in Chat */
+.chatBlueprintCard {
+    background: rgba(10, 22, 18, 0.9);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+}
+
+.chatBlueprintHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    [data-theme='light'] & {
+        color: #065F46;
+    }
+}
+
+.chatBlueprintParams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chatBlueprintParamBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #E2E8F0;
+
+    strong {
+        color: #18C98B;
+    }
+
+    [data-theme='light'] & {
+        background: #DCFCE7;
+        color: #166534;
+        strong {
+            color: #15803D;
+        }
+    }
+}
+
+.chatBlueprintActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btnChatBlueprintPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #18C98B;
+    color: #040605;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #15b47c;
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.4);
+    }
+}
+
+.btnChatBlueprintSecondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.22);
+    }
+}
+
+/* Pinned Bottom Input Bar for Chat */
+.tradezeeChatBottomBar {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    padding: 20px 20px 24px 20px;
+    background: linear-gradient(180deg, rgba(3, 8, 6, 0) 0%, rgba(3, 8, 6, 0.6) 35%, rgba(3, 8, 6, 0.98) 100%);
+    display: flex;
+    justify-content: center;
+    z-index: 25;
+    box-sizing: border-box;
+    pointer-events: auto;
+
+    [data-theme='light'] & {
+        background: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(248, 250, 252, 0.6) 35%, #F8FAFC 100%);
+    }
+}
+
+.tradezeeChatBottomCard {
+    width: 100%;
+    max-width: 860px;
+    background: #000000;
+    border: 1px solid rgba(24, 201, 139, 0.32);
+    border-radius: 18px;
+    padding: 14px 18px 10px 18px;
+    box-sizing: border-box;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 20px rgba(24, 201, 139, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.06);
+    transition: all 0.25s ease;
+    pointer-events: auto;
+
+    &:focus-within {
+        border-color: #18C98B;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 32px rgba(24, 201, 139, 0.28), inset 0 1px 1px 0 rgba(24, 201, 139, 0.35);
+    }
+
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+        &:focus-within {
+            background: #FFFFFF;
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12), 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+    }
+}
+
+/* ── Streaming Cursor Animation ── */
+.streamingCursorChar {
+    color: #18C98B;
+    font-weight: 300;
+    animation: cursorBlink 0.8s ease-in-out infinite;
+    margin-left: 1px;
+
+    [data-theme='light'] & {
+        color: #059669;
+    }
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ── Chat Progress Steps Card ── */
+.chatProgressStepsCard {
+    background: rgba(10, 22, 18, 0.92);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 85%;
+
+    [data-theme='light'] & {
+        background: #F0FDF4;
+        border-color: #86EFAC;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.progressStepsHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #18C98B;
+    letter-spacing: -0.01em;
+
+    [data-theme='light'] & {
+        color: #065F46;
+    }
+}
+
+.progressStepsList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.progressStep {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: stepSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes stepSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.progressStepActive {
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+
+    .progressStepLabel {
+        color: #FFFFFF;
+    }
+
+    [data-theme='light'] & {
+        background: #ECFDF5;
+        border-color: #A7F3D0;
+
+        .progressStepLabel {
+            color: #065F46;
+        }
+    }
+}
+
+.progressStepDone {
+    .progressStepLabel {
+        color: #18C98B;
+    }
+
+    [data-theme='light'] & {
+        .progressStepLabel {
+            color: #059669;
+        }
+    }
+}
+
+.progressStepPending {
+    opacity: 0.4;
+}
+
+.progressStepIcon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.progressSpinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(24, 201, 139, 0.25);
+    border-top-color: #18C98B;
+    border-radius: 50%;
+    animation: progressSpin 0.7s linear infinite;
+}
+
+@keyframes progressSpin {
+    to { transform: rotate(360deg); }
+}
+
+.progressDotPending {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #475569;
+
+    [data-theme='light'] & {
+        background: #CBD5E1;
+    }
+}
+
+.progressStepLabel {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #94A3B8;
+    transition: color 0.2s ease;
+
+    [data-theme='light'] & {
+        color: #64748B;
+    }
+}

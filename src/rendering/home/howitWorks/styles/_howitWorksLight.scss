@@ -1,0 +1,247 @@
+.howitWorks {
+  :global(html.light) & {
+    background: #F8FAFC;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+    .badge {
+      color: #047857;
+    }
+
+    .title {
+      color: #0F172A;
+
+      span {
+        color: #059669;
+        -webkit-text-fill-color: #059669;
+      }
+    }
+
+    .desc {
+      color: #1E293B;
+    }
+
+    .sub {
+      color: #64748B;
+    }
+
+    .cta {
+      background: #059669;
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+
+      &:hover {
+        background: #047857;
+      }
+    }
+
+    .dots .dot {
+      background: #CBD5E1;
+
+      &.dotActive {
+        background: #059669;
+      }
+    }
+
+    .tvBox {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
+
+      &::before {
+        display: none;
+      }
+
+      .introState {
+        .introIcon {
+          color: #059669;
+        }
+
+        .introLabel {
+          color: #0F172A;
+        }
+      }
+
+      .sim {
+        .simHead {
+          border-bottom-color: #E2E8F0;
+
+          .numTag {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            color: #047857;
+          }
+
+          .simTitle {
+            color: #0F172A;
+          }
+
+          .statusGreen,
+          .statusGold,
+          .signal {
+            background: rgba(5, 150, 105, 0.12);
+            border-color: rgba(5, 150, 105, 0.3);
+            color: #047857;
+          }
+        }
+
+        .form {
+          .lbl {
+            color: #64748B;
+          }
+
+          .input {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+            color: #0F172A;
+
+            span {
+              color: #0F172A;
+            }
+          }
+
+          .btn {
+            background: #059669;
+            color: #FFFFFF;
+
+            &:hover {
+              background: #047857;
+            }
+          }
+        }
+
+        .alert {
+          background: #F8FAFC;
+          border-color: rgba(24, 201, 139, 0.3);
+
+          .check {
+            background: rgba(5, 150, 105, 0.15);
+            color: #059669;
+          }
+
+          strong {
+            color: #0F172A;
+          }
+
+          .alertSub {
+            color: #64748B;
+          }
+        }
+
+        .brokerRow {
+          background: #F8FAFC;
+          border-color: #E2E8F0;
+
+          .brokerLogo {
+            background: #059669;
+            color: #FFFFFF;
+          }
+
+          h4 {
+            color: #0F172A;
+          }
+
+          p {
+            color: #64748B;
+          }
+        }
+
+        .mt5Row {
+          background: #F8FAFC;
+          border-color: #E2E8F0;
+          color: #64748B;
+
+          strong {
+            color: #0F172A;
+          }
+        }
+
+        .reward {
+          background: rgba(5, 150, 105, 0.08);
+          border-color: rgba(5, 150, 105, 0.28);
+
+          .star {
+            color: #059669;
+          }
+
+          strong {
+            color: #047857;
+          }
+
+          p {
+            color: #475569;
+          }
+        }
+
+        .chart {
+          background: #F8FAFC;
+          border-color: #E2E8F0;
+
+          .sessions span {
+            color: #64748B;
+            background: #E2E8F0;
+          }
+
+          .callouts {
+            border-top-color: #E2E8F0;
+
+            .tp {
+              color: #059669;
+            }
+
+            .sl {
+              color: #DC2626;
+            }
+          }
+        }
+
+        .loop {
+          .ring1 {
+            border-color: rgba(5, 150, 105, 0.35);
+          }
+
+          .ring2 {
+            border-color: rgba(5, 150, 105, 0.25);
+          }
+
+          .loopCenter {
+            background: #F8FAFC;
+            border-color: #059669;
+            box-shadow: 0 4px 20px rgba(5, 150, 105, 0.15);
+
+            .loopIcon {
+              color: #059669;
+            }
+
+            .loopNum {
+              color: #0F172A;
+            }
+
+            .loopLabel {
+              color: #047857;
+            }
+          }
+        }
+
+        .meta {
+          background: #F8FAFC;
+          border-color: #E2E8F0;
+
+          .metaRow {
+            span {
+              color: #64748B;
+            }
+
+            .green {
+              color: #059669;
+            }
+
+            .gold {
+              color: #047857;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

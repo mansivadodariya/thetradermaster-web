@@ -1,0 +1,608 @@
+.cockpitSection {
+  position: relative;
+  width: 100%;
+  padding: 90px 0 100px 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 0%, #050e0d 0%, #020605 50%, #000403 100%);
+
+  --cockpit-symbol-color: #FFFFFF;
+  --cockpit-ticker-color: #FFFFFF;
+  --cockpit-headline-color: #FFFFFF;
+  --cockpit-orderflow-color: #6EE7B7;
+  --cockpit-hud-val-color: #E2E8F0;
+  --cockpit-detail-color: #94A3B8;
+  --cockpit-active-ticker-color: #6EE7B7;
+
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) &,
+  :global(.light) & {
+    background: #FFFFFF;
+    --cockpit-symbol-color: #0F172A;
+    --cockpit-ticker-color: #0F172A;
+    --cockpit-headline-color: #0F172A;
+    --cockpit-orderflow-color: #047857;
+    --cockpit-hud-val-color: #0F172A;
+    --cockpit-detail-color: #64748B;
+    --cockpit-active-ticker-color: #047857;
+
+    .sectionHeader {
+      h2 {
+        color: #0F172A;
+
+        span {
+          color: #059669;
+        }
+      }
+
+      p {
+        color: #475569;
+      }
+    }
+  }
+
+  &.heroMode {
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+
+    &::after {
+      display: none;
+    }
+
+    .ambientBackdropGlow {
+      display: none;
+    }
+  }
+
+  .heroContainer {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 5;
+  }
+
+  @include respond-to("tab") {
+    padding: 60px 0 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 45px 0 50px 0;
+  }
+
+
+
+  :global(.container) {
+    position: relative;
+    z-index: 5;
+    max-width: 1380px;
+  }
+
+  .ambientBackdropGlow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1100px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(24, 201, 139, 0.12) 0%, rgba(24, 201, 139, 0.04) 45%, transparent 75%);
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 1;
+
+    @include respond-to("md") {
+      width: 80%;
+      height: 400px;
+    }
+  }
+
+  /* Section Header */
+  .sectionHeader {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 36px;
+    gap: 14px;
+    position: relative;
+    z-index: 6;
+
+    .badgeWrapper {
+      display: inline-block;
+    }
+
+    h2 {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      color: #FFFFFF;
+      font-size: 45px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+      margin: 0;
+
+      @include respond-to("md") {
+        font-size: 34px;
+        letter-spacing: -0.8px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 28px;
+      }
+
+      span {
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
+      }
+    }
+
+    p {
+      color: #94A3B8;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0;
+      @include font-normal;
+
+      @include respond-to("sm") {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .perspectiveWrapper {
+    perspective: 2000px;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* ============================================================
+     ONE MASTER UNIFIED CONTAINER BOX - OBSIDIAN GREEN GLASS
+     ============================================================ */
+  .masterTerminalBox {
+    background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.07) 0%, transparent 65%), #080B12;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.95), 0 0 45px rgba(24, 201, 139, 0.08), inset 0 1px 0 rgba(24, 201, 139, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+      background: #FFFFFF;
+      border-color: rgba(24, 201, 139, 0.35);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08), 0 0 25px rgba(24, 201, 139, 0.06);
+
+      /* Part 1 (Left Chart) & Part 2 (Right Cockpit) Cards */
+      .partOneChart,
+      .partTwoCockpit {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+      }
+
+      /* Chart Header & Badges */
+      .partHeader {
+        background: #F8FAFC;
+        border-bottom: 1px solid #E2E8F0;
+      }
+
+      .goldAssetPill {
+        background: #ECFDF5;
+        border: 1px solid rgba(16, 185, 129, 0.4);
+
+        .goldIconLetter {
+          background: #059669;
+          color: #FFFFFF;
+        }
+
+        .dropdownSymbol {
+          color: #065F46;
+          font-weight: 800;
+        }
+      }
+
+      .strategyBadge {
+        background: #ECFDF5;
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #047857;
+        font-weight: 800;
+
+        .beaconDot,
+        .pulseDot {
+          background: #059669;
+          box-shadow: 0 0 6px rgba(5, 150, 105, 0.6);
+        }
+      }
+
+      .lightweightChartWrapper,
+      .svgChartContainer {
+        background: #FFFFFF;
+      }
+
+      .chartOhlcHud {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: #E2E8F0;
+
+        .hudItem span {
+          color: #0F172A;
+        }
+
+        .hudLabel {
+          color: #64748B;
+        }
+      }
+
+      /* Part 2: Top Breadcrumbs & Watchlist */
+      .cockpitTopBreadcrumb {
+        .breadcrumbTitle {
+          .arrowLeft {
+            color: #94A3B8;
+          }
+
+          .parentName {
+            color: #64748B;
+            font-weight: 700;
+          }
+
+          .slash {
+            color: #CBD5E1;
+          }
+
+          .activeAssetTicker {
+            color: #047857;
+            font-weight: 800;
+          }
+        }
+
+        .watchlistTag {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          padding: 4px 10px;
+          border-radius: 6px;
+          color: #047857;
+          font-weight: 800;
+
+          .starIcon,
+          .starSvg {
+            color: #059669;
+          }
+        }
+      }
+
+      /* Asset Header & Live Status */
+      .identityLeft {
+        .logoGold {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+          color: #059669;
+
+          svg {
+            color: #059669;
+            stroke: #059669;
+          }
+        }
+
+        .assetTickerText {
+          color: #0F172A;
+          font-weight: 800;
+        }
+
+        .liveStatusPill {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #047857;
+          font-weight: 800;
+
+          .liveGreenBeacon {
+            background: #059669;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
+          }
+        }
+
+        .assetSubDetails {
+          color: #64748B;
+          font-weight: 500;
+        }
+      }
+
+      /* Live Big Price Number */
+      .mainPriceNumber {
+        color: #0F172A;
+        font-weight: 800;
+      }
+
+      .priceChangeAndClock {
+        .changePercentTag {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #047857;
+          font-weight: 800;
+
+          &.changeNegative {
+            background: #FEF2F2;
+            border-color: #FECACA;
+            color: #DC2626;
+          }
+        }
+
+        .liveClockET {
+          color: #64748B;
+        }
+      }
+
+      /* Sub-Tabs */
+      .tabLink {
+        background: #F1F5F9;
+        border: 1px solid #E2E8F0;
+
+        span {
+          color: #334155;
+          font-weight: 600;
+        }
+
+        svg {
+          color: #64748B;
+        }
+
+        &:hover {
+          background: #E2E8F0;
+          border-color: rgba(16, 185, 129, 0.4);
+
+          span {
+            color: #047857;
+          }
+
+          svg {
+            color: #047857;
+          }
+        }
+
+        &.tabLinkActive {
+          background: #ECFDF5;
+          border-color: rgba(16, 185, 129, 0.45);
+
+          span {
+            color: #047857;
+            font-weight: 800;
+          }
+
+          svg {
+            color: #047857;
+          }
+        }
+      }
+
+      /* The Two Intel Cards (AI Score & Universe Rank) */
+      .intelCard {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+        &.cardActiveScore,
+        &.cardActiveRank {
+          background: #FFFFFF;
+          border-color: rgba(16, 185, 129, 0.45);
+          box-shadow: 0 8px 26px rgba(16, 185, 129, 0.12);
+        }
+
+        .cardTitle {
+          color: #0F172A;
+          font-weight: 800;
+        }
+
+        .cardSub {
+          color: #64748B;
+          font-weight: 500;
+        }
+
+        .radarIconBox {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #059669;
+
+          svg {
+            color: #059669;
+          }
+        }
+
+        .trophyIconBox {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #059669;
+
+          svg {
+            color: #059669;
+          }
+        }
+
+        .deltaPillGreen {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #047857;
+          font-weight: 800;
+        }
+
+        /* AI Score Card Internals */
+        .scoreDigits {
+          color: #0F172A;
+          font-weight: 800;
+        }
+
+        .scoreCurrentBadge {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #047857;
+          font-weight: 800;
+        }
+
+        .verdictText {
+          color: #059669;
+          font-weight: 800;
+        }
+
+        .confidenceBadge {
+          color: #64748B;
+          font-weight: 700;
+        }
+
+        .sliderRangeHeader {
+          span {
+            color: #64748B;
+            font-weight: 600;
+          }
+        }
+
+        .sliderTrack {
+          background: #E2E8F0;
+        }
+
+        /* Universe Rank Internals */
+        .rankGoldDigit {
+          color: #047857;
+          font-weight: 800;
+        }
+
+        .rankOutOf {
+          color: #64748B;
+          font-weight: 700;
+        }
+
+        .topPerformerBadge {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          color: #047857;
+          font-weight: 800;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+
+          svg {
+            color: #059669;
+            fill: #059669;
+          }
+        }
+      }
+
+      /* Light Grey Styling for Bottom 3-Column Meta Matrix Cards */
+      .metaCol {
+        background: #F1F5F9;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        &:hover {
+          background: #E2E8F0;
+          border-color: rgba(16, 185, 129, 0.45);
+        }
+
+        .metaLabel {
+          color: #64748B;
+          font-weight: 800;
+        }
+
+        .metaVal {
+          color: #0F172A;
+          font-weight: 800;
+        }
+
+        .metaSub {
+          color: #64748B;
+        }
+
+        .metaBadgeGold,
+        .metaBadgeGreen,
+        .metaBadgeLive {
+          background: #ECFDF5;
+          color: #047857;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          font-weight: 800;
+        }
+
+        .signalBadgeGreen {
+          color: #047857;
+          font-weight: 800;
+
+          .signalDot {
+            background: #059669;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
+          }
+        }
+      }
+
+      /* Live WebSocket Footer Bar in Light Mode */
+      .cockpitFooterBar {
+        border-top: 1px solid #E2E8F0;
+        color: #64748B;
+
+        .footerLeft {
+          span {
+            color: #475569;
+            font-weight: 700;
+          }
+
+          .liveGreenDotSmall {
+            background: #059669;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
+          }
+        }
+
+        .footerRight {
+          background: #ECFDF5;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          padding: 3px 8px;
+          border-radius: 6px;
+
+          span {
+            color: #047857;
+            font-weight: 800;
+            font-family: monospace, sans-serif;
+          }
+        }
+      }
+    }
+
+    @include respond-to("sm") {
+      padding: 14px 12px;
+      border-radius: 16px;
+      gap: 14px;
+    }
+  }
+
+  /* 2-Part Grid Layout */
+  .twoPartLayout {
+    display: grid;
+    grid-template-columns: 1.16fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @include respond-to("sm") {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+}

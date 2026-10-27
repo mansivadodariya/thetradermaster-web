@@ -1,11 +1,13 @@
 import React from 'react';
 
-const SupportIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-    </svg>
-);
+const SupportIcon = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M9.99935 18.3332C14.5827 18.3332 18.3327 14.5832 18.3327 9.99984C18.3327 5.4165 14.5827 1.6665 9.99935 1.6665C5.41602 1.6665 1.66602 5.4165 1.66602 9.99984C1.66602 14.5832 5.41602 18.3332 9.99935 18.3332Z" stroke="#656363" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 6.66675V10.8334" stroke="#656363" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M9.99609 13.3335H10.0036" stroke="#656363" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+    );
+}
 
 export default SupportIcon;
-

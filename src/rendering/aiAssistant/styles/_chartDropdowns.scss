@@ -1,0 +1,414 @@
+.aiAssistant {
+    .controlDropdownWrapper {
+        position: relative;
+    }
+
+    .symbolSelectorBtn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #ffffff;
+        color: #16130e;
+        border: 1px solid #cbd5e1;
+        height: 40px;
+        min-height: 40px;
+        max-height: 40px;
+        box-sizing: border-box;
+        padding: 0 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+            border-color: #94a3b8;
+        }
+    }
+
+    .symbolIconPill {
+        font-size: 14px;
+        line-height: 1;
+        margin-right: 2px;
+    }
+
+    .symbolBadge {
+        letter-spacing: 0.5px;
+    }
+
+    @keyframes tickFlashGreen {
+        0% {
+            background-color: rgba(38, 166, 154, 0.35);
+        }
+
+        100% {
+            background-color: transparent;
+        }
+    }
+
+    @keyframes tickFlashRed {
+        0% {
+            background-color: rgba(239, 83, 80, 0.35);
+        }
+
+        100% {
+            background-color: transparent;
+        }
+    }
+
+    .headerLivePriceBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-left: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        user-select: none;
+        font-family: var(--font-plus-jakarta), var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-variant-numeric: tabular-nums;
+        border-radius: 0;
+        transition: none;
+
+        &.badgeUp {
+            color: #10b981;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+
+            .liveTag,
+            .livePriceText,
+            .livePctTag {
+                color: #10b981;
+            }
+
+            svg {
+                color: #10b981;
+                stroke: #10b981;
+            }
+        }
+
+        &.badgeDown {
+            color: #ef4444;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+
+            .liveTag,
+            .livePriceText,
+            .livePctTag {
+                color: #ef4444;
+            }
+
+            svg {
+                color: #ef4444;
+                stroke: #ef4444;
+            }
+        }
+
+        &.flashUp {
+            background: transparent;
+            background-color: transparent;
+            animation: none;
+        }
+
+        &.flashDown {
+            background: transparent;
+            background-color: transparent;
+            animation: none;
+        }
+
+        .livePriceText,
+        .badgePrice {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-plus-jakarta), var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.2px;
+        }
+
+        .liveDirectionTag,
+        .badgeDirection {
+            font-size: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            transform: translateY(-0.5px);
+        }
+
+        .livePctTag,
+        .badgeChange {
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0.95;
+            font-family: var(--font-plus-jakarta), var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .badgeSymbol {
+            font-size: 13px;
+            font-weight: 700;
+            margin-right: 4px;
+            color: var(--text-color, #d1d4dc);
+            font-family: var(--font-plus-jakarta), var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        @container chartpane (max-width: 650px) {
+
+            .liveDirectionTag,
+            .badgeDirection,
+            .livePctTag,
+            .badgeChange {
+                display: none;
+            }
+        }
+    }
+
+    .dropdownMenuFloating {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 200px;
+        background: #040605;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 0;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85);
+        padding: 6px 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        overscroll-behavior: contain;
+
+        &.rightAligned {
+            right: 0;
+            left: auto;
+
+            :global([dir="rtl"]) & {
+                left: 0;
+                right: auto;
+            }
+        }
+
+        &.leftAligned {
+            left: 0;
+            right: auto;
+
+            :global([dir="rtl"]) & {
+                right: 0;
+                left: auto;
+            }
+        }
+
+        &.timeframeDropdownMenu {
+            min-width: 90px;
+            width: 90px;
+            padding: 4px 0;
+
+            .dropdownMenuItem {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+
+        &.chartTypeDropdownMenu {
+            min-width: 140px;
+            width: 140px;
+            padding: 4px 0;
+
+            .dropdownMenuItem {
+                padding: 6px 12px;
+            }
+        }
+    }
+
+    .dropdownScrollArea {
+        max-height: 320px;
+        overflow-y: auto;
+        padding: 4px 0;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(24, 201, 139, 0.3);
+            border-radius: 4px;
+        }
+    }
+
+    .categorySection {
+        display: flex;
+        flex-direction: column;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 4px;
+            padding-bottom: 4px;
+        }
+    }
+
+    .categoryHeader {
+        padding: 6px 12px 2px 12px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #94a3b8;
+    }
+
+    .dropdownMenuItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 14px;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.18);
+            color: #ffffff;
+        }
+
+        &.activeItem {
+            background: rgba(24, 201, 139, 0.25);
+            color: #18C98B;
+            font-weight: 700;
+        }
+    }
+
+    .pairItemInfo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .pairIcon {
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .pairCheck {
+        color: #18C98B;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .timeframeBar {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        background: #f1f5f9;
+        height: 40px;
+        min-height: 40px;
+        max-height: 40px;
+        box-sizing: border-box;
+        padding: 3px;
+        border-radius: 6px;
+
+        @media (max-width: 1280px) {
+            display: none;
+        }
+
+        @container chartpane (max-width: 920px) {
+            display: none;
+        }
+    }
+
+    .timeframeSelectWrapper {
+        display: none;
+
+        @media (max-width: 1280px) {
+            display: block;
+        }
+
+        @container chartpane (max-width: 920px) {
+            display: block;
+        }
+    }
+
+    .timeframeSelect {
+        background: #ffffff;
+        color: #16130e;
+        border: 1px solid #cbd5e1;
+        height: 40px;
+        min-height: 40px;
+        max-height: 40px;
+        box-sizing: border-box;
+        padding: 0 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+
+        option {
+            background: #ffffff;
+            color: #0f172a;
+        }
+    }
+
+    .tfBtn {
+        background: transparent;
+        border: none;
+        color: #64748b;
+        height: 34px;
+        min-height: 34px;
+        max-height: 34px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+
+        &:hover {
+            color: #0f172a;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        &.activeTf {
+            background: #18C98B;
+            color: #ffffff;
+        }
+    }
+
+    .chartTypeSelect {
+        background: #ffffff;
+        color: #16130e;
+        border: 1px solid #cbd5e1;
+        height: 40px;
+        min-height: 40px;
+        max-height: 40px;
+        box-sizing: border-box;
+        padding: 0 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        outline: none;
+
+        option {
+            background: #ffffff;
+            color: #0f172a;
+        }
+    }
+}

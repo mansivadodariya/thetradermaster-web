@@ -1,0 +1,334 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+/* ══════════════════════════════════════════════════════════════
+   INTERACTIVE OPTION SELECTOR BOX DOCKED ABOVE INPUT
+   ══════════════════════════════════════════════════════════════ */
+
+.interactiveOptionBox {
+    width: 90%;
+    background: rgba(12, 20, 16, 0.98);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin: auto;
+    box-sizing: border-box;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.1);
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: popupFadeIn 0.2s ease;
+    outline: none;
+
+    &:focus,
+    &:focus-visible,
+    &:focus-within {
+        outline: none;
+    }
+
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border-color: rgba(5, 150, 105, 0.25);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.optionBoxHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    user-select: none;
+}
+
+.stepCounterBadge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    letter-spacing: 0.5px;
+    user-select: none;
+
+    [data-theme='light'] & {
+        color: #94A3B8;
+    }
+}
+
+.optionBoxHintsRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10.5px;
+    color: #64748B;
+    font-weight: 500;
+    user-select: none;
+
+    .hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 9.5px;
+            color: #94A3B8;
+            font-family: inherit;
+            box-sizing: border-box;
+
+            svg {
+                display: block;
+                flex-shrink: 0;
+            }
+        }
+    }
+
+    [data-theme='light'] & {
+        color: #475569;
+
+        .hint kbd {
+            background: #E2E8F0;
+            border-color: rgba(0, 0, 0, 0.12);
+            color: #334155;
+        }
+    }
+}
+
+.optionBoxQuestion {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.4;
+    user-select: none;
+
+    [data-theme='light'] & {
+        color: #0F172A;
+    }
+}
+
+.optionBoxDescription {
+    font-size: 11.5px;
+    color: #94A3B8;
+    line-height: 1.45;
+    margin-top: -4px;
+    margin-bottom: 2px;
+    user-select: none;
+
+    [data-theme='light'] & {
+        color: #64748B;
+    }
+}
+
+.optionChoicesList {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.optionChoiceItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.16s ease;
+    color: #E2E8F0;
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+
+    &:focus,
+    &:focus-visible {
+        outline: none;
+    }
+
+    &:hover:not(.selectedOption) {
+        background: rgba(255, 255, 255, 0.03);
+        color: #FFFFFF;
+    }
+
+    &.selectedOption {
+        background: rgba(16, 46, 68, 0.92);
+        color: #FFFFFF;
+
+        .choiceTitle {
+            color: #18C98B;
+        }
+    }
+
+    [data-theme='light'] & {
+        color: #334155;
+
+        &:hover:not(.selectedOption) {
+            background: rgba(0, 0, 0, 0.03);
+            color: #0F172A;
+        }
+
+        &.selectedOption {
+            background: #ECFDF5;
+            border-color: #86EFAC;
+            color: #065F46;
+
+            .choiceTitle {
+                color: #059669;
+            }
+        }
+    }
+}
+
+.selectedArrowPrefix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+
+    &.placeholderArrow {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &.visibleArrow {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.choiceTextContainer {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.choiceTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+    white-space: nowrap;
+
+    [data-theme='light'] & {
+        color: #0F172A;
+    }
+}
+
+.choiceDesc {
+    font-size: 11.5px;
+    color: #94A3B8;
+    font-weight: 400;
+}
+
+/* Inline answer typing bar */
+.optionInlineInputWrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(18, 28, 22, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 4px 8px 4px 12px;
+    margin-top: 4px;
+
+    input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #FFFFFF;
+        font-size: 12.5px;
+        font-family: inherit;
+
+        &::placeholder {
+            color: #64748B;
+        }
+    }
+
+    [data-theme='light'] & {
+        background: #F8FAFC;
+        border-color: rgba(0, 0, 0, 0.08);
+
+        input {
+            color: #0F172A;
+
+            &::placeholder {
+                color: #94A3B8;
+            }
+        }
+    }
+}
+
+.inlineSendBtn {
+    background: transparent;
+    border: none;
+    color: #18C98B;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+
+    &:hover:not(:disabled) {
+        transform: scale(1.1);
+        color: #FFFFFF;
+    }
+
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+    }
+}
+
+/* Bottom Persistent Input Bar (with breadcrumbs) */
+.bottomChatInputBar {
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    margin-top: auto;
+
+    [data-theme='light'] & {
+        background: transparent;
+    }
+}
+
+.chatBreadcrumbRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #94A3B8;
+    padding-left: 2px;
+}
+
+.breadcrumbTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    color: #18C98B;
+    font-weight: 600;
+}

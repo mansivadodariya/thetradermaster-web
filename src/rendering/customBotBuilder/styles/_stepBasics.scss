@@ -1,0 +1,211 @@
+/* Step Basics & General Form Styles */
+.inputCard {
+    background: #0C100E;
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.formLabel {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.requiredStar {
+    color: #EF4444;
+    font-size: 14px;
+}
+
+.textInput, .textareaInput {
+    width: 100%;
+    background: #141816;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+
+    &:hover:not(:disabled) {
+        border-color: rgba(24, 201, 139, 0.35);
+    }
+
+    &:focus {
+        border-color: #18C98B;
+        box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.4), 0 0 12px rgba(24, 201, 139, 0.15);
+    }
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #CBD5E1;
+        border-radius: 12px;
+        color: #0F172A;
+
+        &::placeholder {
+            color: #94A3B8;
+        }
+
+        &:hover:not(:disabled) {
+            border-color: #94A3B8;
+        }
+
+        &:focus {
+            border-color: #18C98B;
+            box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+.textInput {
+    height: 48px;
+}
+
+.textareaInput {
+    resize: vertical;
+    min-height: 96px;
+    line-height: 1.5;
+}
+
+.inputError {
+    border-color: #EF4444;
+    box-shadow: 0 0 0 1.5px rgba(239, 68, 68, 0.45);
+
+    :global(html.light) & {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 1.5px rgba(239, 68, 68, 0.35);
+    }
+}
+
+.errorHelperText {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #EF4444;
+    margin-top: 4px;
+    letter-spacing: 0.1px;
+
+    svg {
+        flex-shrink: 0;
+        color: #EF4444;
+        fill: #EF4444;
+    }
+
+    :global(html.light) & {
+        color: #DC2626;
+
+        svg {
+            color: #DC2626;
+            fill: #DC2626;
+        }
+    }
+}
+
+.fieldHelper {
+    font-size: 12px;
+    color: #94A3B8;
+    margin-top: 2px;
+}
+
+.gridTwoCols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.marketSummaryBox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(24, 201, 139, 0.06);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+
+    :global(html.light) & {
+        background: rgba(24, 201, 139, 0.08);
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+}
+
+.summaryBadges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.highlightBadge {
+    background: rgba(24, 201, 139, 0.2);
+    border: 1px solid rgba(24, 201, 139, 0.45);
+    color: #18C98B;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+}
+
+.highlightBadgeMuted {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #E2E8F0;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+
+    :global(html.light) & {
+        background: #E2E8F0;
+        color: #0F172A;
+    }
+}
+
+.marketSummaryText {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+
+    :global(html.light) & {
+        color: #475569;
+    }
+}

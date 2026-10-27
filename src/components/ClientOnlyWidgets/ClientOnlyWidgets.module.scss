@@ -1,0 +1,45 @@
+.bottomWidgetsStack {
+    position: fixed;
+    right: 24px;
+    z-index: 9990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+    pointer-events: none;
+    max-width: 440px;
+    width: calc(100vw - 48px);
+    transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &.aboveWhatsapp {
+        /* Shifted cleanly directly above WhatsApp button at bottom: 24px */
+        bottom: 96px;
+    }
+
+    &.standalone {
+        bottom: 24px;
+    }
+
+    > * {
+        pointer-events: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .bottomWidgetsStack {
+        right: 14px;
+        left: 14px;
+        width: auto;
+        max-width: 100%;
+        gap: 10px;
+
+        &.aboveWhatsapp {
+            bottom: 76px;
+        }
+
+        &.standalone {
+            bottom: 16px;
+        }
+    }
+}

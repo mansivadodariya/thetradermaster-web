@@ -1,0 +1,447 @@
+/* ── Interactive Pointer Glow Spotlight ── */
+.pointerSpotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    800px circle at var(--mouse-x, 50%) var(--mouse-y, 45%),
+    rgba(24, 201, 139, 0.14) 0%,
+    rgba(0, 242, 254, 0.05) 35%,
+    transparent 70%
+  );
+  transition: opacity 0.25s ease;
+  mix-blend-mode: screen;
+  will-change: opacity;
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) & {
+    background: radial-gradient(
+      750px circle at var(--mouse-x, 50%) var(--mouse-y, 45%),
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(6, 182, 212, 0.1) 40%,
+      transparent 65%
+    );
+    mix-blend-mode: normal;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ── Subtle Cyber Dot Matrix Grid ── */
+.cyberGridBackground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    rgba(24, 201, 139, 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 36px 36px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 50%, transparent 90%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    black 50%,
+    transparent 90%
+  );
+  z-index: 0;
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) & {
+    background-image: radial-gradient(
+      rgba(5, 150, 105, 0.26) 1.2px,
+      transparent 1.2px
+    );
+    opacity: 0.65;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 0.15;
+  }
+}
+
+/* ── Continuous Moving Smoky Cyber Waves Background ── */
+.smokyWavesWrapper {
+  position: absolute;
+  inset: -3% -3% -8% -3%;
+  width: 106%;
+  height: 112%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+  opacity: 0.95;
+  will-change: opacity;
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  &.isLightModeWaves {
+    opacity: 0.45;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 0.3;
+    transition: none;
+  }
+}
+
+/* Optimized ambient radial glows - reduced blur, use transform instead of filter where possible */
+.ambientRadialTopRight,
+.ambientRadialBottomLeft,
+.ambientRadialBottomRight,
+.ambientRadialCenter {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  /* Replace heavy blur filters with box-shadow for better performance */
+  /* Filter blur is kept minimal for the glow effect */
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+.ambientRadialTopRight {
+  top: -10%;
+  right: -10%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(
+    circle,
+    rgba(24, 201, 139, 0.22) 0%,
+    rgba(0, 242, 254, 0.07) 50%,
+    transparent 70%
+  );
+  filter: blur(30px); /* Reduced from 60px */
+  animation: ambientGlow1 20s ease-in-out infinite alternate; /* Slower */
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  .isLightModeWaves & {
+    background: radial-gradient(
+      circle,
+      rgba(16, 185, 129, 0.55) 0%,
+      rgba(6, 182, 212, 0.35) 45%,
+      transparent 70%
+    );
+    filter: blur(24px); /* Reduced from 36px */
+  }
+}
+
+.ambientRadialBottomLeft {
+  bottom: -8%;
+  left: -8%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.25) 0%,
+    rgba(24, 201, 139, 0.1) 45%,
+    transparent 75%
+  );
+  filter: blur(28px); /* Reduced from 55px */
+  animation: ambientGlow2 22s ease-in-out infinite alternate; /* Slower */
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  .isLightModeWaves & {
+    background: radial-gradient(
+      circle,
+      rgba(16, 185, 129, 0.55) 0%,
+      rgba(24, 201, 139, 0.35) 45%,
+      transparent 75%
+    );
+    filter: blur(24px); /* Reduced from 36px */
+  }
+}
+
+.ambientRadialBottomRight {
+  bottom: -10%;
+  right: -8%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(
+    circle,
+    rgba(24, 201, 139, 0.22) 0%,
+    rgba(6, 182, 212, 0.08) 50%,
+    transparent 70%
+  );
+  filter: blur(28px); /* Reduced from 55px */
+  animation: ambientGlow1 19s ease-in-out infinite alternate; /* Slower */
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  .isLightModeWaves & {
+    background: radial-gradient(
+      circle,
+      rgba(6, 182, 212, 0.5) 0%,
+      rgba(16, 185, 129, 0.35) 50%,
+      transparent 70%
+    );
+    filter: blur(24px); /* Reduced from 36px */
+  }
+}
+
+.ambientRadialCenter {
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(
+    circle,
+    rgba(24, 201, 139, 0.12) 0%,
+    transparent 65%
+  );
+  filter: blur(25px); /* Reduced from 50px */
+  animation: ambientGlow3 18s ease-in-out infinite alternate; /* Slower */
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  .isLightModeWaves & {
+    background: radial-gradient(
+      circle,
+      rgba(16, 185, 129, 0.4) 0%,
+      rgba(6, 182, 212, 0.25) 45%,
+      transparent 65%
+    );
+    filter: blur(20px); /* Reduced from 32px */
+  }
+}
+
+.smokyWavesSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  [data-theme="light"] &,
+  :global(html.light) &,
+  :global([data-theme="light"]) &,
+  :global(html[data-theme="light"]) &,
+  .isLightModeWaves & {
+    /* Removed expensive drop-shadow filters */
+    filter: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 0.5;
+  }
+}
+
+/* SVG Wave Groups - Optimized animations */
+.waveGroupRight,
+.waveGroupLeft,
+.waveGroupBottom {
+  will-change: transform, opacity;
+  animation-duration: 25s; /* Slower, smoother */
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
+.waveGroupRight {
+  animation-name: waveFloatRight;
+  transform-origin: 80% 20%;
+}
+
+.waveGroupLeft {
+  animation-name: waveFloatLeft;
+  transform-origin: 20% 80%;
+}
+
+.waveGroupBottom {
+  animation-name: waveFloatBottom;
+  transform-origin: 50% 90%;
+}
+
+.floatingCurve1,
+.floatingCurve2 {
+  will-change: transform, opacity;
+  animation-duration: 30s; /* Much slower */
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.2;
+  }
+}
+
+.floatingCurve1 {
+  animation-name: floatingCurveMove1;
+  transform-origin: 30% 70%;
+}
+
+.floatingCurve2 {
+  animation-name: floatingCurveMove2;
+  transform-origin: 75% 25%;
+}
+
+/* ── Smooth Continuous Loop Light Movements & Vector Drifts ──
+   Optimized: Slower animations, smaller transforms, use translate3d for GPU acceleration */
+
+@keyframes ambientGlow1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(-15px, 10px, 0) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(10px, -8px, 0) scale(0.96);
+    opacity: 0.75;
+  }
+}
+
+@keyframes ambientGlow2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(18px, -12px, 0) scale(1.1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(-12px, 15px, 0) scale(0.94);
+    opacity: 0.7;
+  }
+}
+
+@keyframes ambientGlow3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate3d(8px, 12px, 0) scale(1.12);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(-8px, -12px, 0) scale(0.92);
+    opacity: 0.55;
+  }
+}
+
+@keyframes waveFloatRight {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(-15px, 12px, 0) rotate(1deg) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(10px, -15px, 0) rotate(-0.8deg) scale(0.98);
+    opacity: 0.85;
+  }
+}
+
+@keyframes waveFloatLeft {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(18px, -14px, 0) rotate(-1.2deg) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-12px, 15px, 0) rotate(1deg) scale(0.98);
+    opacity: 0.85;
+  }
+}
+
+@keyframes waveFloatBottom {
+  0% {
+    transform: translate3d(0, 0, 0) scaleY(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(-14px, -12px, 0) scaleY(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(16px, 10px, 0) scaleY(0.97);
+    opacity: 0.8;
+  }
+}
+
+@keyframes floatingCurveMove1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(-20px, 15px, 0) rotate(1.5deg);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(15px, -12px, 0) rotate(-1.2deg);
+    opacity: 0.28;
+  }
+}
+
+@keyframes floatingCurveMove2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate3d(20px, -16px, 0) rotate(-1.8deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(-14px, 12px, 0) rotate(1.2deg);
+    opacity: 0.25;
+  }
+}
+
+/* Reduced motion support for this component's specific classes */
+@media (prefers-reduced-motion: reduce) {
+  .smokyWavesWrapper,
+  .ambientRadialTopRight,
+  .ambientRadialBottomLeft,
+  .ambientRadialBottomRight,
+  .ambientRadialCenter,
+  .waveGroupRight,
+  .waveGroupLeft,
+  .waveGroupBottom,
+  .floatingCurve1,
+  .floatingCurve2 {
+    animation: none;
+    opacity: 0.3;
+    transition: none;
+  }
+}

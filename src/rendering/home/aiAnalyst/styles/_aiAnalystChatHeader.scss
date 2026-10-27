@@ -1,0 +1,324 @@
+.aiAnalystSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  overflow: hidden;
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  :global(.container) {
+    position: relative;
+    z-index: 9;
+  }
+
+  .mainGrid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+
+    @include respond-to("md") {
+      flex-direction: column;
+      gap: 48px;
+    }
+  }
+
+  /* Left Column: Outer Wrapper */
+  .chatWrapper,
+  .terminalColumn {
+    flex: 1 1 52%;
+    max-width: 620px;
+    width: 100%;
+
+    @include respond-to("md") {
+      max-width: 100%;
+    }
+  }
+
+  /* Right Column: Section Header & Feature Points */
+  .contentColumn {
+    flex: 1 1 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .featureList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .featureItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+    padding: 16px 16px;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+      background: #047857;
+      border-color: #059669;
+      transform: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(24, 201, 139, 0.25);
+
+      .numBadge {
+        color: #FFFFFF;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .featureContent {
+        h3 {
+          color: #FFFFFF;
+        }
+
+        p {
+          color: rgba(255, 255, 255, 0.92);
+        }
+      }
+    }
+
+    .numBadge {
+      @include font-bold;
+      font-size: 25px;
+      color: #18c98b;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.25s ease;
+    }
+
+    .featureContent {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      h3 {
+        @include font-bold;
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: -0.2px;
+        margin: 0;
+        transition: color 0.25s ease;
+      }
+
+      p {
+        @include font-normal;
+        font-size: 14px;
+        line-height: 1.55;
+        color: #9CA3AF;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Light Theme Overrides */
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) &,
+  :global(.light) & {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+    .terminalContainer {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    .sidebarDock {
+      background: #F8FAFC;
+      border-right-color: #E2E8F0;
+    }
+
+    .dockIconBtn {
+      color: #64748B;
+
+      &:hover,
+      &.activeDockBtn {
+        color: #047857;
+      }
+    }
+
+    .terminalHeader {
+      border-bottom-color: #E2E8F0;
+
+      .chronosLogoText {
+        color: #0F172A;
+      }
+
+      .headerSubtitle {
+        color: #64748B;
+      }
+    }
+
+    .tickersBar {
+      border-bottom-color: #E2E8F0;
+
+      .tickerName {
+        color: #64748B;
+      }
+
+      .tickerPrice {
+        color: #0F172A;
+      }
+
+      .tickerDivider {
+        background: #E2E8F0;
+      }
+    }
+
+    .userBubbleCard {
+      background: #F1F5F9;
+      border-color: #E2E8F0;
+
+      .userHeaderName {
+        color: #0F172A;
+      }
+
+      .userQueryText {
+        color: #334155;
+      }
+
+      .userTimestampRow {
+        color: #64748B;
+      }
+    }
+
+    .aiResponseCard {
+      background: #FAFDFA;
+      border-color: rgba(16, 185, 129, 0.35);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.08);
+
+      .aiBotName {
+        color: #0F172A;
+      }
+
+      .aiCardTime {
+        color: #64748B;
+      }
+
+      .aiHeadlineIntro {
+        color: #047857;
+      }
+
+      .breakoutNumber,
+      .breakoutSymbol {
+        color: #0F172A;
+      }
+
+      .breakoutSubdesc {
+        color: #475569;
+      }
+    }
+
+    .sourcesBtn,
+    .filterPill {
+      background: #F1F5F9;
+      border-color: #E2E8F0;
+      color: #475569;
+
+      &:hover,
+      &.activeFilterPill {
+        background: rgba(16, 185, 129, 0.12);
+        border-color: rgba(5, 150, 105, 0.4);
+        color: #047857;
+      }
+    }
+
+    .chatInputContainer {
+      background: #F8FAFC;
+      border-color: #E2E8F0;
+
+      .terminalInput {
+        color: #0F172A;
+
+        &::placeholder {
+          color: #94A3B8;
+        }
+      }
+
+      .attachmentBtn,
+      .micBtn {
+        color: #64748B;
+      }
+    }
+
+    .featureItem {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.22);
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+      &:hover {
+        background: #059669;
+        border-color: #059669;
+        box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+        transform: none;
+
+        .numBadge {
+          color: #FFFFFF;
+          background: transparent;
+          box-shadow: none;
+        }
+
+        .featureContent {
+          h3 {
+            color: #FFFFFF;
+          }
+
+          p {
+            color: rgba(255, 255, 255, 0.92);
+          }
+        }
+      }
+
+      .numBadge {
+        color: #047857;
+        background: transparent;
+        box-shadow: none;
+        transition: all 0.25s ease;
+      }
+
+      .featureContent {
+        h3 {
+          color: #0F172A;
+          transition: color 0.25s ease;
+        }
+
+        p {
+          color: #475569;
+          transition: color 0.25s ease;
+        }
+      }
+    }
+  }
+}

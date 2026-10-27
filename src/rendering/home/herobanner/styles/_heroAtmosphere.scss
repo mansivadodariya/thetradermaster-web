@@ -1,0 +1,467 @@
+.herobanner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    padding: 140px 0 70px 0;
+    overflow: hidden;
+    background-color: #030805;
+    background-image:
+        linear-gradient(180deg, rgba(3, 8, 5, 0.8) 0%, rgba(3, 8, 5, 0.2) 20%, transparent 40%),
+        url('/assets/images/herobanner.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+
+
+
+    :global(html.light) & {
+        background-color: #F8FAFC;
+        background-image:
+            linear-gradient(180deg, rgba(248, 250, 252, 0.75) 0%, rgba(248, 250, 252, 0.2) 25%, transparent 45%),
+            url('/assets/images/herobannerlight.png');
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: cover;
+
+        .gridOverlay {
+            background-image:
+                linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%);
+            opacity: 0.001;
+        }
+
+        .greenSpotlightGrid {
+            opacity: 0;
+            display: none;
+        }
+
+        .ambientGlowTop,
+        .ambientGlowCenter,
+        .ambientGlowLeft,
+        .ambientGlowRight,
+        .ambientGlowBottom {
+            opacity: 0.08;
+            filter: blur(120px);
+        }
+
+        .topBadgeRow {
+            .badge {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.45);
+                box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12);
+
+                &:hover {
+                    background: #F0FDF4;
+                    border-color: #18C98B;
+                    box-shadow: 0 6px 22px rgba(24, 201, 139, 0.2);
+                }
+
+                .badgeText {
+                    color: #059669;
+                    font-weight: 700;
+                    background: transparent;
+                    background-color: transparent;
+                    border: none;
+                    box-shadow: none;
+                    padding: 0;
+                }
+            }
+        }
+
+        .heroTitle {
+            color: #0F172A;
+            text-shadow: none;
+
+            .titleLine1 {
+                color: #0F172A;
+                text-shadow: none;
+            }
+
+            .titleLine2 {
+                color: #0F172A;
+                text-shadow: none;
+
+                .gradientText {
+                    color: #059669;
+                    background: #059669;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    display: inline;
+                }
+            }
+
+            .candleIconBox {
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            .titleCandleIcon {
+                background: transparent;
+                background-color: transparent;
+                filter: none;
+            }
+
+            .greenGradient {
+                color: #0F172A;
+                -webkit-text-fill-color: #0F172A;
+                background: none;
+                filter: none;
+            }
+        }
+
+        .heroDesc {
+            color: #475569;
+        }
+
+        .heroTickerCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+
+            &:hover {
+                background: #F8FAFC;
+                border-color: #18C98B;
+                box-shadow: 0 8px 24px rgba(24, 201, 139, 0.18);
+            }
+
+            .tickerLogoCircle {
+                background: #F1F5F9;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+            }
+
+            .tickerCardTop {
+                .tickerCardName {
+                    color: #0F172A;
+                }
+
+                .tickerCardSymbol {
+                    color: #64748B;
+                }
+
+                .tickerSignalPill {
+                    background: rgba(16, 185, 129, 0.12);
+                    color: #047857;
+                    border: 1px solid rgba(5, 150, 105, 0.3);
+                }
+            }
+
+            .tickerCardBottom {
+                .tickerPrice {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .socialProofBar {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.28);
+            box-shadow: 0 6px 25px rgba(15, 23, 42, 0.06);
+
+            .proofText {
+                .starCluster .scoreText {
+                    color: #0F172A;
+                }
+
+                .verifiedSub {
+                    color: #64748B;
+                }
+            }
+
+            .proofDivider {
+                background: rgba(15, 23, 42, 0.12);
+            }
+
+            .proofSpeed {
+                .speedHeader .speedLabel {
+                    color: #0F172A;
+                }
+
+                .speedSub {
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    @include respond-to("xl") {
+        padding: 160px 0 70px 0;
+
+    }
+
+    @include respond-to("tab") {
+        padding: 110px 0 60px 0;
+        height: auto;
+    }
+
+    @include respond-to("sm") {
+        padding: 120px 0 40px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1200px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    // Scroll background wrapper for Framer Motion animation
+    .scrollBgWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    // Dynamic Ambient Atmosphere Glows - Optimized for performance
+    // Reduced blur radii significantly (from 85-100px to 40-50px) for better GPU performance
+    .ambientGlowTop,
+    .ambientGlowCenter,
+    .ambientGlowLeft,
+    .ambientGlowRight,
+    .ambientGlowBottom {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(ellipse at 50% 30%, rgba(24, 201, 139, 0.35) 0%, rgba(24, 201, 139, 0.12) 50%, transparent 80%);
+        filter: blur(45px); /* Reduced from 85-100px */
+        pointer-events: none;
+        z-index: 1;
+        will-change: opacity;
+        transition: opacity 0.5s ease;
+
+        // Respect reduced motion
+        @media (prefers-reduced-motion: reduce) {
+            filter: blur(30px);
+            opacity: 0.3;
+            transition: none;
+        }
+    }
+
+    .ambientGlowTop {
+        top: -140px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1500px;
+        height: 600px;
+    }
+
+    .ambientGlowCenter {
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 1600px;
+        height: 800px;
+        background: radial-gradient(ellipse, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.1) 55%, transparent 85%);
+    }
+
+    .ambientGlowLeft {
+        top: 25%;
+        left: -120px;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.06) 50%, transparent 75%);
+    }
+
+    .ambientGlowRight {
+        top: 25%;
+        right: -120px;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.06) 50%, transparent 75%);
+    }
+
+    .ambientGlowBottom {
+        bottom: -220px;
+        right: 15%;
+        width: 900px;
+        height: 550px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.18) 0%, rgba(24, 201, 139, 0.06) 45%, transparent 75%);
+    }
+
+    // Light mode - even lighter blurs
+    :global(html.light) & {
+        .ambientGlowTop,
+        .ambientGlowCenter,
+        .ambientGlowLeft,
+        .ambientGlowRight,
+        .ambientGlowBottom {
+            filter: blur(35px);
+            opacity: 0.15;
+        }
+    }
+
+    // Interactive Cursor Spotlight Glow (GPU Composited with CSS custom variables)
+    .interactiveSpotlight {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        left: var(--mouse-x, 50%);
+        top: var(--mouse-y, 35%);
+        opacity: var(--mouse-opacity, 0);
+        transform: translate3d(-50%, -50%, 0);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.24) 0%, rgba(24, 201, 139, 0.05) 50%, transparent 75%);
+        filter: blur(25px); /* Reduced from 35px */
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.25s ease;
+        will-change: left, top, opacity;
+
+        @include respond-to("sm") {
+            display: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            filter: blur(15px);
+            opacity: 0;
+            display: none;
+        }
+    }
+
+    // Base Grid Overlay (Subtle cyber grid complementing background)
+    .gridOverlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 64px 64px;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.08;
+        transform: translateZ(0);
+    }
+
+    // Localized Green Spotlight Grid (Hardware accelerated via CSS custom coordinates)
+    .greenSpotlightGrid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(24, 201, 139, 0.35) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(24, 201, 139, 0.35) 1px, transparent 1px);
+        background-size: 64px 64px;
+        pointer-events: none;
+        z-index: 2;
+        opacity: var(--mouse-opacity, 0);
+        -webkit-mask-image: radial-gradient(circle 260px at var(--mouse-x, 50%) var(--mouse-y, 35%), #000 0%, transparent 100%);
+        mask-image: radial-gradient(circle 260px at var(--mouse-x, 50%) var(--mouse-y, 35%), #000 0%, transparent 100%);
+        transition: opacity 0.25s ease;
+        will-change: opacity;
+        transform: translateZ(0);
+    }
+
+    // Side Animation Dots on Left and Right Sides
+    .sideDotsWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        overflow: hidden;
+        transform: translateZ(0);
+        will-change: transform;
+
+        @media (prefers-reduced-motion: reduce) {
+            display: none;
+        }
+    }
+
+    .sideDotsLeft,
+    .sideDotsRight {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 32%;
+        pointer-events: none;
+    }
+
+    .sideDotsLeft {
+        left: 0;
+    }
+
+    .sideDotsRight {
+        right: 0;
+    }
+
+    .ambientPulseDot {
+        position: absolute;
+        border-radius: 50%;
+        background: #53E6B4;
+        box-shadow: 0 0 10px #18C98B;
+        pointer-events: none;
+        animation-name: sideDotFloatPulse;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        transform: translateZ(0);
+        will-change: transform, opacity;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+            opacity: 0.3;
+        }
+    }
+
+    // Animated Slope Laser Beams along Perspective Candlestick Stairs
+    .slopeLasersWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        overflow: hidden;
+        transform: translateZ(0);
+        will-change: transform;
+
+        @media (prefers-reduced-motion: reduce) {
+            display: none;
+        }
+    }
+
+    .slopeLasersSvg {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        display: block;
+    }
+
+    .slopeTrackLine {
+        opacity: 0.45;
+    }
+
+    .slopeActiveBeam {
+        animation-name: slopeBeamFlow;
+        animation-iteration-count: infinite;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+            opacity: 0.2;
+        }
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+
+        @include respond-to("sm") {
+            padding: 0 16px;
+        }
+    }
+}

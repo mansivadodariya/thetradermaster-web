@@ -1,0 +1,11 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../scss/font/font.scss' as *;
+
+@import './styles/pageBasics';
+@import './styles/heroSection';
+@import './styles/howItWorks';
+@import './styles/scannerDemo';
+@import './styles/featuresBento';
+@import './styles/comparisonFaqCta';
+@import './styles/lightTheme';

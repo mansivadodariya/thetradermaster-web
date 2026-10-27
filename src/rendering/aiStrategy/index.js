@@ -1,15 +1,17 @@
 'use client';
 
+import CommonSectionHeader from '@/components/CommonSectionHeader';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './aiStrategy.module.scss';
 import Loader from '@/components/loader';
 import { getStoredUserId } from '@/lib/authSession';
-import { toast } from 'react-hot-toast';
+import { toast } from '@/components/toast';
 import dynamic from 'next/dynamic';
 import StrategyDropdown from './StrategyDropdown';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { unifiedSocket, cleanPairSymbol, normalizeTimeframe } from '@/lib/unifiedSocket';
 import {
     pairs,
     formatPairCurrency,
@@ -26,12 +28,13 @@ import {
     ArrowRightIcon,
     VolumeIcon,
     RiskRewardIcon
-} from './icons';
+} from '@/icons/aiStrategyIcons';
 
-const WatchlistPanel = dynamic(() => import('./WatchlistPanel'), { ssr: false });
-const ChartPanel = dynamic(() => import('./ChartPanel'), { ssr: false });
-const AnalysisPanel = dynamic(() => import('./AnalysisPanel'), { ssr: false });
-
+import LiveAnalysisView from './components/LiveAnalysisView';
+import StrategyExecutionView from './components/StrategyExecutionView';
+import StrategyCategoryTabs from './components/StrategyCategoryTabs';
+import { useAiStrategyStore } from '@/context/toolState';
+import { fetchChartStrategies } from '@/services/chartStrategiesService';
 
 export default function AiStrategy({ initialTab = 'live' }) {
     const { t } = useLanguage();
@@ -41,55 +44,65 @@ export default function AiStrategy({ initialTab = 'live' }) {
     const [symbolInput, setSymbolInput] = useState('XAUUSD');
     const [timeframe, setTimeframe] = useState('1h'); // '5m', '15m', '1h', '1d'
 
-    // 3-panel layout state variables
-    const [selectedSymbol, setSelectedSymbol] = useState('XAU/USD');
-    const [selectedSymbolPriceInfo, setSelectedSymbolPriceInfo] = useState(null);
-    const [selectedStrategyId, setSelectedStrategyId] = useState('');
-    const [activeAnalysis, setActiveAnalysis] = useState(null);
-    const [refreshCounter, setRefreshCounter] = useState(0);
+    // Store state variables (persisted across route navigation)
+    const {
+        selectedSymbol,
+        setSelectedSymbol,
+        selectedSymbolPriceInfo,
+        setSelectedSymbolPriceInfo,
+        selectedStrategyId,
+        setSelectedStrategyId,
+        activeAnalysis,
+        setActiveAnalysis,
+        refreshCounter,
+        setRefreshCounter,
+        globalTimeframe,
+        setGlobalTimeframe,
+        selectedStrategySymbol,
+        setSelectedStrategySymbol,
+        activeSignals,
+        setActiveSignals,
+        strategyAnalysis,
+        setStrategyAnalysis,
+        analysisLoading,
+        setAnalysisLoading,
+        logs,
+        setLogs,
+        addLog,
+        clearLogs,
+        handleHourlyRefresh,
+        liveData,
+        setLiveData,
+        scannerData,
+        setScannerData,
+        scannerLoading,
+        setScannerLoading,
+        strategySignal,
+        setStrategySignal
+    } = useAiStrategyStore();
 
     const [wsStatus, setWsStatus] = useState('disconnected'); // 'connected' | 'connecting' | 'disconnected'
-    
-    // Strategy tab states
-    const [selectedStrategySymbol, setSelectedStrategySymbol] = useState('XAUUSD');
-    const [activeSignals, setActiveSignals] = useState({});
-    const [strategyAnalysis, setStrategyAnalysis] = useState(null);
-    const [analysisLoading, setAnalysisLoading] = useState(false);
     const [showPairSelector, setShowPairSelector] = useState(true);
-
-    // Global Timeframe (live tab)
-    const [globalTimeframe, setGlobalTimeframe] = useState('1h');
-
+    const [activeCategory, setActiveCategory] = useState('all');
     const [mounted, setMounted] = useState(false);
+    const [strategies, setStrategies] = useState([]);
 
-    // Live WebSockets console logs
-    const [logs, setLogs] = useState([]);
-
-    const addLog = useCallback((message, isSystem = false) => {
-        const timestamp = new Date().toLocaleTimeString();
-        setLogs((prev) => {
-            const nextLogs = [
-                ...prev,
-                { id: Math.random().toString(), time: timestamp, text: message, isSystem }
-            ]
-            if (nextLogs.length > 80) {
-                return nextLogs.slice(nextLogs.length - 80);
+    useEffect(() => {
+        let isCancelled = false;
+        async function loadStrategies() {
+            const list = await fetchChartStrategies();
+            if (isCancelled) return;
+            setStrategies(list);
+            if (!selectedStrategyId && list.length > 0) {
+                setSelectedStrategyId(list[0].id || list[0].strategy_id);
             }
-            return nextLogs;
-        });
-    }, []);
-
-    const handleHourlyRefresh = useCallback(() => {
-        setRefreshCounter(prev => prev + 1);
-        addLog('Triggering automatic hourly refresh at HH:01:00...', true);
-    }, [addLog]);
+        }
+        loadStrategies();
+        return () => { isCancelled = true; };
+    }, [selectedStrategyId, setSelectedStrategyId]);
 
     useEffect(() => {
         setMounted(true);
-        setLogs([
-            { id: 'init', time: new Date().toLocaleTimeString(), text: 'Terminal initialized. Booting streams for 6 pairs...', isSystem: true }
-        ]);
-
         if (typeof window !== 'undefined') {
             const savedSymbol = sessionStorage.getItem('selectedStrategySymbol');
             if (savedSymbol) {
@@ -97,15 +110,11 @@ export default function AiStrategy({ initialTab = 'live' }) {
                 sessionStorage.removeItem('selectedStrategySymbol');
             }
         }
-    }, []);
+    }, [setSelectedSymbol]);
 
     useEffect(() => {
         setSelectedSymbolPriceInfo(null);
-    }, [selectedSymbol]);
-
-    const clearLogs = () => {
-        setLogs([{ id: 'clear', time: new Date().toLocaleTimeString(), text: 'Log cleared.', isSystem: true }]);
-    };
+    }, [selectedSymbol, setSelectedSymbolPriceInfo]);
 
     const handleSetGlobalTimeframe = (tf) => {
         setGlobalTimeframe(tf);
@@ -113,7 +122,6 @@ export default function AiStrategy({ initialTab = 'live' }) {
     };
 
     // Live Candle Data (XAUUSD strategy tab)
-    const [liveData, setLiveData] = useState(MOCK_LIVE_DATA);
     const [candleStartTimes, setCandleStartTimes] = useState({
         "5m": MOCK_LIVE_DATA["5m"].time,
         "15m": MOCK_LIVE_DATA["15m"].time,
@@ -124,213 +132,124 @@ export default function AiStrategy({ initialTab = 'live' }) {
     const [priceTickColor, setPriceTickColor] = useState('normal'); // 'up' | 'down' | 'normal'
     const [lastPrices, setLastPrices] = useState({ "5m": 0, "15m": 0, "1h": 0, "1d": 0 });
 
-    // Scanner / Strength Data (REST Polled - strategy tab)
-    const [scannerData, setScannerData] = useState(MOCK_SCANNER_DATA);
-    const [scannerLoading, setScannerLoading] = useState(false);
-
-    // Active Strategy signal (strategy tab)
-    const [strategySignal, setStrategySignal] = useState(MOCK_STRATEGY_SIGNAL);
-
-    // Refs for Socket connection (strategy tab)
-    const wsRef = useRef(null);
-    const reconnectTimerRef = useRef(null);
-
     // Logger Helper for strategy tab
     const addStrategyLog = (message, isSystem = false) => {
         console.log(`[WebSocket Strategy] ${isSystem ? 'SYSTEM: ' : ''}${message}`);
     };
 
-    // WebSocket URL generator
-    const getWsUrl = (type, currentSymbol) => {
-        let base = type === 'live' 
-            ? process.env.NEXT_PUBLIC_WS_LIVE_URL 
-            : process.env.NEXT_PUBLIC_WS_STRATEGY_URL;
-            
-        if (!base) {
-            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-            if (backendUrl) {
-                const protocol = backendUrl.startsWith('https://') ? 'wss://' : 'ws://';
-                const host = backendUrl.replace(/^(https?:\/\/)/, '');
-                base = `${protocol}${host}/api/v1/ws/${type}`;
-            } else if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-                base = `ws://localhost:8000/api/v1/ws/${type}`;
-            } else {
-                base = `wss://thirsty-spoiler-cartel.ngrok-free.dev/api/v1/ws/${type}`;
-            }
-        }
-        
-        if (currentSymbol) {
-            return `${base}?symbol=${currentSymbol}`;
-        }
-        return base;
-    };
-
-    // WebSocket Connection Management (runs only on Strategy tab)
-    const connectWS = (type, currentSymbol) => {
-        if (wsRef.current) {
-            wsRef.current.close();
-        }
-
-        const wsUrl = getWsUrl(type, currentSymbol);
-        addStrategyLog(`Connecting to WebSocket Relay: ${wsUrl}`, true);
-        setWsStatus('connecting');
-
-        try {
-            const socket = new WebSocket(wsUrl);
-            wsRef.current = socket;
-
-            socket.onopen = () => {
-                addStrategyLog(`Connected successfully to MT5 ${type === 'live' ? 'Live Bridge' : 'Strategy Feed'}!`, true);
-                setWsStatus('connected');
-            };
-
-            socket.onmessage = (event) => {
-                try {
-                    const payload = JSON.parse(event.data);
-                    if (type === 'live') {
-                        if (payload.type === 'initial_state' || payload.type === 'candle_update') {
-                            addStrategyLog(`Received update for ${currentSymbol}`);
-                            setLiveData(payload.data);
-                            
-                            const nextStartTimes = {};
-                            for (const tf in payload.data) {
-                                nextStartTimes[tf] = payload.data[tf].time;
-                            }
-                            setCandleStartTimes(nextStartTimes);
-
-                            const candle = payload.data[timeframe];
-                            if (candle) {
-                                const prevPrice = lastPrices[timeframe];
-                                const currentPrice = candle.close;
-                                if (prevPrice > 0 && currentPrice !== prevPrice) {
-                                    setPriceTickColor(currentPrice > prevPrice ? 'up' : 'down');
-                                }
-                                setLastPrices((prev) => ({ ...prev, [timeframe]: currentPrice }));
-                            }
-
-                            if (payload.strategy_signal) {
-                                setStrategySignal(payload.strategy_signal);
-                            }
-                        }
-                    } else {
-                        // Strategy feed
-                        if (payload.type === 'initial_strategy_state' && Array.isArray(payload.active_setups)) {
-                            addStrategyLog(`Received initial strategy state with ${payload.active_setups.length} setups`);
-                            const newSigs = {};
-                            payload.active_setups.forEach(setup => {
-                                if (setup.symbol) {
-                                    const sName = setup.symbol.replace("/", "").toUpperCase();
-                                    newSigs[sName] = setup;
-                                }
-                            });
-                            setActiveSignals(newSigs);
-                            
-                            const keys = Object.keys(newSigs);
-                            if (keys.length > 0) {
-                                if (newSigs["XAUUSD"]) {
-                                    setSelectedStrategySymbol("XAUUSD");
-                                } else {
-                                    setSelectedStrategySymbol(keys[0]);
-                                }
-                            }
-                        } else if (payload.symbol && payload.signal) {
-                            const sName = payload.symbol.replace("/", "").toUpperCase();
-                            addStrategyLog(`Received strategy update for ${sName}`);
-                            setActiveSignals(prev => ({
-                                ...prev,
-                                [sName]: {
-                                    ...prev[sName],
-                                    ...payload
-                                }
-                            }));
-                        } else if (payload.strategy_signal) {
-                            const sig = payload.strategy_signal;
-                            const sName = (sig.symbol || payload.symbol || currentSymbol || '').replace("/", "").toUpperCase();
-                            if (sName) {
-                                addStrategyLog(`Received strategy alert for ${sName}`);
-                                setActiveSignals(prev => ({
-                                    ...prev,
-                                    [sName]: {
-                                        ...prev[sName],
-                                        symbol: sig.symbol || payload.symbol || currentSymbol,
-                                        signal: { ...sig }
-                                    }
-                                }));
-                            }
-                        } else if (payload.type === 'initial_state' || payload.type === 'strategy_update') {
-                            addStrategyLog(`Received strategy status update`);
-                            const data = payload.data || {};
-                            if (data.symbol && data.signal) {
-                                const sName = data.symbol.replace("/", "").toUpperCase();
-                                setActiveSignals(prev => ({
-                                    ...prev,
-                                    [sName]: {
-                                        ...prev[sName],
-                                        ...data
-                                    }
-                                }));
-                            } else if (data.strategy_signal) {
-                                const sig = data.strategy_signal;
-                                const sName = (sig.symbol || data.symbol || currentSymbol || '').replace("/", "").toUpperCase();
-                                if (sName) {
-                                    setActiveSignals(prev => ({
-                                        ...prev,
-                                        [sName]: {
-                                            ...prev[sName],
-                                            symbol: sig.symbol || data.symbol || currentSymbol,
-                                            signal: { ...sig }
-                                        }
-                                    }));
-                                }
-                            } else if (Array.isArray(data)) {
-                                const newSigs = {};
-                                data.forEach(item => {
-                                    const sig = item.strategy_signal || item;
-                                    if (sig && sig.symbol) {
-                                        const sName = sig.symbol.replace("/", "").toUpperCase();
-                                        newSigs[sName] = {
-                                            symbol: sig.symbol,
-                                            signal: { ...sig }
-                                        };
-                                    } else if (item.symbol && item.signal) {
-                                        const sName = item.symbol.replace("/", "").toUpperCase();
-                                        newSigs[sName] = item;
-                                    }
-                                });
-                                setActiveSignals(prev => ({ ...prev, ...newSigs }));
-                            }
-                        }
-                    }
-                } catch (e) {
-                    console.error("Error processing websocket payload:", e);
-                }
-            };
-
-            socket.onerror = () => {
-                addStrategyLog("WebSocket encountered an error.", true);
-            };
-
-            socket.onclose = () => {
-                addStrategyLog("Connection lost. Reconnecting in 3 seconds...", true);
-                setWsStatus('disconnected');
-                reconnectTimerRef.current = setTimeout(() => connectWS(type, currentSymbol), 3000);
-            };
-        } catch (err) {
-            addStrategyLog(`Failed to connect: ${err.message}`, true);
-            setWsStatus('disconnected');
-        }
-    };
-
-    // Handle WebSocket setup for strategy tab (uses Global Scan by connecting with empty symbol)
+    // Connection & Message Management for Strategy Tab (Unified MT5 Live WebSocket)
     useEffect(() => {
-        if (activeTab === 'strategy') {
-            connectWS('strategy', '');
-        }
+        if (activeTab !== 'strategy') return;
+
+        const currentSym = cleanPairSymbol(selectedStrategySymbol || selectedSymbol || 'XAUUSD');
+
+        // 1. Connection Status Tracking
+        const unsubStatus = unifiedSocket.subscribeStatus((status) => {
+            setWsStatus(status);
+            if (status === 'connected') {
+                addStrategyLog('Connected successfully to Unified MT5 Live WebSocket!', true);
+            } else if (status === 'connecting') {
+                addStrategyLog('Connecting to Unified MT5 Live WebSocket...', true);
+            } else {
+                addStrategyLog('Connection lost. Reconnecting in 3 seconds...', true);
+            }
+        });
+
+        // 2. Candle & Dynamic Indicator Stream
+        const unsubCandles = unifiedSocket.subscribeCandles((candleData, fullPayload) => {
+            if (!candleData) return;
+            const currentTf = normalizeTimeframe(globalTimeframe || 'H1');
+            const currentPrice = parseFloat(candleData.close);
+
+            if (!isNaN(currentPrice)) {
+                setLastPrices((prev) => {
+                    const prevPrice = prev[currentTf] || 0;
+                    if (prevPrice > 0 && currentPrice !== prevPrice) {
+                        setPriceTickColor(currentPrice > prevPrice ? 'up' : 'down');
+                    }
+                    return { ...prev, [currentTf]: currentPrice };
+                });
+            }
+
+            if (fullPayload?.strategy) {
+                setStrategySignal((prev) => ({ ...prev, ...fullPayload.strategy }));
+            }
+            if (fullPayload?.strategy_signal) {
+                setStrategySignal(fullPayload.strategy_signal);
+            }
+        }, currentSym, globalTimeframe);
+
+        // 3. Price Tick Stream
+        const unsubPrice = unifiedSocket.subscribePrice((priceObj) => {
+            if (!priceObj) return;
+            const currentTf = normalizeTimeframe(globalTimeframe || 'H1');
+            const p = parseFloat(priceObj.price);
+            if (!isNaN(p)) {
+                setLastPrices((prev) => {
+                    const prevPrice = prev[currentTf] || 0;
+                    if (prevPrice > 0 && p !== prevPrice) {
+                        setPriceTickColor(p > prevPrice ? 'up' : 'down');
+                    }
+                    return { ...prev, [currentTf]: p };
+                });
+            }
+        }, currentSym);
+
+        // 4. Strategy Setups and Signals
+        const unsubStrategy = unifiedSocket.subscribeStrategy((payload) => {
+            try {
+                if (payload.type === 'initial_strategy_state' && Array.isArray(payload.active_setups)) {
+                    addStrategyLog(`Received initial strategy state with ${payload.active_setups.length} setups`);
+                    const newSigs = {};
+                    payload.active_setups.forEach((setup) => {
+                        if (setup.symbol) {
+                            const sName = setup.symbol.replace("/", "").toUpperCase();
+                            newSigs[sName] = setup;
+                        }
+                    });
+                    setActiveSignals(newSigs);
+
+                    const keys = Object.keys(newSigs);
+                    if (keys.length > 0 && !newSigs["XAUUSD"]) {
+                        setSelectedStrategySymbol(keys[0]);
+                    }
+                } else if (payload.symbol && payload.signal) {
+                    const sName = payload.symbol.replace("/", "").toUpperCase();
+                    addStrategyLog(`Received strategy update for ${sName}`);
+                    setActiveSignals((prev) => ({
+                        ...prev,
+                        [sName]: {
+                            ...prev[sName],
+                            ...payload,
+                        },
+                    }));
+                } else if (payload.strategy_signal) {
+                    const sig = payload.strategy_signal;
+                    const sName = (sig.symbol || payload.symbol || currentSym || '').replace("/", "").toUpperCase();
+                    if (sName) {
+                        addStrategyLog(`Received strategy alert for ${sName}`);
+                        setActiveSignals((prev) => ({
+                            ...prev,
+                            [sName]: {
+                                ...prev[sName],
+                                symbol: sig.symbol || payload.symbol || currentSym,
+                                signal: { ...sig },
+                            },
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.error("Error processing websocket payload:", e);
+            }
+        }, currentSym, selectedStrategyId);
+
         return () => {
-            if (wsRef.current) wsRef.current.close();
-            if (reconnectTimerRef.current) clearTimeout(reconnectTimerRef.current);
+            unsubStatus();
+            unsubCandles();
+            unsubPrice();
+            unsubStrategy();
         };
-    }, [activeTab]);
+    }, [activeTab, selectedStrategySymbol, selectedSymbol, globalTimeframe, selectedStrategyId]);
 
     // REST Polling for Scanner Metrics (runs only on Strategy tab)
     const fetchScannerData = async (targetSymbol, targetTf) => {
@@ -481,7 +400,7 @@ export default function AiStrategy({ initialTab = 'live' }) {
         if (typeof window !== 'undefined') {
             sessionStorage.setItem('selectedStrategySymbol', sym);
         }
-        router.push('/ai-strategy/live');
+        router.push('/signal-terminal');
     };
 
     // Parse strength and details from REST scanner output
@@ -628,28 +547,42 @@ export default function AiStrategy({ initialTab = 'live' }) {
     return (
         <div className={styles.aiStrategyWrapper}>
             {/* Page Title */}
-            <div className={styles.header}>
-                <div className={styles.titleArea}>
-                    <h2>
-                        {activeTab === 'live'
-                            ? t('aiStrategy.liveAnalysisFeedTitle', 'Live Analysis Feed')
-                            : t('aiStrategy.title', 'AI Strategy')}
-                    </h2>
-                    <p>
-                        {activeTab === 'live' 
-                            ? t('aiStrategy.liveAnalysisFeedSubtitle', 'Real-Time FX Live Grid providing instant market feeds and strategy indicators.')
-                            : t('aiStrategy.subtitle', 'Real-time technical metrics, scanner signals, and AI Expert Advisor strategies streamed from MetaTrader 5.')
-                        }
-                    </p>
-                </div>
-                {activeTab === 'live' && (
-                    <div className={styles.headerDropdownCorner}>
-                        <StrategyDropdown onSelect={setSelectedStrategyId} />
-                    </div>
-                )}
-            </div>
+            <CommonSectionHeader
+                badge={activeTab === 'live' ? t('aiStrategy.liveAnalysisBadge', 'CHRONOSX LIVE ANALYSIS FEED') : t('aiStrategy.algorithmicSuiteBadge', 'CHRONOSX ALGORITHMIC SUITE')}
+                badgeIcon={
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                }
+                title={activeTab === 'live' ? t('aiStrategy.liveAnalysisFeedTitle', 'Live Analysis Feed') : t('aiStrategy.title', 'AI Strategy')}
+                subtitle={
+                    activeTab === 'live' 
+                        ? t('aiStrategy.liveAnalysisFeedSubtitle', 'Real-Time FX Live Grid providing instant market feeds and strategy indicators.')
+                        : t('aiStrategy.subtitle', 'Real-time technical metrics, scanner signals, and AI Expert Advisor strategies streamed from MetaTrader 5.')
+                }
+                isCard={true}
+                rightAction={
+                    activeTab === 'live' ? (
+                        <div className={styles.headerDropdownCorner}>
+                            <StrategyDropdown 
+                                strategies={strategies}
+                                selectedStrategyId={selectedStrategyId}
+                                onSelect={setSelectedStrategyId} 
+                            />
+                        </div>
+                    ) : null
+                }
+            />
 
-            {/* Main Content Area */}
+            {/* Filter by Category / Strategy Tabs */}
+            <StrategyCategoryTabs
+                strategies={strategies}
+                selectedStrategyId={selectedStrategyId}
+                onSelectStrategyId={setSelectedStrategyId}
+                activeCategory={activeCategory}
+                onSelectCategory={setActiveCategory}
+            />
+
             <div className={styles.contentBody}>
                 <AnimatePresence mode="wait">
                     {activeTab === 'live' ? (
@@ -661,39 +594,19 @@ export default function AiStrategy({ initialTab = 'live' }) {
                             transition={{ duration: 0.2 }}
                             className={styles.liveTabContainer}
                         >
-
-                            {/* Three Panel Layout */}
-                            <div className={styles.threePanelLayout}>
-                                {/* Panel 1: Watchlist */}
-                                <WatchlistPanel 
-                                    selectedSymbol={selectedSymbol}
-                                    onSelectSymbol={setSelectedSymbol}
-                                    globalTimeframe={globalTimeframe}
-                                    addLog={addLog}
-                                    activeAnalysis={activeAnalysis}
-                                    onActivePriceUpdate={setSelectedSymbolPriceInfo}
-                                />
-
-                                {/* Panel 2: Chart */}
-                                <ChartPanel 
-                                    symbol={selectedSymbol}
-                                    strategyId={selectedStrategyId}
-                                    timeframe={globalTimeframe === '1h' ? '1H' : globalTimeframe}
-                                    nearestSupport={activeAnalysis?.levels?.nearest_support}
-                                    nearestResistance={activeAnalysis?.levels?.nearest_resistance}
-                                    onRefreshNeeded={handleHourlyRefresh}
-                                    livePriceInfo={selectedSymbolPriceInfo}
-                                />
-
-                                {/* Panel 3: Analysis */}
-                                <AnalysisPanel 
-                                    symbol={selectedSymbol}
-                                    strategyId={selectedStrategyId}
-                                    activeAnalysis={activeAnalysis}
-                                    onAnalysisLoaded={setActiveAnalysis}
-                                    key={`${selectedSymbol}-${selectedStrategyId}-${refreshCounter}`}
-                                />
-                            </div>
+                            <LiveAnalysisView
+                                selectedSymbol={selectedSymbol}
+                                setSelectedSymbol={setSelectedSymbol}
+                                globalTimeframe={globalTimeframe}
+                                addLog={addLog}
+                                activeAnalysis={activeAnalysis}
+                                setActiveAnalysis={setActiveAnalysis}
+                                selectedSymbolPriceInfo={selectedSymbolPriceInfo}
+                                setSelectedSymbolPriceInfo={setSelectedSymbolPriceInfo}
+                                selectedStrategyId={selectedStrategyId}
+                                handleHourlyRefresh={handleHourlyRefresh}
+                                refreshCounter={refreshCounter}
+                            />
                         </motion.div>
                     ) : (
                         <motion.div 
@@ -704,171 +617,10 @@ export default function AiStrategy({ initialTab = 'live' }) {
                             transition={{ duration: 0.2 }}
                             className={styles.tabContent}
                         >
-                            {/* Strategy Accordion Button */}
-                            <div className={styles.strategyAccordion}>
-                                <button
-                                    className={`${styles.accordionTrigger} ${showPairSelector ? styles.accordionOpen : ''}`}
-                                    onClick={() => setShowPairSelector(!showPairSelector)}
-                                >
-                                    <div className={styles.accordionLeft}>
-                                        <span className={`${styles.strategyDot} ${styles.buyDot}`}></span>
-                                        <span className={styles.accordionTitle}>EMA Pullback Strategy</span>
-                                        {Object.keys(activeSignals).length > 0 && (
-                                            <span className={styles.accordionBadge}>
-                                                {Object.keys(activeSignals).length} Pairs
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className={styles.accordionRight}>
-                                        <span className={`${styles.accordionWsBadge} ${styles[wsStatus]}`}>
-                                            {wsStatus === 'connected' ? '● Live' : wsStatus === 'connecting' ? '◌ Connecting...' : '○ Offline'}
-                                        </span>
-                                        <span className={`${styles.dropdownArrow} ${showPairSelector ? styles.open : ''}`}>▼</span>
-                                    </div>
-                                </button>
-
-                                {/* Accordion Content: All Pair Cards */}
-                                <AnimatePresence>
-                                    {showPairSelector && (
-                                        <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: 'auto' }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                            style={{ overflow: 'hidden' }}
-                                        >
-                                            {Object.keys(activeSignals).length === 0 ? (
-                                                <div className={`${styles.noTradeCard} ${styles.accordionEmpty}`}>
-                                                    <div className={`${styles.radarIcon} ${styles.radarIconSpinner}`}>
-                                                        <RadarIcon />
-                                                    </div>
-                                                    <h4>Awaiting Strategy Stream</h4>
-                                                    <p>Connecting to the live Global Scan strategy feed. Waiting for active setups...</p>
-                                                </div>
-                                            ) : (
-                                                <div className={styles.pairsGrid}>
-                                                    {Object.entries(activeSignals).map(([symName, setup]) => {
-                                                        const sig = setup.signal || {};
-                                                        const sigActive = sig.active;
-                                                        const isBuy = sig.direction === 'BUY';
-                                                        const confVal = sig.confidence || 0;
-
-                                                        return (
-                                                            <div
-                                                                key={symName}
-                                                                className={`${styles.pairCard} ${sigActive ? (isBuy ? styles.activeBuy : styles.activeSell) : ''}`}
-                                                            >
-                                                                {/* Card Header */}
-                                                                <div className={styles.pairCardHead}>
-                                                                    <div className={styles.cardHeaderTitle}>
-                                                                        <span className={`${styles.strategyDot} ${sigActive ? (isBuy ? styles.buyDot : styles.sellDot) : styles.holdDot}`}></span>
-                                                                        <h4>
-                                                                            {setup.symbol || symName}
-                                                                            {sig.timestamp && (
-                                                                                <span className={styles.timeTag}>
-                                                                                    &nbsp;{new Date(sig.timestamp * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()}
-                                                                                </span>
-                                                                            )}
-                                                                        </h4>
-                                                                    </div>
-                                                                    <span className={styles.strategyTypeTag}>{setup.strategy_name || 'EMA Pullback'}</span>
-                                                                </div>
-
-                                                                {/* Direction Badge */}
-                                                                <div className={`${styles.directionBadge} ${sigActive ? (isBuy ? styles.buyColor : styles.sellColor) : styles.holdColor}`}>
-                                                                    {sigActive ? (isBuy ? '↑ BUY' : '↓ SELL') : '→ HOLD'}
-                                                                </div>
-
-                                                                {/* Trade Details or No Active Trade */}
-                                                                {sigActive ? (
-                                                                    <>
-                                                                        {/* Price Levels */}
-                                                                        <div className={styles.levelsCard}>
-                                                                            <div className={styles.gridLevelRow}>
-                                                                                <span className={styles.gridLevelLabel}>Entry Target</span>
-                                                                                <span className={styles.gridLevelValue}>{formatCurrency(sig.entry, symName)}</span>
-                                                                            </div>
-                                                                            <div className={styles.gridLevelRow}>
-                                                                                <span className={styles.gridLevelLabel}>Stop Loss</span>
-                                                                                <span className={`${styles.gridLevelValue} ${styles.slColor}`}>{formatCurrency(sig.sl, symName)}</span>
-                                                                            </div>
-                                                                            <div className={styles.gridLevelRow}>
-                                                                                <span className={styles.gridLevelLabel}>Take Profit 1 (1.5 R:R)</span>
-                                                                                <span className={`${styles.gridLevelValue} ${styles.tpColor}`}>{formatCurrency(sig.tp1, symName)}</span>
-                                                                            </div>
-                                                                            {sig.tp2 && (
-                                                                                <div className={styles.gridLevelRow}>
-                                                                                    <span className={styles.gridLevelLabel}>Take Profit 2 (3.0 R:R)</span>
-                                                                                    <span className={`${styles.gridLevelValue} ${styles.tpColor}`}>{formatCurrency(sig.tp2, symName)}</span>
-                                                                                </div>
-                                                                            )}
-                                                                        </div>
-
-                                                                        {/* Confluence Indicators */}
-                                                                        <div className={styles.confluenceBox}>
-                                                                            <div className={styles.confluenceStats}>
-                                                                                <span className={styles.confKicker}>Confluence Indicators</span>
-                                                                                {sig.rvol && (
-                                                                                    <div className={styles.confItem}>
-                                                                                        <VolumeIcon />
-                                                                                        <span>Volume: <strong className={styles.strongText}>STRONG ({sig.rvol})</strong></span>
-                                                                                    </div>
-                                                                                )}
-                                                                                {sig.risk_reward && (
-                                                                                    <div className={styles.confItem}>
-                                                                                        <RiskRewardIcon />
-                                                                                        <span>Risk Reward: <strong>{sig.risk_reward}</strong></span>
-                                                                                    </div>
-                                                                                )}
-                                                                                <span className={`${styles.confStrengthBadge} ${confVal >= 90 ? styles.highConf : styles.medConf}`}>
-                                                                                    {confVal >= 90 ? 'HIGH' : 'MEDIUM'} CONFIDENCE
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        {/* AI Analysis & Reasoning */}
-                                                                        <div className={styles.strategyReasoning}>
-                                                                            <span className={styles.reasoningLabel}>AI Analysis &amp; Reasoning</span>
-                                                                            <p>
-                                                                                {sig.reasoning ||
-                                                                                    `${setup.strategy_name || 'EMA Pullback'} setup detected on H1 timeframe for ${setup.symbol || symName}. ` +
-                                                                                    `Price is showing a ${isBuy ? 'bullish' : 'bearish'} bias` +
-                                                                                    `${sig.rsi ? ` with RSI at ${Number(sig.rsi).toFixed(1)}` : ''}.` +
-                                                                                    `${sig.confidence ? ` Signal confidence: ${sig.confidence}%.` : ''}` +
-                                                                                    `${sig.rvol ? ` Volume is elevated at ${sig.rvol}, confirming momentum.` : ''}`
-                                                                                }
-                                                                            </p>
-                                                                        </div>
-
-                                                                        {/* Signal Tags */}
-                                                                        <div className={styles.tagFlex}>
-                                                                            <span className={styles.strategyTag}>{setup.strategy_name || 'EMA PULLBACK'}</span>
-                                                                            <span className={styles.strategyTag}>
-                                                                                {isBuy ? 'UPTREND' : 'DOWNTREND'}
-                                                                            </span>
-                                                                            {sig.rsi && (
-                                                                                <span className={styles.strategyTag}>RSI {Number(sig.rsi).toFixed(1)}</span>
-                                                                            )}
-                                                                            {sig.scanners_count && (
-                                                                                <span className={styles.strategyTag}>{sig.scanners_count} SCANNERS</span>
-                                                                            )}
-                                                                        </div>
-                                                                    </>
-                                                                ) : (
-                                                                    <div className={styles.inactiveMessage}>
-                                                                        <RadarIcon width={16} height={16} />
-                                                                        <span>{sig.message || 'No active trade setup'}</span>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            )}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
+                            <StrategyExecutionView
+                                selectedStrategyId={selectedStrategyId}
+                                strategies={strategies}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>

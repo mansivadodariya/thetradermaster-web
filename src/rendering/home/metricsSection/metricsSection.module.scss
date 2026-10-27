@@ -1,0 +1,343 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.metricsSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 130px 0;
+  background: #040605;
+  overflow: hidden;
+
+  :global(html.light) & {
+    background: #F8FAFC;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+}
+
+.headerGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 60px auto;
+
+  .badgeWrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 45px;
+    font-weight: 900;
+    line-height: 1.14;
+    letter-spacing: -1.3px;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0 0 16px 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    :global(html.light) & {
+      color: #0F172A;
+      font-weight: 900;
+    }
+
+    span {
+      color: #18c98b;
+      background: none;
+      -webkit-text-fill-color: initial;
+      display: inline;
+      font-weight: 900;
+
+      :global(html.light) & {
+        color: #059669;
+        -webkit-text-fill-color: #059669;
+        font-weight: 900;
+      }
+    }
+
+    @include respond-to("tab") {
+      font-size: 34px;
+      letter-spacing: -0.8px;
+    }
+
+    @include respond-to("sm") {
+      font-size: 28px;
+    }
+  }
+
+  .subtitle {
+    color: #9c9a96;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 620px;
+
+    :global(html.light) & {
+      color: #475569;
+    }
+
+    @include respond-to("tab") {
+      font-size: 14.5px;
+    }
+  }
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(24, 201, 139, 0.08) 0%, rgba(24, 201, 139, 0.02) 45%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+
+  :global(html.light) & {
+    display: none;
+  }
+}
+
+/* Centered Brick Wall Grid Structure */
+.brickWallContainer {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  :global(html.light) & {
+    border-color: rgba(24, 201, 139, 0.25);
+  }
+}
+
+.wallRow {
+  display: grid;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  :global(html.light) & {
+    border-color: rgba(24, 201, 139, 0.25);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.row1 {
+    grid-template-columns: 0.5fr 1.1fr 1.1fr 0.5fr;
+
+    @include respond-to("tab") {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &.row2 {
+    grid-template-columns: 0.8fr 1.3fr 0.9fr;
+
+    @include respond-to("tab") {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &.row3 {
+    grid-template-columns: 1.2fr 1.2fr 0.6fr;
+
+    @include respond-to("tab") {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* Grid Cell Tile */
+.wallTile {
+  position: relative;
+  padding: 44px 40px;
+  background: #040605;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+
+  :global(html.light) & {
+    background: transparent;
+    border-color: rgba(24, 201, 139, 0.2);
+    box-shadow: none;
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &.filledTile {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.6) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    &:hover {
+      border-color: #18c98b;
+      transform: translateY(-3px);
+      box-shadow: inset 0 0 25px rgba(24, 201, 139, 0.08), 0 8px 24px -6px rgba(24, 201, 139, 0.25);
+
+      &::after {
+        opacity: 1;
+      }
+
+      .suffixGreen {
+        color: #6EE7B7;
+        text-shadow: 0 0 14px rgba(24, 201, 139, 0.8);
+      }
+    }
+  }
+
+  &.emptyTile {
+    background: transparent;
+    pointer-events: none;
+
+    :global(html.light) & {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    @include respond-to("tab") {
+      display: none;
+    }
+  }
+
+  @include respond-to("tab") {
+    padding: 32px 24px;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @include respond-to("sm") {
+    padding: 24px 18px;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Interactive Localized Green Laser Border Spotlight (ONLY vertical & horizontal grid lines near cursor pointer glow green!) */
+.laserBorderSpotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.25s ease;
+
+  @include respond-to("tab") {
+    display: none;
+  }
+}
+
+.laserWallGrid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  border-top: 1.2px solid #18c98b;
+  border-bottom: 1.2px solid #18c98b;
+}
+
+.laserRow {
+  display: grid;
+  width: 100%;
+  border-bottom: 1.2px solid #18c98b;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.row1 {
+    grid-template-columns: 0.5fr 1.1fr 1.1fr 0.5fr;
+  }
+
+  &.row2 {
+    grid-template-columns: 0.8fr 1.3fr 0.9fr;
+  }
+
+  &.row3 {
+    grid-template-columns: 1.2fr 1.2fr 0.6fr;
+  }
+}
+
+.laserTile {
+  border-right: 1.2px solid #18c98b;
+  box-shadow: 0 0 8px rgba(24, 201, 139, 0.7);
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.tileBody {
+  position: relative;
+  z-index: 3;
+}
+
+.bigNumber {
+  font-family: var(--font-plus-jakarta), sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+
+  :global(html.light) & {
+    color: #0F172A;
+  }
+
+  .suffixGreen {
+    color: #18c98b;
+    transition: all 0.3s ease;
+    margin-left: 2px;
+
+    :global(html.light) & {
+      color: #047857;
+    }
+  }
+
+  @include respond-to("sm") {
+    font-size: 30px;
+  }
+}
+
+.tileLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: -0.2px;
+
+  :global(html.light) & {
+    color: #0F172A;
+  }
+}
+
+.tileDesc {}

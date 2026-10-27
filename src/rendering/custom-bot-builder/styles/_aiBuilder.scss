@@ -1,0 +1,239 @@
+.aiBuilderSection {
+  padding: 100px 0;
+  position: relative;
+  background: rgba(11, 20, 26, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+
+  @media (max-width: 992px) {
+    padding: 75px 0;
+  }
+
+  @media (max-width: 576px) {
+    padding: 55px 0;
+  }
+
+  :global(html.light) & {
+    background: #FFFFFF;
+    border-top: none;
+    border-bottom: none;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.aiChatGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  margin-top: 52px;
+  align-items: center;
+
+  @media (max-width: 1080px) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 24px;
+    margin-top: 30px;
+  }
+}
+
+/* Left Column: 4 Vertical Process Cards */
+.stepsRail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  @media (max-width: 1080px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.stepCard {
+  background: rgba(13, 22, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 576px) {
+    padding: 16px 18px;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  &:hover {
+    border-color: rgba(24, 201, 139, 0.45);
+    transform: translateY(-3px);
+    background: rgba(16, 28, 36, 0.95);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 16px rgba(24, 201, 139, 0.12);
+
+    .stepIconBox {
+      background: #18C98B;
+      color: #03140D;
+      border-color: #18C98B;
+      box-shadow: 0 0 14px rgba(24, 201, 139, 0.4);
+    }
+  }
+
+  .stepIconBox {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+
+    @media (max-width: 576px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .stepContent {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stepTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 5px;
+    line-height: 1.35;
+
+    @media (max-width: 576px) {
+      font-size: 0.96rem;
+    }
+  }
+
+  .stepDesc {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: #94A3B8;
+    margin: 0;
+
+    @media (max-width: 576px) {
+      font-size: 0.82rem;
+    }
+  }
+
+  :global(html.light) & {
+    background: #FFFFFF;
+    border-color: #E2E8F0;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+
+    &:hover {
+      background: #F8FAFC;
+      border-color: #059669;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+
+      .stepIconBox {
+        background: #10B981;
+        color: #FFFFFF;
+      }
+    }
+
+    .stepTitle {
+      color: #0F172A;
+    }
+
+    .stepDesc {
+      color: #64748B;
+    }
+  }
+}
+
+/* Right Column: 3D AI Robot Showcase Visual */
+.aiImageVisual {
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  transition: all 0.35s ease;
+
+  &:hover {
+    border: none;
+    box-shadow: none;
+
+    .robotImage {
+      transform: scale(1.025);
+    }
+  }
+
+  @media (max-width: 1080px) {
+    max-width: 420px;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+
+  :global(html.light) & {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .robotImage {
+    width: 100%;
+    height: auto;
+    max-height: 430px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 25px rgba(24, 201, 139, 0.18));
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    @media (max-width: 1080px) {
+      max-height: 380px;
+    }
+
+    @media (max-width: 576px) {
+      max-height: 290px;
+    }
+  }
+
+  .imageOverlayGradient {
+    display: none;
+  }
+}

@@ -1,0 +1,542 @@
+/* Action Buttons */
+.buyBtn {
+    width: 100%;
+    height: 50px;
+    padding: 6px 6px 6px 20px;
+    border-radius: 9999px;
+    font-size: 14.5px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+
+    @media (max-width: 1200px) {
+        height: 46px;
+        padding: 5px 6px 5px 16px;
+        font-size: 14px;
+    }
+
+    @include respond-to("sm") {
+        height: 46px;
+        padding: 5px 5px 5px 14px;
+        font-size: 13px;
+    }
+
+    span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btnIconBox {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        line-height: 0;
+
+        @include respond-to("sm") {
+            width: 34px;
+            height: 34px;
+        }
+
+        svg,
+        .btnArrow {
+            display: block;
+            margin: auto;
+            transition: transform 0.3s ease;
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.basicBuyBtn,
+.featuredBuyBtn,
+.premiumBuyBtn {
+    background: #18C98B;
+    color: #040605;
+    border: 1px solid #18C98B;
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+
+    .btnIconBox {
+        background: rgba(0, 0, 0, 0.18);
+        color: #040605;
+    }
+
+    &:hover {
+        background: #15b77e;
+        color: #040605;
+        border-color: #15b77e;
+        box-shadow: 0 6px 24px rgba(24, 201, 139, 0.5);
+
+        .btnIconBox {
+            background: rgba(0, 0, 0, 0.25);
+            color: #040605;
+
+            .btnArrow {
+                transform: translate(2px, -2px);
+            }
+        }
+    }
+
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #18C98B;
+        color: #040605;
+        border-color: #18C98B;
+        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.25);
+
+        .btnIconBox {
+            background: rgba(0, 0, 0, 0.15);
+            color: #040605;
+        }
+
+        &:hover {
+            background: #15B77E;
+            border-color: #15B77E;
+            box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+.subCtaNote {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    @include font-normal;
+}
+
+/* Trust & Security Strip */
+.trustStrip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1060px;
+    margin: 0 auto 50px auto;
+    padding: 20px 28px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(18, 14, 10, 0.6) 0%, rgba(10, 8, 6, 0.8) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 18px;
+        text-align: center;
+    }
+
+    .trustItem {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        @media (max-width: 992px) {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .trustIcon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #A7F3D0 0%, #18C98B 35%, #059669 70%, #047857 100%);
+            color: #040300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+            svg {
+                stroke: #040300;
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        &:hover .trustIcon {
+            transform: scale(1.08);
+            box-shadow: 0 6px 22px rgba(24, 201, 139, 0.55);
+        }
+
+        h4 {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 3px 0;
+        }
+
+        p {
+            color: #8c8881;
+            font-size: 13px;
+            margin: 0;
+            @include font-normal;
+        }
+    }
+
+    .trustDivider {
+        width: 1px;
+        height: 36px;
+        background: rgba(24, 201, 139, 0.2);
+
+        @media (max-width: 992px) {
+            display: none;
+        }
+    }
+}
+
+/* FAQ Section */
+.faqSection {
+    max-width: 860px;
+    margin: 0 auto 50px auto;
+    text-align: center;
+
+    .faqHeader {
+        margin-bottom: 36px;
+
+        .faqTag {
+            color: #18C98B;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-family: var(--font-syne), "Syne", sans-serif;
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 800;
+            color: #FFFFFF;
+            margin: 0 0 12px 0;
+        }
+
+        p {
+            color: #8c8881;
+            font-size: 15px;
+            margin: 0;
+            @include font-normal;
+        }
+    }
+
+    .faqList {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-align: left;
+    }
+
+    .faqCard {
+        border-radius: 14px;
+        background: rgba(18, 14, 10, 0.65);
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        padding: 20px 24px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.4);
+            background: rgba(24, 18, 12, 0.8);
+        }
+
+        .faqQuestionRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            h3 {
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 700;
+                margin: 0;
+                line-height: 1.4;
+            }
+
+            .faqChevron {
+                color: #18C98B;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+            }
+
+            .faqChevronRotated {
+                transform: rotate(180deg);
+            }
+        }
+
+        .faqAnswer {
+            overflow: hidden;
+
+            p {
+                color: #9c9a96;
+                font-size: 14px;
+                line-height: 1.65;
+                margin: 14px 0 0 0;
+                padding-top: 14px;
+                border-top: 1px solid rgba(24, 201, 139, 0.15);
+                @include font-normal;
+            }
+        }
+    }
+
+    .faqCardOpen {
+        border-color: rgba(24, 201, 139, 0.5);
+        background: rgba(24, 18, 12, 0.85);
+    }
+}
+
+/* Footer Disclaimer Box */
+.disclaimerBox {
+    background: rgba(12, 10, 8, 0.7);
+    border: 1px solid rgba(24, 201, 139, 0.18);
+    border-radius: 12px;
+    padding: 18px 24px;
+    text-align: center;
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+
+    p {
+        color: #6e6b66;
+        font-size: 12px;
+        line-height: 1.6;
+        margin: 0;
+        @include font-normal;
+    }
+}
+
+/* ========================================================================= */
+/* COMPLETE LIGHT MODE OVERRIDES FOR PLANS & PRICING */
+/* ========================================================================= */
+:global(html.light) .plansPage,
+:global([data-theme='light']) .plansPage {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .eyebrowBadge {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.45);
+        color: #047857;
+        box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12);
+    }
+
+    .title,
+    .planName,
+    .amount,
+    .comparisonHeader h2,
+    .faqHeader h2,
+    .faqQuestionRow h3,
+    .featureItemText strong {
+        color: #0F172A;
+    }
+
+    .goldGradient {
+        color: #18C98B;
+        background: none;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: initial;
+    }
+
+    .subtitle,
+    .planDesc,
+    .validityLabel,
+    .comparisonHeader p,
+    .faqHeader p,
+    .faqAnswer p,
+    .disclaimerBox p,
+    .subCtaNote,
+    .featureItemText {
+        color: #475569;
+    }
+
+    .tierCategoryRow {
+        .tierCategory {
+            color: #047857;
+            font-weight: 800;
+        }
+
+        .creditsTag {
+            background: rgba(24, 201, 139, 0.12);
+            border: 1px solid rgba(24, 201, 139, 0.3);
+            color: #047857;
+            font-weight: 800;
+        }
+    }
+
+    .planCard,
+    .basicCard,
+    .premiumCard,
+    .comparisonTableWrapper,
+    .faqCard,
+    .disclaimerBox {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 25px rgba(15, 23, 42, 0.05);
+    }
+
+    .featuredCard {
+        background: #FFFFFF;
+        border: 2px solid #18C98B;
+        box-shadow: 0 12px 35px rgba(24, 201, 139, 0.18);
+    }
+
+    .selectedCard {
+        border-color: #059669;
+        box-shadow: 0 0 0 2px #059669, 0 12px 35px rgba(16, 185, 129, 0.2);
+    }
+
+    .priceContainer {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .cardFeaturesBox {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+
+        .featuresHeader {
+            color: #047857;
+            font-weight: 800;
+        }
+
+        .featuresList li {
+            color: #334155;
+        }
+    }
+
+    .buyBtn {
+        &.featuredBuyBtn,
+        &.premiumBuyBtn {
+            background: #18C98B;
+            color: #040605;
+            font-weight: 800;
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.25);
+
+            &:hover {
+                background: #15B77E;
+            }
+        }
+
+        &.basicBuyBtn {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            color: #0F172A;
+            font-weight: 700;
+
+            &:hover {
+                background: #E2E8F0;
+            }
+        }
+    }
+
+    /* 3. Trust & Security Strip */
+    .trustStrip {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+
+        .trustItem {
+            .trustIcon {
+                background: #F0FDF4;
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #047857;
+            }
+
+            h4 {
+                color: #0F172A;
+                font-weight: 700;
+            }
+
+            p {
+                color: #475569;
+            }
+        }
+
+        .trustDivider {
+            background: rgba(15, 23, 42, 0.1);
+        }
+    }
+
+    /* 4. FAQ Section */
+    .faqHeader {
+        .faqTag {
+            color: #047857;
+            font-weight: 800;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            margin-bottom: 8px;
+            display: block;
+        }
+    }
+
+    .faqCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+        &:hover {
+            border-color: #18C98B;
+            background: #F8FAFC;
+        }
+
+        .faqQuestionRow {
+            h3 {
+                color: #0F172A;
+            }
+
+            .faqChevron {
+                color: #047857;
+            }
+        }
+
+        .faqAnswer p {
+            color: #475569;
+            border-top: 1px solid #F1F5F9;
+        }
+    }
+
+    .faqCardOpen {
+        border-color: #18C98B;
+        background: #FFFFFF;
+        box-shadow: 0 6px 22px rgba(24, 201, 139, 0.1);
+    }
+
+    .billingToggleWrapper,
+    .switcherBox {
+        background: #F1F5F9;
+        border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    .featureRow {
+        border-bottom-color: rgba(15, 23, 42, 0.08);
+
+        &:hover {
+            background-color: #F8FAFC;
+        }
+    }
+
+    .tableColHeader {
+        background: #F8FAFC;
+        color: #0F172A;
+    }
+}

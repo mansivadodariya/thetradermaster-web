@@ -1,14 +1,9 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabaseClient';
+import { serverFetch } from '@/lib/serverFetch';
 import { EMA, ATR } from 'technicalindicators';
 
 export const dynamic = 'force-dynamic';
-
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Helper to align indicator values to original candles array
 function alignIndicator(candles, indicatorValues, period) {
@@ -168,24 +163,69 @@ function calculateSupportResistance(candles) {
 
 export async function GET(request) {
     try {
+        const searchParams = request.nextUrl.searchParams;
+        const rawSymbol = searchParams.get('symbol') || 'XAUUSD';
+        const rawTimeframe = searchParams.get('timeframe') || '15m';
+        const strategyId = searchParams.get('strategy_id') || 'default';
+        const limit = parseInt(searchParams.get('limit') || '500', 10);
+
+        const strippedSymbol = rawSymbol.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+
+        // 1. Primary: Fetch real live MT5 candles directly from configured Backend API or Production Fallback
+        const backendBase = (process.env.NEXT_PUBLIC_BACKEND_URL || process.env.BACKEND_URL || '').replace(/\/+$/, '');
+        const candidateBases = [
+            backendBase,
+            'https://api.chronosx.com'
+        ].filter(Boolean);
+
+        for (const base of Array.from(new Set(candidateBases))) {
+            let liveRes = null;
+            try {
+                const liveBackendUrl = `${base}/api/v1/chart/candles?symbol=${strippedSymbol}&timeframe=${rawTimeframe}&strategy_id=${strategyId}`;
+                liveRes = await serverFetch(liveBackendUrl, {
+                    timeoutMs: 4000,
+                    clientSignal: request.signal,
+                    closeConnection: true,
+                    headers: {
+                        'accept': 'application/json',
+                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ChronosXApp'
+                    }
+                });
+
+                if (liveRes.ok) {
+                    const liveData = await liveRes.json();
+                    const liveCandles = liveData.candles || liveData.data;
+                    if (Array.isArray(liveCandles) && liveCandles.length > 0) {
+                        return NextResponse.json(liveData, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Cache-Control': 'public, max-age=10, stale-while-revalidate=30'
+                            }
+                        });
+                    }
+                } else {
+                    await liveRes.body?.cancel().catch(() => {});
+                }
+            } catch (backendErr) {
+                if (liveRes && !liveRes.bodyUsed) {
+                    await liveRes.body?.cancel().catch(() => {});
+                }
+                console.warn('[CandlesRoute] Live API fetch notice for', base, backendErr.message);
+            }
+        }
+
+        // 2. Secondary Fallback: Supabase market_candles table
         if (!supabase) {
-            return NextResponse.json({ error: 'Supabase client is not configured.' }, {
-                status: 500,
+            return NextResponse.json({ candles: [], support: null, resistance: null }, {
                 headers: { 'Access-Control-Allow-Origin': '*' }
             });
         }
-
-        const searchParams = request.nextUrl.searchParams;
-        const rawSymbol = searchParams.get('symbol') || 'EURUSD';
-        const rawTimeframe = searchParams.get('timeframe') || 'H1';
-        const limit = parseInt(searchParams.get('limit') || '744', 10);
 
         // Generate robust variants to query symbol & timeframe
         const symbolVariants = [rawSymbol];
         const upperSymbol = rawSymbol.toUpperCase();
         if (!symbolVariants.includes(upperSymbol)) symbolVariants.push(upperSymbol);
         
-        const strippedSymbol = upperSymbol.replace('/', '');
         if (!symbolVariants.includes(strippedSymbol)) symbolVariants.push(strippedSymbol);
         
         if (strippedSymbol.length === 6) {

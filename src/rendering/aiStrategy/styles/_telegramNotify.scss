@@ -1,0 +1,99 @@
+/* ============================================================
+   TELEGRAM "NOTIFY ME" — BUTTON STYLES
+   Brand palette: Telegram blue (#2AABEE) × ChronosX green (#18C98B)
+   ============================================================ */
+
+/* ── Notify-Me Button on strategy cards ─────────────────────── */
+.notifyMeBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(42, 171, 238, 0.35);
+    background: rgba(42, 171, 238, 0.08);
+    color: rgba(42, 171, 238, 0.8);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+
+    svg {
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+
+    &:hover:not(:disabled) {
+        background: rgba(42, 171, 238, 0.18);
+        border-color: rgba(42, 171, 238, 0.6);
+        color: #2AABEE;
+        box-shadow: 0 0 12px rgba(42, 171, 238, 0.2);
+
+        svg {
+            transform: scale(1.1);
+        }
+    }
+
+    &.active {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.5);
+        color: #18C98B;
+        box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
+
+        &:hover:not(:disabled) {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #F87171;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
+
+            .notifyBtnText::after {
+                content: 'Mute Alerts';
+            }
+            .notifyBtnText {
+                font-size: 0;
+                &::after {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    &.loading svg {
+        animation: notifySpinner 0.8s linear infinite;
+    }
+
+    :global(html.light) &,
+    :global(body.light) &,
+    :global([data-theme='light']) & {
+        background: rgba(2, 132, 199, 0.08);
+        border-color: rgba(2, 132, 199, 0.3);
+        color: #0284C7;
+
+        &:hover:not(:disabled) {
+            background: rgba(2, 132, 199, 0.16);
+            border-color: #0284C7;
+            color: #0369A1;
+        }
+
+        &.active {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: rgba(5, 150, 105, 0.4);
+            color: #059669;
+        }
+    }
+}
+
+@keyframes notifySpinner {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}

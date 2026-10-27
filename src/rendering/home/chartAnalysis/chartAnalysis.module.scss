@@ -1,0 +1,434 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.chartAnalysis {
+    padding: 100px 0;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #010101 100%);
+
+    :global(html.light) & {
+        background: #FFFFFF;
+
+        .graphicImg {
+
+            .interactiveSvg,
+            img {
+                filter: none;
+            }
+        }
+
+        .pedestal {
+            opacity: 0.2;
+
+            .pedestalLight,
+            .pedestalRingOuter,
+            .pedestalRingInner {
+                box-shadow: none;
+            }
+        }
+
+        .connectorBadgeOne,
+        .connectorBadgeTwo {
+            background: #F1F5F9;
+            border-color: rgba(5, 150, 105, 0.4);
+            box-shadow: none;
+        }
+
+        .stepsFlow::before {
+            box-shadow: none;
+        }
+
+        .stepTitle {
+            color: #0F172A;
+        }
+
+        .stepDesc {
+            color: #64748B;
+        }
+
+        .stepBadge {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: rgba(5, 150, 105, 0.35);
+            color: #059669;
+        }
+    }
+
+    @include respond-to("tab") {
+        padding: 70px 0;
+    }
+
+    @include respond-to("sm") {
+        padding: 60px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1200px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    &::before {
+        background-color: #18c98b;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 1200px;
+        width: 100%;
+        content: '';
+        height: 100px;
+        opacity: .3;
+        z-index: 1;
+        filter: blur(100px);
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 9;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+
+        .badgeWrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-family: var(--font-syne), "Syne", sans-serif;
+            font-size: 45px;
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -1.2px;
+            color: #FFFFFF;
+            margin: 0 0 16px 0;
+
+            span {
+                color: #18c98b;
+                background: none;
+                -webkit-text-fill-color: initial;
+                display: inline;
+            }
+
+            @include respond-to("tab") {
+                font-size: 34px;
+                letter-spacing: -0.8px;
+            }
+
+            @include respond-to("sm") {
+                font-size: 28px;
+            }
+        }
+
+        .subtext {
+            color: #9c9a96;
+            font-size: 17px;
+            line-height: 1.5;
+            margin: 0;
+            max-width: 600px;
+            @include font-normal;
+        }
+    }
+
+    .stepsFlow {
+        position: relative;
+        width: 100%;
+
+        /* Glowing connecting line */
+        &::before {
+            content: "";
+            position: absolute;
+            top: 140px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(24, 201, 139, 0.4) 15%,
+                    #18c98b 50%,
+                    rgba(24, 201, 139, 0.4) 85%,
+                    transparent 100%);
+            box-shadow: 0 0 15px rgba(24, 201, 139, 0.7);
+
+            @include respond-to("md") {
+                display: none;
+            }
+        }
+
+        .connectorBadgeOne,
+        .connectorBadgeTwo {
+            position: absolute;
+            top: 120px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1a140f 0%, #0c0907 100%);
+            border: 1.5px solid #18c98b;
+            color: #18c98b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.4), inset 0 0 8px rgba(24, 201, 139, 0.25);
+
+            svg {
+                transition: transform 0.3s ease;
+            }
+
+            &:hover svg {
+                transform: translateX(2px);
+            }
+
+            @include respond-to("md") {
+                display: none;
+            }
+        }
+
+        .connectorBadgeOne {
+            left: 33.3%;
+            transform: translateX(-50%);
+        }
+
+        .connectorBadgeTwo {
+            right: 33.3%;
+            transform: translateX(50%);
+        }
+    }
+
+    .stepsGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        position: relative;
+        z-index: 2;
+
+        @include respond-to("md") {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+    }
+
+    .stepCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .graphicArea {
+            height: 230px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            width: 100%;
+
+            .graphicImg {
+                position: relative;
+                z-index: 3;
+                margin-bottom: -15px;
+
+                .interactiveSvg {
+                    max-height: 180px;
+                    width: auto;
+                    display: block;
+                    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.85));
+                    overflow: visible;
+                }
+
+                img {
+                    max-height: 180px;
+                    width: auto;
+                    object-fit: contain;
+                    display: block;
+                    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+                }
+            }
+
+            /* 3D Glowing Futuristic Pedestal */
+            .pedestal {
+                position: relative;
+                width: 240px;
+                height: 50px;
+                margin-top: -24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+                z-index: 2;
+
+                .pedestalLight {
+                    position: absolute;
+                    top: 2px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: #ffffff;
+                    box-shadow:
+                        0 0 10px 4px #ffffff,
+                        0 0 25px 10px rgba(24, 201, 139, 0.65),
+                        0 0 50px 16px rgba(24, 201, 139, 0.35);
+                    z-index: 5;
+                }
+
+                .pedestalRingOuter {
+                    position: absolute;
+                    top: 4px;
+                    width: 210px;
+                    height: 36px;
+                    border-radius: 50%;
+                    border: 2px solid rgba(24, 201, 139, 0.85);
+                    background: radial-gradient(ellipse at center, rgba(24, 201, 139, 0.3) 0%, rgba(24, 201, 139, 0.1) 60%, transparent 80%);
+                    box-shadow:
+                        0 0 20px rgba(24, 201, 139, 0.6),
+                        inset 0 0 15px rgba(24, 201, 139, 0.4);
+                    transform: perspective(300px) rotateX(45deg);
+                    z-index: 2;
+                }
+
+                .pedestalRingInner {
+                    position: absolute;
+                    top: 9px;
+                    width: 140px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 1.5px solid rgba(24, 201, 139, 0.65);
+                    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, rgba(24, 201, 139, 0.2) 60%, transparent 100%);
+                    transform: perspective(300px) rotateX(45deg);
+                    box-shadow: 0 0 15px rgba(24, 201, 139, 0.5);
+                    z-index: 3;
+                }
+
+                .pedestalGlow {
+                    position: absolute;
+                    top: 4px;
+                    width: 250px;
+                    height: 46px;
+                    border-radius: 50%;
+                    background: radial-gradient(ellipse at center, rgba(24, 201, 139, 0.5) 0%, rgba(24, 201, 139, 0.2) 50%, transparent 75%);
+                    filter: blur(8px);
+                    z-index: 1;
+                }
+            }
+        }
+
+        .cardBox {
+            width: 100%;
+            border-radius: 10px;
+            padding: 28px 24px;
+            text-align: center;
+            margin-top: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+            &::before {
+                content: "";
+                -webkit-mask-composite: xor;
+                pointer-events: none;
+                background: linear-gradient(#ffffff1a 0%, #9990 100%);
+                border-radius: 16px;
+                padding: 1.5px;
+                transition: background .35s, opacity .35s;
+                position: absolute;
+                inset: 0;
+                -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+                -webkit-mask-position: 0 0, 0 0;
+                -webkit-mask-size: auto, auto;
+                -webkit-mask-repeat: repeat, repeat;
+                -webkit-mask-clip: content-box, border-box;
+                -webkit-mask-origin: content-box, border-box;
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                -webkit-mask-source-type: auto, auto;
+                mask-mode: match-source, match-source;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 16px;
+                padding: 1.5px;
+                background: linear-gradient(0deg, #18c98b 0%, rgba(24, 201, 139, 0.6) 30%, rgba(24, 201, 139, 0.15) 60%, transparent 100%);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(4px);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px -10px rgba(24, 201, 139, 0.2), inset 0 -4px 15px rgba(24, 201, 139, 0.08);
+
+                &::before {
+                    opacity: 0.25;
+                }
+
+                &::after {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .stepBadgePill {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 12px;
+                border-radius: 99px;
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #18c98b;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.8px;
+                margin-bottom: 12px;
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
+            }
+
+            h3 {
+                color: #ffffff;
+                font-size: 20px;
+                font-weight: 700;
+                margin: 0 0 10px 0;
+                @include font-bold;
+            }
+
+            p {
+                color: #9c9a96;
+                font-size: 15px;
+                line-height: 1.5;
+                margin: 0;
+                @include font-normal;
+            }
+        }
+    }
+
+    .ctaWrapper {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+}

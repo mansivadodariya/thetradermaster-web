@@ -1,0 +1,331 @@
+@use '../../../scss/main.scss' as *;
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modalCard {
+    background: #090e0c;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(24, 201, 139, 0.1);
+    position: relative;
+    overflow: hidden;
+    color: #f1f5f9;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modalTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .iconBadge {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: rgba(24, 201, 139, 0.12);
+        color: #18c98b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0;
+        color: #ffffff;
+    }
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+
+    &:hover {
+        color: #f8fafc;
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+.modalBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.planOverviewCard {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .planDetails {
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 0 0 4px 0;
+        }
+
+        p {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+    }
+
+    .planPriceCol {
+        text-align: right;
+
+        .priceMain {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #18c98b;
+        }
+
+        .validitySub {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+    }
+}
+
+.summaryTable {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+
+    .summaryRow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.84rem;
+        color: rgba(255, 255, 255, 0.6);
+
+        &.discountRow {
+            color: #18c98b;
+            font-weight: 600;
+        }
+
+        &.totalRow {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #f8fafc;
+            padding-top: 10px;
+            margin-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            .totalAmount {
+                color: #18c98b;
+            }
+        }
+    }
+}
+
+.safeguardBanner {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(24, 201, 139, 0.06);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    line-height: 1.4;
+
+    svg {
+        color: #18c98b;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    .cancelBtn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        font-size: 0.84rem;
+        padding: 10px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+            color: #f8fafc;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+
+    .checkoutBtn {
+        background: linear-gradient(135deg, #18c98b 0%, #10b981 100%);
+        border: none;
+        color: #03130c;
+        font-weight: 800;
+        font-size: 0.84rem;
+        padding: 10px 24px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+
+        &:hover:not(:disabled) {
+            box-shadow: 0 8px 24px rgba(24, 201, 139, 0.35);
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+}
+
+/* ========================================================================= */
+/* LIGHT THEME (html.light / [data-theme='light'])                           */
+/* ========================================================================= */
+:global(html.light) .modalCard,
+:global([data-theme='light']) .modalCard {
+    background: #FFFFFF;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
+    color: #0F172A;
+
+    .modalHeader {
+        border-bottom-color: rgba(15, 23, 42, 0.08);
+
+        h3 {
+            color: #0F172A;
+        }
+    }
+
+    .closeBtn {
+        background: #F1F5F9;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: #0F172A;
+
+        &:hover {
+            background: #E2E8F0;
+            color: #000000;
+            border-color: rgba(15, 23, 42, 0.25);
+        }
+
+        svg {
+            stroke: #0F172A;
+            color: #0F172A;
+        }
+    }
+
+    .planOverviewCard {
+        background: #F8FAFC;
+        border-color: rgba(24, 201, 139, 0.25);
+
+        .planDetails {
+            h4 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #64748B;
+            }
+        }
+
+        .planPriceCol {
+            .priceMain {
+                color: #047857;
+            }
+
+            .validitySub {
+                color: #64748B;
+            }
+        }
+    }
+
+    .summaryTable {
+        background: #F8FAFC;
+        border-color: rgba(15, 23, 42, 0.08);
+
+        .summaryRow {
+            color: #475569;
+
+            &.discountRow {
+                color: #047857;
+            }
+
+            &.totalRow {
+                color: #0F172A;
+                border-top-color: rgba(15, 23, 42, 0.1);
+
+                .totalAmount {
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    .safeguardBanner {
+        background: rgba(24, 201, 139, 0.08);
+        border-color: rgba(24, 201, 139, 0.25);
+        color: #334155;
+    }
+
+    .modalFooter {
+        border-top-color: rgba(15, 23, 42, 0.08);
+
+        .cancelBtn {
+            background: #F1F5F9;
+            border-color: rgba(15, 23, 42, 0.15);
+            color: #334155;
+
+            &:hover {
+                background: #E2E8F0;
+                color: #0F172A;
+            }
+        }
+    }
+}

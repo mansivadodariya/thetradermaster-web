@@ -1,0 +1,676 @@
+/* ============================================================
+   TRADE ANALYSIS COMPREHENSIVE LIGHT THEME SPECIFICATION
+   ============================================================ */
+
+/* 1. MAIN CONTAINER & IN-PAGE COMPONENTS */
+:global(html.light) .container,
+:global([data-theme='light']) .container {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .headerBar {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+        .headerLeft {
+            .headerBadge {
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                color: #047857;
+            }
+
+            h1 {
+                background: none;
+                -webkit-background-clip: initial;
+                -webkit-text-fill-color: initial;
+                color: #0F172A;
+            }
+
+            p {
+                color: #64748B;
+            }
+        }
+
+        .historyBtn {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            color: #047857;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+
+            &:hover {
+                background: #18C98B;
+                color: #FFFFFF;
+                border-color: #18C98B;
+            }
+        }
+    }
+
+    /* 2. UPLOAD SECTION & STEPPER */
+    .stepperCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+        .stepItem {
+            .stepCircle {
+                .stepNum {
+                    color: #94A3B8;
+                }
+            }
+
+            .stepMeta {
+                .stepTitle {
+                    color: #334155;
+                }
+
+                .stepSub {
+                    color: #64748B;
+                }
+            }
+
+            &.stepActive {
+                .stepCircle {
+                    .stepNum {
+                        color: #047857;
+                    }
+
+                    .pulseHalo {
+                        border-color: rgba(24, 201, 139, 0.5);
+                    }
+                }
+
+                .stepMeta {
+                    .stepTitle {
+                        color: #0F172A;
+                    }
+
+                    .stepSub {
+                        color: #047857;
+                    }
+                }
+            }
+        }
+
+        .stepConnector {
+            .connectorLine {
+                background: linear-gradient(90deg, rgba(15, 23, 42, 0.06) 0%, rgba(24, 201, 139, 0.35) 50%, rgba(15, 23, 42, 0.06) 100%);
+            }
+
+            .connectorDot {
+                background: #18C98B;
+                box-shadow: 0 0 6px rgba(24, 201, 139, 0.6);
+            }
+        }
+    }
+
+    .uploadCard {
+        background:
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 2px dashed rgba(24, 201, 139, 0.45);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+        &:hover,
+        &.activeDrag {
+            background:
+                radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+                radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+                #f7f6f6;
+            border-color: #18C98B;
+            box-shadow: 0 12px 32px rgba(24, 201, 139, 0.15);
+        }
+
+        .iconPedestal {
+            .pedestalGlow {
+                background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, transparent 70%);
+            }
+
+            .pedestalIcon {
+                background: linear-gradient(135deg, rgba(24, 201, 139, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #047857;
+                box-shadow: 0 4px 16px rgba(24, 201, 139, 0.15);
+            }
+        }
+
+        .uploadHeadingGroup {
+            h2 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #475569;
+            }
+        }
+
+        .chooseFileBtn {
+            background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
+        }
+
+        .dragDropText {
+            color: #64748B;
+        }
+
+        .securityNotice {
+            background: #F1F5F9;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: #475569;
+        }
+    }
+
+    .extractionCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+
+        .matrixHeader {
+            .matrixBadge {
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                color: #047857;
+            }
+
+            h4 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #64748B;
+            }
+        }
+
+        .checklistGrid {
+            .checkItem {
+                background: #F8FAFC;
+                border: 1px solid rgba(15, 23, 42, 0.06);
+                color: #1E293B;
+
+                .checkIconBox {
+                    background: rgba(24, 201, 139, 0.14);
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    .whatYouGetBox {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .sectionHeadingRow {
+            h3 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #64748B;
+            }
+        }
+
+        .featureGrid {
+            .featureCard {
+                background: #F8FAFC;
+                border: 1px solid rgba(15, 23, 42, 0.06);
+
+                &:hover {
+                    background: #F1F5F9;
+                    border-color: rgba(24, 201, 139, 0.35);
+                    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+                }
+
+                .featIconBox {
+                    background: rgba(24, 201, 139, 0.1);
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+                    color: #047857;
+                }
+
+                .featText {
+                    h5 {
+                        color: #0F172A;
+                    }
+
+                    p {
+                        color: #475569;
+                    }
+                }
+            }
+        }
+    }
+
+    /* 3. REPORT SUCCESS BANNER */
+    .reportSuccessBannerCard {
+        background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(24, 201, 139, 0.08) 0%, #FFFFFF 70%), #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+
+        .bannerContentLeft {
+            .fileMetaDetails {
+                span.fileName {
+                    color: #0F172A;
+                }
+
+                span.fileSub {
+                    color: #64748B;
+                }
+            }
+
+            .completePillBadge {
+                background: rgba(16, 185, 129, 0.14);
+                border: 1px solid rgba(16, 185, 129, 0.4);
+                color: #047857;
+
+                span {
+                    color: #047857;
+                    font-weight: 700;
+                }
+
+                svg {
+                    color: #047857;
+                    stroke: #047857;
+                }
+            }
+
+            .checkTitleGroup {
+                .checkCircle {
+                    background: rgba(24, 201, 139, 0.14);
+                    border-color: rgba(24, 201, 139, 0.4);
+                    color: #047857;
+                }
+
+                h3 {
+                    color: #047857;
+                }
+            }
+
+            p.bannerSubtext {
+                color: #475569;
+            }
+
+            .viewTradesBtn {
+                background: #18C98B;
+                color: #FFFFFF;
+                box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
+            }
+
+            .reuploadBtn {
+                background: #F1F5F9;
+                border: 1px solid #E2E8F0;
+                color: #334155;
+
+                &:hover {
+                    background: #E2E8F0;
+                    color: #0F172A;
+                }
+            }
+
+            .downloadReportBtn {
+                background: #DCFCE7;
+                border: 1px solid #86EFAC;
+                color: #047857;
+                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+
+                &:hover:not(:disabled) {
+                    background: #18C98B;
+                    color: #FFFFFF;
+                    border-color: #18C98B;
+                    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.28);
+                }
+            }
+        }
+
+        .bannerGraphicRight .brainImg {
+            filter: drop-shadow(0 8px 24px rgba(24, 201, 139, 0.25));
+        }
+    }
+
+    /* 4. RESULTS VIEW & DATA TABLES */
+    .statementHeaderBar {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .statementTitleRow .titleLeft {
+            h2 {
+                color: #0F172A;
+
+                span.platformName {
+                    color: #047857;
+                }
+            }
+
+            .metaPills span {
+                color: #64748B;
+
+                strong {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .topMetricsRow {
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+            .topMetricItem {
+                span.metricLabel {
+                    color: #64748B;
+                }
+
+                .valBadgeRow {
+                    span.metricVal {
+                        color: #0F172A;
+
+                        &.green {
+                            color: #047857;
+                        }
+
+                        &.red {
+                            color: #DC2626;
+                        }
+                    }
+
+                    .pillBadge.green {
+                        background: rgba(16, 185, 129, 0.14);
+                        color: #047857;
+                    }
+                }
+            }
+        }
+    }
+
+    .dataTableCard,
+    .buySellTableCard,
+    .threeLayerBox {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .tableSectionHeader h3,
+        .sectionTitle h3 {
+            color: #0F172A;
+        }
+
+        .copyBtn {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            color: #047857;
+
+            &:hover {
+                background: #E2E8F0;
+            }
+        }
+
+        table {
+            thead tr {
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+                th {
+                    color: #64748B;
+                }
+            }
+
+            tbody tr {
+                border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+
+                &:hover {
+                    background: #F8FAFC;
+                }
+
+                td {
+                    color: #334155;
+
+                    &:first-child {
+                        color: #0F172A;
+                    }
+
+                    &:last-child {
+                        color: #0F172A;
+                    }
+
+                    &.greenText {
+                        color: #047857;
+                    }
+
+                    &.redText {
+                        color: #DC2626;
+                    }
+                }
+            }
+        }
+    }
+
+    .buySellTableScroll {
+        &::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(5, 150, 105, 0.25);
+
+            &:hover {
+                background: rgba(5, 150, 105, 0.45);
+            }
+        }
+    }
+
+    .buySellMobileCards {
+        .buySellMobileCard {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+
+            .mobileCardHeader {
+                .mobileWinRate {
+                    color: #0F172A;
+                }
+            }
+
+            .mobileCardGrid {
+                background: #FFFFFF;
+                border: 1px solid #E2E8F0;
+
+                .mobileCardMetric {
+                    .metricLabel {
+                        color: #64748B;
+                    }
+
+                    .metricVal {
+                        color: #0F172A;
+
+                        &.profitCell {
+                            color: #047857;
+                        }
+
+                        &.lossCell {
+                            color: #DC2626;
+                        }
+                    }
+                }
+            }
+
+            .mobileAnalyzeBtn {
+                background: #ECFDF5;
+                border-color: rgba(5, 150, 105, 0.25);
+                color: #059669;
+
+                &:hover {
+                    background: #D1FAE5;
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+    .threeLayerBox .calloutStack .calloutCard {
+        &.fact {
+            background: #FEF2F2;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #991B1B;
+
+            strong.prefix {
+                color: #DC2626;
+            }
+        }
+
+        &.peak {
+            background: #F0F9FF;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #075985;
+
+            strong.prefix {
+                color: #0284C7;
+            }
+        }
+
+        &.recommendation {
+            background: #F0FDF4;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #166534;
+
+            strong.prefix {
+                color: #059669;
+            }
+        }
+    }
+
+    .strengthsImprovementsGrid {
+        .columnBox {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+
+            .colHeader h4 {
+                color: #0F172A;
+            }
+
+            .itemsStack {
+                .itemCard.good {
+                    background: #F0FDF4;
+                    border: 1px solid rgba(16, 185, 129, 0.25);
+                    color: #166534;
+                }
+
+                .itemCard.bad {
+                    background: #FEF2F2;
+                    border: 1px solid rgba(239, 68, 68, 0.25);
+                    color: #991B1B;
+                }
+            }
+        }
+    }
+
+    .resultsTabRow {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x pan-y;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tabBtn {
+            color: #64748B;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            white-space: nowrap;
+            flex: 0 0 auto;
+
+            @include respond-to('sm') {
+                padding: 7px 13px;
+                font-size: 12px;
+                border-radius: 7px;
+            }
+
+            &:hover {
+                color: #0F172A;
+                background: #F1F5F9;
+            }
+
+            &.active {
+                background: #FFFFFF;
+                color: #047857;
+                font-weight: 700;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+            }
+        }
+    }
+
+    /* Narrative Markdown Report in Tab */
+    .markdownReportWrapper {
+        color: #334155;
+
+        .reportH3 {
+            color: #047857;
+            border-left-color: #047857;
+        }
+
+        .reportH4 {
+            color: #0F172A;
+        }
+
+        .reportP {
+            color: #334155;
+
+            strong {
+                color: #0F172A;
+            }
+        }
+
+        .reportUl .reportLi {
+            color: #334155;
+
+            strong {
+                color: #047857;
+            }
+        }
+
+        .tableWrapper {
+            background: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+
+            .reportTable {
+                thead {
+                    background: #F8FAFC;
+                    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+                    th {
+                        color: #047857;
+                    }
+                }
+
+                tbody tr {
+                    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+
+                    &:hover {
+                        background: #F8FAFC;
+                    }
+
+                    td {
+                        color: #334155;
+
+                        &:first-child {
+                            color: #0F172A;
+                        }
+
+                        &:last-child {
+                            color: #0F172A;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,95 @@
+/* ============================================================
+   CHRONOSX GLOBAL LIGHT THEME ESSENTIALS
+   ============================================================ */
+
+/* Section Dividers in Light Mode */
+html.light .sectionDivider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+  margin: 40px 0;
+}
+
+/* Light Mode Base Table Styling */
+html.light table {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+html.light th {
+  background-color: #F1F5F9;
+  color: #334155;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+html.light td {
+  color: #1E293B;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+html.light tr:hover td {
+  background-color: #F8FAFC;
+}
+
+/* Universal SVG Line & Path Contrast for Light Mode */
+html.light svg path[stroke="#ffffff"],
+html.light svg path[stroke="#FFFFFF"],
+html.light svg path[stroke="white"],
+html.light svg line[stroke="#ffffff"],
+html.light svg line[stroke="#FFFFFF"],
+html.light svg line[stroke="white"],
+html.light svg circle[stroke="#ffffff"],
+html.light svg circle[stroke="#FFFFFF"],
+html.light svg circle[stroke="white"] {
+  stroke: #334155;
+}
+
+html.light svg:not([data-social="youtube"]) path[fill="#ffffff"]:not(.cx-yt-play):not([data-preserve-white]),
+html.light svg:not([data-social="youtube"]) path[fill="#FFFFFF"]:not(.cx-yt-play):not([data-preserve-white]),
+html.light svg:not([data-social="youtube"]) path[fill="white"]:not(.cx-yt-play):not([data-preserve-white]) {
+  fill: #0F172A;
+}
+
+html.light .cx-yt-play,
+html.light [data-social="youtube"] path:last-child,
+html.light svg[data-social="youtube"] path[fill="#FFFFFF"],
+html.light svg[data-social="youtube"] path[fill="#ffffff"],
+html.light svg path.cx-yt-play {
+  fill: #FFFFFF;
+}
+
+html.light line[stroke="rgba(255, 255, 255, 0.05)"],
+html.light line[stroke*="rgba(255, 255, 255"] {
+  stroke: rgba(15, 23, 42, 0.12);
+}
+
+html.light text[fill="rgba(255, 255, 255, 0.5)"],
+html.light text[fill*="rgba(255, 255, 255"] {
+  fill: #475569;
+}
+
+/* Ambient Glow & Vignettes in Light Mode */
+html.light .ambient,
+html.light .gridOverlay,
+html.light .glow {
+  opacity: 0.15;
+}
+
+html.light .radialVignette,
+html.light .ambientGlowCenter,
+html.light .ambientGlowBottom,
+html.light .mobileTechAtmosphere,
+html.light .mobileQuantumHalo {
+  display: none;
+}
+
+/* Auth Layout Light Mode Background */
+html.light .auth-layout {
+  background-color: #F8FAFC;
+  background-image:
+    radial-gradient(circle at 50% 15%, rgba(24, 201, 139, 0.1) 0%, transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(24, 201, 139, 0.05) 0%, transparent 60%);
+}

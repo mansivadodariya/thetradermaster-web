@@ -1,39 +1,150 @@
-@use '../../scss/main.scss' as *;
-
-$primary: #10B981 !default;
-
-@keyframes spin {
+@keyframes spinClockwise {
     to {
         transform: rotate(360deg);
     }
 }
 
-.spinner {
-    display: inline-block;
+@keyframes spinCounterClockwise {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.loaderWrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .darkLogo {
+        display: none;
+    }
+    .lightLogo {
+        display: block;
+    }
+
+    &.themeLight,
+    :global(html.light) &,
+    :global(body.light) &,
+    :global(.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        .outerRing {
+            border-color: rgba(5, 150, 105, 0.18);
+            border-top-color: #059669;
+            border-right-color: #059669;
+            box-shadow: 0 0 12px rgba(5, 150, 105, 0.2);
+        }
+        .innerRing {
+            border-color: rgba(2, 132, 199, 0.15);
+            border-bottom-color: #0284C7;
+            border-left-color: #0284C7;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.18);
+        }
+        .darkLogo {
+            display: block;
+        }
+        .lightLogo {
+            display: none;
+        }
+    }
+}
+
+.outerRing {
+    position: absolute;
+    inset: 0;
     border-radius: 50%;
     border-style: solid;
-    border-color: rgba(16, 185, 129, 0.15);
-    border-top-color: $primary;
-    animation: spin 0.7s linear infinite;
-    flex-shrink: 0;
+    border-color: rgba(24, 201, 139, 0.15);
+    border-top-color: #18C98B;
+    border-right-color: #18C98B;
+    animation: spinClockwise 0.88s linear infinite;
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.35);
+    box-sizing: border-box;
+}
+
+.innerRing {
+    position: absolute;
+    inset: 19%;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: rgba(0, 242, 254, 0.12);
+    border-bottom-color: #00F2FE;
+    border-left-color: #00F2FE;
+    animation: spinCounterClockwise 0.72s linear infinite;
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+    box-sizing: border-box;
+}
+
+.centerLogo {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.logoImg {
+    width: 32%;
+    height: auto;
+    max-height: 32%;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: opacity 0.2s ease;
+}
+
+.lightLogo {
+    filter: drop-shadow(0 0 4px rgba(0, 242, 254, 0.45));
+}
+
+.darkLogo {
+    filter: drop-shadow(0 1px 2px rgba(5, 150, 105, 0.25));
 }
 
 .sm {
-    width: 16px;
-    height: 16px;
-    border-width: 2px;
+    width: 22px;
+    height: 22px;
+    .outerRing { border-width: 2px; }
+    .innerRing { border-width: 1.5px; }
+    .logoImg { width: 32%; max-height: 32%; }
 }
 
 .md {
-    width: 28px;
-    height: 28px;
-    border-width: 3px;
+    width: 38px;
+    height: 38px;
+    .outerRing { border-width: 2.5px; }
+    .innerRing { border-width: 2px; }
+    .logoImg { width: 32%; max-height: 32%; }
 }
 
 .lg {
-    width: 44px;
-    height: 44px;
-    border-width: 4px;
+    width: 52px;
+    height: 52px;
+    .outerRing { border-width: 3px; }
+    .innerRing { border-width: 2.4px; }
+    .logoImg { width: 32%; max-height: 32%; }
+}
+
+.xl {
+    width: 68px;
+    height: 68px;
+    .outerRing { border-width: 3.5px; }
+    .innerRing { border-width: 2.8px; }
+    .logoImg { width: 32%; max-height: 32%; }
+}
+
+.size2xl {
+    width: 88px;
+    height: 88px;
+    .outerRing { border-width: 4px; }
+    .innerRing { border-width: 3.2px; }
+    .logoImg { width: 32%; max-height: 32%; }
 }
 
 .centered {
@@ -41,5 +152,27 @@ $primary: #10B981 !default;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 40px 0;
+    min-height: 180px;
+    padding: 32px 0;
+}
+
+.loaderWithText {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.loaderText {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.2px;
+
+    :global(html.light) &,
+    :global(body.light) &,
+    :global([data-theme='light']) & {
+        color: #475569;
+    }
 }

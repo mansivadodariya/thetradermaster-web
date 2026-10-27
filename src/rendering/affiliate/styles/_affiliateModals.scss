@@ -1,0 +1,417 @@
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #0C0E0D;
+$border: transparent;
+$borderSubtle: rgba(255, 255, 255, 0.04);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$amber: #F59E0B;
+$danger: #F87171;
+
+
+.affiliatePage {
+
+    /* Modal Styles */
+    .modalOverlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+
+        .modalCard {
+            background: #0C0E0D;
+            border: none;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 520px;
+            padding: 26px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            max-height: 90vh;
+            overflow-y: auto;
+
+            .modalHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                .modalTitleGroup {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+
+                    .modalIconWrap {
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 10px;
+                        background: rgba(24, 201, 139, 0.12);
+                        border: none;
+                        color: #18C98B;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    h3 {
+                        color: #FFFFFF;
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin: 0;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+
+                    p {
+                        color: rgba(255, 255, 255, 0.55);
+                        font-size: 12px;
+                        margin: 0;
+                    }
+                }
+
+                .modalCloseBtn {
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.5);
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 6px;
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .modalForm {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .modalBalanceBox {
+                    background: rgba(24, 201, 139, 0.08);
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+                    border-radius: 10px;
+                    padding: 10px 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .balanceLabel {
+                        color: rgba(255, 255, 255, 0.7);
+                        font-size: 13px;
+                    }
+
+                    .balanceAmount {
+                        color: #18C98B;
+                        font-size: 15px;
+                        font-weight: 700;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+                }
+
+                .zeroBalanceAlert {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: rgba(245, 158, 11, 0.1);
+                    border: 1px solid rgba(245, 158, 11, 0.3);
+                    border-radius: 8px;
+                    padding: 9px 12px;
+                    color: #FBBF24;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 1.4;
+
+                    svg {
+                        flex-shrink: 0;
+                        color: #F59E0B;
+                    }
+                }
+
+                .formGroup {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+
+                    label {
+                        color: rgba(255, 255, 255, 0.8);
+                        font-size: 13px;
+                        font-weight: 600;
+                    }
+
+                    .amountLabelRow {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .minLimitText {
+                            color: #F59E0B;
+                            font-size: 12px;
+                            font-weight: 600;
+                        }
+                    }
+
+                    .assetSelector {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 8px;
+
+                        .assetOption {
+                            background: #0D0E13;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 10px;
+                            padding: 10px;
+                            color: #FFF;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            cursor: pointer;
+                            font-size: 13px;
+                            font-weight: 600;
+                            transition: all 0.2s ease;
+
+                            .coinCircle {
+                                padding: 2px 6px;
+                                border-radius: 6px;
+                                background: rgba(24, 201, 139, 0.2);
+                                color: #18C98B;
+                                font-weight: 700;
+                                font-size: 11px;
+                                font-family: monospace;
+                            }
+
+                            &.assetActive {
+                                border-color: #18C98B;
+                                background: rgba(24, 201, 139, 0.15);
+                                color: #18C98B;
+                            }
+                        }
+                    }
+
+                    .networkGrid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 8px;
+
+                        @include respond-to('sm') {
+                            grid-template-columns: 1fr;
+                        }
+
+                        .netBtn {
+                            background: #0D0E13;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 10px;
+                            padding: 8px 12px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+
+                            .netName {
+                                color: #FFF;
+                                font-size: 12px;
+                                font-weight: 600;
+                            }
+
+                            .netSpeed {
+                                color: rgba(255, 255, 255, 0.45);
+                                font-size: 10.5px;
+                            }
+
+                            &.netActive {
+                                border-color: #18C98B;
+                                background: rgba(24, 201, 139, 0.15);
+
+                                .netName {
+                                    color: #18C98B;
+                                }
+                            }
+                        }
+                    }
+
+                    .inputWithAction {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+
+                        input {
+                            width: 100%;
+                            background: #0D0E13;
+                            border: 1px solid rgba(24, 201, 139, 0.25);
+                            border-radius: 10px;
+                            padding: 10px 60px 10px 14px;
+                            color: #FFF;
+                            font-size: 13px;
+                            outline: none;
+
+                            &:focus {
+                                border-color: #18C98B;
+                                box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
+                            }
+                        }
+
+                        .inlinePasteBtn,
+                        .inlineMaxBtn {
+                            position: absolute;
+                            right: 8px;
+                            background: rgba(24, 201, 139, 0.18);
+                            border: 1px solid rgba(24, 201, 139, 0.4);
+                            color: #18C98B;
+                            border-radius: 6px;
+                            padding: 4px 10px;
+                            font-size: 12px;
+                            font-weight: 700;
+                            cursor: pointer;
+
+                            &:hover {
+                                background: #18C98B;
+                                color: #040300;
+                            }
+                        }
+                    }
+                }
+
+                .feeBreakdown {
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 10px;
+                    padding: 12px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+
+                    .feeRow {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: rgba(255, 255, 255, 0.65);
+                        font-size: 12px;
+
+                        .feeFree {
+                            color: #18C98B;
+                            font-weight: 700;
+                        }
+
+                        &.totalRow {
+                            padding-top: 6px;
+                            border-top: 1px solid rgba(255, 255, 255, 0.08);
+                            color: #FFFFFF;
+                            font-size: 14px;
+
+                            strong {
+                                color: #18C98B;
+                                font-size: 15px;
+                            }
+                        }
+                    }
+                }
+
+                .modalSubmitBtn {
+                    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+                    border: none;
+                    border-radius: 10px;
+                    padding: 12px;
+                    color: #040300;
+                    font-size: 14px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 4px 20px rgba(24, 201, 139, 0.3);
+
+                    &:hover:not(:disabled) {
+                        box-shadow: 0 6px 26px rgba(24, 201, 139, 0.5);
+                    }
+
+                    &:disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+
+        .qrModalCard {
+            background: #07100B;
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 380px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+
+            .modalHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    font-weight: 700;
+                    margin: 0;
+                }
+
+                .modalCloseBtn {
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.5);
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 6px;
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .qrBox {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 16px;
+                background: #040D09;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                border-radius: 12px;
+
+                .qrImage {
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 8px;
+                }
+
+                .qrCodeText {
+                    color: #18C98B;
+                    font-family: monospace;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+            }
+
+            .modalSubmitBtn {
+                background: #18C98B;
+                border: none;
+                border-radius: 8px;
+                padding: 10px;
+                color: #040300;
+                font-weight: 700;
+                cursor: pointer;
+            }
+        }
+    }
+}

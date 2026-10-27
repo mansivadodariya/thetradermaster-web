@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseAdmin } from '@/lib/supabaseClient';
 import * as admin from 'firebase-admin';
 
 export const dynamic = 'force-dynamic';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Initialize Firebase Admin SDK if not already initialized
 function getFirebaseAdmin() {
@@ -31,7 +28,7 @@ function getFirebaseAdmin() {
 
     // Fallback: Default initialization using project ID
     return admin.initializeApp({
-        projectId: projectId || 'tradeguru-webapp',
+        projectId: projectId || 'chronosx-webapp',
     });
 }
 
@@ -78,31 +75,26 @@ export async function POST(request) {
             } catch (_) {}
         }
 
-        const verifiedPhone = decodedToken?.phone_number || decodedToken?.phoneNumber || body?.phone_number || body?.phone;
+        const verifiedPhone = decodedToken?.phone_number || decodedToken?.phoneNumber || body?.phone_number;
 
         if (!verifiedPhone) {
             return NextResponse.json(
-                { error: 'Phone number is required for verification.' },
+                { error: 'Firebase ID Token does not contain a verified phone_number.' },
                 { status: 400, headers: corsHeaders }
             );
         }
 
-        // 2. Identify user ID or email from request headers or body or token sub
+        // 2. Identify user ID from request headers or body or token sub
         const authHeader = request.headers.get('Authorization') || '';
         const headerUserId = request.headers.get('X-User-Id') || '';
         const userId = requestedUserId || headerUserId || decodedToken?.sub || '';
-        const userEmail = body?.email || decodedToken?.email || '';
 
-        if (!supabaseUrl || !serviceRoleKey) {
+        if (!supabaseAdmin) {
             return NextResponse.json(
                 { error: 'Supabase server configuration is missing.' },
                 { status: 500, headers: corsHeaders }
             );
         }
-
-        const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
-            auth: { persistSession: false }
-        });
 
         // 3. Update Supabase users table with verified phone_number & is_phone_verified: true
         if (userId) {
@@ -121,28 +113,14 @@ export async function POST(request) {
                         { status: 400, headers: corsHeaders }
                     );
                 }
-                console.warn('Supabase user phone update warning by ID:', updateError);
-            }
-        }
-
-        if (userEmail) {
-            const { error: emailUpdateErr } = await supabaseAdmin
-                .from('users')
-                .update({
-                    phone_number: verifiedPhone,
-                    is_phone_verified: true,
-                })
-                .eq('email', userEmail);
-
-            if (emailUpdateErr) {
-                console.warn('Supabase user phone update warning by email:', emailUpdateErr);
+                console.warn('Supabase user phone update warning:', updateError);
             }
         }
 
         return NextResponse.json(
             {
                 success: true,
-                message: 'Phone number verified.',
+                message: 'Phone number verified with Firebase and saved to user database.',
                 phone_number: verifiedPhone,
                 is_phone_verified: true,
             },

@@ -1,0 +1,387 @@
+.visionAnalysisContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.visionWarningCard {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 0;
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    border-left: 3px solid #0284c7;
+    color: #0284c7;
+    font-size: 13px;
+    font-weight: 500;
+
+    :global(html.dark) & {
+        background: rgba(14, 165, 233, 0.12);
+        color: #38bdf8;
+    }
+}
+
+.visionSummaryCard {
+    padding: 14px 16px;
+    border-radius: 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #18C98B;
+
+    :global(html.dark) & {
+        background: #111318;
+        border-color: rgba(255, 255, 255, 0.1);
+        border-left-color: #18C98B;
+    }
+}
+
+.visionOverviewCard {
+    padding: 12px 16px;
+    border-radius: 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #64748b;
+
+    :global(html.dark) & {
+        background: #111318;
+        border-color: rgba(255, 255, 255, 0.1);
+        border-left-color: #94a3b8;
+    }
+}
+
+.visionOverviewText {
+    margin: 0;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.6;
+
+    :global(html.dark) & {
+        color: #cbd5e1;
+    }
+}
+
+.visionAccordionList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.visionAccordionCard {
+    border-radius: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: all 0.18s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+    &.visionAccordionOpen {
+        border-color: #18C98B;
+        border-left: 3px solid #18C98B;
+    }
+
+    :global(html.dark) & {
+        background: #111318;
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+        &.visionAccordionOpen {
+            border-color: #18C98B;
+            border-left: 3px solid #18C98B;
+        }
+    }
+}
+
+.visionAccordionHeader {
+    width: 100%;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: #f8fafc;
+    }
+
+    :global(html.dark) & {
+        &:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+    }
+}
+
+.visionHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.visionSectionIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    flex-shrink: 0;
+
+    :global(html.dark) & {
+        color: #18C98B;
+    }
+}
+
+.visionSectionTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+
+    :global(html.dark) & {
+        color: #f8fafc;
+    }
+}
+
+.visionTrendBadges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 6px;
+}
+
+.visionTrendType {
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-radius: 0;
+    background: rgba(24, 201, 139, 0.08);
+    color: #18C98B;
+    border: 1px solid rgba(24, 201, 139, 0.25);
+
+    &.badgeBullish {
+        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    &.badgeBearish {
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+}
+
+.visionTrendStrength {
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 0;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+
+    :global(html.dark) & {
+        background: #1e222d;
+        color: #94a3b8;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.visionChevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    transition: transform 0.2s ease, color 0.15s ease;
+
+    &.visionChevronOpen {
+        transform: rotate(180deg);
+        color: #18C98B;
+    }
+
+    :global(html.dark) & {
+        &.visionChevronOpen {
+            color: #18C98B;
+        }
+    }
+}
+
+.visionAccordionCollapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+
+    &.visionAccordionCollapseOpen {
+        grid-template-rows: 1fr;
+
+        .visionAccordionBody {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.visionAccordionCollapseInner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.visionAccordionBody {
+    padding: 14px 16px 18px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #16130e;
+    background: #fafbff;
+    border-radius: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.22s ease 0.06s, transform 0.22s ease 0.06s;
+
+    :global(html.dark) & {
+        background: #0d0f15;
+        border-top-color: rgba(255, 255, 255, 0.06);
+        color: #e2e8f0;
+    }
+}
+
+.visionSectionDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.visionDescText {
+    margin: 0;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.55;
+
+    :global(html.dark) & {
+        color: #cbd5e1;
+    }
+}
+
+.visionSummaryText {
+    margin: 0;
+    color: #334155;
+    font-size: 13px;
+    font-style: italic;
+
+    :global(html.dark) & {
+        color: #94a3b8;
+    }
+}
+
+.visionObservationText {
+    margin: 0;
+    color: #0369a1;
+    font-size: 13px;
+    line-height: 1.5;
+
+    strong {
+        color: #0c4a6e;
+    }
+
+    :global(html.dark) & {
+        color: #18C98B;
+
+        strong {
+            color: #7dd3fc;
+        }
+    }
+}
+
+/* Badges (0 Border Radius) */
+.visionBadgesRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.visionBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    border: 1px solid transparent;
+}
+
+.badgeGreen {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.3);
+
+    :global(html.dark) & {
+        background: rgba(16, 185, 129, 0.18);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.4);
+    }
+}
+
+.badgeRed {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.3);
+
+    :global(html.dark) & {
+        background: rgba(239, 68, 68, 0.18);
+        color: #f87171;
+        border-color: rgba(239, 68, 68, 0.4);
+    }
+}
+
+.badgeAmber {
+    background: rgba(14, 165, 233, 0.1);
+    color: #0284c7;
+    border-color: rgba(14, 165, 233, 0.3);
+
+    :global(html.dark) & {
+        background: rgba(14, 165, 233, 0.18);
+        color: #38bdf8;
+        border-color: rgba(14, 165, 233, 0.4);
+    }
+}
+
+.badgeBlue {
+    background: rgba(24, 201, 139, 0.08);
+    color: #18C98B;
+    border-color: rgba(24, 201, 139, 0.25);
+
+    :global(html.dark) & {
+        background: rgba(24, 201, 139, 0.18);
+        color: #18C98B;
+        border-color: rgba(24, 201, 139, 0.4);
+    }
+}
+
+.badgeSlate {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #e2e8f0;
+    text-transform: none;
+    font-weight: 600;
+
+    :global(html.dark) & {
+        background: #1e222d;
+        color: #94a3b8;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+

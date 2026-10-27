@@ -1,0 +1,685 @@
+.herobanner {
+
+    // Centered Hero Layout
+    .heroCenterCol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 3;
+
+        // 1. Futuristic Pill Badge
+        .topBadgeRow {
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: center;
+
+            @include respond-to("sm") {
+                margin-bottom: 16px;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 6px 20px;
+                border-radius: 999px;
+                background: rgba(24, 201, 139, 0.08);
+                border: 1px solid rgba(24, 201, 139, 0.28);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+                &:hover {
+                    background: rgba(24, 201, 139, 0.16);
+                    border-color: rgba(24, 201, 139, 0.48);
+                    box-shadow: 0 0 20px rgba(24, 201, 139, 0.25);
+                    transform: translateY(-1px);
+                }
+
+                .badgeText {
+                    color: rgba(255, 255, 255, 0.92);
+                    font-size: 14px;
+                    font-family: var(--font-plus-jakarta), sans-serif;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    letter-spacing: 0.1px;
+
+                    @include respond-to("sm") {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    // High Impact Centered Headline with Candlesticks SVG Icon
+    .heroTitle {
+        font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: clamp(32px, 4.4vw, 54px);
+        line-height: 1.14;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+        margin: 0 0 20px 0;
+        text-align: center;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+
+        .titleLine1 {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .titleLine2 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+
+            .gradientText {
+                color: #18c98b;
+                background: #18c98b;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                display: inline;
+            }
+        }
+
+        .candleIconBox {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .titleCandleIcon {
+            width: 38px;
+            height: 38px;
+            display: block;
+            background: transparent;
+            filter: drop-shadow(0 0 14px rgba(83, 230, 180, 0.85));
+        }
+
+        @include respond-to("tab") {
+            font-size: 38px;
+            letter-spacing: -0.8px;
+
+            .titleLine2 {
+                gap: 10px;
+            }
+
+            .titleCandleIcon {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @include respond-to("sm") {
+            font-size: 26px;
+            letter-spacing: -0.5px;
+            line-height: 1.22;
+            margin-bottom: 16px;
+
+            .titleLine1 {
+                margin-bottom: 4px;
+            }
+
+            .titleLine2 {
+                gap: 8px;
+            }
+
+            .titleCandleIcon {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    }
+
+    // Centered Hero Description
+    .heroDesc {
+        color: #94A3B8;
+        font-family: "Euclid-Regular", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 auto 34px auto;
+        max-width: 680px;
+        text-align: center;
+
+        @include respond-to("xl") {
+            margin: 0 auto 16px auto;
+        }
+
+        @include respond-to("tab") {
+            font-size: 15px;
+            margin-bottom: 28px;
+            max-width: 90%;
+        }
+
+        @include respond-to("sm") {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+    }
+
+    // Centered Actions Group (Button + Cyber Trust Badge)
+    .actionsGroup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+
+        @include respond-to("tab") {
+            gap: 20px;
+        }
+
+        @include respond-to("sm") {
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    // Bracketed Cyber Trust Badge
+    .trustBadge {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 20px;
+        height: 52px;
+        background: rgba(8, 16, 12, 0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        .cornerTL,
+        .cornerTR,
+        .cornerBL,
+        .cornerBR {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            pointer-events: none;
+        }
+
+        .cornerTL {
+            top: 0;
+            left: 0;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+            border-left: 1.5px solid rgba(255, 255, 255, 0.65);
+        }
+
+        .cornerTR {
+            top: 0;
+            right: 0;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+            border-right: 1.5px solid rgba(255, 255, 255, 0.65);
+        }
+
+        .cornerBL {
+            bottom: 0;
+            left: 0;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.65);
+            border-left: 1.5px solid rgba(255, 255, 255, 0.65);
+        }
+
+        .cornerBR {
+            bottom: 0;
+            right: 0;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.65);
+            border-right: 1.5px solid rgba(255, 255, 255, 0.65);
+        }
+
+        .avatarsGroup {
+            display: flex;
+            align-items: center;
+
+            .avatarItem {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                border: 2px solid #08110D;
+                margin-left: -7px;
+                object-fit: cover;
+                display: block;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                :global([dir="rtl"]) & {
+                    margin-left: 0;
+                    margin-right: -7px;
+
+                    &:first-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        .trustText {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.25;
+
+            :global([dir="rtl"]) & {
+                text-align: right;
+            }
+
+            .trustHighlight {
+                color: #FFFFFF;
+                font-family: var(--font-inter, sans-serif);
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: -0.1px;
+                white-space: nowrap;
+            }
+
+            .trustSub {
+                color: rgba(255, 255, 255, 0.68);
+                font-family: var(--font-inter, sans-serif);
+                font-size: 12px;
+                font-weight: 400;
+                white-space: nowrap;
+            }
+        }
+
+        @include respond-to("sm") {
+            height: auto;
+            padding: 8px 14px;
+            gap: 10px;
+
+            .avatarsGroup {
+                .avatarItem {
+                    width: 28px;
+                    height: 28px;
+                }
+            }
+
+            .trustText {
+                .trustHighlight {
+                    font-size: 12px;
+                }
+
+                .trustSub {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+
+    // 3 Floating Feature Cards Grid at Base of Hero
+    .heroCardsRow {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        width: 100%;
+        margin-top: 56px;
+        margin-bottom: 40px;
+        background: transparent;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+
+        @include respond-to("xl") {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        @include respond-to("tab") {
+            grid-template-columns: 1fr;
+            max-width: 540px;
+            margin-top: 42px;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        @include respond-to("sm") {
+            margin-top: 32px;
+            margin-bottom: 24px;
+            gap: 16px;
+            max-width: 100%;
+        }
+    }
+
+    // Base Feature Card
+    .featureCard {
+        position: relative;
+        overflow: hidden;
+        background: rgba(12, 19, 15, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 14px;
+        padding: 18px 20px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+            border-color 0.25s ease,
+            box-shadow 0.28s ease,
+            background-color 0.25s ease;
+
+        // Shiny moving light reflection sweep
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(24, 201, 139, 0.05) 30%,
+                    rgba(110, 231, 183, 0.22) 50%,
+                    rgba(255, 255, 255, 0.2) 60%,
+                    transparent 100%);
+            transform: skewX(-24deg);
+            pointer-events: none;
+            animation: cardShineSweep 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        &:nth-child(1)::after {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(2)::after {
+            animation-delay: 2.3s;
+        }
+
+        &:nth-child(3)::after {
+            animation-delay: 4.5s;
+        }
+
+        @include respond-to("sm") {
+            padding: 14px 16px;
+            gap: 14px;
+        }
+    }
+
+    .cardNormal {
+        width: 100%;
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.5);
+            background: rgba(16, 25, 20, 0.95);
+            box-shadow: 0 16px 40px rgba(24, 201, 139, 0.18), 0 0 0 1px rgba(24, 201, 139, 0.28);
+            transform: translateY(-5px) translateZ(0);
+
+            .cardIconBox {
+                background: rgba(24, 201, 139, 0.18);
+                border-color: rgba(24, 201, 139, 0.55);
+            }
+        }
+    }
+
+    .cardFeatured,
+    .cardTilted {
+        width: 100%;
+        transform: translateZ(0);
+        background: rgba(14, 22, 18, 0.94);
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.55);
+            background: rgba(18, 28, 23, 0.98);
+            box-shadow: 0 16px 40px rgba(24, 201, 139, 0.22), 0 0 0 1px rgba(24, 201, 139, 0.3);
+            transform: translateY(-5px) translateZ(0);
+
+            .cardIconBox {
+                background: rgba(24, 201, 139, 0.18);
+                border-color: rgba(24, 201, 139, 0.55);
+            }
+        }
+
+        @include respond-to("sm") {
+            transform: none;
+
+            &:hover {
+                transform: translateY(-4px) translateZ(0);
+            }
+        }
+    }
+
+    .cardIconBox {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(24, 201, 139, 0.08);
+        border: 1px solid rgba(24, 201, 139, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background-color 0.25s ease, border-color 0.25s ease;
+
+        @include respond-to("sm") {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+    }
+
+    .cardSvgIcon {
+        color: #18C98B;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.45));
+    }
+
+    .cardTextCol {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        gap: 3px;
+        flex: 1;
+
+        :global([dir="rtl"]) & {
+            text-align: right;
+        }
+    }
+
+    .cardHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 2px;
+    }
+
+    .cardTitle {
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+        line-height: 1.25;
+        font-family: var(--font-inter, sans-serif);
+        letter-spacing: 0.1px;
+
+        @include respond-to("sm") {
+            font-size: 14px;
+        }
+    }
+
+    .cardMiniBadge {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: #18C98B;
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        padding: 2px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.6px;
+        font-family: var(--font-inter, sans-serif);
+        line-height: 1.2;
+        text-transform: uppercase;
+        white-space: nowrap;
+        box-shadow: 0 0 8px rgba(24, 201, 139, 0.15);
+        transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+
+        @include respond-to("sm") {
+            font-size: 9px;
+            padding: 2px 5px;
+        }
+    }
+
+    .cardDesc {
+        font-size: 12px;
+        line-height: 1.45;
+        color: #94A3B8;
+        font-weight: 400;
+        font-family: var(--font-inter, sans-serif);
+
+        @include respond-to("sm") {
+            font-size: 12px;
+        }
+    }
+
+    // Light Mode Overrides for Cards & Title
+    :global(html.light) & {
+
+        .heroCenterCol,
+        .heroCardsRow {
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .candleIconBox {
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .titleCandleIcon {
+            background: transparent;
+            filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.4));
+        }
+
+        .featureCard {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+
+            .cardTitle {
+                color: #0F172A;
+            }
+
+            .cardDesc {
+                color: #475569;
+            }
+
+            .cardMiniBadge {
+                background: rgba(24, 201, 139, 0.14);
+                border-color: rgba(24, 201, 139, 0.35);
+                color: #059669;
+            }
+
+            .cardIconBox {
+                background: rgba(24, 201, 139, 0.1);
+                border-color: rgba(24, 201, 139, 0.3);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.72);
+                border-color: #18C98B;
+                box-shadow: 0 14px 36px rgba(24, 201, 139, 0.18), 0 0 0 1px rgba(24, 201, 139, 0.3) inset;
+            }
+
+            &::after {
+                background: linear-gradient(90deg,
+                        transparent 0%,
+                        rgba(24, 201, 139, 0.08) 30%,
+                        rgba(52, 211, 153, 0.25) 50%,
+                        rgba(255, 255, 255, 0.75) 60%,
+                        transparent 100%);
+            }
+
+            &.cardTilted {
+                background: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(18px) saturate(180%);
+                -webkit-backdrop-filter: blur(18px) saturate(180%);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07), 0 0 0 1px rgba(24, 201, 139, 0.15);
+                transform: rotate(-3.5deg) translateZ(0);
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.8);
+                    border-color: #18C98B;
+                    box-shadow: 0 18px 46px rgba(24, 201, 139, 0.22);
+                    transform: rotate(-3.5deg) translateY(-5px) translateZ(0);
+                }
+
+                @include respond-to("tab") {
+                    transform: rotate(-1.5deg) translateZ(0);
+
+                    &:hover {
+                        transform: rotate(-1.5deg) translateY(-4px) translateZ(0);
+                    }
+                }
+
+                @include respond-to("sm") {
+                    transform: none;
+
+                    &:hover {
+                        transform: translateY(-4px) translateZ(0);
+                    }
+                }
+            }
+        }
+
+        .trustBadge {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(24, 201, 139, 0.3);
+
+            .cornerTL,
+            .cornerTR,
+            .cornerBL,
+            .cornerBR {
+                border-color: rgba(15, 23, 42, 0.4);
+            }
+
+            .trustHighlight {
+                color: #0F172A;
+            }
+
+            .trustSub {
+                color: #64748B;
+            }
+        }
+    }
+}

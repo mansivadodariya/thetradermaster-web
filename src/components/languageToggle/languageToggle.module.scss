@@ -1,360 +1,280 @@
 @use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
 
 .wrapper {
   position: relative;
   display: inline-block;
 }
 
+.flagWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+
+  .flagSvg {
+    display: block;
+    width: 18px;
+    height: 13px;
+    object-fit: cover;
+  }
+}
+
 .toggleButton {
-  height: 42px;
-  min-height: 42px;
+  height: 38px;
+  min-height: 38px;
   box-sizing: border-box;
-  padding: 0 16px;
+  padding: 0 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
-  color: #047857;
-  border-radius: 40px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: var(--font-plus-jakarta), sans-serif;
+  background: rgba(14, 18, 16, 0.85);
+  border: 1px solid rgba(24, 201, 139, 0.32);
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Euclid-Medium", sans-serif;
   cursor: pointer;
   user-select: none;
-  transition: all 0.25s ease;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
 
-  &:hover {
-    background: #D1FAE5;
-    border-color: #10B981;
-    color: #047857;
-    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.15);
+  &:hover,
+  &.btnActive {
+    border-color: #18C98B;
+    background: rgba(24, 201, 139, 0.12);
+    box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
+    color: #FFFFFF;
+  }
 
-    .chevronIcon {
-      color: #059669;
+  // Header Navbar Variant
+  &.headerNav {
+    height: 36px;
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    @media (max-width: 1250px) {
+      padding: 0 8px;
+      height: 34px;
+      min-height: 34px;
+      gap: 6px;
+    }
+
+    &:hover,
+    &.btnActive {
+      border-color: #18C98B;
+      background: rgba(24, 201, 139, 0.12);
     }
   }
 }
 
-.activeFlagIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 1;
 
-.flagSvg {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-  flex-shrink: 0;
-  display: block;
-  object-fit: cover;
-  border-radius: 2px;
+  @media (max-width: 1250px) {
+    font-size: 12px;
+  }
 }
 
 .chevronIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #059669;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
+  color: #18C98B;
+  transition: transform 0.2s ease;
 
-.label {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
+  &.rotated {
+    transform: rotate(180deg);
+  }
 }
 
 .dropdownMenu {
   position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 440px;
-  max-width: calc(100vw - 24px);
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-  z-index: 1050;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  :global([dir="rtl"]) & {
-    right: auto;
-    left: 0;
-  }
-
-  @media (max-width: 480px) {
-    width: 330px;
-    right: -20px;
-
-    :global([dir="rtl"]) & {
-      right: auto;
-      left: -20px;
-    }
-  }
-}
-
-.dropdownHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 6px 12px 6px;
-  border-bottom: 1px solid #E2E8F0;
-  margin-bottom: 4px;
-}
-
-.dropdownHeaderLeft {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: var(--font-plus-jakarta), sans-serif;
-
-  svg {
-    color: #059669;
-  }
-}
-
-.badge {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  background: #ECFDF5;
-  color: #047857;
-  border: 1px solid #A7F3D0;
-  border-radius: 20px;
-  font-family: var(--font-plus-jakarta), sans-serif;
-}
-
-.dropdownGrid {
+  top: calc(100% + 6px);
+  inset-inline-start: 0;
+  width: min(calc(100vw - 24px), 500px);
+  max-width: calc(100vw - 20px);
+  background: #0A0F0D;
+  border: 1px solid rgba(24, 201, 139, 0.35);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), 0 0 18px rgba(24, 201, 139, 0.1);
+  z-index: 99999;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  backdrop-filter: blur(14px);
+  box-sizing: border-box;
 
-  @media (max-width: 360px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 540px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(calc(100vw - 20px), 330px);
   }
 }
 
 .dropdownOption {
   width: 100%;
-  padding: 10px 12px;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  padding: 7px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 10px;
-  color: #0F172A;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  font-family: "Euclid-Medium", sans-serif;
   cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
+  overflow: hidden;
 
-  :global([dir="rtl"]) & {
-    text-align: right;
+  .optionLeft {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    flex: 1;
+
+    .textWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      flex: 1;
+      line-height: 1.25;
+
+      :global([dir="rtl"]) & {
+        align-items: flex-start;
+        text-align: right;
+      }
+
+      .optionLabel {
+        font-weight: 600;
+        color: #FFFFFF;
+        font-size: 12.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+
+      .optionSubLabel {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.45);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }
   }
 
   &:hover {
-    background: #ECFDF5;
-    border-color: #A7F3D0;
-    transform: translateY(-1px);
+    background: rgba(24, 201, 139, 0.12);
+    border-color: rgba(24, 201, 139, 0.25);
+    color: #18C98B;
 
-    .nativeLabel {
-      color: #047857;
+    .optionSubLabel {
+      color: rgba(24, 201, 139, 0.75);
     }
   }
 
   &.activeOption {
-    background: #ECFDF5;
-    border-color: #10B981;
-    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.15);
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.15);
+    border-color: rgba(24, 201, 139, 0.4);
 
-    .countryLabel {
-      color: #059669;
-      font-weight: 600;
+    .optionLabel {
+      color: #18C98B;
     }
-
-    .nativeLabel {
-      color: #047857;
-      font-weight: 700;
-    }
-  }
-}
-
-.optionContent {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-}
-
-.flagWrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.textGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-.countryLabel {
-  font-size: 11px;
-  font-weight: 500;
-  color: #64748B;
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: var(--font-plus-jakarta), sans-serif;
-}
-
-.nativeLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: #0F172A;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.18s ease;
-  font-family: var(--font-plus-jakarta), sans-serif;
-}
-
-.checkIconWrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-left: 4px;
-
-  :global([dir="rtl"]) & {
-    margin-left: 0;
-    margin-right: 4px;
   }
 }
 
 .checkIcon {
-  color: #059669;
+  color: #18C98B;
+  flex-shrink: 0;
 }
 
-/* Dark Mode Overrides */
-:global(.dark),
-:global(html.dark) {
+/* Light Theme Overrides */
+:global(html.light) {
   .toggleButton {
-    background: rgba(0, 255, 136, 0.06);
-    border: 1px solid rgba(0, 255, 136, 0.25);
-    color: #FFFFFF;
+    background: #FFFFFF;
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    color: #0F172A;
 
-    .chevronIcon {
-      color: #00FF88;
+    .label {
+      color: #0F172A;
     }
 
-    &:hover {
-      background: rgba(0, 255, 136, 0.14);
-      color: #00FF88;
-      box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
+    .chevronIcon {
+      color: #059669;
+    }
+
+    &:hover,
+    &.btnActive {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+
+    &.headerNav {
+      background: #FFFFFF;
+      border: 1px solid rgba(15, 23, 42, 0.12);
     }
   }
 
   .dropdownMenu {
-    background: #070707;
-    border: 1px solid rgba(0, 255, 136, 0.14);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-
-  .dropdownHeader {
-    border-bottom-color: rgba(0, 255, 136, 0.14);
-  }
-
-  .dropdownHeaderLeft {
-    color: rgba(255, 255, 255, 0.7);
-
-    svg {
-      color: #00FF88;
-    }
-  }
-
-  .badge {
-    background: rgba(0, 255, 136, 0.06);
-    color: #00FF88;
-    border: 1px solid rgba(0, 255, 136, 0.25);
+    background: #FFFFFF;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
   }
 
   .dropdownOption {
-    background: #070707;
-    border: 1px solid rgba(0, 255, 136, 0.14);
-    color: #FFFFFF;
+    color: #334155;
 
-    .countryLabel {
-      color: rgba(255, 255, 255, 0.55);
-    }
+    .optionLeft {
+      .optionLabel {
+        color: #0F172A;
+      }
 
-    .nativeLabel {
-      color: #FFFFFF;
+      .optionSubLabel {
+        color: #64748B;
+      }
     }
 
     &:hover {
-      background: rgba(0, 255, 136, 0.06);
-      border-color: rgba(0, 255, 136, 0.35);
+      background: #F0FDF4;
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #059669;
 
-      .nativeLabel {
-        color: #00FF88;
+      .optionLabel {
+        color: #059669;
       }
     }
 
     &.activeOption {
-      background: #047857;
-      border-color: #047857;
-      box-shadow: 0 0 12px rgba(4, 120, 87, 0.35);
+      background: #ECFDF5;
+      border-color: #10B981;
 
-      .countryLabel {
-        color: rgba(255, 255, 255, 0.85);
-      }
-
-      .nativeLabel {
-        color: #FFFFFF;
-      }
-
-      .checkIcon {
-        color: #FFFFFF;
+      .optionLabel {
+        color: #047857;
       }
     }
-  }
-
-  .checkIcon {
-    color: #00FF88;
-  }
-}
-
-.toggleButtonLight,
-:global(html:not(.dark)) .toggleButtonLight {
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
-  color: #047857;
-
-  .chevronIcon {
-    color: #059669;
-  }
-
-  &:hover {
-    background: #D1FAE5;
-    border-color: #10B981;
-    color: #047857;
   }
 }

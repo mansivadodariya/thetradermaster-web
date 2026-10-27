@@ -1,23 +1,31 @@
 'use client';
+
+import CommonSectionHeader from '@/components/CommonSectionHeader';
 import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import styles from './profile.module.scss';
-import Input from '@/components/input';
-import PhoneInput from '@/components/phoneInput';
-import FirebasePhoneModal from '@/components/firebasePhoneModal';
-import Button from '@/components/button';
 import CreditHistory from '@/rendering/creditHistory';
 import { supabase } from '@/lib/supabaseClient';
+import { fetchVisibleTabNames, getVisibleTabNamesSync, checkPermissionInSet } from '@/lib/useTabPermission';
 import { toast } from '@/components/toast';
 import { isValidPhoneNumber } from 'react-phone-number-input';
-import { profileApi } from '@/lib/api';
-import ProfileNotificationsTab from './components/ProfileNotificationsTab';
-import { getUnreadCount } from '@/services/notificationService';
-
+import { profileApi, dashboardApi } from '@/lib/api';
+import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 
-const ArrowIcon = '/assets/icons/arrow.svg';
+import ProfileSidebarNav from './components/ProfileSidebarNav';
+import ProfileDetailsTab from './components/ProfileDetailsTab';
+import ProfileSecurityTab from './components/ProfileSecurityTab';
+import ProfileActivityLogTab from './components/ProfileActivityLogTab';
+import ProfileRightSidebar from './components/ProfileRightSidebar';
+import ProfileModals from './components/ProfileModals';
+import ProfilePaymentHistoryTab from './components/ProfilePaymentHistoryTab';
+import ProfilePreferencesTab from './components/ProfilePreferencesTab';
+import ProfileNotificationsTab from './components/ProfileNotificationsTab';
+import TradingProfileModal from './components/TradingProfileModal';
+import ProfileSkeleton from './components/ProfileSkeleton';
+import { tradingAnalysisApi } from '@/lib/tradingAnalysisApi';
+import { getUnreadCount } from '@/services/notificationService';
 
 function getUserFromStorage() {
     try {
@@ -50,31 +58,44 @@ export default function Profile() {
     const { t, language } = useLanguage();
 
     const [activeTab, setActiveTab] = useState(tabParam || 'profile');
+    const [userId, setUserId] = useState('');
+    const [userCreatedAt, setUserCreatedAt] = useState('May 12, 2024');
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [credits, setCredits] = useState(0);
+    const [lastLogins, setLastLogins] = useState([]);
+    const [showOtpModal, setShowOtpModal] = useState(false);
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    const [initialPhone, setInitialPhone] = useState('');
+    const [referralCount, setReferralCount] = useState(0);
     const [unreadNotifCount, setUnreadNotifCount] = useState(0);
+    const [visibleTabNames, setVisibleTabNames] = useState(() => getVisibleTabNamesSync());
+    const [onboardingData, setOnboardingData] = useState(null);
+    const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
     const refreshUnreadNotifs = async (uid) => {
-        const id = uid || userId;
-        if (!id) return;
+        if (!uid || (visibleTabNames && !checkPermissionInSet(visibleTabNames, 'notifications'))) return;
         try {
-            const count = await getUnreadCount(id);
+            const count = await getUnreadCount(uid);
             setUnreadNotifCount(count || 0);
         } catch (_) {}
     };
 
-    useEffect(() => {
-        if (tabParam && ['profile', 'recent_activity', 'credit_history', 'notifications'].includes(tabParam)) {
-            setActiveTab(tabParam);
-        }
-    }, [tabParam]);
-    const [userId, setUserId] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [lastLogins, setLastLogins] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showOtpModal, setShowOtpModal] = useState(false);
-    const [initialPhone, setInitialPhone] = useState('');
-    const [referralCount, setReferralCount] = useState(0);
-    const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+    // Modals
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [passwordForm, setPasswordForm] = useState({ current: '', newPass: '', confirm: '' });
+    const [passwordUpdating, setPasswordUpdating] = useState(false);
+    const [tradingProfileData, setTradingProfileData] = useState(() => {
+        try {
+            if (typeof window !== 'undefined') {
+                const cached = localStorage.getItem('chronosx_trading_profile_data');
+                return cached ? JSON.parse(cached) : null;
+            }
+        } catch (_) {}
+        return null;
+    });
+    const [showTradingProfileModal, setShowTradingProfileModal] = useState(false);
 
     const [form, setForm] = useState({
         first_name: '',
@@ -86,12 +107,59 @@ export default function Profile() {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
+        fetchVisibleTabNames().then(set => {
+            if (set) setVisibleTabNames(set);
+        });
+        const onTabPerms = (e) => {
+            if (e?.detail) setVisibleTabNames(e.detail);
+        };
+        window.addEventListener('tab_permissions:updated', onTabPerms);
+        return () => window.removeEventListener('tab_permissions:updated', onTabPerms);
+    }, []);
+
+    useEffect(() => {
+        if (tabParam && ['profile', 'security', 'activity_log', 'credit_history', 'payment_history', 'preferences', 'notifications'].includes(tabParam)) {
+            if (tabParam === 'notifications' && visibleTabNames && !checkPermissionInSet(visibleTabNames, 'notifications')) {
+                setActiveTab('profile');
+            } else {
+                setActiveTab(tabParam);
+            }
+        }
+    }, [tabParam, visibleTabNames]);
+
+    useEffect(() => {
+        if (visibleTabNames && !checkPermissionInSet(visibleTabNames, 'notifications') && activeTab === 'notifications') {
+            setActiveTab('profile');
+        }
+    }, [visibleTabNames, activeTab]);
+
+    const canViewPlans = () => {
+        if (!visibleTabNames) return true;
+        return (
+            visibleTabNames.has('subscription plans') ||
+            visibleTabNames.has('subscription_plans') ||
+            visibleTabNames.has('plans') ||
+            visibleTabNames.has('subscription') ||
+            visibleTabNames.has('proAccount')
+        );
+    };
+
+    useEffect(() => {
         const user = getUserFromStorage();
         if (!user) { router.replace('/login'); return; }
         const id = user.id || user.user_id || '';
         setUserId(id);
         setInitialPhone(user.phone_number || '');
-        setIsPhoneVerified(user.is_phone_verified === true || user.is_phone_verified === 'true');
+        setIsPhoneVerified(user.is_phone_verified === true);
+
+        if (user.created_at) {
+            try {
+                const d = new Date(user.created_at);
+                if (!isNaN(d.getTime())) {
+                    setUserCreatedAt(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+                }
+            } catch (_) {}
+        }
 
         setForm({
             first_name: user.first_name || '',
@@ -106,47 +174,98 @@ export default function Profile() {
             setLastLogins(initialLogins.slice(-5));
         }
 
-        fetchProfile(id);
-        refreshUnreadNotifs(id);
+        try {
+            const cachedOnboarding = localStorage.getItem('chronosx_onboarding');
+            if (cachedOnboarding) {
+                setOnboardingData(JSON.parse(cachedOnboarding));
+            }
+        } catch (_) {}
 
-        const onNotifSync = () => {
-            refreshUnreadNotifs(id);
-        };
-        window.addEventListener('notification:updated', onNotifSync);
-        return () => window.removeEventListener('notification:updated', onNotifSync);
+        refreshUnreadNotifs(id);
+        fetchProfile(id);
     }, []);
+
+    useEffect(() => {
+        const onCreditsUpdated = (e) => {
+            const next = e?.detail?.available_credits;
+            if (next !== undefined && next !== null) {
+                setCredits(next);
+            }
+        };
+        window.addEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+        const onNotifUpdated = () => {
+            if (userId) refreshUnreadNotifs(userId);
+        };
+        window.addEventListener('notification:updated', onNotifUpdated);
+        return () => {
+            window.removeEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+            window.removeEventListener('notification:updated', onNotifUpdated);
+        };
+    }, [userId]);
 
     const fetchProfile = async (id) => {
         setLoading(true);
         try {
-            // First fetch directly from Supabase if available for accurate real-time user data, last_logins & referral count
             if (supabase && id) {
                 try {
                     const { data } = await supabase
                         .from('users')
-                        .select('first_name, last_name, email, phone_number, referral_code, last_logins, is_phone_verified')
+                        .select('first_name, last_name, email, phone_number, is_phone_verified, referral_code, last_logins, created_at, experience_level, trading_styles, help_goals, preferred_markets, onboarding_completed, onboarding_completed_at')
                         .eq('id', id)
                         .maybeSingle();
 
                     if (data) {
-                        if (data.is_phone_verified !== undefined && data.is_phone_verified !== null) {
-                            setIsPhoneVerified(data.is_phone_verified === true || data.is_phone_verified === 'true');
+                        if (typeof data.is_phone_verified === 'boolean') {
+                            setIsPhoneVerified(data.is_phone_verified);
                         }
                         const parsedDbLogins = parseLogins(data.last_logins);
                         if (parsedDbLogins.length > 0) {
                             setLastLogins(parsedDbLogins.slice(-5));
                         }
+                        if (data.created_at) {
+                            const d = new Date(data.created_at);
+                            if (!isNaN(d.getTime())) {
+                                setUserCreatedAt(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+                            }
+                        }
                         if (data.phone_number) setInitialPhone(data.phone_number);
                         setForm((prev) => ({
+                            ...prev,
                             first_name: data.first_name || prev.first_name || '',
                             last_name: data.last_name || prev.last_name || '',
                             email: data.email || prev.email || '',
                             phone_number: data.phone_number || prev.phone_number || '',
                             referral_code: data.referral_code || prev.referral_code || id || '',
                         }));
+
+                        if (data.experience_level || data.trading_styles || data.help_goals || data.preferred_markets || data.onboarding_completed) {
+                            const parseArr = (val) => {
+                                if (Array.isArray(val)) return val;
+                                if (typeof val === 'string') {
+                                    try {
+                                        const parsed = JSON.parse(val);
+                                        if (Array.isArray(parsed)) return parsed;
+                                    } catch (_) {}
+                                    return [val];
+                                }
+                                return [];
+                            };
+
+                            const surveyObj = {
+                                experience: data.experience_level || '',
+                                tradingStyles: parseArr(data.trading_styles),
+                                helpGoals: parseArr(data.help_goals),
+                                markets: parseArr(data.preferred_markets),
+                                completed: !!data.onboarding_completed,
+                                completedAt: data.onboarding_completed_at || null,
+                            };
+                            setOnboardingData(surveyObj);
+                            try {
+                                localStorage.setItem('chronosx_onboarding', JSON.stringify(surveyObj));
+                            } catch (_) {}
+                        }
                     }
 
-                    // Query count of referees
                     const { count: refCount, error: countErr } = await supabase
                         .from('users')
                         .select('id', { count: 'exact', head: true })
@@ -163,11 +282,9 @@ export default function Profile() {
             const apiRes = await profileApi.getProfile();
             const profileData = apiRes?.data || apiRes || {};
             if (profileData) {
-                if (profileData.is_phone_verified !== undefined && profileData.is_phone_verified !== null) {
-                    setIsPhoneVerified(profileData.is_phone_verified === true || profileData.is_phone_verified === 'true');
-                }
                 if (profileData.phone_number) setInitialPhone(profileData.phone_number);
                 setForm((prev) => ({
+                    ...prev,
                     first_name: profileData.first_name || prev.first_name || '',
                     last_name: profileData.last_name || prev.last_name || '',
                     email: profileData.email || prev.email || '',
@@ -197,6 +314,31 @@ export default function Profile() {
                 localStorage.setItem('user', JSON.stringify(updated));
                 window.dispatchEvent(new Event('user:updated'));
             }
+
+            if (id) {
+                try {
+                    const statsRes = await dashboardApi.getStats(id);
+                    if (statsRes?.data?.available_credits !== undefined) {
+                        setCredits(statsRes.data.available_credits);
+                    }
+                } catch (statsErr) {
+                    console.warn('Credits fetch error:', statsErr);
+                }
+            }
+
+            // Fetch Trading Profile Analysis via GET API
+            try {
+                const analysisRes = await tradingAnalysisApi.getTradingAnalysis();
+                const tData = analysisRes?.data || (analysisRes?.has_saved_profile || analysisRes?.preferences || analysisRes?.latest_analysis || analysisRes?.analysis || analysisRes?.assessment ? analysisRes : null);
+                if (tData) {
+                    setTradingProfileData(tData);
+                    try {
+                        localStorage.setItem('chronosx_trading_profile_data', JSON.stringify(tData));
+                    } catch (_) {}
+                }
+            } catch (analysisErr) {
+                console.warn('Trading analysis fetch error:', analysisErr);
+            }
         } catch (err) {
             console.warn('Profile fetch warning:', err);
         } finally {
@@ -210,29 +352,21 @@ export default function Profile() {
         const lastName = form.last_name.trim();
 
         if (!firstName) {
-            errs.first_name = 'First name is required.';
+            errs.first_name = t('profile.firstNameRequired', 'First name is required.');
         } else if (firstName.length < 2) {
-            errs.first_name = 'First name must be at least 2 characters.';
-        } else if (firstName.length > 50) {
-            errs.first_name = 'First name cannot exceed 50 characters.';
-        } else if (!/^[a-zA-Z\s]+$/.test(firstName)) {
-            errs.first_name = 'First name can only contain letters and spaces.';
+            errs.first_name = t('profile.firstNameMinLength', 'First name must be at least 2 characters.');
         }
 
         if (!lastName) {
-            errs.last_name = 'Last name is required.';
+            errs.last_name = t('profile.lastNameRequired', 'Last name is required.');
         } else if (lastName.length < 2) {
-            errs.last_name = 'Last name must be at least 2 characters.';
-        } else if (lastName.length > 50) {
-            errs.last_name = 'Last name cannot exceed 50 characters.';
-        } else if (!/^[a-zA-Z\s]+$/.test(lastName)) {
-            errs.last_name = 'Last name can only contain letters and spaces.';
+            errs.last_name = t('profile.lastNameMinLength', 'Last name must be at least 2 characters.');
         }
 
         if (!form.phone_number) {
-            errs.phone_number = 'Phone number is required.';
+            errs.phone_number = t('profile.phoneRequired', 'Phone number is required.');
         } else if (!isValidPhoneNumber(form.phone_number)) {
-            errs.phone_number = 'Enter a valid phone number.';
+            errs.phone_number = t('profile.phoneInvalid', 'Enter a valid phone number.');
         }
 
         return errs;
@@ -248,7 +382,7 @@ export default function Profile() {
         setErrors((prev) => ({ ...prev, [name]: '' }));
     };
 
-    const setPhone = (value) => {
+    const handlePhoneChange = (value) => {
         setForm((prev) => ({ ...prev, phone_number: value || '' }));
         setErrors((prev) => ({ ...prev, phone_number: '' }));
     };
@@ -273,7 +407,7 @@ export default function Profile() {
                         })
                         .eq('id', stored.id);
                 } catch (dbErr) {
-                    console.warn("Supabase direct phone verification update error:", dbErr);
+                    console.warn("Supabase direct phone update error:", dbErr);
                 }
             }
 
@@ -281,13 +415,13 @@ export default function Profile() {
                 ...stored,
                 first_name: form.first_name.trim(),
                 last_name: form.last_name.trim(),
-                phone_number: phoneToSave,
+                phone_number: form.phone_number,
                 is_phone_verified: true
             };
             localStorage.setItem('user', JSON.stringify(updated));
-            document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-            setInitialPhone(phoneToSave);
+            setInitialPhone(form.phone_number);
             setIsPhoneVerified(true);
+            setIsEditing(false);
             window.dispatchEvent(new Event('user:updated'));
 
             toast.success(apiRes?.message || 'Profile updated successfully.');
@@ -307,63 +441,24 @@ export default function Profile() {
         performSaveProfile();
     };
 
-    const getActiveReferralCode = () => {
-        return form.referral_code || userId || '';
-    };
-
-    const handleCopyLink = async () => {
-        const code = getActiveReferralCode();
-        if (!code) return;
-        try {
-            const link = `${window.location.origin}/signup?code=${encodeURIComponent(code)}`;
-            await navigator.clipboard.writeText(link);
-            toast.success('Referral link copied to clipboard!');
-        } catch (err) {
-            toast.error('Failed to copy link.');
-        }
-    };
-
-    const handleShareLink = async () => {
-        const code = getActiveReferralCode();
-        if (!code) return;
-        const link = `${window.location.origin}/signup?code=${encodeURIComponent(code)}`;
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'Join The Trader Master',
-                    text: 'Sign up using my referral code!',
-                    url: link
-                });
-            } catch (err) {
-                if (err.name !== 'AbortError') {
-                    toast.error('Failed to share link.');
-                }
-            }
-        } else {
-            try {
-                await navigator.clipboard.writeText(link);
-                toast.success('Referral link copied to clipboard!');
-            } catch (err) {
-                toast.error('Failed to copy link.');
-            }
-        }
-    };
-
     if (loading) {
-        return (
-            <div className={styles.centered}>
-                <div className={styles.spinner} />
-            </div>
-        );
+        return <ProfileSkeleton />;
     }
 
-    const activeRefCode = getActiveReferralCode();
     const displayLogins = (lastLogins.length > 0 ? [...lastLogins] : []).reverse();
+    const fullName = `${form.first_name || 'John'} ${form.last_name || 'Doe'}`.trim();
+    const displayUid = userId ? `UID: CHX${userId.replace(/[^a-zA-Z0-9]/g, '').slice(0, 9).toUpperCase()}` : 'UID: CHX789456123';
+    const initials = [form.first_name, form.last_name]
+        .filter(Boolean)
+        .map((n) => n.charAt(0).toUpperCase())
+        .join('') || (form.email ? form.email.charAt(0).toUpperCase() : 'U');
+
+    const hasNotificationsPermission = !visibleTabNames || checkPermissionInSet(visibleTabNames, 'notifications');
 
     const subMenuItems = [
         {
             id: 'profile',
-            title: t('profile.profileTab', 'Profile'),
+            title: t('profile.profileTab', 'My Profile'),
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -372,12 +467,25 @@ export default function Profile() {
             )
         },
         {
-            id: 'recent_activity',
-            title: t('profile.recentActivity', 'Recent Activity'),
-            count: displayLogins.length,
+            id: 'security',
+            title: t('profile.securityTab', 'Security'),
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+            )
+        },
+        {
+            id: 'activity_log',
+            title: t('profile.recentActivity', 'Activity Log'),
+            count: displayLogins.length,
+            icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
                 </svg>
             )
         },
@@ -392,6 +500,29 @@ export default function Profile() {
             )
         },
         {
+            id: 'payment_history',
+            title: t('profile.paymentHistory', 'Payment History'),
+            icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+            )
+        },
+        {
+            id: 'preferences',
+            title: t('profile.preferences', 'Preferences'),
+            icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+            )
+        },
+        ...(hasNotificationsPermission ? [{
             id: 'notifications',
             title: t('notifications.title', 'Notifications'),
             count: unreadNotifCount,
@@ -401,262 +532,89 @@ export default function Profile() {
                     <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                 </svg>
             )
-        }
+        }] : [])
     ];
 
     return (
         <div className={styles.profile}>
-            <div className={styles.header}>
-                <div>
-                    <h1>{t('nav.profile', 'Account Settings')}</h1>
-                    <p>{t('profile.manageDetails', 'Manage your personal details and view recent account activity')}</p>
-                </div>
-            </div>
+            {/* Top Page Header */}
+            <CommonSectionHeader
+                badge={t('profile.badge', 'TRADER PROFILE & SECURITY SUITE')}
+                badgeIcon={
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                }
+                title={t('profile.mySettings', 'Settings')}
+                subtitle={t('profile.settingsSubtitle', 'Manage your personal profile, security settings, and account preferences')}
+                isCard={true}
+            />
 
-            <div className={styles.profileGrid}>
-                {/* Submenu Sidebar */}
-                <div className={styles.subSidebar}>
-                    <div className={styles.subSidebarNav}>
-                        {subMenuItems.map((item) => {
-                            const isActive = activeTab === item.id;
-                            return (
-                                <button
-                                    key={item.id}
-                                    type="button"
-                                    className={`${styles.subNavItem} ${isActive ? styles.subNavItemActive : ''}`}
-                                    onClick={() => setActiveTab(item.id)}
-                                >
-                                    <div className={styles.subNavItemIcon}>{item.icon}</div>
-                                    <div className={styles.subNavItemText}>
-                                        <span className={styles.subNavItemTitle}>{item.title}</span>
-                                    </div>
-                                    {typeof item.count === 'number' && item.count > 0 && (
-                                        <span className={styles.subNavItemBadge}>{item.count}</span>
-                                    )}
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
+            {/* 3-Column Profile Layout */}
+            <div className={styles.profileLayoutGrid}>
+                {/* 1. Left Sidebar Navigation */}
+                <ProfileSidebarNav
+                    subMenuItems={subMenuItems}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                />
 
-                {/* Submenu Content Area */}
-                <div className={styles.subContent}>
+                {/* 2. Middle Column: Main Profile Area */}
+                <div className={styles.mainContentColumn}>
                     {activeTab === 'profile' && (
-                        <div className={styles.card}>
-                            <div className={styles.cardHeader}>
-                                <div className={styles.cardHeaderTitleRow}>
-                                    <h2>{t('auth.profileInfo', 'Personal Details')}</h2>
-                                    {isPhoneVerified ? (
-                                        <span className={styles.verifiedBadge}>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="20 6 9 17 4 12" />
-                                            </svg>
-                                            <span>{t('profile.verified', 'Verified')}</span>
-                                        </span>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            className={styles.unverifiedBtn}
-                                            onClick={() => setShowOtpModal(true)}
-                                            title={t('auth.verifyPhoneTitle', 'Verify Phone Number')}
-                                        >
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <circle cx="12" cy="12" r="10" />
-                                                <line x1="12" y1="8" x2="12" y2="12" />
-                                                <line x1="12" y1="16" x2="12.01" y2="16" />
-                                            </svg>
-                                            <span>{t('profile.notVerified', 'Not Verified')}</span>
-                                        </button>
-                                    )}
-                                </div>
-                                <p>{t('profile.manageDetails', 'Update your personal details below.')}</p>
-                            </div>
-                            <form onSubmit={handleSave} noValidate>
-                                <div className={styles.row}>
-                                    <Input
-                                        label={t('auth.firstNameLabel', 'First Name')}
-                                        name="first_name"
-                                        placeholder={t('auth.firstNameLabel', 'First name')}
-                                        value={form.first_name}
-                                        onChange={handleChange}
-                                        error={errors.first_name}
-                                        maxLength={50}
-                                    />
-                                    <Input
-                                        label={t('auth.lastNameLabel', 'Last Name')}
-                                        name="last_name"
-                                        placeholder={t('auth.lastNameLabel', 'Last name')}
-                                        value={form.last_name}
-                                        onChange={handleChange}
-                                        error={errors.last_name}
-                                        maxLength={50}
-                                    />
-                                </div>
-
-                                <div className={styles.field}>
-                                    <label className={styles.label}>{t('auth.emailLabel', 'Email')}</label>
-                                    <div className={styles.emailDisplay}>{form.email || '—'}</div>
-                                </div>
-
-                                <PhoneInput
-                                    label={t('profile.phoneLabel', 'Phone Number')}
-                                    value={form.phone_number}
-                                    onChange={setPhone}
-                                    placeholder={t('profile.phoneLabel', 'Phone number')}
-                                    error={errors.phone_number}
-                                />
-
-                                <div className={styles.field}>
-                                    <label className={styles.label}>{t('profile.referralCode', 'Referral Code')}</label>
-                                    <div className={styles.referralInputGroup}>
-                                        <div className={styles.referralWrapper}>
-                                            <input
-                                                type="text"
-                                                className={styles.referralInput}
-                                                value={activeRefCode || '—'}
-                                                disabled
-                                                readOnly
-                                            />
-                                            {activeRefCode && (
-                                                <div className={styles.referralActions}>
-                                                    <button
-                                                        type="button"
-                                                        className={styles.iconButton}
-                                                        onClick={handleCopyLink}
-                                                        title="Copy referral link"
-                                                    >
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                                        </svg>
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        className={styles.iconButton}
-                                                        onClick={handleShareLink}
-                                                        title="Share referral link"
-                                                    >
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <circle cx="18" cy="5" r="3" />
-                                                            <circle cx="6" cy="12" r="3" />
-                                                            <circle cx="18" cy="19" r="3" />
-                                                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                                                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className={styles.referralBadge}>
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                                <circle cx="9" cy="7" r="4" />
-                                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                            </svg>
-                                            <span>{t('profile.referralCount', 'Referrals')}:</span>
-                                            <span className={styles.referralCountNumber}>{referralCount}</span>
-                                        </div>
-                                    </div>
-                                    <p className={styles.hint}>
-                                        {t('profile.referralHint', 'Share this link with others. It will automatically fill the referral code when they sign up!')}
-                                    </p>
-                                </div>
-
-                                <div className={styles.actions}>
-                                    <Button
-                                        text={saving ? t('common.loading', 'Saving...') : t('common.save', 'Save Changes')}
-                                        type="submit"
-                                        disabled={saving}
-                                        icon={ArrowIcon}
-                                    />
-                                </div>
-                            </form>
-                        </div>
+                        <ProfileDetailsTab
+                            isEditing={isEditing}
+                            setIsEditing={setIsEditing}
+                            initials={initials}
+                            fullName={fullName}
+                            form={form}
+                            displayUid={displayUid}
+                            userCreatedAt={userCreatedAt}
+                            errors={errors}
+                            handleChange={handleChange}
+                            handlePhoneChange={handlePhoneChange}
+                            handleSave={handleSave}
+                            saving={saving}
+                            onboardingData={onboardingData}
+                            tradingProfileData={tradingProfileData}
+                            onOpenTradingProfileModal={() => setShowTradingProfileModal(true)}
+                            t={t}
+                        />
                     )}
 
-                    {activeTab === 'recent_activity' && (
-                        <div className={styles.card}>
-                            <div className={styles.cardHeader}>
-                                <div className={styles.cardHeaderRow}>
-                                    <div>
-                                        <h2>{t('profile.loginActivity', 'Recent Login Activity')}</h2>
-                                        <p>{t('profile.loginActivityDesc', 'Monitor your 5 most recent login sessions for account security.')}</p>
-                                    </div>
-                                    {displayLogins.length > 0 && (
-                                        <span className={styles.subNavItemBadge}>{displayLogins.length}</span>
-                                    )}
-                                </div>
-                            </div>
-                            <div className={styles.loginList}>
-                                {displayLogins.length > 0 ? (
-                                    displayLogins.map((entry, idx) => {
-                                        const dateObj = new Date(entry);
-                                        const isValidDate = !isNaN(dateObj.getTime());
-                                        
-                                        const dateStr = isValidDate ? dateObj.toLocaleDateString(language === 'ar' ? 'ar-EG' : 'en-US', {
-                                            weekday: 'short',
-                                            month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric'
-                                        }) : entry;
+                    {activeTab === 'security' && (
+                        <ProfileSecurityTab
+                            setShowPasswordModal={setShowPasswordModal}
+                            t={t}
+                        />
+                    )}
 
-                                        const timeStr = isValidDate ? dateObj.toLocaleTimeString(language === 'ar' ? 'ar-EG' : 'en-US', {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                            second: '2-digit',
-                                            hour12: true
-                                        }) : '';
-
-                                        const isLatest = idx === 0;
-
-                                        return (
-                                            <div key={idx} className={`${styles.loginItem} ${isLatest ? styles.latestLoginItem : ''}`}>
-                                                <div className={styles.loginItemLeft}>
-                                                    <div className={`${styles.deviceIconBox} ${isLatest ? styles.activeDeviceIcon : ''}`}>
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                                                            <line x1="8" y1="21" x2="16" y2="21" />
-                                                            <line x1="12" y1="17" x2="12" y2="21" />
-                                                        </svg>
-                                                    </div>
-                                                    <div className={styles.loginItemDetails}>
-                                                        <div className={styles.loginTimeRow}>
-                                                            <span className={styles.loginDate}>{dateStr}</span>
-                                                            {timeStr && <span className={styles.loginTime}>{t('profile.at', 'at')} {timeStr}</span>}
-                                                        </div>
-                                                        <span className={styles.loginIsoText}>{entry}</span>
-                                                    </div>
-                                                </div>
-                                                <div className={styles.loginItemRight}>
-                                                    {isLatest ? (
-                                                        <span className={styles.activeBadge}>
-                                                            <span className={styles.activeDot} />
-                                                            {t('profile.currentSession', 'Active Session')}
-                                                        </span>
-                                                    ) : (
-                                                        <span className={styles.pastBadge}>
-                                                            {t('profile.pastSession', 'Past Session')}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <div className={styles.emptyLogins}>
-                                        <p>{t('profile.noLoginData', 'No recent login history recorded.')}</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                    {activeTab === 'activity_log' && (
+                        <ProfileActivityLogTab
+                            displayLogins={displayLogins}
+                            t={t}
+                        />
                     )}
 
                     {activeTab === 'credit_history' && (
-                        <CreditHistory embedMode={true} />
+                        <div className={styles.tabContentPanel}>
+                            <CreditHistory embedded={true} />
+                        </div>
                     )}
 
-                    {activeTab === 'notifications' && (
+                    {activeTab === 'payment_history' && (
+                        <div className={styles.tabContentPanel}>
+                            <ProfilePaymentHistoryTab t={t} />
+                        </div>
+                    )}
+
+                    {activeTab === 'preferences' && (
+                        <div className={styles.tabContentPanel}>
+                            <ProfilePreferencesTab t={t} />
+                        </div>
+                    )}
+
+                    {activeTab === 'notifications' && hasNotificationsPermission && (
                         <ProfileNotificationsTab
                             userId={userId}
                             t={t}
@@ -664,139 +622,58 @@ export default function Profile() {
                         />
                     )}
                 </div>
+
+                {/* 3. Right Sidebar: Account Summary & Quick Actions */}
+                <ProfileRightSidebar
+                    referralCount={referralCount}
+                    credits={credits}
+                    canViewPlans={canViewPlans}
+                    router={router}
+                    setShowPasswordModal={setShowPasswordModal}
+                    setActiveTab={setActiveTab}
+                    setShowLogoutConfirm={setShowLogoutConfirm}
+                    isPhoneVerified={isPhoneVerified}
+                    onVerifyPhoneClick={() => setShowOtpModal(true)}
+                    t={t}
+                />
             </div>
 
-            {/* Recent Login Activity Modal Popup */}
-            <AnimatePresence>
-                {isModalOpen && (
-                    <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
-                        <motion.div
-                            className={styles.modalContent}
-                            initial={{ opacity: 0, scale: 0.94, y: 15 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.94, y: 15 }}
-                            transition={{ duration: 0.2, ease: 'easeOut' }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Modal Header */}
-                            <div className={styles.modalHeader}>
-                                <div className={styles.modalHeaderTitleRow}>
-                                    <div className={styles.modalIconBox}>
-                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className={styles.modalTitle}>{t('profile.loginActivity', 'Recent Login Activity')}</h3>
-                                        <p className={styles.modalSubtitle}>{t('profile.loginActivityDesc', 'Monitor your 5 most recent login sessions for account security.')}</p>
-                                    </div>
-                                </div>
-                                <button
-                                    type="button"
-                                    className={styles.modalCloseBtn}
-                                    onClick={() => setIsModalOpen(false)}
-                                    aria-label="Close"
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            {/* Modal Body */}
-                            <div className={styles.modalBody}>
-                                <div className={styles.loginList}>
-                                    {displayLogins.length > 0 ? (
-                                        displayLogins.map((entry, idx) => {
-                                            const dateObj = new Date(entry);
-                                            const isValidDate = !isNaN(dateObj.getTime());
-                                            
-                                            const dateStr = isValidDate ? dateObj.toLocaleDateString(language === 'ar' ? 'ar-EG' : 'en-US', {
-                                                weekday: 'short',
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            }) : entry;
-
-                                            const timeStr = isValidDate ? dateObj.toLocaleTimeString(language === 'ar' ? 'ar-EG' : 'en-US', {
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                second: '2-digit',
-                                                hour12: true
-                                            }) : '';
-
-                                            const isLatest = idx === 0;
-
-                                            return (
-                                                <div key={idx} className={`${styles.loginItem} ${isLatest ? styles.latestLoginItem : ''}`}>
-                                                    <div className={styles.loginItemLeft}>
-                                                        <div className={`${styles.deviceIconBox} ${isLatest ? styles.activeDeviceIcon : ''}`}>
-                                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                                                                <line x1="8" y1="21" x2="16" y2="21" />
-                                                                <line x1="12" y1="17" x2="12" y2="21" />
-                                                            </svg>
-                                                        </div>
-                                                        <div className={styles.loginItemDetails}>
-                                                            <div className={styles.loginTimeRow}>
-                                                                <span className={styles.loginDate}>{dateStr}</span>
-                                                                {timeStr && <span className={styles.loginTime}>at {timeStr}</span>}
-                                                            </div>
-                                                            <span className={styles.loginIsoText}>{entry}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.loginItemRight}>
-                                                        {isLatest ? (
-                                                            <span className={styles.activeBadge}>
-                                                                <span className={styles.activeDot} />
-                                                                {t('profile.currentSession', 'Active Session')}
-                                                            </span>
-                                                        ) : (
-                                                            <span className={styles.pastBadge}>
-                                                                {t('profile.pastSession', 'Past Session')}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })
-                                    ) : (
-                                        <div className={styles.emptyLogins}>
-                                            <p>{t('profile.noLoginData', 'No recent login history recorded.')}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Modal Footer */}
-                            <div className={styles.modalFooter}>
-                                <button
-                                    type="button"
-                                    className={styles.modalDoneBtn}
-                                    onClick={() => setIsModalOpen(false)}
-                                >
-                                    {t('common.close', 'Close')}
-                                </button>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
-
-            <FirebasePhoneModal
-                isOpen={showOtpModal}
+            {/* Modals: Password, Logout, Firebase Phone OTP */}
+            <ProfileModals
+                showPasswordModal={showPasswordModal}
+                setShowPasswordModal={setShowPasswordModal}
+                passwordForm={passwordForm}
+                setPasswordForm={setPasswordForm}
+                passwordUpdating={passwordUpdating}
+                setPasswordUpdating={setPasswordUpdating}
+                userId={userId}
+                email={form.email}
+                showLogoutConfirm={showLogoutConfirm}
+                setShowLogoutConfirm={setShowLogoutConfirm}
+                showOtpModal={showOtpModal}
+                setShowOtpModal={setShowOtpModal}
                 phoneNumber={form.phone_number}
-                onClose={() => setShowOtpModal(false)}
-                onSuccess={(verifiedPhone) => {
-                    const phoneToUse = typeof verifiedPhone === 'string' ? verifiedPhone : form.phone_number;
-                    if (phoneToUse) {
-                        setForm((prev) => ({ ...prev, phone_number: phoneToUse }));
-                    }
-                    setIsPhoneVerified(true);
-                    performSaveProfile(phoneToUse);
+                performSaveProfile={performSaveProfile}
+                router={router}
+                t={t}
+            />
+
+            {/* Trading Profile & Strategy Analysis Modal */}
+            <TradingProfileModal
+                isOpen={showTradingProfileModal}
+                onClose={() => setShowTradingProfileModal(false)}
+                onSuccess={(updated) => {
+                    setTradingProfileData(updated);
+                    try {
+                        localStorage.setItem('chronosx_trading_profile_data', JSON.stringify(updated));
+                    } catch (_) {}
                 }}
+                initialPreferences={tradingProfileData?.preferences}
+                onboardingData={onboardingData}
+                user={form}
+                t={t}
             />
         </div>
     );
 }
+

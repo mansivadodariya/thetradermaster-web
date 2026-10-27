@@ -1,0 +1,178 @@
+/* ========================================================================= */
+/* 5. COMPARISON MATRIX */
+/* ========================================================================= */
+.comparisonSection {
+    position: relative;
+    z-index: 2;
+    padding: 80px 0;
+
+    @include respond-to('md') {
+        padding: 65px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+}
+
+.tableCard {
+    max-width: 1080px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: rgba(12, 10, 6, 0.9);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.tableResponsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.comparisonTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    thead {
+        background: rgba(22, 18, 12, 0.98);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.25);
+
+        th {
+            padding: 18px 22px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: #9CA3AF;
+            text-transform: uppercase;
+        }
+
+        .thFeature {
+            width: 32%;
+        }
+
+        .thManual {
+            width: 34%;
+        }
+
+        .thAiEngine {
+            width: 34%;
+            background: rgba(24, 201, 139, 0.08);
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.2s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .rowHighlight {
+            background: rgba(24, 201, 139, 0.02);
+        }
+
+        td {
+            padding: 18px 22px;
+            font-size: 14px;
+            line-height: 1.5;
+            vertical-align: middle;
+
+            @include respond-to('sm') {
+                padding: 14px 16px;
+                font-size: 13px;
+            }
+        }
+
+        .tdFeature {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .tdManual {
+            color: #9CA3AF;
+        }
+
+        .statusRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .statusIconCross {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .statusIconWarn {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #38BDF8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .statusIconCheck {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #10B981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .manualText {
+            color: #D1D5DB;
+        }
+
+        .tdAiEngine {
+            background: rgba(24, 201, 139, 0.04);
+            border-left: 1px solid rgba(24, 201, 139, 0.15);
+            border-right: 1px solid rgba(24, 201, 139, 0.15);
+        }
+
+        .aiEngineTextWrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .aiEngineText {
+            color: #18C98B;
+            font-weight: 700;
+        }
+    }
+}
+
+.aiEngineHeaderBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #18C98B;
+    font-weight: 800;
+}

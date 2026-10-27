@@ -1,0 +1,370 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.testimonials {
+  padding: 100px 0;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #020202 100%);
+
+  :global(html.light) &,
+  :global(html[data-theme="light"]) &,
+  :global([data-theme="light"]) & {
+    background: linear-gradient(180deg, #F0FDF4 0%, #E8F9F1 50%, #F0FDF4 100%);
+    border-top: 1px solid rgba(24, 201, 139, 0.18);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.18);
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.28);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        transform: translateY(-6px);
+        border-color: #10B981;
+        box-shadow: 0 14px 34px rgba(16, 185, 129, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+
+      .quote {
+        color: #334155;
+      }
+
+      .author {
+        .avatar {
+          background: linear-gradient(145deg, #34D399 0%, #059669 100%);
+          color: #FFFFFF;
+          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+        }
+
+        .authorInfo {
+          h4 {
+            color: #0F172A;
+          }
+
+          span {
+            color: #64748B;
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+
+
+  :global(.container) {
+    position: relative;
+    z-index: 9;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+
+    .badgeWrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 45px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+      color: #FFFFFF;
+      margin: 0 0 16px 0;
+
+      span {
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
+        display: inline;
+      }
+
+      @include respond-to("tab") {
+        font-size: 34px;
+        letter-spacing: -0.8px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 28px;
+      }
+    }
+
+    .subtext {
+      color: #9c9a96;
+      font-size: 17px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 600px;
+      @include font-normal;
+
+      @include respond-to("tab") {
+        font-size: 15px;
+      }
+    }
+  }
+
+  /* Standard Width Marquee Container with Foggy Edge Overlays */
+  .marqueeWrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 18px 0;
+    z-index: 5;
+    direction: ltr;
+    unicode-bidi: isolate;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  }
+
+  /* Foggy Overlay Layers on Left & Right */
+  .fogLeft {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    background: linear-gradient(to right, #000000 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
+
+    :global(html.light) &,
+    :global(html[data-theme="light"]) &,
+    :global([data-theme="light"]) & {
+      background: linear-gradient(to right, #F0FDF4 0%, rgba(240, 253, 244, 0.95) 25%, rgba(240, 253, 244, 0.4) 70%, transparent 100%);
+    }
+
+    @include respond-to("sm") {
+      width: 60px;
+    }
+  }
+
+  .fogRight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 140px;
+    background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
+
+    :global(html.light) &,
+    :global(html[data-theme="light"]) &,
+    :global([data-theme="light"]) & {
+      background: linear-gradient(to left, #F0FDF4 0%, rgba(240, 253, 244, 0.95) 25%, rgba(240, 253, 244, 0.4) 70%, transparent 100%);
+    }
+
+    @include respond-to("sm") {
+      width: 60px;
+    }
+  }
+
+  .marqueeTrack {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    direction: ltr;
+    animation: marqueeContinuous 34s linear infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  .marqueeGroup {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-right: 24px;
+    flex-shrink: 0;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .card {
+    width: 380px;
+    flex-shrink: 0;
+    padding: 28px 24px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+    overflow: hidden;
+    position: relative;
+    background-color: #ffffff05;
+    border-radius: 18px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    cursor: default;
+
+    @include respond-to("sm") {
+      width: 310px;
+      padding: 22px 18px;
+    }
+
+    &::before {
+      content: "";
+      -webkit-mask-composite: xor;
+      pointer-events: none;
+      background: linear-gradient(#ffffff1a 0%, #9990 100%);
+      border-radius: 18px;
+      padding: 1.5px;
+      transition: background .35s, opacity .35s;
+      position: absolute;
+      inset: 0;
+      -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+      -webkit-mask-position: 0 0, 0 0;
+      -webkit-mask-size: auto, auto;
+      -webkit-mask-repeat: repeat, repeat;
+      -webkit-mask-clip: content-box, border-box;
+      -webkit-mask-origin: content-box, border-box;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      -webkit-mask-source-type: auto, auto;
+      mask-mode: match-source, match-source;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 1.5px;
+      background: linear-gradient(0deg, #18c98b 0%, rgba(110, 231, 183, 0.6) 30%, rgba(24, 201, 139, 0.15) 60%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px -10px rgba(24, 201, 139, 0.25), inset 0 -4px 15px rgba(24, 201, 139, 0.1);
+
+      &::before {
+        opacity: 0.25;
+      }
+
+      &::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 20px;
+
+      img {
+        width: 17px;
+        height: 17px;
+        display: block;
+      }
+    }
+
+    .quote {
+      color: #B7B7B7;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+      flex-grow: 1;
+      @include font-normal;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #6EE7B7 0%, #18c98b 100%);
+        color: #040605;
+        font-size: 13px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        @include font-bold;
+        box-shadow: 0 2px 8px rgba(24, 201, 139, 0.3);
+      }
+
+      .authorInfo {
+        display: flex;
+        flex-direction: column;
+
+        h4 {
+          color: #ffffff;
+          font-size: 15px;
+          font-weight: 700;
+          margin: 0 0 2px 0;
+          @include font-bold;
+        }
+
+        span {
+          color: #9c9a96;
+          font-size: 13px;
+          @include font-normal;
+        }
+      }
+    }
+  }
+
+  @keyframes marqueeContinuous {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}

@@ -1,0 +1,604 @@
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #040D09;
+$border: rgba(24, 201, 139, 0.35);
+$borderSubtle: rgba(24, 201, 139, 0.18);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$amber: #F59E0B;
+$danger: #F87171;
+
+
+/* Light Mode Overrides */
+:global(html.light) .affiliatePage,
+:global(html[data-theme='light']) .affiliatePage,
+:global([data-theme='light']) .affiliatePage {
+    .kpiGrid .kpiCard {
+        background: #f3f3f3;
+        border-color: rgba(24, 201, 139, 0.3);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+
+        .kpiTop .kpiLabel {
+            color: #475569;
+        }
+
+        .kpiValue {
+            color: #0F172A;
+
+            .unitText {
+                color: #64748B;
+            }
+        }
+
+        .kpiSub {
+            color: #64748B;
+        }
+
+        &.highlightCard {
+            background: linear-gradient(180deg, rgba(24, 201, 139, 0.12) 0%, #FFFFFF 100%);
+        }
+    }
+
+    .tabNavContainer .tabNavRow {
+        background: #F1F5F9;
+        border-color: rgba(24, 201, 139, 0.25);
+
+        .tabItem {
+            color: #475569;
+
+            .countBadge {
+                background: rgba(15, 23, 42, 0.08);
+                color: #0F172A;
+                border-color: rgba(15, 23, 42, 0.15);
+            }
+
+            &:hover {
+                color: #10B981;
+                background: rgba(255, 255, 255, 0.6);
+            }
+
+            &.tabActive {
+                background: #FFFFFF;
+                color: #10B981;
+                border-color: rgba(24, 201, 139, 0.4);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+                .countBadge {
+                    background: #18C98B;
+                    color: #040300;
+                    border-color: #18C98B;
+                }
+            }
+        }
+    }
+
+    .overviewGrid .tierBoxCard,
+    .overviewGrid .shareBoxCard,
+    .tableWrapperCard,
+    .marketingKitGrid .marketingPitchCard {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+
+        h3,
+        h4 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #475569;
+        }
+
+        .tierHeader {
+            .tierBadgeGroup .tierRate {
+                color: #0F172A;
+            }
+
+            .tierStatus {
+                color: #64748B;
+            }
+        }
+
+        .tierProgressBlock {
+            .progressLabels {
+                color: #475569;
+            }
+
+            .progressBarTrack {
+                background: #E2E8F0;
+                border: none;
+            }
+        }
+
+        .tierPerksGrid .perkCard {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .perkTitle {
+                color: #0F172A;
+            }
+
+            ul li {
+                color: #334155;
+            }
+
+            &.currentPerk {
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                background: rgba(24, 201, 139, 0.05);
+            }
+
+            &.vipPerk {
+                border: 1px solid rgba(245, 158, 11, 0.25);
+                background: rgba(245, 158, 11, 0.05);
+
+                .perkTitle {
+                    color: #D97706;
+                }
+            }
+        }
+    }
+
+    /* Social Share Buttons & Referral Code in Light Mode */
+    .overviewGrid .shareBoxCard {
+        .codeRow {
+            .codeGroup {
+                .codeLabel {
+                    color: #475569;
+                }
+
+                .codeBadge {
+                    background: rgba(24, 201, 139, 0.1);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                }
+
+                .miniCopyBtn {
+                    color: #64748B;
+
+                    &:hover {
+                        color: #10B981;
+                    }
+                }
+            }
+
+            .qrBtn {
+                background: #F8FAFC;
+                border: 1px solid #CBD5E1;
+                color: #334155;
+
+                svg {
+                    stroke: #334155;
+                }
+
+                &:hover {
+                    background: rgba(24, 201, 139, 0.08);
+                    border-color: #10B981;
+                    color: #047857;
+
+                    svg {
+                        stroke: #047857;
+                    }
+                }
+            }
+        }
+
+        .linkBox {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.3);
+
+            .linkInput {
+                color: #0F172A;
+            }
+        }
+
+        .socialShareSection {
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .socialTitle {
+            color: #475569;
+        }
+
+        .socialButtonsRow {
+            .socialBtnX {
+                background: #FFFFFF;
+                border: 1px solid #CBD5E1;
+                color: #0F172A;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+                svg {
+                    fill: #0F172A;
+                }
+
+                &:hover {
+                    background: #0F172A;
+                    border-color: #0F172A;
+                    color: #FFFFFF;
+
+                    svg {
+                        fill: #FFFFFF;
+                    }
+                }
+            }
+
+            .socialBtnTg {
+                background: rgba(36, 161, 222, 0.08);
+                border-color: rgba(36, 161, 222, 0.35);
+                color: #0284C7;
+
+                &:hover {
+                    background: #0284C7;
+                    color: #FFFFFF;
+                    border-color: #0284C7;
+                }
+            }
+
+            .socialBtnWa {
+                background: rgba(37, 211, 102, 0.08);
+                border-color: rgba(37, 211, 102, 0.35);
+                color: #16A34A;
+
+                &:hover {
+                    background: #16A34A;
+                    color: #FFFFFF;
+                    border-color: #16A34A;
+                }
+            }
+
+            .socialBtnIn {
+                background: rgba(10, 102, 194, 0.08);
+                border-color: rgba(10, 102, 194, 0.35);
+                color: #0A66C2;
+
+                &:hover {
+                    background: #0A66C2;
+                    color: #FFFFFF;
+                    border-color: #0A66C2;
+                }
+            }
+        }
+    }
+
+    /* Tables in Light Mode */
+    .tableWrapperCard .customTable {
+        th {
+            background: #F8FAFC;
+            color: #475569;
+            border-bottom-color: rgba(24, 201, 139, 0.2);
+        }
+
+        td {
+            color: #1E293B;
+            border-bottom-color: #F1F5F9;
+
+            .monoId {
+                color: #64748B;
+            }
+
+            .withdrawAmountVal {
+                color: #0F172A;
+            }
+
+            .assetBadge {
+                background: #E2E8F0;
+                color: #0F172A;
+            }
+        }
+    }
+
+    .marketingKitGrid .marketingPitchCard {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+
+        .pitchText,
+        .pitchBody {
+            background: #F8FAFC;
+            border-color: #E2E8F0;
+            color: #334155;
+        }
+
+        .copyPitchBtn,
+        .copyTemplateBtn {
+            background: rgba(24, 201, 139, 0.12);
+            color: #10B981;
+            border-color: rgba(24, 201, 139, 0.35);
+
+            &:hover {
+                background: #10B981;
+                color: #FFFFFF;
+            }
+        }
+
+        .pitchFooter {
+            border-color: #F1F5F9;
+
+            .channelTag {
+                background: rgba(24, 201, 139, 0.1);
+                color: #10B981;
+                border-color: rgba(24, 201, 139, 0.25);
+            }
+
+            .pitchLength {
+                background: #F1F5F9;
+                color: #64748B;
+                border-color: #E2E8F0;
+            }
+        }
+    }
+
+    /* Withdrawal Modal in Light Mode */
+    .modalOverlay {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(8px);
+
+        .modalCard,
+        .qrModalCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+
+            .modalHeader {
+                border-bottom: 1px solid #F1F5F9;
+
+                h3 {
+                    color: #0F172A;
+                }
+
+                .modalTitleGroup {
+                    h3 {
+                        color: #0F172A;
+                    }
+
+                    p {
+                        color: #64748B;
+                    }
+                }
+
+                .modalCloseBtn {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #64748B;
+
+                    &:hover {
+                        background: #E2E8F0;
+                        color: #0F172A;
+                    }
+                }
+            }
+
+            .modalForm {
+                .modalBalanceBox {
+                    background: rgba(24, 201, 139, 0.08);
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+
+                    .balanceLabel {
+                        color: #475569;
+                    }
+
+                    .balanceAmount {
+                        color: #059669;
+                    }
+                }
+
+                .zeroBalanceAlert {
+                    background: #FEF3C7;
+                    border-color: #FCD34D;
+                    color: #92400E;
+
+                    svg {
+                        color: #D97706;
+                    }
+                }
+
+                .formGroup {
+                    label {
+                        color: #1E293B;
+                    }
+
+                    .amountLabelRow .minLimitText {
+                        color: #D97706;
+                    }
+
+                    .assetSelector {
+                        .assetOption {
+                            background: #F8FAFC;
+                            border: 1px solid #E2E8F0;
+                            color: #1E293B;
+
+                            .coinCircle {
+                                background: rgba(24, 201, 139, 0.12);
+                                color: #059669;
+                            }
+
+                            &:hover {
+                                background: #F1F5F9;
+                                border-color: rgba(24, 201, 139, 0.4);
+                            }
+
+                            &.assetActive {
+                                background: rgba(24, 201, 139, 0.12);
+                                border-color: #18C98B;
+                                color: #059669;
+
+                                .coinCircle {
+                                    background: #18C98B;
+                                    color: #040300;
+                                }
+                            }
+                        }
+                    }
+
+                    .networkGrid {
+                        .netBtn {
+                            background: #F8FAFC;
+                            border: 1px solid #E2E8F0;
+
+                            .netName {
+                                color: #1E293B;
+                            }
+
+                            .netSpeed {
+                                color: #64748B;
+                            }
+
+                            &:hover {
+                                background: #F1F5F9;
+                                border-color: rgba(24, 201, 139, 0.4);
+                            }
+
+                            &.netActive {
+                                background: rgba(24, 201, 139, 0.12);
+                                border-color: #18C98B;
+
+                                .netName {
+                                    color: #059669;
+                                }
+
+                                .netSpeed {
+                                    color: #047857;
+                                }
+                            }
+                        }
+                    }
+
+                    .inputWithAction {
+                        input {
+                            background: #FFFFFF;
+                            border: 1px solid #CBD5E1;
+                            color: #0F172A;
+
+                            &::placeholder {
+                                color: #94A3B8;
+                            }
+
+                            &:focus {
+                                border-color: #18C98B;
+                                box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15);
+                            }
+                        }
+
+                        .inlinePasteBtn,
+                        .inlineMaxBtn {
+                            background: rgba(24, 201, 139, 0.12);
+                            border: 1px solid rgba(24, 201, 139, 0.4);
+                            color: #059669;
+
+                            &:hover {
+                                background: #18C98B;
+                                color: #040300;
+                            }
+                        }
+                    }
+                }
+
+                .feeBreakdown {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .feeRow {
+                        color: #64748B;
+
+                        .feeFree {
+                            color: #059669;
+                        }
+
+                        &.totalRow {
+                            border-top-color: #E2E8F0;
+                            color: #0F172A;
+
+                            strong {
+                                color: #059669;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .qrCodeBox {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+            }
+
+            .qrDetails .qrDetailRow {
+                color: #64748B;
+
+                strong {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .qrModalCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+
+            .modalHeader {
+                border-bottom: 1px solid #F1F5F9;
+
+                h3 {
+                    color: #0F172A;
+                }
+
+                .modalCloseBtn {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #64748B;
+
+                    &:hover {
+                        background: #E2E8F0;
+                        color: #0F172A;
+                    }
+                }
+            }
+
+            .qrBox {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.03), 0 4px 16px rgba(15, 23, 42, 0.04);
+                padding: 16px;
+                border-radius: 14px;
+
+                .qrImage {
+                    background: #FFFFFF;
+                    border: 1px solid #E2E8F0;
+                    border-radius: 12px;
+                    padding: 8px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+                }
+
+                .qrCodeText {
+                    background: rgba(24, 201, 139, 0.1);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                    padding: 6px 14px;
+                    border-radius: 8px;
+                    font-weight: 700;
+                    font-family: monospace;
+                    font-size: 14px;
+                }
+            }
+
+            .modalSubmitBtn {
+                background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+                color: #040300;
+                box-shadow: 0 4px 16px rgba(24, 201, 139, 0.25);
+                border-radius: 10px;
+                font-weight: 700;
+
+                &:hover {
+                    box-shadow: 0 6px 22px rgba(24, 201, 139, 0.4);
+                }
+            }
+        }
+    }
+
+    .skeletonPulse {
+        background: linear-gradient(90deg,
+                rgba(15, 23, 42, 0.06) 0%,
+                rgba(24, 201, 139, 0.18) 50%,
+                rgba(15, 23, 42, 0.06) 100%);
+        background-size: 200% 100%;
+    }
+}

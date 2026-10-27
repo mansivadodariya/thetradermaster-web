@@ -1,0 +1,344 @@
+@use '../../../scss/main.scss' as *;
+
+/* ========================================================================= */
+/* COUNTDOWN DISPLAY (Borderless Direct Canvas with Half-Height Falling)     */
+/* ========================================================================= */
+
+.clockWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ---------------- Flip Clock Cards Row ---------------- */
+.clockCardsRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 4px 0;
+
+    @media (max-width: 640px) {
+        gap: 6px;
+        justify-content: center;
+    }
+}
+
+.cardCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 125px;
+
+    @media (max-width: 640px) {
+        max-width: 78px;
+    }
+}
+
+.flipCard {
+    position: relative;
+    width: 100%;
+    height: 94px;
+    border-radius: 12px;
+    perspective: 600px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    @media (max-width: 640px) {
+        height: 72px;
+    }
+}
+
+/* Base Top & Bottom Half Structure */
+.halfCard {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .digit {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 200%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', monospace;
+        font-size: 2.85rem;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+
+        @media (max-width: 640px) {
+            font-size: 2rem;
+        }
+    }
+}
+
+/* Static Upper Half (revealed as leaf falls) */
+.upperCard {
+    top: 0;
+    background: linear-gradient(180deg, #1d2735 0%, #141c26 100%);
+    border-radius: 12px 12px 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+
+    .digit {
+        top: 0;
+    }
+}
+
+/* Static Lower Half (waiting for leaf to land) */
+.lowerCard {
+    top: 50%;
+    background: linear-gradient(180deg, #111720 0%, #0b1017 100%);
+    border-radius: 0 0 12px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: none;
+
+    .digit {
+        top: -100%;
+    }
+}
+
+/* ---------------- Half-Height Falling Leaf Animations ---------------- */
+.fallingTopLeaf {
+    top: 0;
+    background: linear-gradient(180deg, #1d2735 0%, #141c26 100%);
+    border-radius: 12px 12px 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    transform-origin: bottom center;
+    animation: fallTopHalf 0.28s ease-in forwards;
+    z-index: 5;
+
+    .digit {
+        top: 0;
+    }
+}
+
+.fallingBottomLeaf {
+    top: 50%;
+    background: linear-gradient(180deg, #111720 0%, #0b1017 100%);
+    border-radius: 0 0 12px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: none;
+    transform-origin: top center;
+    animation: fallBottomHalf 0.28s ease-out 0.26s forwards;
+    transform: rotateX(90deg);
+    z-index: 6;
+
+    .digit {
+        top: -100%;
+    }
+}
+
+@keyframes fallTopHalf {
+    0% {
+        transform: rotateX(0deg);
+        filter: brightness(1);
+    }
+    100% {
+        transform: rotateX(-90deg);
+        filter: brightness(0.5);
+    }
+}
+
+@keyframes fallBottomHalf {
+    0% {
+        transform: rotateX(90deg);
+        filter: brightness(0.6);
+    }
+    100% {
+        transform: rotateX(0deg);
+        filter: brightness(1);
+    }
+}
+
+/* Horizontal Midline Split Seam */
+.splitLine {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.75);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Side Notches at 50% Crease */
+.notchLeft,
+.notchRight {
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 10px;
+    background: #0c100e;
+    transform: translateY(-50%);
+    z-index: 12;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+.notchLeft {
+    left: -1px;
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.notchRight {
+    right: -1px;
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+/* Vivid Seconds Accent */
+.secondsCard {
+    border: 1px solid rgba(24, 201, 139, 0.35);
+
+    .digit {
+        color: #18c98b;
+        text-shadow: 0 0 16px rgba(24, 201, 139, 0.4);
+    }
+}
+
+/* Unit Label below each Card */
+.unitLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    @media (max-width: 640px) {
+        font-size: 0.65rem;
+    }
+}
+
+/* Colon Separator */
+.colonSeparator {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #18c98b;
+    opacity: 0.75;
+    margin-bottom: 24px;
+    animation: colonBlink 1s infinite;
+
+    @media (max-width: 640px) {
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+    }
+}
+
+@keyframes colonBlink {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.25; }
+}
+
+/* ---------------- Progress Bar ---------------- */
+.progressContainer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 4px;
+}
+
+.progressBarTrack {
+    flex: 1;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background: linear-gradient(90deg, #18c98b 0%, #10b981 100%);
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.45);
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.progressMeta {
+    font-size: 0.76rem;
+    color: #18c98b;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ========================================================================= */
+/* LIGHT THEME                                                                */
+/* ========================================================================= */
+:global(html.light) .clockWrapper,
+:global([data-theme='light']) .clockWrapper {
+    .flipCard {
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+    }
+
+    .upperCard,
+    .fallingTopLeaf {
+        background: linear-gradient(180deg, #F8FAFC 0%, #EDF2F7 100%);
+        border-color: rgba(15, 23, 42, 0.12);
+
+        .digit {
+            color: #0F172A;
+        }
+    }
+
+    .lowerCard,
+    .fallingBottomLeaf {
+        background: linear-gradient(180deg, #EDF2F7 0%, #E2E8F0 100%);
+        border-color: rgba(15, 23, 42, 0.1);
+
+        .digit {
+            color: #0F172A;
+        }
+    }
+
+    .splitLine {
+        background: rgba(15, 23, 42, 0.14);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .notchLeft,
+    .notchRight {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.15);
+    }
+
+    .secondsCard {
+        border-color: rgba(24, 201, 139, 0.5);
+
+        .digit {
+            color: #047857;
+            text-shadow: none;
+        }
+    }
+
+    .unitLabel {
+        color: #64748B;
+    }
+
+    .colonSeparator {
+        color: #047857;
+    }
+
+    .progressBarTrack {
+        background: rgba(15, 23, 42, 0.08);
+    }
+
+    .progressMeta {
+        color: #047857;
+    }
+}

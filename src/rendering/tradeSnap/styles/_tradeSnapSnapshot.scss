@@ -1,0 +1,397 @@
+$primary: #18C98B;
+$text: #FFFFFF;
+$muted: rgba(255, 255, 255, 0.6);
+$border: rgba(24, 201, 139, 0.35);
+$danger: #FF5757;
+$success: #10b981;
+
+.tradeSnap {
+    .snapshotHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid $border;
+
+        h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: $text;
+        }
+
+        .snapshotHeaderActions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .btnDiscard {
+                padding: 8px 16px;
+                border-radius: 9999px;
+                background: rgba(239, 68, 68, 0.12);
+                border: 1px solid rgba(239, 68, 68, 0.35);
+                color: #EF4444;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(239, 68, 68, 0.22);
+                    border-color: #EF4444;
+                    transform: translateY(-1px);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+
+                [data-theme='light'] &,
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    background: rgba(239, 68, 68, 0.08);
+                    border-color: rgba(239, 68, 68, 0.3);
+                    color: #DC2626;
+                }
+            }
+        }
+    }
+
+    .snapshotWrapper {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .snapshotImageContainer {
+        position: relative;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        min-height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #060608;
+    }
+
+    .snapshotImg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        background: #060608;
+    }
+
+    .scannerOverlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(24, 201, 139, 0.16) 0%, rgba(6, 12, 10, 0.78) 85%);
+        pointer-events: none;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(2px);
+    }
+
+    .scannerOverlayContent {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(100% - 36px);
+        max-width: 440px;
+        padding: 16px 20px;
+        margin: auto;
+        background: rgba(6, 12, 10, 0.88);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        border-radius: 14px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(24, 201, 139, 0.12);
+        pointer-events: auto;
+        gap: 10px;
+
+        .scannerCenterCore {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+
+            .scannerRingGlow {
+                position: absolute;
+                inset: 0;
+                margin: auto;
+                width: 68px;
+                height: 68px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(24, 201, 139, 0.35) 0%, transparent 70%);
+                filter: blur(8px);
+                pointer-events: none;
+            }
+
+            .radarSvgRingOuter {
+                position: absolute;
+                inset: 0;
+                margin: auto;
+                width: 76px;
+                height: 76px;
+                pointer-events: none;
+            }
+
+            .radarSvgRingInner {
+                position: absolute;
+                inset: 0;
+                margin: auto;
+                width: 58px;
+                height: 58px;
+                pointer-events: none;
+            }
+
+            .scannerCenterIcon {
+                position: relative;
+                z-index: 2;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                background: rgba(6, 12, 10, 0.95);
+                border: 1.5px solid rgba(24, 201, 139, 0.6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 16px rgba(24, 201, 139, 0.45);
+            }
+        }
+
+        .rotatingMessageBlock {
+            text-align: center;
+            width: 100%;
+            min-height: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .messageContentWrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            width: 100%;
+        }
+
+        .rotatingMainMessage {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: "Euclid-Bold", sans-serif;
+            letter-spacing: 0.3px;
+            text-shadow: 0 0 10px rgba(24, 201, 139, 0.4);
+        }
+
+        .rotatingSubMessage {
+            margin: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            font-family: "Euclid-Regular", sans-serif;
+            max-width: 360px;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .analyzingProgressSection {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .analyzingProgressBarTrack {
+            width: 100%;
+            height: 6px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+        }
+
+        .analyzingProgressBarFill {
+            height: 100%;
+            background: linear-gradient(90deg, #18C98B 0%, #38BDF8 50%, #18C98B 100%);
+            background-size: 200% 100%;
+            animation: shimmerProgressSweep 2s linear infinite;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(24, 201, 139, 0.7);
+        }
+
+        .analyzingMetaFooter {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.65);
+            font-family: "Euclid-Medium", monospace;
+        }
+
+        .analyzingPercentNumber {
+            font-weight: 800;
+            color: #18C98B;
+            font-size: 12px;
+            font-family: monospace;
+        }
+    }
+
+    .scannerGridMesh {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(24, 201, 139, 0.12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(24, 201, 139, 0.12) 1px, transparent 1px);
+        background-size: 24px 24px;
+        opacity: 0.7;
+    }
+
+    .scannerLaserLine {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent 0%, #18C98B 20%, #38BDF8 50%, #18C98B 80%, transparent 100%);
+        box-shadow: 0 0 16px #18C98B, 0 0 32px rgba(56, 189, 248, 0.85);
+        animation: laserScanSweep 2.2s ease-in-out infinite alternate;
+        z-index: 6;
+    }
+
+    @keyframes laserScanSweep {
+        0% {
+            top: 4%;
+            opacity: 0.75;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            top: 94%;
+            opacity: 0.75;
+        }
+    }
+
+    .cornerBracketTL,
+    .cornerBracketTR,
+    .cornerBracketBL,
+    .cornerBracketBR {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-color: #18C98B;
+        border-style: solid;
+        z-index: 7;
+        filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.6));
+    }
+
+    .cornerBracketTL {
+        top: 10px;
+        left: 10px;
+        border-width: 2.5px 0 0 2.5px;
+    }
+
+    .cornerBracketTR {
+        top: 10px;
+        right: 10px;
+        border-width: 2.5px 2.5px 0 0;
+    }
+
+    .cornerBracketBL {
+        bottom: 10px;
+        left: 10px;
+        border-width: 0 0 2.5px 2.5px;
+    }
+
+    .cornerBracketBR {
+        bottom: 10px;
+        right: 10px;
+        border-width: 0 2.5px 2.5px 0;
+    }
+
+    .snapshotRetryBar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 16px;
+        background: rgba(239, 68, 68, 0.09);
+        border-top: 1px solid rgba(239, 68, 68, 0.28);
+
+        .retryInfo {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #EF4444;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: "Euclid-Medium", sans-serif;
+        }
+
+        .retryActionBtn {
+            padding: 5px 14px;
+            border-radius: 6px;
+            background: #EF4444;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #DC2626;
+                box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+            }
+        }
+    }
+
+    .snapshotEmpty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 160px;
+        color: $muted;
+        font-size: 14px;
+        padding: 20px;
+        text-align: center;
+        background: #060608;
+    }
+
+    .dualSnapshot {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 16px;
+
+        img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            border: 1px solid $border;
+            border-radius: 8px;
+            background: #060608;
+        }
+    }
+}

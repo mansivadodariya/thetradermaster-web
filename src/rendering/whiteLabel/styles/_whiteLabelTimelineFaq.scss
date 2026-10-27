@@ -1,0 +1,267 @@
+/* ============================================================
+   10 — HOW IT WORKS
+   ============================================================ */
+.howItWorksSection {
+    padding: 80px 0;
+    position: relative;
+
+    @include respond-to('md') {
+        padding: 60px 0;
+    }
+}
+
+.timelineStepsRow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+    margin-top: 40px;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timelineStepCard {
+    background: rgba(13, 14, 19, 0.7);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 14px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+        border-color: #18C98B;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(24, 201, 139, 0.15);
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 12px 30px rgba(24, 201, 139, 0.12);
+        }
+    }
+}
+
+.timelineStepHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .stepNum {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #18C98B;
+        line-height: 1;
+    }
+
+    .stepIconWrap {
+        border-radius: 10px;    
+        color: #18C98B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stepBadge {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #18C98B;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(24, 201, 139, 0.1);
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        .stepNum {
+            color: #059669;
+        }
+
+        .stepIconWrap {
+            color: #047857;
+        }
+
+        .stepBadge {
+            color: #047857;
+            background: #F0FDF4;
+        }
+    }
+}
+
+.stepTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #0F172A;
+    }
+}
+
+.stepDesc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 16px;
+    flex-grow: 1;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #64748B;
+    }
+}
+
+.stepOutcomeTag {
+    font-size: 12px;
+    font-weight: 600;
+    color: #18C98B;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 12px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #047857;
+        border-color: rgba(15, 23, 42, 0.08);
+    }
+}
+
+/* ============================================================
+   18 — FAQ ACCORDION SECTION
+   ============================================================ */
+.faqSection {
+    padding: 80px 0 100px 0;
+    position: relative;
+
+    @include respond-to('md') {
+        padding: 60px 0 80px 0;
+    }
+}
+
+.faqList {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faqItem {
+    border-radius: 12px;
+    background: rgba(13, 14, 19, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    transition: all 0.25s ease;
+
+    &.faqOpen {
+        border-color: rgba(24, 201, 139, 0.4);
+        background: rgba(13, 14, 19, 0.85);
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.1);
+
+        &.faqOpen {
+            border-color: #18C98B;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.08);
+        }
+    }
+}
+
+.faqQuestionBtn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #18C98B;
+    }
+
+    .faqToggleIcon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(24, 201, 139, 0.12);
+        color: #18C98B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 14px;
+        font-weight: 800;
+        transition: transform 0.3s ease;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #0F172A;
+
+        &:hover {
+            color: #047857;
+        }
+
+        .faqToggleIcon {
+            color: #047857;
+            background: #F0FDF4;
+        }
+    }
+}
+
+.faqAnswerBox {
+    padding: 0 24px 20px 24px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14.5px;
+    line-height: 1.65;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #475569;
+    }
+}

@@ -1,0 +1,428 @@
+@use '../../../scss/main.scss' as *;
+
+/* ========================================================================= */
+/* ACTIVE SUBSCRIPTION HERO BANNER (Clean Single-Card Architecture)          */
+/* ========================================================================= */
+
+.activeSubCard {
+    position: relative;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto 36px auto;
+    background: radial-gradient(ellipse 80% 80% at 100% 0%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.03) 50%, transparent 80%), #0c100e;
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    border-radius: 20px;
+    padding: 24px 28px;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(24, 201, 139, 0.18);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.45);
+        box-shadow: 0 20px 42px rgba(0, 0, 0, 0.7), 0 0 30px rgba(24, 201, 139, 0.12);
+    }
+}
+
+.ambientGlow {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.15) 0%, rgba(24, 201, 139, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ---------------- 1. Top Header Row ---------------- */
+.cardTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.tierBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.38);
+    color: #18c98b;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+}
+
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(24, 201, 139, 0.15);
+    color: #18c98b;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.pulseDot,
+.livePulseDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #18c98b;
+    box-shadow: 0 0 10px #18c98b;
+    animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.planNameHeading {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+
+    .bandwidthTag {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.55);
+    }
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.expiryBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    svg {
+        color: #18c98b;
+    }
+}
+
+.liveIndicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #18c98b;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* ---------------- 2. Main Content Row (Balanced & Proportional) ---------------- */
+.mainContentRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 1080px) {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+.clockSection {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Clean Divided Metrics Section (2 Balanced Columns, No Empty Void) */
+.metricsSection {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: center;
+    padding-left: 32px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+    @media (max-width: 1080px) {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-left: 0;
+        padding-top: 20px;
+        gap: 20px;
+    }
+
+    @media (max-width: 560px) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.metricItem {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+
+    .metricLabel {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+
+        svg {
+            color: #18c98b;
+            flex-shrink: 0;
+        }
+    }
+
+    .metricValue {
+        font-size: 1.65rem;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+        margin: 0;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+        line-height: 1.2;
+
+        .unit {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #18c98b;
+            margin-left: 5px;
+        }
+    }
+
+    .metricSub {
+        font-size: 0.74rem;
+        color: rgba(255, 255, 255, 0.42);
+        margin: 0;
+        line-height: 1.3;
+    }
+}
+
+/* ---------------- 3. Bottom Action Row ---------------- */
+.cardActionRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.safeNotice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    svg {
+        color: #18c98b;
+        flex-shrink: 0;
+    }
+}
+
+.actionButtonGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.invoicesBtn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+}
+
+.renewActionBtn {
+    background: #18c98b;
+    border: none;
+    color: #03130c;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 9px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    &:hover {
+        background: #15b77e;
+        box-shadow: 0 6px 20px rgba(24, 201, 139, 0.35);
+        transform: translateY(-1px);
+    }
+}
+
+/* ========================================================================= */
+/* LIGHT THEME OVERRIDES (html.light / [data-theme='light'])                 */
+/* ========================================================================= */
+:global(html.light) .activeSubCard,
+:global([data-theme='light']) .activeSubCard {
+    background: #FFFFFF;
+    border-color: rgba(24, 201, 139, 0.35);
+    box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+
+    .cardTopRow {
+        border-bottom-color: rgba(15, 23, 42, 0.08);
+    }
+
+    .tierBadge {
+        background: rgba(24, 201, 139, 0.1);
+        border-color: rgba(24, 201, 139, 0.35);
+        color: #047857;
+    }
+
+    .statusPill {
+        background: rgba(24, 201, 139, 0.1);
+        color: #047857;
+    }
+
+    .pulseDot,
+    .livePulseDot {
+        background: #047857;
+        box-shadow: 0 0 10px #047857;
+    }
+
+    .planNameHeading {
+        color: #0F172A;
+
+        .bandwidthTag {
+            color: #64748B;
+        }
+    }
+
+    .expiryBadge {
+        color: #475569;
+
+        svg {
+            color: #047857;
+        }
+    }
+
+    .liveIndicator {
+        color: #047857;
+    }
+
+    .metricsSection {
+        border-left-color: rgba(15, 23, 42, 0.08);
+
+        @media (max-width: 1080px) {
+            border-top-color: rgba(15, 23, 42, 0.08);
+        }
+    }
+
+    .metricItem {
+        .metricLabel {
+            color: #64748B;
+
+            svg {
+                color: #047857;
+            }
+        }
+
+        .metricValue {
+            color: #0F172A;
+
+            .unit {
+                color: #047857;
+            }
+        }
+
+        .metricSub {
+            color: #64748B;
+        }
+    }
+
+    .cardActionRow {
+        border-top-color: rgba(15, 23, 42, 0.08);
+    }
+
+    .safeNotice {
+        color: #475569;
+
+        svg {
+            color: #047857;
+        }
+    }
+
+    .invoicesBtn {
+        background: #F1F5F9;
+        border-color: rgba(15, 23, 42, 0.12);
+        color: #0F172A;
+
+        &:hover {
+            background: #E2E8F0;
+            border-color: rgba(15, 23, 42, 0.25);
+        }
+    }
+
+    .renewActionBtn {
+        background: #10B981;
+        color: #FFFFFF;
+
+        &:hover {
+            background: #059669;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+    }
+}

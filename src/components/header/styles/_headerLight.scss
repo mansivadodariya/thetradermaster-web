@@ -1,0 +1,367 @@
+/* Specific Light Mode Rules for Header (Pure Selectors) */
+:global(html.light) .headerAlignment {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+
+    &.alignmentScrolled {
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+    }
+
+    @include respond-to("md") {
+        background: #FFFFFF;
+        border-bottom-color: rgba(15, 23, 42, 0.1);
+
+        &.alignmentScrolled {
+            background: #FFFFFF;
+        }
+    }
+
+    /* Navbar items & hover */
+    .menu {
+        background: transparent;
+        background-color: transparent;
+
+        li {
+            background: transparent;
+            background-color: transparent;
+
+            > a,
+            .dropdownTrigger {
+                background: transparent;
+                background-color: transparent;
+                color: #0F172A;
+
+                .chevron {
+                    color: #475569;
+                }
+            }
+
+            &:hover,
+            &.active,
+            &.dropdownOpen {
+                background: transparent;
+                background-color: transparent;
+
+                > a,
+                .dropdownTrigger {
+                    background: transparent;
+                    background-color: transparent;
+                    color: #047857;
+
+                    .chevron {
+                        color: #047857;
+                    }
+                }
+
+                &::after {
+                    background: #18C98B;
+                    box-shadow: 0 0 8px rgba(24, 201, 139, 0.35);
+                }
+            }
+        }
+    }
+}
+
+:global(html.light) .headerAlignment .menu ul li.dropdownParent .dropdownMenu,
+:global(html[data-theme='light']) .headerAlignment .menu ul li.dropdownParent .dropdownMenu,
+:global([data-theme='light']) .headerAlignment .menu ul li.dropdownParent .dropdownMenu,
+:global(html.light) .dropdownMenu,
+:global(html[data-theme='light']) .dropdownMenu,
+:global([data-theme='light']) .dropdownMenu {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 20px;
+
+    .dropdownCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.09);
+        border-radius: 20px;
+        box-shadow: 0 20px 45px -8px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(15, 23, 42, 0.04);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        overflow: hidden;
+
+        .dropdownHeaderTag {
+            color: #047857;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            font-weight: 800;
+        }
+
+        .dropdownGrid {
+            // Sibling dimming in light mode: hovering any item subtly subdues others while keeping text crisp and readable
+            &:hover .dropdownItem:not(:hover),
+            &:has(.dropdownItem:hover) .dropdownItem:not(:hover) {
+                opacity: 0.58;
+                filter: grayscale(12%);
+            }
+
+            .dropdownItem {
+                background: transparent;
+                border: 1px solid transparent;
+                transition: opacity 0.22s ease, filter 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+                &:hover {
+                    opacity: 1;
+                    filter: none;
+                    background: #059669;
+                    border-color: #059669;
+                    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.28);
+                    transform: none;
+
+                    .itemIconBox {
+                        background: transparent;
+                        border: none;
+                        border-color: transparent;
+                        color: #FFFFFF;
+                        transform: scale(1.08);
+                        filter: none;
+                    }
+
+                    .itemContent {
+                        .itemTitleRow {
+                            .itemTitle {
+                                color: #FFFFFF;
+                            }
+
+                            .itemBadge {
+                                background: #FFFFFF;
+                                border-color: #FFFFFF;
+                                color: #047857;
+
+                                &.comingSoonBadge {
+                                    background: #FFFFFF;
+                                    border-color: #FFFFFF;
+                                    color: #047857;
+                                }
+                            }
+                        }
+
+                        .itemDesc {
+                            color: rgba(255, 255, 255, 0.92);
+                        }
+                    }
+                }
+
+                .itemIconBox {
+                    background: transparent;
+                    border: none;
+                    border-color: transparent;
+                    color: #0F172A;
+                    transition: all 0.2s ease;
+                }
+
+                .itemContent {
+                    .itemTitleRow {
+                        .itemTitle {
+                            color: #0F172A;
+                            font-weight: 700;
+                            transition: color 0.2s ease;
+                        }
+
+                        .itemBadge {
+                            background: #ECFDF5;
+                            border-color: #A7F3D0;
+                            color: #047857;
+                            transition: all 0.2s ease;
+
+                            &.comingSoonBadge {
+                                background: #ECFDF5;
+                                border-color: #A7F3D0;
+                                color: #047857;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+
+                    .itemDesc {
+                        color: #475569;
+                        transition: color 0.2s ease;
+                    }
+                }
+            }
+        }
+
+        .dropdownFooter {
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            color: #64748B;
+
+            .footerGlowDot {
+                background: #10B981;
+                box-shadow: 0 0 6px #10B981;
+            }
+        }
+    }
+}
+
+:global(html.light) .mobileDrawer {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    .drawerCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+        backdrop-filter: blur(20px);
+    }
+
+    .drawerNavList {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .drawerLink {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #0F172A;
+
+        span {
+            color: #0F172A;
+        }
+
+        .mobileChevron {
+            color: #64748B;
+            stroke: #64748B;
+
+            &.mobileChevronOpen {
+                color: #047857;
+                stroke: #047857;
+            }
+        }
+
+        &:hover,
+        &.drawerLinkActive {
+            background: rgba(24, 201, 139, 0.08);
+            color: #047857;
+
+            span {
+                color: #047857;
+            }
+
+            .mobileChevron {
+                color: #047857;
+                stroke: #047857;
+            }
+        }
+
+        .activeDot {
+            background: #18C98B;
+            box-shadow: 0 0 8px rgba(24, 201, 139, 0.4);
+        }
+    }
+
+    .mobileDropdownItem {
+        background: transparent;
+        border: none;
+
+        .mobileDropdownTrigger {
+            .mobileChevron {
+                color: #64748B;
+
+                &.mobileChevronOpen {
+                    color: #047857;
+                }
+            }
+        }
+    }
+
+
+    .mobileSubList {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+
+        .mobileSubLink {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: none;
+
+            &:hover {
+                background: #059669;
+                border-color: #059669;
+
+                .subIconWrap {
+                    background: transparent;
+                    color: #FFFFFF;
+                    border: none;
+                    border-color: transparent;
+                    transform: scale(1.08);
+                }
+
+                .subContent {
+                    .subTitleRow {
+                        .subTitle {
+                            color: #FFFFFF;
+                        }
+
+                        .subBadge {
+                            background: #FFFFFF;
+                            border-color: #FFFFFF;
+                            color: #047857;
+                        }
+                    }
+
+                    .subDesc {
+                        color: rgba(255, 255, 255, 0.92);
+                    }
+                }
+            }
+
+            .subIconWrap {
+                background: transparent;
+                border: none;
+                border-color: transparent;
+                color: #0F172A;
+                transition: all 0.2s ease;
+            }
+
+            .subContent {
+                .subTitleRow {
+                    .subTitle {
+                        color: #0F172A;
+                    }
+
+                    .subBadge {
+                        background: rgba(24, 201, 139, 0.12);
+                        border: 1px solid rgba(24, 201, 139, 0.3);
+                        color: #047857;
+
+                        &.comingSoonBadge {
+                            background: rgba(24, 201, 139, 0.1);
+                            border-color: rgba(24, 201, 139, 0.25);
+                            color: #047857;
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                .subDesc {
+                    color: #64748B;
+                }
+            }
+        }
+    }
+
+    .drawerDivider {
+        background: rgba(15, 23, 42, 0.08);
+        border: none;
+        height: 1px;
+        margin: 14px 0;
+    }
+
+    .drawerCta {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+}

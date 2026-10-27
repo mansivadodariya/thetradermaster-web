@@ -1,0 +1,627 @@
+/* ========================================================================= */
+/* 5. LIVE AI TRADE SCANNER PREVIEW (TERMINAL COCKPIT) */
+/* ========================================================================= */
+.scannerDemoSection {
+    position: relative;
+    z-index: 2;
+    padding: 80px 0;
+
+    @include respond-to('md') {
+        padding: 65px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+}
+
+.scannerCockpit {
+    max-width: 1160px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: rgba(10, 9, 6, 0.95);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(24, 201, 139, 0.1);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+/* Cockpit Header */
+.cockpitNavHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 22px;
+    background: rgba(18, 15, 10, 0.98);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.2);
+    gap: 14px;
+
+    @include respond-to('tab') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+.cockpitBrand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.dotRed {
+    background: #FF5F56;
+}
+
+.dotYellow {
+    background: #38BDF8;
+}
+
+.dotGreen {
+    background: #27C93F;
+}
+
+.brandTitle {
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #18C98B;
+    text-transform: uppercase;
+}
+
+.presetTabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tabBtn {
+    padding: 6px 13px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #9CA3AF;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.1);
+        color: #18C98B;
+    }
+}
+
+.tabBtnActive {
+    background: rgba(24, 201, 139, 0.18);
+    border-color: rgba(24, 201, 139, 0.5);
+    color: #18C98B;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
+}
+
+.telemetryStatus {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #10B981;
+}
+
+/* Cockpit 2-Column Body */
+.cockpitBodyGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    min-height: 520px;
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Left Column: Visual Chart Simulator */
+.chartVisualCol {
+    padding: 24px;
+    border-right: 1px solid rgba(24, 201, 139, 0.15);
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to('md') {
+        border-right: none;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+        padding: 18px;
+    }
+}
+
+.chartFrame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    border-radius: 14px;
+    background: #020202;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scanningOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 3, 0, 0.92);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+}
+
+.scanAnimationBox {
+    text-align: center;
+    max-width: 320px;
+    padding: 20px;
+
+    h4 {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #18C98B;
+        margin-bottom: 8px;
+    }
+
+    p {
+        font-size: 12px;
+        color: #9CA3AF;
+        margin-bottom: 16px;
+        line-height: 1.4;
+    }
+}
+
+.laserScanLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #18C98B, transparent);
+    box-shadow: 0 0 15px #18C98B;
+    animation: laserScanAnim 1.8s infinite ease-in-out;
+}
+
+@keyframes laserScanAnim {
+    0% {
+        top: 10%;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 90%;
+        opacity: 0;
+    }
+}
+
+.scanSpinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid rgba(24, 201, 139, 0.2);
+    border-top-color: #18C98B;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.scanProgressBar {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.scanProgressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #18C98B, #10B981);
+    transition: width 0.15s ease;
+}
+
+.candlestickStage {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chartSvg {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+}
+
+.visionCallout {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(14, 12, 8, 0.9);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    font-size: 11px;
+    font-weight: 700;
+    color: #18C98B;
+    backdrop-filter: blur(8px);
+}
+
+.calloutDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+}
+
+.uploadTriggerBar {
+    padding: 12px;
+    background: rgba(14, 12, 8, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.uploadDropBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px dashed rgba(24, 201, 139, 0.4);
+    color: #18C98B;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.16);
+        border-color: #18C98B;
+    }
+}
+
+/* Right Column: AI Trade Analysis Result */
+.resultCardCol {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include respond-to('sm') {
+        padding: 18px;
+    }
+}
+
+.resultHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.resultTitleWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.resultIconBox {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+}
+
+.resultHeaderTag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #18C98B;
+    display: block;
+}
+
+.resultPairTitle {
+    font-size: 17px;
+    font-weight: 800;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tfBadge {
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 11px;
+    font-weight: 700;
+    color: #D1D5DB;
+}
+
+.copyBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #D1D5DB;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.15);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
+    }
+}
+
+/* Decision Banner */
+.decisionBanner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+}
+
+.decisionInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.decisionLabel {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #9CA3AF;
+}
+
+.decisionBuy {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #10B981;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.decisionSell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #EF4444;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.statusDotGreen {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+}
+
+.convictionBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.convLabel {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #9CA3AF;
+}
+
+.convVal {
+    font-size: 18px;
+    font-weight: 900;
+    color: #18C98B;
+}
+
+/* Execution Box */
+.executionBox {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: rgba(22, 18, 12, 0.8);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    box-shadow: inset 0 0 15px rgba(24, 201, 139, 0.03);
+
+    .execHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        .targetIconBox {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+        }
+
+        h5 {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: #18C98B;
+        }
+    }
+}
+
+.execRows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.execRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include respond-to('sm') {
+        font-size: 12px;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+}
+
+.execKey {
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+.execValHighlight {
+    color: #18C98B;
+    font-weight: 700;
+}
+
+.execValSl {
+    color: #EF4444;
+    font-weight: 700;
+}
+
+.execValTp {
+    color: #10B981;
+    font-weight: 700;
+}
+
+.execValRrr {
+    color: #FFFFFF;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(24, 201, 139, 0.15);
+}
+
+/* Rationale Box */
+.rationaleBox {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    .rationaleHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+
+        .lightbulbIconBox {
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            background: rgba(24, 201, 139, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+        }
+
+        h5 {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #18C98B;
+        }
+    }
+}
+
+.rationaleText {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #D1D5DB;
+}
+
+.deskActionRow {
+    padding-top: 4px;
+}
+
+.openLiveDeskBtn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+    color: #040300;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+}

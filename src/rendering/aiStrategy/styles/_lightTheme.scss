@@ -1,0 +1,387 @@
+/* ============================================================
+   LIGHT THEME HIGH-CONTRAST SUPPORT FOR AI STRATEGY
+   ============================================================ */
+:global(html.light) .aiStrategyWrapper,
+:global(html[data-theme='light']) .aiStrategyWrapper,
+:global([data-theme='light']) .aiStrategyWrapper {
+    color: #0F172A;
+
+    .header {
+        .titleArea {
+            h2 {
+                color: #0F172A;
+            }
+            p {
+                color: #475569;
+            }
+        }
+    }
+
+    .strategyDropdownContainer {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+
+        .dropdownLabel {
+            color: #64748B;
+        }
+
+        .customSelectWrapper {
+            .customSelectOptions,
+            .customDropdownMenu {
+                background: #FFFFFF;
+                border-color: rgba(24, 201, 139, 0.25);
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+
+                .customOption,
+                .customDropdownItem {
+                    color: #1E293B;
+
+                    &:hover {
+                        background: rgba(24, 201, 139, 0.08);
+                        color: #047857;
+                    }
+
+                    &.selectedOption,
+                    &.itemSelected {
+                        background: rgba(24, 201, 139, 0.14);
+                        color: #047857;
+                    }
+                }
+            }
+        }
+    }
+
+    .strategyCategoryFilterBar {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+
+        .filterTitleGroup {
+            color: #0F172A;
+
+            .filterIcon {
+                color: #475569;
+            }
+        }
+
+        .categoryPill {
+            background: #F8FAFC;
+            color: #475569;
+            border-color: rgba(24, 201, 139, 0.2);
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.1);
+                color: #047857;
+                border-color: #18C98B;
+            }
+
+            &.activeCategoryPill {
+                background: #00E5A3;
+                color: #041811;
+                border-color: #00E5A3;
+                box-shadow: 0 2px 10px rgba(0, 229, 163, 0.35);
+
+                &:hover {
+                    background: #18C98B;
+                    color: #041811;
+                }
+            }
+        }
+    }
+
+    .watchlistPanel,
+    .chartPanel,
+    .analysisPanel {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+        .watchlistHeader h3,
+        .analysisHeader h3 {
+            color: #0F172A;
+        }
+
+        .watchlistControls {
+            .searchBox {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.3);
+
+                input {
+                    color: #0F172A;
+
+                    &::placeholder {
+                        color: #94A3B8;
+                    }
+                }
+            }
+        }
+
+        .watchlistCard {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.18);
+
+            &:hover,
+            &.activeCard {
+                background: rgba(24, 201, 139, 0.08);
+                border-color: #18C98B;
+            }
+
+            .symbolText {
+                color: #0F172A;
+            }
+
+            .priceText {
+                color: #0F172A;
+            }
+        }
+
+        .watchlistHeader {
+            h3 {
+                color: #0F172A;
+            }
+
+            .watchlistCount {
+                background: #ECFDF5;
+                border: 1px solid rgba(16, 185, 129, 0.3);
+                color: #059669;
+            }
+        }
+
+        .watchlistSearchContainer {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            &:focus-within {
+                border-color: #10B981;
+                background: #FFFFFF;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+            }
+
+            .searchIcon {
+                color: #64748B;
+            }
+
+            .watchlistSearchInput {
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                outline: none;
+                color: #0F172A;
+
+                &::placeholder {
+                    color: #94A3B8;
+                    background: transparent;
+                    background-color: transparent;
+                }
+            }
+
+            .searchClearBtn {
+                color: #94A3B8;
+
+                &:hover {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .quoteColumnHeader {
+            border-bottom: 1px solid #F1F5F9;
+
+            .colHeaderLeft span,
+            .colHeaderRight span,
+            .colHeaderBid,
+            .colHeaderAsk {
+                color: #64748B;
+            }
+        }
+
+        .watchlistItemsList {
+            &::-webkit-scrollbar-thumb {
+                background: rgba(16, 185, 129, 0.25);
+            }
+        }
+
+        .quoteWatchlistItem {
+            background: #F8FAFC;
+            border: 1px solid #F1F5F9;
+            border-left: 3px solid transparent;
+
+            &.rowBullish {
+                background: #F0FDF4;
+                border-color: #DCFCE7;
+
+                &:hover {
+                    background: #DCFCE7;
+                }
+
+                &.quoteActiveItem {
+                    background: #DCFCE7;
+                    border-left: 3px solid #10B981;
+                    border-color: #86EFAC;
+                }
+            }
+
+            &.rowBearish {
+                background: #FEF2F2;
+                border-color: #FEE2E2;
+
+                &:hover {
+                    background: #FEE2E2;
+                }
+
+                &.quoteActiveItem {
+                    background: #FEE2E2;
+                    border-left: 3px solid #EF4444;
+                    border-color: #FCA5A5;
+                }
+            }
+
+            &.rowNeutral {
+                background: #F8FAFC;
+                border-color: #E2E8F0;
+
+                &:hover {
+                    background: #F1F5F9;
+                }
+
+                &.quoteActiveItem {
+                    background: #ECFDF5;
+                    border-left: 3px solid #10B981;
+                    border-color: #A7F3D0;
+                }
+            }
+
+            .quoteItemLeft {
+                .quoteSymbolName {
+                    color: #0F172A;
+                }
+
+                .quoteChangePct {
+                    &.pctUp {
+                        color: #059669;
+                    }
+
+                    &.pctDown {
+                        color: #DC2626;
+                    }
+
+                    &.pctRef {
+                        color: #64748B;
+                    }
+                }
+            }
+
+            .quoteItemRight {
+                .quoteBidPrice {
+                    color: #DC2626;
+                }
+
+                .quoteAskPrice {
+                    color: #059669;
+                }
+            }
+
+            &.quoteActiveItem {
+                .quoteItemLeft .quoteSymbolName {
+                    color: #059669;
+                }
+            }
+        }
+
+        .watchlistSkeletonItem {
+            background: #F8FAFC;
+            border-left: 3px solid #E2E8F0;
+
+            &.quoteActiveItem {
+                border-left: 3px solid #10B981;
+                background: #F0FDF4;
+            }
+
+            .skeletonPulse {
+                background: linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.04) 25%,
+                    rgba(0, 0, 0, 0.09) 50%,
+                    rgba(0, 0, 0, 0.04) 75%
+                );
+                background-size: 200% 100%;
+            }
+        }
+
+        .noPairsFound {
+            color: #94A3B8;
+        }
+
+        .timeframeRow {
+            .tfBtn {
+                background: #F1F5F9;
+                border-color: rgba(24, 201, 139, 0.2);
+                color: #475569;
+
+                &:hover {
+                    background: rgba(24, 201, 139, 0.1);
+                    color: #047857;
+                }
+
+                &.activeTf {
+                    background: #18C98B;
+                    color: #040605;
+                }
+            }
+        }
+
+        .chartPanelHeader {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+
+            .chartTitleArea h3,
+            .symbolTitle h3 {
+                color: #0F172A;
+            }
+
+            .chartTimeframeBadge,
+            .badgeTf {
+                background: #ECFDF5;
+                border: 1px solid rgba(16, 185, 129, 0.3);
+                color: #059669;
+            }
+
+            .ohlcItem {
+                .ohlcLabel {
+                    color: #64748B;
+                }
+
+                .ohlcValue {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .chartCanvasContainer {
+            background: #FFFFFF;
+        }
+
+        .chartLegendContainer {
+            background: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+
+            .chartLegend {
+                .legendItem {
+                    color: #475569;
+                    font-weight: 600;
+
+                    &:hover {
+                        background: #F1F5F9;
+                        color: #0F172A;
+                    }
+
+                    &.legendDisabled {
+                        opacity: 0.35;
+                        color: #94A3B8;
+                    }
+                }
+            }
+        }
+}}

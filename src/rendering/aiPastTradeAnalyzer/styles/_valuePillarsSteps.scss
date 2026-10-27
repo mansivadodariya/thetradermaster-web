@@ -1,0 +1,205 @@
+/* 1.7 3 VALUE PILLAR BENTO CARDS (Below Cockpit) */
+.heroBentoRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 1140px;
+    margin: 40px auto 90px auto;
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin: 30px auto 60px auto;
+    }
+}
+
+.heroBentoCard {
+    background: linear-gradient(160deg, rgba(18, 14, 10, 0.85) 0%, rgba(8, 7, 5, 0.95) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    border-radius: 16px;
+    padding: 20px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+    transition: all 0.25s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.55);
+        background: linear-gradient(160deg, rgba(26, 21, 14, 0.96) 0%, rgba(14, 12, 9, 0.98) 100%);
+        transform: translateY(-2px);
+    }
+}
+
+.bentoIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    flex-shrink: 0;
+}
+
+.bentoContent {
+    h4 {
+        color: #FFFFFF;
+        font-size: 14.5px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 12px;
+        line-height: 1.45;
+        margin: 0;
+    }
+}
+
+/* 2. 3 SIMPLE STEPS */
+.stepsSection {
+    position: relative;
+    z-index: 2;
+    padding: 95px 0;
+
+    @include respond-to('md') {
+        padding: 70px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+}
+
+.sectionHeaderCenter {
+    text-align: center;
+    max-width: 740px;
+    margin: 0 auto 46px;
+}
+
+.sectionBadge {
+    display: inline-block;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.sectionTitle {
+    color: #FFFFFF;
+    font-size: 34px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+
+    @include respond-to('sm') {
+        font-size: 26px;
+    }
+}
+
+.sectionSubtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+    margin: 0 auto;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.stepsGrid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    @include respond-to('md') {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+.stepCard {
+    flex: 1;
+    background: linear-gradient(160deg, rgba(18, 14, 10, 0.9) 0%, rgba(8, 7, 5, 0.98) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    border-radius: 18px;
+    padding: 28px 24px;
+    position: relative;
+    text-align: left;
+    transition: all 0.25s ease;
+    height: 100%;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.55);
+        background: linear-gradient(160deg, rgba(26, 21, 14, 0.96) 0%, rgba(14, 12, 9, 0.98) 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(24, 201, 139, 0.1);
+    }
+}
+
+.stepNumBadge {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 12px;
+    font-weight: 900;
+    color: rgba(24, 201, 139, 0.6);
+    background: rgba(24, 201, 139, 0.08);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.stepIconBox {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    margin-bottom: 20px;
+}
+
+.stepTitle {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.stepDesc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.stepConnector {
+    color: rgba(24, 201, 139, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to('md') {
+        display: none;
+    }
+}

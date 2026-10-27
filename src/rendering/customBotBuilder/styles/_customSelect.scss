@@ -1,0 +1,342 @@
+/* Custom Themed Select Dropdown */
+.customSelectContainer {
+    position: relative;
+    width: 100%;
+}
+
+.customSelectTrigger {
+    width: 100%;
+    min-height: 48px;
+    height: 48px;
+    background: #141816;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    box-sizing: border-box;
+
+    &:hover:not(:disabled) {
+        border-color: rgba(24, 201, 139, 0.4);
+        background: #171C19;
+    }
+
+    &:focus {
+        border-color: #18C98B;
+        box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.4), 0 0 12px rgba(24, 201, 139, 0.15);
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #CBD5E1;
+        border-radius: 12px;
+        color: #0F172A;
+
+        &:hover:not(:disabled) {
+            background: #F1F5F9;
+            border-color: #94A3B8;
+        }
+
+        &:focus {
+            border-color: #18C98B;
+            box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+.selectOpen {
+    border-color: #18C98B;
+    box-shadow: 0 0 0 1px rgba(24, 201, 139, 0.4), 0 0 16px rgba(24, 201, 139, 0.2);
+    background: #171C19;
+
+    :global(html.light) & {
+        background: #FFFFFF;
+    }
+}
+
+.selectError {
+    border-color: #EF4444;
+    box-shadow: 0 0 0 1.5px rgba(239, 68, 68, 0.45);
+
+    :global(html.light) & {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 1.5px rgba(239, 68, 68, 0.35);
+    }
+}
+
+.selectDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    .customSelectTrigger {
+        cursor: not-allowed;
+    }
+}
+
+.customSelectValue {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.customSelectPlaceholder {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    :global(html.light) & {
+        color: #94A3B8;
+    }
+}
+
+.customSelectChevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.55);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+
+    :global(html.light) & {
+        color: #64748B;
+    }
+}
+
+.chevronRotate {
+    transform: rotate(180deg);
+    color: #18C98B;
+}
+
+.customSelectMenu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 120;
+    background: #111613;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(24, 201, 139, 0.1);
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(24, 201, 139, 0.45) rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: selectMenuFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(24, 201, 139, 0.45);
+        border-radius: 6px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.75);
+        }
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: #CBD5E1;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        scrollbar-color: #94A3B8 rgba(241, 245, 249, 0.8);
+
+        &::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.8);
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+
+            &:hover {
+                background: #64748B;
+            }
+        }
+    }
+}
+
+@keyframes selectMenuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.customSelectOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        color: #FFFFFF;
+    }
+
+    :global(html.light) & {
+        color: #334155;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.1);
+            color: #047857;
+        }
+    }
+}
+
+.optionSelected {
+    background: rgba(24, 201, 139, 0.2);
+    color: #18C98B;
+    font-weight: 700;
+
+    :global(html.light) & {
+        background: rgba(24, 201, 139, 0.15);
+        color: #047857;
+    }
+}
+
+.optionContent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.optionCustomIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.optionLabel {
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+}
+
+.optionCategoryBadge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    color: #18C98B;
+
+    &.badgeForex {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.3);
+        color: #18C98B;
+    }
+
+    &.badgeCrypto {
+        background: rgba(245, 158, 11, 0.12);
+        border-color: rgba(245, 158, 11, 0.3);
+        color: #F59E0B;
+    }
+
+    &.badgeCommodities {
+        background: rgba(234, 179, 8, 0.12);
+        border-color: rgba(234, 179, 8, 0.3);
+        color: #EAB308;
+    }
+
+    &.badgeIndices {
+        background: rgba(56, 189, 248, 0.12);
+        border-color: rgba(56, 189, 248, 0.3);
+        color: #38BDF8;
+    }
+
+    :global(html.light) & {
+        background: #F0FDF4;
+        border-color: rgba(5, 150, 105, 0.25);
+        color: #047857;
+
+        &.badgeCrypto {
+            background: #FEF3C7;
+            border-color: rgba(217, 119, 6, 0.25);
+            color: #B45309;
+        }
+
+        &.badgeCommodities {
+            background: #FEF9C3;
+            border-color: rgba(202, 138, 4, 0.25);
+            color: #A16207;
+        }
+
+        &.badgeIndices {
+            background: #E0F2FE;
+            border-color: rgba(2, 132, 199, 0.25);
+            color: #0369A1;
+        }
+    }
+}
+
+.selectedCheck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    margin-left: auto;
+    flex-shrink: 0;
+
+    :global(html.light) & {
+        color: #047857;
+    }
+}
+
+
+.emptyOptions {
+    padding: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+
+    :global(html.light) & {
+        color: #94A3B8;
+    }
+}

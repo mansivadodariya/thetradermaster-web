@@ -1,0 +1,637 @@
+/* 6. Executive & Quant Leadership */
+.teamSection {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 84px;
+
+    @include respond-to('sm') {
+        margin-bottom: 56px;
+    }
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.teamCard {
+    background: linear-gradient(160deg, rgba(20, 16, 10, 0.85) 0%, rgba(10, 9, 8, 0.95) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 18px;
+    padding: 26px 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(24, 201, 139, 0.1);
+    backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.6);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(24, 201, 139, 0.12);
+    }
+}
+
+.teamCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.avatarPlaceholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.1) 100%);
+    border: 1.5px solid rgba(24, 201, 139, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.teamTag {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.memberName {
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 4px;
+}
+
+.memberRole {
+    color: #18C98B;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.memberBio {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* 7. Global Financial Hubs */
+.hubsSection {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 84px;
+
+    @include respond-to('sm') {
+        margin-bottom: 56px;
+    }
+}
+
+.hubsCard {
+    background: linear-gradient(160deg, rgba(20, 16, 10, 0.9) 0%, rgba(8, 7, 6, 0.96) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.32);
+    border-radius: 22px;
+    padding: 36px 36px 40px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(24, 201, 139, 0.12);
+    backdrop-filter: blur(18px);
+
+    @include respond-to('sm') {
+        padding: 24px 18px 28px;
+        border-radius: 16px;
+    }
+}
+
+.hubsHeader {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.hubsBadge {
+    display: inline-block;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.hubsTitle {
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 8px;
+
+    @include respond-to('sm') {
+        font-size: 20px;
+    }
+}
+
+.hubsSubtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14.5px;
+    margin: 0;
+}
+
+.hubsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hubItem {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+}
+
+.hubCityRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.hubCity {
+    color: #18C98B;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.hubTz {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    font-family: monospace;
+}
+
+.hubRole {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* 8. Bottom Call to Action Banner */
+.ctaBannerSection {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaCard {
+    position: relative;
+    background: radial-gradient(ellipse at 50% -20%, rgba(24, 201, 139, 0.25) 0%, rgba(20, 16, 10, 0.95) 70%);
+    border: 1px solid rgba(24, 201, 139, 0.4);
+    border-radius: 24px;
+    padding: 44px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(24, 201, 139, 0.2);
+    overflow: hidden;
+
+    @include respond-to('md') {
+        flex-direction: column;
+        text-align: center;
+        padding: 36px 24px;
+        gap: 24px;
+    }
+}
+
+.ctaGlow {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    right: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.9) 50%, transparent 100%);
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.8);
+    pointer-events: none;
+}
+
+.ctaContent {
+    max-width: 650px;
+}
+
+.ctaTitle {
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+
+    @include respond-to('sm') {
+        font-size: 22px;
+    }
+}
+
+.ctaSubtitle {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.ctaActionWrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.ctaButtonPrimary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #18C98B;
+    color: #040605;
+    padding: 16px 36px;
+    border-radius: 9999px;
+    border: 1px solid #18C98B;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+
+    @include respond-to('sm') {
+        width: 100%;
+        border-radius: 9999px;
+    }
+
+    &:hover {
+        background: #15b77e;
+        border-color: #15b77e;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
+    }
+}
+
+.ctaButtonSecondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    padding: 16px 28px;
+    border-radius: 9999px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+
+    @include respond-to('sm') {
+        width: 100%;
+        border-radius: 9999px;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(24, 201, 139, 0.5);
+        color: #18C98B;
+    }
+}
+
+:global(html.light) .aboutPage {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .gridOverlay {
+        opacity: 0.08;
+    }
+
+    .ambientGlowTop,
+    .ambientGlowCenter,
+    .ambientGlowBottom {
+        opacity: 0.1;
+        filter: blur(120px);
+    }
+
+    /* 1. Hero Section & Status Pill (Screenshot Fix 1) */
+    .statusPillWrapper {
+        .statusPill {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.45);
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12);
+
+            .pillTag {
+                color: #047857;
+                font-weight: 800;
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .pillDivider {
+                color: rgba(15, 23, 42, 0.25);
+            }
+
+            .pillText {
+                color: #0F172A;
+                font-weight: 600;
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .pillBadge {
+                background: #F0FDF4;
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #047857;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .mainTitle {
+        color: #0F172A;
+    }
+
+    .mainSubtitle {
+        color: #475569;
+    }
+
+    .goldGradient {
+        color: #18C98B;
+        background: none;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: initial;
+    }
+
+    /* Common Section Headings */
+    .sectionTitle {
+        color: #0F172A;
+    }
+
+    .sectionSubtitle {
+        color: #475569;
+    }
+
+    .sectionBadge,
+    .hubsBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    /* 2. Institutional Metrics Strip */
+    .metricCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12);
+        }
+
+        .metricNumber {
+            color: #047857;
+        }
+
+        .metricLabel {
+            color: #0F172A;
+        }
+
+        .metricSub {
+            color: #64748B;
+        }
+    }
+
+    /* 3. Mission & Vision Bento Cards */
+    .missionCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 12px 30px rgba(24, 201, 139, 0.12);
+        }
+
+        .missionCardIcon {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+        }
+
+        .missionCardTitle {
+            color: #0F172A;
+        }
+
+        .missionCardDesc {
+            color: #475569;
+        }
+
+        .missionHighlight {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.3);
+            color: #047857;
+        }
+    }
+
+    /* 4. Core Technology Pillars */
+    .pillarCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12);
+        }
+
+        .pillarIconBox {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .pillarTitle {
+            color: #0F172A;
+        }
+
+        .pillarDesc {
+            color: #475569;
+        }
+    }
+
+    /* 5. Evolutionary Timeline */
+    .timelineCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        .timelineYear {
+            background: rgba(24, 201, 139, 0.12);
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .timelineTitle {
+            color: #0F172A;
+        }
+
+        .timelineDesc {
+            color: #475569;
+        }
+    }
+
+    .timelineDot {
+        background: #FFFFFF;
+        border-color: #18C98B;
+        box-shadow: 0 0 10px rgba(24, 201, 139, 0.3);
+    }
+
+    /* 6. Executive & Quant Leadership */
+    .teamCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12);
+        }
+
+        .avatarPlaceholder {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+            box-shadow: none;
+        }
+
+        .teamTag {
+            background: rgba(24, 201, 139, 0.12);
+            border-color: rgba(24, 201, 139, 0.3);
+            color: #047857;
+        }
+
+        .memberName {
+            color: #0F172A;
+        }
+
+        .memberRole {
+            color: #047857;
+        }
+
+        .memberBio {
+            color: #475569;
+        }
+    }
+
+    /* 7. Global Financial Hubs (Screenshot Fix 2) */
+    .hubsCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+
+        .hubsTitle {
+            color: #0F172A;
+        }
+
+        .hubsSubtitle {
+            color: #475569;
+        }
+
+        .hubItem {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .hubCity {
+                color: #047857;
+                font-weight: 800;
+            }
+
+            .hubTz {
+                color: #64748B;
+            }
+
+            .hubRole {
+                color: #475569;
+            }
+        }
+    }
+
+    /* 8. CTA Buttons */
+    .ctaButtonPrimary {
+        background: #18C98B;
+        color: #040605;
+        border-color: #18C98B;
+        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.2);
+
+        &:hover {
+            background: #15B77E;
+            border-color: #15B77E;
+        }
+    }
+
+    .ctaButtonSecondary {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+
+        &:hover {
+            background: #F1F5F9;
+            border-color: #18C98B;
+            color: #047857;
+        }
+    }
+}

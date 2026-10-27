@@ -1,10 +1,10 @@
 import BrokerPage from '@/rendering/broker';
 
 export const metadata = {
-    title: 'Brokers & Trading Platforms | Trader Master',
-    description: 'Explore supported MT5 brokers, trading platforms, and liquidity partners connected to Trader Master.',
+    title: 'Associated Brokers | ChronosX Dashboard',
+    description: 'Connect verified broker partners with Tier-1 liquidity, zero-latency MT5 bridges, and automated volume rebates.',
 };
 
-export default function Page() {
-    return <BrokerPage />;
+export default function UserBrokersPage() {
+    return <BrokerPage isPublic={false} />;
 }

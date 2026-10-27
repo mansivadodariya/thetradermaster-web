@@ -11,6 +11,7 @@ import {
     getNotificationRedirectUrl
 } from '@/services/notificationService';
 import { getStoredUserId } from '@/lib/authSession';
+import Loader from '@/components/loader';
 import styles from './notificationsModal.module.scss';
 
 export default function NotificationsModal({ isOpen, onClose, userId, onUnreadCountChanged }) {
@@ -229,9 +230,7 @@ export default function NotificationsModal({ isOpen, onClose, userId, onUnreadCo
                     {/* Right Content Area */}
                     <div className={styles.contentArea} data-lenis-prevent="true">
                         {loading ? (
-                            <div className={styles.loaderCenter}>
-                                <span>{t('notifications.loading', 'Loading notifications...')}</span>
-                            </div>
+                            <Loader centered text={t('notifications.loading', 'Loading notifications...')} />
                         ) : filteredNotifications.length === 0 ? (
                             <div className={styles.emptyStateWrap}>
                                 <div className={styles.emptyBellWrap}>

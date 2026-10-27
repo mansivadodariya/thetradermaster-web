@@ -1,0 +1,145 @@
+
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #040D09;
+$border: rgba(24, 201, 139, 0.35);
+$borderSubtle: rgba(24, 201, 139, 0.18);$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$success: #34D399;
+$danger: #F87171;
+
+.modernDashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+    @include respond-to('lg') {
+        gap: 12px;
+    }
+
+    @include respond-to('sm') {
+        gap: 12px;
+        padding-bottom: 16px;
+    }
+}
+
+/* ============================================================
+   1. GLOBAL AI MARKET MOOD BAROMETER
+   ============================================================ */
+.marketBarometer {
+    background: 
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    flex-wrap: wrap;
+    gap: 12px;
+
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #FFFFFF;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(24, 201, 139, 0.25);
+    }
+
+    .barometerLeft {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+
+        .systemStatusBadge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: #34D399;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+
+            .pulseGreen {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #34D399;
+                box-shadow: 0 0 8px #34D399;
+                animation: pulseGlow 1.5s infinite;
+            }
+        }
+
+        .barometerDivider {
+            color: rgba(24, 201, 139, 0.3);
+            font-size: 13px;
+
+            @include respond-to('sm') {
+                display: none;
+            }
+        }
+
+        .barometerItem {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+
+            .baroLabel {
+                color: rgba(255, 255, 255, 0.55);
+            }
+
+            .baroValueGreen {
+                color: $success;
+                font-weight: 700;
+            }
+
+            .baroValueGold {
+                color: #18C98B;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .barometerRight {
+        display: flex;
+        align-items: center;
+
+        .macroEventBadge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 11.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+
+            .redDot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #EF4444;
+                box-shadow: 0 0 6px #EF4444;
+                animation: pulseGlow 1.5s infinite;
+            }
+
+            strong {
+                color: #F87171;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,210 @@
+/* Light Theme overrides */
+:global(html.light) .loginpage,
+:global(html[data-theme='light']) .loginpage {
+    background: #F8FAFC;
+
+    .splitAuthCard {
+        background: #FFFFFF;
+        border: none;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
+    }
+
+    .leftStepperPanel {
+        background: radial-gradient(circle at 50% 8%, rgba(24, 201, 139, 0.18) 0%, rgba(16, 185, 129, 0.07) 35%, #F0FDF4 75%), #F0FDF4;
+        border: none;
+        box-shadow: none;
+
+        .auroraGlow {
+            background: radial-gradient(circle, rgba(24, 201, 139, 0.28) 0%, rgba(16, 185, 129, 0.1) 45%, transparent 75%);
+            opacity: 0.6;
+        }
+
+        .leftTitle {
+            color: #0F172A;
+
+            .highlightText {
+                color: #059669;
+                background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+        .leftSubtitle {
+            color: #475569;
+        }
+
+        .featurePillList {
+            .featurePill {
+                background: rgba(255, 255, 255, 0.75);
+                border: 1px solid rgba(15, 23, 42, 0.08);
+                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+
+                .featureIconBox {
+                    background: #FFFFFF;
+                    border: 1px solid rgba(24, 201, 139, 0.25);
+                    color: #059669;
+                }
+
+                .featurePillText {
+                    color: #1E293B;
+                    font-weight: 600;
+                }
+
+                .featurePillDesc {
+                    color: #64748B;
+                }
+
+                .featureBadge {
+                    background: rgba(24, 201, 139, 0.08);
+                    border-color: rgba(24, 201, 139, 0.25);
+                    color: #059669;
+                }
+
+                &:hover,
+                &.activePill {
+                    background: #064E3B;
+                    border: 1.5px solid #10B981;
+                    box-shadow: 0 10px 25px rgba(6, 78, 59, 0.4), 0 2px 8px rgba(16, 185, 129, 0.2);
+                    transform: translateY(-2px) scale(1.015);
+
+                    .featureIconBox {
+                        background: #FFFFFF;
+                        border-color: #FFFFFF;
+                        color: #047857;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .featurePillText {
+                        color: #FFFFFF;
+                        font-weight: 700;
+                    }
+
+                    .featurePillDesc {
+                        color: #D1FAE5;
+                    }
+
+                    .featureBadge {
+                        background: #10B981;
+                        border-color: #10B981;
+                        color: #064E3B;
+                    }
+                }
+            }
+        }
+
+        .leftFooterNotice {
+            color: #059669;
+
+            svg {
+                color: #059669;
+            }
+        }
+    }
+
+    .rightFormPanel {
+        background: #FFFFFF;
+
+        .formTitle {
+            color: #0F172A;
+        }
+
+        .formSubtitle {
+            color: #64748B;
+        }
+
+        // Auth input fields light grey background like design
+        :global(.inputWrapper),
+        [class*="inputWrapper"] {
+            background: #F1F5F9;
+            border: 1px solid transparent;
+            border-radius: 10px;
+
+            &:focus-within {
+                background: #F1F5F9;
+                border-color: #10B981;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            }
+
+            input {
+                background: transparent;
+                background-color: transparent;
+                color: #0F172A;
+
+                &::placeholder {
+                    color: #94A3B8;
+                }
+            }
+
+            :global(.iconLeft),
+            [class*="iconLeft"] {
+                color: #059669;
+            }
+
+            :global(.eyeBtn),
+            [class*="eyeBtn"] {
+                color: #059669;
+
+                &:hover {
+                    color: #10B981;
+                }
+            }
+        }
+
+        .forgotRow a {
+            color: #059669;
+
+            &:hover {
+                color: #10B981;
+            }
+        }
+
+        .orDivider {
+            color: #94A3B8;
+
+            &::before,
+            &::after {
+                border-bottom-color: rgba(15, 23, 42, 0.1);
+            }
+        }
+
+        .submitBtn {
+            background: #0F172A;
+            color: #FFFFFF;
+            border-color: #0F172A;
+
+            &:hover:not(:disabled) {
+                background: #18C98B;
+                color: #020403;
+                border-color: #18C98B;
+            }
+        }
+
+        .skipBtn {
+            background: #F1F5F9;
+            border: 1px solid #CBD5E1;
+            color: #0F172A;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+
+            &:hover:not(:disabled) {
+                background: rgba(5, 150, 105, 0.1);
+                color: #059669;
+                border-color: rgba(5, 150, 105, 0.4);
+                box-shadow: 0 0 16px rgba(5, 150, 105, 0.2);
+            }
+        }
+
+
+        .accountBottomLink p {
+            color: #64748B;
+
+            a {
+                color: #0F172A;
+
+                &:hover {
+                    color: #18C98B;
+                }
+            }
+        }
+    }
+}

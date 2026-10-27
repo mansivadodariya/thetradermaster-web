@@ -1,0 +1,398 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.teamUp {
+  padding: 100px 0 100px 0;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 10%, #040d0a 0%, #020605 60%, #000000 100%);
+
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) & {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+    .bentoCard,
+    .rightContent .bentoGrid .bentoCard {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.28);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+      &:hover {
+        background: #F0FDF4;
+        border-color: #18C98B;
+        box-shadow: 0 8px 25px rgba(24, 201, 139, 0.16);
+
+        .bentoTitle {
+          color: #059669;
+        }
+      }
+
+      .iconBox {
+        background: #ECFDF5;
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+      }
+
+      .bentoTitle {
+        color: #0F172A;
+        font-weight: 800;
+        font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+        transition: color 0.25s ease;
+      }
+
+      .bentoDesc {
+        color: #475569;
+        font-weight: 500;
+        font-size: 13px;
+      }
+
+      .statPill {
+        background: rgba(5, 150, 105, 0.1);
+        border: 1px solid rgba(5, 150, 105, 0.35);
+        color: #059669;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+    }
+
+    .trustBanner,
+    .rightContent .trustBanner {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.05);
+
+      .verifiedTag {
+        color: #059669;
+        background: rgba(5, 150, 105, 0.1);
+        border: 1px solid rgba(5, 150, 105, 0.35);
+        border-radius: 999px;
+        padding: 3px 10px;
+        display: inline-block;
+        width: fit-content;
+        font-weight: 800;
+      }
+
+      h4 {
+        color: #0F172A;
+        font-weight: 800;
+        font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+      }
+
+      p {
+        color: #475569;
+        font-weight: 500;
+        line-height: 1.55;
+
+        strong {
+          color: #0F172A;
+          font-weight: 700;
+        }
+      }
+
+      .shieldVisual {
+        .constellationLines {
+          stroke: #059669;
+          stroke-opacity: 0.45;
+        }
+
+        .constellationDots circle {
+          fill: #10B981;
+        }
+
+        .shieldBody {
+          fill: #ECFDF5;
+          stroke: #059669;
+        }
+
+        .shieldCheck {
+          stroke: #047857;
+        }
+
+        .shieldGlowGroup {
+          filter: drop-shadow(0 2px 8px rgba(16, 185, 129, 0.25));
+        }
+      }
+    }
+  }
+
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 60px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+
+
+  :global(.container) {
+    position: relative;
+    z-index: 9;
+  }
+
+
+
+  .gridWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 60px;
+    align-items: center;
+    padding: 30px 0 0 0;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Left Column */
+  .leftContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+
+    .badgeWrapper {
+      margin-bottom: 20px;
+    }
+
+    .sectionHeading {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 45px;
+      font-weight: 800;
+      line-height: 1.14;
+      letter-spacing: -1.2px;
+      color: #FFFFFF;
+      margin: 0 0 18px 0;
+
+      span {
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
+      }
+
+      @include respond-to("tab") {
+        font-size: 34px;
+        letter-spacing: -0.8px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 28px;
+        line-height: 1.18;
+      }
+    }
+
+    .titleDivider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #18c98b 0%, rgba(24, 201, 139, 0.2) 100%);
+      margin-bottom: 20px;
+    }
+
+    .desc {
+      color: rgba(232, 234, 246, 0.7);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 0;
+      max-width: 480px;
+      @include font-normal;
+
+      span {
+        color: #18c98b;
+        font-weight: 600;
+      }
+    }
+  }
+
+  /* Right Column: 2x2 Bento Cards */
+  .rightContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .bentoGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+
+      @include respond-to("sm") {
+        grid-template-columns: 1fr;
+      }
+
+      .bentoCard {
+        background: #040605;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: 22px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+        transition: all 0.3s ease;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+        &:hover {
+          background: #040907;
+          border-color: rgba(24, 201, 139, 0.4);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(24, 201, 139, 0.15);
+        }
+
+        .bentoCardTop {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 14px;
+
+          .iconBox {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            img {
+              width: 32px;
+              height: 32px;
+              display: block;
+            }
+          }
+
+          .statPill {
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.12);
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-family: system-ui, monospace;
+          }
+        }
+
+        .bentoTitle {
+          font-family: var(--font-syne), "Syne", sans-serif;
+          font-size: 16px;
+          font-weight: 800;
+          color: #FFFFFF;
+          margin: 0 0 8px 0;
+        }
+
+        .bentoDesc {
+          color: rgba(255, 255, 255, 0.62);
+          font-size: 13px;
+          line-height: 1.55;
+          margin: 0;
+          @include font-normal;
+        }
+      }
+    }
+
+    /* Bottom Trust Vault Banner */
+    .trustBanner {
+      border-radius: 16px;
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      box-shadow: inset 0 0 20px rgba(24, 201, 139, 0.08), 0 10px 30px rgba(0, 0, 0, 0.6);
+
+      @include respond-to("sm") {
+        padding: 14px 16px;
+        gap: 12px;
+      }
+
+      .bannerInfo {
+        display: flex;
+        flex-direction: column;
+
+        .verifiedTag {
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 9.5px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          color: #6EE7B7;
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+
+        h4 {
+          font-family: var(--font-syne), "Syne", sans-serif;
+          font-size: 15px;
+          font-weight: 800;
+          color: #FFFFFF;
+          margin: 0 0 4px 0;
+          letter-spacing: 0.5px;
+        }
+
+        p {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 12px;
+          line-height: 1.45;
+          margin: 0;
+          max-width: 360px;
+        }
+      }
+
+      .shieldVisual {
+        flex-shrink: 0;
+        width: 60px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .shieldSvg {
+          width: 100%;
+          height: 100%;
+          display: block;
+
+          .constellationLines {
+            stroke: #18c98b;
+          }
+
+          .constellationDots circle {
+            fill: #6EE7B7;
+          }
+
+          .shieldBody {
+            fill: #040b08;
+            stroke: #6EE7B7;
+          }
+
+          .shieldCheck {
+            stroke: #6EE7B7;
+          }
+
+          .shieldGlowGroup {
+            filter: drop-shadow(0 0 10px rgba(110, 231, 183, 0.55));
+          }
+        }
+      }
+    }
+  }
+}

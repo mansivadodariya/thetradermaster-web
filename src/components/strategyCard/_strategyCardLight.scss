@@ -1,0 +1,391 @@
+// Light Mode Styling (Matches reference design)
+&.lightTheme,
+:global(html.light) &,
+:global([data-theme="light"]) & {
+    background: 
+        radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+        radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+        #f3f3f3;
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    color: #0F172A;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.45);
+        box-shadow: 0 12px 32px rgba(24, 201, 139, 0.18), 0 4px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .headerLeft {
+        .rankBadge {
+            &.rankGold {
+                background: #FEF9C3;
+                border: 1px solid #FDE047;
+                color: #CA8A04;
+                border-radius: 50%;
+            }
+
+            &.rankSilver {
+                background: #F1F5F9;
+                border: 1px solid #CBD5E1;
+                color: #64748B;
+                border-radius: 50%;
+            }
+
+            &.rankOther {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+                color: #64748B;
+                border-radius: 50%;
+            }
+        }
+
+        .titleAndBadges {
+            .strategyTitle {
+                color: #0F172A;
+            }
+
+            .badgesRow {
+                .categoryTag {
+                    border-radius: 9999px;
+                    font-weight: 500;
+                    font-size: 11.5px;
+                    padding: 2px 10px;
+                    text-transform: lowercase;
+
+                    &.tagInstitutional {
+                        background: #FEF3C7;
+                        border: 1px solid #FDE68A;
+                        color: #B45309;
+                    }
+
+                    &.tagScalping {
+                        background: #FCE7F3;
+                        border: 1px solid #FBCFE8;
+                        color: #BE185D;
+                    }
+
+                    &.tagBreakout {
+                        background: #E0F2FE;
+                        border: 1px solid #BAE6FD;
+                        color: #0369A1;
+                    }
+
+                    &.tagMomentum {
+                        background: #F3E8FF;
+                        border: 1px solid #E9D5FF;
+                        color: #7E22CE;
+                    }
+                }
+
+                .traderCountTag {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #475569;
+                    border-radius: 9999px;
+                    font-weight: 500;
+                    font-size: 11.5px;
+                    padding: 2px 10px;
+                }
+
+                .activeCountTag {
+                    background: #F1F5F9;
+                    border: 1px solid #E2E8F0;
+                    color: #475569;
+                    border-radius: 9999px;
+                    font-weight: 500;
+                    font-size: 11.5px;
+                    padding: 2px 10px;
+
+                    svg {
+                        color: #475569;
+                    }
+                }
+            }
+        }
+    }
+
+    .headerRight {
+        .totalPips {
+            color: #0D9488;
+            font-size: 20px;
+            font-weight: 700;
+
+            &.pipsPositive {
+                color: #0D9488;
+            }
+
+            &.pipsNegative {
+                color: #EF4444;
+            }
+        }
+
+        .winRateSubtitle {
+            color: #475569;
+            font-size: 12.5px;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+    }
+
+    .metaRow {
+        color: #0F766E;
+        font-size: 13px;
+        font-weight: 500;
+
+        .riskBadge,
+        .timeframeBadge {
+            color: #0F766E;
+
+            svg {
+                color: #0F766E;
+            }
+        }
+    }
+
+    .description {
+        color: #475569;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .statsGrid {
+        gap: 10px;
+
+        .statBox {
+            border-radius: 12px;
+            padding: 12px 6px;
+            background: #F8FAFC;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+
+            .statIcon {
+                color: #0D9488;
+            }
+
+            .statValue {
+                color: #0F172A;
+                font-size: 19px;
+                font-weight: 700;
+            }
+
+            .statLabel {
+                color: #64748B;
+                font-size: 11.5px;
+                font-weight: 500;
+            }
+
+            &.statBoxWin {
+                background: #E6F8F6;
+                border: 1px solid rgba(13, 148, 136, 0.1);
+
+                .statIcon {
+                    color: #00A3A6;
+                }
+
+                .statValue {
+                    color: #00A3A6;
+                }
+            }
+
+            &.statBoxLoss {
+                background: #FFEBEF;
+                border: 1px solid rgba(225, 29, 72, 0.1);
+
+                .statIcon {
+                    color: #E11D48;
+                }
+
+                .statValue {
+                    color: #E11D48;
+                }
+            }
+
+            &.statBoxPips,
+            &:nth-child(3) {
+                background: #EEF8F8;
+                border: 1px solid rgba(13, 148, 136, 0.08);
+
+                .statIcon {
+                    color: #00A3A6;
+                }
+
+                .statValue {
+                    color: #0F172A;
+                }
+            }
+
+            &.statBoxConf,
+            &:nth-child(4) {
+                background: #F0F4F8;
+                border: 1px solid rgba(148, 163, 184, 0.12);
+
+                .statIcon {
+                    color: #00A3A6;
+                }
+
+                .statValue {
+                    color: #0F172A;
+                }
+            }
+        }
+    }
+
+    .walkForwardSection {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+
+        .walkForwardHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #64748B;
+
+            .walkForwardPeriod {
+                font-size: 11px;
+                font-weight: 500;
+                color: #94A3B8;
+                text-transform: none;
+            }
+        }
+
+        .walkForwardList {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .walkForwardRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 500;
+
+            .periodName {
+                color: #475569;
+            }
+
+            .periodPnl {
+                color: #0D9488;
+                font-weight: 700;
+                font-family: inherit;
+
+                .periodReturn {
+                    color: #0F766E;
+                    font-size: 11.5px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .winRateSection {
+        margin-bottom: 18px;
+
+        .winRateHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+
+            .winRateLabel {
+                color: #475569;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .winRatePct {
+                color: #0F172A;
+                font-size: 13px;
+                font-weight: 700;
+            }
+        }
+
+        .progressTrack {
+            background: #E2E8F0;
+            border: 1px solid #CBD5E1;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progressFill {
+            background: linear-gradient(90deg, #10B981 0%, #00F2FE 100%);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    }
+
+    .actionFooter {
+        background: transparent;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 6px;
+
+        &.actionFooterDisabled {
+            cursor: not-allowed;
+            background: transparent;
+            border: none;
+        }
+
+        .btnRunBacktest,
+        .btnRunDashboard,
+        .btnCopyStrategy {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 11px 20px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #10B981 0%, #00F2FE 100%);
+            color: #051814;
+            -webkit-text-fill-color: #051814;
+            font-size: 13.5px;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 16px rgba(0, 242, 254, 0.28);
+            transition: all 0.2s ease;
+            cursor: pointer;
+
+            svg {
+                stroke: #051814;
+                color: #051814;
+                fill: none;
+                flex-shrink: 0;
+            }
+
+            &.btnDisabled,
+            &:disabled {
+                opacity: 0.65;
+                color: #051814;
+                -webkit-text-fill-color: #051814;
+                cursor: not-allowed;
+                box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+                pointer-events: none;
+            }
+
+            &:hover:not(:disabled) {
+                color: #051814;
+                box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            }
+        }
+    }
+}

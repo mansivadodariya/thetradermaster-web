@@ -40,10 +40,17 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
 
     useEffect(() => {
         if (propStrategies && propStrategies.length > 0) {
-            setStrategies(propStrategies);
+            const filtered = propStrategies.filter(st => {
+                const text = `${st.name || ''} ${st.title || ''} ${st.strategy_name || ''} ${st.description || ''}`.toLowerCase();
+                return (text.includes('pullback') || text.includes('ema pullback')) && !text.includes('eurusd');
+            });
+            const effectiveList = filtered.length > 0 ? filtered : [
+                { id: propStrategies[0].id || propStrategies[0].strategy_id || '3e8d2b78-0e86-4fdf-9759-338276db1742', name: 'EMA Pullback', description: 'Trend Following EMA Pullback' }
+            ];
+            setStrategies(effectiveList);
             setLoading(false);
             if (!selectedId) {
-                const firstId = propStrategies[0].id || propStrategies[0].strategy_id;
+                const firstId = effectiveList[0].id || effectiveList[0].strategy_id;
                 setSelectedId(firstId);
                 if (onSelect && !initialSelectFiredRef.current) {
                     initialSelectFiredRef.current = true;
@@ -56,21 +63,68 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
         async function fetchStrategies() {
             setLoading(true);
             try {
-                const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || 'https://api.thetradermaster.com').replace(/\/+$/, '');
-                const res = await fetch(`${backendUrl}/api/v1/chart/strategies`, {
-                    headers: { 
-                        'accept': 'application/json',
-                        'ngrok-skip-browser-warning': 'true'
+                const getApiBase = () => {
+                    if (process.env.NEXT_PUBLIC_BACKEND_URL) {
+                        return process.env.NEXT_PUBLIC_BACKEND_URL.replace(/\/+$/, '');
                     }
-                });
+                    if (process.env.NEXT_PUBLIC_API_URL) {
+                        return process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, '');
+                    }
+                    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || process.env.NEXT_PUBLIC_WS_LIVE_URL;
+                    if (wsUrl) {
+                        try {
+                            const parsed = new URL(wsUrl);
+                            const proto = parsed.protocol === 'wss:' ? 'https:' : 'http:';
+                            return `${proto}//${parsed.host}`;
+                        } catch (_) {}
+                    }
+                    return '';
+                };
+
+                const apiBase = getApiBase();
+                let res;
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 4000);
+                    res = await fetch(`${apiBase}/api/v1/chart/strategies`, {
+                        signal: controller.signal,
+                        headers: { 
+                            'accept': 'application/json',
+                            'ngrok-skip-browser-warning': 'true'
+                        }
+                    });
+                    clearTimeout(timeoutId);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                } catch (e) {
+                    // Fallback to internal proxy
+                    try {
+                        res = await fetch('/api/v1/chart/strategies');
+                        if (!res.ok) throw new Error('Proxy failed');
+                    } catch (err2) {
+                        res = await fetch(`${apiBase}/api/v1/chart/strategies`, {
+                            headers: { 
+                                'accept': 'application/json',
+                                'ngrok-skip-browser-warning': 'true'
+                            }
+                        });
+                    }
+                }
+
                 if (!res.ok) throw new Error('Failed to fetch strategies');
                 const data = await res.json();
                 
                 // Handle various response wrappers
                 const list = Array.isArray(data) ? data : (data.strategies || data.data || []);
-                setStrategies(list);
-                if (list.length > 0) {
-                    const firstId = list[0].id || list[0].strategy_id;
+                const pullbackList = list.filter(st => {
+                    const text = `${st.name || ''} ${st.title || ''} ${st.strategy_name || ''} ${st.description || ''}`.toLowerCase();
+                    return (text.includes('pullback') || text.includes('ema pullback')) && !text.includes('eurusd');
+                });
+                const effectiveList = pullbackList.length > 0 ? pullbackList : [
+                    { id: '3e8d2b78-0e86-4fdf-9759-338276db1742', name: 'EMA Pullback', description: 'Trend Following EMA Pullback' }
+                ];
+                setStrategies(effectiveList);
+                if (effectiveList.length > 0) {
+                    const firstId = effectiveList[0].id || effectiveList[0].strategy_id;
                     setSelectedId(prev => prev || firstId);
                     if (onSelect && !initialSelectFiredRef.current) {
                         initialSelectFiredRef.current = true;
@@ -79,6 +133,16 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
                 }
             } catch (err) {
                 console.error("Error fetching strategies:", err);
+                const fallbackList = [
+                    { id: '3e8d2b78-0e86-4fdf-9759-338276db1742', name: 'EMA Pullback', description: 'Trend Following EMA Pullback' }
+                ];
+                setStrategies(fallbackList);
+                const firstId = fallbackList[0].id;
+                setSelectedId(prev => prev || firstId);
+                if (onSelect && !initialSelectFiredRef.current) {
+                    initialSelectFiredRef.current = true;
+                    onSelect(firstId);
+                }
             } finally {
                 setLoading(false);
             }
@@ -146,7 +210,6 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
                         })}
                     </div>
                 )}
-                
             </div>
         </div>
     );

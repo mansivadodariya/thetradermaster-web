@@ -1,0 +1,428 @@
+.whiteLabelPage {
+    position: relative;
+    padding: 130px 0 0 0;
+    min-height: 100vh;
+    background: #040605;
+    color: #ffffff;
+    overflow: hidden;
+
+    @include respond-to('md') {
+        padding: 110px 0 0 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 95px 0 0 0;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
+    }
+}
+
+/* Background Ambient Lighting */
+.ambientGlowTop {
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.06) 45%, transparent 70%);
+    filter: blur(95px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambientGlowRight {
+    position: absolute;
+    top: 30%;
+    right: -100px;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(24, 201, 139, 0.05) 50%, transparent 75%);
+    filter: blur(105px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambientGlowLeft {
+    position: absolute;
+    top: 65%;
+    left: -120px;
+    width: 750px;
+    height: 750px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%);
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.gridPatternOverlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, #000 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background-image: 
+            linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+
+    @include respond-to('sm') {
+        padding: 0 16px;
+    }
+}
+
+/* ============================================================
+   01 — HERO SECTION
+   ============================================================ */
+.heroSection {
+    padding: 40px 0 80px 0;
+    text-align: center;
+    position: relative;
+
+    @include respond-to('md') {
+        padding: 20px 0 60px 0;
+    }
+}
+
+.heroBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.15);
+
+    .pulseIndicator {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #18C98B;
+        box-shadow: 0 0 8px #18C98B;
+        animation: heroPulse 2s infinite ease-in-out;
+    }
+}
+
+@keyframes heroPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.heroTitle {
+    font-size: 56px;
+    line-height: 1.12;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 auto 22px auto;
+    max-width: 900px;
+    letter-spacing: -1.2px;
+
+    .gradientText {
+        color: #18c98b;
+        background: #18c98b;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline;
+    }
+
+    @include respond-to('md') {
+        font-size: 40px;
+        letter-spacing: -0.8px;
+    }
+
+    @include respond-to('sm') {
+        font-size: 30px;
+        letter-spacing: -0.5px;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #0F172A;
+
+        .gradientText {
+            color: #059669;
+            background: #059669;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+
+.heroSubtitle {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 820px;
+    margin: 0 auto 16px auto;
+    font-weight: 400;
+
+    @include respond-to('sm') {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #475569;
+    }
+}
+
+.heroFoundationNote {
+    font-size: 14.5px;
+    color: #18C98B;
+    font-weight: 500;
+    margin: 0 auto 36px auto;
+    max-width: 740px;
+    opacity: 0.95;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #047857;
+    }
+}
+
+.heroCtaGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.primaryCtaBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+    color: #040806;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 0 24px rgba(24, 201, 139, 0.45), 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 32px rgba(24, 201, 139, 0.65), 0 8px 20px rgba(0, 0, 0, 0.4);
+        color: #040806;
+    }
+
+    svg {
+        transition: transform 0.2s ease;
+    }
+
+    &:hover svg {
+        transform: translateX(3px);
+    }
+}
+
+.secondaryCtaBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
+        transform: translateY(-2px);
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: #FFFFFF;
+        color: #0F172A;
+        border-color: rgba(15, 23, 42, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            background: #F1F5F9;
+            color: #047857;
+            border-color: #18C98B;
+        }
+    }
+}
+
+.heroPoweredTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 48px;
+
+    span {
+        color: #18C98B;
+        font-weight: 700;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        color: #64748B;
+
+        span {
+            color: #047857;
+        }
+    }
+}
+
+/* Hero Dashboard Showcase Visual */
+.heroVisualContainer {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-radius: 16px;
+    padding: 6px;
+    background: linear-gradient(135deg, rgba(24, 201, 139, 0.45) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(14, 165, 233, 0.3) 100%);
+    box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(24, 201, 139, 0.2);
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(.light) & {
+        background: linear-gradient(135deg, rgba(24, 201, 139, 0.35) 0%, rgba(15, 23, 42, 0.08) 50%, rgba(14, 165, 233, 0.25) 100%);
+        box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.12), 0 0 35px rgba(24, 201, 139, 0.15);
+    }
+}
+
+.heroVisualInner {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0D0E13;
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        transition: transform 0.5s ease;
+    }
+
+    &:hover img {
+        transform: scale(1.015);
+    }
+}
+
+/* Floating Telemetry Badges on Hero Image */
+.floatingBadgeTopRight {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    background: rgba(13, 14, 19, 0.85);
+    border: 1px solid rgba(24, 201, 139, 0.4);
+    backdrop-filter: blur(12px);
+    color: #18C98B;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+    @include respond-to('sm') {
+        display: none;
+    }
+}
+
+.floatingBadgeBottomLeft {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: rgba(13, 14, 19, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    color: #FFFFFF;
+    font-size: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+    .statDot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #18C98B;
+    }
+
+    strong {
+        color: #18C98B;
+    }
+
+    @include respond-to('sm') {
+        display: none;
+    }
+}

@@ -1,0 +1,650 @@
+.assistantSection {
+
+  /* ============================================================
+     RIGHT COLUMN: NON-TRADING AI COPILOT REASONING CONSOLE
+     ============================================================ */
+  .rightColumn {
+    position: relative;
+    width: 100%;
+
+    .intelligenceTerminalCard {
+      background: #080604;
+      border: 1px solid rgba(24, 201, 139, 0.28);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.96), 0 0 50px rgba(24, 201, 139, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Terminal Chrome Header Bar */
+    .terminalHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 22px;
+      background: rgba(15, 12, 7, 0.95);
+      border-bottom: 1px solid rgba(24, 201, 139, 0.16);
+
+      @include respond-to("sm") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+
+      .leftHeaderCluster {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .windowControls {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+
+          .controlDotRed {
+            background: #EF4444;
+            opacity: 0.8;
+          }
+
+          .controlDotYellow {
+            background: #38BDF8;
+            opacity: 0.8;
+          }
+
+          .controlDotGreen {
+            background: #10B981;
+            opacity: 0.8;
+          }
+        }
+
+        .activeAssetBadge {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 4px 10px;
+          border-radius: 7px;
+
+          .liveBeacon {
+            width: 6.5px;
+            height: 6.5px;
+            border-radius: 50%;
+            background: #10B981;
+            box-shadow: 0 0 10px #10B981;
+            animation: pulseGlow 1.6s infinite ease-in-out;
+          }
+
+          .assetTicker {
+            @include font-bold;
+            font-size: 13px;
+            color: #FFFFFF;
+            letter-spacing: 0.3px;
+          }
+
+          .assetSubName {
+            @include font-semibold;
+            font-size: 11px;
+            color: #94A3B8;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+            padding-left: 8px;
+
+            @include respond-to("sm") {
+              display: none;
+            }
+          }
+        }
+      }
+
+      /* Model Switcher Tabs */
+      .symbolSelectorTabs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .symTabBtn {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #94A3B8;
+          @include font-bold;
+          font-size: 12px;
+          padding: 5px 12px;
+          border-radius: 7px;
+          cursor: pointer;
+          transition: all 0.25s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #FFFFFF;
+            border-color: rgba(255, 230, 147, 0.2);
+          }
+
+          &.symTabActive {
+            background: linear-gradient(135deg, rgba(216, 162, 59, 0.25) 0%, rgba(255, 230, 147, 0.12) 100%);
+            border-color: rgba(255, 230, 147, 0.65);
+            color: #A7F3D0;
+            box-shadow: 0 0 14px rgba(216, 162, 59, 0.25);
+          }
+        }
+      }
+    }
+
+    /* Terminal Body Container */
+    .terminalBody {
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: radial-gradient(circle at 50% 20%, rgba(216, 162, 59, 0.03) 0%, transparent 80%), #060503;
+
+      @include respond-to("sm") {
+        padding: 18px 16px;
+        gap: 14px;
+      }
+    }
+
+    /* 1. Live AI Prompt Query Bubble Card */
+    .promptQueryCard {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0%, rgba(20, 16, 8, 0.85) 100%);
+      border: 1px solid rgba(216, 162, 59, 0.25);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+      .queryHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .queryUserBadge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          .userIcon {
+            font-size: 13px;
+          }
+
+          .queryTitle {
+            @include font-bold;
+            font-size: 10px;
+            letter-spacing: 0.6px;
+            color: #18C98B;
+          }
+        }
+
+        .latencyPill {
+          @include font-semibold;
+          font-size: 9.5px;
+          color: #34D399;
+          background: rgba(16, 185, 129, 0.14);
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          padding: 2px 7px;
+          border-radius: 4px;
+        }
+      }
+
+      .promptText {
+        @include font-normal;
+        font-size: 13px;
+        color: #F1F5F9;
+        line-height: 1.5;
+        margin: 0;
+        font-style: italic;
+      }
+    }
+
+    /* 2. Hero Recommendation Banner */
+    .priceHeaderRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 16px 20px;
+      border-radius: 14px;
+
+      @include respond-to("sm") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 16px;
+      }
+
+      .livePriceGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .heroRecLabel {
+          @include font-bold;
+          font-size: 9.5px;
+          letter-spacing: 0.6px;
+          color: #64748B;
+        }
+
+        .heroRecValue {
+          @include font-bold;
+          font-size: 16px;
+          color: #FFFFFF;
+          letter-spacing: 0.2px;
+          text-shadow: 0 0 12px rgba(255, 230, 147, 0.3);
+        }
+      }
+
+      .aiSignalHeroBox {
+        background: linear-gradient(135deg, rgba(216, 162, 59, 0.2) 0%, rgba(20, 16, 8, 0.9) 100%);
+        border: 1px solid rgba(255, 230, 147, 0.45);
+        padding: 10px 16px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(216, 162, 59, 0.18);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .signalHeader {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          .pulseDot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #A7F3D0;
+            box-shadow: 0 0 8px #A7F3D0;
+            animation: pulseGlow 1.4s infinite ease-in-out;
+          }
+
+          .signalTitle {
+            @include font-bold;
+            font-size: 9.5px;
+            letter-spacing: 0.8px;
+            color: #18C98B;
+          }
+        }
+
+        .signalValueRow {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .signalText {
+            @include font-bold;
+            font-size: 14px;
+            color: #FFFFFF;
+            letter-spacing: 0.3px;
+          }
+
+          .confidencePill {
+            @include font-bold;
+            font-size: 10.5px;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 2px 7px;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+
+    /* 3. Reasoning Pipeline Cards Section */
+    .reasoningPipelineSection {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .sectionLabel {
+        @include font-bold;
+        font-size: 9.5px;
+        letter-spacing: 0.6px;
+        color: #64748B;
+      }
+
+      .pipelineGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+        @include respond-to("sm") {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .pipelineCard {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(18, 14, 8, 0.5) 100%);
+          border: 1px solid rgba(216, 162, 59, 0.16);
+          border-radius: 12px;
+          padding: 12px 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            border-color: rgba(255, 230, 147, 0.4);
+            transform: translateY(-2px);
+          }
+
+          .pHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .pStepBadge {
+              @include font-bold;
+              font-size: 9px;
+              color: #18C98B;
+              background: rgba(216, 162, 59, 0.15);
+              border: 1px solid rgba(216, 162, 59, 0.3);
+              padding: 1px 5px;
+              border-radius: 4px;
+            }
+
+            .pCheckIcon {
+              font-size: 11px;
+              color: #34D399;
+              @include font-bold;
+            }
+          }
+
+          .pName {
+            @include font-bold;
+            font-size: 11px;
+            color: #E2E8F0;
+          }
+
+          .pStatus {
+            @include font-bold;
+            font-size: 12px;
+            color: #A7F3D0;
+          }
+
+          .pDetail {
+            @include font-normal;
+            font-size: 9.5px;
+            color: #94A3B8;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+
+    /* 4. Active Strategy Takeaway Cards */
+    .keyInsightsGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      @include respond-to("sm") {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .takeawayCard {
+        background: rgba(14, 11, 7, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        .tLabel {
+          @include font-semibold;
+          font-size: 8.5px;
+          color: #64748B;
+          letter-spacing: 0.5px;
+        }
+
+        .tValGold {
+          @include font-bold;
+          font-size: 12px;
+          color: #A7F3D0;
+        }
+
+        .tValGreen {
+          @include font-bold;
+          font-size: 12px;
+          color: #34D399;
+        }
+
+        .tValCyan {
+          @include font-bold;
+          font-size: 12px;
+          color: #38BDF8;
+        }
+      }
+    }
+
+    /* 5. Real-Time AI Neural Thought Console */
+    .streamConsole {
+      background: rgba(4, 3, 2, 0.85);
+      border: 1px solid rgba(216, 162, 59, 0.18);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .consoleHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        .consoleTitleGroup {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .consoleBeacon {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #A7F3D0;
+            box-shadow: 0 0 8px #A7F3D0;
+            animation: pulseGlow 1.4s infinite ease-in-out;
+          }
+
+          .consoleTitle {
+            @include font-bold;
+            font-size: 10.5px;
+            color: #18C98B;
+            letter-spacing: 0.5px;
+          }
+        }
+
+        .engineBadge {
+          @include font-semibold;
+          font-size: 9.5px;
+          color: #64748B;
+          background: rgba(255, 255, 255, 0.04);
+          padding: 2px 7px;
+          border-radius: 4px;
+        }
+      }
+
+      .logStreamList {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .logItem {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 8px 12px;
+          border-radius: 8px;
+
+          .logTime {
+            @include font-semibold;
+            font-size: 10px;
+            color: #64748B;
+          }
+
+          .logIcon {
+            font-size: 13px;
+          }
+
+          .logText {
+            @include font-normal;
+            font-size: 12px;
+            color: #CBD5E1;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+
+    /* Terminal Bottom Telemetry Footer */
+    .terminalFooter {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 14px 22px;
+      background: rgba(11, 9, 5, 0.95);
+      border-top: 1px solid rgba(216, 162, 59, 0.16);
+
+      @include respond-to("sm") {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 12px 16px;
+      }
+
+      .hudTile {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        .hudLabel {
+          @include font-semibold;
+          font-size: 8.5px;
+          color: #64748B;
+          letter-spacing: 0.5px;
+        }
+
+        .hudVal {
+          @include font-bold;
+          font-size: 11px;
+          color: #E2E8F0;
+        }
+
+        .hudValGold {
+          @include font-bold;
+          font-size: 11px;
+          color: #A7F3D0;
+        }
+
+        .hudValGreen {
+          @include font-bold;
+          font-size: 11px;
+          color: #34D399;
+        }
+      }
+    }
+  }
+
+  @keyframes pulseGlow {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.45;
+      transform: scale(1.3);
+    }
+  }
+
+  :global(html.light) & {
+    background: #F8FAFC;
+
+    .sectionHeading {
+      color: #0F172A;
+    }
+
+    .desc,
+    .itemDesc,
+    .logText {
+      color: #475569;
+    }
+
+    .featureCard {
+      background: #FFFFFF;
+      border-color: rgba(15, 23, 42, 0.09);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+      .itemTitle {
+        color: #0F172A;
+      }
+
+      &.featureActive {
+        background: #FFFFFF;
+        border-color: #18C98B;
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.15);
+
+        .itemTitle {
+          color: #0F172A;
+          text-shadow: none;
+        }
+      }
+    }
+
+    .liveTerminalContainer {
+      background: #FFFFFF;
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+
+      .terminalHeader,
+      .terminalFooter {
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+      }
+
+      .terminalTitle,
+      .hudVal {
+        color: #0F172A;
+      }
+
+      .chartMockCard,
+      .streamConsole {
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+      }
+
+      .cardTitle {
+        color: #0F172A;
+      }
+
+      .logItem,
+      .hudTile {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+      }
+    }
+  }
+}

@@ -1,0 +1,301 @@
+.cockpitSection {
+
+  /* ============================================================
+     PART 1 (LEFT): Candlestick Moving Chart (Full Height)
+     ============================================================ */
+  .partOneChart {
+    background: radial-gradient(circle at 50% 0%, var(--primary-green-light) 0%, transparent 70%), var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 520px;
+    position: relative;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 1px 0 var(--border-subtle);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @include respond-to("sm") {
+      min-height: 340px;
+      border-radius: 14px;
+    }
+
+    .partHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: var(--bg-card-solid);
+      border-bottom: 1px solid var(--border-color);
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+
+      @include respond-to("sm") {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+
+      .headerLeftCluster {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        @include respond-to("sm") {
+          gap: 8px;
+        }
+
+        .macDots {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+
+          .dotRed {
+            background: #EF4444;
+            opacity: 0.8;
+          }
+
+          .dotYellow {
+            background: #38BDF8;
+            opacity: 0.8;
+          }
+
+          .dotGreen {
+            background: #10B981;
+            opacity: 0.8;
+          }
+        }
+
+        .goldAssetPill {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: transparent;
+          border: none;
+          padding: 0;
+          color: #FFFFFF;
+
+          .goldIconLetter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.4));
+          }
+
+          .dropdownSymbol {
+            font-family: var(--font-inter), 'Euclid', -apple-system, sans-serif;
+            font-size: 14.5px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            color: var(--cockpit-symbol-color, #FFFFFF);
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            :global(.light) & {
+              color: #0F172A;
+            }
+          }
+
+          .assetPairSub {
+            color: #64748B;
+            font-family: monospace, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            :global(.light) & {
+              color: #475569;
+            }
+          }
+        }
+
+        .timeframeGroup {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+
+          .tfBtn {
+            background: transparent;
+            border: none;
+            color: #64748B;
+            font-family: monospace, sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              color: #E2E8F0;
+            }
+
+            &.tfBtnActive {
+              background: rgba(24, 201, 139, 0.15);
+              color: #6EE7B7;
+            }
+          }
+        }
+      }
+
+      .strategyBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        border: none;
+        color: #94A3B8;
+        font-family: monospace, sans-serif;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        padding: 0;
+
+        .beaconDot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 8px #10B981;
+          animation: pulseDot 1.4s infinite;
+        }
+      }
+    }
+
+    /* Lightweight Charts Container & Live OHLC HUD */
+    .lightweightChartWrapper {
+      position: relative;
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 460px;
+      height: 100%;
+      background: radial-gradient(circle at 45% 45%, rgba(24, 201, 139, 0.03) 0%, transparent 80%), #06080E;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      @include respond-to("sm") {
+        min-height: 320px;
+      }
+
+      .chartOhlcHud {
+        position: absolute;
+        top: 10px;
+        left: 14px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(6, 8, 14, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        padding: 4px 10px;
+        border-radius: 6px;
+        pointer-events: none;
+
+        :global(html.light) &,
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(.light) & {
+          background: rgba(255, 255, 255, 0.95);
+          border-color: #E2E8F0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        @include respond-to("sm") {
+          top: 6px;
+          left: 8px;
+          gap: 8px;
+          padding: 3px 6px;
+        }
+
+        .hudItem {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-family: monospace, sans-serif;
+          font-size: 12px;
+
+          @include respond-to("sm") {
+            font-size: 9.5px;
+            gap: 2px;
+          }
+
+          .hudLabel {
+            color: #64748B;
+            font-weight: 700;
+          }
+
+          .hudVal {
+            color: var(--cockpit-hud-val-color, #E2E8F0);
+            font-weight: 600;
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            :global(.light) & {
+              color: #0F172A;
+            }
+
+            &.bullish {
+              color: #10B981;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #059669;
+              }
+            }
+
+            &.bearish {
+              color: #F43F5E;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #DC2626;
+              }
+            }
+          }
+        }
+      }
+
+      .chartCanvasMount {
+        width: 100%;
+        height: 100%;
+        flex: 1 1 auto;
+        min-height: 420px;
+        position: relative;
+        z-index: 2;
+
+        @include respond-to("sm") {
+          min-height: 300px;
+        }
+
+        :global(.tv-lightweight-charts) {
+          border-radius: 0 0 14px 14px;
+        }
+      }
+    }
+  }
+}

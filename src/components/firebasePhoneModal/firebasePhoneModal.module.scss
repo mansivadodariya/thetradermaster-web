@@ -7,55 +7,111 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(18, 18, 18, 0.45);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
     padding: 16px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    &[data-theme='light'] {
+        background: rgba(15, 23, 42, 0.45);
+    }
 }
 
 .modalCard {
-    background: #FFFFFF;
-    border: 1px solid rgba(26, 26, 26, 0.14);
-    border-radius: 20px;
+    background: radial-gradient(130% 120% at 50% 0%, #171511 0%, #0c0d10 55%, #070709 100%);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 22px;
     width: 100%;
-    max-width: 460px;
-    padding: 36px 28px 32px;
+    max-width: 530px;
+    padding: 44px 38px 38px;
     position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    color: #121212;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.95), 0 0 48px rgba(24, 201, 139, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
     overflow: hidden;
 
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    &[data-theme='light'],
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12), 0 0 32px rgba(24, 201, 139, 0.08);
+        color: #0F172A;
+    }
+
     @include respond-to('sm') {
-        border-radius: 12px;
-        padding: 28px 18px 24px;
+        border-radius: 16px;
+        padding: 32px 20px 26px;
+        max-width: 100%;
     }
 }
 
 .topGlowLayer {
     border-radius: 442px;
-    background: $primary;
-    filter: blur(46.8px);
-    width: 90%;
+    background: #18C98B;
+    filter: blur(40px);
+    width: 85%;
     height: 18px;
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    opacity: 0.3;
     pointer-events: none;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        opacity: 0.15;
+    }
+}
+
+.brandLogoHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+.brandLogoImg {
+    height: 38px;
+    width: auto;
+    max-width: 190px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 14px rgba(24, 201, 139, 0.25));
+    transition: transform 0.25s ease;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    @include respond-to('sm') {
+        height: 30px;
+        max-width: 155px;
+    }
 }
 
 .closeBtn {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    background: #F1F5F9;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #64748B;
-    width: 32px;
-    height: 32px;
+    top: 18px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    color: rgba(255, 255, 255, 0.7);
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -66,8 +122,25 @@
     z-index: 10;
 
     &:hover {
-        background: #E2E8F0;
-        color: #0F172A;
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: #18C98B;
+        transform: scale(1.06);
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #F1F5F9;
+        border-color: #CBD5E1;
+        color: #475569;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.15);
+            color: #059669;
+            border-color: #18C98B;
+        }
     }
 }
 
@@ -80,295 +153,398 @@
     z-index: 1;
 }
 
-.logoWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-
-    img {
-        height: 38px;
-        width: auto;
-    }
-}
-
 .successIconWrapper {
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
-    background: #DCFCE7;
-    border: 2px solid #86EFAC;
+    background: rgba(16, 185, 129, 0.15);
+    border: 2px solid rgba(16, 185, 129, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    color: #10B981;
 }
 
 .title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #121212;
-    margin: 0 0 8px;
-    letter-spacing: -0.3px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 10px;
+    letter-spacing: -0.4px;
+    font-family: "Euclid-Bold", sans-serif;
+    line-height: 1.25;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #0F172A;
+    }
 
     @include respond-to('sm') {
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 
 .subtitle {
-    font-size: 14px;
-    color: #64748B;
-    line-height: 1.5;
-    margin: 0 0 20px;
-    max-width: 380px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+    margin: 0 0 24px;
+    max-width: 440px;
+    font-family: "Euclid-Regular", sans-serif;
+
+    .verifyFirstNotice {
+        display: block;
+        color: #18C98B;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+        margin-bottom: 4px;
+    }
+
+    .enterPhoneLine {
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+    }
 
     strong {
-        color: $primary;
+        color: #18C98B;
         font-weight: 700;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #475569;
+
+        .verifyFirstNotice {
+            color: #059669;
+        }
+
+        .enterPhoneLine {
+            color: #475569;
+        }
+
+        strong {
+            color: #059669;
+        }
     }
 }
 
 .phoneInputContainer {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     text-align: left;
 }
 
 .customPhoneInput {
     display: flex;
     align-items: center;
-    background: #F8FAFC;
-    border: 1px solid rgba(26, 26, 26, 0.15);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #121212;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    border-radius: 12px;
+    padding: 13px 18px;
+    color: #FFFFFF;
     transition: all 0.2s ease;
 
-    &.disabledInput,
-    &:has(input:disabled) {
-        opacity: 0.75;
-        background: #F1F5F9;
-        cursor: not-allowed;
-
-        :global(.PhoneInputInput),
-        :global(.PhoneInputCountrySelect) {
-            cursor: not-allowed;
-            pointer-events: none;
-        }
+    &:focus-within {
+        border-color: #18C98B;
+        box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15);
+        background: rgba(255, 255, 255, 0.07);
     }
 
-    &:focus-within {
-        border-color: $primary;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-        background: #FFFFFF;
+    &.isInvalid {
+        border-color: rgba(239, 68, 68, 0.6);
+        box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+    }
+
+    &.isValid {
+        border-color: rgba(24, 201, 139, 0.6);
     }
 
     :global(.PhoneInputInput) {
         background: transparent;
         border: none;
         outline: none;
-        color: #121212;
-        font-size: 15px;
+        color: #FFFFFF;
+        font-size: 16px;
         font-weight: 500;
         width: 100%;
-        margin-left: 8px;
+        margin-left: 10px;
 
         &::placeholder {
-            color: #94A3B8;
+            color: rgba(255, 255, 255, 0.4);
         }
     }
 
-    :global(.PhoneInputCountrySelect) {
-        background: #FFFFFF;
-        color: #121212;
+    :global(.PhoneInputCountry) {
+        margin-right: 6px;
     }
+
+    :global(.PhoneInputCountrySelect) {
+        background: #0A0A0D;
+        color: #FFFFFF;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #F8FAFC;
+        border: 1px solid #CBD5E1;
+        color: #0F172A;
+
+        &:focus-within {
+            background: #FFFFFF;
+            border-color: #18C98B;
+            box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.16);
+        }
+
+        :global(.PhoneInputInput) {
+            color: #0F172A;
+
+            &::placeholder {
+                color: #94A3B8;
+            }
+        }
+
+        :global(.PhoneInputCountrySelect) {
+            background: #FFFFFF;
+            color: #0F172A;
+        }
+    }
+}
+
+.phoneHintError {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #F87171;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    text-align: left;
 }
 
 .otpInputsRow {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     width: 100%;
 }
 
 .otpBox {
-    width: 48px;
-    height: 52px;
-    border-radius: 8px;
-    background: #F8FAFC;
-    border: 1px solid rgba(26, 26, 26, 0.15);
-    color: #121212;
-    font-size: 20px;
+    width: 52px;
+    height: 58px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    color: #FFFFFF;
+    font-size: 22px;
     font-weight: 700;
     text-align: center;
     outline: none;
     transition: all 0.2s ease;
 
     &:focus {
-        border-color: $primary;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-        background: #FFFFFF;
+        border-color: #18C98B;
+        box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.2);
+        background: rgba(255, 255, 255, 0.08);
         transform: translateY(-1px);
     }
 
     &.filled {
-        background: #EBF2FC;
-        border-color: $primary;
-        color: $primary;
+        background: rgba(24, 201, 139, 0.12);
+        border-color: #18C98B;
+        color: #18C98B;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #F8FAFC;
+        border: 1px solid #CBD5E1;
+        color: #0F172A;
+
+        &:focus {
+            background: #FFFFFF;
+            border-color: #18C98B;
+            box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.16);
+        }
+
+        &.filled {
+            background: rgba(24, 201, 139, 0.12);
+            border-color: #18C98B;
+            color: #059669;
+        }
     }
 }
 
 .errorBanner {
-    background: #FEF2F2;
-    border: 1px solid #FECACA;
-    color: #DC2626;
-    font-size: 14px;
+    background: rgba(255, 87, 87, 0.15);
+    border: 1px solid rgba(255, 87, 87, 0.4);
+    color: #FF7070;
+    font-size: 13px;
     padding: 10px 14px;
     border-radius: 8px;
     width: 100%;
     margin-bottom: 16px;
     text-align: center;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #FEE2E2;
+        border-color: #FCA5A5;
+        color: #DC2626;
+    }
 }
 
 .actionBtnWrapper {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skipBtn {
+    width: 100%;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #FFFFFF;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    border-radius: 9999px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+
+    &:hover:not(:disabled) {
+        color: #10B981;
+        background: rgba(16, 185, 129, 0.16);
+        border-color: rgba(16, 185, 129, 0.5);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #F1F5F9;
+        border: 1px solid #CBD5E1;
+        color: #0F172A;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+
+        &:hover:not(:disabled) {
+            color: #059669;
+            background: rgba(5, 150, 105, 0.1);
+            border-color: rgba(5, 150, 105, 0.4);
+            box-shadow: 0 0 16px rgba(5, 150, 105, 0.2);
+        }
+    }
 }
 
 .resendRow {
     margin-top: 16px;
-    font-size: 14px;
-    color: #64748B;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
 
     strong {
-        color: $primary;
+        color: #18C98B;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #64748B;
+
+        strong {
+            color: #059669;
+        }
     }
 }
 
 .resendBtn {
     background: none;
     border: none;
-    color: $primary;
+    color: #18C98B;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     padding: 0;
 
     &:hover:not(:disabled) {
         text-decoration: underline;
     }
-}
 
-:global(.dark) {
-    .modalOverlay {
-        background: rgba(3, 14, 9, 0.85);
-        backdrop-filter: blur(10px);
-    }
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #059669;
 
-    .modalCard {
-        background: #04140D;
-        border: 1px solid rgba(0, 255, 136, 0.3);
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
-        color: #FFFFFF;
-
-        .closeBtn {
-            background: rgba(0, 255, 136, 0.1);
-            color: #00FF88;
-            border-color: rgba(0, 255, 136, 0.2);
-
-            &:hover {
-                background: rgba(0, 255, 136, 0.25);
-                color: #FFFFFF;
-            }
+        &:hover:not(:disabled) {
+            color: #047857;
         }
-    }
-
-    .title {
-        color: #FFFFFF;
-    }
-
-    .subtitle {
-        color: #A0AEC0;
-
-        strong {
-            color: #00FF88;
-        }
-    }
-
-    .customPhoneInput {
-        background: #061D13;
-        border-color: rgba(0, 255, 136, 0.25);
-        color: #FFFFFF;
-
-        &.disabledInput,
-        &:has(input:disabled) {
-            background: rgba(6, 29, 19, 0.6);
-            border-color: rgba(0, 255, 136, 0.15);
-            opacity: 0.8;
-            cursor: not-allowed;
-
-            :global(.PhoneInputInput),
-            :global(.PhoneInputCountrySelect) {
-                cursor: not-allowed;
-                pointer-events: none;
-            }
-        }
-
-        &:focus-within {
-            border-color: #00FF88;
-            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
-            background: #04140D;
-        }
-
-        :global(.PhoneInputInput) {
-            color: #FFFFFF;
-
-            &::placeholder {
-                color: rgba(255, 255, 255, 0.35);
-            }
-        }
-
-        :global(.PhoneInputCountrySelect) {
-            background: #04140D;
-            color: #FFFFFF;
-        }
-    }
-
-    .otpBox {
-        background: #061D13;
-        border-color: rgba(0, 255, 136, 0.25);
-        color: #FFFFFF;
-
-        &:focus {
-            border-color: #00FF88;
-            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
-            background: #04140D;
-        }
-
-        &.filled {
-            background: rgba(0, 255, 136, 0.15);
-            border-color: #00FF88;
-            color: #00FF88;
-        }
-    }
-
-    .resendRow {
-        color: #A0AEC0;
-
-        strong {
-            color: #00FF88;
-        }
-    }
-
-    .resendBtn {
-        color: #00FF88;
     }
 }
 
-:global(.grecaptcha-badge) {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+.changePhoneLink {
+    background: none;
+    border: none;
+    color: #18C98B;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 6px;
+    padding: 0;
+    text-decoration: underline;
+
+    &:hover {
+        color: #34e0a4;
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #059669;
+
+        &:hover {
+            color: #047857;
+        }
+    }
 }
+
+.phoneForm {
+    width: 100%;
+}
+
+
+

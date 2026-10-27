@@ -1,0 +1,96 @@
+.predefinedStrategiesSection {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .predefinedStrategiesHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 14px;
+
+        .headerLeft {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .iconBadge {
+                width: 32px;
+                height: 32px;
+                border-radius: 9px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.28);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #18C98B;
+                flex-shrink: 0;
+            }
+
+            .titleText {
+                font-size: 17px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0;
+                letter-spacing: -0.2px;
+            }
+        }
+
+        .filterPills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+
+            .filterBtn {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 5px 12px;
+                font-size: 12px;
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.65);
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: #FFFFFF;
+                    background: rgba(255, 255, 255, 0.1);
+                }
+
+                &.filterBtnActive {
+                    background: rgba(24, 201, 139, 0.15);
+                    border-color: rgba(24, 201, 139, 0.4);
+                    color: #18C98B;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .strategiesGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+
+        @media (min-width: 900px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (min-width: 1500px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+    }
+
+    .skeletonCard {
+        min-height: 280px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        animation: pulse 1.5s infinite ease-in-out;
+    }
+}

@@ -9,15 +9,18 @@ import { authApi } from '@/lib/api';
 import { validateForgotPassword } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
-import LanguageToggle from '@/components/languageToggle';
+import { useTheme } from '@/context/ThemeContext';
 
-const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const DarkLogo = '/assets/logo/logo.png';
+const LightLogo = '/assets/logo/darklogo.png';
+const EmailIcon = '/assets/icons/sms.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
 const ForgotPassword = () => {
     const router = useRouter();
     const { t } = useLanguage();
+    const { theme } = useTheme();
+    const Logo = theme === 'light' ? LightLogo : DarkLogo;
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -53,15 +56,20 @@ const ForgotPassword = () => {
 
     return (
         <div className={styles.page}>
-            <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
-                <div className={styles.relative}>
-                    <div className={styles.icon} onClick={() => router.push("/")}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" />
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
                     </div>
+
                     <div className={styles.text}>
                         <h2>{t('auth.forgotPasswordTitle', 'Forgot Password')}</h2>
                         <p>{t('auth.forgotPasswordDesc', "Enter your email and we'll send you a link to reset your password. Please check your spam folder as well.")}</p>
@@ -70,22 +78,45 @@ const ForgotPassword = () => {
                         <div className={styles.success} role="status">
                             <p>{t('auth.checkResetEmail', "Check your email for a reset link. Please check your spam folder if you don't see it in your inbox.")}</p>
                             <div className={styles.accountText}>
-                                <Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link>
+                                <p><Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link></p>
                             </div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} noValidate>
-                            <div className={styles.spacingGrid}>
-                                <Input placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={email} onChange={handleEmailChange} error={emailError} maxLength={100} dark />
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    text={loading ? t('auth.sending', 'Sending...') : t('auth.sendResetBtn', 'Send Reset Link')}
-                                    icon={ArrowIcon}
-                                    disabled={loading}
-                                />
+                        <>
+                            <form
+                                method="post"
+                                action="javascript:void(0);"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleSubmit(e);
+                                }}
+                                noValidate
+                            >
+                                <div className={styles.spacingGrid}>
+                                    <Input
+                                        label={t('auth.emailLabel', 'EMAIL')}
+                                        icon={EmailIcon}
+                                        placeholder={t('auth.emailPlaceholder', 'Enter your email')}
+                                        type="email"
+                                        name="email"
+                                        value={email}
+                                        onChange={handleEmailChange}
+                                        error={emailError}
+                                        maxLength={100}
+                                        autoComplete="email"
+                                    />
+                                    <Button
+                                        type="submit"
+                                        text={loading ? t('auth.sending', 'Sending...') : t('auth.sendResetBtn', 'Send Reset Link')}
+                                        icon={ArrowIcon}
+                                        disabled={loading}
+                                    />
+                                </div>
+                            </form>
+                            <div className={styles.accountText}>
+                                <p><Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link></p>
                             </div>
-                        </form>
+                        </>
                     )}
                 </div>
             </div>

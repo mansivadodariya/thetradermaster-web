@@ -1,0 +1,677 @@
+.analysisPanel {
+
+    /* Technical Score Showcase Section (Borderless, Seamless, Separation Line) */
+    .technicalScoreShowcaseCard {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 10px 0 24px;
+        margin-bottom: 0;
+        box-shadow: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        .scoreShowcaseContentGrid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 28px;
+            align-items: center;
+            margin-top: 16px;
+
+            @media (max-width: 992px) {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .speedometerColumn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .pillarsOverviewCol {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+
+            .pillarSummaryRow {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 10px;
+                padding: 12px 16px;
+                display: grid;
+                grid-template-columns: 170px 1fr auto;
+                align-items: center;
+                gap: 16px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.04);
+                    border-color: rgba(24, 201, 139, 0.25);
+                }
+
+                @media (max-width: 680px) {
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                }
+
+                .pillarMeta {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    min-width: 0;
+
+                    .pillarIconWrap {
+                        width: 26px;
+                        height: 26px;
+                        border-radius: 6px;
+                        background: rgba(255, 255, 255, 0.04);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+
+                        svg {
+                            width: 14px;
+                            height: 14px;
+                        }
+                    }
+
+                    .pillarName {
+                        color: #FFFFFF;
+                        font-size: 13px;
+                        font-weight: 700;
+                        white-space: nowrap;
+                        font-family: "Euclid-SemiBold", "Inter", sans-serif;
+                    }
+                }
+
+                .pillarTrackWrap {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    .pillarTrack {
+                        width: 100%;
+                        height: 6px;
+                        background: rgba(255, 255, 255, 0.08);
+                        border-radius: 9999px;
+                        overflow: hidden;
+
+                        .pillarFill {
+                            height: 100%;
+                            border-radius: 9999px;
+                            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                        }
+                    }
+                }
+
+                .pillarScoreWrap {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    justify-content: flex-end;
+                    flex-shrink: 0;
+
+                    .pillarScoreText {
+                        color: #FFFFFF;
+                        font-size: 13px;
+                        font-weight: 700;
+                        font-family: monospace, sans-serif;
+                        white-space: nowrap;
+
+                        .pillarMaxScore {
+                            color: rgba(255, 255, 255, 0.45);
+                            font-weight: 500;
+                        }
+                    }
+
+                    .pillarSentimentBadge {
+                        font-size: 11px;
+                        font-weight: 700;
+                        padding: 2.5px 9px;
+                        border-radius: 6px;
+                        border: 1px solid;
+                        white-space: nowrap;
+                        letter-spacing: 0.3px;
+
+                        &.trendBadge {
+                            color: #10B981;
+                            border-color: rgba(16, 185, 129, 0.3);
+                            background: rgba(16, 185, 129, 0.1);
+                        }
+
+                        &.momentumBadge {
+                            color: #C084FC;
+                            border-color: rgba(192, 132, 252, 0.3);
+                            background: rgba(192, 132, 252, 0.1);
+                        }
+
+                        &.structureBadge {
+                            color: #38BDF8;
+                            border-color: rgba(56, 189, 248, 0.3);
+                            background: rgba(56, 189, 248, 0.1);
+                        }
+                    }
+                }
+            }
+
+            .confluenceFormulaLine {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 14px;
+                background: rgba(0, 0, 0, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                margin-top: 2px;
+
+                @media (max-width: 680px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 6px;
+                }
+
+                .formulaTitle {
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    letter-spacing: 0.6px;
+                    color: rgba(255, 255, 255, 0.45);
+                    font-family: "Euclid-Bold", "Inter", sans-serif;
+                }
+
+                .formulaEquation {
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: rgba(255, 255, 255, 0.85);
+                    font-family: "Euclid-Medium", monospace, sans-serif;
+
+                    strong {
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Speedometer Gauge Styles */
+    .speedometerContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 390px;
+
+        .speedometerSvgWrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .speedometerSvg {
+                width: 100%;
+                max-width: 390px;
+                height: auto;
+                overflow: visible;
+            }
+        }
+
+        .speedometerScoreDisplay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-top: -6px;
+
+            .speedometerScoreVal {
+                font-size: 32px;
+                font-weight: 800;
+                font-family: "Euclid-Bold", sans-serif;
+                line-height: 1;
+
+                .scoreMax {
+                    font-size: 16px;
+                    color: rgba(255, 255, 255, 0.4);
+                    font-weight: 600;
+                    margin-left: 2px;
+                }
+            }
+
+            .speedometerLabelBadge {
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: 0.6px;
+                padding: 3px 12px;
+                border-radius: 20px;
+                border: 1px solid;
+            }
+        }
+
+        .speedometerConfidenceRow {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 11px;
+
+            .confLabel {
+                color: rgba(255, 255, 255, 0.4);
+                font-weight: 600;
+            }
+
+            .confValue {
+                color: #FFFFFF;
+                font-weight: 700;
+            }
+        }
+    }
+
+    /* Indicators Breakdown Grid (Trend & Momentum Side-by-Side) */
+    .indicatorsBreakdownGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+
+        @media (max-width: 960px) {
+            grid-template-columns: 1fr;
+        }
+
+        .breakdownDetailCard {
+            background: #0D0E13;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+            .cardHeaderRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+                .headerTitleGroup {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    .headerMainTitle {
+                        color: #FFFFFF;
+                        font-size: 13px;
+                        font-weight: 700;
+                        letter-spacing: 0.5px;
+                        font-family: "Euclid-Bold", sans-serif;
+                    }
+                }
+
+                .directionStatusPill {
+                    font-size: 11px;
+                    font-weight: 700;
+                    padding: 2px 10px;
+                    border-radius: 6px;
+                    border: 1px solid;
+                }
+
+                .momentumTagPill {
+                    font-size: 11px;
+                    font-weight: 600;
+                    color: #C084FC;
+                    background: rgba(192, 132, 252, 0.1);
+                    border: 1px solid rgba(192, 132, 252, 0.25);
+                    padding: 2px 8px;
+                    border-radius: 6px;
+                }
+            }
+
+            .cardContentBody {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    }
+
+    /* Evidence Showcase Card */
+    .evidenceShowcaseCard {
+        background: #0D0E13;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+        .evidenceVerifiedBadge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 3px 10px;
+            border-radius: 6px;
+
+            .verifiedDot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #10B981;
+                box-shadow: 0 0 8px #10B981;
+            }
+        }
+
+        .evidenceCardsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+
+            .evidenceSubCard {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 10px;
+                padding: 14px 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .evidenceCardHeader {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .evidenceTypeGroup {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #FFFFFF;
+
+                        svg {
+                            color: #18C98B;
+                        }
+                    }
+
+                    .evidenceActionPill {
+                        font-size: 10.5px;
+                        font-weight: 700;
+                        padding: 2px 7px;
+                        border-radius: 4px;
+                        border: 1px solid;
+                    }
+                }
+
+                .evidenceList {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .evidenceListItem {
+                        display: flex;
+                        align-items: flex-start;
+                        font-size: 12px;
+                        line-height: 1.45;
+                        color: rgba(255, 255, 255, 0.82);
+                    }
+                }
+            }
+        }
+    }
+
+    /* AI Intelligence Showcase Section (Borderless, Seamless) */
+    .aiIntelligenceShowcaseCard {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 24px 0 10px;
+        margin-bottom: 0;
+        box-shadow: none;
+
+        .aiEngineTag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #C084FC;
+            background: rgba(192, 132, 252, 0.12);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            padding: 3px 10px;
+            border-radius: 6px;
+
+            .aiPulsingDot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #C084FC;
+                box-shadow: 0 0 8px #C084FC;
+                animation: pulseGlow 2s infinite;
+            }
+        }
+
+        .aiHeadlineBanner {
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            border-left: 3px solid #18C98B;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 14px;
+            margin-bottom: 14px;
+
+            h4 {
+                font-size: 14px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0;
+                line-height: 1.45;
+                font-style: italic;
+            }
+
+            [data-theme='light'] &,
+            :global(html.light) &,
+            :global([data-theme='light']) & {
+                background: #F0FDF4;
+                border-color: #A7F3D0;
+                border-left-color: #059669;
+
+                h4 {
+                    color: #065F46;
+                }
+            }
+        }
+
+        .aiInsightsGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+
+            .aiInsightCard {
+                background: rgba(0, 0, 0, 0.4);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 8px;
+                padding: 12px 14px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                .aiInsightHeader {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+
+                    .insightDot {
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                    }
+
+                    .insightCategoryTitle {
+                        font-size: 11px;
+                        font-weight: 700;
+                        letter-spacing: 0.5px;
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+                }
+
+                .insightParagraph {
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.85);
+                    line-height: 1.5;
+                    margin: 0;
+                }
+
+                [data-theme='light'] &,
+                :global(html.light) &,
+                :global([data-theme='light']) & {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+                    .aiInsightHeader {
+                        .insightCategoryTitle {
+                            color: #475569;
+                        }
+                    }
+
+                    .insightParagraph {
+                        color: #1E293B;
+                    }
+                }
+            }
+        }
+    }
+
+    @keyframes pulseGlow {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.15);
+        }
+    }
+
+    /* ============================================================
+       UNIFIED DOMAIN STYLES: TREND, MOMENTUM & STRUCTURE WITH EVIDENCE
+       ============================================================ */
+
+    .pillarsOverviewCol {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+
+        .pillarSummaryRow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 8px 14px;
+
+            .pillarMeta {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                min-width: 140px;
+
+                .pillarIconWrap {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .pillarName {
+                    color: #FFFFFF;
+                    font-size: 13px;
+                    font-weight: 700;
+                }
+            }
+
+            .pillarTrackWrap {
+                flex: 1;
+
+                .pillarTrack {
+                    width: 100%;
+                    height: 6px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border-radius: 3px;
+                    overflow: hidden;
+
+                    .pillarFill {
+                        height: 100%;
+                        border-radius: 3px;
+                        transition: width 0.5s ease;
+                    }
+                }
+            }
+
+            .pillarScoreWrap {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 130px;
+                justify-content: flex-end;
+
+                .pillarScoreText {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: #FFFFFF;
+                    font-family: monospace;
+
+                    .pillarMaxScore {
+                        color: rgba(255, 255, 255, 0.45);
+                        font-weight: 500;
+                    }
+                }
+
+                .pillarSentimentBadge {
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    padding: 1.5px 7px;
+                    border-radius: 4px;
+                    border: 1px solid;
+                }
+            }
+        }
+
+        .confluenceFormulaLine {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 6px;
+            border-top: 1px solid rgba(24, 201, 139, 0.2);
+            font-size: 12px;
+
+            .formulaTitle {
+                color: rgba(255, 255, 255, 0.5);
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+
+            .formulaEquation {
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.85);
+            }
+        }
+    }
+
+}

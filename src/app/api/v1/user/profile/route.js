@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseAdmin } from '@/lib/supabaseClient';
 
 export const dynamic = 'force-dynamic';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -21,16 +18,12 @@ export async function OPTIONS() {
 
 export async function POST(request) {
     try {
-        if (!supabaseUrl || !serviceRoleKey) {
+        if (!supabaseAdmin) {
             return NextResponse.json(
                 { error: 'Supabase server configuration is missing.' },
                 { status: 500, headers: corsHeaders }
             );
         }
-
-        const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
-            auth: { persistSession: false }
-        });
 
         const body = await request.json();
         const { userId, first_name, last_name, phone_number } = body;

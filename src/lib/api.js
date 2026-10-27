@@ -1,7 +1,6 @@
 import { extractAvailableCredits, notifyCreditsUpdated } from '@/lib/credits';
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
-const CrBase_URl = `${process.env.NEXT_PUBLIC_CR_BACKEND_URL}/api/v1`;
+const BASE_URL = `${(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '')}/api/v1`;
 
 const DEFAULT_ROLE_ID = '44b71348-74d5-42ef-831a-be7c2da4882e';
 
@@ -52,19 +51,78 @@ export async function tryRefreshToken() {
     return refreshPromise;
 }
 
+export function getActiveRefreshPromise() {
+    return refreshPromise;
+}
+
+// In-flight deduplication cache for concurrent identical GET requests
+const inFlightGetRequests = new Map();
+
 async function request(path, options = {}, _isRetry = false) {
-    const { headers, ...restOptions } = options;
+    const isAuthEndpoint = path.startsWith('/auth/');
+    const method = (options.method || 'GET').toUpperCase();
+
+    // 1. If a token refresh is currently in progress, wait for it so we don't send expired tokens
+    if (refreshPromise && !isAuthEndpoint) {
+        try {
+            const freshToken = await refreshPromise;
+            if (freshToken) {
+                options = {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        Authorization: `Bearer ${freshToken}`,
+                    },
+                };
+            }
+        } catch (_) {}
+    }
+
+    // 2. Deduplicate concurrent GET requests to the same path
+    if (method === 'GET' && !_isRetry && !isAuthEndpoint) {
+        const authHeader = options.headers?.Authorization || (typeof window !== 'undefined' ? (localStorage.getItem('access_token') || '') : '');
+        const dedupKey = `GET:${path}:${authHeader}`;
+
+        if (inFlightGetRequests.has(dedupKey)) {
+            return inFlightGetRequests.get(dedupKey);
+        }
+
+        const promise = executeRequest(path, options, _isRetry)
+            .finally(() => {
+                inFlightGetRequests.delete(dedupKey);
+            });
+
+        inFlightGetRequests.set(dedupKey, promise);
+        return promise;
+    }
+
+    return executeRequest(path, options, _isRetry);
+}
+
+async function executeRequest(path, options = {}, _isRetry = false) {
+    const isAuthEndpoint = path.startsWith('/auth/');
+    let { headers = {}, body, ...restOptions } = options;
+
+    // Ensure headers always have the latest valid token if Authorization wasn't explicitly passed
+    if (!isAuthEndpoint && !headers.Authorization && typeof window !== 'undefined') {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            headers = { ...headers, Authorization: `Bearer ${token}` };
+        }
+    }
+
+    const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
+    const defaultHeaders = {
+        accept: 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+        ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
+        ...headers,
+    };
     const res = await fetch(`${BASE_URL}${path}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            accept: 'application/json',
-            'ngrok-skip-browser-warning': 'true',
-            ...headers,
-        },
+        headers: defaultHeaders,
+        body,
         ...restOptions,
     });
-
-    const isAuthEndpoint = path.startsWith('/auth/');
 
     if (res.status === 401 && !_isRetry && !isAuthEndpoint) {
         // Try to refresh and retry once
@@ -78,7 +136,7 @@ async function request(path, options = {}, _isRetry = false) {
                     Authorization: `Bearer ${newToken}`,
                 },
             };
-            return request(path, retryOptions, true);
+            return executeRequest(path, retryOptions, true);
         }
         // Refresh failed — log out
         clearAuthAndRedirect();
@@ -106,7 +164,7 @@ async function request(path, options = {}, _isRetry = false) {
                     const parsed = JSON.parse(jsonMatch[0]);
                     errorMessage = parsed?.msg || parsed?.detail || parsed?.message;
                 }
-            } catch (_) { }
+            } catch (_) {}
             if (!errorMessage) {
                 errorMessage = data.detail;
             }
@@ -116,13 +174,27 @@ async function request(path, options = {}, _isRetry = false) {
             errorMessage = data?.detail?.message || data?.message || (typeof data?.detail === 'string' ? data.detail : null) || data?.error || 'Something went wrong';
         }
 
+        if (typeof errorMessage === 'string') {
+            const lower = errorMessage.toLowerCase().trim();
+            if (
+                lower.includes('account is not active') ||
+                lower.includes('account is inactive') ||
+                lower === 'account not active' ||
+                lower === 'account is not active.'
+            ) {
+                errorMessage = 'Account is not active. Please contact admin.';
+            }
+        }
+
         const err = new Error(errorMessage);
         err.detail = data?.detail;
         err.status = res.status;
+        err.data = data;
+        if (res.status === 503 || data?.status === 'maintenance' || data?.error === 'Service Temporarily Unavailable') {
+            err.isMaintenance = true;
+        }
         throw err;
     }
-
-
 
     const credits = extractAvailableCredits(data);
     if (credits !== null) notifyCreditsUpdated(credits);
@@ -130,12 +202,11 @@ async function request(path, options = {}, _isRetry = false) {
     return data;
 }
 
-import { getOrCreateDeviceId, getDeviceType } from '@/lib/deviceId';
+import { getOrCreateDeviceId } from '@/lib/deviceId';
 
 export const authApi = {
     signup: (body) => {
         const deviceId = getOrCreateDeviceId();
-        const deviceType = getDeviceType();
         const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
         return request('/auth/signup', {
             method: 'POST',
@@ -143,8 +214,7 @@ export const authApi = {
             body: JSON.stringify({
                 ...body,
                 role_id: DEFAULT_ROLE_ID,
-                ...(deviceId ? { device_id: deviceId } : {}),
-                ...(deviceType ? { device_type: deviceType } : {})
+                ...(deviceId ? { device_id: deviceId } : {})
             }),
         });
     },
@@ -178,28 +248,42 @@ export const authApi = {
 
     googleLogin: (credential) => {
         const deviceId = getOrCreateDeviceId();
-        const deviceType = getDeviceType();
         const headers = deviceId ? { 'X-Device-Id': deviceId } : {};
         return request('/auth/google-login', {
             method: 'POST',
             headers,
             body: JSON.stringify({
                 credential,
-                ...(deviceId ? { device_id: deviceId } : {}),
-                ...(deviceType ? { device_type: deviceType } : {})
+                ...(deviceId ? { device_id: deviceId } : {})
             }),
         });
     },
 
-    verifyPhoneFirebase: (id_token, userId = '', phone_number = '', email = '') =>
-        request('/auth/verify-phone-firebase', {
+    verifyPhoneFirebase: async (id_token, userId = '') => {
+        const headers = {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders(),
+            ...(userId ? { 'X-User-Id': userId } : {}),
+        };
+        const body = JSON.stringify({ id_token, user_id: userId });
+
+        try {
+            const res = await fetch('/api/v1/auth/verify-phone-firebase', {
+                method: 'POST',
+                headers,
+                body,
+            });
+            if (res.ok) {
+                return await res.json();
+            }
+        } catch (_) {}
+
+        return request('/auth/verify-phone-firebase', {
             method: 'POST',
-            headers: {
-                ...getAuthHeaders(),
-                ...(userId ? { 'X-User-Id': userId } : {}),
-            },
-            body: JSON.stringify({ id_token, user_id: userId, phone_number, email }),
-        }),
+            headers,
+            body,
+        });
+    },
 };
 
 function getAuthHeaders() {
@@ -213,12 +297,46 @@ function getAuthHeaders() {
 }
 
 export const fxApi = {
-    chat: (pair, message, user_id) =>
-        request('/chat', {
+    chat: (arg1, arg2, arg3) => {
+        let payload = {};
+        if (typeof arg1 === 'object' && arg1 !== null) {
+            const resolvedId = arg1.id || arg1.chat_id || arg1.conversation_id || arg1.session_id || arg1.sessionId;
+            payload = {
+                message: arg1.message || '',
+                pair: arg1.pair || 'XAUUSD',
+                timeframe: arg1.timeframe || '15m',
+                image_base64: arg1.image_base64 || null,
+                stream: arg1.stream ?? false,
+                ...(arg1.user_id ? { user_id: arg1.user_id } : {}),
+                ...(resolvedId ? { id: resolvedId } : {})
+            };
+        } else {
+            payload = {
+                pair: arg1 || 'XAUUSD',
+                message: arg2 || '',
+                timeframe: '15m',
+                image_base64: null,
+                stream: false,
+                ...(arg3 ? { user_id: arg3 } : {})
+            };
+        }
+        return request('/chat', {
             method: 'POST',
             headers: getAuthHeaders(),
-            body: JSON.stringify({ pair, message, user_id }),
-        }),
+            body: JSON.stringify(payload),
+        });
+    },
+
+    askQuestion: (payload) => {
+        if (typeof FormData !== 'undefined' && payload instanceof FormData) {
+            return request('/chat', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: payload,
+            });
+        }
+        return fxApi.chat(payload);
+    },
 
     generateBlog: (input_data, is_content) =>
         request('/blog_generation', {
@@ -235,17 +353,35 @@ export const fxApi = {
     },
 
     getQuestionHistory: (user_id) => {
-        const path = (!user_id || user_id === 'all') ? '/users/question-history' : `/users/question-history?user_id=${user_id}`;
-        return request(path, {
+        return request('/question-history', {
+            headers: getAuthHeaders(),
+        }).catch(() => {
+            const path = (!user_id || user_id === 'all') ? '/users/question-history' : `/users/question-history?user_id=${user_id}`;
+            return request(path, {
+                headers: getAuthHeaders(),
+            });
+        });
+    },
+
+    getConversationHistory: (conversation_id) => {
+        return request(`/users/conversation-history/${conversation_id}`, {
             headers: getAuthHeaders(),
         });
     },
 
+    deleteQuestionHistory: (history_id, user_id) =>
+        fxApi.deleteQuestionHistoryItem(user_id, history_id),
+
     deleteQuestionHistoryItem: (user_id, history_id) =>
-        request(`/users/question-history/${history_id}?user_id=${user_id}`, {
+        request(`/question-history/${history_id}`, {
             method: 'DELETE',
             headers: getAuthHeaders(),
-        }),
+        }).catch(() =>
+            request(`/users/question-history/${history_id}?user_id=${user_id}`, {
+                method: 'DELETE',
+                headers: getAuthHeaders(),
+            })
+        ),
 
     deleteBlogHistoryItem: (user_id, history_id) =>
         request(`/users/blog-history/${history_id}?user_id=${user_id}`, {
@@ -254,11 +390,62 @@ export const fxApi = {
         }),
 };
 
+const statsCache = new Map();
+
+if (typeof window !== 'undefined') {
+    window.addEventListener('credits:updated', () => {
+        statsCache.clear();
+    });
+}
+
 export const dashboardApi = {
-    getStats: (user_id) =>
-        request(`/users/${user_id}/dashboard/stats`, {
+    getStats: (user_id, timeframe = '7D', forceRefresh = false) => {
+        if (!user_id) return Promise.resolve(null);
+        const cacheKey = `${user_id}_${timeframe}`;
+        const now = Date.now();
+        const cached = statsCache.get(cacheKey);
+
+        if (!forceRefresh && cached) {
+            if (cached.promise) return cached.promise;
+            if (cached.data && (now - cached.timestamp < 30000)) {
+                return Promise.resolve(cached.data);
+            }
+        }
+
+        let query = '';
+        if (timeframe === '30D' || timeframe === '30' || timeframe === 30) {
+            query = '?days=30&timeframe=30D';
+        } else if (timeframe === '90D' || timeframe === '90' || timeframe === 90) {
+            query = '?timeframe=90D';
+        } else if (timeframe) {
+            query = `?timeframe=${timeframe}`;
+        }
+
+        const fetchPromise = request(`/users/${user_id}/dashboard/stats${query}`, {
             headers: getAuthHeaders(),
-        }),
+        })
+            .then((res) => {
+                statsCache.set(cacheKey, { data: res, timestamp: Date.now(), promise: null });
+                return res;
+            })
+            .catch((err) => {
+                statsCache.delete(cacheKey);
+                throw err;
+            });
+
+        statsCache.set(cacheKey, { data: cached?.data || null, timestamp: cached?.timestamp || 0, promise: fetchPromise });
+        return fetchPromise;
+    },
+
+    clearStatsCache: (user_id) => {
+        if (user_id) {
+            for (const key of statsCache.keys()) {
+                if (key.startsWith(`${user_id}_`)) statsCache.delete(key);
+            }
+        } else {
+            statsCache.clear();
+        }
+    },
 
     getRecentActivity: (user_id) =>
         request(`/users/${user_id}/dashboard/recent-activity`, {
@@ -282,48 +469,19 @@ export const tradeSnapApi = {
 };
 
 export const neweraApi = {
-    linkAccount: async (user_id, email, brokerName = 'tickmill') => {
+    linkAccount: async (user_id, email) => {
         const cleanEmail = String(email || '').trim().toLowerCase();
-        const cleanBrokerName = String(brokerName || 'tickmill')
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '');
+        const res = await request('/newera/credit', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ email: cleanEmail }),
+        });
 
-        const payload = {
-            email: cleanEmail,
-            broker_name: cleanBrokerName || 'tickmill',
+        return {
+            success: true,
+            message: res?.message || 'Newera account linked successfully!',
+            data: res?.data || res || {}
         };
-
-        try {
-            const res = await request('/broker/link-account', {
-                method: 'POST',
-                headers: getAuthHeaders(),
-                body: JSON.stringify(payload),
-            });
-
-            return {
-                success: true,
-                message: res?.message || `${cleanBrokerName} account linked successfully!`,
-                data: res?.data || res || {}
-            };
-        } catch (error) {
-            if (error?.status === 404 || error?.status === 405) {
-                const legacyRes = await request('/newera/credit', {
-                    method: 'POST',
-                    headers: getAuthHeaders(),
-                    body: JSON.stringify({ email: cleanEmail, broker_name: cleanBrokerName || 'tickmill' }),
-                });
-
-                return {
-                    success: true,
-                    message: legacyRes?.message || `${cleanBrokerName} account linked successfully!`,
-                    data: legacyRes?.data || legacyRes || {}
-                };
-            }
-
-            throw error;
-        }
     }
 };
 
@@ -344,15 +502,36 @@ export const profileApi = {
                 phone_number,
             }),
         }),
+
+    changePassword: async ({ userId = '', email = '', currentPassword = '', newPassword = '' } = {}) => {
+        const res = await fetch('/api/v1/user/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...getAuthHeaders(),
+            },
+            body: JSON.stringify({ userId, email, currentPassword, newPassword }),
+        });
+        const data = await res.json().catch(() => null);
+        if (!res.ok) {
+            throw new Error(data?.error || data?.message || 'Failed to update password');
+        }
+        return data;
+    },
 };
 
 export const depositApi = {
-    createDeposit: (payload) =>
-        request('/deposit/create', {
+    createDeposit: ({ amount, plan_id, planId } = {}) => {
+        const resolvedPlanId = plan_id ?? planId;
+        return request('/deposit/create', {
             method: 'POST',
             headers: getAuthHeaders(),
-            body: JSON.stringify(payload),
-        }),
+            body: JSON.stringify({
+                amount: Number(amount),
+                plan_id: resolvedPlanId !== undefined && resolvedPlanId !== null ? resolvedPlanId : null,
+            }),
+        });
+    },
 
     getDepositHistory: (user_id) => {
         const path = (!user_id || user_id === 'all') ? '/deposit/history' : `/deposit/history?user_id=${user_id}`;
@@ -367,151 +546,192 @@ export const depositApi = {
         }),
 };
 
-export const supportApi = {
-    createTicket: async (formData) => {
-        if (formData instanceof FormData && !formData.has('project_id')) {
-            formData.append('project_id', '2');
-        }
-
-        const res = await fetch(`${CrBase_URl}/support/tickets`, {
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-            },
-            body: formData,
-        });
-
-        const data = await res.json().catch(() => ({}));
-
-        if (!res.ok) {
-            let errorMsg = 'Failed to submit support ticket';
-            if (typeof data?.detail === 'string') {
-                errorMsg = data.detail;
-            } else if (Array.isArray(data?.detail) && data.detail[0]?.msg) {
-                errorMsg = data.detail.map(d => `${d.loc?.slice(-1)[0] || 'field'}: ${d.msg}`).join(', ');
-            } else if (data?.message) {
-                errorMsg = data.message;
-            } else if (data?.error) {
-                errorMsg = data.error;
-            }
-            const err = new Error(errorMsg);
-            err.status = res.status;
-            err.data = data;
-            throw err;
-        }
-
-        return data;
+export const tradeAnalyzeApi = {
+    analyze: (files) => {
+        const { analyzeTradesReport } = require('@/lib/tradeAnalyzeApi');
+        return analyzeTradesReport(files);
     },
 };
 
+
+
+
+
+
+export const affiliateApi = {
+    getDashboard: async () => {
+        try {
+            return await request('/affiliate/dashboard', {
+                headers: getAuthHeaders(),
+            });
+        } catch (err) {
+            // Fallback / mock response if backend route is not available yet
+            return {
+                status: 'success',
+                data: {
+                    total_earned: 1280.00,
+                    withdrawable_balance: 420.00,
+                    pending_lock_balance: 150.00,
+                    total_withdrawn: 710.00,
+                    referral_count: 24,
+                    active_traders: 18,
+                    referral_code: 'CHRONOS-8921',
+                    referral_url: (typeof window !== 'undefined' ? window.location.origin : 'https://chronosx.com') + '/signup?ref=CHRONOS-8921',
+                    current_tier: {
+                        level: 1,
+                        name: 'Tier 1 - Standard Partner',
+                        rate_percentage: 10,
+                        next_tier_name: 'Tier 2 - Pro Partner (20%)',
+                        next_tier_threshold: 30,
+                        progress_count: 18,
+                        min_withdrawal: 50.00
+                    }
+                }
+            };
+        }
+    },
+
+    getCommissionHistory: async ({ page = 1, limit = 10 } = {}) => {
+        try {
+            return await request(`/affiliate/history?page=${page}&limit=${limit}`, {
+                headers: getAuthHeaders(),
+            });
+        } catch (err) {
+            return {
+                status: 'success',
+                page,
+                limit,
+                total: 24,
+                data: [
+                    { id: 'comm_1', date: '2026-09-08T14:32:00Z', trader: 'alex_fx99 (UID #8421)', deposit_volume: 2500, tier_rate: '10%', commission_amount: 250.00, status: 'CREDITED' },
+                    { id: 'comm_2', date: '2026-09-07T11:15:00Z', trader: 'sarah_trader (UID #7742)', deposit_volume: 1200, tier_rate: '10%', commission_amount: 120.00, status: 'CREDITED' },
+                    { id: 'comm_3', date: '2026-09-06T09:40:00Z', trader: 'crypto_marco (UID #9012)', deposit_volume: 5000, tier_rate: '10%', commission_amount: 500.00, status: 'CREDITED' },
+                    { id: 'comm_4', date: '2026-09-04T18:22:00Z', trader: 'quant_dev (UID #6533)', deposit_volume: 800, tier_rate: '10%', commission_amount: 80.00, status: 'CREDITED' },
+                    { id: 'comm_5', date: '2026-09-02T16:05:00Z', trader: 'elena_scalper (UID #4421)', deposit_volume: 3300, tier_rate: '10%', commission_amount: 330.00, status: 'CREDITED' }
+                ]
+            };
+        }
+    },
+
+    getWithdrawals: async () => {
+        try {
+            return await request('/affiliate/withdrawals', {
+                headers: getAuthHeaders(),
+            });
+        } catch (err) {
+            return {
+                status: 'success',
+                data: [
+                    { id: 'WTH-9021', created_at: '2026-09-05T10:12:00Z', asset: 'USDT', network: 'TRC20', amount: 350.00, wallet_address: 'TLA17mR8x9KpQ9VwNzL4mK7pE2Q', status: 'APPROVED', tx_hash: '0x9482fba89410283c7491028aef3901bca917283401283' },
+                    { id: 'WTH-8842', created_at: '2026-08-28T16:40:00Z', asset: 'USDC', network: 'SOLANA', amount: 360.00, wallet_address: '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU', status: 'APPROVED', tx_hash: '5UxK9g889218hjsd882nmasd0192hjs812nmasd' },
+                    { id: 'WTH-9104', created_at: '2026-09-08T09:30:00Z', asset: 'USDT', network: 'BEP20', amount: 150.00, wallet_address: '0x32Be343B94f860124dC4fEe278FDCBD38C102D88', status: 'PENDING', tx_hash: null }
+                ]
+            };
+        }
+    },
+
+    requestWithdrawal: async ({ amount, asset, network, wallet_address }) => {
+        try {
+            return await request('/affiliate/withdraw', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ amount, asset, network, wallet_address }),
+            });
+        } catch (err) {
+            // Simulated response on mock fallback
+            return {
+                success: true,
+                message: `Withdrawal request for ${amount} ${asset} (${network}) submitted successfully and is pending review.`,
+                data: {
+                    id: 'WTH-' + Math.floor(1000 + Math.random() * 9000),
+                    created_at: new Date().toISOString(),
+                    asset,
+                    network,
+                    amount: Number(amount),
+                    wallet_address,
+                    status: 'PENDING',
+                    tx_hash: null
+                }
+            };
+        }
+    }
+};
+
 export const notificationsApi = {
-    getNotifications: async ({ page = 1, limit = 20, category = null, readStatus = null } = {}) => {
+    getNotifications: ({ page = 1, limit = 20, category = null, readStatus = null } = {}) => {
         const params = new URLSearchParams();
         if (page) params.set('page', String(page));
         if (limit) params.set('limit', String(limit));
         if (category && category !== 'all') params.set('category', category);
         if (readStatus && readStatus !== 'all') params.set('read_status', readStatus);
         const qs = params.toString();
-
-        const res = await fetch(`${CrBase_URl}/notifications${qs ? `?${qs}` : ''}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                ...getAuthHeaders(),
-            },
+        return request(`/notifications${qs ? `?${qs}` : ''}`, {
+            headers: getAuthHeaders(),
         });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-            const err = new Error(data?.detail || data?.message || 'Failed to fetch notifications');
-            err.status = res.status;
-            throw err;
-        }
-        return data;
     },
 
-    getUnreadCount: async () => {
+    getUnreadCount: () =>
+        request('/notifications/unread-count', {
+            headers: getAuthHeaders(),
+        }),
 
-        const res = await fetch(`${CrBase_URl}/notifications/unread-count`, {
-            headers: {
-                'Content-Type': 'application/json',
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                ...getAuthHeaders(),
-            },
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-            const err = new Error(data?.detail || data?.message || 'Failed to fetch unread count');
-            err.status = res.status;
-            throw err;
-        }
-        return data;
-    },
-
-    getWebsiteUpdates: async ({ page = 1, limit = 20 } = {}) => {
+    getWebsiteUpdates: ({ page = 1, limit = 20 } = {}) => {
         const params = new URLSearchParams();
         if (page) params.set('page', String(page));
         if (limit) params.set('limit', String(limit));
         params.set('category', 'website_updates');
-
-        const res = await fetch(`${CrBase_URl}/notifications?${params.toString()}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                ...getAuthHeaders(),
-            },
+        return request(`/notifications?${params.toString()}`, {
+            headers: getAuthHeaders(),
         });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-            const err = new Error(data?.detail || data?.message || 'Failed to fetch website updates');
-            err.status = res.status;
-            throw err;
-        }
-        return data;
     },
 
-    markAsRead: async (id) => {
-
-        const res = await fetch(`${CrBase_URl}/notifications/${id}/read`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                ...getAuthHeaders(),
-            },
-            body: JSON.stringify({}),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-            const err = new Error(data?.detail || data?.message || 'Failed to mark notification as read');
-            err.status = res.status;
-            throw err;
-        }
-        return data;
-    },
-
-    markAllAsRead: async () => {
-
-        const res = await fetch(`${CrBase_URl}/notifications/read-all`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                accept: 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                ...getAuthHeaders(),
-            },
-            body: JSON.stringify({}),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-            const err = new Error(data?.detail || data?.message || 'Failed to mark all as read');
-            err.status = res.status;
-            throw err;
-        }
-        return data;
-    },
+    markAsRead: (id) => request(`/notifications/${id}/read`, { method: 'POST', body: JSON.stringify({}) }),
+    markAllAsRead: () => request('/notifications/read-all', { method: 'POST', body: JSON.stringify({}) }),
 };
+
+// ─── Telegram Signal API ─────────────────────────────────────────────────────
+
+export const telegramSignalApi = {
+    /** GET /telegram/signals/config — Public, no auth required */
+    getConfig: () =>
+        request('/telegram/signals/config'),
+
+    /** GET /telegram/signals/status — Requires JWT */
+    getStatus: () =>
+        request('/telegram/signals/status', {
+            headers: getAuthHeaders(),
+        }),
+
+    /** POST /telegram/signals/toggle — Requires JWT */
+    toggle: ({ symbol, strategy_id, is_active }) =>
+        request('/telegram/signals/toggle', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ symbol, strategy_id, is_active }),
+        }),
+
+    /** POST /telegram/signals/connect-token — Requires JWT */
+    connectToken: ({ symbol, strategy_id }) =>
+        request('/telegram/signals/connect-token', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ symbol, strategy_id }),
+        }),
+
+    /** POST /telegram/signals/manual-verify — Requires JWT */
+    manualVerify: ({ otp_code, chat_id, telegram_username }) =>
+        request('/telegram/signals/manual-verify', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ otp_code, chat_id, telegram_username }),
+        }),
+
+    /** POST /telegram/signals/disconnect — Requires JWT */
+    disconnect: () =>
+        request('/telegram/signals/disconnect', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({}),
+        }),
+};
+

@@ -1,0 +1,233 @@
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: rgba(15, 23, 42, 0.45);
+    }
+}
+
+.modalContent {
+    background: #0D0E13;
+    border: 1px solid rgba(24, 201, 139, 0.4);
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-sizing: border-box;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        box-shadow: 0 16px 48px rgba(15, 23, 42, 0.12);
+        color: #0F172A;
+    }
+
+    @include respond-to('sm') {
+        padding: 20px 16px;
+        border-radius: 14px;
+    }
+
+    .modalHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            margin: 0;
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            [data-theme='light'] & {
+                color: #0F172A;
+            }
+        }
+
+        .closeBtn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #FFFFFF;
+            }
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            [data-theme='light'] & {
+                color: #64748B;
+
+                &:hover {
+                    color: #0F172A;
+                }
+            }
+        }
+    }
+
+    .modalBody {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin: 8px 0 16px;
+
+            [data-theme='light'] & {
+                color: #475569;
+            }
+        }
+    }
+
+    .modalFooter {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 10px;
+
+        .cancelFormBtn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #FFFFFF;
+            height: 44px;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 9999px;
+            cursor: pointer;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+
+            &:hover:not(:disabled) {
+                background: rgba(255, 255, 255, 0.14);
+                border-color: rgba(255, 255, 255, 0.35);
+                color: #FFFFFF;
+                transform: translateY(-1px);
+            }
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            [data-theme='light'] & {
+                background: #F1F5F9;
+                border: 1px solid #CBD5E1;
+                color: #0F172A;
+
+                &:hover:not(:disabled) {
+                    background: #E2E8F0;
+                    color: #0F172A;
+                }
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+
+        .submitModalBtn {
+            background: #18C98B;
+            border: 1px solid #18C98B;
+            color: #040605;
+            height: 44px;
+            padding: 0 26px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-radius: 9999px;
+            cursor: pointer;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+
+            &:hover:not(:disabled) {
+                background: #15B77E;
+                border-color: #15B77E;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 22px rgba(24, 201, 139, 0.5);
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        .confirmLogoutBtn {
+            background: #EF4444;
+            border: 1px solid #EF4444;
+            color: #FFFFFF;
+            height: 44px;
+            padding: 0 26px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            border-radius: 9999px;
+            cursor: pointer;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+
+            &:hover:not(:disabled) {
+                background: #DC2626;
+                border-color: #DC2626;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+            }
+        }
+
+        @include respond-to('sm') {
+            flex-direction: column-reverse;
+            width: 100%;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
+

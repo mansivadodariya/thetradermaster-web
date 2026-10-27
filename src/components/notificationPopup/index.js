@@ -12,6 +12,7 @@ import {
     getNotificationRedirectUrl
 } from '@/services/notificationService';
 import { getStoredUserId } from '@/lib/authSession';
+import { useTabPermission } from '@/lib/useTabPermission';
 import styles from './notificationPopup.module.scss';
 
 function getDismissedGuestUpdates() {
@@ -48,6 +49,7 @@ function formatCategory(raw) {
 }
 
 export default function NotificationPopup({ userId: propUserId, onOpenFullModal }) {
+    const hasNotificationsPermission = useTabPermission('notifications');
     const pathname = usePathname();
     const router = useRouter();
     const { language } = useLanguage();
@@ -79,6 +81,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
     }, [propUserId]);
 
     const loadUnreadPopups = useCallback(async () => {
+        if (!hasNotificationsPermission) return;
         if (isAuthRoute) return;
         if (typeof window !== 'undefined' && sessionStorage.getItem('chronosx_popup_dismissed') === 'true') {
             return;
@@ -115,19 +118,26 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
         } catch (err) {
             console.warn('Failed to load popup notifications:', err);
         }
-    }, [activeUserId, isAuthRoute]);
+    }, [activeUserId, isAuthRoute, hasNotificationsPermission]);
 
     useEffect(() => {
+        if (!hasNotificationsPermission) {
+            setIsVisible(false);
+            setUnreadQueue([]);
+            return;
+        }
         loadUnreadPopups();
-    }, [loadUnreadPopups]);
+    }, [hasNotificationsPermission, loadUnreadPopups]);
 
     useEffect(() => {
         const onNotifSync = () => {
-            loadUnreadPopups();
+            if (hasNotificationsPermission) {
+                loadUnreadPopups();
+            }
         };
         window.addEventListener('notification:updated', onNotifSync);
         return () => window.removeEventListener('notification:updated', onNotifSync);
-    }, [loadUnreadPopups]);
+    }, [hasNotificationsPermission, loadUnreadPopups]);
 
     const currentItem = unreadQueue[currentIndex];
     const isActuallyShowing = Boolean(isVisible && !isSlidingOut && currentItem);
@@ -251,7 +261,7 @@ export default function NotificationPopup({ userId: propUserId, onOpenFullModal 
         }
     };
 
-    if (isAuthRoute || !isVisible || !currentItem) return null;
+    if (!hasNotificationsPermission || isAuthRoute || !isVisible || !currentItem) return null;
 
     const remainingCount = unreadQueue.length - currentIndex;
 

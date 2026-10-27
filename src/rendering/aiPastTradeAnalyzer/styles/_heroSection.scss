@@ -1,0 +1,510 @@
+/* 1. BRAND NEW HERO BANNER UI: Futuristic AI Command Cockpit */
+.heroSection {
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    overflow: hidden;
+}
+
+.heroHeaderArea {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0 40px 0;
+    overflow: hidden;
+
+    @include respond-to('md') {
+        min-height: auto;
+        padding: 90px 0 30px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 85px 0 25px 0;
+    }
+
+    .scrollBgWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .ambientGlowTop {
+        position: absolute;
+        top: -160px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 900px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.32) 0%, rgba(24, 201, 139, 0.12) 45%, rgba(4, 6, 5, 0) 75%);
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 1;
+        transition: all 0.5s ease;
+    }
+
+    .ambientGlowCenter {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1050px;
+        height: 650px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(24, 201, 139, 0.22) 0%, rgba(24, 201, 139, 0.08) 50%, rgba(4, 6, 5, 0) 80%);
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: 1;
+        transition: all 0.5s ease;
+    }
+
+    .interactiveSpotlight {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.04) 50%, rgba(4, 6, 5, 0) 75%);
+        filter: blur(35px);
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.35s ease;
+    }
+
+    .gridOverlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(ellipse at 50% 35%, #000 60%, transparent 90%);
+        -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 60%, transparent 90%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .greenSpotlightGrid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(24, 201, 139, 0.45) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(24, 201, 139, 0.45) 1px, transparent 1px);
+        background-size: 64px 64px;
+        filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.6));
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.3s ease;
+    }
+
+    .radialVignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, transparent 60%, #040605 100%);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .sideRaysWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+
+        @include respond-to("sm") {
+            display: none;
+        }
+    }
+
+    .mobileTechAtmosphere {
+        display: none;
+
+        @include respond-to("sm") {
+            display: block;
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .mobileQuantumHalo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.12) 42%, rgba(4, 6, 5, 0) 72%);
+            filter: blur(45px);
+            animation: mobileHaloBreathing 4.5s ease-in-out infinite alternate;
+        }
+
+        .mobileLaserScan {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.7) 50%, transparent 100%);
+            box-shadow: 0 0 12px rgba(24, 201, 139, 0.85);
+            animation: mobileLaserScan 6s ease-in-out infinite;
+        }
+
+        .mobileConstellation {
+            position: absolute;
+            inset: 0;
+
+            .particleDot {
+                position: absolute;
+                border-radius: 50%;
+                background: #6EE7B7;
+                box-shadow: 0 0 8px rgba(24, 201, 139, 0.9);
+
+                &.pDot1 {
+                    top: 14%;
+                    left: 12%;
+                    width: 3px;
+                    height: 3px;
+                    animation: floatParticle 5s ease-in-out infinite;
+                }
+
+                &.pDot2 {
+                    top: 26%;
+                    right: 14%;
+                    width: 4px;
+                    height: 4px;
+                    animation: floatParticle 6.5s ease-in-out 1s infinite alternate;
+                }
+
+                &.pDot3 {
+                    top: 40%;
+                    left: 8%;
+                    width: 3.5px;
+                    height: 3.5px;
+                    animation: floatParticle 4.8s ease-in-out 0.5s infinite alternate;
+                }
+
+                &.pDot4 {
+                    top: 58%;
+                    right: 10%;
+                    width: 3px;
+                    height: 3px;
+                    animation: floatParticle 7s ease-in-out 2s infinite;
+                }
+
+                &.pDot5 {
+                    top: 72%;
+                    left: 18%;
+                    width: 4px;
+                    height: 4px;
+                    animation: floatParticle 5.5s ease-in-out 1.5s infinite alternate;
+                }
+            }
+        }
+    }
+}
+
+@keyframes mobileHaloBreathing {
+    0% {
+        transform: translateX(-50%) scale(0.85);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes mobileLaserScan {
+    0% {
+        top: 5%;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.85;
+    }
+
+    85% {
+        opacity: 0.85;
+    }
+
+    100% {
+        top: 90%;
+        opacity: 0;
+    }
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(-16px) scale(1.3);
+        opacity: 0.95;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+    }
+}
+
+.heroCenterWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1140px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+}
+
+/* 1.1 Status Pill */
+.statusPillRow {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 18px;
+    border-radius: 999px;
+    background: rgba(12, 18, 15, 0.85);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(24, 201, 139, 0.1);
+    backdrop-filter: blur(14px);
+
+    @include respond-to('sm') {
+        padding: 6px 12px;
+        gap: 6px;
+    }
+}
+
+.pulseDot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    flex-shrink: 0;
+
+    .pulseRing {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 1.5px solid #10B981;
+        animation: pulseRingAnim 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+}
+
+@keyframes pulseRingAnim {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}
+
+.pillTag {
+    color: #18C98B;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.pillDivider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 11px;
+}
+
+.pillText {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    font-weight: 500;
+
+    @include respond-to('sm') {
+        font-size: 11px;
+    }
+}
+
+.pillBadge {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10B981;
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-size: 9.5px;
+    font-weight: 700;
+
+    @include respond-to('sm') {
+        display: none;
+    }
+}
+
+/* 1.2 Headline */
+.heroMainTitle {
+    color: #FFFFFF;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    font-family: var(--font-syne), var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 16px;
+
+    @include respond-to('lg') {
+        font-size: 52px;
+        letter-spacing: -1.5px;
+    }
+
+    @include respond-to('tab') {
+        font-size: 40px;
+        letter-spacing: -1px;
+    }
+
+    @include respond-to('sm') {
+        font-size: 30px;
+        line-height: 1.15;
+    }
+}
+
+.goldGradient {
+    color: #18C98B;
+    background: none;
+    -webkit-text-fill-color: initial;
+    display: inline-block;
+}
+
+/* 1.3 Subtitle */
+.heroTagline {
+    color: #18C98B;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.2px;
+
+    @include respond-to('sm') {
+        font-size: 16px;
+    }
+}
+
+/* 1.4 Description */
+.heroDesc {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 780px;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+/* 1.5 CTA Buttons */
+.heroCtaGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 48px;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        margin-bottom: 34px;
+    }
+}
+
+.heroPrimaryBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #18C98B;
+    color: #040605;
+    border: 1px solid #18C98B;
+    border-radius: 9999px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+
+    span {
+        font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+        font-weight: 800;
+    }
+
+    &:hover {
+        background: #15b77e;
+        border-color: #15b77e;
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
+        transform: translateY(-2px);
+    }
+
+    @include respond-to('sm') {
+        width: 100%;
+        justify-content: center;
+        border-radius: 9999px;
+    }
+}
+
+.heroSecondaryBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 9999px;
+    padding: 16px 28px;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    span {
+        font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+        font-weight: 800;
+    }
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
+    }
+
+    @include respond-to('sm') {
+        width: 100%;
+        border-radius: 9999px;
+    }
+}

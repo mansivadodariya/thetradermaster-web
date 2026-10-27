@@ -1,0 +1,522 @@
+@use '../../scss/main.scss' as *;
+
+.widgetCard {
+    display: flex;
+    flex-direction: column;
+    padding: 11px 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 52%, #087F55 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+    &:hover {
+        background: linear-gradient(135deg, #1FD896 0%, #11AB77 52%, #0A8B5D 100%);
+        border-color: rgba(255, 255, 255, 0.38);
+        box-shadow: 0 6px 22px rgba(16, 185, 129, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+        transform: translateY(-1px);
+
+        .arrowBtn {
+            transform: translateX(2px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+    }
+}
+
+.headerRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+}
+
+.identityGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+}
+
+.iconBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    position: relative;
+    flex-shrink: 0;
+
+    svg {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+.pulseDot {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid #087F55;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    animation: pulseDotAnim 2s infinite ease-in-out;
+}
+
+@keyframes pulseDotAnim {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 0.6;
+    }
+}
+
+.nameBlock {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.planName {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.metaActionGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.daysBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    color: #FFFFFF;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2.5px 7.5px;
+    border-radius: 6px;
+    white-space: nowrap;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.arrowBtn {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #064E3B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+
+    svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Progress Bar */
+.progressTrack {
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 8px 0 6px 0;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #FFFFFF 0%, #D1FAE5 100%);
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Bottom Row */
+.footerRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.statusText {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #FFFFFF;
+    background: transparent;
+    background-color: transparent;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.greenDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    display: inline-block;
+}
+
+.cycleText {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Fallback Inactive Card */
+.fallbackCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 52%, #087F55 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+    &:hover {
+        background: linear-gradient(135deg, #1FD896 0%, #11AB77 52%, #0A8B5D 100%);
+        border-color: rgba(255, 255, 255, 0.38);
+        box-shadow: 0 6px 22px rgba(16, 185, 129, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+        transform: translateY(-1px);
+
+        .arrowBtn {
+            transform: translateX(2px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .fallbackIconBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        color: #FFFFFF;
+        flex-shrink: 0;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .fallbackText {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        line-height: 1.25;
+
+        .fallbackSub {
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+        }
+
+        .fallbackMain {
+            font-size: 14px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    .arrowBtn {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: #FFFFFF;
+        color: #064E3B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+
+        svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
+}
+
+/* Collapsed Icon-Only Mode */
+.compactBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .compactBtn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 100%);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: #FFFFFF;
+        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.55);
+            background: linear-gradient(135deg, #1FD896 0%, #11AB77 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+
+            .tooltip {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(0);
+            }
+        }
+
+        .compactPulseDot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 1px solid #087F55;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+            animation: pulseDotAnim 2s infinite ease-in-out;
+        }
+
+        .tooltip {
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%) translateX(-4px);
+            background: #040D09;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+    }
+}
+
+/* ========================================================================= */
+/* LIGHT THEME (html.light / [data-theme='light'])                           */
+/* ========================================================================= */
+:global(html.light) .widgetCard,
+:global([data-theme='light']) .widgetCard {
+    background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 52%, #087F55 100%);
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+
+    &:hover {
+        background: linear-gradient(135deg, #1FD896 0%, #11AB77 52%, #0A8B5D 100%);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 6px 22px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+
+    *,
+    span,
+    div,
+    p {
+        color: #FFFFFF;
+    }
+
+    .planName {
+        color: #FFFFFF;
+    }
+
+    .iconBadge {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        color: #FFFFFF;
+    }
+
+    .pulseDot {
+        background: #FFFFFF;
+        border: 1.5px solid #087F55;
+    }
+
+    .daysBadge {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #FFFFFF;
+        -webkit-text-fill-color: #FFFFFF;
+    }
+
+    .arrowBtn {
+        background: #FFFFFF;
+        color: #064E3B;
+
+        svg {
+            color: #064E3B;
+            stroke: #064E3B;
+        }
+    }
+
+    .progressTrack {
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progressFill {
+        background: linear-gradient(90deg, #FFFFFF 0%, #D1FAE5 100%);
+    }
+
+    .footerRow {
+        background: transparent;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        color: #FFFFFF;
+    }
+
+    .statusText {
+        background: transparent;
+        background-color: transparent;
+        color: #FFFFFF;
+        -webkit-text-fill-color: #FFFFFF;
+    }
+
+    .greenDot {
+        background: #FFFFFF;
+    }
+
+    .cycleText {
+        background: transparent;
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.88);
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.88);
+    }
+}
+
+:global(html.light) .fallbackCard,
+:global([data-theme='light']) .fallbackCard {
+    background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 52%, #087F55 100%);
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+
+    *,
+    span,
+    div {
+        color: #FFFFFF;
+    }
+
+    &:hover {
+        background: linear-gradient(135deg, #1FD896 0%, #11AB77 52%, #0A8B5D 100%);
+        box-shadow: 0 6px 22px rgba(16, 185, 129, 0.4);
+    }
+
+    .fallbackIconBox {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        color: #FFFFFF;
+    }
+
+    .fallbackSub {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .fallbackMain {
+        color: #FFFFFF;
+    }
+
+    .arrowBtn {
+        background: #FFFFFF;
+        color: #064E3B;
+    }
+}
+
+:global(html.light) .compactBtn,
+:global([data-theme='light']) .compactBtn {
+    background: linear-gradient(135deg, #18C98B 0%, #0F9F6E 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+}

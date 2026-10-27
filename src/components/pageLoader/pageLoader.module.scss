@@ -1,0 +1,280 @@
+@use '../../scss/main.scss' as *;
+
+.navigationOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(3, 7, 5, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: all;
+    user-select: none;
+    padding: 20px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: rgba(248, 250, 252, 0.82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+}
+
+.loaderContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    background: transparent;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* ── High-Tech Orbital Spinner Core ── */
+.emblemOrbitalWrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outerGlowRing {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2.5px solid transparent;
+    border-top-color: #18C98B;
+    border-bottom-color: rgba(24, 201, 139, 0.3);
+    animation: spinClockwise 1.1s linear infinite;
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.4);
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        border-top-color: #059669;
+        border-bottom-color: rgba(5, 150, 105, 0.25);
+        box-shadow: 0 0 16px rgba(5, 150, 105, 0.25);
+    }
+}
+
+.innerGlowRing {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-right-color: #00F2FE;
+    border-left-color: rgba(0, 242, 254, 0.25);
+    animation: spinCounterClockwise 0.85s linear infinite;
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        border-right-color: #0284C7;
+        border-left-color: rgba(2, 132, 199, 0.25);
+        box-shadow: 0 0 12px rgba(2, 132, 199, 0.25);
+    }
+}
+
+.centerEmblemCore {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    border-radius: 50%;
+    background: rgba(24, 201, 139, 0.14);
+    color: #18C98B;
+    animation: corePulse 1.6s ease-in-out infinite alternate;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    svg {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        display: block;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.8));
+    }
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: rgba(5, 150, 105, 0.12);
+        color: #059669;
+
+        svg {
+            filter: drop-shadow(0 0 6px rgba(5, 150, 105, 0.4));
+        }
+    }
+}
+
+
+@keyframes spinClockwise {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinCounterClockwise {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes corePulse {
+    0% {
+        transform: scale(0.88);
+        box-shadow: 0 0 6px rgba(24, 201, 139, 0.2);
+    }
+    100% {
+        transform: scale(1.08);
+        box-shadow: 0 0 18px rgba(24, 201, 139, 0.6);
+    }
+}
+
+/* ── Typography & Status Badges ── */
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #18C98B;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: rgba(5, 150, 105, 0.1);
+        border-color: rgba(5, 150, 105, 0.25);
+        color: #059669;
+    }
+}
+
+.livePulseDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #18C98B;
+    box-shadow: 0 0 8px #18C98B;
+    animation: pulseDot 1.4s ease-in-out infinite;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #059669;
+    }
+}
+
+@keyframes pulseDot {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.loaderTitle {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #0F172A;
+    }
+}
+
+.loaderSub {
+    margin: 0;
+    font-size: 11.5px;
+    color: #94A3B8;
+    line-height: 1.4;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        color: #64748B;
+    }
+}
+
+/* ── Linear Progress Track ── */
+.progressTrack {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: rgba(0, 0, 0, 0.08);
+    }
+}
+
+.progressLaser {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, #18C98B 50%, #00F2FE 80%, transparent);
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.8);
+    animation: laserScan 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+    :global(html.light) &,
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: linear-gradient(90deg, transparent, #059669 50%, #0284C7 80%, transparent);
+        box-shadow: 0 0 10px rgba(5, 150, 105, 0.6);
+    }
+}
+
+@keyframes laserScan {
+    0% {
+        left: -40%;
+    }
+    100% {
+        left: 100%;
+    }
+}

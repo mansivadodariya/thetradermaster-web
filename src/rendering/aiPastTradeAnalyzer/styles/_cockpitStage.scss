@@ -1,0 +1,442 @@
+/* 1.6 CENTERPIECE COCKPIT STAGE */
+.perspectiveWrapper {
+    perspective: 2000px;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.cockpitStage {
+    position: relative;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto 50px auto;
+}
+
+.cockpitFrame {
+    position: relative;
+    background: linear-gradient(165deg, rgba(20, 16, 11, 0.96) 0%, rgba(8, 7, 5, 0.98) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.45);
+    border-radius: 24px;
+    padding: 24px 28px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(24, 201, 139, 0.25);
+    backdrop-filter: blur(24px);
+    overflow: hidden;
+
+    @include respond-to('sm') {
+        padding: 18px 14px;
+        border-radius: 18px;
+    }
+}
+
+.cockpitTopGlow {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.85) 50%, transparent 100%);
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.7);
+    pointer-events: none;
+}
+
+.cockpitNavHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-wrap: wrap;
+    gap: 12px;
+
+    @include respond-to('md') {
+        justify-content: center;
+    }
+}
+
+.cockpitBrand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .cockpitDotGreen {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10B981;
+        box-shadow: 0 0 8px #10B981;
+    }
+
+    .cockpitTitleText {
+        color: #18C98B;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+    }
+}
+
+.cockpitPresetTabs {
+    display: flex;
+    gap: 8px;
+}
+
+.tabBtn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        color: #18C98B;
+    }
+
+    &.tabBtnActive {
+        background: #18C98B;
+        color: #040300;
+        border-color: #18C98B;
+        box-shadow: 0 0 12px rgba(24, 201, 139, 0.4);
+    }
+}
+
+.cockpitTelemetryBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    strong {
+        color: #18C98B;
+    }
+
+    .telemetryDivider {
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    @include respond-to('sm') {
+        display: none;
+    }
+}
+
+/* Cockpit 3-Column Body */
+.cockpitBodyGrid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.3fr 1.15fr;
+    gap: 20px;
+    align-items: center;
+
+    @include respond-to('lg') {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+/* Col 1: Left Telemetry Cards */
+.telemetryColLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.telemetryCard {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-align: left;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.45);
+        background: rgba(14, 11, 8, 0.7);
+    }
+}
+
+.telemetryLabel {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.lossBig {
+    font-size: 20px;
+    font-weight: 900;
+    color: #EF4444;
+    letter-spacing: 0.5px;
+}
+
+.winBig {
+    font-size: 20px;
+    font-weight: 900;
+    color: #10B981;
+    letter-spacing: 0.5px;
+}
+
+.lossPct {
+    font-size: 12px;
+    color: rgba(239, 68, 68, 0.85);
+    font-weight: 700;
+}
+
+.scoreRow {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.scoreBig {
+    font-size: 26px;
+    font-weight: 900;
+    color: #18C98B;
+}
+
+.scoreMax {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.scoreStatusPill {
+    font-size: 10px;
+    font-weight: 800;
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.12);
+    padding: 2px 7px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.rrVal {
+    font-size: 18px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+/* Col 2: Center Holographic Scanner */
+.hologramCenterCol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include respond-to('lg') {
+        grid-column: span 2;
+    }
+
+    @include respond-to('md') {
+        grid-column: span 1;
+    }
+}
+
+.hologramVisualWrap {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
+
+    .brainImg {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+}
+
+.hologramVignette {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background: linear-gradient(180deg, transparent 0%, rgba(4, 3, 0, 0.9) 100%);
+    pointer-events: none;
+}
+
+.hologramLaser {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.8) 50%, transparent 100%);
+    box-shadow: 0 0 12px rgba(24, 201, 139, 0.9);
+    animation: laserScanAnim 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Callout Pins */
+.pinWrongEntry {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    background: rgba(239, 68, 68, 0.92);
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+
+    .pinDotRed {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #FFFFFF;
+    }
+}
+
+.pinBetterEntry {
+    position: absolute;
+    bottom: 20px;
+    right: 12px;
+    background: rgba(16, 185, 129, 0.92);
+    color: #040300;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+
+    .pinDotGreen {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #040605;
+    }
+}
+
+/* Col 3: Right Diagnostic Findings */
+.diagnosticColRight {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+
+    @include respond-to('lg') {
+        grid-column: span 2;
+    }
+
+    @include respond-to('md') {
+        grid-column: span 1;
+    }
+}
+
+.diagHeader {
+    .diagBadge {
+        font-size: 10px;
+        font-weight: 800;
+        color: #18C98B;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+}
+
+.verdictText {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    line-height: 1.45;
+    font-style: italic;
+    margin: 0;
+    border-left: 2px solid #18C98B;
+    padding-left: 10px;
+}
+
+.mistakeHighlightBox {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 12px 14px;
+
+    .boxTitleRow {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 4px;
+
+        .boxDotRed {
+            color: #EF4444;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        h5 {
+            color: #EF4444;
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin: 0;
+        }
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0;
+    }
+}
+
+.improveHighlightBox {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 12px;
+    padding: 12px 14px;
+
+    .boxTitleRow {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 4px;
+
+        .boxDotGreen {
+            color: #10B981;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        h5 {
+            color: #10B981;
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin: 0;
+        }
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0;
+    }
+}

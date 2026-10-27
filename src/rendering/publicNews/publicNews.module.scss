@@ -1,0 +1,49 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+.publicNewsWrapper {
+    padding: 130px 24px 80px;
+    min-height: 85vh;
+    background: #040605;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
+    }
+
+    @include respond-to('md') {
+        padding: 110px 16px 60px;
+    }
+
+    @include respond-to('sm') {
+        padding: 95px 12px 40px;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        max-width: 1340px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
+    }
+}

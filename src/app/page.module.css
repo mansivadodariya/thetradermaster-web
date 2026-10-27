@@ -129,7 +129,7 @@ a.secondary {
   }
 
   .page {
-    --background: #000;
+    --background: #040605;
     --foreground: #000;
 
     --text-primary: #ededed;
@@ -139,4 +139,12 @@ a.secondary {
     --button-secondary-hover: #1a1a1a;
     --button-secondary-border: #1a1a1a;
   }
+}
+
+.code {
+  font-family: var(--font-geist-mono);
+  font-size: 0.9em;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
 }

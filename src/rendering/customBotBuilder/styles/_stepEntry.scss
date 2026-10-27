@@ -1,0 +1,315 @@
+/* Step Entry Rules */
+.triggerSwitchRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 6px;
+}
+
+.triggerLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.triggerButtonGroup {
+    display: inline-flex;
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 3px;
+    gap: 3px;
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+    }
+}
+
+.triggerBtn {
+    background: transparent;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    :global(html.light) & {
+        color: #64748B;
+    }
+}
+
+.triggerBtnActive {
+    background: #18C98B;
+    color: #040605;
+    font-weight: 700;
+    box-shadow: 0 0 12px rgba(24, 201, 139, 0.35);
+}
+
+.conditionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.conditionCard {
+    background: #0C100E;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.35);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.conditionCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 18px;
+
+    :global(html.light) & {
+        border-bottom-color: #E2E8F0;
+    }
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.dragHandle {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 16px;
+    cursor: grab;
+    user-select: none;
+}
+
+.condIndex {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: rgba(24, 201, 139, 0.15);
+    color: #18C98B;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.condHeaderTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.condHeaderCondition {
+    font-size: 12.5px;
+    color: #94A3B8;
+}
+
+.deleteCondBtn {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #F87171;
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(239, 68, 68, 0.25);
+        color: #FFFFFF;
+    }
+}
+
+.paramGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    :global(html.light) & {
+        border-top-color: #F1F5F9;
+    }
+}
+
+.paramItem {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.paramLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94A3B8;
+}
+
+.paramInput {
+    background: #141816;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px 14px;
+    color: #FFFFFF;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+
+    &.inputError {
+        border-color: #EF4444;
+        background: rgba(239, 68, 68, 0.06);
+        box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.3);
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #CBD5E1;
+        border-radius: 12px;
+        color: #0F172A;
+
+        &:focus {
+            border-color: #18C98B;
+        }
+
+        &.inputError {
+            border-color: #EF4444;
+            background: #FEF2F2;
+        }
+    }
+}
+
+.conditionErrorMsg {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #F87171;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    svg {
+        flex-shrink: 0;
+        color: #EF4444;
+    }
+
+    :global(html.light) & {
+        background: #FEF2F2;
+        border-color: #FCA5A5;
+        color: #DC2626;
+    }
+}
+
+.addConditionBtn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.06);
+    border: 1px dashed rgba(24, 201, 139, 0.4);
+    color: #18C98B;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.14);
+        border-color: #18C98B;
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.2);
+    }
+}
+
+.plusIcon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.emptyConditionsCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    background: #0C100E;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    margin-bottom: 8px;
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #CBD5E1;
+    }
+}
+
+.emptyIconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(24, 201, 139, 0.1);
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.emptyTextWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    h5 {
+        margin: 0;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #FFFFFF;
+
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+
+    p {
+        margin: 0;
+        font-size: 13px;
+        color: #94A3B8;
+        line-height: 1.4;
+
+        :global(html.light) & {
+            color: #64748B;
+        }
+    }
+}

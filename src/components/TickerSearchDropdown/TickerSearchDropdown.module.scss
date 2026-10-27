@@ -1,0 +1,234 @@
+.tickerSearchDropdownMenu {
+  position: absolute;
+  left: 0;
+  width: 320px;
+  max-width: 90vw;
+  background: #040605;
+  border: 1px solid rgba(24, 201, 139, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+  z-index: 300;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(12px);
+  overscroll-behavior: contain;
+
+  :global([dir="rtl"]) & {
+    left: auto;
+    right: 0;
+  }
+
+  &.positionBottom {
+    top: calc(100% + 6px);
+  }
+
+  &.positionTop {
+    bottom: calc(100% + 8px);
+    top: auto;
+  }
+
+  &.lightTheme {
+    background: #FFFFFF;
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+
+    .tickerSearchInput {
+      background: #F8FAFC;
+      border-color: rgba(15, 23, 42, 0.15);
+      color: #0F172A;
+
+      &::placeholder {
+        color: #94A3B8;
+      }
+
+      &:focus {
+        border-color: #18C98B;
+        background: #FFFFFF;
+      }
+    }
+
+    .searchIcon {
+      color: #047857;
+    }
+
+    .categoryTabBtn {
+      color: #475569;
+
+      &:hover {
+        color: #047857;
+        background: rgba(24, 201, 139, 0.12);
+      }
+
+      &.activeTab {
+        background: #18C98B;
+        color: #ffffff;
+      }
+    }
+
+    .tickerMenuItem {
+      color: #0F172A;
+
+      &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        color: #047857;
+      }
+
+      &.activeTickerItem {
+        background: rgba(24, 201, 139, 0.18);
+        color: #047857;
+      }
+    }
+
+    .tickerSymbolTitle {
+      color: #0F172A;
+    }
+
+    .tickerCheckmark {
+      color: #047857;
+    }
+
+    .noSymbolsFound {
+      color: #64748B;
+    }
+  }
+}
+
+.searchBoxArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  color: rgba(24, 201, 139, 0.7);
+  pointer-events: none;
+}
+
+.tickerSearchInput {
+  width: 100%;
+  height: 36px;
+  background: #040605;
+  border: 1px solid rgba(24, 201, 139, 0.3);
+  border-radius: 8px;
+  padding: 0 10px 0 32px;
+  color: #ffffff;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: #18C98B;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.2);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.categoryTabsBar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.categoryTabBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.15);
+  }
+
+  &.activeTab {
+    background: #18C98B;
+    color: #000000;
+  }
+}
+
+.tickerListScrollArea {
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(24, 201, 139, 0.4);
+    border-radius: 4px;
+  }
+}
+
+.tickerMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: rgba(24, 201, 139, 0.15);
+    color: #18C98B;
+  }
+
+  &.activeTickerItem {
+    background: rgba(24, 201, 139, 0.25);
+    color: #18C98B;
+  }
+}
+
+.symbolItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tickerSymbolTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tickerCheckmark {
+  color: #18C98B;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.noSymbolsFound {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}

@@ -1,0 +1,472 @@
+.datePickerContainer {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    font-family: inherit;
+}
+
+.datePickerTrigger {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 36px;
+    padding: 0 12px;
+    background: rgba(14, 26, 20, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background: rgba(18, 34, 26, 0.7);
+        border-color: rgba(24, 201, 139, 0.45);
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.15);
+    }
+
+    &.open {
+        background: rgba(18, 34, 26, 0.85);
+        border-color: rgba(24, 201, 139, 0.65);
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    :global(html.light) & {
+        background: rgba(241, 245, 249, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        color: #0F172A;
+
+        &:hover {
+            background: #FFFFFF;
+            border-color: #059669;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        &.open {
+            background: #FFFFFF;
+            border-color: #059669;
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+        }
+    }
+}
+
+.datePickerValue {
+    font-family: inherit;
+    letter-spacing: 0.02em;
+}
+
+.datePickerPlaceholder {
+    color: #64748B;
+    font-weight: 500;
+}
+
+.calendarIconWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    transition: transform 0.2s ease;
+
+    :global(html.light) & {
+        color: #059669;
+    }
+}
+
+.calendarDropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 150;
+    width: 280px;
+    background: #0B1310;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.85), 0 0 24px rgba(24, 201, 139, 0.12);
+    padding: 12px;
+    animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top left;
+
+    &.alignRight {
+        left: auto;
+        right: 0;
+        transform-origin: top right;
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: #CBD5E1;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+}
+
+@keyframes popoverFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.calendarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 2px;
+}
+
+.navButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94A3B8;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover:not(:disabled) {
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #64748B;
+
+        &:hover:not(:disabled) {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+    }
+}
+
+.monthYearToggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        color: #18C98B;
+    }
+
+    svg {
+        color: #18C98B;
+        transition: transform 0.2s;
+    }
+
+    &.viewSelectorOpen svg {
+        transform: rotate(180deg);
+    }
+
+    :global(html.light) & {
+        color: #0F172A;
+
+        &:hover {
+            background: rgba(5, 150, 105, 0.08);
+            color: #059669;
+        }
+
+        svg {
+            color: #059669;
+        }
+    }
+}
+
+/* Day Names Row */
+.weekDaysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.weekDayCell {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    padding: 4px 0;
+    letter-spacing: 0.05em;
+
+    :global(html.light) & {
+        color: #94A3B8;
+    }
+}
+
+/* Days Grid */
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.dayCell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: #CBD5E1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+
+    &:hover:not(.dayDisabled):not(.daySelected) {
+        background: rgba(24, 201, 139, 0.15);
+        color: #FFFFFF;
+    }
+
+    &.daySelected {
+        background: #18C98B;
+        color: #05160E;
+        font-weight: 800;
+        box-shadow: 0 0 12px rgba(24, 201, 139, 0.5);
+    }
+
+    &.dayToday:not(.daySelected) {
+        border: 1px solid rgba(24, 201, 139, 0.5);
+        color: #18C98B;
+        font-weight: 700;
+    }
+
+    &.dayOutside {
+        color: #475569;
+        opacity: 0.45;
+    }
+
+    &.dayDisabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    :global(html.light) & {
+        color: #334155;
+
+        &:hover:not(.dayDisabled):not(.daySelected) {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+
+        &.daySelected {
+            background: #059669;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+        }
+
+        &.dayToday:not(.daySelected) {
+            border: 1px solid #059669;
+            color: #059669;
+        }
+
+        &.dayOutside {
+            color: #94A3B8;
+            opacity: 0.5;
+        }
+    }
+}
+
+/* Quick Presets / Footer */
+.calendarFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    :global(html.light) & {
+        border-top-color: #F1F5F9;
+    }
+}
+
+.presetBtn {
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #94A3B8;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.12);
+        color: #18C98B;
+        border-color: rgba(24, 201, 139, 0.25);
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+        color: #64748B;
+
+        &:hover {
+            background: rgba(5, 150, 105, 0.08);
+            color: #059669;
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+    }
+}
+
+/* Fast Month & Year Selection Grid */
+.selectorView {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.yearsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.yearPill {
+    flex: 1;
+    min-width: 58px;
+    padding: 6px 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #CBD5E1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover:not(.yearDisabled) {
+        background: rgba(24, 201, 139, 0.15);
+        color: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+
+    &.yearSelected {
+        background: #18C98B;
+        color: #05160E;
+        font-weight: 700;
+        border-color: #18C98B;
+    }
+
+    &.yearDisabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+    }
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #334155;
+
+        &:hover:not(.yearDisabled) {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+
+        &.yearSelected {
+            background: #059669;
+            color: #FFFFFF;
+            border-color: #059669;
+        }
+    }
+}
+
+.monthsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.monthPill {
+    padding: 8px 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #CBD5E1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover:not(.monthDisabled) {
+        background: rgba(24, 201, 139, 0.15);
+        color: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+
+    &.monthSelected {
+        background: #18C98B;
+        color: #05160E;
+        font-weight: 700;
+        border-color: #18C98B;
+    }
+
+    &.monthDisabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+    }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+        color: #334155;
+
+        &:hover:not(.monthDisabled) {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+
+        &.monthSelected {
+            background: #059669;
+            color: #FFFFFF;
+            border-color: #059669;
+        }
+    }
+}

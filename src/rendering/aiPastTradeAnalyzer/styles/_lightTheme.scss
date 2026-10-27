@@ -1,0 +1,622 @@
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI PAST TRADE ANALYZER
+   ============================================================ */
+:global(html.light) .analyzerWrapper,
+:global(html.light) .pageWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .sectionDivider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+        margin: 40px 0;
+    }
+
+    /* Section Headings */
+    .sectionTitle {
+        color: #0F172A;
+    }
+
+    .sectionSubtitle {
+        color: #475569;
+    }
+
+    .sectionBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    /* 1. Hero Section */
+    .gridOverlay {
+        background-image:
+            linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+        mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%);
+        -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%);
+        opacity: 0.08;
+    }
+
+    .greenSpotlightGrid {
+        opacity: 0;
+        display: none;
+    }
+
+    .ambientTopGlow,
+    .ambientGlowTop,
+    .ambientGlowCenter {
+        opacity: 0.1;
+        filter: blur(120px);
+    }
+
+    /* Top Live Status Pill (Screenshot Fix) */
+    .statusPillRow {
+        .statusPill {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.45);
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12);
+
+            .pillTag {
+                color: #047857;
+                font-weight: 800;
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .pillDivider {
+                color: rgba(15, 23, 42, 0.25);
+            }
+
+            .pillText {
+                color: #0F172A;
+                font-weight: 600;
+                background: transparent;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .pillBadge {
+                background: #F0FDF4;
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #047857;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .heroMainTitle {
+        color: #0F172A;
+    }
+
+    .heroTagline {
+        color: #18C98B;
+    }
+
+    .heroDesc {
+        color: #475569;
+    }
+
+    .heroSecondaryBtn {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            background: #F8FAFC;
+            border-color: #18C98B;
+            color: #047857;
+        }
+    }
+
+    /* 2. Hero Interactive Diagnostics Cockpit Frame */
+    .cockpitFrame {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+
+        .cockpitNavHeader {
+            background: #F8FAFC;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+            .cockpitTitleText {
+                color: #0F172A;
+                font-weight: 700;
+            }
+
+            .cockpitTabBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #475569;
+
+                &:hover {
+                    color: #047857;
+                    border-color: #18C98B;
+                }
+
+                &.cockpitTabBtnActive {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    font-weight: 700;
+                    box-shadow: none;
+                }
+            }
+
+            .cockpitTelemetryBadge {
+                color: #047857;
+            }
+        }
+
+        .cockpitCol1,
+        .cockpitCol2,
+        .cockpitCol3 {
+            background: #FFFFFF;
+            border-color: rgba(15, 23, 42, 0.08);
+        }
+
+        .metricBox,
+        .leakCard,
+        .auditBox,
+        .scoreMeterCard,
+        .telemetryCard {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .metricLabel,
+            .meterLabel,
+            .telemetryLabel {
+                color: #64748B;
+                font-weight: 700;
+            }
+
+            .metricVal,
+            .scoreBig,
+            .rrVal {
+                color: #0F172A;
+            }
+
+            .scoreMax {
+                color: #64748B;
+            }
+
+            .scoreStatusPill {
+                background: rgba(24, 201, 139, 0.14);
+                color: #047857;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+            }
+
+            h4, h5 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #475569;
+            }
+        }
+
+        .hologramCenterCol {
+            background: #FAFAFA;
+            border-left: 1px solid rgba(15, 23, 42, 0.08);
+            border-right: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .diagnosticColRight {
+            background: #FFFFFF;
+
+            .diagBadge {
+                color: #047857;
+            }
+
+            .verdictText {
+                color: #0F172A;
+            }
+
+            .mistakeHighlightBox {
+                background: #FEF2F2;
+                border: 1px solid rgba(239, 68, 68, 0.25);
+
+                h5 {
+                    color: #DC2626;
+                }
+
+                p {
+                    color: #475569;
+                }
+            }
+
+            .improveHighlightBox {
+                background: #F0FDF4;
+                border: 1px solid rgba(24, 201, 139, 0.25);
+
+                h5 {
+                    color: #047857;
+                }
+
+                p {
+                    color: #475569;
+                }
+            }
+        }
+    }
+
+    /* 3. 3 Bento Pillar Cards Below Cockpit */
+    .heroBentoRow {
+        .heroBentoCard {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+            &:hover {
+                border-color: #18C98B;
+                box-shadow: 0 10px 30px rgba(24, 201, 139, 0.12);
+            }
+
+            .bentoIcon {
+                background: #F0FDF4;
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #047857;
+            }
+
+            .bentoContent {
+                h4 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #64748B;
+                }
+            }
+        }
+    }
+
+    /* 4. 3-Step Process Cards */
+    .stepCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.22);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .stepNumBadge {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTag {
+            background: transparent;
+            background-color: transparent;
+            color: #64748B;
+            border: none;
+            box-shadow: none;
+        }
+
+        .stepIconBox,
+        .stepIconWrap {
+            background: #F0FDF4;
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .stepTitle {
+            color: #0F172A;
+        }
+
+        .stepDesc {
+            color: #475569;
+        }
+    }
+
+    .stepConnector {
+        color: #18C98B;
+    }
+
+    /* 5. Section 3: WHAT YOU'LL GET & INTERACTIVE LIVE AUDIT RESULT (Screenshot Fix) */
+    .auditSection {
+        .columnTitle {
+            color: #0F172A;
+        }
+
+        .columnSubtitle {
+            color: #475569;
+        }
+
+        /* 6 Pillar Cards on the Left (Screenshot Fix) */
+        .pillarsList {
+            .pillarItem {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+
+                &:hover {
+                    background: #F8FAFC;
+                    border-color: #18C98B;
+                    box-shadow: 0 6px 20px rgba(24, 201, 139, 0.12);
+                }
+
+                .itemIcon {
+                    background: #F0FDF4;
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                }
+
+                .itemBody {
+                    h4 {
+                        color: #0F172A;
+                        font-weight: 700;
+                    }
+
+                    p {
+                        color: #475569;
+                    }
+                }
+            }
+        }
+
+        /* Right Column: Interactive Audit Result */
+        .auditResultCol {
+            .presetTabsWrap {
+                .presetLabel {
+                    color: #047857;
+                    font-weight: 800;
+                }
+
+                .presetBtn {
+                    background: #FFFFFF;
+                    border: 1px solid rgba(15, 23, 42, 0.12);
+                    color: #475569;
+
+                    &:hover {
+                        color: #047857;
+                        border-color: #18C98B;
+                        background: #F8FAFC;
+                    }
+
+                    &.presetBtnActive {
+                        background: #18C98B;
+                        color: #040605;
+                        font-weight: 700;
+                        border-color: #18C98B;
+                        box-shadow: none;
+                    }
+                }
+            }
+
+            /* Main Audit Glass Card (Screenshot Fix) */
+            .auditCard {
+                background: #FFFFFF;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+
+                .auditCardHeader {
+                    border-bottom: 1px solid #F1F5F9;
+
+                    .auditHeaderTag {
+                        color: #047857;
+                    }
+
+                    .auditPairTitle {
+                        color: #0F172A;
+
+                        .tfBadge {
+                            background: #F1F5F9;
+                            border: 1px solid #E2E8F0;
+                            color: #475569;
+                        }
+                    }
+
+                    .liveIndicator {
+                        background: #F0FDF4;
+                        border-color: rgba(24, 201, 139, 0.35);
+                        color: #047857;
+                    }
+                }
+
+                /* Candlestick Chart Simulation Canvas (Screenshot Fix) */
+                .chartVisualStage {
+                    background: #FAFAFA;
+                    border: 1px solid rgba(15, 23, 42, 0.08);
+
+                    .candlestickSvg {
+                        line[stroke="rgba(255,255,255,0.06)"] {
+                            stroke: rgba(15, 23, 42, 0.08);
+                        }
+
+                        line[stroke="#10B981"] {
+                            stroke: #059669;
+                        }
+
+                        rect[fill="#10B981"] {
+                            fill: #059669;
+                        }
+
+                        line[stroke="#EF4444"] {
+                            stroke: #DC2626;
+                        }
+
+                        rect[fill="#EF4444"] {
+                            fill: #DC2626;
+                        }
+
+                        rect[fill="rgba(239, 68, 68, 0.12)"] {
+                            fill: rgba(239, 68, 68, 0.08);
+                            stroke: rgba(239, 68, 68, 0.4);
+                        }
+
+                        text[fill="#EF4444"] {
+                            fill: #DC2626;
+                            font-weight: 800;
+                        }
+
+                        rect[fill="rgba(16, 185, 129, 0.12)"] {
+                            fill: rgba(24, 201, 139, 0.08);
+                            stroke: rgba(24, 201, 139, 0.45);
+                        }
+
+                        text[fill="#10B981"] {
+                            fill: #047857;
+                            font-weight: 800;
+                        }
+                    }
+                }
+
+                /* Quantitative Score & Metrics Bar (Screenshot Fix) */
+                .metricsBar {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .metricLabel {
+                        color: #64748B;
+                        font-weight: 700;
+                    }
+
+                    .lossResult {
+                        color: #DC2626;
+                        font-weight: 800;
+                    }
+
+                    .winResult {
+                        color: #047857;
+                        font-weight: 800;
+                    }
+
+                    .metricVal {
+                        color: #0F172A;
+                        font-weight: 800;
+                    }
+
+                    .scoreNumber {
+                        color: #047857;
+                        font-weight: 900;
+                    }
+
+                    .scoreOutOf {
+                        color: #64748B;
+                    }
+
+                    .scoreTag {
+                        background: rgba(24, 201, 139, 0.14);
+                        color: #047857;
+                        border: 1px solid rgba(24, 201, 139, 0.3);
+                    }
+
+                    .metricDivider {
+                        background: #E2E8F0;
+                    }
+                }
+
+                /* Bento Grid: What Went Wrong vs How to Improve (Screenshot Fix) */
+                .auditBentoGrid {
+                    .bentoCardWrong {
+                        background: #FEF2F2;
+                        border: 1px solid rgba(239, 68, 68, 0.25);
+
+                        .bentoHeader h4 {
+                            color: #DC2626;
+                            font-weight: 800;
+                        }
+
+                        .bentoList li {
+                            color: #334155;
+                        }
+                    }
+
+                    .bentoCardImprove {
+                        background: #F0FDF4;
+                        border: 1px solid rgba(24, 201, 139, 0.25);
+
+                        .bentoHeader h4 {
+                            color: #047857;
+                            font-weight: 800;
+                        }
+
+                        .bentoList li {
+                            color: #334155;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* 6. Comparison Table */
+    .tableCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+
+        th {
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        td {
+            color: #1E293B;
+            border-bottom-color: #F1F5F9;
+        }
+
+        .genericText {
+            color: #64748B;
+        }
+
+        .chronosText {
+            color: #047857;
+            font-weight: 700;
+        }
+    }
+
+    /* 7. FAQs */
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+
+        .faqQuestionBtn {
+            color: #0F172A;
+            background: transparent;
+        }
+
+        .qText {
+            color: #0F172A;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9;
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+
+            p {
+                color: #475569;
+            }
+        }
+    }
+
+    /* 8. CTA Card */
+    .ctaCard {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.28);
+        box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
+
+        .ctaTitle {
+            color: #0F172A;
+        }
+
+        .ctaSubtitle {
+            color: #475569;
+        }
+    }
+}

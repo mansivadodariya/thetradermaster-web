@@ -1,0 +1,731 @@
+$primary: #18C98B;
+$text: #FFFFFF;
+$muted: rgba(255, 255, 255, 0.6);
+$border: rgba(24, 201, 139, 0.35);
+$danger: #FF5757;
+$success: #10b981;
+
+.tradeSnap {
+    .guidePanel {
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        border-radius: 14px;
+        background: #0D0E13;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.03);
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+        height: 100%;
+        max-height: 100%;
+        min-height: 0;
+        overflow-y: auto;
+
+        @media (min-width: 1400px) {
+            padding: 22px 24px;
+            gap: 14px;
+        }
+
+        @media (min-width: 1650px) {
+            padding: 26px 28px;
+            gap: 16px;
+        }
+
+        .guideHeader {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            @media (min-width: 1400px) {
+                gap: 5px;
+            }
+
+            .guideBadgeRow {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .guideEngineBadge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 2px 8px;
+                border-radius: 9999px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                font-size: 10px;
+                font-weight: 700;
+                color: #18C98B;
+                font-family: monospace;
+                letter-spacing: 0.5px;
+
+                @media (min-width: 1400px) {
+                    font-size: 11px;
+                    padding: 3px 10px;
+                }
+            }
+
+            .guideLivePill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 10.5px;
+                color: rgba(255, 255, 255, 0.5);
+                font-family: "Euclid-Regular", sans-serif;
+            }
+
+            .guideTitle,
+            .guideMainTitle {
+                font-size: 15.5px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0;
+                font-family: "Euclid-Bold", sans-serif;
+                letter-spacing: -0.2px;
+
+                @media (min-width: 1400px) {
+                    font-size: 18px;
+                }
+
+                @media (min-width: 1650px) {
+                    font-size: 20px;
+                }
+            }
+
+            .guideSub,
+            .guideSubtitle {
+                font-size: 11.5px;
+                color: rgba(255, 255, 255, 0.6);
+                margin: 0;
+                line-height: 1.35;
+                font-family: "Euclid-Regular", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 13px;
+                    line-height: 1.45;
+                }
+            }
+        }
+
+        .guideStepsList {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            @media (min-width: 1400px) {
+                gap: 11px;
+            }
+
+            @media (min-width: 1650px) {
+                gap: 13px;
+            }
+        }
+
+        .guideStepCard {
+            display: flex;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 9px;
+            background: rgba(24, 201, 139, 0.03);
+            border: 1px solid rgba(24, 201, 139, 0.15);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+
+            @media (min-width: 1400px) {
+                padding: 11px 15px;
+                gap: 12px;
+                border-radius: 10px;
+            }
+
+            @media (min-width: 1650px) {
+                padding: 13px 17px;
+            }
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.06);
+                border-color: rgba(24, 201, 139, 0.3);
+            }
+
+            .stepNumberCol {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .stepIconBox {
+                width: 30px;
+                height: 30px;
+                border-radius: 7px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #18C98B;
+                flex-shrink: 0;
+
+                @media (min-width: 1400px) {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 8px;
+                }
+
+                @media (min-width: 1650px) {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+
+                    @media (min-width: 1400px) {
+                        width: 19px;
+                        height: 19px;
+                    }
+
+                    @media (min-width: 1650px) {
+                        width: 21px;
+                        height: 21px;
+                    }
+                }
+            }
+
+            .stepConnectorLine {
+                width: 2px;
+                flex: 1;
+                min-height: 8px;
+                background: rgba(24, 201, 139, 0.2);
+            }
+
+            .stepContentCol {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .stepTopRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 6px;
+            }
+
+            .stepTitle {
+                font-size: 13px;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin: 0;
+                font-family: "Euclid-Bold", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 14.5px;
+                }
+
+                @media (min-width: 1650px) {
+                    font-size: 15.5px;
+                }
+            }
+
+            .stepBadge {
+                font-size: 9.5px;
+                font-weight: 800;
+                color: #18C98B;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                border-radius: 4px;
+                padding: 1px 5px;
+                font-family: monospace;
+                letter-spacing: 0.5px;
+
+                @media (min-width: 1400px) {
+                    font-size: 10px;
+                    padding: 2px 6px;
+                }
+            }
+
+            .stepDesc {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.6);
+                margin: 2px 0 5px 0;
+                line-height: 1.3;
+                font-family: "Euclid-Regular", sans-serif;
+                text-align: justify;
+                text-justify: inter-word;
+
+                @media (min-width: 1400px) {
+                    font-size: 12px;
+                    margin: 3px 0 6px 0;
+                    line-height: 1.35;
+                }
+            }
+
+            .stepTagList {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+
+                @media (min-width: 1400px) {
+                    gap: 6px;
+                }
+            }
+
+            .stepTagItem {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.75);
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                padding: 1px 6px;
+                font-family: "Euclid-Medium", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 11px;
+                    padding: 2px 8px;
+                }
+            }
+        }
+
+        .guideFeaturesGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+
+            @media (min-width: 1400px) {
+                gap: 8px;
+            }
+
+            @media(max-width: 600px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .guideFeatureCard {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 6px 8px;
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(24, 201, 139, 0.12);
+
+            @media (min-width: 1400px) {
+                padding: 8px 11px;
+                gap: 8px;
+                border-radius: 8px;
+            }
+
+            .featureBullet {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #18C98B;
+                margin-top: 4px;
+                flex-shrink: 0;
+
+                @media (min-width: 1400px) {
+                    width: 6px;
+                    height: 6px;
+                    margin-top: 5px;
+                }
+            }
+
+            .featureTextWrap {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .featureName {
+                font-size: 11px;
+                font-weight: 600;
+                color: #FFFFFF;
+                font-family: "Euclid-SemiBold", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 12.5px;
+                }
+            }
+
+            .featureSub {
+                font-size: 9.5px;
+                color: rgba(255, 255, 255, 0.5);
+                line-height: 1.25;
+                font-family: "Euclid-Regular", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 11px;
+                    line-height: 1.35;
+                }
+            }
+        }
+
+        .guideFooterCallout {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            flex-wrap: wrap;
+
+            @media (min-width: 1400px) {
+                padding: 12px 14px;
+                gap: 10px;
+                border-radius: 9px;
+            }
+
+            .tipIconWrap {
+                color: #18C98B;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+
+                svg {
+                    width: 15px;
+                    height: 15px;
+
+                    @media (min-width: 1400px) {
+                        width: 17px;
+                        height: 17px;
+                    }
+                }
+            }
+
+            .tipTextWrap {
+                flex: 1;
+                min-width: 180px;
+            }
+
+            .tipText {
+                margin: 0;
+                font-size: 10.5px;
+                color: rgba(255, 255, 255, 0.75);
+                line-height: 1.35;
+                font-family: "Euclid-Regular", sans-serif;
+
+                @media (min-width: 1400px) {
+                    font-size: 12px;
+                    line-height: 1.45;
+                }
+
+                strong {
+                    color: #18C98B;
+                }
+            }
+
+            .guideQuickStartBtn {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 6px 14px;
+                border-radius: 9999px;
+                background: #18C98B;
+                color: #040605;
+                font-weight: 700;
+                font-size: 11px;
+                font-family: "Euclid-Bold", sans-serif;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+
+                @media (min-width: 1400px) {
+                    padding: 8px 16px;
+                    font-size: 12.5px;
+                }
+
+                &:hover {
+                    background: #15b77e;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(24, 201, 139, 0.4);
+                }
+
+                svg {
+                    width: 11px;
+                    height: 11px;
+
+                    @media (min-width: 1400px) {
+                        width: 13px;
+                        height: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+:global(html.light) .tradeSnap,
+:global(html[data-theme='light']) .tradeSnap,
+:global([data-theme='light']) .tradeSnap,
+:global(.light) .tradeSnap {
+    .panel,
+    .resultsPanel {
+        background: #FFFFFF;
+        border-color: rgba(5, 150, 105, 0.25);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 20px rgba(5, 150, 105, 0.05);
+    }
+
+    .panelHeader,
+    .resultsHeader {
+        background: #F8FAFC;
+        border-bottom-color: rgba(5, 150, 105, 0.15);
+
+        h3 {
+            color: #0F172A;
+
+            svg {
+                color: #059669;
+            }
+        }
+    }
+
+    .autoCapture {
+        label {
+            color: #475569;
+        }
+
+        select {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            color: #0F172A;
+
+            option {
+                background: #FFFFFF;
+                color: #0F172A;
+            }
+        }
+    }
+
+    .panelActions {
+        background: #F8FAFC;
+        border-top: 1px solid rgba(5, 150, 105, 0.15);
+    }
+
+    .videoFrame,
+    .snapshotWrapper {
+        background: #F8FAFC;
+        border-color: rgba(5, 150, 105, 0.15);
+    }
+
+    .videoPlaceholder {
+        background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, #F1F5F9 75%);
+        color: #334155;
+
+        h3 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #64748B;
+        }
+
+        .placeholderIcon {
+            color: #059669;
+            filter: drop-shadow(0 4px 12px rgba(5, 150, 105, 0.25));
+        }
+    }
+
+    .snapshotEmpty {
+        background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, #F1F5F9 75%);
+        color: #334155;
+
+        h3 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #64748B;
+        }
+
+        .emptyIcon {
+            color: #059669;
+            filter: drop-shadow(0 4px 12px rgba(5, 150, 105, 0.25));
+        }
+    }
+
+    .snapshotHeader {
+        background: #FFFFFF;
+        border-bottom-color: rgba(5, 150, 105, 0.15);
+        color: #0F172A;
+
+        h3 {
+            color: #0F172A;
+
+            svg {
+                color: #059669;
+                stroke: #059669;
+            }
+        }
+    }
+
+    .btnAnalyze {
+        &.isAnalyzingBtn,
+        &:has(.analyzingTextWrap),
+        &:disabled.isAnalyzingBtn,
+        &:disabled:has(.analyzingTextWrap) {
+            opacity: 1;
+            cursor: wait;
+            background: #ECFDF5;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #047857;
+            box-shadow: 0 1px 4px rgba(16, 185, 129, 0.15);
+
+            .analyzingTextWrap {
+                color: #047857;
+                font-weight: 700;
+            }
+
+            .pulseDot {
+                background: #10B981;
+                box-shadow: 0 0 6px #10B981;
+            }
+        }
+    }
+
+    .btnSecondary {
+        background: #F1F5F9;
+        border-color: #CBD5E1;
+        color: #334155;
+
+        &:hover {
+            background: #E2E8F0;
+            color: #0F172A;
+        }
+    }
+
+    .btnGhost {
+        color: #64748B;
+
+        &:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+        }
+    }
+
+    .guideMainTitle,
+    .guideTitle {
+        color: #0F172A;
+    }
+
+    .guideSubtitle,
+    .guideSub {
+        color: #64748B;
+    }
+
+    .guidePanel {
+        background: #FFFFFF;
+        border-color: rgba(5, 150, 105, 0.25);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 20px rgba(5, 150, 105, 0.05);
+
+        .guideEngineBadge {
+            background: #ECFDF5;
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #047857;
+        }
+
+        .guideTitle,
+        .guideMainTitle,
+        h3.guideMainTitle {
+            color: #0F172A;
+        }
+
+        .guideSub,
+        .guideSubtitle,
+        p.guideSubtitle {
+            color: #64748B;
+        }
+
+        .guideLivePill {
+            color: #64748B;
+        }
+
+        .guideStepCard {
+            background: #F8FAFC;
+            border-color: rgba(5, 150, 105, 0.15);
+
+            &:hover {
+                background: #F0FDF4;
+                border-color: rgba(5, 150, 105, 0.35);
+            }
+
+            .stepIconBox {
+                background: #ECFDF5;
+                border-color: rgba(16, 185, 129, 0.3);
+                color: #047857;
+            }
+
+            .stepConnectorLine {
+                background: rgba(16, 185, 129, 0.25);
+            }
+
+            .stepTitle {
+                color: #0F172A;
+            }
+
+            .stepBadge {
+                color: #047857;
+                background: #ECFDF5;
+                border-color: rgba(16, 185, 129, 0.3);
+            }
+
+            .stepDesc {
+                color: #64748B;
+            }
+
+            .stepTagItem {
+                background: #FFFFFF;
+                border-color: #E2E8F0;
+                color: #475569;
+            }
+        }
+
+        .guideFeatureCard {
+            background: #F8FAFC;
+            border-color: rgba(5, 150, 105, 0.12);
+
+            .featureBullet {
+                background: #059669;
+            }
+
+            .featureName {
+                color: #0F172A;
+            }
+
+            .featureSub {
+                color: #64748B;
+            }
+        }
+
+        .guideFooterCallout {
+            background: #F0FDF4;
+            border-color: rgba(5, 150, 105, 0.25);
+
+            .tipIconWrap {
+                color: #059669;
+
+                svg {
+                    stroke: #059669;
+                }
+            }
+
+            .tipText {
+                color: #475569;
+
+                strong {
+                    color: #059669;
+                }
+            }
+
+            .guideQuickStartBtn {
+                background: #059669;
+                color: #FFFFFF;
+
+                &:hover {
+                    background: #047857;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,408 @@
+/* ============================================================
+   UPLOADED REPORT SUCCESS BANNER CARD (MATCHING USER SCREENSHOT)
+   ============================================================ */
+.reportSuccessBannerCard {
+    background:
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(24, 201, 139, 0.15);
+
+    .bannerContentLeft {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        z-index: 2;
+        flex: 1 1 0%;
+        min-width: 0;
+        width: 100%;
+
+        .bannerFileMetaRow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+
+            .fileBadgeBox {
+                width: 44px;
+                height: 44px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 800;
+                flex-shrink: 0;
+                letter-spacing: 0.5px;
+                background: rgba(239, 68, 68, 0.15);
+                border: 1px solid rgba(239, 68, 68, 0.35);
+                color: #EF4444;
+
+                &.fileBadgePdf {
+                    background: rgba(239, 68, 68, 0.15);
+                    border: 1px solid rgba(239, 68, 68, 0.35);
+                    color: #EF4444;
+                }
+
+                &.fileBadgeExcel {
+                    background: rgba(16, 185, 129, 0.15);
+                    border: 1px solid rgba(16, 185, 129, 0.35);
+                    color: #10B981;
+                }
+
+                &.fileBadgeCsv {
+                    background: rgba(56, 189, 248, 0.15);
+                    border: 1px solid rgba(56, 189, 248, 0.35);
+                    color: #38BDF8;
+                }
+
+                &.fileBadgeTxt {
+                    background: rgba(24, 201, 139, 0.15);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    color: #18C98B;
+                }
+            }
+
+            .fileMetaDetails {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                min-width: 0;
+                flex: 1 1 auto;
+
+                span.fileName {
+                    font-size: 15.5px;
+                    font-weight: 700;
+                    color: $textWhite;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    max-width: 100%;
+                }
+
+                span.fileSub {
+                    font-size: 12px;
+                    color: $textMuted;
+                    line-height: 1.4;
+                }
+            }
+
+            .completePillBadge {
+                margin-left: auto;
+                background: rgba(16, 185, 129, 0.12);
+                border: 1px solid rgba(16, 185, 129, 0.35);
+                color: #34D399;
+                font-size: 12px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 12px;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+        }
+
+        .bannerMessageRow {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .checkTitleGroup {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .checkCircle {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    background: rgba(24, 201, 139, 0.15);
+                    border: 1px solid rgba(24, 201, 139, 0.4);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $primaryGold;
+                    flex-shrink: 0;
+                }
+
+                h3 {
+                    font-size: 17px;
+                    font-weight: 800;
+                    color: $primaryGold;
+                    margin: 0;
+                    letter-spacing: -0.2px;
+                    line-height: 1.35;
+                }
+            }
+
+            p.bannerSubtext {
+                font-size: 13px;
+                color: $textMuted;
+                margin: 0 0 0 34px;
+                line-height: 1.4;
+            }
+        }
+
+        .bannerActionsRow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+            width: 100%;
+
+            .viewTradesBtn {
+                background: #18C98B;
+                border: 1px solid #18C98B;
+                color: #040605;
+                padding: 9px 20px;
+                border-radius: 9999px;
+                font-size: 12.5px;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                box-shadow: 0 4px 14px rgba(24, 201, 139, 0.3);
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: #15b77e;
+                    border-color: #15b77e;
+                    box-shadow: 0 6px 18px rgba(24, 201, 139, 0.4);
+                    transform: translateY(-1px);
+                }
+            }
+
+            .reuploadBtn {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: $textWhite;
+                padding: 9px 18px;
+                border-radius: 9999px;
+                font-size: 12.5px;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                transition: all 0.2s ease;
+
+                span {
+                    white-space: nowrap;
+                }
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.12);
+                }
+            }
+
+            .downloadReportBtn {
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.4);
+                color: #18C98B;
+                padding: 9px 18px;
+                border-radius: 9999px;
+                font-size: 12.5px;
+                font-weight: 700;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                box-shadow: 0 2px 10px rgba(24, 201, 139, 0.15);
+                transition: all 0.2s ease;
+
+                span {
+                    white-space: nowrap;
+                }
+
+                &:hover:not(:disabled) {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
+                    transform: translateY(-1px);
+                }
+
+                &:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+
+    .bannerGraphicRight {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+
+        .brainImg {
+            width: clamp(140px, 16vw, 220px);
+            height: auto;
+            max-height: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 24px rgba(24, 201, 139, 0.4));
+            animation: brainPulseGlow 4s ease-in-out infinite;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            opacity: 0.92;
+
+            &:hover {
+                transform: translateY(-6px) scale(1.05);
+                filter: drop-shadow(0 0 38px rgba(24, 201, 139, 0.7));
+            }
+        }
+    }
+
+    @include respond-to('lg') {
+        padding: 22px 24px;
+        gap: 18px;
+
+        .bannerGraphicRight .brainImg {
+            width: 150px;
+            max-height: 130px;
+        }
+
+        .bannerContentLeft .bannerActionsRow {
+            gap: 8px;
+        }
+    }
+
+    @include respond-to('md') {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 16px;
+
+        .bannerGraphicRight {
+            display: none;
+        }
+
+        .bannerContentLeft {
+            width: 100%;
+
+            .bannerActionsRow {
+                width: 100%;
+                gap: 10px;
+            }
+        }
+    }
+
+    @include respond-to('tab') {
+        padding: 16px;
+
+        .bannerContentLeft {
+            gap: 12px;
+
+            .bannerFileMetaRow {
+                gap: 10px;
+
+                .completePillBadge {
+                    margin-left: 0;
+                }
+            }
+
+            .bannerMessageRow {
+                .checkTitleGroup h3 {
+                    font-size: 15px;
+                }
+
+                p.bannerSubtext {
+                    margin-left: 0;
+                    margin-top: 3px;
+                    font-size: 12.5px;
+                }
+            }
+
+            .bannerActionsRow {
+                gap: 8px;
+
+                .viewTradesBtn,
+                .reuploadBtn,
+                .downloadReportBtn {
+                    flex: 1 1 auto;
+                    min-width: 130px;
+                    justify-content: center;
+                    padding: 9px 14px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    @include respond-to('sm') {
+        padding: 14px;
+        border-radius: 16px;
+
+        .bannerContentLeft {
+            .bannerFileMetaRow {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+
+                .completePillBadge {
+                    margin-left: 0;
+                }
+            }
+
+            .bannerActionsRow {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+
+                .viewTradesBtn,
+                .reuploadBtn,
+                .downloadReportBtn {
+                    width: 100%;
+                    justify-content: center;
+                    padding: 10px 16px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes brainPulseGlow {
+    0% {
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 0 22px rgba(24, 201, 139, 0.35));
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.03);
+        filter: drop-shadow(0 0 38px rgba(24, 201, 139, 0.65));
+    }
+
+    100% {
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 0 22px rgba(24, 201, 139, 0.35));
+    }
+}

@@ -1,0 +1,599 @@
+.aiAssistant {
+    :global(.dark) & {
+        .chartPaneContainer {
+            background: #131722;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        .chartHeaderControls {
+            background: #040605;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .symbolSelectorBtn {
+            background: #2a2e39;
+            color: #d1d4dc;
+            border-color: rgba(255, 255, 255, 0.1);
+
+            &:hover {
+                background: #363c4e;
+                color: #ffffff;
+            }
+        }
+
+        .dropdownMenuFloating {
+            background: #040605;
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85);
+        }
+
+        .dropdownMenuItem {
+            color: #e2e8f0;
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.15);
+                color: #18C98B;
+            }
+
+            &.activeItem {
+                background: rgba(24, 201, 139, 0.2);
+                color: #18C98B;
+            }
+        }
+
+        .timeframeBar {
+            background: #131722;
+        }
+
+        .tfBtn {
+            color: #787b86;
+
+            &:hover {
+                color: #d1d4dc;
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            &.activeTf {
+                background: #18C98B;
+                color: #ffffff;
+            }
+        }
+
+        .chartTypeSelect,
+        .timeframeSelect {
+            background: #2a2e39;
+            color: #d1d4dc;
+            border-color: rgba(255, 255, 255, 0.1);
+
+            option {
+                background: #1e222d;
+                color: #ffffff;
+            }
+        }
+
+        .iconControlBtn {
+            background: #040605;
+            color: #f3f4f6;
+            border-color: rgba(255, 255, 255, 0.4);
+
+            &:hover,
+            &.activeControl {
+                background: #363c4e;
+                color: #fff;
+            }
+        }
+
+        .settingsModalOverlay {
+            background: rgba(0, 0, 0, 0.65);
+        }
+
+        .settingsModalCard {
+            background: #0c0e12;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .settingsHeader {
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+
+            h3 {
+                color: #ffffff;
+            }
+
+            .closeBtn {
+                color: #787b86;
+
+                &:hover {
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .settingSection {
+            h4 {
+                color: #787b86;
+            }
+        }
+
+        .settingRow {
+            color: #d1d4dc;
+
+            input[type="color"] {
+                &::-webkit-color-swatch {
+                    border-color: rgba(255, 255, 255, 0.2);
+                }
+            }
+        }
+
+        .presetColorRow {
+            button {
+                border-color: rgba(255, 255, 255, 0.15);
+                color: #ffffff;
+            }
+        }
+
+        .toggleBtn {
+            background: #2a2e39;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #787b86;
+
+            &.activeToggle {
+                background: #18C98B;
+                color: #ffffff;
+                border-color: #18C98B;
+            }
+        }
+
+        .settingsFooter {
+            border-top-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .resetBtn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.12);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffffff;
+                border-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        .doneBtn {
+            background: #18C98B;
+
+            &:hover {
+                background: #10B981;
+            }
+        }
+
+        .livePriceOverlay {
+            background: rgba(30, 34, 45, 0.85);
+            border-color: rgba(255, 255, 255, 0.08);
+
+            .liveSymbol {
+                color: #ffffff;
+            }
+
+            .livePrice {
+                color: #00b0ff;
+            }
+        }
+
+        .chatCard {
+            background: #040605;
+            border-color: #2d2d34;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+            .chatHeader {
+                border-bottom-color: #2d2d34;
+
+                .avatar {
+                    background: #252529;
+
+                    svg {
+                        color: #18C98B;
+                    }
+                }
+
+                .headerInfo {
+                    h3 {
+                        color: #ffffff;
+                    }
+
+                    span {
+                        color: rgba(255, 255, 255, 0.5);
+                    }
+                }
+
+
+            }
+
+            .chatBody {
+                &::-webkit-scrollbar-thumb {
+                    background: rgba(24, 201, 139, 0.3);
+                }
+
+                .welcomeContainer {
+                    padding: 16px 12px 12px;
+                    max-width: 440px;
+                    width: 100%;
+                    margin: auto;
+
+                    @media (max-height: 580px) {
+                        margin: 16px auto;
+                    }
+
+                    @include respond-to('tab') {
+                        padding: 8px 10px 4px;
+                        margin: 12px auto;
+                        max-width: 380px;
+                    }
+
+                    .welcomeHeroBadge {
+                        background: rgba(14, 26, 48, 0.85);
+                        border: 1px solid rgba(24, 201, 139, 0.25);
+                        box-shadow: 0 0 14px rgba(24, 201, 139, 0.06);
+                        padding: 5px 14px;
+                        border-radius: 9999px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 7px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        letter-spacing: 0.2px;
+
+                        @include respond-to('tab') {
+                            padding: 3px 10px;
+                            font-size: 11px;
+                            margin-bottom: 8px;
+                        }
+
+                        span {
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                        }
+                    }
+
+                    .welcomeTitle {
+                        font-size: 26px;
+                        font-weight: 800;
+                        color: #ffffff;
+                        margin: 0 0 8px;
+                        letter-spacing: -0.3px;
+                        line-height: 1.25;
+                        font-family: var(--font-plus-jakarta), var(--font-roboto), sans-serif;
+
+                        [data-theme='light'] &,
+                        :global(html.light) &,
+                        :global([data-theme='light']) &,
+                        :global(.isLight) & {
+                            color: #0F172A;
+
+                            .titleGradient {
+                                color: #059669;
+                            }
+                        }
+
+                        @include respond-to('tab') {
+                            font-size: 20px;
+                            margin: 0 0 4px;
+                        }
+
+                        .titleGradient {
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                            filter: none;
+                        }
+                    }
+
+                    .welcomeSubtitle {
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.65);
+                        margin: 0 0 20px;
+                        line-height: 1.4;
+
+                        [data-theme='light'] &,
+                        :global(html.light) &,
+                        :global([data-theme='light']) &,
+                        :global(.isLight) & {
+                            color: #64748B;
+                        }
+
+                        @include respond-to('tab') {
+                            font-size: 11px;
+                            margin: 0 0 10px;
+                            line-height: 1.3;
+                        }
+                    }
+
+                    .welcomeActionCards {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                        width: 100%;
+                        max-width: 440px;
+
+                        @include respond-to('tab') {
+                            gap: 8px;
+                            max-width: 400px;
+                        }
+
+                        .welcomeActionCard {
+                            display: flex;
+                            align-items: center;
+                            gap: 14px;
+                            width: 100%;
+                            background: linear-gradient(145deg, rgba(16, 18, 24, 0.92) 0%, rgba(8, 9, 12, 0.98) 100%);
+                            border: 1px solid rgba(24, 201, 139, 0.28);
+                            border-radius: 6px;
+                            padding: 12px 16px;
+                            cursor: pointer;
+                            text-align: left;
+                            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+                            position: relative;
+                            overflow: hidden;
+
+                            [data-theme='light'] &,
+                            :global(html.light) &,
+                            :global([data-theme='light']) &,
+                            :global(.isLight) & {
+                                background: #FFFFFF;
+                                border: 1px solid #E2E8F0;
+                                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+
+                                &:hover {
+                                    background: #F0FDF4;
+                                    border-color: #10B981;
+                                    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+                                    transform: translateY(-2px);
+                                }
+
+                                .cardMainTitle {
+                                    color: #0F172A;
+                                }
+
+                                .cardSubTitle {
+                                    color: #64748B;
+                                }
+
+                                .cardArrow {
+                                    background: #ECFDF5;
+                                    border-color: #A7F3D0;
+                                    color: #059669;
+                                }
+                            }
+
+                            @include respond-to('tab') {
+                                padding: 8px 12px;
+                                gap: 10px;
+                            }
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: -100%;
+                                width: 50%;
+                                height: 100%;
+                                background: linear-gradient(90deg, transparent, rgba(24, 201, 139, 0.1), transparent);
+                                transform: skewX(-25deg);
+                                transition: left 0.75s ease;
+                                pointer-events: none;
+                            }
+
+                            .cardIconWrapper {
+                                width: 44px;
+                                height: 44px;
+                                border-radius: 6px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-shrink: 0;
+                                background: transparent;
+                                border: none;
+                                color: #18C98B;
+                                transition: all 0.25s ease;
+
+                                @include respond-to('tab') {
+                                    width: 32px;
+                                    height: 32px;
+                                }
+
+                                svg {
+                                    color: #18C98B;
+                                    transition: all 0.25s ease;
+
+                                    @include respond-to('tab') {
+                                        width: 18px;
+                                        height: 18px;
+                                    }
+                                }
+                            }
+
+                            .cardTextContent {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 2px;
+                                flex: 1;
+                                min-width: 0;
+
+                                @include respond-to('tab') {
+                                    gap: 1px;
+                                }
+
+                                .cardMainTitle {
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    color: #ffffff;
+                                    line-height: 1.25;
+                                    letter-spacing: 0.15px;
+                                    transition: all 0.2s ease;
+
+                                    @include respond-to('tab') {
+                                        font-size: 12px;
+                                        line-height: 1.2;
+                                    }
+                                }
+
+                                .cardSubTitle {
+                                    font-size: 11px;
+                                    color: rgba(255, 255, 255, 0.65);
+                                    line-height: 1.35;
+                                    transition: color 0.2s ease;
+
+                                    @include respond-to('tab') {
+                                        font-size: 10px;
+                                        line-height: 1.25;
+                                    }
+                                }
+                            }
+
+                            .cardArrow {
+                                width: 28px;
+                                height: 28px;
+                                border-radius: 6px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: rgba(24, 201, 139, 0.06);
+                                border: 1px solid rgba(24, 201, 139, 0.2);
+                                color: rgba(24, 201, 139, 0.7);
+                                flex-shrink: 0;
+                                transition: all 0.2s ease;
+
+                                @include respond-to('tab') {
+                                    width: 22px;
+                                    height: 22px;
+
+                                    svg {
+                                        width: 12px;
+                                        height: 12px;
+                                    }
+                                }
+                            }
+
+                            :global(html.dark) &:hover {
+                                background: linear-gradient(145deg, rgba(24, 26, 36, 0.95) 0%, rgba(14, 15, 22, 0.98) 100%);
+                                border-color: rgba(24, 201, 139, 0.7);
+                                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(24, 201, 139, 0.18), inset 0 1px 1px rgba(24, 201, 139, 0.2);
+                                transform: translateY(-2.5px);
+
+                                &::after {
+                                    left: 200%;
+                                }
+
+                                .cardIconWrapper {
+                                    background: linear-gradient(145deg, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.15) 100%);
+                                    border-color: #18C98B;
+                                    box-shadow: 0 0 20px rgba(24, 201, 139, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+                                    color: #6EE7B7;
+                                    transform: scale(1.06);
+
+                                    svg {
+                                        color: #6EE7B7;
+                                        filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.8));
+                                        transform: scale(1.05);
+                                    }
+                                }
+
+                                .cardMainTitle {
+                                    color: #6EE7B7;
+                                    text-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
+                                }
+
+                                .cardSubTitle {
+                                    color: rgba(255, 255, 255, 0.85);
+                                }
+
+                                .cardArrow {
+                                    background: rgba(24, 201, 139, 0.2);
+                                    border-color: #18C98B;
+                                    color: #6EE7B7;
+                                    box-shadow: 0 0 10px rgba(24, 201, 139, 0.3);
+                                    transform: translateX(3px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .messageRow {
+            .pairBadge {
+                background: rgba(24, 201, 139, 0.15);
+                color: #18C98B;
+                border: 1px solid rgba(24, 201, 139, 0.3);
+            }
+
+            .assistantMessage {
+                background: #000000;
+                color: #f1f5f9;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                border-radius: 14px 14px 14px 2px;
+                padding: 12px 18px;
+
+                p,
+                li {
+                    color: #f1f5f9;
+                }
+            }
+        }
+
+        .userRow {
+            max-width: 90%;
+            width: auto;
+
+            .userMessage {
+                background: linear-gradient(135deg, rgba(24, 201, 139, 0.16) 0%, rgba(24, 201, 139, 0.08) 100%);
+                border: 1px solid rgba(24, 201, 139, 0.38);
+                color: #FFFFFF;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(24, 201, 139, 0.15);
+                width: max-content;
+                max-width: 100%;
+                white-space: pre-wrap;
+                word-break: normal;
+                overflow-wrap: break-word;
+            }
+        }
+
+        .blogViewContainer {
+            .blogTitle {
+                color: #ffffff;
+            }
+
+            .blogTypeBadge {
+                background: rgba(24, 201, 139, 0.15);
+                color: #18C98B;
+            }
+
+            .blogContent {
+                color: #f3f4f6;
+
+                p,
+                li {
+                    color: #f3f4f6;
+                }
+
+                .blogLoadingState {
+                    .spinner {
+                        border-color: rgba(24, 201, 139, 0.1);
+                        border-top-color: #18C98B;
+                    }
+
+                    p {
+                        color: rgba(255, 255, 255, 0.5);
+                    }
+                }
+            }
+        }
+    }
+
+}

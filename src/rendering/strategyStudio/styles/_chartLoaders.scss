@@ -1,0 +1,427 @@
+/* ── Chart Skeleton & Micro-Loaders ── */
+
+.chartLoaderContainer {
+    position: relative;
+    width: 100%;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(8, 16, 12, 0.35);
+    border: 1px dashed rgba(24, 201, 139, 0.2);
+
+    [data-theme='light'] & {
+        background: rgba(248, 250, 252, 0.65);
+        border: 1px dashed rgba(0, 0, 0, 0.12);
+    }
+}
+
+.candlestickLoaderStage {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, rgba(24, 201, 139, 0.04) 0%, rgba(5, 10, 8, 0.5) 100%);
+
+    [data-theme='light'] & {
+        background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, rgba(248, 250, 252, 0.85) 100%);
+    }
+}
+
+.chartGridLines {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    pointer-events: none;
+
+    .gridLine {
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.04);
+        border-top: 1px dashed rgba(24, 201, 139, 0.12);
+
+        [data-theme='light'] & {
+            border-top-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+.scanRadarLine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, #18C98B 40%, #00F2FE 60%, transparent);
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.8), 0 0 32px rgba(0, 242, 254, 0.4);
+    animation: scanRadar 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    z-index: 3;
+    pointer-events: none;
+}
+
+@keyframes scanRadar {
+    0% {
+        left: 0%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.candlestickBarsRow {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: 6px;
+    padding: 0 12px;
+}
+
+.candleSkeletonItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+
+    .candleWick {
+        width: 2px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 2px;
+        animation: candleWickPulse 1.8s ease-in-out infinite alternate;
+
+        [data-theme='light'] & {
+            background: rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    .candleBody {
+        width: 65%;
+        max-width: 14px;
+        min-width: 4px;
+        border-radius: 3px;
+        position: absolute;
+        animation: candleBodyPulse 1.8s ease-in-out infinite alternate;
+
+        &.bullish {
+            background: linear-gradient(180deg, #10B981, rgba(16, 185, 129, 0.6));
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+        }
+
+        &.bearish {
+            background: linear-gradient(180deg, #EF4444, rgba(239, 68, 68, 0.6));
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.35);
+        }
+    }
+}
+
+@keyframes candleWickPulse {
+    0% {
+        opacity: 0.3;
+        transform: scaleY(0.85);
+    }
+    100% {
+        opacity: 0.85;
+        transform: scaleY(1.05);
+    }
+}
+
+@keyframes candleBodyPulse {
+    0% {
+        opacity: 0.45;
+        transform: scaleY(0.9);
+    }
+    100% {
+        opacity: 0.95;
+        transform: scaleY(1.08);
+    }
+}
+
+.chartLoaderOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(7, 14, 10, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    [data-theme='light'] & {
+        background: rgba(255, 255, 255, 0.7);
+    }
+}
+
+.spinnerOrbitalSmall {
+    width: 36px;
+    height: 36px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spinnerRing {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2.5px solid rgba(24, 201, 139, 0.18);
+        border-top-color: #18C98B;
+        animation: spinRing 0.85s linear infinite;
+
+        [data-theme='light'] & {
+            border-color: rgba(5, 150, 105, 0.18);
+            border-top-color: #059669;
+        }
+    }
+}
+
+@keyframes spinRing {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.chartLoaderLabel {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    [data-theme='light'] & {
+        color: #0F172A;
+    }
+}
+
+.chartLoaderSub {
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 500;
+
+    [data-theme='light'] & {
+        color: #64748B;
+    }
+}
+
+.chartLoaderTextWrap {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.chartLoaderCentered {
+    justify-content: center;
+}
+
+.chartLoaderMarginTop12 {
+    margin-top: 12px;
+}
+
+.chartLoaderSubMargin {
+    margin-top: 2px;
+}
+
+
+/* ── Area Chart Progression Skeleton ── */
+.areaLoaderStage {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.waveSkeletonPath {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.0) 100%);
+    clip-path: polygon(0% 80%, 15% 70%, 30% 85%, 45% 55%, 60% 60%, 75% 30%, 90% 40%, 100% 15%, 100% 100%, 0% 100%);
+    animation: waveShimmer 2s ease-in-out infinite alternate;
+
+    [data-theme='light'] & {
+        background: linear-gradient(180deg, rgba(5, 150, 105, 0.2) 0%, rgba(5, 150, 105, 0.0) 100%);
+    }
+}
+
+.waveLineTop {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    height: 120px;
+    pointer-events: none;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+
+        path {
+            stroke: #18C98B;
+            stroke-width: 2.5;
+            fill: none;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            animation: drawWaveLine 2.2s ease-in-out infinite alternate;
+
+            [data-theme='light'] & {
+                stroke: #059669;
+            }
+        }
+    }
+}
+
+@keyframes drawWaveLine {
+    0% {
+        stroke-dashoffset: 600;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes waveShimmer {
+    0% {
+        opacity: 0.35;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 0.75;
+        transform: translateY(-4px);
+    }
+}
+
+/* ── Donut Chart Loader Skeleton ── */
+.donutLoaderStage {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.donutRingWrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+
+        circle {
+            fill: none;
+            stroke-width: 14;
+            stroke-linecap: round;
+
+            &.track {
+                stroke: rgba(255, 255, 255, 0.06);
+
+                [data-theme='light'] & {
+                    stroke: rgba(0, 0, 0, 0.06);
+                }
+            }
+
+            &.segmentWin {
+                stroke: #18C98B;
+                stroke-dasharray: 240;
+                stroke-dashoffset: 80;
+                animation: donutSpin 2s ease-in-out infinite alternate;
+                filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.5));
+            }
+
+            &.segmentLoss {
+                stroke: #EF4444;
+                stroke-dasharray: 240;
+                stroke-dashoffset: 170;
+                animation: donutSpinLoss 2s ease-in-out infinite alternate;
+                filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.5));
+            }
+        }
+    }
+}
+
+.donutCenterValue {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .donutValTitle {
+        font-size: 9px;
+        font-weight: 700;
+        color: #94A3B8;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .donutValNumber {
+        font-size: 18px;
+        font-weight: 800;
+        color: #FFFFFF;
+        animation: simPulse 1.5s ease-in-out infinite;
+
+        [data-theme='light'] & {
+            color: #0F172A;
+        }
+    }
+}
+
+@keyframes donutSpin {
+    0% {
+        stroke-dashoffset: 140;
+    }
+    100% {
+        stroke-dashoffset: 60;
+    }
+}
+
+@keyframes donutSpinLoss {
+    0% {
+        stroke-dashoffset: 200;
+    }
+    100% {
+        stroke-dashoffset: 140;
+    }
+}

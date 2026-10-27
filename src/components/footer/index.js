@@ -1,220 +1,213 @@
-'use client'
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link';
+'use client';
+import React, { useRef } from 'react';
 import styles from './footer.module.scss';
-import { supabase } from '@/lib/supabaseClient';
-import { toast } from '@/components/toast';
-import Loader from '@/components/loader';
+import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import { fetchBrokers, brokerList } from '@/lib/brokersData';
+import { useTheme } from '@/context/ThemeContext';
+import { useTabPermission } from '@/lib/useTabPermission';
+import { useSocialLinks } from '@/services/socialLinksService';
+import SocialIcon from './SocialIcon';
 
-const FooterLogo = '/assets/logo/logoWhite.svg';
-
-const ArrowUpIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-        <g clipPath="url(#clip0_5885_2914)">
-            <path d="M21.4264 8.79752L21.4182 8.78939L13.0278 0.387937C12.9611 0.321633 12.8875 0.262725 12.8081 0.212237L12.5666 0.0804497L12.4018 0.0255211H12.281C12.0958 -0.00850704 11.906 -0.00850704 11.7209 0.0255211H11.4793L11.2926 0.124362C11.1885 0.180884 11.0925 0.251054 11.007 0.333008L2.58365 8.78939C2.01959 9.34897 2.01593 10.2599 2.57551 10.824L2.58365 10.8321C3.15224 11.3746 4.04675 11.3746 4.61539 10.8321L9.63428 5.82417C9.8508 5.61187 10.1985 5.61527 10.4108 5.83184C10.5096 5.93258 10.5658 6.06749 10.5678 6.20857V22.5612C10.5677 23.3558 11.2118 23.9999 12.0064 24C12.8009 24 13.445 23.356 13.4452 22.5614V6.20857C13.4494 5.90535 13.6987 5.66294 14.0019 5.66721C14.143 5.66922 14.2779 5.72538 14.3786 5.82417L19.3756 10.8321C19.9456 11.3816 20.8483 11.3816 21.4183 10.8321C21.9824 10.2725 21.986 9.36158 21.4264 8.79752Z" fill="currentColor" />
-        </g>
-        <defs>
-            <clipPath id="clip0_5885_2914">
-                <rect width="24" height="24" fill="white" />
-            </clipPath>
-        </defs>
-    </svg>
-);
-
-const FacebookIcon = () => (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
-    </svg>
-);
-
-const PinterestIcon = () => (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.22 2.62 7.83 6.36 9.31-.09-.79-.17-2 .03-2.87.19-.79 1.2-5.1 1.2-5.1s-.31-.61-.31-1.52c0-1.42.82-2.48 1.85-2.48.87 0 1.29.65 1.29 1.44 0 .88-.56 2.19-.85 3.41-.24 1.01.5 1.84 1.5 1.84 1.8 0 3.18-1.9 3.18-4.65 0-2.43-1.75-4.13-4.24-4.13-2.89 0-4.59 2.17-4.59 4.41 0 .87.34 1.81.76 2.31.08.1.1.17.07.27-.08.33-.26 1.05-.3 1.2-.05.21-.17.25-.4.15-1.51-.7-2.46-2.91-2.46-4.69 0-3.82 2.78-7.33 8.01-7.33 4.21 0 7.48 3 7.48 7.01 0 4.18-2.64 7.55-6.3 7.55-1.23 0-2.39-.64-2.79-1.41 0 0-.61 2.32-.76 2.89-.28 1.06-1.02 2.39-1.52 3.2C9.07 21.78 10.5 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" />
-    </svg>
-);
-
-const InstagramIcon = () => (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-    </svg>
-);
-
-const DribbbleIcon = () => (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm7.95 9.17c-.45-.14-2.73-.83-5.5-.39-.23-.55-.47-1.11-.72-1.66 2.37-1 4.41-1 4.51-1 .96.96 1.58 2.22 1.71 3.66zm-2.07-5c-.15-.05-1.95-.53-4.52.55-.26-.53-.51-1.07-.76-1.6 2.85-.71 4.32-.2 4.41-.17.47.38.83.84 1.12 1.34-1.27-.12-2.58-.12-3.83 0v.02c.24.5.48 1 .71 1.5 2.53-1 4.34-.58 4.49-.55.15.52.23 1.06.24 1.61zM11.66 3.06c.25.5.5 1.02.73 1.54-2.31.63-4.94.63-7.24 0 .34-.69.83-1.28 1.43-1.74 1.39-.77 3.32-.71 5.08.2zm-8.2 4.09c2.37.58 4.9.58 7.15 0-.22-.48-.45-.96-.69-1.44-2.48-1-4.22-.55-4.36-.51-.31.3-.57.64-.78 1 .23.05 1.4.35 3.3.05zm-.4 3.97c.1-.03 2.53-.78 5.17-.18-.32.86-.68 1.75-1.08 2.65-2.75-.8-5.06-.06-5.17-.03.01-.88.19-1.73.53-2.51.55.07 1 .37 1.5.07zm1.18 5.12c.16-.04 2.18-.7 4.88.22-.38.85-.79 1.68-1.25 2.47-2.38-1.22-3.41-2.46-3.46-2.52a8.04 8.04 0 0 1-.17-.17zm5.95 4.67c.43-.72.82-1.48 1.17-2.26 1.95.79 2.72 2.02 2.76 2.08a8.03 8.03 0 0 1-3.93.18z" />
-    </svg>
-);
+const DarkLogo = '/assets/logo/logo.png';
+const LightLogo = '/assets/logo/darklogo.png';
 
 export default function Footer() {
-    const { t, tDynamic } = useLanguage();
-    const [email, setEmail] = useState('');
-    const [submitting, setSubmitting] = useState(false);
-    const [broker, setBroker] = useState(() => {
-        return brokerList.find((b) => b.id === 'forex__cfd_trading') || brokerList[0] || null;
+  const { t } = useLanguage();
+  const { theme } = useTheme();
+  const { socialLinks } = useSocialLinks();
+  const hasPlansPermission = useTabPermission('Subscription Plans');
+  const activeLogo = theme === 'light' ? LightLogo : DarkLogo;
+  const containerRef = useRef(null);
+  const spotlightRef = useRef(null);
+  const rafRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current || !spotlightRef.current) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      if (!containerRef.current || !spotlightRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      spotlightRef.current.style.setProperty('--cursor-x', `${x}px`);
+      spotlightRef.current.style.setProperty('--cursor-y', `${y}px`);
     });
+  };
 
-    useEffect(() => {
-        let isMounted = true;
-        fetchBrokers().then((data) => {
-            if (isMounted && Array.isArray(data) && data.length > 0) {
-                const target = data.find((b) => b.id === 'forex__cfd_trading') || data[0];
-                if (target) {
-                    setBroker(target);
-                }
-            }
-        }).catch((err) => {
-            console.error('Failed to load broker for footer:', err);
-        });
-        return () => { isMounted = false; };
-    }, []);
+  const handleMouseEnter = () => {
+    if (spotlightRef.current) {
+      spotlightRef.current.style.setProperty('--hover-opacity', '1');
+    }
+  };
 
-    const brokerName = (broker ? tDynamic(broker, 'name') : null) || broker?.name || 'Forex & CFD Trading';
-    const brokerRedirectionLink = broker?.website_url || broker?.websiteUrl || 'https://my.tickmill.com?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&lp=https%3A%2F%2Fmy.tickmill.com%2Fen%2Fsign-up';
+  const handleMouseLeave = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (spotlightRef.current) {
+      spotlightRef.current.style.setProperty('--hover-opacity', '0');
+    }
+  };
 
-    const handleSubscribe = async (e) => {
-        e.preventDefault();
+  return (
+    <footer className={styles.footer}>
+      <div className='container'>
+        {/* Giant Interactive Brand Signature */}
+        <div
+          ref={containerRef}
+          className={styles.brandSignatureSection}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h2 className={`${styles.signatureTypography} ${styles.baseLayer}`} aria-hidden="true">
+            ChronosX
+          </h2>
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const trimmedEmail = email.trim();
+          <h2
+            ref={spotlightRef}
+            className={`${styles.signatureTypography} ${styles.spotlightLayer}`}
+          >
+            ChronosX
+          </h2>
+        </div>
 
-        if (!trimmedEmail) {
-            toast.error(t('footer.invalidEmail', 'Please enter a valid email address.'));
-            return;
-        }
-
-        if (!emailRegex.test(trimmedEmail)) {
-            toast.error(t('footer.invalidEmail', 'Please enter a valid email address.'));
-            return;
-        }
-
-        if (!supabase) {
-            toast.error('Subscription client is not initialized.');
-            return;
-        }
-
-        setSubmitting(true);
-        try {
-            const { error } = await supabase
-                .from('newsletter_subscribers')
-                .insert([{ email: trimmedEmail }]);
-
-            if (error) {
-                if (error.code === '23505') {
-                    toast.error(t('footer.alreadySubscribed', 'This email is already subscribed.'));
-                } else {
-                    toast.error(error.message || 'Failed to subscribe.');
-                }
-            } else {
-                toast.success(t('footer.subscribedSuccess', 'Successfully subscribed to the newsletter!'));
-                setEmail('');
-            }
-        } catch (err) {
-            toast.error(err.message || 'An unexpected error occurred.');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handleEmailInput = (e) => {
-        setEmail(e.target.value.trimStart());
-    };
-
-    return (
-        <footer className={styles.footer}>
-            <div className='container-xs'>
-                <div className={styles.topSection}>
-                    {/* Brand/Logo column */}
-                    <div className={styles.brandCol}>
-                        <Link href="/" className={styles.logo}>
-                            <img src={FooterLogo} alt="Trader Master Logo" />
-                        </Link>
-                        <p>
-                            {t('footer.descPart1', 'AI-powered Forex intelligence for serious traders. Chart reading, trade analysis, and strategy generation — built around MT5 and the ')}
-                            <a href={brokerRedirectionLink} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
-                                {brokerName}
-                            </a>
-                            {t('footer.descPart2', ' brokerage stack.')}
-                        </p>
-                        <form className={styles.newsletter} onSubmit={handleSubscribe}>
-                            <input
-                                type="email"
-                                placeholder={t('footer.newsletterPlaceholder', 'Your@gmail.com')}
-                                value={email}
-                                onChange={handleEmailInput}
-                                disabled={submitting}
-                                required
-                            />
-                            <button
-                                type="submit"
-                                className={styles.submitBtn}
-                                aria-label="Subscribe"
-                                disabled={submitting}
-                            >
-                                {submitting ? <Loader size="sm" /> : <ArrowUpIcon />}
-                            </button>
-                        </form>
-                    </div>
-
-                    <div className={styles.rightCol}>
-                        <div className={styles.linkcol}>
-                            <div className={styles.linkCol}>
-                                <h4>{t('footer.product', 'Product')}</h4>
-                                <ul>
-                                    <li><Link href="/tradesnap">{t('nav.aiTrade', 'AI Chart Scanner')}</Link></li>
-                                    <li><Link href="/ai-chat">{t('nav.aiChat', 'AI Trade Assistant')}</Link></li>
-                                    <li><Link href="/ai-strategy">{t('nav.aiStrategy', 'AI Strategy')}</Link></li>
-                                    <li><Link href='/past-trade-analyzer'>{t('nav.pastTradeAnalyzer', 'AI Past Trade Analyzer')}</Link></li>
-                                </ul>
-                            </div>
-
-                            <div className={styles.linkCol}>
-                                <h4>{t('footer.company', 'Company')}</h4>
-                                <ul>
-                                    <li><Link href="/">{t('nav.home', 'Home')}</Link></li>
-                                    <li><Link href="/about">{t('nav.aboutUs', 'About Us')}</Link></li>
-                                    <li><Link href="/support">{t('nav.customerSupport', 'Customer Support')}</Link></li>
-                                    <li><Link href="/contact">{t('nav.contactUs', 'Contact Us')}</Link></li>
-                                    <li><Link href="/#faq">{t('nav.faq', 'FAQ')}</Link></li>
-                                </ul>
-                            </div>
-
-                            <div className={styles.linkCol}>
-                                <h4>{t('footer.legal', 'Legal')}</h4>
-                                <ul>
-                                    <li><Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link></li>
-                                    <li><Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link></li>
-                                </ul>
-                            </div>
-
-                            <div className={styles.linkCol}>
-                                <h4>{t('footer.social', 'Social Media')}</h4>
-                                <div className={styles.socialLinks}>
-                                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
-                                        <InstagramIcon />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.bottomSection}>
-                    <div className={styles.warningBlock}>
-                        <h5>© {new Date().getFullYear()} Trader Master. {t('footer.allRightsReserved', 'All rights reserved.')}</h5>
-                        <p>{t('footer.riskPara1', 'Trading and investing in leveraged financial markets—including Foreign Exchange (Forex), commodities, and global indices—involves substantial risk and can result in the loss of your invested capital. Leveraged trading magnifies both potential gains and potential losses. All automated chart evaluations, AI-generated technical scores, pattern detection models, market commentary, and analytical toolsets provided across Trader Master are engineered strictly for informational and educational research purposes. Nothing on this platform constitutes or should be interpreted as financial, investment, legal, or trading advice. You are solely responsible for evaluating your risk tolerance and financial condition, and we strongly recommend consulting a certified, independent financial advisor before executing any trades. Past performance does not guarantee or predict future results.')}</p>
-                        <p>{t('footer.riskPara2', 'Hypothetical, backtested, and simulated algorithmic outputs have inherent limitations. Unlike real-world trading records, simulated outcomes do not represent live market transactions or actual account executions. Because simulated trades are not executed in live order books, results may not account for real-time market dynamics such as liquidity gaps, spread expansion, execution slippage, or sudden macroeconomic volatility. All historical backtests, neural pattern overlays, and quantitative metrics are modeled with historical datasets and should never be viewed as a promise or guarantee that any account will achieve comparable gains or avoid losses.')}</p>
-                        <p>{t('footer.riskPara3', 'Any user testimonials, case studies, or feedback presented on this platform depict individual experiences. Individual trading results vary widely based on risk parameters, personal discipline, market conditions, and experience. Past user experiences do not constitute a guarantee of future success or profitability.')}</p>
-                        <p>{t('footer.riskPara4', 'Trader Master operates exclusively as an artificial intelligence technology and market research platform. Trader Master is not a registered broker-dealer, financial custodian, exchange, or investment advisor. We do not hold client deposits, manage user capital, or execute orders on financial exchanges. We do not access individual user brokerage accounts, and we make no claims or representations regarding the comparative profitability or performance of users utilizing our platform features.')}</p>
-                        <p>{t('footer.riskPara5', 'All interactive candlestick charts, multi-timeframe pattern recognition overlays, and technical indicator engines accessible on the platform are powered by Trader Master’s proprietary visual analytics architecture. Market telemetry and price data across currencies, digital assets, and commodities are sourced from institutional data feeds for analytical screening. Data is delivered on an "as-is" basis for technical research and should be independently validated prior to making trading decisions.')}</p>
-                        <p>
-                            {t('footer.riskPara6', 'This statement serves as a summary notice and does not replace our complete legal framework. For exhaustive details on our operating terms and risk warnings, please review our full ')}
-                            <Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link> {t('common.and', 'and')} <Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link>.
-                        </p>
-                    </div>
-                </div>
+        {/* Navigation & Company Links */}
+        <div className={styles.topSection}>
+          {/* Brand Info */}
+          <div className={styles.brandCol}>
+            <div className={styles.brandLogo}>
+              <Link href="/" aria-label="ChronosX FrontPage">
+                <img src={activeLogo} alt='ChronosX Logo' />
+              </Link>
             </div>
-        </footer>
-    )
+            <p className={styles.brandDesc}>
+              {t('footer.brandDesc', 'Institutional-grade AI trading intelligence, neural chart pattern detection, and quantitative execution models built for modern traders.')}
+            </p>
+            <div className={styles.statusBadge}>
+              <span className={styles.statusDot} />
+              <span>{t('footer.statusOnline', 'AI Trading Desk Online')}</span>
+            </div>
+          </div>
+
+          {/* 1. Products Column */}
+          <div className={styles.navCol}>
+            <h4>{t('footer.productsTitle', 'PRODUCTS')}</h4>
+            <ul>
+              <li><Link href="/ai-chart-scanner">{t('header.products.chartScanner.title', 'AI Chart Scanner')}</Link></li>
+              <li><Link href="/ai-market-assistant">{t('header.products.marketAssistant.title', 'AI Market Assistant')}</Link></li>
+              <li><Link href="/ai-trading-signal">{t('header.products.strategyHub.title', 'AI Trading Signal')}</Link></li>
+            </ul>
+          </div>
+
+          {/* 2. Trading Tools Column */}
+          <div className={styles.navCol}>
+            <h4>{t('footer.tradingToolsTitle', 'TRADING TOOLS')}</h4>
+            <ul>
+              <li><Link href="/ai-trade-advisor">{t('header.tradingTools.tradeAudit.title', 'AI Past Trade Analyzer')}</Link></li>
+              <li><Link href="/custom-bot-builder">{t('header.tradingTools.strategyCreate.title', 'AI Trading Bot Builder')}</Link></li>
+              <li><Link href="/backtesting">{t('footer.quantBacktesting', 'Backtesting')}</Link></li>
+            </ul>
+          </div>
+
+          {/* 3. Company & Resources Column */}
+          <div className={styles.navCol}>
+            <h4>{t('footer.companyTitle', 'COMPANY')}</h4>
+            <ul>
+              <li><Link href="/about-us">{t('header.company.aboutUs.title', 'About Us')}</Link></li>
+              {hasPlansPermission && (
+                <li><Link href="/plans">{t('footer.pricingPlans', 'Pricing Plans')}</Link></li>
+              )}
+              <li><Link href="/blogs">{t('footer.researchBlogs', 'Research & Blogs')}</Link></li>
+              <li><Link href="/market-news">{t('header.company.news.title', 'Market News')}</Link></li>
+              <li><Link href="/forex-calculator">{t('header.company.forexCalculator.title', 'Forex Calculator')}</Link></li>
+              <li><Link href="/economic-calendar">{t('header.company.economicCalendar.title', 'Economic Calendar')}</Link></li>
+              <li><Link href="/white-label">{t('footer.whiteLabel', 'White Label')}</Link></li>
+              <li><Link href="/contact-us">{t('footer.contactUs', 'Contact Us')}</Link></li>
+              <li><Link href="/customer-support">{t('footer.customerSupport', 'Customer Support')}</Link></li>
+            </ul>
+          </div>
+
+          {/* 4. Legal Column */}
+          <div className={styles.navCol}>
+            <h4>{t('footer.legalTitle', 'LEGAL')}</h4>
+            <ul>
+              <li><Link href="/privacy-policy">{t('footer.privacyPolicy', 'Privacy Policy')}</Link></li>
+              <li><Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link></li>
+              <li><Link href="/risk-disclosure">{t('footer.riskDisclosure', 'Risk Disclosure')}</Link></li>
+              {/* No Refund Policy */}
+              <li><Link href="/no-refund-policy">{t('footer.noRefundPolicy', 'No Refund Policy')}</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className={styles.disclaimerSection}>
+          <div className={styles.companyRegLine} dir="ltr">
+            <strong>ChronosX Financial Technologies FZ-LLC</strong> | Dubai Silicon Oasis, IFZA Business Park, Building A1, Dubai, United Arab Emirates (UAE). Reg No: FZ-LLC-2024-CX8901
+          </div>
+          <p>{t('footer.disclaimerP1')}</p>
+          <p>{t('footer.disclaimerP2')}</p>
+          <p>{t('footer.disclaimerP3')}</p>
+          <p>{t('footer.disclaimerP4')}</p>
+          <p>{t('footer.disclaimerP5')}</p>
+
+          <p className={styles.fullDisclaimerLink}>
+            {t('footer.disclaimerNotice')}{' '}
+            <Link href="/risk-disclosure">{t('footer.riskDisclosure', 'Risk Disclosure')}</Link> {t('common.and', 'and')}{' '}
+            <Link href="/terms-and-conditions">{t('footer.termsAndConditions', 'Terms & Conditions')}</Link>.
+          </p>
+        </div>
+
+        <div className={styles.divider} />
+
+        {/* Bottom Bar */}
+        <div className={styles.bottomSection}>
+          <p>{t('footer.copyright', '© 2026 ChronosX Financial Technologies FZ-LLC. All rights reserved.')}</p>
+
+          <div className={styles.allsociallinks}>
+            {socialLinks
+              .filter((item) => {
+                const p = String(item?.platform || '').toLowerCase().trim();
+                const h = String(item?.href || '').toLowerCase().trim();
+                if (!p || ['email', 'contact_email', 'support_email', 'phone', 'contact_phone', 'tel', 'address', 'contact_address', 'office_address', 'location'].includes(p)) return false;
+                if (h.startsWith('mailto:') || h.startsWith('tel:')) return false;
+                return true;
+              })
+              .map((item, index) => {
+              const brandColor = theme === 'light'
+                ? (item.lightColor || item.brandColor)
+                : (item.darkColor || item.brandColor);
+
+              return (
+                <a
+                  key={item.platform || index}
+                  href={item.href}
+                  aria-label={item.label}
+                  data-platform={item.platform}
+                  className={styles.sociallinks}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    '--brand-color': brandColor,
+                    '--brand-hover-bg': item.hoverBg,
+                    '--brand-glow': item.glow,
+                  }}
+                >
+                  <SocialIcon
+                    platform={item.platform}
+                    className={styles.socialIcon}
+                  />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

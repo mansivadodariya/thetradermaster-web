@@ -1,0 +1,289 @@
+/* ============================================================
+   LIGHT THEME OVERRIDES FOR QUICK JUMP
+   ============================================================ */
+:global(html.light) .triggerBtn {
+    background: #F8FAFC;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+    .triggerIcon {
+        color: #64748B;
+    }
+
+    .triggerText {
+        color: #64748B;
+        font-weight: 500;
+    }
+
+    .shortcutBadge {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: #64748B;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    &:hover {
+        background: #F1F5F9;
+        border-color: rgba(24, 201, 139, 0.45);
+        color: #0F172A;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+
+        .triggerIcon {
+            color: #047857;
+        }
+
+        .triggerText {
+            color: #0F172A;
+        }
+
+        .shortcutBadge {
+            background: rgba(24, 201, 139, 0.12);
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+    }
+
+    &:focus-visible {
+        border-color: #18C98B;
+        box-shadow: 0 0 0 2px rgba(24, 201, 139, 0.25);
+    }
+}
+
+:global(html.light) .collapsedTriggerBtn {
+    background: #F8FAFC;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    color: #64748B;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+    .triggerIcon {
+        color: #64748B;
+    }
+
+    &:hover {
+        background: #F1F5F9;
+        border-color: rgba(24, 201, 139, 0.45);
+        color: #047857;
+
+        .triggerIcon {
+            color: #047857;
+        }
+    }
+
+    .tooltip {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: #0F172A;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+    }
+}
+
+:global(html.light) .modalBackdrop {
+    background: rgba(15, 23, 42, 0.45);
+}
+
+:global(html.light) .modalCard {
+    background: #FFFFFF;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    box-shadow: 0 24px 60px -12px rgba(15, 23, 42, 0.18),
+                0 0 0 1px rgba(15, 23, 42, 0.06),
+                0 0 35px -10px rgba(24, 201, 139, 0.15);
+
+    &::before {
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.6) 50%, transparent 100%);
+    }
+
+    .searchHeaderArea {
+        background: #FAFAFA;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+        .searchIconWrap {
+            background: rgba(24, 201, 139, 0.1);
+            border: 1px solid rgba(24, 201, 139, 0.25);
+            color: #047857;
+        }
+
+        .searchInput {
+            color: #0F172A;
+
+            &::placeholder {
+                color: #94A3B8;
+            }
+        }
+
+        .clearBtn,
+        .closeBtn {
+            background: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            color: #64748B;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+            &:hover {
+                background: #F1F5F9;
+                border-color: rgba(15, 23, 42, 0.18);
+                color: #0F172A;
+            }
+        }
+    }
+
+    .filterBar {
+        background: #F8FAFC;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .filterChip {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        color: #64748B;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+        &:hover {
+            color: #0F172A;
+            background: #F1F5F9;
+            border-color: rgba(15, 23, 42, 0.16);
+        }
+
+        &.filterChipActive {
+            background: rgba(24, 201, 139, 0.14);
+            border-color: rgba(24, 201, 139, 0.45);
+            color: #047857;
+            box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
+        }
+    }
+
+    .resultsList {
+        background: #FFFFFF;
+        scrollbar-color: rgba(24, 201, 139, 0.35) rgba(15, 23, 42, 0.04);
+
+        &::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.03);
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(24, 201, 139, 0.25);
+            &:hover {
+                background: rgba(24, 201, 139, 0.45);
+            }
+        }
+    }
+
+    .categoryHeader {
+        color: #64748B;
+
+        &::after {
+            background: rgba(15, 23, 42, 0.08);
+        }
+    }
+
+    .itemRow {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+
+        &:hover,
+        &.itemActive {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.45);
+            box-shadow: 0 4px 12px rgba(24, 201, 139, 0.12);
+
+            .itemIconWrap {
+                background: rgba(24, 201, 139, 0.14);
+                border-color: rgba(24, 201, 139, 0.4);
+                color: #047857;
+                box-shadow: 0 2px 8px rgba(24, 201, 139, 0.15);
+            }
+
+            .itemTitle {
+                color: #0F172A;
+            }
+
+            .itemSubtitle {
+                color: #475569;
+            }
+
+            .actionBadge {
+                opacity: 1;
+            }
+        }
+
+        &.itemActive {
+            background: rgba(24, 201, 139, 0.08);
+            border-color: rgba(24, 201, 139, 0.45);
+        }
+    }
+
+    .itemIconWrap {
+        background: #F1F5F9;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        color: #047857;
+    }
+
+    .itemTitle {
+        color: #1E293B;
+    }
+
+    .itemSubtitle {
+        color: #64748B;
+    }
+
+    .categoryTag {
+        background: #F1F5F9;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        color: #64748B;
+    }
+
+    .actionBadge {
+        background: rgba(24, 201, 139, 0.14);
+        border: 1px solid rgba(24, 201, 139, 0.4);
+        color: #047857;
+        box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
+    }
+
+    .emptyState {
+        color: #64748B;
+
+        svg {
+            color: #94A3B8;
+        }
+
+        p {
+            color: #334155;
+        }
+
+        span {
+            color: #64748B;
+        }
+    }
+
+    .modalFooter {
+        background: #F8FAFC;
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .footerHints {
+        color: #64748B;
+
+        .hintItem {
+            kbd {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.14);
+                color: #475569;
+                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+            }
+        }
+    }
+
+    .resultsCount {
+        color: #64748B;
+    }
+
+    .chronosXTag {
+        color: #047857;
+
+        .pulsingDot {
+            background: #047857;
+            box-shadow: 0 0 8px #047857;
+        }
+    }
+}
+
+

@@ -1,0 +1,6 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+@import './styles/calculatorInputsLayout';
+@import './styles/calculatorChipsResults';
+@import './styles/calculatorTables';

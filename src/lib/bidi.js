@@ -105,11 +105,16 @@ export const bidiMarkdownComponents = {
             {children}
         </h6>
     ),
-    li: ({ children, ...props }) => (
-        <li dir="auto" className="bidi-auto" {...props}>
-            {children}
-        </li>
-    ),
+    li: ({ children, ...props }) => {
+        if (!children) return null;
+        if (typeof children === 'string' && !children.trim()) return null;
+        if (Array.isArray(children) && children.every(c => c === null || c === undefined || (typeof c === 'string' && !c.trim()))) return null;
+        return (
+            <li dir="auto" className="bidi-auto" {...props}>
+                {children}
+            </li>
+        );
+    },
     blockquote: ({ children, ...props }) => (
         <blockquote dir="auto" className="bidi-auto" {...props}>
             {children}

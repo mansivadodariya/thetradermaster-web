@@ -1,0 +1,640 @@
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI TRADE
+   ============================================================ */
+:global(html.light) .pageWrapper,
+:global(html.light) .aiTradeWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC;
+    color: #0F172A;
+
+    .sectionDivider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
+        margin: 40px 0;
+    }
+
+    /* Section Headings */
+    .sectionTitle {
+        color: #0F172A;
+    }
+
+    .sectionSubtitle {
+        color: #475569;
+    }
+
+    .sectionBadge {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #047857;
+        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.08);
+
+        span {
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            color: #047857;
+            font-weight: 800;
+        }
+    }
+
+    /* 1. Hero Section */
+    .heroMainTitle {
+        color: #0F172A;
+    }
+
+    .heroSubtitle {
+        color: #475569;
+    }
+
+    .heroSecondaryBtn {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        &:hover {
+            background: #F8FAFC;
+            border-color: #18C98B;
+            color: #047857;
+        }
+    }
+
+    /* 2. Top Feature Highlights */
+    .highlightCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #18C98B;
+            box-shadow: 0 10px 30px rgba(24, 201, 139, 0.12);
+        }
+
+        .highlightIconBox {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .highlightContent {
+            background: transparent;
+
+            h4 {
+                color: #0F172A;
+                background: transparent;
+            }
+
+            p {
+                color: #64748B;
+                background: transparent;
+            }
+        }
+    }
+
+    /* 3. 3-Step Process Cards */
+    .stepCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(5, 150, 105, 0.25);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: #059669;
+            box-shadow: 0 8px 28px rgba(5, 150, 105, 0.15);
+        }
+
+        .stepNumBadge {
+            background: #ECFDF5;
+            border: 1px solid rgba(5, 150, 105, 0.35);
+            color: #059669;
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.1);
+        }
+
+        .stepTag {
+            background: rgba(5, 150, 105, 0.1);
+            border: 1px solid rgba(5, 150, 105, 0.35);
+            color: #059669;
+            font-weight: 800;
+            font-size: 10px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            display: inline-flex;
+            box-shadow: none;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .stepIconWrap {
+            background: #ECFDF5;
+            border: 1px solid rgba(5, 150, 105, 0.35);
+            color: #059669;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.08);
+        }
+
+        .stepTitle {
+            color: #0F172A;
+            font-weight: 800;
+            font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), sans-serif;
+        }
+
+        .stepDesc {
+            color: #475569;
+            font-weight: 500;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+    }
+
+    /* 4. Live Vision AI Scanner Demo Cockpit */
+    .scannerCockpit {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+
+        .cockpitNavHeader {
+            background: #F8FAFC;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+            .brandTitle {
+                color: #0F172A;
+                font-weight: 700;
+            }
+
+            .tabBtn {
+                background: #FFFFFF;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #475569;
+
+                &:hover {
+                    color: #047857;
+                    border-color: #18C98B;
+                }
+
+                &.tabBtnActive {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                    font-weight: 700;
+                    box-shadow: none;
+                }
+            }
+
+            .telemetryStatus {
+                color: #047857;
+            }
+        }
+
+        .chartVisualCol {
+            background: #FAFAFA;
+            border-right: 1px solid rgba(15, 23, 42, 0.08);
+
+            @include respond-to('md') {
+                border-right: none;
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            }
+        }
+
+        .chartFrame {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.28);
+            box-shadow: 0 6px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .candlestickStage {
+            background: #FFFFFF;
+
+            .chartSvg {
+                line[stroke="rgba(255,255,255,0.06)"] {
+                    stroke: rgba(15, 23, 42, 0.08);
+                }
+
+                rect[fill="rgba(24, 201, 139, 0.05)"] {
+                    fill: rgba(24, 201, 139, 0.08);
+                    stroke: rgba(24, 201, 139, 0.55);
+                }
+
+                text[fill="#18C98B"] {
+                    fill: #047857;
+                    font-weight: 800;
+                }
+
+                line[stroke="#10B981"] {
+                    stroke: #059669;
+                }
+
+                rect[fill="#10B981"] {
+                    fill: #059669;
+                }
+
+                text[fill="#10B981"] {
+                    fill: #047857;
+                    font-weight: 800;
+                }
+
+                line[stroke="#EF4444"] {
+                    stroke: #DC2626;
+                }
+
+                rect[fill="#EF4444"] {
+                    fill: #DC2626;
+                }
+
+                text[fill="#EF4444"] {
+                    fill: #DC2626;
+                    font-weight: 800;
+                }
+            }
+        }
+
+        .scanningOverlay {
+            background: rgba(255, 255, 255, 0.95);
+
+            .scanAnimationBox {
+                h4 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #475569;
+                }
+
+                .scanProgressBar {
+                    background: #E2E8F0;
+                }
+            }
+        }
+
+        .visionCallout {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.38);
+            color: #047857;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+
+            .calloutDot {
+                background: #10B981;
+            }
+        }
+
+        .uploadTriggerBar {
+            background: #F8FAFC;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .uploadDropBtn {
+            background: #FFFFFF;
+            border: 1.5px dashed rgba(24, 201, 139, 0.45);
+            color: #047857;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+
+            &:hover {
+                background: #F0FDF4;
+                border-color: #18C98B;
+            }
+        }
+
+        .resultCardCol {
+            background: #FFFFFF;
+        }
+
+        .resultHeaderRow {
+            border-bottom: 1px solid #F1F5F9;
+
+            .resultHeaderTag {
+                color: #047857;
+            }
+
+            .resultPairTitle {
+                color: #0F172A;
+            }
+
+            .tfBadge {
+                background: #F1F5F9;
+                color: #334155;
+                border: 1px solid #E2E8F0;
+            }
+
+            .resultIconBox {
+                background: #F0FDF4;
+                border-color: rgba(24, 201, 139, 0.35);
+                color: #047857;
+            }
+
+            .copyBtn {
+                background: #F1F5F9;
+                border: 1px solid #E2E8F0;
+                color: #475569;
+
+                &:hover {
+                    background: #18C98B;
+                    color: #040605;
+                    border-color: #18C98B;
+                }
+            }
+        }
+
+        .decisionBanner {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+
+            .decisionLabel {
+                color: #475569;
+                font-weight: 700;
+            }
+
+            .decisionBuy {
+                color: #047857;
+                font-weight: 800;
+            }
+
+            .decisionSell {
+                color: #DC2626;
+                font-weight: 800;
+            }
+
+            .convLabel {
+                color: #475569;
+                font-weight: 700;
+            }
+
+            .convVal {
+                color: #047857;
+                font-weight: 900;
+            }
+        }
+
+        .executionBox {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.3);
+            box-shadow: 0 4px 15px rgba(24, 201, 139, 0.05);
+
+            .execHeader {
+                .targetIconBox {
+                    background: #F0FDF4;
+                    border-color: rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                }
+
+                h5 {
+                    color: #047857;
+                    font-weight: 800;
+                }
+            }
+
+            .execRow {
+                border-bottom: 1px dashed #E2E8F0;
+
+                .execKey {
+                    color: #0F172A;
+                    font-weight: 600;
+                }
+
+                .execValHighlight {
+                    color: #047857;
+                    font-weight: 800;
+                }
+
+                .execValSl {
+                    color: #DC2626;
+                    font-weight: 800;
+                }
+
+                .execValTp {
+                    color: #047857;
+                    font-weight: 800;
+                }
+
+                .execValRrr {
+                    background: rgba(24, 201, 139, 0.14);
+                    color: #047857;
+                    font-weight: 800;
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+                }
+            }
+        }
+
+        .rationaleBox {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .rationaleHeader {
+                .lightbulbIconBox {
+                    background: #F0FDF4;
+                    border-color: rgba(24, 201, 139, 0.35);
+                    color: #047857;
+                }
+
+                h5 {
+                    color: #047857;
+                    font-weight: 800;
+                }
+            }
+
+            .rationaleText {
+                color: #334155;
+                line-height: 1.6;
+            }
+        }
+
+        .deskActionRow {
+            .openLiveDeskBtn {
+                background: #18C98B;
+                color: #040605;
+                font-weight: 700;
+            }
+        }
+    }
+
+    /* 5. Key Capabilities Grid */
+    .featureCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+
+        .cardGlowHover {
+            background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.08) 0%, transparent 70%);
+        }
+
+        .featureIconWrap {
+            background: #F0FDF4;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #047857;
+        }
+
+        .featureNum {
+            color: rgba(4, 120, 87, 0.45);
+        }
+
+        .featureBadgePill {
+            background: #F1F5F9;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            color: #475569;
+        }
+
+        .featureCardTitle,
+        .featureTitle {
+            color: #0F172A;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardDesc,
+        .featureDesc {
+            color: #475569;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .featureCardStat,
+        .statBox {
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+
+            .statLabel {
+                color: #64748B;
+                background: transparent;
+                border: none;
+            }
+
+            .statVal,
+            .statValue {
+                color: #047857;
+                font-weight: 800;
+                background: transparent;
+                border: none;
+            }
+        }
+    }
+
+    /* 6. Comparison Table */
+    .tableCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+
+        th {
+            background: #F1F5F9;
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .thFeature {
+            color: #0F172A;
+        }
+
+        .thManual {
+            color: #334155;
+        }
+
+        .thAiTrade {
+            background: rgba(24, 201, 139, 0.12);
+            color: #047857;
+        }
+
+        tr {
+            border-bottom: 1px solid #F1F5F9;
+
+            &:hover {
+                background: #F8FAFC;
+            }
+        }
+
+        .rowHighlight {
+            background: rgba(24, 201, 139, 0.04);
+        }
+
+        td {
+            color: #1E293B;
+            border-bottom-color: #F1F5F9;
+        }
+
+        .tdFeature {
+            color: #0F172A;
+            font-weight: 700;
+        }
+
+        .tdManual {
+            color: #334155;
+        }
+
+        .manualText {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .genericText {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .chronosText {
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .statusIconWarn {
+            background: rgba(2, 132, 199, 0.12);
+            border-color: rgba(2, 132, 199, 0.35);
+            color: #0284C7;
+        }
+
+        .statusIconCross {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #DC2626;
+        }
+
+        .statusIconCheck {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #059669;
+        }
+
+        .tdAiTrade {
+            background: rgba(24, 201, 139, 0.05);
+            border-left: 1px solid rgba(24, 201, 139, 0.18);
+            border-right: 1px solid rgba(24, 201, 139, 0.18);
+            color: #047857;
+            font-weight: 700;
+        }
+    }
+
+    /* 7. FAQs */
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+
+        .faqQuestionBtn {
+            color: #0F172A;
+            background: transparent;
+        }
+
+        .qText {
+            color: #0F172A;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9;
+            background: #FFFFFF;
+            background-color: #FFFFFF;
+
+            p {
+                color: #475569;
+            }
+        }
+    }
+}

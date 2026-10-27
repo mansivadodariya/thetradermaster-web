@@ -1,0 +1,329 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+:global(html.light) .aiStrategyWrapper,
+:global(html[data-theme='light']) .aiStrategyWrapper,
+:global([data-theme='light']) .aiStrategyWrapper {
+/* 3. Right Analysis Panel & Technical Score */
+        .premiumAccordion,
+        .premiumAccordionCard {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+            margin-bottom: 10px;
+            overflow: hidden;
+
+            .premiumAccordionHeader {
+                background: #F8FAFC;
+                border-bottom: 1px solid #E2E8F0;
+
+                span {
+                    color: #0F172A;
+                    font-weight: 700;
+                }
+
+                svg {
+                    color: #059669;
+                }
+
+                &:hover {
+                    background: #F1F5F9;
+                }
+            }
+
+            .premiumAccordionBody {
+                background: #FFFFFF;
+                color: #0F172A;
+            }
+        }
+
+        .scoreTopRow {
+            border-bottom: 1px solid #E2E8F0;
+
+            .scoreTextGroup {
+                .largeScoreText {
+                    color: #059669;
+
+                    .scoreDivider {
+                        color: #94A3B8;
+                    }
+                }
+
+                .scoreTextLabel {
+                    color: #059669;
+                }
+            }
+
+            .confidenceGroup {
+                .confLabel {
+                    color: #64748B;
+                }
+
+                .confValue {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .progressBarRow {
+            &:hover {
+                background: #F8FAFC;
+            }
+
+            .progressBarLabelGroup {
+                color: #334155;
+
+                svg {
+                    color: #059669;
+                }
+            }
+
+            .progressOuterTrack {
+                background: #E2E8F0;
+            }
+
+            .progressValueGroup {
+                .progressScoreText {
+                    color: #0F172A;
+                }
+
+                .subChevron {
+                    color: #64748B;
+                }
+            }
+        }
+
+        .progressSubDetailsCollapse {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .subDetailTableGrid {
+                .subDetailMetricRow {
+                    border-bottom: 1px solid #F1F5F9;
+
+                    .metricName {
+                        color: #64748B;
+                    }
+
+                    .metricVal {
+                        color: #0F172A;
+                    }
+                }
+            }
+
+            .subDetailSimpleRows {
+                .simpleRowItem {
+                    color: #64748B;
+
+                    strong {
+                        color: #0F172A;
+                    }
+                }
+            }
+        }
+
+        .evidenceOutlinedGroup {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .evidenceGroupClickableHeader {
+                .evidenceTitleGroup {
+                    .groupTypeTitle {
+                        color: #0F172A;
+                    }
+                }
+
+                .subChevron {
+                    color: #64748B;
+                }
+            }
+
+            .evidenceCollapsedBulletArea {
+                border-top: 1px solid #F1F5F9;
+
+                .evidenceBulletItem {
+                    color: #334155;
+                }
+            }
+        }
+
+        .trendRowHeader {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .trendHeaderText {
+                h4 {
+                    color: #0F172A;
+                }
+
+                p {
+                    color: #64748B;
+                }
+            }
+        }
+
+        .confluenceSummaryCard,
+        .levelsSummaryTable,
+        .strategyExecutionCard,
+        .strategyOrderCard {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            color: #0F172A;
+
+            h4, h5, strong {
+                color: #0F172A;
+            }
+
+            p, span {
+                color: #334155;
+            }
+        }
+
+        .confluenceGridItem,
+        .executionMetricBox {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            color: #0F172A;
+        }
+
+        .momentumSliderContainer,
+        .macdMetricsContainer,
+        .stochasticSubProgressList,
+        .relativeVolumeContainer,
+        .volumePressureContainer,
+        .levelsSummaryGrid,
+        .pivotPointsTable,
+        .fibonacciTable,
+        .aiSummaryCard {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            color: #0F172A;
+
+            .sliderName,
+            .macdTitle,
+            .stochLabel,
+            .volHeaderRow,
+            .pressureHeaderRow {
+                color: #334155;
+            }
+
+            .sliderValTxt,
+            .stochValText,
+            .volCompareValue,
+            strong {
+                color: #0F172A;
+            }
+
+            .macdSubDetailsRow,
+            .axisMarker,
+            .volMarker {
+                color: #64748B;
+            }
+
+            .gradientTrackBg,
+            .macdHistogramTrack,
+            .stochTrackBg,
+            .relativeVolumeTrack {
+                background: #E2E8F0;
+            }
+        }
+
+        .volCompareCard {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+
+            .volCompareLabel {
+                color: #64748B;
+            }
+
+            .volCompareValue {
+                color: #0F172A;
+            }
+        }
+
+        .metricBox,
+        .levelsCard,
+        .trendConfidenceContainer,
+        .confluenceBox,
+        .strategyReasoning,
+        .volMetricBox,
+        .indicatorRow,
+        .quickPosBox {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.2);
+            color: #0F172A;
+
+            .sectionTitle,
+            .confKicker,
+            .reasoningLabel {
+                color: #047857;
+            }
+
+            p {
+                color: #334155;
+            }
+
+            strong {
+                color: #0F172A;
+            }
+
+            .indicatorName,
+            .sliderName,
+            .metricName {
+                color: #475569;
+            }
+
+            .sliderValTxt,
+            .metricValTxt,
+            .confidenceTexts strong {
+                color: #0F172A;
+            }
+
+            .confidenceTrack {
+                background: #E2E8F0;
+            }
+        }
+
+        .accordionHeader {
+            background: #F1F5F9;
+            border-color: rgba(24, 201, 139, 0.2);
+            color: #0F172A;
+
+            .accTitle {
+                color: #0F172A;
+            }
+
+            .accChevron {
+                color: #64748B;
+            }
+        }
+
+        .accordionBody {
+            background: #FFFFFF;
+        }
+
+        .actionBtnGreen {
+            background: #18C98B;
+            border: 1px solid #18C98B;
+            color: #040605;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px rgba(24, 201, 139, 0.25);
+
+            &:hover {
+                background: #15b77e;
+                border-color: #15b77e;
+            }
+        }
+
+        .actionBtnOutline {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            border-radius: 9999px;
+            color: #047857;
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.08);
+            }
+        }
+    }

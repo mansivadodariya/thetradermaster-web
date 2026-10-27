@@ -1,0 +1,578 @@
+/* ============================================================
+   MARKET OVERVIEW COLUMN & COMPONENT
+   ============================================================ */
+.radarSectionRow {
+    width: 100%;
+}
+
+.marketOverviewColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    /* 1. Header with Title & Category Filter Pills (Outside card background) */
+    .overviewHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        min-height: 33px;
+
+        .overviewTitleWrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .overviewIconPulse {
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .overviewTitleText {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                h3 {
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    font-weight: 700;
+                    margin: 0;
+                    font-family: "Euclid-Bold", sans-serif;
+
+                    @include respond-to('sm') {
+                        font-size: 15px;
+                    }
+                }
+
+                .liveStreamBadge {
+                    font-size: 9px;
+                    font-weight: 800;
+                    color: #18C98B;
+                    background: rgba(24, 201, 139, 0.12);
+                    border: 1px solid rgba(24, 201, 139, 0.35);
+                    border-radius: 4px;
+                    padding: 1px 5px;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+
+        .overviewTabsRow {
+            display: flex;
+            align-items: center;
+            background: #0D0E13;
+            border: 1px solid $borderSubtle;
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+
+            @include respond-to('sm') {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .overviewTabBtn {
+                background: transparent;
+                border: none;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    flex: 1;
+                    text-align: center;
+                    padding: 4px 8px;
+                    font-size: 10.5px;
+                }
+
+                &:hover {
+                    color: #FFFFFF;
+                    background: rgba(255, 255, 255, 0.06);
+                }
+
+                &.overviewTabActive {
+                    background: rgba(24, 201, 139, 0.2);
+                    color: #18C98B;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    /* 2. Table Card Container (Radial background only around table) */
+    .marketOverviewCard {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.16) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.16) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 75%),
+            #121514;
+        border: 1px solid rgba(24, 201, 139, 0.18);
+        border-radius: 12px;
+        padding: 8px 12px 10px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        transition: all 0.22s ease;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        flex: 1;
+        box-sizing: border-box;
+
+        @include respond-to('sm') {
+            padding: 8px 8px 10px 8px;
+        }
+
+        &:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 18px rgba(24, 201, 139, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        /* 3. Table Layout */
+        .overviewTableWrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            .overviewTableHeader {
+                display: flex;
+                align-items: center;
+                padding: 6px 8px 8px 8px;
+                font-size: 10px;
+                font-weight: 700;
+                color: #64748B;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                user-select: none;
+            }
+
+            .overviewTableBody {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 2px;
+                flex: 1;
+                max-height: 295px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                /* Hide all scrollbar buttons, black track and arrows */
+                &::-webkit-scrollbar {
+                    display: none;
+                    width: 0;
+                    height: 0;
+                }
+
+                &::-webkit-scrollbar-button {
+                    display: none;
+                    width: 0;
+                    height: 0;
+                }
+
+                &::-webkit-scrollbar-track,
+                &::-webkit-scrollbar-track-piece {
+                    display: none;
+                    background: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    display: none;
+                }
+            }
+
+            .colInstrument {
+                flex: 1.35;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                overflow: hidden;
+
+                @include respond-to('sm') {
+                    flex: 1.2;
+                    gap: 6px;
+                }
+            }
+
+            .colPrice {
+                flex: 0.95;
+                min-width: 0;
+                text-align: right;
+                font-family: "Euclid-Bold", "Euclid Circular A", var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                font-variant-numeric: tabular-nums;
+                font-feature-settings: "tnum";
+                font-size: 13px;
+                font-weight: 700;
+                color: #FFFFFF;
+                padding-right: 12px;
+                transition: color 0.3s ease;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    padding-right: 4px;
+                    font-size: 11.5px;
+                }
+
+                &.priceUp {
+                    color: #10B981;
+                    text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+                }
+
+                &.priceDown {
+                    color: #F43F5E;
+                    text-shadow: 0 0 8px rgba(244, 63, 94, 0.5);
+                }
+            }
+
+            .colTrend {
+                flex: 0.85;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .overviewSparklineSvg {
+                    display: block;
+                    overflow: visible;
+                }
+
+                @include respond-to('tab') {
+                    display: none;
+                }
+            }
+
+            .colChange {
+                flex: 0.8;
+                min-width: 0;
+                display: flex;
+                justify-content: flex-end;
+                white-space: nowrap;
+            }
+
+            .overviewRow {
+                display: flex;
+                align-items: center;
+                padding: 8px 8px;
+                border-radius: 7px;
+                transition: all 0.18s ease;
+                text-decoration: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.04);
+                    transform: translateX(2px);
+                }
+
+                &.flashUp {
+                    background: rgba(16, 185, 129, 0.08);
+                }
+
+                &.flashDown {
+                    background: rgba(244, 63, 94, 0.08);
+                }
+
+                .flagPairContainer {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    width: 26px;
+                    height: 20px;
+                    flex-shrink: 0;
+
+                    .flagDisc {
+                        width: 17px;
+                        height: 17px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+                        border: 1px solid rgba(255, 255, 255, 0.15);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 1;
+
+                        svg {
+                            display: block;
+                            width: 17px;
+                            height: 17px;
+                        }
+
+                        &.flagDiscOverlap {
+                            margin-left: -7px;
+                            z-index: 2;
+                        }
+                    }
+                }
+
+                .assetBadgeGold,
+                .assetBadgeSilver,
+                .assetBadgeOil,
+                .assetBadgeBtc,
+                .assetBadgeEth,
+                .assetBadgeSol,
+                .assetBadgeBnb,
+                .assetBadgeIndex {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+
+                .assetBadgeGold {
+                    background: rgba(245, 158, 11, 0.12);
+                    border-color: rgba(245, 158, 11, 0.3);
+                }
+
+                .assetBadgeSilver {
+                    background: rgba(148, 163, 184, 0.12);
+                    border-color: rgba(148, 163, 184, 0.3);
+                }
+
+                .assetBadgeOil {
+                    background: rgba(234, 88, 12, 0.12);
+                    border-color: rgba(234, 88, 12, 0.3);
+                }
+
+                .assetBadgeBtc {
+                    background: rgba(247, 147, 26, 0.12);
+                    border-color: rgba(247, 147, 26, 0.3);
+                }
+
+                .assetBadgeEth {
+                    background: rgba(98, 126, 234, 0.12);
+                    border-color: rgba(98, 126, 234, 0.3);
+                }
+
+                .assetBadgeSol {
+                    background: rgba(20, 241, 149, 0.12);
+                    border-color: rgba(20, 241, 149, 0.3);
+                }
+
+                .assetBadgeBnb {
+                    background: rgba(243, 186, 47, 0.12);
+                    border-color: rgba(243, 186, 47, 0.3);
+                }
+
+                .assetBadgeIndex {
+                    background: rgba(56, 189, 248, 0.12);
+                    border-color: rgba(56, 189, 248, 0.3);
+                }
+
+                .instrumentMeta {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1px;
+                    min-width: 0;
+
+                    .instrumentPair {
+                        color: #FFFFFF;
+                        font-size: 12.5px;
+                        font-weight: 700;
+                        letter-spacing: 0.1px;
+                    }
+
+                    .instrumentDisplay {
+                        color: #94A3B8;
+                        font-size: 10.5px;
+                        font-weight: 500;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .changePill {
+                    font-family: "Euclid-SemiBold", "Euclid Circular A", var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                    font-variant-numeric: tabular-nums;
+                    font-feature-settings: "tnum";
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    padding: 2px 7px;
+                    border-radius: 4px;
+                    display: inline-flex;
+                    align-items: center;
+                    letter-spacing: 0.1px;
+
+                    &.pillPositive {
+                        color: #10B981;
+                        background: rgba(16, 185, 129, 0.12);
+                        border: 1px solid rgba(16, 185, 129, 0.25);
+                    }
+
+                    &.pillNegative {
+                        color: #F43F5E;
+                        background: rgba(244, 63, 94, 0.12);
+                        border: 1px solid rgba(244, 63, 94, 0.25);
+                    }
+                }
+            }
+        }
+
+        /* 4. Footer Link */
+        .overviewFooter {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-top: 8px;
+            margin-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+            .viewAllMarketsLink {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                color: #18C98B;
+                font-size: 11.5px;
+                font-weight: 700;
+                text-decoration: none;
+                transition: all 0.2s ease;
+
+                svg {
+                    transition: transform 0.2s ease;
+                }
+
+                &:hover {
+                    color: #2DE0A1;
+                    text-decoration: underline;
+
+                    svg {
+                        transform: translateX(3px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Light Theme Overrides */
+:global(html.light) .marketOverviewColumn,
+:global([data-theme='light']) .marketOverviewColumn,
+[data-theme='light'] .marketOverviewColumn {
+    .overviewHeader {
+        .overviewTitleWrap {
+            .overviewIconPulse {
+                background: rgba(24, 201, 139, 0.14);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                border-radius: 8px;
+            }
+
+            .overviewTitleText {
+                h3 {
+                    color: #0F172A;
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+            }
+        }
+
+        .overviewTabsRow {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+
+            .overviewTabBtn {
+                color: #64748B;
+
+                &:hover {
+                    color: #0F172A;
+                    background: #E2E8F0;
+                }
+
+                &.overviewTabActive {
+                    color: #059669;
+                    background: #ECFDF5;
+                    border: 1px solid #A7F3D0;
+                }
+            }
+        }
+    }
+
+    .marketOverviewCard {
+        background: 
+            radial-gradient(ellipse 35% 85% at 0% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.08) 0%, rgba(110, 231, 183, 0.03) 50%, transparent 70%),
+            radial-gradient(ellipse 35% 85% at 100% 50%, rgba(24, 201, 139, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 75%),
+            #f3f3f3;
+        border: 1px solid rgba(24, 201, 139, 0.2);
+        box-shadow: 0 8px 30px rgba(24, 201, 139, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        .overviewTableWrapper {
+            .overviewTableHeader {
+                color: #94A3B8;
+                border-bottom-color: rgba(15, 23, 42, 0.06);
+            }
+
+            .colPrice {
+                color: #0F172A;
+            }
+
+            .overviewRow {
+                border-bottom-color: rgba(15, 23, 42, 0.04);
+
+                &:hover {
+                    background: #F8FAFC;
+                }
+
+                .instrumentMeta {
+                    .instrumentPair {
+                        color: #0F172A;
+                    }
+                    .instrumentDisplay {
+                        color: #64748B;
+                    }
+                }
+            }
+        }
+
+        .overviewFooter {
+            border-top-color: rgba(15, 23, 42, 0.06);
+
+            .viewAllMarketsLink {
+                color: #059669;
+
+                &:hover {
+                    color: #047857;
+                }
+            }
+        }
+    }
+}
+

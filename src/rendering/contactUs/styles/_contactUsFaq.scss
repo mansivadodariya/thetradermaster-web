@@ -1,0 +1,139 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+/* 3. Interactive FAQ Section */
+.faqSection {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 70px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faqHeader {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.faqBadge {
+    display: inline-block;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.faqTitle {
+    color: #FFFFFF;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 8px;
+
+    @include respond-to('sm') {
+        font-size: 26px;
+    }
+}
+
+.faqSubtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 15px;
+    max-width: 620px;
+    margin: 0 auto;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.faqAccordionList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faqCard {
+    background: linear-gradient(160deg, #0D1612 0%, #040806 100%);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.45);
+    }
+
+    &.faqCardOpen {
+        border-color: rgba(24, 201, 139, 0.6);
+        background: linear-gradient(160deg, #0F1C16 0%, #060B08 100%);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(24, 201, 139, 0.08);
+    }
+}
+
+.faqQuestionBtn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.faqQuestionText {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    line-height: 1.4;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.faqChevron {
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+
+    &.faqChevronOpen {
+        transform: rotate(180deg);
+    }
+}
+
+.faqAnswerWrapper {
+    overflow: hidden;
+}
+
+.faqAnswerContent {
+    padding: 0 22px 20px 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 4px;
+    padding-top: 14px;
+
+    p {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+        line-height: 1.7;
+        margin: 0;
+
+        @include respond-to('sm') {
+            font-size: 13px;
+        }
+    }
+}
+

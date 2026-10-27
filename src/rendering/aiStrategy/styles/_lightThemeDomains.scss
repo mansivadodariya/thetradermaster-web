@@ -1,0 +1,598 @@
+/* ============================================================
+   LIGHT THEME: UNIFIED DOMAINS, OSCILLATOR TRACKS & EMPTY LINES
+   ============================================================ */
+:global(html.light) .aiStrategyWrapper,
+:global(html[data-theme='light']) .aiStrategyWrapper,
+:global([data-theme='light']) .aiStrategyWrapper {
+    .analysisPanel {
+        /* Unified Domain Cards & Section Dividers */
+        .unifiedDomainCard,
+        .aiIntelligenceShowcaseCard {
+            border-bottom-color: #E2E8F0;
+
+            .domainHeaderRow {
+                border-bottom-color: #E2E8F0;
+
+                .domainTitleGroup {
+                    .domainMainTitle {
+                        color: #0F172A;
+                    }
+                    .domainSubtitle {
+                        color: #64748B;
+                    }
+                }
+            }
+
+            .aiHeadlineBanner {
+                background: #F0FDF4;
+                border-color: #A7F3D0;
+                border-left-color: #059669;
+
+                h4 {
+                    color: #065F46;
+                }
+            }
+
+            .aiInsightsGrid {
+                .aiInsightCard {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+                    .aiInsightHeader {
+                        .insightCategoryTitle {
+                            color: #475569;
+                        }
+                    }
+
+                    .insightParagraph {
+                        color: #1E293B;
+                    }
+                }
+            }
+
+            /* Unified 3-Column Architecture Dividers */
+            .threeColumnUnifiedRow {
+                >div:nth-child(1),
+                >div:nth-child(2) {
+                    border-right-color: #E2E8F0;
+                }
+
+                @media (max-width: 1140px) {
+                    >div:nth-child(3) {
+                        border-top-color: #E2E8F0;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    >div:nth-child(1),
+                    >div:nth-child(2) {
+                        border-bottom-color: #E2E8F0;
+                    }
+                }
+            }
+
+            /* Visual Slider Block (Oscillators Column) */
+            .visualSliderBlock {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+
+                .sliderHeaderRow {
+                    .sliderName {
+                        color: #0F172A;
+                    }
+                    .sliderValueText {
+                        color: #0F172A;
+                    }
+                }
+
+                /* MACD Track - Empty Line / Baseline */
+                .macdTrack {
+                    background: #CBD5E1;
+                    height: 6px;
+                    border-radius: 3px;
+
+                    .macdZeroLine {
+                        background: #64748B;
+                        width: 2px;
+                    }
+
+                    .macdBarFill {
+                        border-radius: 2px;
+                    }
+                }
+
+                .macdDetailsRow {
+                    color: #475569;
+                    font-weight: 600;
+                }
+
+                /* Stochastic Tracks - Empty Line / Baseline */
+                .stochRow {
+                    .stochLabel {
+                        color: #475569;
+                        font-weight: 600;
+                    }
+
+                    .stochBarTrack {
+                        background: #CBD5E1;
+                        height: 5px;
+                        border-radius: 3px;
+
+                        .stochBarFill {
+                            border-radius: 3px;
+                        }
+                    }
+
+                    .stochValue {
+                        color: #0F172A;
+                        font-weight: 700;
+                    }
+                }
+
+                /* RSI Track Needle in Light Mode */
+                .rsiTrack {
+                    height: 6px;
+                    border-radius: 3px;
+
+                    .rsiNeedlePin {
+                        background: #FFFFFF;
+                        border: 2px solid #0F172A;
+                        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+                    }
+                }
+
+                .rsiThresholds {
+                    span {
+                        color: #64748B;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            /* Structure Confluence Score Card Progress Track */
+            .structureScoreCardColumn {
+                .structureScoreCard {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .structScoreCardTop {
+                        .structCardHeading {
+                            color: #0F172A;
+                        }
+                        .structCardFraction {
+                            color: #0F172A;
+
+                            span {
+                                color: #64748B;
+                            }
+                        }
+                    }
+
+                    .structProgressTrack {
+                        background: #CBD5E1;
+                        height: 7px;
+                    }
+
+                    .structScoreCardBottom {
+                        .structPctText {
+                            color: #0F172A;
+                        }
+                    }
+                }
+            }
+
+            /* Clean Indicators Table in Light Mode */
+            .cleanIndicatorsListTable {
+                .indicatorTableRow {
+                    border-bottom-color: #F1F5F9;
+
+                    .rowName {
+                        color: #475569;
+                    }
+                    .rowValue {
+                        color: #0F172A;
+                    }
+                }
+            }
+
+            /* Evidence Column in Light Mode */
+            .seamlessEvidenceColumn {
+                .evidenceHeaderTag {
+                    .evidenceTitleText {
+                        color: #0F172A;
+                    }
+                }
+
+                .domainEvidenceList {
+                    li,
+                    .domainEvidenceItem {
+                        color: #334155;
+                    }
+                }
+            }
+        }
+
+        /* Technical Score & Speedometer Showcase (Light Mode) */
+        .sectionHeaderRow {
+            border-bottom-color: #E2E8F0;
+
+            .headerTitleGroup {
+                .headerMainTitle {
+                    color: #0F172A;
+                }
+            }
+
+            .headerConfidencePill {
+                background: #F1F5F9;
+                border-color: #E2E8F0;
+
+                .confLabel {
+                    color: #64748B;
+                }
+            }
+        }
+
+        .technicalScoreShowcaseCard {
+            border-bottom-color: #E2E8F0;
+
+            .pillarSummaryRow {
+                background: #F8FAFC;
+                border-color: #E2E8F0;
+
+                &:hover {
+                    background: #F1F5F9;
+                    border-color: rgba(24, 201, 139, 0.4);
+                }
+
+                .pillarMeta {
+                    .pillarIconWrap {
+                        background: #ECFDF5;
+                    }
+
+                    .pillarName {
+                        color: #0F172A;
+                    }
+                }
+
+                .pillarTrackWrap {
+                    .pillarTrack {
+                        background: #E2E8F0;
+                    }
+                }
+
+                .pillarScoreWrap {
+                    .pillarScoreText {
+                        color: #0F172A;
+                        font-weight: 700;
+
+                        .pillarMaxScore {
+                            color: #64748B;
+                            font-weight: 600;
+                        }
+                    }
+
+                    .pillarSentimentBadge {
+                        &.trendBadge {
+                            color: #047857;
+                            border-color: rgba(5, 150, 105, 0.35);
+                            background: #ECFDF5;
+                        }
+
+                        &.momentumBadge {
+                            color: #7C3AED;
+                            border-color: rgba(124, 58, 237, 0.35);
+                            background: #F5F3FF;
+                        }
+
+                        &.structureBadge {
+                            color: #0284C7;
+                            border-color: rgba(2, 132, 199, 0.35);
+                            background: #F0F9FF;
+                        }
+                    }
+                }
+            }
+
+            .confluenceFormulaLine {
+                background: #F1F5F9;
+                border-color: #E2E8F0;
+
+                .formulaTitle {
+                    color: #64748B;
+                }
+
+                .formulaEquation {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .speedometerContainer {
+            .speedometerScoreDisplay {
+                .speedometerScoreVal {
+                    color: #0F172A;
+
+                    .scoreMax {
+                        color: #64748B;
+                    }
+                }
+            }
+
+            .speedometerConfidenceRow {
+                .confLabel {
+                    color: #64748B;
+                }
+
+                .confValue {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        /* Indicators Breakdown Grid (Light Mode) */
+        .indicatorsBreakdownGrid {
+            .breakdownDetailCard {
+                background: #FFFFFF;
+                border: 1px solid #E2E8F0;
+                box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+
+                .cardHeaderRow {
+                    border-bottom-color: #E2E8F0;
+
+                    .headerTitleGroup {
+                        .headerMainTitle {
+                            color: #0F172A;
+                        }
+                    }
+                }
+
+                .trendRowHeader {
+                    .trendHeaderText {
+                        h4 {
+                            color: #0F172A;
+                        }
+
+                        span {
+                            color: #64748B;
+                        }
+                    }
+                }
+
+                .metricGridItem {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .indicatorLabelBox {
+                        color: #0F172A;
+                    }
+                }
+
+                .trendConfidenceContainer {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .confidenceTexts {
+                        color: #64748B;
+
+                        strong {
+                            color: #0F172A;
+                        }
+                    }
+
+                    .confidenceTrack {
+                        background: #E2E8F0;
+                    }
+                }
+
+                .momentumSliderContainer {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .sliderLabelRow {
+                        .sliderName {
+                            color: #0F172A;
+                        }
+
+                        .sliderValTxt {
+                            color: #0F172A;
+                        }
+                    }
+
+                    .gradientTrackBg {
+                        .axisMarker {
+                            color: #64748B;
+                        }
+                    }
+                }
+
+                .macdMetricsContainer {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .macdHeaderRow {
+                        .macdTitle {
+                            color: #0F172A;
+                        }
+                    }
+
+                    .macdHistogramTrack {
+                        background: #E2E8F0;
+
+                        .centerLine {
+                            background: #94A3B8;
+                        }
+                    }
+
+                    .macdSubDetailsRow {
+                        color: #64748B;
+                    }
+                }
+
+                .stochasticSubProgressList {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .stochProgressRow {
+                        .stochLabel {
+                            color: #475569;
+                        }
+
+                        .stochTrackBg {
+                            background: #E2E8F0;
+                        }
+
+                        .stochValText {
+                            color: #0F172A;
+                        }
+                    }
+                }
+
+                .relativeVolumeContainer {
+                    background: #F8FAFC;
+                    border: 1px solid #E2E8F0;
+
+                    .volHeaderRow {
+                        color: #475569;
+
+                        strong {
+                            color: #0F172A;
+                        }
+                    }
+
+                    .relativeVolumeTrack {
+                        background: #E2E8F0;
+
+                        .volMarker {
+                            color: #64748B;
+                        }
+                    }
+                }
+
+                .volumeCompareGrid {
+                    .volCompareCard {
+                        background: #F8FAFC;
+                        border: 1px solid #E2E8F0;
+
+                        .volCompareLabel {
+                            color: #64748B;
+                        }
+
+                        .volCompareValue {
+                            color: #0F172A;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Evidence Showcase Card (Light Mode) */
+        .evidenceShowcaseCard {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+
+            .evidenceSubCard {
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+
+                .evidenceCardHeader {
+                    .evidenceTypeGroup {
+                        color: #0F172A;
+
+                        .evidenceTypeTitle {
+                            color: #0F172A;
+                        }
+                    }
+                }
+
+                .evidenceList {
+                    .evidenceListItem {
+                        color: #334155;
+                    }
+                }
+            }
+        }
+
+        /* Confluence Pillars Overview (Light Mode) */
+        .pillarsOverviewCol {
+            .pillarSummaryRow {
+                background: #F8FAFC;
+                border-color: #E2E8F0;
+
+                .pillarMeta {
+                    .pillarName {
+                        color: #0F172A;
+                    }
+                }
+
+                .pillarScoreWrap {
+                    .pillarScoreText {
+                        color: #0F172A;
+                        font-weight: 700;
+
+                        .pillarMaxScore {
+                            color: #64748B;
+                            font-weight: 600;
+                        }
+                    }
+
+                    .pillarSentimentBadge {
+                        &.trendBadge {
+                            color: #047857;
+                            border-color: rgba(5, 150, 105, 0.35);
+                            background: #ECFDF5;
+                        }
+
+                        &.momentumBadge {
+                            color: #7C3AED;
+                            border-color: rgba(124, 58, 237, 0.35);
+                            background: #F5F3FF;
+                        }
+
+                        &.structureBadge {
+                            color: #0284C7;
+                            border-color: rgba(2, 132, 199, 0.35);
+                            background: #F0F9FF;
+                        }
+                    }
+                }
+            }
+
+            .confluenceFormulaLine {
+                border-top-color: #E2E8F0;
+
+                .formulaTitle {
+                    color: #64748B;
+                }
+
+                .formulaEquation {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        /* Generic Track Fallbacks (All progress tracks & baselines) */
+        .macdTrack {
+            background: #CBD5E1;
+
+            .macdZeroLine {
+                background: #64748B;
+            }
+        }
+
+        .stochBarTrack {
+            background: #CBD5E1;
+        }
+
+        .structProgressTrack {
+            background: #CBD5E1;
+        }
+
+        .pillarTrackWrap {
+            .pillarTrack {
+                background: #CBD5E1;
+            }
+        }
+    }
+}

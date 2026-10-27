@@ -1,0 +1,151 @@
+{
+  "tools": [
+    {
+      "id": "chart-scanner",
+      "name": "AI Chart Scanner",
+      "shortName": "AI Chart Scanner",
+      "outerRoute": "/ai-chart-scanner",
+      "innerRoute": "/chart-scanner",
+      "description": "Multi-timeframe pattern detection & neural OCR chart vision",
+      "badge": "POPULAR",
+      "legacyRoutes": [
+        "/trade-snap",
+        "/tradesnap",
+        "/ai-trade"
+      ]
+    },
+    {
+      "id": "trade-advisor",
+      "name": "AI Past Trade Analyzer",
+      "shortName": "AI Past Trade Analyzer",
+      "outerRoute": "/ai-trade-advisor",
+      "innerRoute": "/trade-advisor",
+      "description": "Review your historical trading data to evaluate performance, pinpoint mistakes, and track win rates.",
+      "badge": "AI ADVISOR",
+      "legacyRoutes": [
+        "/trade-advisor",
+        "/ai-trade-advisor",
+        "/trade-analysis",
+        "/ai-trade-analysis",
+        "/ai-past-trade-analyzer",
+        "/ai-trade-audit",
+        "/trade-audit"
+      ]
+    },
+    {
+      "id": "market-assistant",
+      "name": "AI Market Assistant",
+      "shortName": "AI Market Assistant",
+      "outerRoute": "/ai-market-assistant",
+      "innerRoute": "/market-assistant",
+      "description": "Real-time conversational market intelligence & instant insights",
+      "badge": "LIVE AI",
+      "legacyRoutes": [
+        "/ai-assistant",
+        "/ai-chat"
+      ]
+    },
+    {
+      "id": "signal-terminal",
+      "name": "Signal Terminal",
+      "shortName": "Signal Terminal",
+      "outerRoute": "/live-market-scanner",
+      "innerRoute": "/signal-terminal",
+      "description": "Real-time market scanner, momentum breakouts & algorithmic signals",
+      "badge": "LIVE",
+      "legacyRoutes": [
+        "/signal-terminal",
+        "/ai-strategy/live",
+        "/strategy/live",
+        "/live-scanner",
+        "/live-market-scanner",
+        "/strategy-hub/live"
+      ]
+    },
+    {
+      "id": "trading-signal",
+      "name": "AI Trading Signal",
+      "shortName": "AI Trading Signal",
+      "outerRoute": "/ai-trading-signal",
+      "innerRoute": "/trading-signal",
+      "description": "Custom algorithmic trading logic, parameter tuning & rule engines",
+      "badge": "QUANT",
+      "legacyRoutes": [
+        "/trading-signal",
+        "/ai-trading-signal",
+        "/strategy-core",
+        "/ai-strategy-core",
+        "/strategy",
+        "/ai-strategy",
+        "/ai-strategy/strategy",
+        "/strategy-hub",
+        "/ai-strategy-hub",
+        "/strategy-signal",
+        "/strategy-hub/strategy"
+      ]
+    },
+    {
+      "id": "strategy-studio",
+      "name": "AI Bot Builder",
+      "shortName": "AI Bot Builder",
+      "outerRoute": "/ai-bot-builder",
+      "innerRoute": "/ai-bot-builder",
+      "description": "Conversational algorithmic bot builder & backtester",
+      "badge": "QUANT LAB",
+      "legacyRoutes": [
+        "/ai-bot-builder",
+        "/bot-builder",
+        "/strategy-studio",
+        "/ai-strategy-studio"
+      ]
+    },
+    {
+      "id": "custom-bot-builder",
+      "name": "AI Trading Bot Builder",
+      "shortName": "AI Trading Bot Builder",
+      "outerRoute": "/custom-bot-builder",
+      "innerRoute": "/manual-bot-builder",
+      "description": "Step-by-step visual rule & technical indicator configuration with risk parameters",
+      "badge": "AI BOT",
+      "legacyRoutes": [
+        "/manual-bot-builder",
+        "/custom-bot-builder"
+      ]
+    }
+  ],
+  "utilityTools": [
+    {
+      "id": "calendar",
+      "name": "Economic Calendar",
+      "outerRoute": "/economic-calendar",
+      "innerRoute": "/calendar",
+      "description": "Global economic events, high-impact news & macro data",
+      "legacyRoutes": [
+        "/economic-calendar",
+        "/calendar"
+      ]
+    },
+    {
+      "id": "calculator",
+      "name": "Forex Calculator",
+      "outerRoute": "/forex-calculator",
+      "innerRoute": "/calculator",
+      "description": "Position sizing, pip value, margin & risk calculation",
+      "legacyRoutes": [
+        "/forex-calculator",
+        "/calculator"
+      ]
+    },
+    {
+      "id": "news",
+      "name": "Market News",
+      "outerRoute": "/market-news",
+      "innerRoute": "/news",
+      "description": "Real-time financial market news & macroeconomic updates",
+      "legacyRoutes": [
+        "/market-news",
+        "/news"
+      ]
+    }
+  ]
+}

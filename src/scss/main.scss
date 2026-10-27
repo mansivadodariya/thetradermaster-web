@@ -1,35 +1,15 @@
+@use 'font/font.scss' as *;
 @use 'breakpoints/breakpoints.scss' as *;
+@use 'tokens/tokens.scss' as *;
 
-$primary: #10B981;
-$primary-hover: #059669;
-$primary-dark: #047857;
-$primary-light: rgba(16, 185, 129, 0.1);
-$very-light-green: #F0FDF4;
-$neon: #22C55E;
-$neon-bright: #00FF88;
+// ChronosX Signature Header Color
+$header-gradient: #18c98b;
 
-$bg-dark: #001A12;
-$bg-dark-secondary: #022C22;
-$card-dark: rgba(2, 44, 34, 0.75);
-
-$bg-light: #FFFFFF;
-$bg-light-green: #F0FDF4;
-
-$text-dark: #0F172A;
-$text-light: #FFFFFF;
-$text-secondary: #475569;
-$text-muted: #64748B;
-
-$border-light: rgba(16, 185, 129, 0.15);
-$border-glow: rgba(16, 185, 129, 0.35);
-
-$accent-neon: #22C55E;
-$bright-neon: #4ADE80;
-$dark-neon: #022C22;
-$border: rgba(16, 185, 129, 0.2);
-$text: #0F172A;
-$muted: #64748B;
-$danger: #EF4444;
-$success: #10B981;
-$bgSoft: #F0FDF4;
-$input-bg: #FFFFFF;
+@mixin header-gradient-text {
+  color: #18c98b;
+  background: #18c98b;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+}

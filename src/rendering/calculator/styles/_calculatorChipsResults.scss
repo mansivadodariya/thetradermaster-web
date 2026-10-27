@@ -1,0 +1,357 @@
+// Preset Quick Chips
+.quickChips {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+
+    .chipBtn {
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: center;
+        padding: 6px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+
+        @include respond-to('tab') {
+            flex: 1 1 0px;
+            padding: 6px 4px;
+            font-size: 11px;
+            border-radius: 8px;
+        }
+
+        @include respond-to('sm') {
+            flex: 1 1 0px;
+            padding: 6px 3px;
+            font-size: 10.5px;
+            border-radius: 6px;
+        }
+
+        &:hover {
+            border-color: #18C98B;
+            color: #18C98B;
+            background: rgba(24, 201, 139, 0.08);
+        }
+
+        &.activeChip {
+            background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
+            color: #18C98B;
+        }
+    }
+}
+
+// Toggle Switcher (Buy/Sell, Bullish/Bearish)
+.toggleSwitchRow {
+    display: flex;
+    gap: 8px;
+    padding: 4px;
+    background: #040406;
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 9999px;
+
+    @include respond-to('sm') {
+        gap: 6px;
+        padding: 3px;
+        border-radius: 9999px;
+    }
+
+    .switchBtn {
+        flex: 1;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        transition: all 0.2s ease;
+        text-align: center;
+
+        @include respond-to('sm') {
+            padding: 8px 10px;
+            font-size: 12px;
+            border-radius: 9999px;
+        }
+
+        &.buyActive {
+            background: rgba(0, 230, 118, 0.15);
+            color: #00E676;
+            border: 1px solid rgba(0, 230, 118, 0.35);
+        }
+
+        &.sellActive {
+            background: rgba(255, 82, 82, 0.15);
+            color: #FF5252;
+            border: 1px solid rgba(255, 82, 82, 0.35);
+        }
+
+        &.goldActive {
+            background: rgba(24, 201, 139, 0.15);
+            color: #18C98B;
+            border: 1px solid rgba(24, 201, 139, 0.35);
+        }
+    }
+}
+
+// Action Button
+.actionBtnRow {
+    margin-top: 24px;
+
+    @include respond-to('sm') {
+        margin-top: 18px;
+    }
+
+    .calculateBtn {
+        width: 100%;
+        height: 48px;
+        background: #18C98B;
+        border: 1px solid #18C98B;
+        border-radius: 9999px;
+        color: #040605;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 18px rgba(24, 201, 139, 0.25);
+        transition: all 0.22s ease;
+
+        @include respond-to('sm') {
+            height: 44px;
+            font-size: 14px;
+            border-radius: 9999px;
+        }
+
+        &:hover {
+            background: #15b77e;
+            border-color: #15b77e;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(24, 201, 139, 0.4);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+// Results Side Card
+.resultsCard {
+    background: radial-gradient(130% 100% at 50% 0%, #191610 0%, #09090C 100%);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8), 0 0 24px rgba(24, 201, 139, 0.06);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
+
+    @include respond-to('sm') {
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+
+    .resultHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+        flex-wrap: wrap;
+        gap: 8px;
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+            color: #18C98B;
+            font-family: "Euclid-Bold", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            @include respond-to('sm') {
+                font-size: 14.5px;
+            }
+        }
+
+        .copyBtn {
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #18C98B;
+            border-radius: 8px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+
+            svg {
+                flex-shrink: 0;
+                color: inherit;
+            }
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                padding: 4px 10px;
+                gap: 4px;
+            }
+
+            &:hover {
+                background: rgba(24, 201, 139, 0.22);
+                border-color: #18C98B;
+                color: #FFFFFF;
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.25);
+            }
+        }
+    }
+
+    .primaryResultBlock {
+        background: #040406;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        border-radius: 14px;
+        padding: 22px;
+        text-align: center;
+        margin-bottom: 20px;
+
+        @include respond-to('sm') {
+            padding: 16px 12px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .resultLabel {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+        }
+
+        .resultValue {
+            font-size: 36px;
+            font-weight: 800;
+            color: #18C98B;
+            font-family: "Euclid-Bold", sans-serif;
+            letter-spacing: -0.5px;
+            word-break: break-word;
+
+            @include respond-to('tab') {
+                font-size: 30px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 26px;
+            }
+
+            &.positive {
+                color: #00E676;
+            }
+
+            &.negative {
+                color: #FF5252;
+            }
+        }
+
+        .resultSubtext {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 6px;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+            }
+        }
+    }
+
+    .breakdownList {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        @include respond-to('sm') {
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .breakdownItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            font-size: 13px;
+
+            @include respond-to('sm') {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            span:first-child {
+                color: rgba(255, 255, 255, 0.65);
+            }
+
+            span:last-child {
+                font-weight: 700;
+                color: #FFFFFF;
+                font-family: monospace;
+                font-size: 14px;
+
+                @include respond-to('sm') {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+
+    .formulaNote {
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
+
+        @include respond-to('sm') {
+            font-size: 11px;
+            padding-top: 10px;
+        }
+
+        strong {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+}
+

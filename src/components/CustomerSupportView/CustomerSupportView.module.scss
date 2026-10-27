@@ -1,0 +1,529 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+/* ── Base Page Layout ── */
+.page {
+    position: relative;
+    width: 100%;
+    color: #ffffff;
+}
+
+.publicPage {
+    min-height: 100vh;
+    overflow: hidden;
+    padding-top: 100px;
+    background: #040605;
+
+    @include respond-to('md') {
+        padding-top: 90px;
+    }
+
+    @include respond-to('sm') {
+        padding-top: 80px;
+    }
+}
+
+.dashboardPage {
+    margin: 0 auto;
+    padding: 0 0 32px;
+}
+
+/* ── Ambient Background Glows (Public only) ── */
+.ambientGlowTop {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    width: 720px;
+    height: 440px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse, rgba(24, 201, 139, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambientGlowLeft {
+    position: absolute;
+    top: 30%;
+    left: -160px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambientGlowRight {
+    position: absolute;
+    top: 50%;
+    right: -160px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.gridOverlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(24, 201, 139, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 201, 139, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Section Header Wrappers ── */
+.headerWrap {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 20px 24px;
+
+    @include respond-to('sm') {
+        padding: 16px 12px 16px;
+    }
+}
+
+/* ── Main Layout ── */
+.mainSection {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+
+    @include respond-to('sm') {
+        padding: 0 12px 40px;
+    }
+}
+
+.contentLayout {
+    display: grid;
+    align-items: stretch;
+    margin-top: 14px;
+
+    .publicPage & {
+        grid-template-columns: 1fr 1.35fr;
+        gap: 28px;
+        margin-top: 0;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+    }
+
+    .dashboardPage & {
+        grid-template-columns: 1fr 1.05fr;
+        gap: 20px;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+    }
+}
+
+/* ── Left Column: Info & Features ── */
+.infoColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+}
+
+.infoCard {
+    position: relative;
+    padding: 26px 24px;
+    border-radius: 20px;
+    background: linear-gradient(165deg, rgba(13, 22, 18, 0.95) 0%, rgba(4, 8, 6, 0.95) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(24, 201, 139, 0.1);
+    backdrop-filter: blur(16px);
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to('sm') {
+        padding: 18px 14px 18px;
+        border-radius: 16px;
+    }
+}
+
+.cardGlow {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(24, 201, 139, 0.65), transparent);
+    pointer-events: none;
+}
+
+.infoTitle {
+    font-family: var(--font-plus-jakarta), sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 8px;
+}
+
+.infoDescription {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.58);
+    margin: 0 0 18px;
+}
+
+/* ── Workflow Steps ── */
+.stepsList {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.stepItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    position: relative;
+
+    &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 29px;
+        bottom: -18px;
+        width: 1px;
+        background: linear-gradient(180deg, rgba(24, 201, 139, 0.45) 0%, rgba(24, 201, 139, 0.08) 100%);
+    }
+}
+
+.stepNumberBadge {
+    position: relative;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18c98b;
+    font-size: 11.5px;
+    font-weight: 800;
+    font-family: var(--font-mono, monospace);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(24, 201, 139, 0.15);
+}
+
+.stepContent {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.stepTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 3px;
+}
+
+.stepDesc {
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.52);
+    margin: 0;
+}
+
+/* ── Desk Status Indicator ── */
+.deskStatusPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 15px;
+    border-radius: 999px;
+    background: rgba(24, 201, 139, 0.06);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    width: fit-content;
+    margin-top: auto;
+}
+
+.statusDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #18c98b;
+    box-shadow: 0 0 8px #18c98b;
+    position: relative;
+    flex-shrink: 0;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: 50%;
+        background: rgba(24, 201, 139, 0.4);
+        animation: pulseDeskDot 2s infinite ease-in-out;
+    }
+}
+
+@keyframes pulseDeskDot {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+.statusText {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.2px;
+}
+
+/* ── Feature Highlights Grid ── */
+.featureGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    flex-shrink: 0;
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 12px;
+    border-radius: 14px;
+    background: rgba(24, 201, 139, 0.04);
+    border: 1px solid rgba(24, 201, 139, 0.12);
+    transition: border-color 0.25s ease, background 0.25s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.3);
+        background: rgba(24, 201, 139, 0.08);
+    }
+}
+
+.featureIcon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(24, 201, 139, 0.1);
+    color: #18c98b;
+    flex-shrink: 0;
+}
+
+.featureMeta {
+    flex: 1;
+    min-width: 0;
+}
+
+.featureLabel {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.featureDesc {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Right Column: Form Card ── */
+.formColumn {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.formCard {
+    position: relative;
+    padding: 26px 24px 30px;
+    border-radius: 20px;
+    background: linear-gradient(165deg, rgba(13, 22, 18, 0.95) 0%, rgba(4, 8, 6, 0.95) 100%);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(24, 201, 139, 0.1);
+    overflow: hidden;
+    flex: 1;
+
+    @include respond-to('sm') {
+        padding: 20px 14px 24px;
+        border-radius: 16px;
+    }
+}
+
+.formHeader {
+    margin-bottom: 20px;
+}
+
+.formTitle {
+    font-family: var(--font-plus-jakarta), sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 5px;
+}
+
+.formSubtitle {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+/* ── Light Theme Overrides ── */
+:global(html.light) .page,
+:global(html[data-theme='light']) .page,
+:global([data-theme='light']) .page {
+    color: #0f172a;
+}
+
+:global(html.light) .publicPage,
+:global(html[data-theme='light']) .publicPage,
+:global([data-theme='light']) .publicPage {
+    background: #f8fafc;
+}
+
+:global(html.light) .infoCard,
+:global(html.light) .formCard,
+:global(html[data-theme='light']) .infoCard,
+:global(html[data-theme='light']) .formCard,
+:global([data-theme='light']) .infoCard,
+:global([data-theme='light']) .formCard {
+    background: linear-gradient(165deg, #ffffff 0%, #f8fafc 100%);
+    border-color: rgba(24, 201, 139, 0.2);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+:global(html.light) .infoTitle,
+:global(html.light) .formTitle,
+:global(html.light) .featureLabel,
+:global(html.light) .stepTitle,
+:global(html[data-theme='light']) .infoTitle,
+:global(html[data-theme='light']) .formTitle,
+:global(html[data-theme='light']) .featureLabel,
+:global(html[data-theme='light']) .stepTitle,
+:global([data-theme='light']) .infoTitle,
+:global([data-theme='light']) .formTitle,
+:global([data-theme='light']) .featureLabel,
+:global([data-theme='light']) .stepTitle {
+    color: #0f172a;
+}
+
+:global(html.light) .infoDescription,
+:global(html.light) .formSubtitle,
+:global(html.light) .featureDesc,
+:global(html.light) .stepDesc,
+:global(html[data-theme='light']) .infoDescription,
+:global(html[data-theme='light']) .formSubtitle,
+:global(html[data-theme='light']) .featureDesc,
+:global(html[data-theme='light']) .stepDesc,
+:global([data-theme='light']) .infoDescription,
+:global([data-theme='light']) .formSubtitle,
+:global([data-theme='light']) .featureDesc,
+:global([data-theme='light']) .stepDesc {
+    color: #475569;
+}
+
+:global(html.light) .stepNumberBadge,
+:global(html[data-theme='light']) .stepNumberBadge,
+:global([data-theme='light']) .stepNumberBadge {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #059669;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.12);
+}
+
+:global(html.light) .stepItem:not(:last-child)::after,
+:global(html[data-theme='light']) .stepItem:not(:last-child)::after,
+:global([data-theme='light']) .stepItem:not(:last-child)::after {
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0.08) 100%);
+}
+
+:global(html.light) .deskStatusPill,
+:global(html[data-theme='light']) .deskStatusPill,
+:global([data-theme='light']) .deskStatusPill {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.28);
+}
+
+:global(html.light) .statusText,
+:global(html[data-theme='light']) .statusText,
+:global([data-theme='light']) .statusText {
+    color: #065f46;
+}
+
+:global(html.light) .statusDot,
+:global(html[data-theme='light']) .statusDot,
+:global([data-theme='light']) .statusDot {
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+
+    &::after {
+        background: rgba(16, 185, 129, 0.35);
+    }
+}
+
+:global(html.light) .featureItem,
+:global(html[data-theme='light']) .featureItem,
+:global([data-theme='light']) .featureItem {
+    background: rgba(24, 201, 139, 0.03);
+    border-color: rgba(15, 23, 42, 0.08);
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.06);
+        border-color: rgba(24, 201, 139, 0.2);
+    }
+}
+
+:global(html.light) .featureIcon,
+:global(html[data-theme='light']) .featureIcon,
+:global([data-theme='light']) .featureIcon {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+:global(html.light) .ambientGlowTop,
+:global(html.light) .ambientGlowLeft,
+:global(html.light) .ambientGlowRight,
+:global(html[data-theme='light']) .ambientGlowTop,
+:global(html[data-theme='light']) .ambientGlowLeft,
+:global(html[data-theme='light']) .ambientGlowRight,
+:global([data-theme='light']) .ambientGlowTop,
+:global([data-theme='light']) .ambientGlowLeft,
+:global([data-theme='light']) .ambientGlowRight {
+    opacity: 0.5;
+}
+
+:global(html.light) .gridOverlay,
+:global(html[data-theme='light']) .gridOverlay,
+:global([data-theme='light']) .gridOverlay {
+    background-image:
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+}
+

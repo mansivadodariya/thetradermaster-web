@@ -1,0 +1,91 @@
+/* Step Footer Navigation Bar */
+.footerNavContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 32px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    :global(html.light) & {
+        border-top-color: #E2E8F0;
+    }
+}
+
+.prevBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    :global(html.light) & {
+        border-color: #CBD5E1;
+        color: #0F172A;
+
+        &:not(:disabled):hover {
+            background: #F1F5F9;
+        }
+    }
+}
+
+.stepIndicatorText {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #94A3B8;
+}
+
+.nextBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 26px;
+    border-radius: 12px;
+    background: #18C98B;
+    color: #040605;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 14px rgba(24, 201, 139, 0.35);
+    transition: all 0.2s ease;
+
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.45);
+        transform: none;
+
+        :global(html.light) & {
+            background: #E2E8F0;
+            color: #94A3B8;
+        }
+    }
+
+    &:not(:disabled):hover {
+        background: #20E39F;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(24, 201, 139, 0.5);
+    }
+}

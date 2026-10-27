@@ -1,0 +1,701 @@
+.cockpitSection {
+  overflow: hidden;
+
+  .partTwoCockpit {
+
+    .cardsPairGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      min-width: 0;
+
+      @include respond-to("sm") {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .intelCard {
+        background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.07) 0%, transparent 65%), #0A0D15;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 14px;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: default;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        :global(html.light) &,
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(.light) & {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        @include respond-to("sm") {
+          padding: 14px 12px;
+          border-radius: 12px;
+          gap: 12px;
+        }
+
+        /* Score Card Active Hover State (Emerald Glow) */
+        &.cardActiveScore {
+          transform: translateY(-2px);
+          border-color: rgba(16, 185, 129, 0.5);
+          box-shadow: 0 22px 52px rgba(0, 0, 0, 0.88), 0 0 26px rgba(16, 185, 129, 0.22), inset 0 1px 0 rgba(16, 185, 129, 0.35);
+          background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 65%), #0C101A;
+        }
+
+        /* Rank Card Active Hover State (Gold Glow) */
+        &.cardActiveRank {
+          transform: translateY(-2px);
+          border-color: rgba(24, 201, 139, 0.5);
+          box-shadow: 0 22px 52px rgba(0, 0, 0, 0.88), 0 0 26px rgba(24, 201, 139, 0.24), inset 0 1px 0 rgba(24, 201, 139, 0.35);
+          background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.12) 0%, transparent 65%), #0C101A;
+        }
+
+        /* Dimmed State when the other card is hovered */
+        &.cardDimmed {
+          opacity: 0.42;
+          transform: scale(0.985);
+          filter: grayscale(15%);
+        }
+
+        .cardTopMeta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          min-width: 0;
+          gap: 8px;
+          flex-wrap: wrap;
+
+          .cardHeaderWithIcon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+
+            .radarIconBox {
+              width: 30px;
+              height: 30px;
+              border-radius: 8px;
+              background: rgba(16, 185, 129, 0.15);
+              border: 1px solid rgba(16, 185, 129, 0.35);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+              flex-shrink: 0;
+              color: #34D399;
+
+              svg {
+                width: 15px;
+                height: 15px;
+                color: #34D399;
+              }
+            }
+
+            .trophyIconBox {
+              width: 30px;
+              height: 30px;
+              border-radius: 8px;
+              background: rgba(24, 201, 139, 0.15);
+              border: 1px solid rgba(24, 201, 139, 0.4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 0 12px rgba(24, 201, 139, 0.25);
+              flex-shrink: 0;
+              color: #6EE7B7;
+
+              svg {
+                width: 15px;
+                height: 15px;
+                color: #6EE7B7;
+              }
+            }
+
+            .cardTitle {
+              color: #FFFFFF;
+              font-size: 13px;
+              font-weight: 700;
+              margin: 0;
+              letter-spacing: -0.2px;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #0F172A;
+              }
+            }
+
+            .cardSub {
+              color: #64748B;
+              font-size: 10.5px;
+              margin: 0;
+            }
+          }
+
+          .deltaPillGreen {
+            font-family: monospace, sans-serif;
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #34D399;
+            background: rgba(16, 185, 129, 0.14);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 2px 7px;
+            border-radius: 5px;
+          }
+
+          .deltaPillGold {
+            font-family: monospace, sans-serif;
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.14);
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            padding: 2px 7px;
+            border-radius: 5px;
+          }
+        }
+
+        .scoreNumberBlock {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          width: 100%;
+          min-width: 0;
+
+          .structurePrimaryRow {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+            flex-wrap: wrap;
+
+            .structureHeadline {
+              font-family: var(--font-anton), 'Euclid', -apple-system, sans-serif;
+              font-size: 21px;
+              font-weight: 400;
+              color: var(--cockpit-headline-color, #FFFFFF);
+              line-height: 1.15;
+              letter-spacing: 0.5px;
+              display: inline-block;
+              transition: all 0.3s ease;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #0F172A;
+              }
+
+              @include respond-to("sm") {
+                font-size: 18px;
+              }
+
+              &.scoreActiveText {
+                color: #34D399;
+                text-shadow: 0 0 16px rgba(52, 211, 153, 0.65);
+                transform: scale(1.02);
+
+                :global(html.light) &,
+                :global(html[data-theme='light']) &,
+                :global([data-theme='light']) &,
+                :global(.light) & {
+                  color: #059669;
+                  text-shadow: none;
+                }
+              }
+            }
+
+            .structureContextTag {
+              font-family: monospace, sans-serif;
+              font-size: 11px;
+              font-weight: 700;
+              color: #34D399;
+              letter-spacing: 0.4px;
+              white-space: nowrap;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #047857;
+              }
+
+              @include respond-to("sm") {
+                font-size: 10px;
+              }
+            }
+          }
+
+          .structureDetailText {
+            font-size: 11px;
+            color: var(--cockpit-detail-color, #94A3B8);
+            font-family: var(--font-inter), 'Euclid', -apple-system, sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            letter-spacing: 0.1px;
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            :global(.light) & {
+              color: #475569;
+            }
+
+            @include respond-to("sm") {
+              font-size: 10px;
+            }
+          }
+        }
+
+        .sliderTrackWrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: 100%;
+          min-width: 0;
+
+          .sliderRangeHeader {
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace, sans-serif;
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #475569;
+
+            .rangeCenterText {
+              color: #334155;
+            }
+          }
+
+          .sliderTrack {
+            height: 7px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            position: relative;
+            overflow: visible;
+
+            .sliderFill {
+              height: 100%;
+              border-radius: 6px;
+              position: relative;
+              box-shadow: 0 0 12px rgba(52, 211, 153, 0.7);
+
+              .sliderKnob {
+                position: absolute;
+                right: -4px;
+                top: -3.5px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: #FFFFFF;
+                border: 2.5px solid #10B981;
+                box-shadow: 0 0 10px #34D399;
+              }
+            }
+          }
+        }
+
+        .rankNumberBlock {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          width: 100%;
+          min-width: 0;
+
+          .orderFlowPrimaryRow {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+            flex-wrap: wrap;
+
+            .orderFlowHeadline {
+              font-family: var(--font-anton), 'Euclid', -apple-system, sans-serif;
+              font-size: 21px;
+              font-weight: 400;
+              color: var(--cockpit-orderflow-color, #6EE7B7);
+              line-height: 1.15;
+              letter-spacing: 0.5px;
+              display: inline-block;
+              transition: all 0.3s ease;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #047857;
+              }
+
+              @include respond-to("sm") {
+                font-size: 18px;
+              }
+
+              &.rankActiveText {
+                color: #A7F3D0;
+                text-shadow: 0 0 16px rgba(110, 231, 183, 0.75);
+                transform: scale(1.02);
+
+                :global(html.light) &,
+                :global(html[data-theme='light']) &,
+                :global([data-theme='light']) &,
+                :global(.light) & {
+                  color: #047857;
+                  text-shadow: none;
+                }
+              }
+            }
+
+            .orderFlowContextTag {
+              font-family: monospace, sans-serif;
+              font-size: 11px;
+              font-weight: 700;
+              color: #6EE7B7;
+              letter-spacing: 0.4px;
+              white-space: nowrap;
+
+              :global(html.light) &,
+              :global(html[data-theme='light']) &,
+              :global([data-theme='light']) &,
+              :global(.light) & {
+                color: #047857;
+              }
+
+              @include respond-to("sm") {
+                font-size: 10px;
+              }
+            }
+          }
+
+          .orderFlowDetailText {
+            font-size: 11px;
+            color: var(--cockpit-detail-color, #94A3B8);
+            font-family: var(--font-inter), 'Euclid', -apple-system, sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            letter-spacing: 0.1px;
+
+            :global(html.light) &,
+            :global(html[data-theme='light']) &,
+            :global([data-theme='light']) &,
+            :global(.light) & {
+              color: #475569;
+            }
+
+            @include respond-to("sm") {
+              font-size: 10px;
+            }
+          }
+        }
+
+        .sparklineContainer {
+          width: 100%;
+          height: 44px;
+          overflow: visible;
+          padding-right: 6px;
+          margin-top: 2px;
+
+          .sparklineSvg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            overflow: visible;
+
+            .sparklineIdleGroup {
+              .sparklineIdlePath {
+                stroke: rgba(24, 201, 139, 0.45);
+                transition: stroke 0.3s ease;
+              }
+
+              .sparklineIdleDot {
+                fill: #18C98B;
+                transition: fill 0.3s ease;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .metaMatrixGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      width: 100%;
+      min-width: 0;
+
+      @include respond-to("md") {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      @include respond-to("sm") {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .metaCol {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: rgba(10, 13, 21, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 12px 14px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        transition: all 0.25s ease;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        @include respond-to("sm") {
+          padding: 10px 12px;
+        }
+
+        &:hover {
+          border-color: rgba(24, 201, 139, 0.25);
+          background: rgba(14, 18, 28, 0.95);
+        }
+
+        .metaTopRow {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 6px;
+          width: 100%;
+
+          .metaLabel {
+            font-family: monospace, sans-serif;
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #64748B;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+          }
+
+          .metaBadgeGold {
+            font-family: monospace, sans-serif;
+            font-size: 8.5px;
+            font-weight: 800;
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            padding: 1px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+          }
+
+          .metaBadgeGreen {
+            font-family: monospace, sans-serif;
+            font-size: 8.5px;
+            font-weight: 800;
+            color: #34D399;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 1px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+          }
+
+          .metaBadgeLive {
+            font-size: 8.5px;
+            font-weight: 800;
+            color: #38BDF8;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 1px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+          }
+        }
+
+        .metaVal {
+          font-family: var(--font-inter), 'Euclid', -apple-system, sans-serif;
+          font-size: 15px;
+          font-weight: 700;
+          color: var(--cockpit-headline-color, #FFFFFF);
+          letter-spacing: -0.2px;
+          white-space: nowrap;
+          margin-top: 1px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          :global(html.light) &,
+          :global(html[data-theme='light']) &,
+          :global([data-theme='light']) &,
+          :global(.light) & {
+            color: #0F172A;
+          }
+
+          @include respond-to("sm") {
+            font-size: 13.5px;
+          }
+        }
+
+        .metaSub {
+          font-family: monospace, sans-serif;
+          font-size: 9.5px;
+          color: #64748B;
+          letter-spacing: 0.2px;
+          white-space: nowrap;
+        }
+
+        .signalBadgeGreen {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-inter), 'Euclid', -apple-system, sans-serif;
+          font-size: 15px;
+          font-weight: 700;
+          color: #34D399;
+          letter-spacing: -0.2px;
+          white-space: nowrap;
+          margin-top: 1px;
+
+          @include respond-to("sm") {
+            font-size: 14px;
+          }
+
+          .signalDot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #34D399;
+            box-shadow: 0 0 8px #34D399;
+            animation: pulseDot 1.4s infinite;
+          }
+        }
+      }
+    }
+
+    .cockpitFooterBar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 10px;
+      font-family: monospace, sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #64748B;
+      letter-spacing: 0.4px;
+
+      @include respond-to("sm") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .footerLeft {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .liveGreenDotSmall {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 6px #10B981;
+          animation: pulseDot 1.4s infinite;
+        }
+      }
+
+      .footerRight {
+        color: #475569;
+      }
+    }
+  }
+
+  @keyframes pulseDot {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.4;
+      transform: scale(1.35);
+    }
+  }
+
+  @keyframes pulseRing {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  :global(html.light) &,
+  :global(html[data-theme='light']) &,
+  :global([data-theme='light']) & {
+    background: #F8FAFC;
+
+    .intelCard {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      color: #0F172A;
+    }
+
+    .intelCard {
+      &.cardActiveScore,
+      &.cardActiveRank {
+        background: #FFFFFF;
+        border-color: rgba(16, 185, 129, 0.45);
+        box-shadow: 0 8px 26px rgba(16, 185, 129, 0.12);
+      }
+
+      .sliderTrack {
+        background: #E2E8F0;
+      }
+
+      .sparklineIdleGroup {
+        .sparklineIdlePath {
+          stroke: rgba(16, 185, 129, 0.65);
+        }
+
+        .sparklineIdleDot {
+          fill: #059669;
+        }
+      }
+    }
+    .cockpitFooterBar {
+      border-top-color: #E2E8F0;
+      color: #64748B;
+    }
+  }
+}

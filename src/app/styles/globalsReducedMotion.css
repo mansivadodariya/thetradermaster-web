@@ -1,0 +1,151 @@
+/* ============================================================
+   GLOBAL REDUCED MOTION SUPPORT
+   ============================================================ */
+
+/* Respect user's motion preferences globally */
+@media (prefers-reduced-motion: reduce) {
+  :global(*) ,
+  :global(*::before) ,
+  :global(*::after) {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    transition-delay: 0.01ms;
+    scroll-behavior: auto;
+  }
+
+  /* Disable specific heavy animations */
+  :global(.smokyWavesWrapper),
+  :global(.ambientRadialTopRight),
+  :global(.ambientRadialBottomLeft),
+  :global(.ambientRadialBottomRight),
+  :global(.ambientRadialCenter),
+  :global(.waveGroupRight),
+  :global(.waveGroupLeft),
+  :global(.waveGroupBottom),
+  :global(.floatingCurve1),
+  :global(.floatingCurve2),
+  :global(.pointerSpotlight),
+  :global(.cyberGridBackground) {
+    animation: none;
+    transition: none;
+  }
+
+  /* Disable Lenis smooth scroll */
+  :global(html.lenis),
+  :global(html.lenis body) {
+    height: auto;
+    scroll-behavior: auto;
+  }
+
+  :global(.lenis.lenis-smooth) {
+    scroll-behavior: auto;
+  }
+
+  /* Disable pointer glow animations */
+  :global(.pointerGlow) {
+    transition: none;
+  }
+
+  /* Reduce blur filters for performance */
+  :global([style*="filter: blur"]),
+  :global([style*="filter:blur"]) {
+    filter: none;
+  }
+
+  /* Disable SVG SMIL animations */
+  :global(svg *|animate),
+  :global(svg *|animateTransform),
+  :global(svg *|animateMotion) {
+    display: none;
+  }
+}
+
+/* ============================================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================================ */
+
+/* Force GPU acceleration for animated elements */
+.gpu-accelerated,
+.will-change-transform {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize blur filters - use sparingly */
+.optimized-blur {
+  filter: blur(20px);
+  will-change: filter;
+}
+
+/* Reduce paint complexity for large backgrounds */
+.large-background {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
+}
+
+/* ============================================================
+   ANIMATION PERFORMANCE CLASSES
+   ============================================================ */
+
+/* Use for elements that animate transform/opacity only */
+.animate-transform-opacity {
+  will-change: transform, opacity;
+}
+
+/* Use for elements that animate position */
+.animate-position {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Disable animations entirely via class */
+.no-animations,
+:global(.no-animations *) ,
+:global(.no-animations *::before) ,
+:global(.no-animations *::after) {
+  animation: none;
+  transition: none;
+}
+
+/* ============================================================
+   LAZY ANIMATION - Only animate when in viewport
+   ============================================================ */
+
+.animate-on-visible {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-visible.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   SCROLL PERFORMANCE
+   ============================================================ */
+
+/* Optimize scrolling containers */
+.smooth-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Prevent layout thrashing during scroll */
+.scroll-optimized {
+  contain: layout paint;
+}
+
+/* ============================================================
+   REDUCED MOTION HOOK HELPER (for JS)
+   ============================================================ */
+
+/* This class is toggled by the useReducedMotion hook */
+:global(.reduce-motion *) {
+  animation-duration: 0.01ms;
+  transition-duration: 0.01ms;
+}

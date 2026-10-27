@@ -1,0 +1,327 @@
+/* ============================================================
+   ANALYSIS RESPONSE VIEW WITH 390PX SIDEBAR
+   ============================================================ */
+.analyzerGrid {
+    display: grid;
+    grid-template-columns: 1fr 430px;
+    gap: 26px;
+    align-items: start;
+
+    @media (max-width: 1280px) {
+        grid-template-columns: 1fr 380px;
+        gap: 20px;
+    }
+
+    @media (max-width: 1040px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    @include respond-to('tab') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mainColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    width: 100%;
+}
+
+/* SIDEBAR COLUMN */
+.sidebarColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    background:
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 20px;
+
+    @include respond-to('sm') {
+        border-radius: 16px;
+    }
+}
+
+/* ANALYSIS OVERVIEW CARD */
+.overviewCard {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    @include respond-to('sm') {
+        padding: 16px 14px;
+        gap: 14px;
+    }
+
+    .cardHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin: 0;
+            color: $textWhite;
+            letter-spacing: -0.2px;
+        }
+    }
+
+    .overviewGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+
+        @include respond-to('sm') {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 380px) {
+            grid-template-columns: 1fr;
+        }
+
+        .overviewStatItem {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.55);
+                border-color: rgba(24, 201, 139, 0.35);
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            }
+
+            span.statLabel {
+                font-size: 10px;
+                color: $textDim;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                white-space: nowrap;
+            }
+
+            span.statVal {
+                font-size: 16px;
+                font-weight: 800;
+                color: $textWhite;
+
+                &.green {
+                    color: $successGreen;
+                }
+
+                &.red {
+                    color: $dangerRed;
+                }
+
+                &.gold {
+                    color: $primaryGold;
+                }
+            }
+        }
+    }
+}
+
+/* BASIC TRADING STATS CARD */
+.basicStatsCard {
+    border-top: 1px solid rgba(24, 201, 139, 0.125);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include respond-to('sm') {
+        padding: 16px 14px;
+        gap: 12px;
+    }
+
+    .tableSectionHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin: 0;
+            color: $textWhite;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+
+        thead {
+            tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+                th {
+                    padding: 9px 12px;
+                    color: $textDim;
+                    font-size: 11px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    text-align: left;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                transition: background 0.15s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.025);
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                td {
+                    padding: 10px 12px;
+                    color: $textMuted;
+
+                    &:first-child {
+                        color: $textWhite;
+                        font-weight: 600;
+                    }
+
+                    &:last-child {
+                        text-align: right;
+                        font-weight: 700;
+                        color: $textWhite;
+                        white-space: nowrap;
+                    }
+
+                    &.greenText {
+                        color: $successGreen;
+                    }
+
+                    &.redText {
+                        color: $dangerRed;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* HISTORY POPUP MODAL */
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overscroll-behavior: contain;
+
+    .historyModalContainer {
+        background: #08090D;
+        border: 1px solid $borderGold;
+        border-radius: 18px;
+        width: 100%;
+        max-width: 680px;
+        max-height: 90vh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        /* Custom smooth scrollbar */
+        scrollbar-width: thin;
+        scrollbar-color: #18C98B rgba(255, 255, 255, 0.05);
+
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 999px;
+            margin: 8px 0;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #18C98B;
+            border-radius: 999px;
+
+            &:hover {
+                background: #22E7A0;
+            }
+        }
+
+        .modalHeader {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3 {
+                font-size: 18px;
+                font-weight: 800;
+                color: $textWhite;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .closeBtn {
+                background: rgba(255, 255, 255, 0.06);
+                border: none;
+                color: $textMuted;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.15);
+                    color: $textWhite;
+                }
+            }
+        }
+
+        .modalBody {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+    }
+}

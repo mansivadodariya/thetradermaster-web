@@ -30,17 +30,7 @@ export function getFirebaseApp() {
 
 export function getFirebaseAuth() {
     const app = getFirebaseApp();
-    const auth = getAuth(app);
-    if (typeof window !== 'undefined') {
-        const hostname = window.location.hostname;
-        const isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.devtunnels.ms');
-        if (isLocalDev) {
-            try {
-                auth.settings.appVerificationDisabledForTesting = true;
-            } catch (_) {}
-        }
-    }
-    return auth;
+    return getAuth(app);
 }
 
 /**
@@ -83,12 +73,6 @@ export async function sendFirebaseSmsOtp(phoneNumber, recaptchaVerifier) {
 
     if (!verifier) {
         throw new Error('reCAPTCHA verifier is not initialized.');
-    }
-
-    try {
-        await verifier.render();
-    } catch (renderErr) {
-        console.warn('reCAPTCHA render notice:', renderErr);
     }
 
     const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);

@@ -1,0 +1,183 @@
+// Timeframe Selection Popup Modal Styles
+.timeframeModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.timeframeModalBox {
+    background: #0D0E13;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 25px 64px rgba(0, 0, 0, 0.9);
+    border-radius: 16px;
+    max-width: 680px;
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timeframeModalHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+}
+
+.timeframeHeaderIconWrap {
+    width: 44px;
+    height: 44px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    color: var(--pill-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 0;
+}
+
+.timeframeHeaderTitle {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--title-color);
+    margin: 0 0 4px 0;
+}
+
+.timeframeHeaderSub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.timeframeModalClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+
+    &:hover {
+        color: var(--title-color);
+    }
+}
+
+.timeframeCardsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timeframeOptionCard {
+    background: #040605;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: var(--pill-bg);
+        border-color: #18C98B;
+        transform: translateY(-2px);
+
+        .tfArrow {
+            transform: translateX(4px);
+            color: var(--pill-color);
+        }
+    }
+}
+
+.tfCardTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.tfCardEmoji {
+    font-size: 26px;
+}
+
+.tfBadge {
+    font-size: 11px;
+    font-weight: 800;
+    color: #18C98B;
+    background: rgba(24, 201, 139, 0.18);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.tfCardLabel {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--title-color);
+    margin: 0 0 6px 0;
+}
+
+.tfCardDesc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.tfCardActionRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #18C98B;
+    margin-top: auto;
+}
+
+.tfArrow {
+    transition: transform 0.2s ease;
+}
+
+.timeframeModalFooter {
+    display: flex;
+    justify-content: flex-end;
+
+    .btnGhostModal {
+        background: transparent;
+        border: 1px solid var(--box-border);
+        color: var(--text-muted);
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--title-color);
+            background: var(--box-bg);
+        }
+    }
+}

@@ -1,0 +1,567 @@
+.calculatorContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 16px 36px;
+    color: #FFFFFF;
+    font-family: "Euclid-Regular", sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('lg') {
+        padding: 20px 16px 42px;
+    }
+
+    @include respond-to('tab') {
+        padding: 16px 12px 36px;
+    }
+
+    @include respond-to('sm') {
+        padding: 12px 8px 30px;
+    }
+}
+
+// Hero Title Banner
+.heroHeader {
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.2);
+
+    @include respond-to('tab') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+    }
+
+    @include respond-to('sm') {
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+    }
+
+    .titleWrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 0;
+
+        @include respond-to('sm') {
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .calcIconBadge {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: radial-gradient(130% 100% at 50% 0%, #0D1612 0%, #040806 100%);
+            border: 1.5px solid rgba(24, 201, 139, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #18C98B;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.15);
+            flex-shrink: 0;
+
+            @include respond-to('tab') {
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
+            @include respond-to('sm') {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: 0 0 4px;
+            color: #FFFFFF;
+            font-family: "Euclid-Bold", sans-serif;
+            letter-spacing: -0.3px;
+            word-break: break-word;
+
+            @include respond-to('lg') {
+                font-size: 26px;
+            }
+
+            @include respond-to('tab') {
+                font-size: 21px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 18px;
+                line-height: 1.3;
+            }
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.4;
+
+            @include respond-to('tab') {
+                font-size: 13px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .utilityBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(24, 201, 139, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #18C98B;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        @include respond-to('sm') {
+            font-size: 10px;
+            padding: 4px 10px;
+        }
+    }
+}
+
+// Navigation Tabs
+.tabBarWrapper {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    background: #08080B;
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 9999px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include respond-to('tab') {
+        gap: 6px;
+        padding: 5px 6px;
+        margin-bottom: 18px;
+        border-radius: 14px;
+    }
+
+    @include respond-to('sm') {
+        gap: 6px;
+        padding: 4px 6px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+    }
+
+    .tabBtn {
+        flex: 1;
+        min-width: 110px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 18px;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 9999px;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        @include respond-to('tab') {
+            flex: 0 0 auto;
+            min-width: auto;
+            padding: 9px 15px;
+            font-size: 13px;
+            border-radius: 10px;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @include respond-to('sm') {
+            flex: 0 0 auto;
+            min-width: auto;
+            padding: 8px 12px;
+            font-size: 12px;
+            border-radius: 8px;
+            gap: 5px;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        &:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        &.activeTab {
+            background: #18C98B;
+            border-color: #18C98B;
+            color: #040605;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.3);
+        }
+    }
+}
+
+// Calculator Layout Grid
+.calculatorCardGrid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 24px;
+    align-items: flex-start;
+
+    @include respond-to('lg') {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+    }
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    @include respond-to('sm') {
+        gap: 16px;
+    }
+}
+
+// Form Card Box
+.formCard {
+    background: radial-gradient(130% 100% at 50% 0%, #141316 0%, #09090C 100%);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
+
+    @include respond-to('sm') {
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+
+    .cardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 19px;
+            font-weight: 700;
+            margin: 0;
+            color: #FFFFFF;
+            font-family: "Euclid-Bold", sans-serif;
+
+            @include respond-to('sm') {
+                font-size: 17px;
+            }
+        }
+
+        span {
+            font-size: 12px;
+            color: #18C98B;
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.2);
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
+        }
+    }
+}
+
+.inputsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .fullWidth {
+        grid-column: 1 / -1;
+    }
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include respond-to('sm') {
+        gap: 6px;
+    }
+
+    label {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        @include respond-to('sm') {
+            font-size: 12px;
+        }
+
+        .hint {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: normal;
+
+            @include respond-to('sm') {
+                font-size: 10.5px;
+            }
+        }
+    }
+
+    input,
+    select {
+        width: 100%;
+        height: 46px;
+        background: #040406;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        border-radius: 10px;
+        padding: 0 14px;
+        font-size: 14px;
+        color: #FFFFFF;
+        font-family: inherit;
+        outline: none;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+
+        @include respond-to('sm') {
+            height: 42px;
+            font-size: 13px;
+            padding: 0 12px;
+            border-radius: 8px;
+        }
+
+        &:focus {
+            border-color: #18C98B;
+            box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
+            background: #09090D;
+        }
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+    }
+
+    select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23F4D17A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 36px;
+    }
+}
+
+// Custom Luxury Dropdown
+.customDropdown {
+    position: relative;
+    width: 100%;
+
+    .dropdownTrigger {
+        width: 100%;
+        height: 46px;
+        background: #040406;
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        border-radius: 10px;
+        padding: 0 14px;
+        font-size: 14px;
+        color: #FFFFFF;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+
+        @include respond-to('sm') {
+            height: 42px;
+            font-size: 13px;
+            padding: 0 12px;
+            border-radius: 8px;
+        }
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.5);
+            background: #08080C;
+        }
+
+        &.isOpen {
+            border-color: #18C98B;
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
+            background: #09090D;
+        }
+
+        .selectedLabel {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 500;
+
+            :global([dir="rtl"]) & {
+                text-align: right;
+            }
+        }
+
+        .chevronIcon {
+            color: #18C98B;
+            transition: transform 0.22s ease;
+            flex-shrink: 0;
+
+            &.rotated {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .dropdownMenu {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: radial-gradient(130% 100% at 50% 0%, #17151C 0%, #0B0A0E 100%);
+        border: 1.5px solid rgba(24, 201, 139, 0.4);
+        border-radius: 12px;
+        padding: 6px;
+        max-height: 240px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(24, 201, 139, 0.5) transparent;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(24, 201, 139, 0.12);
+        animation: fadeInDown 0.15s ease-out;
+
+        :global([dir="rtl"]) & {
+            text-align: right;
+
+            .dropdownItem {
+                text-align: right;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(24, 201, 139, 0.5);
+            border-radius: 4px;
+
+            &:hover {
+                background: #18C98B;
+            }
+        }
+    }
+
+    .dropdownItem {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 14px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        @include respond-to('sm') {
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.12);
+            color: #FFFFFF;
+        }
+
+        &.isSelected {
+            background: linear-gradient(135deg, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.1) 100%);
+            color: #18C98B;
+            font-weight: 700;
+
+            .checkMark {
+                color: #18C98B;
+            }
+        }
+
+        .checkMark {
+            font-size: 12px;
+            font-weight: bold;
+        }
+    }
+}

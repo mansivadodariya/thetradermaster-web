@@ -1,0 +1,347 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+/* COMPLETE LIGHT MODE OVERRIDES FOR NEWS */
+/* ========================================================================= */
+:global(html.light) .newsContainer,
+:global(html[data-theme='light']) .newsContainer,
+:global([data-theme='light']) .newsContainer,
+:global(.light) .newsContainer {
+    color: #0F172A;
+
+    .controlBar {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.09);
+        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+
+        .searchBox {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.12);
+
+            svg {
+                color: #64748B;
+            }
+
+            input {
+                background: transparent;
+                border: none;
+                color: #0F172A;
+
+                &::placeholder {
+                    color: #94A3B8;
+                }
+
+                &:focus {
+                    background: transparent;
+                }
+            }
+        }
+
+        .togglePill {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.1);
+            color: #475569;
+
+            &:hover {
+                background: #F1F5F9;
+                color: #0F172A;
+            }
+
+            &.activeToggle {
+                background: rgba(24, 201, 139, 0.15);
+                border-color: #18C98B;
+                color: #047857;
+            }
+        }
+
+        .refreshBtn {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.12);
+            color: #047857;
+
+            &:hover {
+                background: #F1F5F9;
+            }
+        }
+
+        .catBtn {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.08);
+            color: #475569;
+
+            &:hover {
+                background: #F1F5F9;
+                color: #0F172A;
+            }
+
+            &.activeCat {
+                background: #18C98B;
+                border-color: #18C98B;
+                color: #040605;
+            }
+        }
+    }
+
+    /* News Cards */
+    .newsCard {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.09);
+        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.5);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .cardTopRow {
+            .sourceBadge {
+                background: rgba(5, 150, 105, 0.08);
+                border-color: rgba(5, 150, 105, 0.25);
+                color: #059669;
+            }
+
+            .metaRight {
+                .timeAgo {
+                    color: #64748B;
+                }
+
+                .impactBadge {
+                    &.impactHigh {
+                        background: rgba(239, 68, 68, 0.12);
+                        color: #DC2626;
+                        border: 1px solid rgba(239, 68, 68, 0.3);
+                    }
+
+                    &.impactMed {
+                        background: rgba(2, 132, 199, 0.12);
+                        color: #0284C7;
+                        border: 1px solid rgba(2, 132, 199, 0.3);
+                    }
+
+                    &.impactLow {
+                        background: rgba(14, 165, 233, 0.1);
+                        color: #0284C7;
+                        border: 1px solid rgba(14, 165, 233, 0.25);
+                    }
+                }
+            }
+        }
+
+        .cardTitle {
+            color: #0F172A;
+            font-weight: 700;
+        }
+
+        .cardDesc {
+            color: #475569;
+        }
+
+        .tickersRow {
+            .tickerTag {
+                background: #F1F5F9;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #0F172A;
+            }
+
+            .biasTag {
+                &.bullish {
+                    background: rgba(16, 185, 129, 0.12);
+                    color: #059669;
+                    border: 1px solid rgba(16, 185, 129, 0.3);
+                }
+
+                &.bearish {
+                    background: rgba(239, 68, 68, 0.12);
+                    color: #DC2626;
+                    border: 1px solid rgba(239, 68, 68, 0.3);
+                }
+
+                &.neutral {
+                    background: #F1F5F9;
+                    color: #475569;
+                    border: 1px solid rgba(15, 23, 42, 0.12);
+                }
+            }
+        }
+
+        .cardFooter {
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+            .deepDiveBtn {
+                background: rgba(5, 150, 105, 0.08);
+                border: 1px solid rgba(5, 150, 105, 0.3);
+                color: #059669;
+
+                &:hover {
+                    background: #059669;
+                    color: #FFFFFF;
+                    border-color: #059669;
+                }
+            }
+
+            .sourceLink {
+                background: #F8FAFC;
+                border: 1px solid rgba(15, 23, 42, 0.12);
+                color: #475569;
+
+                &:hover {
+                    background: #F1F5F9;
+                    color: #059669;
+                    border-color: rgba(5, 150, 105, 0.4);
+                }
+            }
+        }
+    }
+
+    /* Empty & Loading States */
+    .emptyState {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        color: #475569;
+
+        h3 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #475569;
+        }
+
+        button {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: rgba(5, 150, 105, 0.3);
+            color: #059669;
+
+            &:hover {
+                background: #059669;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .loadingState {
+        color: #475569;
+    }
+
+    .paginationWrap {
+        .loadMoreBtn {
+            background: #F8FAFC;
+            border-color: rgba(5, 150, 105, 0.35);
+            color: #059669;
+
+            &:hover:not(:disabled) {
+                background: #059669;
+                color: #FFFFFF;
+                border-color: #059669;
+            }
+        }
+
+        .countText {
+            color: #64748B;
+        }
+    }
+
+    /* Modal / Deep-Dive Drawer */
+    .modalContent {
+        background: #FFFFFF;
+        border: 1.5px solid rgba(15, 23, 42, 0.12);
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+        color: #0F172A;
+
+        .closeBtn {
+            background: #F1F5F9;
+            border-color: rgba(15, 23, 42, 0.15);
+            color: #0F172A;
+
+            &:hover {
+                background: #E2E8F0;
+                color: #059669;
+                border-color: #059669;
+            }
+        }
+
+        .modalHeader {
+            border-bottom-color: rgba(15, 23, 42, 0.08);
+
+            .modalBadgeRow {
+                .source {
+                    background: rgba(5, 150, 105, 0.1);
+                    border-color: rgba(5, 150, 105, 0.3);
+                    color: #059669;
+                }
+
+                .time {
+                    color: #64748B;
+                }
+            }
+
+            h2 {
+                color: #0F172A;
+            }
+        }
+
+        .modalSection {
+            h4 {
+                color: #0F172A;
+            }
+
+            p {
+                color: #475569;
+            }
+        }
+
+        .suggestionCard {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+
+            .sugHeader .asset {
+                color: #0F172A;
+            }
+
+            .reasoning {
+                color: #475569;
+            }
+        }
+
+        .scenariosBox {
+            background: #F8FAFC;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+
+            .scenarioItem {
+                color: #475569;
+
+                strong {
+                    color: #0F172A;
+                }
+            }
+        }
+
+        .takeawayBox {
+            background: rgba(5, 150, 105, 0.06);
+            border: 1px solid rgba(5, 150, 105, 0.25);
+
+            .takeawayTitle {
+                color: #059669;
+            }
+
+            .takeawayText {
+                color: #0F172A;
+            }
+        }
+
+        .modalFooterRow {
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+            .externalSourceBtn {
+                background: rgba(5, 150, 105, 0.1);
+                border: 1px solid rgba(5, 150, 105, 0.3);
+                color: #059669;
+
+                &:hover {
+                    background: #059669;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}

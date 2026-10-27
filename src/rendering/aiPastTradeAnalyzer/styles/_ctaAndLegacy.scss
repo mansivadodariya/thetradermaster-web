@@ -1,0 +1,136 @@
+/* 4. BOTTOM CTA BANNER */
+.ctaBannerSection {
+    position: relative;
+    z-index: 2;
+    padding: 60px 0 100px 0;
+
+    @include respond-to('sm') {
+        padding: 40px 0 70px 0;
+    }
+}
+
+.ctaCard {
+    position: relative;
+    background: radial-gradient(ellipse at 50% -20%, rgba(24, 201, 139, 0.25) 0%, rgba(20, 16, 10, 0.95) 70%);
+    border: 1px solid rgba(24, 201, 139, 0.4);
+    border-radius: 24px;
+    padding: 42px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(24, 201, 139, 0.2);
+    overflow: hidden;
+
+    @include respond-to('md') {
+        flex-direction: column;
+        text-align: center;
+        padding: 32px 22px;
+        gap: 24px;
+    }
+}
+
+.ctaGlow {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.9) 50%, transparent 100%);
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.8);
+    pointer-events: none;
+}
+
+.ctaContent {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 750px;
+
+    @include respond-to('md') {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+}
+
+.ctaRocketIcon {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.2);
+}
+
+.ctaTextWrap {
+    text-align: left;
+
+    @include respond-to('md') {
+        text-align: center;
+    }
+}
+
+.ctaTitle {
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+
+    @include respond-to('sm') {
+        font-size: 19px;
+    }
+}
+
+.ctaSubtitle {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 13px;
+    }
+}
+
+.ctaActions {
+    flex-shrink: 0;
+
+    @include respond-to('sm') {
+        width: 100%;
+    }
+}
+
+.ctaPrimaryBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #A7F3D0 0%, #18C98B 50%, #10B981 100%);
+    color: #040300;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-weight: 800;
+    font-family: var(--font-plus-jakarta), sans-serif;
+    cursor: pointer;
+    box-shadow: 0 6px 25px rgba(24, 201, 139, 0.35);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+
+    &:hover {
+        box-shadow: 0 10px 35px rgba(24, 201, 139, 0.7);
+    }
+
+    @include respond-to('sm') {
+        width: 100%;
+        justify-content: center;
+    }
+}

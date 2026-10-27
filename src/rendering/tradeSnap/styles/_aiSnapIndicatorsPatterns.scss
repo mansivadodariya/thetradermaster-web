@@ -1,0 +1,643 @@
+// Section E: Live Indicators
+.liveIndicatorsSection {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    border-radius: 14px;
+
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(html.light) &,
+    :global(.light) &,
+    :global(.pdfExportLight) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+
+        .sectionHeaderRow h3 {
+            color: #0F172A;
+        }
+
+        .sectionTitleIcon {
+            color: #047857;
+        }
+    }
+}
+
+.sectionHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--title-color);
+    }
+}
+
+.sectionTitleWrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .sectionTitleIcon {
+        color: var(--pill-color);
+    }
+}
+
+.strengthBadge {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--box-bg);
+    padding: 4px 10px;
+    border: 1px solid var(--box-border);
+    border-radius: 6px;
+
+    strong {
+        color: #10B981;
+    }
+
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(html.light) &,
+    :global(.light) &,
+    :global(.pdfExportLight) & {
+        background: #F1F5F9;
+        border-color: rgba(15, 23, 42, 0.12);
+        color: #334155;
+
+        strong {
+            color: #047857;
+        }
+    }
+}
+
+.indicatorsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.indicatorCard {
+    background: var(--box-bg);
+    border: 1px solid var(--box-border);
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(html.light) &,
+    :global(.light) &,
+    :global(.pdfExportLight) & {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+
+        .indicatorName {
+            color: #475569;
+        }
+
+        .indicatorValue {
+            color: #0F172A;
+        }
+
+        .indicatorSubLabel {
+            color: #64748B;
+        }
+    }
+}
+
+.indicatorCardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .indicatorName {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-muted);
+    }
+}
+
+.statusBadge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 6px;
+
+    &.badgeGreen {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10B981;
+
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(html.light) &,
+        :global(.light) &,
+        :global(.pdfExportLight) & {
+            background: rgba(16, 185, 129, 0.18);
+            color: #047857;
+        }
+    }
+
+    &.badgeRed {
+        background: rgba(239, 68, 68, 0.15);
+        color: #EF4444;
+
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(html.light) &,
+        :global(.light) &,
+        :global(.pdfExportLight) & {
+            background: rgba(239, 68, 68, 0.18);
+            color: #DC2626;
+        }
+    }
+
+    &.badgeAmber {
+        background: rgba(14, 165, 233, 0.15);
+        color: #38BDF8;
+
+        :global(html[data-theme='light']) &,
+        :global([data-theme='light']) &,
+        :global(html.light) &,
+        :global(.light) &,
+        :global(.pdfExportLight) & {
+            background: rgba(14, 165, 233, 0.18);
+            color: #0284C7;
+        }
+    }
+}
+
+.indicatorValue {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--title-color);
+}
+
+.indicatorBarTrack {
+    width: 100%;
+    height: 4px;
+    background: var(--box-border);
+    border-radius: 999px;
+    overflow: hidden;
+
+    :global(html[data-theme='light']) &,
+    :global([data-theme='light']) &,
+    :global(html.light) &,
+    :global(.light) &,
+    :global(.pdfExportLight) & {
+        background: #E2E8F0;
+    }
+}
+
+.indicatorBarFill {
+    height: 100%;
+    transition: width 0.4s ease;
+    border-radius: 999px;
+}
+
+.indicatorSubLabel {
+    font-size: 10px;
+    color: var(--text-faint);
+}
+
+// Section F: Patterns & Key Levels Card
+.patternsKeyLevelsCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.cardHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--title-color);
+    }
+
+    .patternCountBadge {
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--pill-bg);
+        border: 1px solid var(--pill-border);
+        color: var(--pill-color);
+        padding: 4px 8px;
+    }
+}
+
+.patternsLevelsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    @media (max-width: 868px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.levelsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.levelGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.levelGroupHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+
+    .supportDot {
+        width: 8px;
+        height: 8px;
+        background: #10B981;
+        border-radius: 50%;
+    }
+
+    .resistanceDot {
+        width: 8px;
+        height: 8px;
+        background: #EF4444;
+        border-radius: 50%;
+    }
+
+    .flameIcon {
+        color: #38BDF8;
+    }
+}
+
+.pillsList {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.levelPill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--box-bg);
+    border: 1px solid var(--box-border);
+    border-radius: 8px;
+
+    .pillIndex {
+        font-size: 10px;
+        font-weight: 800;
+        color: #10B981;
+    }
+
+    .pillIndexRes {
+        font-size: 10px;
+        font-weight: 800;
+        color: #EF4444;
+    }
+
+    .pillPrice {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--title-color);
+    }
+
+    .pillCopyBtn {
+        background: transparent;
+        border: none;
+        color: var(--text-faint);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--pill-color);
+        }
+    }
+}
+
+.supportPill {
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.05);
+
+    .pillIndex {
+        color: #10B981;
+    }
+}
+
+.resistancePill {
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.05);
+
+    .pillIndex,
+    .pillIndexRes {
+        color: #EF4444;
+    }
+}
+
+.patternsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.patternsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.patternItemCard {
+    background: var(--box-bg);
+    padding: 12px;
+    border: 1px solid var(--box-border);
+    border-radius: 10px;
+}
+
+.patternItemHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+
+    .patternName {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .patternConfVal {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--pill-color);
+    }
+}
+
+.patternTrack {
+    width: 100%;
+    height: 6px;
+    background: var(--box-border);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.patternFill {
+    height: 100%;
+    background: linear-gradient(90deg, #18C98B 0%, #18C98B 100%);
+    border-radius: 999px;
+}
+
+// Section G: Risk Flags Stack
+.riskFlagsSection {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.riskSectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--title-color);
+    }
+
+    .riskSectionIcon {
+        color: #EF4444;
+    }
+}
+
+.riskStackList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.riskCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid;
+
+    &.riskDangerCard {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    &.riskWarningCard {
+        background: rgba(245, 158, 11, 0.08);
+        border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    &.riskInfoCard {
+        background: rgba(24, 201, 139, 0.08);
+        border-color: rgba(24, 201, 139, 0.3);
+    }
+}
+
+.riskIconWrap {
+    margin-top: 2px;
+}
+
+.riskMessageText {
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.55;
+    text-align: justify;
+    text-justify: inter-word;
+    word-break: normal;
+    overflow-wrap: break-word;
+
+    strong {
+        letter-spacing: 0.5px;
+    }
+}
+
+/* ============================================================
+   LIGHT MODE & PDF EXPORT OVERRIDES (SECTIONS E, F, G)
+   ============================================================ */
+:global(html.light),
+:global(html[data-theme='light']),
+:global([data-theme='light']),
+:global(.light),
+:global(.pdfExportLight) {
+    .liveIndicatorsSection,
+    .patternsKeyLevelsCard,
+    .riskFlagsSection {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
+        h3,
+        .cardHeaderRow h3,
+        .sectionHeaderRow h3,
+        .riskSectionHeader h3 {
+            color: #0F172A;
+        }
+    }
+
+    .strengthBadge {
+        background: #F1F5F9;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: #1E293B;
+
+        strong {
+            color: #047857;
+        }
+    }
+
+    .indicatorCard {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+        .indicatorName {
+            color: #475569;
+        }
+
+        .indicatorValue {
+            color: #0F172A;
+        }
+
+        .indicatorSubLabel {
+            color: #64748B;
+        }
+    }
+
+    .indicatorName {
+        color: #475569;
+    }
+
+    .indicatorValue {
+        color: #0F172A;
+    }
+
+    .indicatorSubLabel {
+        color: #64748B;
+    }
+
+    .statusBadge {
+        &.badgeGreen {
+            background: rgba(16, 185, 129, 0.15);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        &.badgeRed {
+            background: rgba(239, 68, 68, 0.15);
+            color: #DC2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        &.badgeAmber {
+            background: rgba(14, 165, 233, 0.15);
+            color: #0284C7;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+    }
+
+    .patternCountBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.35);
+        color: #047857;
+    }
+
+    .levelGroupHeader {
+        color: #475569;
+    }
+
+    .levelPill {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+
+        .pillPrice {
+            color: #0F172A;
+        }
+
+        .pillCopyBtn {
+            color: #64748B;
+
+            &:hover {
+                color: #047857;
+            }
+        }
+    }
+
+    .patternItemCard {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+
+        .patternName {
+            color: #0F172A;
+        }
+
+        .patternConfVal {
+            color: #047857;
+        }
+    }
+
+    .patternTrack,
+    .indicatorBarTrack {
+        background: #E2E8F0;
+    }
+
+    .riskCard {
+        &.riskDangerCard {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.25);
+            color: #991B1B;
+        }
+
+        &.riskWarningCard {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.25);
+            color: #92400E;
+        }
+
+        &.riskInfoCard {
+            background: rgba(24, 201, 139, 0.08);
+            border-color: rgba(24, 201, 139, 0.25);
+            color: #065F46;
+        }
+    }
+
+    .riskMessageText {
+        color: #1E293B;
+    }
+}

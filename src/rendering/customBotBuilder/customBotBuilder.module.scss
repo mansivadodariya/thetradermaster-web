@@ -1,0 +1,36 @@
+/* ============================================================
+   CHRONOSX CUSTOM BOT BUILDER SCSS
+   5-Step Modular Stepper Workflow (Basics, Entry, Exit, Risk, Review)
+   ============================================================ */
+
+.builderContainer {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.stepBodyArea {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 420px;
+}
+
+.stepContentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+@import './styles/customSelect';
+@import './styles/stepperHeader';
+@import './styles/stepBasics';
+@import './styles/stepEntry';
+@import './styles/stepExit';
+@import './styles/stepRisk';
+@import './styles/stepReview';
+@import './styles/stepFooter';

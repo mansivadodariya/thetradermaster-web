@@ -1,0 +1,154 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+
+.brokersSection {
+    position: relative;
+    padding: 80px 0;
+    overflow: hidden;
+
+    @include respond-to(md) {
+        padding: 60px 0;
+    }
+
+    @include respond-to(sm) {
+        padding: 44px 0;
+    }
+
+    .ambientGlow {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 350px;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(0, 242, 254, 0.03) 50%, transparent 70%);
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 1;
+    }
+
+    .brokersGrid {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 40px;
+        width: 100%;
+
+        > div {
+            flex: 1 1 340px;
+            max-width: 390px;
+            min-width: 300px;
+            display: flex;
+
+            > div {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            gap: 18px;
+            margin-top: 32px;
+
+            > div {
+                flex: 1 1 320px;
+                max-width: 440px;
+            }
+        }
+
+        @include respond-to(sm) {
+            gap: 16px;
+            margin-top: 24px;
+
+            > div {
+                flex: 1 1 100%;
+                max-width: 100%;
+                min-width: 100%;
+            }
+        }
+    }
+
+    .footerActionRow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+
+        @include respond-to(sm) {
+            margin-top: 28px;
+        }
+
+        .viewAllBtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(24, 201, 139, 0.12) 0%, rgba(0, 242, 254, 0.08) 100%);
+            border: 1px solid rgba(24, 201, 139, 0.35);
+            color: #18C98B;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+
+            svg {
+                stroke: #18C98B;
+                transition: transform 0.2s ease;
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, #10B981 0%, #00F2FE 100%);
+                border-color: transparent;
+                color: #051814;
+                box-shadow: 0 6px 24px rgba(24, 201, 139, 0.4), 0 0 20px rgba(0, 242, 254, 0.25);
+                transform: translateY(-2px);
+
+                svg {
+                    stroke: #051814;
+                    transform: translateX(3px);
+                }
+            }
+        }
+    }
+}
+
+/* Light Theme Overrides */
+:global(html.light) .brokersSection,
+:global([data-theme="light"]) .brokersSection {
+    .ambientGlow {
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.05) 0%, transparent 60%);
+    }
+
+    .footerActionRow {
+        .viewAllBtn {
+            background: #FFFFFF;
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            color: #0F766E;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+
+            svg {
+                stroke: #0F766E;
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, #10B981 0%, #00F2FE 100%);
+                color: #051814;
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+                border-color: transparent;
+
+                svg {
+                    stroke: #051814;
+                }
+            }
+        }
+    }
+}

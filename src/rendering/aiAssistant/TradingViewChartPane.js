@@ -1,152 +1,345 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { createChart, CandlestickSeries, LineSeries, AreaSeries } from 'lightweight-charts';
+import React, { useEffect, useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import { createChart } from 'lightweight-charts';
 import styles from './aiAssistant.module.scss';
 import { toast } from '@/components/toast';
+import { useTheme } from '@/context/ThemeContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { useLivePrice } from '@/lib/useLivePrice';
+import ChartLoaderOverlay from './components/ChartLoaderOverlay';
+import ChartSettingsModal from './components/ChartSettingsModal';
+import IndicatorSettingsModal from './IndicatorSettingsModal';
+import IndicatorsModal from './components/IndicatorsModal';
+import ChartHeaderControls from './components/ChartHeaderControls';
+import InsideChartControls from './components/InsideChartControls';
+import FloatingIndicatorLegends from './components/FloatingIndicatorLegends';
+import SubPanesArea from './components/SubPanesArea';
+import useSubPaneCharts from './hooks/useSubPaneCharts';
+import useOverlayIndicators from './hooks/useOverlayIndicators';
+import useChartDataLoader from './hooks/useChartDataLoader';
+import { useIndicatorState } from './hooks/useIndicatorState';
+import { useChartExport } from './hooks/useChartExport';
 
-// Available symbols & timeframes
-const POPULAR_SYMBOLS = [
-    { label: 'XAU/USD (Gold)', value: 'XAUUSD' },
-    { label: 'EUR/USD', value: 'EURUSD' },
-    { label: 'GBP/USD', value: 'GBPUSD' },
-    { label: 'BTC/USD', value: 'BTCUSD' },
-    { label: 'ETH/USD', value: 'ETHUSD' },
-    { label: 'USD/JPY', value: 'USDJPY' },
-    { label: 'US30 (Dow Jones)', value: 'US30' },
-];
+// Re-export constants and calculations for 100% backwards compatibility
+export {
+    DEFAULT_INDICATOR_CONFIGS,
+    SYMBOL_DATABASE,
+    PAIR_GROUPS,
+    ALL_PAIRS,
+    TIMEFRAMES,
+    CHART_TYPES,
+    DEFAULT_MAIN_OVERLAYS,
+    MA_COLOR_PALETTE
+} from './constants/chartConstants';
 
-const TIMEFRAMES = [
-    { label: '1m', value: '1m' },
-    { label: '5m', value: '5m' },
-    { label: '15m', value: '15m' },
-    { label: '30m', value: '30m' },
-    { label: '1h', value: '1h' },
-    { label: '4h', value: '4h' },
-    { label: '1d', value: '1d' },
-];
+export {
+    getSymbolPrecision,
+    applySymbolPrecision,
+    formatPrice,
+    normalizeSymbol,
+    renderChartTypeIcon,
+    getSymbolIcon,
+    getTimeframeInterval,
+    generateMockCandles,
+    calculateEMA,
+    calculateSMA,
+    getIndicatorData,
+    calculateBollingerBands,
+    calculatePivotPoints,
+    calculateRSI,
+    calculateMACD,
+    calculateStochastic
+} from './utils/indicatorCalculations';
 
-const CHART_TYPES = [
-    { label: 'Candlestick', value: 'candlestick' },
-    { label: 'Line', value: 'line' },
-    { label: 'Area', value: 'area' },
-];
+import {
+    DEFAULT_INDICATOR_CONFIGS,
+    DEFAULT_ACTIVE_INDICATORS,
+    MA_COLOR_PALETTE
+} from './constants/chartConstants';
 
-// Helper to normalize symbol string (e.g. "XAU/USD" -> "XAUUSD")
-export function normalizeSymbol(sym) {
-    if (!sym) return 'XAUUSD';
-    return sym.toUpperCase().replace(/[^A-Z0-9]/g, '');
-}
+import {
+    normalizeSymbol
+} from './utils/indicatorCalculations';
 
-// Format price based on pair precision
-function formatPrice(val, symbolStr) {
-    if (typeof val !== 'number' || isNaN(val)) return '-';
-    const s = (symbolStr || '').toUpperCase();
-    if (s.includes('JPY')) return val.toFixed(3);
-    if (s.includes('XAU') || s.includes('GOLD') || s.includes('BTC') || s.includes('ETH')) return val.toFixed(2);
-    return val.toFixed(5);
-}
+const TradingViewChartPane = forwardRef(function TradingViewChartPane(
+    { symbol = 'XAU/USD', onSymbolChange, onAttachScreenshot },
+    ref
+) {
+    const { theme } = useTheme();
+    const { t } = useLanguage();
+    const isDark = theme !== 'light';
 
-// Generate fallback candles if API endpoint is offline or returning empty
-function generateMockCandles(count = 100, basePrice = 2700) {
-    const candles = [];
-    let currentPrice = basePrice;
-    const now = Math.floor(Date.now() / 1000);
-    const interval = 900; // 15m in seconds
+    // Active Symbol Clean Resolution
+    const chartSymbol = symbol || 'XAU/USD';
+    const activeSymbolClean = normalizeSymbol(chartSymbol);
 
-    for (let i = count; i >= 0; i--) {
-        const time = now - (i * interval);
-        const change = (Math.random() - 0.49) * (basePrice * 0.004);
-        const open = currentPrice;
-        const close = open + change;
-        const high = Math.max(open, close) + Math.random() * (basePrice * 0.002);
-        const low = Math.min(open, close) - Math.random() * (basePrice * 0.002);
-        currentPrice = close;
+    // Chart Options & Display States
+    const [currentTimeframe, setCurrentTimeframe] = useState('15m');
+    const [chartType, setChartType] = useState('candlestick');
+    const [loading, setLoading] = useState(true);
+    const [latestCandle, setLatestCandle] = useState(null);
+    const [activeIndicators, setActiveIndicators] = useState(DEFAULT_ACTIVE_INDICATORS);
 
-        candles.push({
-            time,
-            open: Number(open.toFixed(2)),
-            high: Number(high.toFixed(2)),
-            low: Number(low.toFixed(2)),
-            close: Number(close.toFixed(2)),
-        });
-    }
-    return candles;
-}
+    // Safety Watchdog: Never let chart loader stay stuck indefinitely
+    useEffect(() => {
+        if (loading) {
+            const safetyTimer = setTimeout(() => {
+                if (candlesDataRef.current && candlesDataRef.current.length > 0) {
+                    setLoading(false);
+                }
+            }, 4000);
+            return () => clearTimeout(safetyTimer);
+        }
+    }, [loading]);
 
-export default function TradingViewChartPane({
-    symbol = 'XAUUSD',
-    onSymbolChange,
-    onAttachScreenshot,
-}) {
+    // Dynamic Moving Averages Array State (EMAs and SMAs) - Removed default EMAs per user request
+    const [movingAverages, setMovingAverages] = useState([]);
+
+    // Appearance & Color Customization
+    const [bullishColor, setBullishColor] = useState('#26a69a');
+    const [bearishColor, setBearishColor] = useState('#ef5350');
+    const [backgroundColor, setBackgroundColor] = useState(isDark ? '#08090c' : '#FFFFFF');
+
+    // Modals & Floating Menus States
+    const [settingsOpen, setSettingsOpen] = useState(false);
+    const [indicatorsModalOpen, setIndicatorsModalOpen] = useState(false);
+    const [draftBullishColor, setDraftBullishColor] = useState(bullishColor);
+    const [draftBearishColor, setDraftBearishColor] = useState(bearishColor);
+    const [draftBackgroundColor, setDraftBackgroundColor] = useState(backgroundColor);
+
+    // Dropdown toggles
+    const [symbolDropdownOpen, setSymbolDropdownOpen] = useState(false);
+    const [headerSymbolDropdownOpen, setHeaderSymbolDropdownOpen] = useState(false);
+    const [timeframeDropdownOpen, setTimeframeDropdownOpen] = useState(false);
+    const [chartTypeDropdownOpen, setChartTypeDropdownOpen] = useState(false);
+    const [indicatorsDropdownOpen, setIndicatorsDropdownOpen] = useState(false);
+    const [cameraDropdownOpen, setCameraDropdownOpen] = useState(false);
+
+    // Refs
     const containerRef = useRef(null);
     const chartRef = useRef(null);
     const seriesRef = useRef(null);
-    const wsRef = useRef(null);
+    const volumeSeriesRef = useRef(null);
+    const currentChartTypeRef = useRef('candlestick');
+    const candlesDataRef = useRef([]);
 
-    // Chart Settings State
-    const [currentTimeframe, setCurrentTimeframe] = useState('15m');
-    const [chartType, setChartType] = useState('candlestick');
-    const [symbolDropdownOpen, setSymbolDropdownOpen] = useState(false);
-    const [cameraDropdownOpen, setCameraDropdownOpen] = useState(false);
-    const [settingsOpen, setSettingsOpen] = useState(false);
+    // Sub-pane Canvas Refs
+    const rsiContainerRef = useRef(null);
+    const macdContainerRef = useRef(null);
+    const stochContainerRef = useRef(null);
 
-    // Style Customizations (TradingView Style)
-    const [bullishColor, setBullishColor] = useState('#00B0FF');
-    const [bearishColor, setBearishColor] = useState('#FF3B30');
-    const [backgroundColor, setBackgroundColor] = useState('#131722');
-    const [extendedSession, setExtendedSession] = useState(false);
-    const [preMarketColor, setPreMarketColor] = useState('#FF6D00');
-    const [postMarketColor, setPostMarketColor] = useState('#2979FF');
+    // DOM UI Dropdown Refs
+    const symbolDropdownRef = useRef(null);
+    const headerSymbolDropdownRef = useRef(null);
+    const timeframeDropdownRef = useRef(null);
+    const chartTypeDropdownRef = useRef(null);
+    const indicatorsDropdownRef = useRef(null);
+    const cameraDropdownRef = useRef(null);
 
-    // Live price tracking state
-    const [latestCandle, setLatestCandle] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // Price updates via shared WebSocket hook (destructuring priceData & tickDirection)
+    const { priceData, tickDirection: liveTickDirection } = useLivePrice(activeSymbolClean);
+    const [tickDirection, setTickDirection] = useState(null);
+    const prevPriceRef = useRef(null);
 
-    const activeSymbolClean = normalizeSymbol(symbol);
+    useEffect(() => {
+        if (liveTickDirection) {
+            setTickDirection(liveTickDirection);
+            const timer = setTimeout(() => setTickDirection(null), 350);
+            return () => clearTimeout(timer);
+        }
+    }, [liveTickDirection, priceData?.price]);
 
-    // 1. Initialize Chart Engine
+    // Indicator Configs & Visibility States Hook
+    const {
+        indicatorConfigs,
+        indicatorVisibility,
+        editingIndicator,
+        setEditingIndicator,
+        toggleIndicatorVisibility,
+        removeIndicator,
+        openIndicatorSettings,
+        addMovingAverage,
+        toggleMAVisibility,
+        removeMovingAverage,
+        saveIndicatorConfig,
+        resetIndicatorDefaults
+    } = useIndicatorState({
+        activeIndicators,
+        setActiveIndicators,
+        movingAverages,
+        setMovingAverages,
+        chartRef,
+        maSeriesRefs: { current: null } // will be hooked
+    });
+
+    // Main Chart Overlay Indicators Hook
+    const { maSeriesRefs, updateIndicators } = useOverlayIndicators({
+        chartRef,
+        candlesDataRef,
+        activeIndicators,
+        indicatorConfigs,
+        indicatorVisibility,
+        movingAverages
+    });
+
+    // Sub-panes (RSI, MACD, Stochastic) Hook
+    useSubPaneCharts({
+        chartRef,
+        candlesDataRef,
+        activeIndicators,
+        indicatorConfigs,
+        indicatorVisibility,
+        currentTimeframe,
+        activeSymbolClean,
+        isDark,
+        theme,
+        rsiContainerRef,
+        macdContainerRef,
+        stochContainerRef
+    });
+
+    // Chart Data Loader & WebSocket Hook
+    useChartDataLoader({
+        chartRef,
+        seriesRef,
+        volumeSeriesRef,
+        candlesDataRef,
+        activeSymbolClean,
+        currentTimeframe,
+        chartType,
+        currentChartTypeRef,
+        bullishColor,
+        bearishColor,
+        livePrice: priceData?.price,
+        setLoading,
+        setLatestCandle,
+        updateIndicators
+    });
+
+    // Expose capture functionality to parent via ref
+    useImperativeHandle(ref, () => ({
+        getScreenshotDataUrl: () => {
+            if (!chartRef.current) return null;
+            const canvas = chartRef.current.takeScreenshot();
+            return canvas.toDataURL('image/png');
+        },
+        attachScreenshot: () => {
+            attachChartToChat();
+        },
+    }));
+
+    // Close dropdowns on outside click
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (symbolDropdownRef.current && !symbolDropdownRef.current.contains(e.target)) {
+                setSymbolDropdownOpen(false);
+            }
+            if (headerSymbolDropdownRef.current && !headerSymbolDropdownRef.current.contains(e.target)) {
+                setHeaderSymbolDropdownOpen(false);
+            }
+            if (cameraDropdownRef.current && !cameraDropdownRef.current.contains(e.target)) {
+                setCameraDropdownOpen(false);
+            }
+            if (chartTypeDropdownRef.current && !chartTypeDropdownRef.current.contains(e.target)) {
+                setChartTypeDropdownOpen(false);
+            }
+            if (timeframeDropdownRef.current && !timeframeDropdownRef.current.contains(e.target)) {
+                setTimeframeDropdownOpen(false);
+            }
+            if (indicatorsDropdownRef.current && !indicatorsDropdownRef.current.contains(e.target)) {
+                setIndicatorsDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, []);
+
+    // Sync chart theme colors on app theme change
+    useEffect(() => {
+        const bg = isDark ? '#08090c' : '#FFFFFF';
+        const txt = isDark ? '#94A3B8' : '#334155';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.06)';
+        const borderColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.1)';
+
+        setBackgroundColor(bg);
+
+        if (chartRef.current) {
+            chartRef.current.applyOptions({
+                layout: { background: { color: bg }, textColor: txt },
+                grid: { vertLines: { color: gridColor }, horzLines: { color: gridColor } },
+                timeScale: { borderColor },
+                rightPriceScale: { borderColor },
+            });
+        }
+    }, [theme, isDark]);
+
+    // Initialize Chart Engine
     useEffect(() => {
         if (!containerRef.current) return;
+
+        const initialBg = isDark ? '#08090c' : '#FFFFFF';
+        const initialTxt = isDark ? '#94A3B8' : '#334155';
+        const initialGrid = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.06)';
+        const initialBorder = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.1)';
 
         const chart = createChart(containerRef.current, {
             width: containerRef.current.clientWidth,
             height: containerRef.current.clientHeight || 500,
+            attributionLogo: false,
             layout: {
-                background: { color: backgroundColor },
-                textColor: '#94A3B8',
+                background: { color: initialBg },
+                textColor: initialTxt,
                 fontFamily: 'Inter, system-ui, sans-serif',
+                attributionLogo: false,
             },
             grid: {
-                vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
-                horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                vertLines: { color: initialGrid },
+                horzLines: { color: initialGrid },
             },
             crosshair: {
-                mode: 1, // CrosshairMode.Normal
-                vertLine: {
-                    color: 'rgba(41, 121, 255, 0.5)',
-                    width: 1,
-                    style: 2,
+                mode: 1,
+                vertLine: { color: 'rgba(24, 201, 139, 0.5)', width: 1, style: 2 },
+                horzLine: { color: 'rgba(24, 201, 139, 0.5)', width: 1, style: 2 },
+            },
+            handleScroll: {
+                mouseWheel: false,
+                pressedMouseMove: true,
+                horzTouchDrag: true,
+                vertTouchDrag: false,
+            },
+            handleScale: {
+                axisPressedMouseMove: {
+                    time: true,
+                    price: true,
                 },
-                horzLine: {
-                    color: 'rgba(41, 121, 255, 0.5)',
-                    width: 1,
-                    style: 2,
+                axisDoubleClickReset: {
+                    time: true,
+                    price: true,
                 },
+                mouseWheel: false,
+                pinch: true,
             },
             timeScale: {
-                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: initialBorder,
                 timeVisible: true,
                 secondsVisible: false,
+                rightBarStaysOnScroll: true,
+                barSpacing: 5.5,
+                rightOffset: 16,
             },
             rightPriceScale: {
-                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: initialBorder,
+                scaleMargins: { top: 0.14, bottom: 0.20 },
             },
         });
 
         chartRef.current = chart;
 
-        // Resize Observer for responsive container sizing
         const handleResize = () => {
             if (containerRef.current && chartRef.current) {
                 chartRef.current.applyOptions({
@@ -156,10 +349,61 @@ export default function TradingViewChartPane({
             }
         };
 
+        const containerEl = containerRef.current;
+        const handleWheelZoom = (e) => {
+            const targetEl = e.target;
+            if (
+                targetEl &&
+                (targetEl.closest(`.${styles.insideChartControlPill}`) ||
+                 targetEl.closest('[class*="dropdown"]') ||
+                 targetEl.closest('[class*="Dropdown"]') ||
+                 targetEl.closest('[class*="tickerSearch"]') ||
+                 targetEl.closest('[class*="tickerList"]') ||
+                 targetEl.closest('[class*="modal"]') ||
+                 targetEl.closest('[class*="Modal"]') ||
+                 targetEl.closest('[class*="menu"]') ||
+                 targetEl.closest('[class*="Menu"]') ||
+                 targetEl.closest('[class*="popup"]') ||
+                 targetEl.closest('[class*="settings"]') ||
+                 targetEl.closest('[class*="control"]') ||
+                 targetEl.closest('[class*="pill"]') ||
+                 targetEl.closest('[class*="Pill"]') ||
+                 targetEl.closest('input, select, textarea, button'))
+            ) {
+                // Allow natural scrolling inside dropdown menus, search results, and popups
+                return;
+            }
+
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+            e.stopPropagation();
+
+            if (!chartRef.current) return;
+            const timeScale = chartRef.current.timeScale();
+            const currentSpacing = timeScale.options().barSpacing || 5.5;
+
+            const zoomIn = e.deltaY < 0;
+            const zoomMultiplier = zoomIn ? 1.15 : 0.87;
+            const nextSpacing = Math.max(2, Math.min(80, currentSpacing * zoomMultiplier));
+
+            timeScale.applyOptions({
+                barSpacing: nextSpacing,
+                rightBarStaysOnScroll: true,
+            });
+        };
+
+        if (containerEl) {
+            containerEl.addEventListener('wheel', handleWheelZoom, { passive: false });
+        }
+
         const resizeObserver = new ResizeObserver(handleResize);
         resizeObserver.observe(containerRef.current);
 
         return () => {
+            if (containerEl) {
+                containerEl.removeEventListener('wheel', handleWheelZoom);
+            }
             resizeObserver.disconnect();
             if (chartRef.current) {
                 chartRef.current.remove();
@@ -172,484 +416,283 @@ export default function TradingViewChartPane({
     useEffect(() => {
         if (chartRef.current) {
             chartRef.current.applyOptions({
-                layout: {
-                    background: { color: backgroundColor },
-                },
+                layout: { background: { color: backgroundColor } },
             });
         }
     }, [backgroundColor]);
 
-    // 2. Load Candle Data & Manage Series + WebSocket
+    const hasSubPanes = Boolean(activeIndicators.rsi || activeIndicators.macd || activeIndicators.stochastic);
+
+    // Dynamically adjust scaleMargins and dimensions when subpanes are active
     useEffect(() => {
-        let isMounted = true;
+        if (!chartRef.current) return;
+        chartRef.current.applyOptions({
+            rightPriceScale: {
+                scaleMargins: {
+                    top: 0.08,
+                    bottom: hasSubPanes ? 0.22 : 0.20,
+                },
+            },
+        });
+        try {
+            chartRef.current.priceScale('volume').applyOptions({
+                scaleMargins: {
+                    top: hasSubPanes ? 0.74 : 0.80,
+                    bottom: 0.02,
+                },
+            });
+        } catch {}
 
-        async function loadChartData() {
-            if (!chartRef.current) return;
-            setLoading(true);
-
-            // Remove previous series if exists
-            if (seriesRef.current) {
-                try {
-                    chartRef.current.removeSeries(seriesRef.current);
-                } catch { /* ignore */ }
-                seriesRef.current = null;
-            }
-
-            // Create series based on chartType
-            let newSeries;
-            if (chartType === 'line') {
-                newSeries = chartRef.current.addSeries(LineSeries, {
-                    color: '#2979FF',
-                    lineWidth: 2,
+        const updateDimensions = () => {
+            if (containerRef.current && chartRef.current) {
+                chartRef.current.applyOptions({
+                    width: containerRef.current.clientWidth,
+                    height: containerRef.current.clientHeight,
                 });
-            } else if (chartType === 'area') {
-                newSeries = chartRef.current.addSeries(AreaSeries, {
-                    topColor: 'rgba(41, 121, 255, 0.45)',
-                    bottomColor: 'rgba(41, 121, 255, 0.02)',
-                    lineColor: '#2979FF',
-                    lineWidth: 2,
-                });
-            } else {
-                // Default: Candlestick
-                newSeries = chartRef.current.addSeries(CandlestickSeries, {
-                    upColor: bullishColor,
-                    downColor: bearishColor,
-                    borderUpColor: bullishColor,
-                    borderDownColor: bearishColor,
-                    wickUpColor: bullishColor,
-                    wickDownColor: bearishColor,
-                });
-            }
-
-            seriesRef.current = newSeries;
-
-            // Fetch historical candle data
-            let candlesData = [];
-            try {
-                const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
-                const res = await fetch(`${backendUrl}/api/v1/chart/candles?symbol=${activeSymbolClean}&timeframe=${currentTimeframe}&strategy_id=3e8d2b78-0e86-4fdf-9759-338276db1742`);
-                if (res.ok) {
-                    const json = await res.json();
-                    const rawCandles = json.candles || json.data || json;
-                    if (Array.isArray(rawCandles) && rawCandles.length > 0) {
-                        candlesData = rawCandles.map((c) => ({
-                            time: typeof c.time === 'string' ? Math.floor(new Date(c.time).getTime() / 1000) : Number(c.time),
-                            open: Number(c.open),
-                            high: Number(c.high),
-                            low: Number(c.low),
-                            close: Number(c.close),
-                            value: Number(c.close), // For line/area series
-                        })).filter(c => !isNaN(c.time) && !isNaN(c.close));
-                    }
-                }
-            } catch (err) {
-                console.warn('Chart candles API fetch notice:', err.message);
-            }
-
-            // Fallback mock generator if no candles returned from backend API
-            if (candlesData.length === 0) {
-                const baseVal = activeSymbolClean.includes('XAU') ? 2720 : activeSymbolClean.includes('BTC') ? 92000 : 1.0850;
-                candlesData = generateMockCandles(120, baseVal).map(c => ({
-                    ...c,
-                    value: c.close
-                }));
-            }
-
-            // Sort chronologically
-            candlesData.sort((a, b) => a.time - b.time);
-
-            if (isMounted && seriesRef.current) {
-                seriesRef.current.setData(candlesData);
-                const last = candlesData[candlesData.length - 1];
-                if (last) setLatestCandle(last);
-                chartRef.current.timeScale().fitContent();
-                setLoading(false);
-            }
-
-            // 3. Connect Real-Time WebSocket Streaming Updates
-            if (wsRef.current) {
-                wsRef.current.close();
-                wsRef.current = null;
-            }
-
-            try {
-                const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-                const wsHost = window.location.host;
-                const wsUrl = `${wsProtocol}//${wsHost}/api/v1/websocket/live-candles?symbol=${activeSymbolClean}&timeframe=${currentTimeframe}`;
-                
-                const socket = new WebSocket(wsUrl);
-                wsRef.current = socket;
-
-                socket.onmessage = (event) => {
-                    if (!isMounted || !seriesRef.current) return;
-                    try {
-                        const payload = JSON.parse(event.data);
-                        if (payload.type === 'candle_update' && payload.data) {
-                            const bar = payload.data;
-                            const tSec = typeof bar.time === 'string' ? Math.floor(new Date(bar.time).getTime() / 1000) : Number(bar.time);
-                            const updatedBar = {
-                                time: tSec,
-                                open: Number(bar.open),
-                                high: Number(bar.high),
-                                low: Number(bar.low),
-                                close: Number(bar.close),
-                                value: Number(bar.close),
-                            };
-                            seriesRef.current.update(updatedBar);
-                            setLatestCandle(updatedBar);
-                        }
-                    } catch { /* ignore parse error */ }
-                };
-
-                socket.onerror = () => {
-                    // Fallback live tick simulator if WebSocket server is not running on localhost
-                    startMockTickSimulator(isMounted);
-                };
-            } catch {
-                startMockTickSimulator(isMounted);
-            }
-        }
-
-        loadChartData();
-
-        return () => {
-            isMounted = false;
-            if (wsRef.current) {
-                wsRef.current.close();
-                wsRef.current = null;
             }
         };
-    }, [activeSymbolClean, currentTimeframe, chartType]);
 
-    // Fallback real-time tick simulator if WS endpoint offline
-    const startMockTickSimulator = (isMounted) => {
-        const interval = setInterval(() => {
-            if (!isMounted || !seriesRef.current) return;
-            setLatestCandle((prev) => {
-                if (!prev) return prev;
-                const priceDelta = (Math.random() - 0.495) * (prev.close * 0.0008);
-                const newClose = Number((prev.close + priceDelta).toFixed(2));
-                const newHigh = Math.max(prev.high, newClose);
-                const newLow = Math.min(prev.low, newClose);
-                const updated = {
-                    ...prev,
-                    high: newHigh,
-                    low: newLow,
-                    close: newClose,
-                    value: newClose
-                };
-                seriesRef.current.update(updated);
-                return updated;
-            });
-        }, 1500);
+        updateDimensions();
+        const raf = requestAnimationFrame(updateDimensions);
+        const timer = setTimeout(updateDimensions, 220);
+        return () => {
+            cancelAnimationFrame(raf);
+            clearTimeout(timer);
+        };
+    }, [hasSubPanes]);
 
-        return () => clearInterval(interval);
-    };
-
-    // Update Series colors when bullish/bearish picker changes
+    // Update Series colors when bullish/bearish picker changes in Settings Modal
     useEffect(() => {
         if (seriesRef.current && chartType === 'candlestick') {
             seriesRef.current.applyOptions({
                 upColor: bullishColor,
-                downColor: bearishColor,
                 borderUpColor: bullishColor,
-                borderDownColor: bearishColor,
                 wickUpColor: bullishColor,
+                downColor: bearishColor,
+                borderDownColor: bearishColor,
                 wickDownColor: bearishColor,
             });
         }
     }, [bullishColor, bearishColor, chartType]);
 
-    // 4. Camera Screenshot Actions Implementation
-    const downloadChartImage = () => {
-        if (!chartRef.current) return;
-        const canvas = chartRef.current.takeScreenshot();
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.download = `${activeSymbolClean}_chart.png`;
-        link.href = dataUrl;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success(`Chart downloaded as ${activeSymbolClean}_chart.png`);
+    // Camera Screenshot Actions Hook
+    const { downloadChartImage, copyChartImageToClipboard, attachChartToChat } = useChartExport({
+        chartRef,
+        activeSymbolClean,
+        onAttachScreenshot,
+        setCameraDropdownOpen
+    });
+
+    const closeAllDropdowns = () => {
+        setSymbolDropdownOpen(false);
+        setHeaderSymbolDropdownOpen(false);
+        setTimeframeDropdownOpen(false);
+        setChartTypeDropdownOpen(false);
+        setIndicatorsDropdownOpen(false);
         setCameraDropdownOpen(false);
     };
 
-    const copyChartImageToClipboard = () => {
-        if (!chartRef.current) return;
-        const canvas = chartRef.current.takeScreenshot();
-        canvas.toBlob(async (blob) => {
-            if (!blob) return;
-            try {
-                await navigator.clipboard.write([
-                    new ClipboardItem({ 'image/png': blob }),
-                ]);
-                toast.success('Chart screenshot copied to clipboard!');
-            } catch (err) {
-                console.error('Copy screenshot error:', err);
-                toast.error('Could not copy image to clipboard.');
-            }
-        });
-        setCameraDropdownOpen(false);
+    const toggleSymbolDropdown = () => {
+        const next = !symbolDropdownOpen;
+        closeAllDropdowns();
+        setSymbolDropdownOpen(next);
     };
 
-    const attachChartToChat = () => {
-        if (!chartRef.current) return;
-        const canvas = chartRef.current.takeScreenshot();
-        const dataUrl = canvas.toDataURL('image/png');
-        if (onAttachScreenshot) {
-            onAttachScreenshot({
-                name: `${activeSymbolClean}_chart.png`,
-                url: dataUrl,
-                type: 'image/png',
-            });
-            toast.success('Chart screenshot attached to chat draft!');
-        } else {
-            toast.success('Chart screenshot captured!');
-        }
-        setCameraDropdownOpen(false);
+    const toggleTimeframeDropdown = () => {
+        const next = !timeframeDropdownOpen;
+        closeAllDropdowns();
+        setTimeframeDropdownOpen(next);
     };
+
+    const toggleChartTypeDropdown = () => {
+        const next = !chartTypeDropdownOpen;
+        closeAllDropdowns();
+        setChartTypeDropdownOpen(next);
+    };
+
+    const toggleCameraDropdown = () => {
+        const next = !cameraDropdownOpen;
+        closeAllDropdowns();
+        setCameraDropdownOpen(next);
+    };
+
+    const openSettingsModal = () => {
+        closeAllDropdowns();
+        setDraftBullishColor(bullishColor);
+        setDraftBearishColor(bearishColor);
+        setDraftBackgroundColor(backgroundColor);
+        setSettingsOpen(true);
+    };
+
+    const handleApplySettings = () => {
+        setBullishColor(draftBullishColor);
+        setBearishColor(draftBearishColor);
+        setBackgroundColor(draftBackgroundColor);
+        setSettingsOpen(false);
+    };
+
+    const handleResetSettings = () => {
+        const defaultBg = isDark ? '#08090c' : '#FFFFFF';
+        setDraftBullishColor('#26a69a');
+        setDraftBearishColor('#ef5350');
+        setDraftBackgroundColor(defaultBg);
+    };
+
+    const currentPrice = priceData?.price ?? latestCandle?.close ?? 0;
+    const openPrice = latestCandle?.open || currentPrice;
+    const priceDiff = currentPrice - openPrice;
+    const candleChangePct = (openPrice && openPrice > 0)
+        ? parseFloat(((priceDiff / openPrice) * 100).toFixed(2))
+        : 0;
+
+    // Use current candle direction when available so header color matches the chart candle & price scale badge exactly
+    const isUp = latestCandle
+        ? currentPrice >= openPrice
+        : (priceData?.changePercent !== undefined ? priceData.changePercent >= 0 : true);
+
+    const changePercent = latestCandle
+        ? candleChangePct
+        : (priceData?.changePercent !== undefined ? priceData.changePercent : candleChangePct);
+
+    const flashClass = tickDirection === 'up' ? styles.flashUp : (tickDirection === 'down' ? styles.flashDown : '');
+
+    const bgUpper = (backgroundColor || '').toUpperCase();
+    const isBgLight = bgUpper === '#FFFFFF' || bgUpper === '#FFF' || bgUpper === 'WHITE' || bgUpper === '#F8F9FD' || bgUpper === '#F0F3FA';
+    const isChartLight = !isDark || isBgLight;
+
+    const isChartLoading = loading || !candlesDataRef.current || candlesDataRef.current.length === 0;
 
     return (
-        <div className={styles.chartPaneContainer}>
-            {/* Top Floating Control Bar */}
-            <div className={styles.chartHeaderControls}>
-                <div className={styles.leftControlsGroup}>
-                    {/* Symbol Selector Dropdown */}
-                    <div className={styles.controlDropdownWrapper}>
-                        <button
-                            type="button"
-                            className={styles.symbolSelectorBtn}
-                            onClick={() => setSymbolDropdownOpen(!symbolDropdownOpen)}
-                        >
-                            <span className={styles.symbolBadge}>{activeSymbolClean}</span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                        </button>
-
-                        {symbolDropdownOpen && (
-                            <div className={styles.dropdownMenuFloating}>
-                                {POPULAR_SYMBOLS.map((item) => (
-                                    <button
-                                        key={item.value}
-                                        type="button"
-                                        className={`${styles.dropdownMenuItem} ${activeSymbolClean === item.value ? styles.activeItem : ''}`}
-                                        onClick={() => {
-                                            if (onSymbolChange) onSymbolChange(item.value);
-                                            setSymbolDropdownOpen(false);
-                                        }}
-                                    >
-                                        <span>{item.label}</span>
-                                        {activeSymbolClean === item.value && <span>✓</span>}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Timeframe Selector Buttons */}
-                    <div className={styles.timeframeBar}>
-                        {TIMEFRAMES.map((tf) => (
-                            <button
-                                key={tf.value}
-                                type="button"
-                                className={`${styles.tfBtn} ${currentTimeframe === tf.value ? styles.activeTf : ''}`}
-                                onClick={() => setCurrentTimeframe(tf.value)}
-                            >
-                                {tf.label}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Chart Type Selector Dropdown */}
-                    <div className={styles.controlDropdownWrapper}>
-                        <select
-                            value={chartType}
-                            onChange={(e) => setChartType(e.target.value)}
-                            className={styles.chartTypeSelect}
-                        >
-                            {CHART_TYPES.map((ct) => (
-                                <option key={ct.value} value={ct.value}>
-                                    {ct.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Settings Cog Icon */}
-                    <button
-                        type="button"
-                        className={`${styles.iconControlBtn} ${settingsOpen ? styles.activeControl : ''}`}
-                        title="Chart Settings"
-                        onClick={() => setSettingsOpen(!settingsOpen)}
-                    >
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                    </button>
-                </div>
-
-                {/* Right Camera Screenshot Action Menu */}
-                <div className={styles.controlDropdownWrapper}>
-                    <button
-                        type="button"
-                        className={styles.iconControlBtn}
-                        title="Camera Screenshot Actions"
-                        onClick={() => setCameraDropdownOpen(!cameraDropdownOpen)}
-                    >
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                            <circle cx="12" cy="13" r="4" />
-                        </svg>
-                    </button>
-
-                    {cameraDropdownOpen && (
-                        <div className={`${styles.dropdownMenuFloating} ${styles.rightAligned}`}>
-                            <button type="button" className={styles.dropdownMenuItem} onClick={attachChartToChat}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-                                </svg>
-                                <span>Attach to Chat</span>
-                            </button>
-                            <button type="button" className={styles.dropdownMenuItem} onClick={downloadChartImage}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="7 10 12 15 17 10" />
-                                    <line x1="12" y1="15" x2="12" y2="3" />
-                                </svg>
-                                <span>Download Image</span>
-                            </button>
-                            <button type="button" className={styles.dropdownMenuItem} onClick={copyChartImageToClipboard}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                </svg>
-                                <span>Copy Image</span>
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
+        <div className={`${styles.chartPaneContainer} ${isChartLight ? styles.lightThemePane : ''}`}>
+            {/* Chart Header Controls Bar */}
+            <ChartHeaderControls
+                currentPrice={currentPrice}
+                chartSymbol={chartSymbol}
+                isUp={isUp}
+                flashClass={flashClass}
+                changePercent={changePercent}
+                cameraDropdownRef={cameraDropdownRef}
+                cameraDropdownOpen={cameraDropdownOpen}
+                toggleCameraDropdown={toggleCameraDropdown}
+                attachChartToChat={attachChartToChat}
+                downloadChartImage={downloadChartImage}
+                copyChartImageToClipboard={copyChartImageToClipboard}
+                t={t}
+            />
 
             {/* Live Chart Container */}
-            <div className={styles.chartCanvasArea} ref={containerRef}>
-                {loading && (
-                    <div className={styles.chartOverlayLoader}>
-                        <div className={styles.chartSpinner} />
-                        <span>Loading Realtime Chart...</span>
-                    </div>
+            <div className={styles.chartCanvasArea}>
+                {isChartLoading && (
+                    <ChartLoaderOverlay isDark={!isChartLight} />
                 )}
 
-                {/* Floating Live Price Ticker Overlay */}
-                {latestCandle && (
-                    <div className={styles.livePriceOverlay}>
-                        <span className={styles.liveSymbol}>{activeSymbolClean}</span>
-                        <span className={styles.livePrice}>{formatPrice(latestCandle.close, activeSymbolClean)}</span>
-                        <span className={latestCandle.close >= latestCandle.open ? styles.bullishTag : styles.bearishTag}>
-                            {latestCandle.close >= latestCandle.open ? '▲ UP' : '▼ DOWN'}
-                        </span>
-                    </div>
-                )}
+                {/* Main Candlestick / Price Chart Container */}
+                <div
+                    ref={containerRef}
+                    className={`${styles.mainChartContainer} ${hasSubPanes ? styles.hasSubPanes : ''} ${isChartLoading ? styles.isChartLoading : ''}`}
+                    style={{ cursor: 'crosshair' }}
+                >
+                    {/* Inside Chart Floating Control Bar (Top Left) */}
+                    <InsideChartControls
+                        symbolDropdownRef={symbolDropdownRef}
+                        symbolDropdownOpen={symbolDropdownOpen}
+                        toggleSymbolDropdown={toggleSymbolDropdown}
+                        chartSymbol={chartSymbol}
+                        activeSymbolClean={activeSymbolClean}
+                        isChartLight={isChartLight}
+                        onSymbolChange={onSymbolChange}
+                        setSymbolDropdownOpen={setSymbolDropdownOpen}
+                        timeframeDropdownRef={timeframeDropdownRef}
+                        timeframeDropdownOpen={timeframeDropdownOpen}
+                        toggleTimeframeDropdown={toggleTimeframeDropdown}
+                        currentTimeframe={currentTimeframe}
+                        setCurrentTimeframe={setCurrentTimeframe}
+                        setTimeframeDropdownOpen={setTimeframeDropdownOpen}
+                        chartTypeDropdownRef={chartTypeDropdownRef}
+                        chartTypeDropdownOpen={chartTypeDropdownOpen}
+                        toggleChartTypeDropdown={toggleChartTypeDropdown}
+                        chartType={chartType}
+                        setChartType={setChartType}
+                        setChartTypeDropdownOpen={setChartTypeDropdownOpen}
+                        t={t}
+                        indicatorsModalOpen={indicatorsModalOpen}
+                        closeAllDropdowns={closeAllDropdowns}
+                        setIndicatorsModalOpen={setIndicatorsModalOpen}
+                        settingsOpen={settingsOpen}
+                        openSettingsModal={openSettingsModal}
+                    />
+                </div>
+
+                {/* TradingView Style Floating Indicator Widget Legend Pills */}
+                <FloatingIndicatorLegends
+                    movingAverages={movingAverages}
+                    activeIndicators={activeIndicators}
+                    indicatorConfigs={indicatorConfigs}
+                    indicatorVisibility={indicatorVisibility}
+                    toggleMAVisibility={toggleMAVisibility}
+                    openIndicatorSettings={openIndicatorSettings}
+                    removeMovingAverage={removeMovingAverage}
+                    toggleIndicatorVisibility={toggleIndicatorVisibility}
+                    removeIndicator={removeIndicator}
+                />
             </div>
 
+            {/* Sub-Pane Canvas Containers (Positioned Below Main Chart) */}
+            <SubPanesArea
+                hasSubPanes={hasSubPanes}
+                activeIndicators={activeIndicators}
+                indicatorConfigs={indicatorConfigs}
+                indicatorVisibility={indicatorVisibility}
+                toggleIndicatorVisibility={toggleIndicatorVisibility}
+                openIndicatorSettings={openIndicatorSettings}
+                removeIndicator={removeIndicator}
+                rsiContainerRef={rsiContainerRef}
+                macdContainerRef={macdContainerRef}
+                stochContainerRef={stochContainerRef}
+            />
+
             {/* Settings Panel Modal (TradingView Style) */}
-            {settingsOpen && (
-                <div className={styles.settingsModalOverlay} onClick={() => setSettingsOpen(false)}>
-                    <div className={styles.settingsModalCard} onClick={(e) => e.stopPropagation()}>
-                        <div className={styles.settingsHeader}>
-                            <h3>TradingView Chart Settings</h3>
-                            <button type="button" className={styles.closeBtn} onClick={() => setSettingsOpen(false)}>
-                                ✕
-                            </button>
-                        </div>
+            <ChartSettingsModal
+                isOpen={settingsOpen}
+                onClose={() => setSettingsOpen(false)}
+                draftBullishColor={draftBullishColor}
+                setDraftBullishColor={setDraftBullishColor}
+                draftBearishColor={draftBearishColor}
+                setDraftBearishColor={setDraftBearishColor}
+                draftBackgroundColor={draftBackgroundColor}
+                setDraftBackgroundColor={setDraftBackgroundColor}
+                onReset={handleResetSettings}
+                onApply={handleApplySettings}
+            />
 
-                        <div className={styles.settingsBody}>
-                            {/* Section A: Candlestick Styles */}
-                            <div className={styles.settingSection}>
-                                <h4>Candlestick Colors</h4>
-                                <div className={styles.settingRow}>
-                                    <label>Bullish (Up) Color</label>
-                                    <input
-                                        type="color"
-                                        value={bullishColor}
-                                        onChange={(e) => setBullishColor(e.target.value)}
-                                    />
-                                </div>
-                                <div className={styles.settingRow}>
-                                    <label>Bearish (Down) Color</label>
-                                    <input
-                                        type="color"
-                                        value={bearishColor}
-                                        onChange={(e) => setBearishColor(e.target.value)}
-                                    />
-                                </div>
-                            </div>
+            {/* Indicator Settings Modal (TradingView Style with Inputs, Style, Defaults, Ok) */}
+            <IndicatorSettingsModal
+                isOpen={Boolean(editingIndicator)}
+                indicatorKey={editingIndicator}
+                config={
+                    editingIndicator?.startsWith('ma_')
+                        ? movingAverages.find(m => m.id === editingIndicator)
+                        : (editingIndicator ? indicatorConfigs[editingIndicator] : null)
+                }
+                onClose={() => setEditingIndicator(null)}
+                onSave={saveIndicatorConfig}
+                onResetDefaults={resetIndicatorDefaults}
+            />
 
-                            {/* Section B: Chart Background */}
-                            <div className={styles.settingSection}>
-                                <h4>Chart Background</h4>
-                                <div className={styles.settingRow}>
-                                    <label>Background Color</label>
-                                    <input
-                                        type="color"
-                                        value={backgroundColor}
-                                        onChange={(e) => setBackgroundColor(e.target.value)}
-                                    />
-                                </div>
-                                <div className={styles.presetColorRow}>
-                                    <button type="button" onClick={() => setBackgroundColor('#131722')} style={{ background: '#131722' }}>Dark</button>
-                                    <button type="button" onClick={() => setBackgroundColor('#0B0E14')} style={{ background: '#0B0E14' }}>Midnight</button>
-                                    <button type="button" onClick={() => setBackgroundColor('#1E222D')} style={{ background: '#1E222D' }}>Slate</button>
-                                    <button type="button" onClick={() => setBackgroundColor('#FFFFFF')} style={{ background: '#FFFFFF', color: '#000' }}>Light</button>
-                                </div>
-                            </div>
-
-                            {/* Section C: Session Hours */}
-                            <div className={styles.settingSection}>
-                                <h4>Trading Session Hours</h4>
-                                <div className={styles.settingRow}>
-                                    <label>Session Type</label>
-                                    <button
-                                        type="button"
-                                        className={`${styles.toggleBtn} ${extendedSession ? styles.activeToggle : ''}`}
-                                        onClick={() => setExtendedSession(!extendedSession)}
-                                    >
-                                        {extendedSession ? 'Extended Hours (ETH)' : 'Regular Hours (RTH)'}
-                                    </button>
-                                </div>
-                                {extendedSession && (
-                                    <>
-                                        <div className={styles.settingRow}>
-                                            <label>Pre-Market Highlight</label>
-                                            <input
-                                                type="color"
-                                                value={preMarketColor}
-                                                onChange={(e) => setPreMarketColor(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className={styles.settingRow}>
-                                            <label>Post-Market Highlight</label>
-                                            <input
-                                                type="color"
-                                                value={postMarketColor}
-                                                onChange={(e) => setPostMarketColor(e.target.value)}
-                                            />
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className={styles.settingsFooter}>
-                            <button type="button" className={styles.doneBtn} onClick={() => setSettingsOpen(false)}>
-                                Apply Settings
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Indicators & Metrics Modal (TradingView Style Dialog) */}
+            <IndicatorsModal
+                isOpen={indicatorsModalOpen}
+                onClose={() => setIndicatorsModalOpen(false)}
+                activeIndicators={activeIndicators}
+                movingAverages={movingAverages}
+                onAddMA={addMovingAverage}
+                onToggleIndicator={(key) => {
+                    setActiveIndicators(prev => ({ ...prev, [key]: !prev[key] }));
+                }}
+                isDark={!isChartLight}
+            />
         </div>
     );
-}
+});
+
+export default TradingViewChartPane;

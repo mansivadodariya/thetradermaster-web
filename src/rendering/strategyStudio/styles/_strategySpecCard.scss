@@ -1,0 +1,568 @@
+/* ══════════════════════════════════════════════════════════════
+   IN-CHAT STRATEGY SPECIFICATION CARD WITH DYNAMIC JSON VIEWER
+   ══════════════════════════════════════════════════════════════ */
+
+.strategySpecCard {
+    width: 100%;
+    container-type: inline-size;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: rgba(14, 24, 19, 0.95);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(24, 201, 139, 0.12);
+    transition: all 0.2s ease;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06), 0 0 12px rgba(5, 150, 105, 0.08);
+    }
+}
+
+.strategySpecHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    @container (max-width: 480px) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.strategySpecHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.strategySpecTitleWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.strategySpecTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #0f172a;
+    }
+}
+
+.strategySpecMeta {
+    font-size: 12px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #64748b;
+    }
+}
+
+.strategySpecReadyBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #18c98b;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.28);
+    padding: 1px 8px;
+    border-radius: 999px;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #ecfdf5;
+        color: #059669;
+        border-color: #a7f3d0;
+    }
+}
+
+.strategySpecPulseDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #18c98b;
+    box-shadow: 0 0 8px rgba(24, 201, 139, 0.8);
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+.strategySpecIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(24, 201, 139, 0.14);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #18c98b;
+    flex-shrink: 0;
+}
+
+.strategySpecActions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    @container (max-width: 480px) {
+        width: 100%;
+
+        button {
+            flex: 1 1 auto;
+            justify-content: center;
+            text-align: center;
+        }
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INTERACTIVE VISUAL SPEC VIEW (PROFESSIONAL FORMATTED CARDS)
+   ══════════════════════════════════════════════════════════════ */
+
+/* Adaptive Key Metrics Grid: 4 cols on wide, 2x2 on split chat, 1 col on mobile */
+.specOverviewGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+
+    @container (min-width: 520px) {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    @container (max-width: 280px) {
+        grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 340px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.specMetricCard {
+    min-width: 0;
+    overflow: hidden;
+    background: rgba(8, 16, 12, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.3);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #f8fafc;
+        border-color: #e2e8f0;
+
+        &:hover {
+            border-color: #059669;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+        }
+    }
+}
+
+.specMetricTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.specMetricLabel {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #94a3b8;
+    }
+}
+
+.specMetricValue {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #0f172a;
+    }
+}
+
+.specMetricSub {
+    font-size: 11px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #64748b;
+    }
+}
+
+/* Section Blocks (Entry Rules & Risk Management) */
+.specSectionBlock {
+    background: rgba(8, 16, 12, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #ffffff;
+        border-color: #e2e8f0;
+    }
+}
+
+.specSectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.specSectionTitleWrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.specSectionTitle {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #0f172a;
+    }
+}
+
+.specLogicBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #18c98b;
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    padding: 2px 8px;
+    border-radius: 6px;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #a7f3d0;
+    }
+}
+
+/* Visual Interactive Rule Flow */
+.specRulesList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.specRuleFlowCard {
+    background: rgba(16, 28, 22, 0.65);
+    border: 1px solid rgba(24, 201, 139, 0.2);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+    width: 100%;
+    transition: all 0.18s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.45);
+        background: rgba(24, 201, 139, 0.06);
+    }
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #f8fafc;
+        border-color: #e2e8f0;
+
+        &:hover {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+    }
+}
+
+.specRuleFlowLeft {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.specIndicatorPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 9px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 100%;
+    word-break: break-word;
+
+    .paramSub {
+        font-size: 10.5px;
+        color: #18c98b;
+        font-weight: 500;
+        margin-left: 2px;
+    }
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #ffffff;
+        border-color: #cbd5e1;
+        color: #0f172a;
+
+        .paramSub {
+            color: #059669;
+        }
+    }
+}
+
+.specOperatorBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    border-radius: 6px;
+    color: #18c98b;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #ecfdf5;
+        border-color: #059669;
+        color: #047857;
+    }
+}
+
+.specRuleEditBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        color: #ffffff;
+        border-color: rgba(24, 201, 139, 0.4);
+        background: rgba(24, 201, 139, 0.1);
+    }
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        border-color: #e2e8f0;
+        color: #64748b;
+
+        &:hover {
+            color: #047857;
+            background: #f0fdf4;
+            border-color: #059669;
+        }
+    }
+}
+
+/* 2-Column Risk & Exit Grid */
+.specRiskGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+
+    @container (max-width: 440px) {
+        grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.specRiskCard {
+    min-width: 0;
+    overflow: hidden;
+    background: rgba(8, 16, 12, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &.riskSlCard {
+        border-left: 3px solid #f59e0b;
+    }
+
+    &.riskTpCard {
+        border-left: 3px solid #18c98b;
+    }
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        background: #f8fafc;
+        border-color: #e2e8f0;
+
+        &.riskSlCard {
+            border-left-color: #d97706;
+        }
+        &.riskTpCard {
+            border-left-color: #059669;
+        }
+    }
+}
+
+.specRiskHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.specRiskTitle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #1e293b;
+    }
+}
+
+.specRiskValue {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #0f172a;
+    }
+}
+
+.specRiskDesc {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1.4;
+
+    [data-theme='light'] &,
+    :global(html.light) &,
+    :global([data-theme='light']) & {
+        color: #64748b;
+    }
+}
+
+/* Bottom Interactive Action Toolbar */
+.specBottomActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 4px;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+

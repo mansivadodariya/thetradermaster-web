@@ -3,12 +3,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './historyButton.module.scss';
 
-export default function HistoryButton({ text, onClick, icon, className = '', type = 'button' }) {
+export default function HistoryButton({ text, onClick, icon, className = '', type = 'button', title }) {
     return (
         <motion.button
             type={type}
             className={`${styles.historyBtn} ${className}`}
             onClick={onClick}
+            title={title || text}
+            aria-label={text}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
         >

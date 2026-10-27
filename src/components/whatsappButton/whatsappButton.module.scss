@@ -45,7 +45,6 @@
     z-index: 2;
 }
 
-/* Pulse Ring Animation */
 .pulseRing {
     position: absolute;
     width: 100%;
@@ -106,8 +105,8 @@
     }
 }
 
-/* Hide on very small screens if necessary, or just keep it compact */
 @media (max-width: 480px) {
+
     .whatsappBtn {
         width: 50px;
         height: 50px;
@@ -120,6 +119,7 @@
 
     .tooltip {
         display: none;
-        /* Hide tooltip on mobile for cleaner layout */
     }
+    
 }
+

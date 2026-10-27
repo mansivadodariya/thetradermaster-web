@@ -1,0 +1,409 @@
+.aiAssistant {
+
+
+    .splitLayoutGrid {
+        display: grid;
+        grid-template-columns: minmax(280px, 35%) 10px minmax(0, 1fr);
+        gap: 0;
+        height: calc(100dvh - 112px);
+        min-height: 0;
+        position: relative;
+        transition: grid-template-columns 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+        @include respond-to('lg') {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: auto;
+            min-height: 0;
+            overflow: visible;
+            touch-action: pan-y;
+        }
+    }
+
+    .isDraggingGrid {
+        user-select: none;
+        cursor: col-resize;
+        transition: none;
+
+        * {
+            user-select: none;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .resizerSplitter {
+            pointer-events: auto;
+        }
+    }
+
+    .resizerSplitter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12px;
+        height: 100%;
+        cursor: col-resize;
+        user-select: none;
+        z-index: 20;
+        position: relative;
+        margin: 0 -1px;
+
+        .resizerLine {
+            width: 3px;
+            height: 48px;
+            background: rgba(148, 163, 184, 0.25);
+            border-radius: 4px;
+            transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        &:hover,
+        &.resizerActive {
+            .resizerLine {
+                width: 3px;
+                height: 80%;
+                background: #18C98B;
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.6);
+            }
+        }
+
+        @include respond-to('lg') {
+            display: none;
+        }
+    }
+
+    .chartSidePanel,
+    .chartSingleBody {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        border-radius: 14px;
+
+        @include respond-to('lg') {
+            height: 520px;
+            min-height: 450px;
+            flex-shrink: 0;
+            width: 100%;
+            touch-action: pan-y;
+        }
+    }
+
+    .chartPaneContainer {
+        container-type: inline-size;
+        container-name: chartpane;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        background: #040605;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        overflow: hidden;
+        touch-action: pan-y;
+        font-family: 'Inter', system-ui, sans-serif;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+        &.lightThemePane {
+            background: #ffffff;
+            border-color: #e0e3eb;
+
+            .chartHeaderControls {
+                background: rgba(255, 255, 255, 0.82);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            }
+
+            .headerIconButton {
+                background: #f0f3fa;
+                border-color: #e0e3eb;
+                color: #434651;
+
+                &:hover {
+                    background: #e0e3eb;
+                    color: #131722;
+                }
+            }
+
+            .headerTitleBtn {
+                color: #131722;
+
+                &:hover {
+                    background: #f0f3fa;
+                    color: #131722;
+                }
+            }
+
+            .headerChartTitle {
+                color: #131722;
+            }
+
+            .insideChartControlPill {
+                background: rgba(255, 255, 255, 0.95);
+                border-color: #d1d4dc;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            }
+
+            .pillSymbolBtn,
+            .pillTimeframeBtn,
+            .pillChartTypeBtn {
+                color: #131722;
+
+                &:hover {
+                    background: #f0f3fa;
+                    color: #131722;
+                }
+            }
+
+            .pillIconBtn {
+                color: #434651;
+
+                &:hover {
+                    background: #f0f3fa;
+                    color: #131722;
+                }
+            }
+
+            .pillDivider {
+                background: #e0e3eb;
+            }
+
+            .tickerSearchDropdownMenu,
+            .dropdownMenuFloating {
+                background: #ffffff;
+                border-color: #e0e3eb;
+                box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+            }
+
+            .tickerSearchInput {
+                background: #f8fafc;
+                border-color: #cbd5e1;
+                color: #0f172a;
+
+                &::placeholder {
+                    color: #94a3b8;
+                }
+
+                &:focus {
+                    border-color: #18C98B;
+                }
+            }
+
+            .categoryTabBtn {
+                color: #64748b;
+
+                &:hover {
+                    color: #0f172a;
+                    background: #f1f5f9;
+                }
+
+                &.activeTab {
+                    background: #18C98B;
+                    color: #ffffff;
+                }
+            }
+
+            .tickerMenuItem,
+            .dropdownMenuItem {
+                color: #334155;
+
+                &:hover {
+                    background: rgba(24, 201, 139, 0.12);
+                    color: #059669;
+                }
+
+                &.activeTickerItem,
+                &.activeItem {
+                    background: rgba(24, 201, 139, 0.18);
+                    color: #059669;
+                }
+            }
+
+            .tickerSymbolTitle {
+                color: #0f172a;
+            }
+
+            .iconControlBtn {
+                background: #ffffff;
+                border-color: #e0e3eb;
+                color: #131722;
+
+                &:hover {
+                    background: #f0f3fa;
+                }
+            }
+        }
+    }
+
+    .chartCanvasArea {
+        position: relative;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .chartHeaderControls {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+        height: 38px;
+        min-height: 38px;
+        max-height: 38px;
+        box-sizing: border-box;
+        background: rgba(8, 9, 12, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        gap: 8px;
+        flex-wrap: nowrap;
+        z-index: 60;
+        overflow: visible;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .leftControlsGroup,
+    .rightControlsGroup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .headerIconButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #e8eaee;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.trendUpBtn {
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.25);
+
+            &:hover {
+                background: rgba(16, 185, 129, 0.2);
+                border-color: #10b981;
+                color: #22c55e;
+            }
+        }
+
+        &.trendDownBtn {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.25);
+
+            &:hover {
+                background: rgba(239, 68, 68, 0.2);
+                border-color: #ef4444;
+                color: #f87171;
+            }
+        }
+    }
+
+    .headerLivePriceBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-roboto), var(--font-plus-jakarta), monospace;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        background: transparent;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+
+        &.badgeUp {
+            color: #10b981;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+
+            .livePriceText { color: #10b981; }
+            .liveDirectionTag { color: #10b981; font-size: 11px; }
+            .livePctTag { color: #10b981; }
+
+            svg {
+                color: #10b981;
+                stroke: #10b981;
+            }
+        }
+
+        &.badgeDown {
+            color: #ef4444;
+            background: transparent;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+
+            .livePriceText { color: #ef4444; }
+            .liveDirectionTag { color: #ef4444; font-size: 11px; }
+            .livePctTag { color: #ef4444; }
+
+            svg {
+                color: #ef4444;
+                stroke: #ef4444;
+            }
+        }
+    }
+
+    .headerChartTitle {
+        font-size: 13px;
+        font-weight: 700;
+        color: #e2e8f0;
+        letter-spacing: 0.3px;
+    }
+
+    .chartFeedBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 2px 7px;
+        margin-left: 6px;
+        border-radius: 4px;
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #18C98B;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        cursor: help;
+
+        .chartFeedDot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #18C98B;
+            box-shadow: 0 0 5px #18C98B;
+            animation: pulseFeedDot 1.8s infinite ease-in-out;
+        }
+
+        [data-theme='light'] &,
+        :global(html.light) &,
+        :global([data-theme='light']) & {
+            background: #ECFDF5;
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #059669;
+        }
+    }
+}

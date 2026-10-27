@@ -1,0 +1,220 @@
+.aiAnalystSection {
+  /* =========================================================
+     LIGHT THEME STYLING OVERRIDES (Pixel-Perfect Clean Theme)
+     ========================================================= */
+  :global(html.light) & {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15);
+
+    .terminalContainer {
+      background: #FFFFFF;
+      border: 1px solid rgba(24, 201, 139, 0.35);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.07), 0 0 25px rgba(24, 201, 139, 0.08);
+    }
+
+    .sidebarDock {
+      background: #F8FAFC;
+      border-right: 1px solid rgba(24, 201, 139, 0.18);
+
+      .dockIconBtn {
+        color: #64748B;
+
+        &:hover {
+          color: #047857;
+          background: rgba(24, 201, 139, 0.1);
+        }
+
+        &.activeDockBtn {
+          color: #047857;
+          background: rgba(24, 201, 139, 0.14);
+        }
+      }
+
+      .activeTabGlowPill {
+        background: #10B981;
+        box-shadow: 0 0 8px #10B981;
+      }
+    }
+
+    .terminalMain {
+      background: radial-gradient(ellipse 90% 80% at 50% -20%, rgba(24, 201, 139, 0.06) 0%, transparent 65%), #FFFFFF;
+    }
+
+    .terminalHeader {
+      border-bottom: 1px solid rgba(24, 201, 139, 0.16);
+
+      .brandTitleRow {
+        .terminalLogoImg {
+          height: 22px;
+          width: auto;
+          object-fit: contain;
+          display: block;
+          filter: none;
+        }
+        .headerDivider { color: #CBD5E1; }
+        .headerSubtitle { color: #64748B; }
+      }
+
+      .onlineStatusBadge {
+        .statusDotGreen { background: #059669; box-shadow: 0 0 6px #059669; }
+        .statusLabel { color: #047857; }
+      }
+    }
+
+    .chatBody {
+      scrollbar-color: rgba(24, 201, 139, 0.4) transparent;
+    }
+
+    .userBubbleCard {
+      background: #F1F5F9;
+      border: 1px solid rgba(24, 201, 139, 0.24);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+
+      .userAvatar {
+        background: #E2E8F0;
+        border-color: #CBD5E1;
+        color: #475569;
+      }
+
+      .userBubbleBody {
+        .userHeaderName { color: #64748B; }
+        .userQueryText { color: #0F172A; }
+        .userTimestampRow {
+          color: #64748B;
+          .checkMarks { color: #059669; }
+        }
+      }
+    }
+
+    .aiResponseCard {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(16, 185, 129, 0.42);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.1), inset 0 0 15px rgba(16, 185, 129, 0.02);
+
+      &::before {
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.1) 45%, transparent 75%);
+      }
+
+      .aiCardHeaderRow {
+        .aiProfileCluster {
+          .sparkleBadge {
+            background: rgba(16, 185, 129, 0.14);
+            border-color: rgba(16, 185, 129, 0.45);
+            color: #047857;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+          }
+          .aiBotName { color: #0F172A; }
+          .verifiedSignalBadge {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #047857;
+          }
+        }
+        .aiCardTime { color: #64748B; }
+      }
+
+      .aiHeadlineIntro {
+        color: #047857;
+      }
+
+      .analysisBulletsList {
+        .bulletItem {
+          .bulletPoint {
+            color: #059669;
+            text-shadow: none;
+          }
+          .bulletText {
+            color: #334155;
+          }
+        }
+      }
+
+      .miniCandleChartCard {
+        background: #F8FAFC;
+        border: 1px solid rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+
+        .svgContainer {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+
+          /* Subtle light theme line & text visibility */
+          line[stroke="rgba(255,255,255,0.12)"],
+          line[stroke="rgba(255,255,255,0.2)"] {
+            stroke: rgba(15, 23, 42, 0.12);
+          }
+
+          text[fill="#64748B"] {
+            fill: #64748B;
+          }
+        }
+      }
+
+      .sourcesPillRow {
+        .sourcesBtn {
+          background: #F1F5F9;
+          border-color: #E2E8F0;
+          color: #475569;
+        }
+
+        .filterPill {
+          background: #F1F5F9;
+          border-color: #E2E8F0;
+          color: #475569;
+
+          &:hover {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #047857;
+          }
+
+          &.activeFilterPill {
+            background: rgba(16, 185, 129, 0.16);
+            border-color: rgba(16, 185, 129, 0.45);
+            color: #047857;
+          }
+        }
+      }
+    }
+
+    .thinkingRow {
+      .sparkleBadgeSmall {
+        background: rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.4);
+        color: #047857;
+      }
+      .thinkingText {
+        color: #047857;
+      }
+    }
+
+    .chatInputContainer {
+      background: #F8FAFC;
+      border: 1px solid rgba(24, 201, 139, 0.3);
+      box-shadow: none;
+
+      &:focus-within {
+        border-color: #10B981;
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.18);
+      }
+
+      .attachmentBtn, .micBtn {
+        color: #64748B;
+        &:hover { color: #047857; }
+      }
+
+      .terminalInput {
+        color: #0F172A;
+        &::placeholder { color: #94A3B8; }
+      }
+
+      .terminalSendBtn {
+        background: #10B981;
+        color: #FFFFFF;
+        svg { stroke: #FFFFFF; }
+      }
+    }
+  }
+
+}
+

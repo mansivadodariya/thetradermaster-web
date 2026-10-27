@@ -1,0 +1,142 @@
+/* ============================================================
+   LIGHT MODE THEME OVERRIDES FOR TRADER SCORECARD
+   ============================================================ */
+:global(html.light) .scorecardContainer,
+:global([data-theme='light']) .scorecardContainer {
+
+    .scorecardHeroHeader,
+    .gaugeCard,
+    .radarCard,
+    .categoryCard,
+    .tipsSectionCard,
+    .statementRow {
+        background: #FFFFFF;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .badgeIconBox {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    .headerTitleRow h2,
+    .radarCard .cardHeader h3,
+    .catTitleCol h4,
+    .tipsHeader h3,
+    .gaugeInnerContent .gradeDisplay,
+    .gaugeInnerContent .scoreDisplay strong,
+    .statementLeft .statementText strong {
+        color: #0F172A;
+    }
+
+    .titleInfo p,
+    .statementLeft .statementText,
+    .periodLabel,
+    .gaugeDescription,
+    .tipsHeader p {
+        color: #475569;
+    }
+
+    .titleInfo .badgePill {
+        background: rgba(24, 201, 139, 0.12);
+        border-color: rgba(24, 201, 139, 0.35);
+        color: #047857;
+    }
+
+    .statPill {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+        .statPillLabel {
+            color: #64748B;
+        }
+
+        .statPillValue {
+            color: #047857;
+        }
+    }
+
+    .periodBtn {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        color: #64748B;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+        &:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: rgba(24, 201, 139, 0.4);
+        }
+
+        &.active {
+            background: rgba(24, 201, 139, 0.14);
+            border-color: rgba(24, 201, 139, 0.45);
+            color: #047857;
+            font-weight: 700;
+        }
+    }
+
+    .catGradeBadge {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #047857;
+    }
+
+    .catTitleCol .catScoreRow {
+        .catScoreVal {
+            color: #047857;
+        }
+
+        .catScoreDenom {
+            color: #64748B;
+        }
+    }
+
+    .highlightItem {
+        color: #166534;
+    }
+
+    .penaltyItem {
+        color: #92400E;
+    }
+
+    .tipsHeader .tipsIconCircle {
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #047857;
+    }
+
+    .tipCardItem {
+        background: #F8FAFC;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+
+        .tipNumberBadge {
+            background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
+            color: #047857;
+        }
+
+        .tipText {
+            color: #334155;
+        }
+    }
+
+    .radarGridPolygon {
+        stroke: rgba(15, 23, 42, 0.1);
+    }
+
+    .radarAxisLine {
+        stroke: rgba(15, 23, 42, 0.12);
+    }
+
+    .radarLabel {
+        fill: #64748B;
+    }
+
+    .progressBarTrack {
+        background: #E2E8F0;
+    }
+}

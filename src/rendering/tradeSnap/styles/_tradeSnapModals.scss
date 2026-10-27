@@ -1,0 +1,421 @@
+// Modal top level so they work outside .tradeSnap context
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1100;
+    overscroll-behavior: contain;
+}
+
+.modalBox {
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(24, 201, 139, 0.08);
+    color: #ffffff;
+    box-sizing: border-box;
+
+    /* Sleek custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #18C98B rgba(255, 255, 255, 0.05);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 999px;
+        margin: 12px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #18C98B;
+        border-radius: 999px;
+
+        &:hover {
+            background: #22E7A0;
+        }
+    }
+
+    &.modalLarge {
+        max-width: min(95vw, 1100px);
+        width: 100%;
+    }
+}
+
+.modalHeader {
+    position: relative;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.18);
+    background: linear-gradient(180deg, rgba(24, 201, 139, 0.04) 0%, transparent 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .modalHeaderContent {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .modalHeaderRight {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: auto;
+
+        [dir="rtl"] & {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+
+    h2 {
+        margin: 0 0 4px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.2px;
+        font-family: "Euclid-Bold", sans-serif;
+    }
+
+    p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 13.5px;
+        font-family: "Euclid-Regular", sans-serif;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+}
+
+.modalDownloadBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #18C98B;
+    color: #060706;
+    border: 1px solid #18C98B;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    font-family: "Euclid-SemiBold", sans-serif;
+    flex-shrink: 0;
+
+    &:hover:not(:disabled) {
+        background: #15b57c;
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.4);
+        transform: translateY(-1px);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    svg {
+        stroke-width: 2.2;
+    }
+
+    :global(.pdfExportContainer) & {
+        display: none;
+    }
+}
+
+.modalClose {
+    position: static;
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.75);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: #18C98B;
+        transform: scale(1.05);
+    }
+
+    :global(.pdfExportContainer) & {
+        display: none;
+    }
+}
+
+.modalBody {
+    color: #ffffff;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 18px 24px 24px;
+    border-top: 1px solid rgba(24, 201, 139, 0.15);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+// Dedicated Ultra-Sleek Delete Confirmation Modal
+.deleteConfirmModalBox {
+    width: 100%;
+    max-width: 440px;
+    background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(239, 68, 68, 0.12);
+    border-radius: 18px;
+    padding: 28px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.deleteModalCloseBtn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.6);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(239, 68, 68, 0.15);
+        color: #EF4444;
+        border-color: rgba(239, 68, 68, 0.35);
+        transform: scale(1.05);
+    }
+}
+
+.deleteIconBadge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1.5px solid rgba(239, 68, 68, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #EF4444;
+    box-shadow: 0 0 24px rgba(239, 68, 68, 0.25);
+    margin-bottom: 14px;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.deleteConfirmTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    font-family: "Euclid-Bold", sans-serif;
+}
+
+.deleteConfirmMessage {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.55;
+    margin: 0 0 24px;
+    font-family: "Euclid-Regular", sans-serif;
+    max-width: 360px;
+}
+
+.deleteConfirmActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    @media (max-width: 480px) {
+        flex-direction: column-reverse;
+    }
+}
+
+.deleteCancelBtn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #CBD5E1;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 11px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    font-family: "Euclid-Medium", sans-serif;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #FFFFFF;
+    }
+}
+
+.deleteConfirmBtn {
+    flex: 1;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    border: none;
+    color: #FFFFFF;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 11px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+    transition: all 0.2s ease;
+    width: 100%;
+    font-family: "Euclid-SemiBold", sans-serif;
+
+    &:hover {
+        background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.55);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Global Light Theme Overrides for TradeSnap Modals
+:global([data-theme="light"]),
+:global(.light),
+:global(html.light),
+:global(body.light-theme) {
+    .modalBox {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 24px 64px rgba(15, 23, 42, 0.12), 0 0 1px rgba(15, 23, 42, 0.1);
+        color: #0F172A;
+
+        scrollbar-color: #10B981 #F1F5F9;
+
+        &::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #10B981;
+        }
+    }
+
+    .modalHeader {
+        background: #F8FAFC;
+        border-bottom: 1px solid #E2E8F0;
+
+        h2, h3 {
+            color: #0F172A;
+        }
+
+        p {
+            color: #64748B;
+        }
+    }
+
+    .modalClose {
+        background: #F1F5F9;
+        border: 1px solid #CBD5E1;
+        color: #0F172A;
+        font-weight: 700;
+
+        &:hover {
+            background: #E2E8F0;
+            color: #047857;
+            border-color: #10B981;
+        }
+    }
+
+    .modalBody {
+        color: #1E293B;
+        background: #FFFFFF;
+    }
+
+    .modalFooter {
+        background: #F8FAFC;
+        border-top: 1px solid #E2E8F0;
+    }
+
+    .deleteConfirmModalBox {
+        background: #FFFFFF;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        box-shadow: 0 24px 64px rgba(15, 23, 42, 0.15), 0 0 24px rgba(239, 68, 68, 0.1);
+    }
+
+    .deleteModalCloseBtn {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #64748B;
+
+        &:hover {
+            background: #FEE2E2;
+            color: #DC2626;
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+    }
+
+    .deleteIconBadge {
+        background: #FEF2F2;
+        border-color: rgba(239, 68, 68, 0.35);
+        box-shadow: 0 0 16px rgba(239, 68, 68, 0.15);
+    }
+
+    .deleteConfirmTitle {
+        color: #0F172A;
+    }
+
+    .deleteConfirmMessage {
+        color: #64748B;
+    }
+
+    .deleteCancelBtn {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #475569;
+
+        &:hover {
+            background: #E2E8F0;
+            color: #0F172A;
+        }
+    }
+}

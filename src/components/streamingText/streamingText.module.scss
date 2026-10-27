@@ -1,0 +1,43 @@
+.streamingTextWrapper {
+    display: inline;
+    position: relative;
+}
+
+.wordSpan {
+    display: inline-block;
+    white-space: pre-wrap;
+    animation: fadeInWord 0.12s ease-out forwards;
+}
+
+@keyframes fadeInWord {
+    from {
+        opacity: 0.15;
+        transform: translateY(1px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.typewriterCursor {
+    display: inline-block;
+    font-size: 0.85em;
+    margin-left: 2px;
+    vertical-align: baseline;
+    font-weight: 700;
+    line-height: 1;
+    animation: blinkTypewriter 0.65s infinite ease-in-out;
+    text-shadow: 0 0 8px currentColor;
+}
+
+@keyframes blinkTypewriter {
+    0%, 100% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.15;
+        transform: scaleY(0.75);
+    }
+}

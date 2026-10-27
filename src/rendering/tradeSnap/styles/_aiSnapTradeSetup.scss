@@ -1,0 +1,334 @@
+// Section C: Actionable Buy/Sell Trade Signal Setup Card
+.tradeSetupCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tradeSetupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 14px;
+}
+
+.actionBadgeWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.actionMainBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+
+    &.actionBuy {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10B981;
+        border: 1px solid #10B981;
+        box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+    }
+
+    &.actionSell {
+        background: rgba(239, 68, 68, 0.2);
+        color: #EF4444;
+        border: 1px solid #EF4444;
+        box-shadow: 0 0 16px rgba(239, 68, 68, 0.25);
+    }
+
+    &.actionNeutral {
+        background: rgba(14, 165, 233, 0.2);
+        color: #38BDF8;
+        border: 1px solid #38BDF8;
+    }
+}
+
+.signalTypeTag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--box-bg);
+    padding: 4px 10px;
+    border: 1px solid var(--box-border);
+}
+
+.rrBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .rrLabel {
+        font-size: 10px;
+        color: var(--text-faint);
+        font-weight: 700;
+    }
+
+    .rrValue {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--pill-color);
+    }
+}
+
+.setupGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.setupBox {
+    background: var(--box-bg);
+    border: 1px solid var(--box-border);
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &.slBox {
+        border-color: rgba(239, 68, 68, 0.3);
+        background: rgba(239, 68, 68, 0.05);
+    }
+}
+
+.boxTitleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+
+    .slTextTitle {
+        color: #EF4444;
+    }
+}
+
+.copyBtn {
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        color: var(--pill-color);
+    }
+}
+
+.copiedPopup {
+    position: absolute;
+    top: -22px;
+    right: 0;
+    background: #10B981;
+    color: #FFFFFF;
+    font-size: 9px;
+    padding: 2px 4px;
+}
+
+.boxPrimaryValue {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--title-color);
+}
+
+.boxSubInfo {
+    font-size: 11px;
+    color: var(--text-faint);
+}
+
+.slPrimaryValue {
+    font-size: 20px;
+    font-weight: 800;
+    color: #EF4444;
+}
+
+.slReasonInfo {
+    font-size: 11px;
+    color: #F87171;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tpSection {
+    background: var(--box-bg);
+    border: 1px solid var(--box-border);
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tpSectionHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: #10B981;
+
+    .tpHintBadge {
+        color: var(--text-faint);
+        font-weight: 500;
+    }
+}
+
+.tpGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tpPillCard {
+    background: var(--tp-card-bg, rgba(0, 0, 0, 0.35));
+    border: 1px solid var(--tp-card-border, rgba(24, 201, 139, 0.18));
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(24, 201, 139, 0.35);
+    }
+
+    .tpPillTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        color: var(--text-muted);
+
+        .tpIcon {
+            color: #10B981;
+        }
+    }
+
+    .tpPillVal {
+        font-size: 16px;
+        font-weight: 800;
+        color: #10B981;
+        margin-top: 4px;
+    }
+}
+
+.rationaleBox {
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    padding: 14px;
+    border-radius: 10px;
+
+    .rationaleTitle {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--pill-color);
+        margin-bottom: 6px;
+    }
+
+    .rationaleText {
+        font-size: 13px;
+        color: var(--text-primary);
+        line-height: 1.6;
+        margin: 0;
+        text-align: justify;
+        text-justify: inter-word;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Light Mode Overrides for Trade Setup Card */
+:global(html.light),
+:global(html[data-theme='light']),
+:global([data-theme='light']),
+:global(.light),
+:global(.pdfExportLight) {
+    .tradeSignalSetupCard {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.12);
+
+        .cardHeaderRow h3 {
+            color: #0F172A;
+        }
+
+        .entryBox {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.1);
+
+            .boxLabel {
+                color: #64748B;
+            }
+
+            .boxPrimaryValue {
+                color: #0F172A;
+            }
+
+            .boxSubInfo {
+                color: #64748B;
+            }
+        }
+
+        .slBox {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: rgba(239, 68, 68, 0.2);
+
+            .slLabel {
+                color: #DC2626;
+            }
+
+            .slPrimaryValue {
+                color: #DC2626;
+            }
+        }
+
+        .tpSection {
+            background: #F8FAFC;
+            border-color: rgba(15, 23, 42, 0.1);
+        }
+
+        .tpPillCard {
+            background: #FFFFFF;
+            border-color: rgba(16, 185, 129, 0.25);
+
+            .tpPillTop {
+                color: #64748B;
+            }
+
+            .tpPillVal {
+                color: #047857;
+            }
+        }
+
+        .rationaleBox {
+            background: #F0FDF4;
+            border-color: rgba(16, 185, 129, 0.25);
+
+            .rationaleTitle {
+                color: #047857;
+            }
+
+            .rationaleText {
+                color: #1E293B;
+            }
+        }
+    }
+}

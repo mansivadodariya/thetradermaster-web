@@ -1,30 +1,38 @@
-
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './signup.module.scss';
 import Input from '@/components/input';
 import PhoneInput from '@/components/phoneInput';
 import FirebasePhoneModal from '@/components/firebasePhoneModal';
-import Button from '@/components/button';
+import PointerGlow from '@/components/pointerGlow';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
-import { getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
-import { useSearchParams } from 'next/navigation';
+import {
+    getAuthRedirectTarget,
+    getStoredUser,
+    getStoredUserId,
+    clearAuthSession,
+    fetchUserOnboardingStatus,
+    setOnboardingCompletedInSession,
+    clearOnboardingInSession,
+    isUserOnboardingCompleted
+} from '@/lib/authSession';
 import { authApi, profileApi } from '@/lib/api';
+import { trackUserSignup } from '@/lib/gtag';
 import { validateSignup } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { supabase } from '@/lib/supabaseClient';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import { getUtmParameters } from '@/lib/utm';
-
 import { useLanguage } from '@/context/LanguageContext';
-import LanguageToggle from '@/components/languageToggle';
+import { useTheme } from '@/context/ThemeContext';
 
-const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/logo/logoWhite.svg';
-const ArrowIcon = '/assets/icons/arrow.svg';
-const Profile = '/assets/icons/profile.svg';
+import { getHeroFeatures } from '@/lib/authHeroFeatures';
+
+const DarkLogo = '/assets/logo/logo.png';
+const LightLogo = '/assets/logo/darklogo.png';
+const UserIcon = '/assets/icons/user.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const Lock = '/assets/icons/lock.svg';
 
@@ -32,8 +40,51 @@ const Signup = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { t } = useLanguage();
-    const codeFromQuery = searchParams.get('code') || searchParams.get('referral_code') || '';
+    const { theme } = useTheme();
+    const Logo = theme === 'light' ? LightLogo : DarkLogo;
+    const heroFeatures = React.useMemo(() => getHeroFeatures(t), [t]);
+    const codeFromQuery = searchParams.get('ref') || searchParams.get('code') || searchParams.get('referral_code') || '';
     const redirectTo = getAuthRedirectTarget(searchParams);
+
+    // Auto-cycling active feature highlight animation
+    const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveFeatureIndex((prev) => (prev + 1) % heroFeatures.length);
+        }, 2800);
+        return () => clearInterval(timer);
+    }, [heroFeatures.length]);
+
+
+    // Capture and persist referral code for 30 days
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const paramRef = searchParams.get('ref') || searchParams.get('code') || searchParams.get('referral_code');
+        const now = Date.now();
+        const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+        if (paramRef) {
+            const item = { code: paramRef.trim(), expiry: now + THIRTY_DAYS_MS };
+            try {
+                localStorage.setItem('chronosx_referral_code', JSON.stringify(item));
+            } catch (e) { /* ignore */ }
+            setForm(f => ({ ...f, referral_code: paramRef.trim() }));
+        } else {
+            try {
+                const storedRaw = localStorage.getItem('chronosx_referral_code');
+                if (storedRaw) {
+                    const parsed = JSON.parse(storedRaw);
+                    if (parsed && parsed.code && parsed.expiry > now) {
+                        setForm(f => f.referral_code ? f : ({ ...f, referral_code: parsed.code }));
+                    } else {
+                        localStorage.removeItem('chronosx_referral_code');
+                    }
+                }
+            } catch (e) { /* ignore */ }
+        }
+    }, [searchParams]);
+
     const [form, setForm] = useState({
         first_name: '',
         last_name: '',
@@ -47,61 +98,100 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    // Security: purge credentials from URL searchParams/address bar immediately on mount
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        try {
+            const url = new URL(window.location.href);
+            const hasPassword = url.searchParams.has('password') || url.searchParams.has('confirmPassword') || url.searchParams.has('pwd');
+            const hasEmail = url.searchParams.has('email');
+
+            if (hasPassword || hasEmail) {
+                const emailParam = url.searchParams.get('email');
+                const passwordParam = url.searchParams.get('password') || url.searchParams.get('pwd');
+
+                if (emailParam || passwordParam) {
+                    setForm((prev) => ({
+                        ...prev,
+                        email: prev.email || emailParam || '',
+                        password: prev.password || passwordParam || '',
+                    }));
+                }
+
+                url.searchParams.delete('password');
+                url.searchParams.delete('confirmPassword');
+                url.searchParams.delete('pwd');
+                url.searchParams.delete('email');
+
+                const newSearch = url.searchParams.toString();
+                const cleanHref = url.pathname + (newSearch ? `?${newSearch}` : '') + url.hash;
+                window.history.replaceState(null, '', cleanHref);
+            }
+        } catch {
+            // Safe fallback
+        }
+    }, []);
+
     // States for phone step after Google Sign-in
     const [pendingPhoneUserId, setPendingPhoneUserId] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [phoneError, setPhoneError] = useState('');
     const [savingPhone, setSavingPhone] = useState(false);
     const [showOtpModal, setShowOtpModal] = useState(false);
+    const onboardingCompletedRef = React.useRef(null);
 
-    useEffect(() => {
-        console.log('Signup mount/update: pendingPhoneUserId =', pendingPhoneUserId);
-    }, [pendingPhoneUserId]);
+    const resolvePostAuthTarget = (preferredTarget = redirectTo) => {
+        let isDone = onboardingCompletedRef.current;
+        if (isDone === null || isDone === undefined) {
+            isDone = isUserOnboardingCompleted();
+        }
+
+        if (!isDone) {
+            return '/onboarding';
+        }
+
+        let destination = preferredTarget || '/dashboard';
+        if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+            destination = '/dashboard';
+        }
+        return destination;
+    };
 
     useEffect(() => {
         const checkSession = async () => {
             const uid = getStoredUserId();
             const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
             const hasCookie = typeof document !== 'undefined' && document.cookie.split(';').some(c => c.trim().startsWith('auth_token='));
-            console.log('Signup checkSession: uid =', uid, 'token =', token, 'hasCookie =', hasCookie);
-            if (uid && token && hasCookie && supabase) {
+            if (uid && token && hasCookie) {
                 try {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .select('phone_number, is_active')
-                        .eq('id', uid)
-                        .single();
+                    const user = getStoredUser();
+                    const status = await fetchUserOnboardingStatus(uid, user?.email);
 
-                    console.log('Signup checkSession: supabase data =', data, 'error =', error);
-
-                    // User deleted/not found (PGRST116 is Supabase error for 0 rows returned)
-                    const isUserDeleted = error?.code === 'PGRST116' || (!data && !error);
-                    if (isUserDeleted) {
-                        clearAuthSession();
-                        toast.error('Your account has been deleted. Please contact admin.');
-                        return;
-                    }
-
-                    // For other transient errors (network drop, RLS timeout), do not log out the user
-                    if (error || !data) {
-                        console.error('Signup checkSession: Failed to verify user status due to error:', error);
-                        return;
-                    }
-
-                    // User inactive
-                    if (data.is_active === false) {
+                    if (status.exists && !status.is_active) {
                         clearAuthSession();
                         toast.error('Your account is inactive. Please contact admin.');
                         return;
                     }
 
-                    if (user) {
-                        user.phone_number = data?.phone_number || user?.phone_number || '';
-                        localStorage.setItem('user', JSON.stringify(user));
+                    const isOnboardingDone = Boolean(status.onboarding_completed);
+                    onboardingCompletedRef.current = isOnboardingDone;
+                    if (isOnboardingDone) {
+                        setOnboardingCompletedInSession();
+                    } else {
+                        clearOnboardingInSession();
                     }
-                    window.location.assign(redirectTo);
+
+                    const isPhoneVerified = status.is_phone_verified === true || status.user?.is_phone_verified === true;
+                    if (status.user && !isPhoneVerified) {
+                        setPendingPhoneUserId(status.user.id || uid);
+                        setPhoneNumber(status.user.phone_number || '');
+                        setShowOtpModal(true);
+                        return;
+                    }
+
+                    window.location.assign(resolvePostAuthTarget(redirectTo));
                 } catch (e) {
-                    console.error('Error fetching user status', e);
+                    console.error('Error fetching user status in signup checkSession', e);
                 }
             }
         };
@@ -110,21 +200,19 @@ const Signup = () => {
     }, [searchParams, redirectTo]);
 
     const set = (field) => (e) => {
-        let val = e.target.value.trimStart();
-        if (field === 'first_name' || field === 'last_name') {
-            val = val.replace(/[^a-zA-Z\s]/g, '');
-        }
+        const val = e.target.value.trimStart();
         setForm((f) => ({ ...f, [field]: val }));
         if (errors[field]) setErrors((prev) => ({ ...prev, [field]: '' }));
     };
 
-    const setPhone = (value) => {
-        setForm((f) => ({ ...f, phone_number: value || '' }));
+    const setPhone = (val) => {
+        setForm((f) => ({ ...f, phone_number: val || '' }));
         if (errors.phone_number) setErrors((prev) => ({ ...prev, phone_number: '' }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
         const fieldErrors = validateSignup(form);
         if (Object.keys(fieldErrors).length > 0) {
             setErrors(fieldErrors);
@@ -132,33 +220,10 @@ const Signup = () => {
         }
         setLoading(true);
         try {
-            const { confirmPassword, ...payload } = form;
-            const utmParams = getUtmParameters();
-            await authApi.signup({
-                ...payload,
-                utm_source: utmParams.utm_source || null,
-                utm_medium: utmParams.utm_medium || null,
-                utm_campaign: utmParams.utm_campaign || null
-            });
-
-            try {
-                if (supabase && (utmParams.utm_source || utmParams.utm_medium || utmParams.utm_campaign)) {
-                    const { error: dbErr } = await supabase
-                        .from('users')
-                        .update({
-                            utm_source: utmParams.utm_source || null,
-                            utm_medium: utmParams.utm_medium || null,
-                            utm_campaign: utmParams.utm_campaign || null
-                        })
-                        .eq('email', payload.email);
-                    if (dbErr) {
-                        console.warn("Direct UTM update on registration failed:", dbErr);
-                    }
-                }
-            } catch (dbSyncErr) {
-                console.warn("Database UTM sync error on registration:", dbSyncErr);
-            }
-
+            const utm = getUtmParameters();
+            const signupPayload = { ...form, ...utm };
+            await authApi.signup(signupPayload);
+            trackUserSignup('email', { email: form.email, name: form.name });
             setSuccess(true);
         } catch (err) {
             toast.dismiss();
@@ -177,7 +242,15 @@ const Signup = () => {
         }
 
         if (!isValidPhoneNumber(phoneNumber)) {
-            setPhoneError('Enter a valid phone number.');
+            setPhoneError('Please enter a valid phone number with country code.');
+            return;
+        }
+
+        const activeUid = pendingPhoneUserId || getStoredUserId();
+        if (!activeUid) {
+            toast.error('Session expired. Please log in again.');
+            clearAuthSession();
+            setPendingPhoneUserId('');
             return;
         }
 
@@ -187,19 +260,18 @@ const Signup = () => {
 
     const handleOtpSuccess = async () => {
         setSavingPhone(true);
+        const activeUid = pendingPhoneUserId || getStoredUserId();
         try {
-            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-            const firstName = form.first_name || stored.first_name || '';
-            const lastName = form.last_name || stored.last_name || '';
+            let apiRes = null;
+            try {
+                apiRes = await profileApi.updateProfile({
+                    phone_number: phoneNumber,
+                    is_phone_verified: true
+                });
+            } catch (apiErr) {
+                console.warn("profileApi.updateProfile fallback to direct update:", apiErr);
+            }
 
-            const apiRes = await profileApi.updateProfile({
-                first_name: firstName.trim(),
-                last_name: lastName.trim(),
-                phone_number: phoneNumber,
-            });
-
-            // Update Supabase users table directly to set is_phone_verified = true
-            const activeUid = pendingPhoneUserId || stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
             if (supabase && activeUid) {
                 try {
                     await supabase
@@ -214,21 +286,29 @@ const Signup = () => {
                 }
             }
 
+            let isOnboardingDone = localStorage.getItem('has_completed_onboarding') === 'true';
             if (typeof window !== 'undefined') {
                 const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-                parsed.first_name = firstName.trim() || parsed.first_name || '';
-                parsed.last_name = lastName.trim() || parsed.last_name || '';
                 parsed.phone_number = phoneNumber;
                 parsed.is_phone_verified = true;
+                if (parsed.onboarding_completed) isOnboardingDone = true;
                 localStorage.setItem('user', JSON.stringify(parsed));
                 document.cookie = 'has_phone=true; path=/; SameSite=Lax';
                 window.dispatchEvent(new CustomEvent('user:updated'));
             }
 
-            toast.success(apiRes?.message || 'Phone number verified successfully!');
-            window.location.assign(redirectTo);
+            toast.success(apiRes?.message || 'Phone number verified and saved!');
+            let destination = redirectTo;
+            if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                destination = '/dashboard';
+            }
+            if (!isOnboardingDone) {
+                window.location.assign('/onboarding');
+            } else {
+                window.location.assign(destination);
+            }
         } catch (err) {
-            console.error('Failed to save phone number:', err);
+            console.error('Failed to save phone number after verification:', err);
             const msg = String(err.message || '');
             let userFriendlyMsg = 'Failed to save phone number.';
             if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
@@ -247,11 +327,16 @@ const Signup = () => {
     if (success) {
         return (
             <div className={styles.signuppage}>
-                <div className={styles.box}>
-                    <div className={styles.layer}></div>
-                    <div className={styles.relative}>
-                        <div className={styles.icon}>
-                            <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
+                <div className={styles.ambientGlowTop} aria-hidden="true" />
+                <div className={styles.ambientGlowBottom} aria-hidden="true" />
+                <div className={styles.gridOverlay} aria-hidden="true" />
+
+                <div className={styles.authContainer}>
+                    <div className={styles.authCardSingle}>
+                        <div className={styles.logoWrapper}>
+                            <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                                <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                            </Link>
                         </div>
                         <div className={styles.text}>
                             <h2>{t('auth.checkEmail', 'Check your email')}</h2>
@@ -271,64 +356,306 @@ const Signup = () => {
 
     return (
         <div className={styles.signuppage}>
-            <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
-                <div className={styles.relative}>
-                    <div className={styles.icon}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
-                    </div>
-                    <div className={styles.text}>
-                        <h2>{t('auth.signupHeader', 'Sign Up')}</h2>
-                        <p>{t('auth.signupDesc', 'Get set up so you can start your trading experience.')}</p>
-                    </div>
-                    <form onSubmit={handleSubmit} noValidate>
-                        <div className={styles.spacingGrid}>
-                            <div className={styles.twoCol}>
-                                <Input icon={Profile} placeholder={t('auth.firstNameLabel', 'First Name')} name="first_name" value={form.first_name} onChange={set('first_name')} error={errors.first_name} maxLength={50} dark />
-                                <Input icon={Profile} placeholder={t('auth.lastNameLabel', 'Last Name')} name="last_name" value={form.last_name} onChange={set('last_name')} error={errors.last_name} maxLength={50} dark />
+            {/* Interactive Mouse Move Emerald Glow Follower */}
+            <PointerGlow color="rgba(24, 201, 139, 0.35)" size={250} />
+
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className={styles.authContainer}>
+                <div className={styles.splitAuthCard}>
+
+                    {/* ════════════ LEFT HERO PANEL (MATCHING REFERENCE DESIGN) ════════════ */}
+                    <div className={styles.leftStepperPanel}>
+                        <div className={styles.auroraGlow} aria-hidden="true" />
+
+                        <div className={styles.leftContentWrapper}>
+                            {/* Top Aura Area */}
+                            <div className={styles.topAuraSpacer} aria-hidden="true" />
+
+                            {/* Center/Bottom Info Stack */}
+                            <div className={styles.leftMainBlock}>
+                                {/* Brand Logo */}
+                                <Link href="/" className={styles.brandHeaderLink} title="ChronosX Home">
+                                    <img src={Logo} alt="ChronosX" className={styles.leftLogoImg} />
+                                </Link>
+
+                                {/* Header & Subtitle (Aligned with Landing Page) */}
+                                <div className={styles.leftTextGroup}>
+                                    <h2 className={styles.leftTitle}>
+                                        {t('auth.hero.titleLine1', 'Trade Smarter with')} <br />
+                                        <span className={styles.highlightText}>{t('auth.hero.titleHighlight', 'AI That Never Sleeps')}</span>
+                                    </h2>
+                                    <p className={styles.leftSubtitle}>
+                                        {t('auth.hero.subtitle', 'Get real-time AI trading signals, market insights, and trade recommendations across Forex, Stocks, and Global Markets.')}
+                                    </p>
+                                </div>
+
+                                {/* 5 Feature Highlight Pills with Auto-Cycling Animation */}
+                                <div className={styles.featurePillList}>
+                                    {heroFeatures.map((feat, idx) => {
+                                        const isActive = activeFeatureIndex === idx;
+                                        return (
+                                            <div
+                                                key={feat.title}
+                                                className={`${styles.featurePill} ${isActive ? styles.activePill : ''}`}
+                                                onMouseEnter={() => setActiveFeatureIndex(idx)}
+                                            >
+                                                <div className={styles.featureIconBox}>
+                                                    {feat.icon}
+                                                </div>
+                                                <div className={styles.featureContent}>
+                                                    <span className={styles.featurePillText}>{feat.title}</span>
+                                                    <span className={styles.featurePillDesc}>{feat.desc}</span>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                            <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} dark />
-                            <PhoneInput
-                                label=""
-                                placeholder={t('profile.phoneLabel', 'Phone no')}
-                                value={form.phone_number}
-                                onChange={setPhone}
-                                error={errors.phone_number}
-                                defaultCountry="AE"
-                            />
-                            <div className={styles.twoCol}>
-                                <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} dark />
-                                <Input icon={Lock} placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm Password')} type="password" name="confirmPassword" value={form.confirmPassword} onChange={set('confirmPassword')} error={errors.confirmPassword} maxLength={50} dark />
+
+                            {/* Clean SVG Vector Assurance Badge */}
+                            <div className={styles.leftFooterNotice}>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                                <span>{t('auth.hero.securityNotice', '256-Bit Encrypted & Non-Custodial')}</span>
                             </div>
-                            <Input
-                                icon={Profile}
-                                placeholder={t('auth.referralOptional', 'Referral Code (Optional)')}
-                                name="referral_code"
-                                value={form.referral_code}
-                                onChange={set('referral_code')}
-                                error={errors.referral_code}
-                                maxLength={50}
-                                dark
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                text={loading ? t('auth.signingUpBtn', 'Signing up...') : t('auth.signupHeader', 'Sign up')}
-                                icon={ArrowIcon}
-                                disabled={loading}
-                            />
                         </div>
-                    </form>
-                    <div className={styles.accountText}>
-                        <p>{t('auth.alreadyHaveAccount', 'Already have an account?')} <Link href="/login">{t('auth.loginHeader', 'Log in')}</Link></p>
                     </div>
-                    <div className={styles.orText}><span>{t('auth.or', 'or')}</span></div>
-                    <ContinueWithGoogle redirectTo={redirectTo} />
+
+                    {/* ════════════ RIGHT FORM PANEL ════════════ */}
+                    <div className={styles.rightFormPanel}>
+                        <div className={styles.formInnerContainer}>
+                            {/* Mobile Brand Logo */}
+                            <div className={styles.mobileLogoWrapper}>
+                                <Link href="/" className={styles.mobileLogoLink} title="ChronosX Home">
+                                    <img src={Logo} alt="ChronosX" className={styles.mobileLogoImg} />
+                                </Link>
+                            </div>
+
+                            {pendingPhoneUserId ? (
+                                <>
+                                    <div className={styles.formHeader}>
+                                        <h1 className={styles.formTitle}>{t('auth.completeProfile', 'Complete Your Profile')}</h1>
+                                        <p className={styles.formSubtitle}>{t('auth.enterPhoneDesc', 'Please enter your phone number to continue.')}</p>
+                                    </div>
+                                    <form
+                                        method="post"
+                                        action="javascript:void(0);"
+                                        onSubmit={(e) => {
+                                            e.preventDefault();
+                                            handleSavePhoneNumber(e);
+                                        }}
+                                        noValidate
+                                    >
+                                        <div className={styles.spacingGrid}>
+                                            <PhoneInput
+                                                label={t('profile.phoneLabel', 'Phone Number')}
+                                                value={phoneNumber}
+                                                onChange={(val) => {
+                                                    setPhoneNumber(val || '');
+                                                    setPhoneError('');
+                                                }}
+                                                placeholder={t('profile.phoneLabel', 'Phone number')}
+                                                error={phoneError}
+                                                defaultCountry="AE"
+                                            />
+                                            <button
+                                                type="submit"
+                                                className={styles.submitBtn}
+                                                disabled={savingPhone}
+                                            >
+                                                {savingPhone ? t('auth.saving', 'Saving...') : t('auth.continue', 'Continue')}
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if (typeof window !== 'undefined') {
+                                                        sessionStorage.setItem('skipPhoneVerification', 'true');
+                                                        window.location.assign(resolvePostAuthTarget());
+                                                    }
+                                                }}
+                                                className={styles.skipBtn}
+                                            >
+                                                {t('auth.skipForNow', 'Skip for now')}
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    clearAuthSession();
+                                                    window.location.assign('/');
+                                                }}
+                                                className={styles.backBtn}
+                                            >
+                                                {t('auth.backToHome', 'Back to Home')}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </>
+                            ) : (
+                                <>
+                                    <div className={styles.formHeader}>
+                                        <h1 className={styles.formTitle}>{t('auth.signup.title', 'Sign Up Account')}</h1>
+                                        <p className={styles.formSubtitle}>{t('auth.signup.subtitle', 'Enter your personal data to create your account.')}</p>
+                                    </div>
+
+                                    <form
+                                        method="post"
+                                        action="javascript:void(0);"
+                                        onSubmit={(e) => {
+                                            e.preventDefault();
+                                            handleSubmit(e);
+                                        }}
+                                        noValidate
+                                    >
+                                        <div className={styles.spacingGrid}>
+                                            {/* First Name & Last Name in 2 columns */}
+                                            <div className={styles.twoCol}>
+                                                <Input
+                                                    label={t('auth.signup.firstName', 'First Name')}
+                                                    icon={UserIcon}
+                                                    placeholder={t('auth.signup.firstNamePlaceholder', 'eg. John')}
+                                                    name="first_name"
+                                                    value={form.first_name}
+                                                    onChange={set('first_name')}
+                                                    error={errors.first_name}
+                                                    maxLength={50}
+                                                    autoComplete="given-name"
+                                                />
+                                                <Input
+                                                    label={t('auth.signup.lastName', 'Last Name')}
+                                                    icon={UserIcon}
+                                                    placeholder={t('auth.signup.lastNamePlaceholder', 'eg. Francisco')}
+                                                    name="last_name"
+                                                    value={form.last_name}
+                                                    onChange={set('last_name')}
+                                                    error={errors.last_name}
+                                                    maxLength={50}
+                                                    autoComplete="family-name"
+                                                />
+                                            </div>
+
+                                            <Input
+                                                label={t('auth.signup.email', 'Email')}
+                                                icon={EmailIcon}
+                                                placeholder={t('auth.login.emailPlaceholder', 'eg. johndoe@gmail.com')}
+                                                type="email"
+                                                name="email"
+                                                value={form.email}
+                                                onChange={set('email')}
+                                                error={errors.email}
+                                                maxLength={100}
+                                                autoComplete="email"
+                                            />
+
+                                            <PhoneInput
+                                                label={t('auth.signup.phone', 'Phone Number')}
+                                                placeholder={t('auth.signup.phonePlaceholder', 'eg. +1 234 567 890')}
+                                                value={form.phone_number}
+                                                onChange={setPhone}
+                                                error={errors.phone_number}
+                                                defaultCountry="AE"
+                                            />
+
+                                            <div className={styles.twoCol}>
+                                                <div>
+                                                    <Input
+                                                        label={t('auth.login.passwordLabel', 'Password')}
+                                                        icon={Lock}
+                                                        placeholder={t('auth.login.passwordPlaceholder', 'Enter your password')}
+                                                        type="password"
+                                                        name="password"
+                                                        value={form.password}
+                                                        onChange={set('password')}
+                                                        error={errors.password}
+                                                        maxLength={50}
+                                                        autoComplete="new-password"
+                                                    />
+                                                    <span className={styles.fieldHint}>{t('auth.signup.passwordHint', 'Must be at least 8 characters')}</span>
+                                                </div>
+
+                                                <Input
+                                                    label={t('auth.signup.confirmPassword', 'Confirm Password')}
+                                                    icon={Lock}
+                                                    placeholder={t('auth.signup.confirmPasswordPlaceholder', 'Confirm your password')}
+                                                    type="password"
+                                                    name="confirmPassword"
+                                                    value={form.confirmPassword}
+                                                    onChange={set('confirmPassword')}
+                                                    error={errors.confirmPassword}
+                                                    maxLength={50}
+                                                    autoComplete="new-password"
+                                                />
+                                            </div>
+
+                                            <Input
+                                                label={t('auth.signup.referralCode', 'Referral Code (Optional)')}
+                                                icon={UserIcon}
+                                                placeholder={t('auth.signup.referralPlaceholder', 'Enter referral code')}
+                                                name="referral_code"
+                                                value={form.referral_code}
+                                                onChange={set('referral_code')}
+                                                error={errors.referral_code}
+                                                maxLength={50}
+                                                autoComplete="off"
+                                            />
+
+                                            <button
+                                                type="submit"
+                                                className={styles.submitBtn}
+                                                disabled={loading}
+                                            >
+                                                {loading ? t('auth.signup.creatingAccount', 'Creating account...') : t('auth.signup.submitBtn', 'Sign Up')}
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div className={styles.orDivider}>
+                                        <span>{t('auth.login.or', 'Or')}</span>
+                                    </div>
+
+                                    {/* Social Login Button Row */}
+                                    <div className={styles.socialRow}>
+                                        <div className={styles.googleButtonWrapper}>
+                                            <ContinueWithGoogle redirectTo={redirectTo} onPendingPhone={setPendingPhoneUserId} />
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.accountBottomLink}>
+                                        <p>
+                                            {t('auth.signup.alreadyHaveAccount', 'Already have an account?')} <Link href="/login">{t('auth.signup.logInLink', 'Log In')}</Link>
+                                        </p>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+            <FirebasePhoneModal
+                isOpen={showOtpModal}
+                phoneNumber={phoneNumber}
+                onClose={() => {
+                    setShowOtpModal(false);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.setItem('skipPhoneVerification', 'true');
+                        window.location.assign(resolvePostAuthTarget());
+                    }
+                }}
+                onSkip={() => {
+                    setShowOtpModal(false);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.setItem('skipPhoneVerification', 'true');
+                        window.location.assign(resolvePostAuthTarget());
+                    }
+                }}
+                onSuccess={handleOtpSuccess}
+            />
         </div>
     );
 };

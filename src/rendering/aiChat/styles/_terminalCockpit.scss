@@ -1,0 +1,450 @@
+/* ========================================================================= */
+/* 5. LIVE INTERACTIVE CHAT DEMO (COCKPIT TERMINAL) */
+/* ========================================================================= */
+.liveDemoSection,
+.demoSection {
+    position: relative;
+    z-index: 2;
+    padding: 80px 0;
+
+    @include respond-to('md') {
+        padding: 65px 0;
+    }
+
+    @include respond-to('sm') {
+        padding: 60px 0;
+    }
+}
+
+.terminalCockpit,
+.chatTerminalCard {
+    max-width: 1080px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: rgba(10, 9, 6, 0.95);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(24, 201, 139, 0.1);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+/* Header Bar */
+.terminalHeader,
+.terminalWindowBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: rgba(18, 15, 10, 0.98);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.2);
+    gap: 12px;
+
+    @include respond-to('tab') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+.terminalControls,
+.windowControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot,
+.controlDotRed,
+.controlDotYellow,
+.controlDotGreen {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dotRed,
+.controlDotRed {
+    background: #FF5F56;
+}
+
+.dotYellow,
+.controlDotYellow {
+    background: #38BDF8;
+}
+
+.dotGreen,
+.controlDotGreen {
+    background: #27C93F;
+}
+
+.terminalBrand,
+.terminalTitle {
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #18C98B;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminalLiveDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+    display: inline-block;
+}
+
+.terminalTabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.termTabBtn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #9CA3AF;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.1);
+        color: #18C98B;
+    }
+}
+
+.termTabActive {
+    background: rgba(24, 201, 139, 0.18);
+    border-color: rgba(24, 201, 139, 0.5);
+    color: #18C98B;
+}
+
+.terminalLiveIndicator,
+.terminalStatus {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #10B981;
+}
+
+/* Chat Stream Area */
+.chatStreamArea,
+.terminalMessageStream {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 480px;
+
+    @include respond-to('sm') {
+        padding: 18px;
+        gap: 18px;
+    }
+}
+
+/* Trader Message */
+.traderMessageRow,
+.userMessageRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    justify-content: flex-end;
+}
+
+.traderAvatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
+}
+
+.traderBubble {
+    background: linear-gradient(135deg, rgba(30, 26, 18, 0.95), rgba(45, 38, 26, 0.95));
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 16px 16px 4px 16px;
+    padding: 14px 18px;
+    max-width: 650px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    order: 1;
+
+    .bubbleSender {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #18C98B;
+        margin-bottom: 4px;
+        text-align: right;
+    }
+
+    .bubbleText {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #FFFFFF;
+        font-style: italic;
+    }
+}
+
+/* AI Assistant Message */
+.aiMessageRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.aiAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(24, 201, 139, 0.2), rgba(24, 201, 139, 0.1));
+    border: 1px solid rgba(24, 201, 139, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.25), inset 0 0 8px rgba(24, 201, 139, 0.1);
+}
+
+.aiResponseCard {
+    background: rgba(18, 15, 10, 0.9);
+    border: 1px solid rgba(24, 201, 139, 0.25);
+    border-radius: 4px 18px 18px 18px;
+    padding: 24px;
+    flex-grow: 1;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+
+    @include respond-to('sm') {
+        padding: 16px;
+    }
+}
+
+.aiCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.aiSenderInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.aiName {
+    font-size: 14px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.aiTag {
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #18C98B;
+    letter-spacing: 0.06em;
+}
+
+.aiPairBadge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #D1D5DB;
+}
+
+.copyBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #D1D5DB;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.15);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
+    }
+}
+
+/* Typing / Generating Loader */
+.aiGeneratingBox {
+    padding: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    color: #9CA3AF;
+    font-size: 14px;
+}
+
+.typingIndicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #18C98B;
+        animation: typingDot 1.4s infinite ease-in-out both;
+
+        &:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        &:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0s;
+        }
+    }
+}
+
+@keyframes typingDot {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Structured AI Output */
+.aiSetupContent {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.setupTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.setupTitleIconBox {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #18C98B;
+    flex-shrink: 0;
+}
+
+.setupTitle {
+    font-size: 17px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+
+    @include respond-to('sm') {
+        font-size: 15px;
+    }
+}
+
+/* Telemetry Grid */
+.telemetryGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+.telemetryItem {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.telLabel {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.telPrice {
+    font-size: 16px;
+    font-weight: 800;
+    color: #18C98B;
+}
+
+.telBullish {
+    font-size: 13px;
+    font-weight: 700;
+    color: #10B981;
+}
+
+.telNeutral {
+    font-size: 13px;
+    font-weight: 700;
+    color: #38BDF8;
+}
+
+.telVal {
+    font-size: 13px;
+    font-weight: 600;
+    color: #E5E7EB;
+}
+

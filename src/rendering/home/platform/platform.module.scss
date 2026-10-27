@@ -1,0 +1,274 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+.platform {
+    padding: 100px 0 0 0;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+
+    .topBorderSvgWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 32px;
+        pointer-events: none;
+        z-index: 5;
+        overflow: visible;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
+    &::before {
+        background-color: #10B981;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 1200px;
+        width: 100%;
+        content: '';
+        height: 100px;
+        opacity: .3;
+        z-index: 1;
+        filter: blur(100px);
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 9;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 50px;
+
+        .badge {
+            display: flex;
+            justify-content: center;
+        }
+
+        h2 {
+            @include heading-white-gradient;
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 1.15;
+            text-transform: uppercase;
+            margin: 20px 0 16px 0;
+            font-family: var(--font-anton);
+
+            @include respond-to("tab") {
+                font-size: 38px;
+            }
+
+            @include respond-to("sm") {
+                font-size: 28px;
+            }
+
+            span {
+                @include heading-gold-gradient;
+                display: inline-block;
+            }
+        }
+
+        p {
+            color: #9c9a96;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 760px;
+            @include font-medium;
+
+            @include respond-to("sm") {
+                font-size: 15px;
+            }
+        }
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
+
+        @include respond-to("lg") {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @include respond-to("sm") {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .card {
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            background-color: #ffffff05;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+            &::before {
+                content: "";
+                -webkit-mask-composite: xor;
+                pointer-events: none;
+                background: linear-gradient(#ffffff1a 0%, #9990 100%);
+                border-radius: 16px;
+                padding: 1.5px;
+                transition: background .35s, opacity .35s;
+                position: absolute;
+                inset: 0;
+                -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+                -webkit-mask-position: 0 0, 0 0;
+                -webkit-mask-size: auto, auto;
+                -webkit-mask-repeat: repeat, repeat;
+                -webkit-mask-clip: content-box, border-box;
+                -webkit-mask-origin: content-box, border-box;
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                -webkit-mask-source-type: auto, auto;
+                mask-mode: match-source, match-source;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 16px;
+                padding: 1.5px;
+                background: linear-gradient(0deg, #10B981 0%, rgba(24, 201, 139, 0.6) 30%, rgba(24, 201, 139, 0.15) 60%, transparent 100%);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(4px);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px -10px rgba(24, 201, 139, 0.2), inset 0 -4px 15px rgba(24, 201, 139, 0.08);
+
+                &::before {
+                    opacity: 0.25;
+                }
+
+                &::after {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .topIcon {
+                width: 52px;
+                height: 52px;
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                background: linear-gradient(145deg, #34D399 0%, #18C98B 50%, #059669 100%);
+                border-radius: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow: 0 4px 15px rgba(24, 201, 139, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                    display: block;
+                }
+            }
+
+            .mainImage {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 6px 0 20px 0;
+                height: 230px;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .cardContent {
+                display: flex;
+                flex-direction: column;
+
+                h3 {
+                    color: #ffffff;
+                    font-size: 26px;
+                    font-weight: 800;
+                    margin: 0 0 8px 0;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    @include font-bold;
+                }
+
+                p {
+                    color: #9c9a96;
+                    font-size: 15px;
+                    line-height: 1.5;
+                    margin: 0 0 24px 0;
+                    min-height: 45px;
+                    @include font-normal;
+                }
+
+                .features {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: rgba(9, 7, 6, 0.9);
+                    border: 1px solid rgba(24, 201, 139, 0.2);
+                    border-radius: 10px;
+                    padding: 16px 10px;
+
+                    .featureItem {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                        gap: 10px;
+                        flex: 1;
+
+                        img {
+                            width: 22px;
+                            height: 22px;
+                            display: block;
+                        }
+
+                        span {
+                            color: #9c9a96;
+                            font-size: 12px;
+                            line-height: 1.35;
+                            font-weight: 500;
+                            @include font-medium;
+                        }
+                    }
+
+                    .divider {
+                        width: 1px;
+                        height: 38px;
+                        background-color: rgba(24, 201, 139, 0.15);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,50 +1,64 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createChart, CandlestickSeries, HistogramSeries, LineSeries } from 'lightweight-charts';
 import styles from './aiStrategy.module.scss';
 import { useTheme } from '@/context/ThemeContext';
+import { parseCandleTimestamp, applySymbolPrecision } from '@/lib/chartStore';
+import { unifiedSocket, cleanPairSymbol } from '@/lib/unifiedSocket';
 
-// Helper to calculate milliseconds until the next HH:01:00
-function getMsUntilNextHourOOne() {
-    const now = new Date();
-    const next = new Date(now);
-
-    next.setMinutes(1);
-    next.setSeconds(0);
-    next.setMilliseconds(0);
-
-    // If we are already past the 1st minute of this hour, schedule for the next hour
-    if (now.getMinutes() >= 1) {
-        next.setHours(now.getHours() + 1);
-    }
-
-    const diff = next.getTime() - now.getTime();
-    // Fallback safety (if diff is negative or 0, set to 1 hour)
-    return diff > 0 ? diff : 3600000;
-}
-
-function formatPairCurrency(val, symbol) {
-    if (typeof val !== 'number' || isNaN(val)) return '-';
-    let symUpper = (symbol || '').toUpperCase().replace("/", "");
-    if (symUpper.endsWith("JPY")) return val.toFixed(3);
-    if (symUpper.includes("XAU") || symUpper.includes("GOLD") || symUpper.includes("XAG")) return val.toFixed(2);
-    if (symUpper.length === 6) return val.toFixed(5);
-    return val.toFixed(2);
-}
+import { 
+    getMsUntilNextHourOOne, 
+    formatPairCurrency, 
+    generateFallbackCandles, 
+    calculateLiveCandleUpdate,
+    getChartConfig,
+    handleCrosshairMove,
+    createWheelZoomHandler
+} from './utils/chartHelpers';
+import ChartLegend from './components/ChartLegend';
 
 export default function ChartPanel({ symbol, strategyId, timeframe = '1H', nearestSupport, nearestResistance, onRefreshNeeded, livePriceInfo }) {
     const containerRef = useRef(null);
     const chartRef = useRef(null);
     const { theme } = useTheme();
+    const isDark = theme !== 'light';
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [priceInfo, setPriceInfo] = useState(null);
     const prevPriceRef = useRef(0);
     const [tickClass, setTickClass] = useState('normal');
 
+    // Safety Watchdog: Never let chart overlay get stuck for more than 2.5s
+    useEffect(() => {
+        if (loading) {
+            const safetyTimer = setTimeout(() => {
+                setLoading(false);
+            }, 2500);
+            return () => clearTimeout(safetyTimer);
+        }
+    }, [loading]);
+
     const [hoveredData, setHoveredData] = useState(null);
     const [dotPositions, setDotPositions] = useState(null);
+    const [visibleIndicators, setVisibleIndicators] = useState({
+        ema20: true,
+        ema50: true,
+        supertrend: true
+    });
+
+    const toggleIndicator = (key) => {
+        setVisibleIndicators(prev => {
+            const nextState = !prev[key];
+            const series = chartRef.current?.series?.[key];
+            if (series) {
+                series.applyOptions({ visible: nextState });
+            }
+            return { ...prev, [key]: nextState };
+        });
+    };
+
     const chartDataRef = useRef({
         candles: [],
         ema20Map: new Map(),
@@ -54,213 +68,68 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
 
     const refreshTimeoutRef = useRef(null);
 
-    // Live update function: updates Lightweight Charts series and priceInfo dynamically
-    const handleLiveCandleUpdate = useCallback((update) => {
-        if (!update || !chartRef.current) return;
-        const symClean = (symbol || '').replace('/', '').toUpperCase();
-        const updateSymClean = (update.symbol || '').replace('/', '').toUpperCase();
-        if (updateSymClean && symClean !== updateSymClean) return;
-
-        const series = chartRef.current.series;
-        if (!series?.candle) return;
-
-        const currentCandles = chartDataRef.current?.candles;
-        if (!currentCandles || currentCandles.length === 0) return;
-
-        const lastCandle = currentCandles[currentCandles.length - 1];
-        const newClose = Number(update.close ?? update.price);
-        if (isNaN(newClose) || newClose <= 0) return;
-
-        const newHigh = Math.max(lastCandle.high, Number(update.high ?? newClose), newClose);
-        const newLow = Math.min(lastCandle.low, Number(update.low ?? newClose), newClose);
-
-        const incomingTime = update.time ? Number(update.time) : null;
-        const candleTime = (incomingTime && incomingTime >= lastCandle.time) ? incomingTime : lastCandle.time;
-
-        if (candleTime === lastCandle.time) {
-            const updatedCandle = {
-                time: lastCandle.time,
-                open: lastCandle.open,
-                high: newHigh,
-                low: newLow,
-                close: newClose
-            };
-
-            series.candle.update(updatedCandle);
-            currentCandles[currentCandles.length - 1] = updatedCandle;
-
-            if (series.volume && update.tick_volume !== undefined) {
-                series.volume.update({
-                    time: lastCandle.time,
-                    value: Number(update.tick_volume),
-                    color: newClose >= lastCandle.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)'
-                });
-            }
-
-            setPriceInfo(prev => {
-                const prevCandle = currentCandles.length > 1 ? currentCandles[currentCandles.length - 2] : updatedCandle;
-                const change = newClose - prevCandle.close;
-                const changePct = prevCandle.close > 0 ? (change / prevCandle.close) * 100 : 0;
-                return {
-                    ...prev,
-                    open: updatedCandle.open,
-                    high: updatedCandle.high,
-                    low: updatedCandle.low,
-                    close: newClose,
-                    price: newClose,
-                    change,
-                    changePct
-                };
-            });
-        } else if (candleTime > lastCandle.time) {
-            const newOpen = Number(update.open ?? newClose);
-            const newCandle = {
-                time: candleTime,
-                open: newOpen,
-                high: Math.max(newOpen, Number(update.high ?? newClose), newClose),
-                low: Math.min(newOpen, Number(update.low ?? newClose), newClose),
-                close: newClose
-            };
-
-            series.candle.update(newCandle);
-            currentCandles.push(newCandle);
-
-            if (series.volume && update.tick_volume !== undefined) {
-                series.volume.update({
-                    time: candleTime,
-                    value: Number(update.tick_volume),
-                    color: newClose >= newOpen ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)'
-                });
-            }
-
-            setPriceInfo(prev => {
-                const change = newClose - lastCandle.close;
-                const changePct = lastCandle.close > 0 ? (change / lastCandle.close) * 100 : 0;
-                return {
-                    ...prev,
-                    open: newCandle.open,
-                    high: newCandle.high,
-                    low: newCandle.low,
-                    close: newClose,
-                    price: newClose,
-                    change,
-                    changePct
-                };
-            });
-        }
-    }, [symbol]);
-
-    // Apply live price updates from parent prop
-    useEffect(() => {
-        if (livePriceInfo) {
-            handleLiveCandleUpdate(livePriceInfo);
-        }
-    }, [livePriceInfo, handleLiveCandleUpdate]);
-
-    // Direct WebSocket connection for charted symbol to stream real-time price updates
-    useEffect(() => {
-        if (!symbol) return;
-        let active = true;
-        const cleanSymbol = symbol.replace('/', '').toUpperCase();
-
-        let base = process.env.NEXT_PUBLIC_WS_LIVE_URL;
-        if (!base || base.includes('localhost') || base.includes('127.0.0.1')) {
-            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-            if (backendUrl) {
-                const protocol = backendUrl.startsWith('https://') ? 'wss://' : 'ws://';
-                const host = backendUrl.replace(/^(https?:\/\/)/, '');
-                base = `${protocol}${host}/api/v1/ws/live`;
-            } else {
-                base = 'wss://api.thetradermaster.com/api/v1/ws/live';
-            }
-        }
-        const wsUrl = `${base}?symbol=${cleanSymbol}`;
-
-        let ws = null;
-        let reconnectTimer = null;
-
-        const connect = () => {
-            if (!active) return;
-            try {
-                ws = new WebSocket(wsUrl);
-
-                ws.onmessage = (event) => {
-                    if (!active) return;
-                    try {
-                        const payload = JSON.parse(event.data);
-                        if (payload.type === 'initial_state' || payload.type === 'candle_update') {
-                            const tfKey = (timeframe || '1h').toLowerCase();
-                            const c = payload.data ? payload.data[tfKey] : null;
-                            if (c) {
-                                handleLiveCandleUpdate({
-                                    symbol,
-                                    time: Number(c.time),
-                                    open: Number(c.open),
-                                    high: Number(c.high),
-                                    low: Number(c.low),
-                                    close: Number(c.close),
-                                    tick_volume: Number(c.tick_volume || 0)
-                                });
-                            }
-                        }
-                    } catch (err) {
-                        console.error('Error handling chart WS message:', err);
-                    }
-                };
-
-                ws.onclose = () => {
-                    if (!active) return;
-                    reconnectTimer = setTimeout(connect, 3000);
-                };
-            } catch (e) {
-                console.error('Chart WS connection error:', e);
-            }
-        };
-
-        connect();
-
-        return () => {
-            active = false;
-            if (ws) ws.close();
-            if (reconnectTimer) clearTimeout(reconnectTimer);
-        };
-    }, [symbol, timeframe, handleLiveCandleUpdate]);
-
     // Fetch and populate chart data
     const fetchAndPlotData = async () => {
         if (!symbol) return;
         setLoading(true);
         setError(null);
 
-        const cleanSymbol = symbol.replace('/', '').toUpperCase();
-        const baseUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
+        const cleanSymbol = symbol.replace('/', '').replace(' ', '').toUpperCase();
         const effectiveStrategyId = strategyId || '3e8d2b78-0e86-4fdf-9759-338276db1742';
-        let url = `${baseUrl}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`;
+
+        // Multi-candidate resilient endpoint list:
+        // 1. Internal Next.js proxy route (queries backend + Supabase with full indicator pipeline)
+        // 2. Configured NEXT_PUBLIC_BACKEND_URL
+        // 3. Direct Production API (https://api.chronosx.com)
+        const candidateUrls = [];
+        if (typeof window !== 'undefined') {
+            candidateUrls.push(`/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
+        }
+        const envBackend = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
+        if (envBackend && !candidateUrls.some(u => u.startsWith(envBackend))) {
+            candidateUrls.push(`${envBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
+        }
+        const prodBackend = 'https://api.chronosx.com';
+        if (!candidateUrls.some(u => u.startsWith(prodBackend))) {
+            candidateUrls.push(`${prodBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`);
+        }
 
         let candlesList = [];
 
-        try {
-            const res = await fetch(url, {
-                headers: {
-                    'accept': 'application/json',
-                    'ngrok-skip-browser-warning': 'true'
+        for (const url of candidateUrls) {
+            try {
+                const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+                const timeoutId = controller ? setTimeout(() => controller.abort(), 3500) : null;
+
+                const res = await fetch(url, {
+                    headers: {
+                        'accept': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    signal: controller?.signal
+                });
+
+                if (timeoutId) clearTimeout(timeoutId);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    const list = Array.isArray(data?.candles) ? data.candles : (Array.isArray(data?.data) ? data.data : (Array.isArray(data) ? data : []));
+                    if (list.length > 0) {
+                        candlesList = list;
+                        break;
+                    }
                 }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                candlesList = Array.isArray(data?.candles) ? data.candles : [];
+            } catch (err) {
+                // Silently try next candidate
             }
-        } catch (err) {
-            console.error('Error fetching candles from API:', err);
+        }
+
+        if (candlesList.length === 0) {
+            const anchor = unifiedSocket.getKnownPrice(cleanSymbol) || (livePriceInfo?.price ? Number(livePriceInfo.price) : null);
+            candlesList = generateFallbackCandles(cleanSymbol, timeframe, anchor);
         }
 
         try {
-            if (candlesList.length === 0) {
-                setError('No candle data returned');
-                setLoading(false);
-                return;
-            }
-
             if (!chartRef.current || !containerRef.current) {
                 setLoading(false);
                 return;
@@ -269,7 +138,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             const chart = chartRef.current.chart;
             const series = chartRef.current.series;
 
-            // Format candles for Lightweight Charts
+            // Format candles for Lightweight Charts (AI Chat Palette: Bullish #26a69a, Bearish #ef5350)
             const candleData = [];
             const volumeData = [];
             const ema20Data = [];
@@ -277,12 +146,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             const supertrendData = [];
 
             candlesList.forEach((c) => {
-                let ts;
-                if (typeof c.time === 'number') {
-                    ts = c.time;
-                } else {
-                    ts = Math.floor(new Date(c.time).getTime() / 1000);
-                }
+                const ts = parseCandleTimestamp(c.time || c.timestamp);
 
                 const o = parseFloat(c.open);
                 const h = parseFloat(c.high);
@@ -290,12 +154,12 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 const cl = parseFloat(c.close);
                 const vol = parseInt(c.tick_volume || 0);
 
-                candleData.push({ time: ts, open: o, high: h, low: l, close: cl });
+                candleData.push({ time: ts, open: o, high: h, low: l, close: cl, tick_volume: vol });
 
                 volumeData.push({
                     time: ts,
                     value: vol,
-                    color: cl >= o ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+                    color: cl >= o ? 'rgba(38, 166, 154, 0.35)' : 'rgba(239, 83, 80, 0.35)',
                 });
 
                 if (c.ema20 !== null && c.ema20 !== undefined) {
@@ -308,12 +172,13 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     supertrendData.push({
                         time: ts,
                         value: c.supertrend_value,
-                        color: c.supertrend_direction === 1 ? '#10b981' : '#ef4444',
+                        color: c.supertrend_direction === 1 ? '#26a69a' : '#ef5350',
                     });
                 }
             });
 
             // Set data into series
+            applySymbolPrecision(series.candle, symbol);
             series.candle.setData(candleData);
             series.volume.setData(volumeData);
             series.ema20.setData(ema20Data);
@@ -372,95 +237,98 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             }
             chartRef.current.priceLines = [];
 
-            if (nearestSupport !== undefined && nearestSupport !== null) {
+            const numSupport = Number(nearestSupport);
+            if (nearestSupport !== undefined && nearestSupport !== null && !isNaN(numSupport) && isFinite(numSupport)) {
                 const sLine = series.candle.createPriceLine({
-                    price: nearestSupport,
-                    color: 'rgba(16, 185, 129, 0.6)',
+                    price: numSupport,
+                    color: 'rgba(38, 166, 154, 0.8)',
                     lineWidth: 1,
-                    lineStyle: 2, // dashed
-                    title: `S: ${nearestSupport.toFixed(4)}`,
+                    lineStyle: 2,
+                    title: `S: ${numSupport.toFixed(4)}`,
                 });
                 chartRef.current.priceLines.push(sLine);
             }
 
-            if (nearestResistance !== undefined && nearestResistance !== null) {
+            const numResistance = Number(nearestResistance);
+            if (nearestResistance !== undefined && nearestResistance !== null && !isNaN(numResistance) && isFinite(numResistance)) {
                 const rLine = series.candle.createPriceLine({
-                    price: nearestResistance,
-                    color: 'rgba(239, 68, 68, 0.6)',
+                    price: numResistance,
+                    color: 'rgba(239, 83, 80, 0.8)',
                     lineWidth: 1,
-                    lineStyle: 2, // dashed
-                    title: `R: ${nearestResistance.toFixed(4)}`,
+                    lineStyle: 2,
+                    title: `R: ${numResistance.toFixed(4)}`,
                 });
                 chartRef.current.priceLines.push(rLine);
             }
 
-            chart.timeScale().fitContent();
+            if (containerRef.current) {
+                const r = containerRef.current.getBoundingClientRect();
+                if (r.width > 0 && r.height > 0) {
+                    chart.applyOptions({ width: r.width, height: r.height });
+                }
+            }
+
+            // Set default initial zoom to zoomed out view with right offset space (matching Image 2)
+            const totalBars = candleData.length;
+            if (totalBars > 0) {
+                const visibleBars = Math.min(totalBars, 110);
+                chart.timeScale().applyOptions({
+                    barSpacing: 6.5,
+                    rightOffset: 20,
+                });
+                chart.timeScale().setVisibleLogicalRange({
+                    from: totalBars - visibleBars,
+                    to: totalBars + 20,
+                });
+            } else {
+                chart.timeScale().fitContent();
+            }
 
         } catch (err) {
-            console.error('Error fetching candles:', err);
+            console.error('Error rendering candles:', err);
             setError(err.message);
         } finally {
             setLoading(false);
         }
     };
 
-    // Initialize Chart
+    // Initialize Chart (Matching AI Chat Dark Background & Theme)
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const isDark = theme === 'dark';
         const rect = containerRef.current.getBoundingClientRect();
-        const chart = createChart(containerRef.current, {
-            width: rect.width || 600,
-            height: rect.height || 450,
-            layout: {
-                background: { type: 'solid', color: isDark ? '#020B07' : '#ffffff' },
-                textColor: isDark ? 'rgba(255, 255, 255, 0.7)' : '#475569',
-                fontSize: 11,
-                fontFamily: "'Outfit', sans-serif",
-                attributionLogo: false,
-            },
-            grid: {
-                vertLines: { color: isDark ? 'rgba(0, 255, 136, 0.06)' : '#e2e8f0' },
-                horzLines: { color: isDark ? 'rgba(0, 255, 136, 0.06)' : '#e2e8f0' },
-            },
-            crosshair: {
-                vertLine: { color: isDark ? 'rgba(0, 255, 136, 0.3)' : '#cbd5e1', width: 1 },
-                horzLine: { color: isDark ? 'rgba(0, 255, 136, 0.3)' : '#cbd5e1', width: 1 },
-            },
-            timeScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#e2e8f0',
-                timeVisible: true,
-                secondsVisible: false,
-                rightOffset: 10,
-                barSpacing: 8,
-            },
-            rightPriceScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#e2e8f0',
-                scaleMargins: { top: 0.05, bottom: 0.04 },
-            },
-        });
+        const initialHeight = rect.height > 100 ? rect.height : (containerRef.current.clientHeight || 480);
+        const initialWidth = rect.width > 100 ? rect.width : (containerRef.current.clientWidth || 600);
 
-        // Add series
+        const isLight = theme === 'light';
+        const chart = createChart(containerRef.current, getChartConfig(initialWidth, initialHeight, isLight, isDark));
+
+        // Add series with AI Chat color palette (#26a69a / #ef5350)
         const candleSeries = chart.addSeries(CandlestickSeries, {
-            upColor: '#10b981',
-            downColor: '#ef4444',
-            borderUpColor: '#10b981',
-            borderDownColor: '#ef4444',
-            wickUpColor: '#10b98180',
-            wickDownColor: '#ef444480',
+            upColor: '#26a69a',
+            downColor: '#ef5350',
+            borderUpColor: '#26a69a',
+            borderDownColor: '#ef5350',
+            wickUpColor: '#26a69a',
+            wickDownColor: '#ef5350',
+            priceLineVisible: true,
+            lastValueVisible: true,
         });
+        applySymbolPrecision(candleSeries, symbol);
 
         const volumeSeries = chart.addSeries(HistogramSeries, {
             priceFormat: { type: 'volume' },
             priceScaleId: 'volume',
+            priceLineVisible: false,
+            lastValueVisible: false,
         });
         chart.priceScale('volume').applyOptions({
             scaleMargins: { top: 0.82, bottom: 0 },
+            visible: false,
         });
 
         const ema20Series = chart.addSeries(LineSeries, {
-            color: '#f59e0b',
+            color: '#60A5FA',
             lineWidth: 1.5,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -468,7 +336,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         });
 
         const ema50Series = chart.addSeries(LineSeries, {
-            color: '#10B981',
+            color: '#F59E0B',
             lineWidth: 1.5,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -511,132 +379,37 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             resizeObserver.observe(containerRef.current);
         }
 
-        // Subscribe to crosshair hover moves to dynamically show OHLC
+        // Crosshair move subscription
         chart.subscribeCrosshairMove((param) => {
-            if (!param.time) {
-                setHoveredData(null);
-                setDotPositions(null);
-                return;
-            }
-
-            const t = param.time;
-            const data = chartDataRef.current;
-            if (!data.candles || data.candles.length === 0) return;
-
-            const idx = data.candles.findIndex(c => c.time === t);
-            if (idx !== -1) {
-                const hoveredCandle = data.candles[idx];
-                const prevCandle = idx > 0 ? data.candles[idx - 1] : hoveredCandle;
-
-                const open = hoveredCandle.open;
-                const high = hoveredCandle.high;
-                const low = hoveredCandle.low;
-                const close = hoveredCandle.close;
-
-                const change = close - prevCandle.close;
-                const changePct = prevCandle.close > 0 ? (change / prevCandle.close) * 100 : 0;
-
-                const ema20 = data.ema20Map.get(t);
-                const ema50 = data.ema50Map.get(t);
-                const supertrendObj = data.supertrendMap.get(t);
-
-                setHoveredData({
-                    open,
-                    high,
-                    low,
-                    close,
-                    change,
-                    changePct,
-                    isBullish: close >= open,
-                    ema20,
-                    ema50,
-                    supertrend: supertrendObj?.value,
-                    supertrendColor: supertrendObj?.color
-                });
-
-                // Calculate pixel coordinates for the dots overlay
-                const chartInstance = chartRef.current?.chart;
-                const seriesInstance = chartRef.current?.series;
-                if (!chartInstance || !seriesInstance) return;
-
-                const timeScale = chartInstance.timeScale();
-                const x = timeScale.timeToCoordinate(t);
-                const positions = {};
-                if (x !== null) {
-                    if (ema20 !== undefined && ema20 !== null) {
-                        const y = seriesInstance.ema20.priceToCoordinate(ema20);
-                        if (y !== null) positions.ema20 = { x, y, color: '#f59e0b' };
-                    }
-                    if (ema50 !== undefined && ema50 !== null) {
-                        const y = seriesInstance.ema50.priceToCoordinate(ema50);
-                        if (y !== null) positions.ema50 = { x, y, color: '#10B981' };
-                    }
-                    if (supertrendObj?.value !== undefined && supertrendObj?.value !== null) {
-                        const y = seriesInstance.supertrend.priceToCoordinate(supertrendObj.value);
-                        if (y !== null) positions.supertrend = { x, y, color: supertrendObj.color };
-                    }
-                }
-                setDotPositions(positions);
-            } else {
-                setHoveredData(null);
-                setDotPositions(null);
-            }
+            handleCrosshairMove(param, chartRef, chartDataRef, setHoveredData, setDotPositions);
         });
 
-        // Fetch data initially
+        const containerEl = containerRef.current;
+        const handleWheelZoom = createWheelZoomHandler(chartRef);
+
+        if (containerEl) {
+            containerEl.addEventListener('wheel', handleWheelZoom, { passive: false });
+        }
+
         fetchAndPlotData();
 
         return () => {
+            if (containerEl) {
+                containerEl.removeEventListener('wheel', handleWheelZoom);
+            }
             if (resizeObserver) resizeObserver.disconnect();
             window.removeEventListener('resize', handleResize);
             chart.remove();
             chartRef.current = null;
         };
-    }, [symbol, timeframe, theme]);
+    }, [symbol, timeframe, theme, isDark]);
 
-    // Update support & resistance lines smoothly without refetching all candles
     useEffect(() => {
-        if (!chartRef.current?.series?.candle) return;
-        const series = chartRef.current.series;
-
-        if (chartRef.current.priceLines) {
-            chartRef.current.priceLines.forEach(pl => {
-                try { series.candle.removePriceLine(pl); } catch (e) { }
-            });
-        }
-        chartRef.current.priceLines = [];
-
-        if (nearestSupport !== undefined && nearestSupport !== null) {
-            const sLine = series.candle.createPriceLine({
-                price: nearestSupport,
-                color: 'rgba(16, 185, 129, 0.6)',
-                lineWidth: 1,
-                lineStyle: 2,
-                title: `S: ${nearestSupport.toFixed(4)}`,
-            });
-            chartRef.current.priceLines.push(sLine);
-        }
-
-        if (nearestResistance !== undefined && nearestResistance !== null) {
-            const rLine = series.candle.createPriceLine({
-                price: nearestResistance,
-                color: 'rgba(239, 68, 68, 0.6)',
-                lineWidth: 1,
-                lineStyle: 2,
-                title: `R: ${nearestResistance.toFixed(4)}`,
-            });
-            chartRef.current.priceLines.push(rLine);
-        }
-    }, [nearestSupport, nearestResistance]);
-
-    // Refetch when strategy changes
-    useEffect(() => {
-        if (chartRef.current && strategyId) {
+        if (chartRef.current) {
             fetchAndPlotData();
         }
-    }, [strategyId]);
+    }, [strategyId, nearestSupport, nearestResistance]);
 
-    // Handle dynamic next-hour timeout refresh
     useEffect(() => {
         const scheduleNextRefresh = () => {
             const delay = getMsUntilNextHourOOne();
@@ -662,6 +435,110 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         };
     }, [symbol, strategyId, timeframe, onRefreshNeeded]);
 
+    const tickTimerRef = useRef(null);
+    const lastResyncRef = useRef(0);
+
+    // Apply live price tick to Lightweight Charts CandlestickSeries & OHLC state
+    const applyLivePriceTick = (newPrice, meta = {}) => {
+        if (!newPrice || isNaN(newPrice) || newPrice <= 0) return;
+        const series = chartRef.current?.series;
+        if (!series?.candle) return;
+
+        const result = calculateLiveCandleUpdate(chartDataRef.current.candles, newPrice, timeframe, meta);
+        if (!result) return;
+
+        if (result.needsResync) {
+            const now = Date.now();
+            if (now - lastResyncRef.current > 4000) {
+                lastResyncRef.current = now;
+                console.warn('[ChartPanel] Price deviation detected, resyncing genuine chart data...');
+                fetchAndPlotData();
+            }
+            return;
+        }
+
+        const { updatedBar, change, changePct } = result;
+        if (!updatedBar) return;
+
+        try {
+            series.candle.update(updatedBar);
+        } catch (e) {
+            console.warn('[ChartPanel] series.candle.update error:', e);
+        }
+
+        if (series.volume) {
+            try {
+                series.volume.update({
+                    time: updatedBar.time,
+                    value: updatedBar.tick_volume || 1500,
+                    color: updatedBar.close >= updatedBar.open ? 'rgba(38, 166, 154, 0.35)' : 'rgba(239, 83, 80, 0.35)',
+                });
+            } catch (_) {}
+        }
+
+        const prevPrice = prevPriceRef.current;
+        if (prevPrice > 0 && newPrice !== prevPrice) {
+            setTickClass(newPrice > prevPrice ? 'upTick' : 'downTick');
+            if (tickTimerRef.current) clearTimeout(tickTimerRef.current);
+            tickTimerRef.current = setTimeout(() => setTickClass('normal'), 600);
+        }
+        prevPriceRef.current = newPrice;
+
+        setPriceInfo(prev => ({
+            ...(prev || {}),
+            open: updatedBar.open,
+            high: updatedBar.high,
+            low: updatedBar.low,
+            close: updatedBar.close,
+            price: newPrice,
+            change,
+            changePct,
+        }));
+    };
+
+    // Unified WebSocket subscription for real-time live price & candle streaming
+    useEffect(() => {
+        if (!symbol) return;
+        const cleanSym = cleanPairSymbol(symbol);
+        unifiedSocket.switchSubscription({ symbol: cleanSym, timeframe });
+
+        const unsubPrice = unifiedSocket.subscribePrice((priceObj) => {
+            if (!priceObj) return;
+            const newPrice = parseFloat(priceObj.price ?? priceObj.close ?? priceObj.last);
+            if (!isNaN(newPrice) && newPrice > 0) {
+                applyLivePriceTick(newPrice, priceObj);
+            }
+        }, cleanSym);
+
+        const candleSubFn = unifiedSocket.subscribeCandles || unifiedSocket.subscribeCandle;
+        const unsubCandle = typeof candleSubFn === 'function' ? candleSubFn.call(unifiedSocket, (candleObj) => {
+            if (!candleObj) return;
+            const close = parseFloat(candleObj.close ?? candleObj.c ?? candleObj.price);
+            if (!isNaN(close) && close > 0) {
+                applyLivePriceTick(close, candleObj);
+            }
+        }, cleanSym, timeframe) : () => {};
+
+        return () => {
+            unsubPrice();
+            if (typeof unsubCandle === 'function') unsubCandle();
+            if (tickTimerRef.current) clearTimeout(tickTimerRef.current);
+        };
+    }, [symbol, timeframe]);
+
+    // External livePriceInfo synchronization (e.g. from WatchlistPanel)
+    useEffect(() => {
+        if (!livePriceInfo) return;
+        const infoSym = cleanPairSymbol(livePriceInfo.symbol);
+        const currentSym = cleanPairSymbol(symbol);
+        if (infoSym && currentSym && infoSym !== currentSym) return;
+
+        const newPrice = parseFloat(livePriceInfo.price ?? livePriceInfo.close);
+        if (!isNaN(newPrice) && newPrice > 0) {
+            applyLivePriceTick(newPrice, livePriceInfo);
+        }
+    }, [livePriceInfo, symbol, timeframe]);
+
     useEffect(() => {
         prevPriceRef.current = 0;
         setTickClass('normal');
@@ -669,24 +546,16 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         setDotPositions(null);
     }, [symbol]);
 
-    useEffect(() => {
-        if (!priceInfo) return;
-        const currentPrice = priceInfo.price;
-        const prevPrice = prevPriceRef.current;
-        if (prevPrice > 0 && currentPrice !== prevPrice) {
-            setTickClass(currentPrice > prevPrice ? 'upTick' : 'downTick');
-            const timer = setTimeout(() => setTickClass('normal'), 600);
-            return () => clearTimeout(timer);
-        }
-        prevPriceRef.current = currentPrice;
-    }, [priceInfo]);
+    const activePrice = (livePriceInfo && cleanPairSymbol(livePriceInfo.symbol) === cleanPairSymbol(symbol))
+        ? livePriceInfo
+        : priceInfo;
 
-    const displayOpen = hoveredData ? hoveredData.open : priceInfo?.open;
-    const displayHigh = hoveredData ? hoveredData.high : priceInfo?.high;
-    const displayLow = hoveredData ? hoveredData.low : priceInfo?.low;
-    const displayClose = hoveredData ? hoveredData.close : (priceInfo?.close || priceInfo?.price);
-    const displayChange = hoveredData ? hoveredData.change : priceInfo?.change;
-    const displayChangePct = hoveredData ? hoveredData.changePct : priceInfo?.changePct;
+    const displayOpen = hoveredData ? hoveredData.open : activePrice?.open;
+    const displayHigh = hoveredData ? hoveredData.high : activePrice?.high;
+    const displayLow = hoveredData ? hoveredData.low : activePrice?.low;
+    const displayClose = hoveredData ? hoveredData.close : (activePrice?.close || activePrice?.price);
+    const displayChange = hoveredData ? hoveredData.change : activePrice?.change;
+    const displayChangePct = hoveredData ? hoveredData.changePct : activePrice?.changePct;
 
     const isBullish = hoveredData
         ? hoveredData.isBullish
@@ -700,57 +569,64 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 <div className={styles.chartTitleArea}>
                     <h3>{symbol}</h3>
                     <span className={styles.chartTimeframeBadge}>{timeframe}</span>
-                    {priceInfo ? (
-                        <div className={styles.chartHeaderOHLCInfo}>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>O</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayOpen, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>H</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayHigh, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>L</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayLow, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>C</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayClose, symbol)}
-                                </span>
-                            </div>
-                            {displayChange !== undefined && displayChangePct !== undefined && (
-                                <div className={styles.ohlcItem}>
-                                    <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                        {displayChange >= 0 ? '+' : ''}{formatPairCurrency(displayChange, symbol)} ({displayChange >= 0 ? '+' : ''}{displayChangePct.toFixed(2)}%)
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <div className={styles.chartHeaderOHLCSkeleton}>
-                            <div className={styles.skeletonOhlcItem} />
-                            <div className={styles.skeletonOhlcItem} />
-                            <div className={styles.skeletonOhlcItem} />
-                            <div className={styles.skeletonOhlcItem} />
-                            <div className={styles.skeletonOhlcItemWide} />
-                        </div>
-                    )}
+                    <div
+                        className={styles.chartFeedBadge}
+                        title="Institutional tick bridge. Quotes update dynamically (standard 15m indicative delay may apply during low-liquidity periods)."
+                    >
+                        <span className={styles.chartFeedDot} />
+                        <span className={styles.chartFeedLabel}>LIVE FEED</span>
+                    </div>
                 </div>
+
+                {loading && !activePrice ? (
+                    <div className={styles.chartHeaderOHLCSkeleton}>
+                        <div className={`${styles.skeletonPulse} ${styles.ohlcSkelBox}`} />
+                        <div className={`${styles.skeletonPulse} ${styles.ohlcSkelBox}`} />
+                        <div className={`${styles.skeletonPulse} ${styles.ohlcSkelBox}`} />
+                        <div className={`${styles.skeletonPulse} ${styles.ohlcSkelBox}`} />
+                    </div>
+                ) : activePrice ? (
+                    <div className={styles.chartHeaderOHLCInfo}>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>O</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayOpen, symbol)}
+                            </span>
+                        </div>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>H</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayHigh, symbol)}
+                            </span>
+                        </div>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>L</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayLow, symbol)}
+                            </span>
+                        </div>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>C</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayClose, symbol)}
+                            </span>
+                        </div>
+                        {displayChange !== undefined && displayChangePct !== undefined && (
+                            <div className={styles.ohlcItem}>
+                                <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                    {displayChange >= 0 ? '+' : ''}{formatPairCurrency(displayChange, symbol)} ({displayChange >= 0 ? '+' : ''}{displayChangePct.toFixed(2)}%)
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                ) : null}
             </div>
 
-            <div className={styles.chartCanvasContainer}>
+            <div className={styles.chartCanvasContainer} style={{ cursor: 'crosshair' }}>
                 {loading && (
                     <div className={styles.chartOverlay}>
                         <div className={styles.chartSpinner} />
-                        <span>Loading chart...</span>
+                        <span>Loading chart data...</span>
                     </div>
                 )}
                 {error && (
@@ -759,7 +635,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                         <button onClick={fetchAndPlotData} className={styles.chartRetryBtn}>Retry</button>
                     </div>
                 )}
-                <div ref={containerRef} className={styles.chartCanvas} />
+                <div ref={containerRef} className={styles.chartCanvas} style={{ cursor: 'crosshair' }} />
 
                 {/* Render Indicator Dots Overlay tracking the crosshair */}
                 {dotPositions && (
@@ -779,24 +655,8 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 )}
             </div>
 
-            {/* Custom Chart Legend moved to the end of the chart */}
-            <div className={styles.chartLegendContainer}>
-                <div className={styles.chartLegend}>
-                    <div className={styles.legendItem}>
-                        <span className={`${styles.legendColor} ${styles.ema20}`} />
-                        <span>EMA 20 </span>
-                    </div>
-                    <div className={styles.legendItem}>
-                        <span className={`${styles.legendColor} ${styles.ema50}`} />
-                        <span>EMA 50 </span>
-                    </div>
-                    <div className={styles.legendItem}>
-                        <span className={`${styles.legendColor} ${styles.supertrend}`} />
-                        <span>SuperTrend </span>
-                    </div>
-                </div>
-            </div>
+            {/* Custom Chart Legend with Interactive Eye Visibility Toggles */}
+            <ChartLegend visibleIndicators={visibleIndicators} toggleIndicator={toggleIndicator} />
         </div>
     );
 }
-

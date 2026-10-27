@@ -1,0 +1,521 @@
+/* ============================================================
+   MY BOTS DASHBOARD & STRATEGY SUITE - BASE & SKELETON
+   ============================================================ */
+
+.container {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: 640px) {
+        width: 100%;
+    }
+}
+
+.refreshBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94A3B8;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.4);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+        color: #475569;
+
+        &:hover:not(:disabled) {
+            background: #E2E8F0;
+            color: #0F172A;
+        }
+    }
+}
+
+.spinIcon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.createBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
+    color: #04100A;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35);
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(24, 201, 139, 0.45);
+    }
+
+    @media (max-width: 640px) {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+    }
+}
+
+/* Loading Skeleton State */
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.statsSkeleton {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+}
+
+.skeletonBox {
+    height: 74px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    animation: pulseSkeleton 1.5s ease-in-out infinite;
+
+    :global(html.light) & {
+        background: #F1F5F9;
+        border-color: #E2E8F0;
+    }
+}
+
+.botsSkeletonGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+}
+
+.botCardSkeleton {
+    height: 220px;
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: #E2E8F0;
+    }
+}
+
+.skeletonLine {
+    height: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    animation: pulseSkeleton 1.5s ease-in-out infinite;
+
+    :global(html.light) & {
+        background: #E2E8F0;
+    }
+}
+
+@keyframes pulseSkeleton {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+}
+
+/* Empty State */
+.emptyStateSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.emptyStateHeader {
+    text-align: center;
+    max-width: 620px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emptyTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.4px;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+}
+
+.emptySubtitle {
+    font-size: 14px;
+    color: #94A3B8;
+    line-height: 1.5;
+    margin: 0;
+
+    :global(html.light) & {
+        color: #64748B;
+    }
+}
+
+/* Library Banner */
+.libraryBanner {
+    width: 100%;
+    max-width: 1320px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+}
+
+.libraryBannerContent {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    .bannerIconBox {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(24, 201, 139, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 0 0 2px 0;
+
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+
+    p {
+        font-size: 12px;
+        color: #94A3B8;
+        margin: 0;
+
+        :global(html.light) & {
+            color: #64748B;
+        }
+    }
+}
+
+.libraryLinkBtn {
+    background: transparent;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(24, 201, 139, 0.1);
+        border-color: #18C98B;
+    }
+}
+
+/* Dashboard Section (Active Bots / Strategies) */
+.dashboardSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.statsBar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.statBox {
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 768px) {
+        padding: 12px 10px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px 8px;
+    }
+}
+
+.statLabel {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94A3B8;
+    letter-spacing: 0.5px;
+    word-break: break-word;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        letter-spacing: 0.2px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 9px;
+    }
+}
+
+.statVal {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+    word-break: break-word;
+
+    :global(html.light) & {
+        color: #0F172A;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+    }
+}
+
+.activeColor {
+    color: #18C98B;
+}
+
+.posColor {
+    color: #10B981;
+}
+
+.negColor {
+    color: #EF4444;
+}
+
+.controlRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filterPills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filterPill {
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #94A3B8;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: #FFFFFF;
+    }
+
+    :global(html.light) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #F8FAFC;
+        border-color: rgba(0, 0, 0, 0.08);
+        color: #64748B;
+
+        &:hover {
+            color: #0F172A;
+            background: #F1F5F9;
+        }
+
+        &.activePill {
+            background: #059669;
+            border-color: #059669;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+    }
+}
+
+.activePill,
+.filterPill.activePill {
+    background: rgba(24, 201, 139, 0.12);
+    border-color: rgba(24, 201, 139, 0.3);
+    color: #18C98B;
+
+    :global(html.light) &,
+    :global([data-theme='light']) &,
+    [data-theme='light'] & {
+        background: #059669;
+        border-color: #059669;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+}
+
+.filterDivider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 0 4px;
+
+    :global(html.light) &,
+    [data-theme='light'] & {
+        background: rgba(0, 0, 0, 0.12);
+    }
+}
+
+.filterPill.activeAiPill {
+    background: rgba(168, 85, 247, 0.16);
+    border-color: rgba(168, 85, 247, 0.45);
+    color: #C084FC;
+    font-weight: 700;
+
+    :global(html.light) &,
+    [data-theme='light'] & {
+        background: rgba(147, 51, 234, 0.14);
+        border-color: rgba(147, 51, 234, 0.45);
+        color: #7E22CE;
+    }
+}
+
+.filterPill.activeManualPill {
+    background: rgba(245, 158, 11, 0.16);
+    border-color: rgba(245, 158, 11, 0.45);
+    color: #FBBF24;
+    font-weight: 700;
+
+    :global(html.light) &,
+    [data-theme='light'] & {
+        background: rgba(217, 119, 6, 0.14);
+        border-color: rgba(217, 119, 6, 0.45);
+        color: #B45309;
+    }
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0C100E;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 14px;
+    min-width: 300px;
+    color: #94A3B8;
+
+    @media (max-width: 640px) {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #FFFFFF;
+        font-size: 13px;
+        width: 100%;
+
+        &::placeholder {
+            color: #64748B;
+        }
+
+        :global(html.light) & {
+            color: #0F172A;
+        }
+    }
+
+    :global(html.light) & {
+        background: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+}

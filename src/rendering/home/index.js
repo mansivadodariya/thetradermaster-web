@@ -1,39 +1,43 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import styles from './home.module.scss'
 import Herobanner from './herobanner'
-import AnimatedSection from '@/components/animation/AnimatedSection'
+import Capabilities from './capabilities'
 
-// Dynamically import below-the-fold sections for faster initial page load & better LCP
-const SliderSection = dynamic(() => import('./sliderSection'))
-const TradersSection = dynamic(() => import('./tradersSection'))
-const TradingDesk = dynamic(() => import('./tradingDesk'))
-const WhyChooseUs = dynamic(() => import('./whyChooseUs'))
+// Dynamically split below-the-fold components for blazing fast initial page load
+const MetricsSection = dynamic(() => import('./metricsSection'))
+const AiCockpit = dynamic(() => import('./aiCockpit'))
+const AiAnalyst = dynamic(() => import('./aiAnalyst'))
+const BeforeAfterComparison = dynamic(() => import('./beforeAfterComparison'))
 const HowitWorks = dynamic(() => import('./howitWorks'))
-const TradeSetup = dynamic(() => import('./tradeSetup'))
-const EcosystemSection = dynamic(() => import('./ecosystemSection'))
-const ClientSection = dynamic(() => import('./clientSection'))
-const FaqSection = dynamic(() => import('./faqSection'))
-const NewsletterSection = dynamic(() => import('./newsletterSection'))
-const PlansSection = dynamic(() => import('./plansSection'))
-const ReadyTostart = dynamic(() => import('./readyTostart'))
+const MarketIntelligence = dynamic(() => import('./marketIntelligence'))
+const BreakoutDetection = dynamic(() => import('./breakoutDetection'))
+const TeamUp = dynamic(() => import('./teamUp'))
+const BrokersSection = dynamic(() => import('./brokersSection'))
+const GlobalNetworkMap = dynamic(() => import('./globalNetworkMap'))
+const Testimonials = dynamic(() => import('./testimonials'))
+const ReadytoPut = dynamic(() => import('./readytoPut'))
 
 export default function HomePage() {
     return (
-        <div>
+        <div className={styles.homeWrapper}>
             <Herobanner />
-            <AnimatedSection><SliderSection /></AnimatedSection>
-            {/* <StatsSection /> */}
-            <AnimatedSection><TradersSection /></AnimatedSection>
-            <AnimatedSection><TradingDesk /></AnimatedSection>
-            <AnimatedSection><WhyChooseUs /></AnimatedSection>
-            <AnimatedSection><HowitWorks /></AnimatedSection>
-            <AnimatedSection><TradeSetup /></AnimatedSection>
-            <AnimatedSection><EcosystemSection /></AnimatedSection>
-            <AnimatedSection><ClientSection /></AnimatedSection>
-            <AnimatedSection><FaqSection /></AnimatedSection>
-            <AnimatedSection><NewsletterSection /></AnimatedSection>
-            <AnimatedSection><PlansSection /></AnimatedSection>
-            <AnimatedSection><ReadyTostart /></AnimatedSection>
-        </div>
+            <div className={styles.contentSections}>
+                <Capabilities />
+                <MetricsSection />
+                <AiCockpit isHero={false} showHeader={true} />
+                <AiAnalyst />
+                <BrokersSection />
+                <BeforeAfterComparison />
+                <HowitWorks />
+                <MarketIntelligence />
+                <BreakoutDetection />
+                <TeamUp />
+                <GlobalNetworkMap />
+                <Testimonials />
+                <ReadytoPut />
+            </div>
+        </div>  
     )
 }
+

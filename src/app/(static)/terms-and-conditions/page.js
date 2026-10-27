@@ -1,53 +1,56 @@
-import TermsAndConditions from "@/rendering/termsAndConditions";
-import React from "react";
+import TermsAndConditions from '@/rendering/termsAndConditions';
 
 export const metadata = {
-  title: "Terms & Conditions | Trader Master",
-  description:
-    "Read Trader Master's terms of service, platform usage conditions, subscription billing rules, and financial disclaimers.",
-  alternates: {
-    canonical: "/terms-and-conditions",
-  },
-  openGraph: {
-    title: "Terms & Conditions | Trader Master",
-    description:
-      "Read Trader Master's terms of service, platform usage conditions, subscription billing rules, and financial disclaimers.",
-    url: "https://thetradermaster.com/terms-and-conditions",
-    siteName: "Trader Master",
-    images: [
-      {
-        url: "/assets/images/new-hero-banner.png",
-        width: 1200,
-        height: 630,
-        alt: "Trader Master Terms & Conditions",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Terms & Conditions | Trader Master",
-    description:
-      "Read Trader Master's terms of service, platform usage conditions, subscription billing rules, and financial disclaimers.",
-    images: ["/assets/images/new-hero-banner.png"],
-  },
+    title: 'Terms and Conditions',
+    description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+    alternates: {
+        canonical: 'https://chronosx.com/terms-and-conditions',
+    },
+    openGraph: {
+        title: 'Terms and Conditions | ChronosX',
+        description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+        url: 'https://chronosx.com/terms-and-conditions',
+        siteName: 'ChronosX',
+        images: [
+            {
+                url: '/assets/logo/logo.png',
+                width: 1200,
+                height: 630,
+                alt: 'ChronosX Terms and Conditions',
+            },
+        ],
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Terms and Conditions | ChronosX',
+        description: 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+        images: ['/assets/logo/logo.png'],
+    },
 };
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Terms and Conditions - Trader Master",
-  "url": "https://thetradermaster.com/terms-and-conditions"
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    'name': 'ChronosX Terms and Conditions',
+    'url': 'https://chronosx.com/terms-and-conditions',
+    'description': 'Read the terms and conditions governing your use of the ChronosX AI trading platform.',
+    'publisher': {
+        '@type': 'Organization',
+        'name': 'ChronosX',
+        'url': 'https://chronosx.com'
+    }
 };
 
-export default function page() {
-  return (
-    <div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <TermsAndConditions />
-    </div>
-  );
+export default function Page() {
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <TermsAndConditions />
+        </>
+    );
 }

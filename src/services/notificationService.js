@@ -1,10 +1,20 @@
 import { notificationsApi } from '@/lib/api';
+import { getVisibleTabNamesSync, checkPermissionInSet } from '@/lib/useTabPermission';
+
+function isNotificationFeatureEnabled() {
+    const tabs = getVisibleTabNamesSync();
+    if (!tabs) return true;
+    return checkPermissionInSet(tabs, 'notifications');
+}
 
 /**
  * 1. Fetch Website Updates Only (Announcements & Feature Releases)
  * Calls Backend API: GET /api/v1/notifications?category=website_updates
  */
 export async function fetchWebsiteUpdates(page = 1, limit = 20) {
+    if (!isNotificationFeatureEnabled()) {
+        return { data: [], total: 0 };
+    }
     try {
         const res = await notificationsApi.getWebsiteUpdates({ page, limit });
         const rawList = res?.data?.notifications || res?.data?.items || res?.data || res?.notifications || [];
@@ -21,6 +31,9 @@ export async function fetchWebsiteUpdates(page = 1, limit = 20) {
  * Calls Backend API: GET /api/v1/notifications
  */
 export async function fetchUserNotifications(userId, { page = 1, limit = 20, category = null, readStatus = null } = {}) {
+    if (!isNotificationFeatureEnabled()) {
+        return { data: [], total: 0 };
+    }
     try {
         const res = await notificationsApi.getNotifications({ page, limit, category, readStatus });
         const rawList = res?.data?.notifications || res?.data?.items || res?.data || res?.notifications || [];
@@ -63,6 +76,9 @@ export async function fetchUserNotifications(userId, { page = 1, limit = 20, cat
  * Calls Backend API: GET /api/v1/notifications/unread-count
  */
 export async function getUnreadCount(userId) {
+    if (!isNotificationFeatureEnabled()) {
+        return 0;
+    }
     try {
         const res = await notificationsApi.getUnreadCount();
         const count = res?.data?.unread_count ?? res?.data?.count ?? res?.unread_count ?? res?.count;
@@ -113,16 +129,30 @@ const SUPPORTED_LOCALES = ['en', 'ar', 'ary', 'es', 'ru', 'zh', 'vi', 'id', 'fil
 
 const PROTECTED_PREFIXES = [
     '/dashboard',
-    '/trade-snap',
-    '/ai-chart-scanner',
-    '/ai-assistant',
-    '/ai-trade-analysis',
-    '/ai-strategy',
+    '/chart-scanner',
+    '/trade-advisor',
+    '/trade-audit',
+    '/market-assistant',
+    '/signal-terminal',
+    '/live-scanner',
+    '/strategy-core',
+    '/trading-signal',
+    '/ai-trading-signal',
+    '/strategy-signal',
+    '/predefined-strategies',
+    '/strategy-hub',
+    '/my-bots',
+    '/ai-bot-builder',
+    '/manual-bot-builder',
+    '/bot-library',
+    '/browse-bots',
+    '/calendar',
+    '/calculator',
+    '/news',
+    '/tools',
+    '/credit-history',
     '/broker',
     '/brokers',
-    '/economic-calendar',
-    '/plans',
-    '/customer-support',
     '/profile',
     '/settings',
     '/onboarding',
@@ -132,21 +162,38 @@ const PROTECTED_PREFIXES = [
 const VALID_APP_ROUTES = new Set([
     '/',
     '/dashboard',
-    '/trade-snap',
-    '/ai-chart-scanner',
-    '/ai-assistant',
-    '/ai-trade-analysis',
-    '/ai-strategy',
-    '/ai-strategy/watchlist',
-    '/ai-strategy/strategy',
+    '/chart-scanner',
+    '/live-scanner',
+    '/signal-terminal',
+    '/trade-advisor',
+    '/trade-audit',
+    '/market-assistant',
+    '/strategy-core',
+    '/trading-signal',
+    '/ai-trading-signal',
+    '/strategy-signal',
+    '/predefined-strategies',
+    '/strategy-hub',
+    '/my-bots',
+    '/ai-bot-builder',
+    '/manual-bot-builder',
+    '/bot-builder',
+    '/bot-library',
+    '/browse-bots',
+    '/calendar',
+    '/calculator',
+    '/news',
+    '/credit-history',
     '/broker',
     '/brokers',
-    '/economic-calendar',
-    '/plans',
-    '/customer-support',
-    '/support',
     '/profile',
     '/settings',
+    '/subscription-plans',
+    '/affiliate',
+    '/backtest',
+    '/strategy-studio',
+    '/pricing',
+    '/plans',
     '/about-us',
     '/contact-us',
     '/terms-and-conditions',
@@ -200,14 +247,11 @@ function stripLocalePrefix(path) {
 
 export function getLocalizedHref(href, lang) {
     if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//')) return href;
-
-    // This app does not use locale-prefixed routes like /en/dashboard.
-    // Internal routes are mounted directly at the root (for example /dashboard),
-    // so prepending a locale segment causes the 404 seen in the notification click flow.
     const [pathname, search] = href.split('?');
-    const cleanPath = stripLocalePrefix(pathname);
-    const normalized = cleanPath === '/' ? '/' : cleanPath;
-    return search ? `${normalized}?${search}` : normalized;
+    const clean = stripLocalePrefix(pathname);
+    const currentLang = lang || 'en';
+    const localizedPath = clean === '/' ? `/${currentLang}` : `/${currentLang}${clean}`;
+    return search ? `${localizedPath}?${search}` : localizedPath;
 }
 
 export function isProtectedRoute(path) {
@@ -243,15 +287,18 @@ export function getNotificationRedirectUrl(notification) {
 
     // 3. Fallback based on category or event_type
     const cat = String(notification.category || notification.event_type || '').toLowerCase().trim();
-    if (cat === 'trade_signals' || cat === 'trade_signal' || cat === 'chart_scanner' || cat === 'scanner') return '/trade-snap';
-    if (cat === 'ai_strategy' || cat === 'strategy') return '/ai-strategy';
-    if (cat === 'ai_assistant' || cat === 'chat' || cat === 'market_assistant') return '/ai-assistant';
-    if (cat === 'past_trade' || cat === 'trade_analysis' || cat === 'trade_audit' || cat === 'trade_advisor') return '/ai-trade-analysis';
-    if (cat === 'brokers' || cat === 'associated_brokers' || cat === 'broker') return '/broker';
-    if (cat === 'plans' || cat === 'subscription_plans') return '/plans';
-    if (cat === 'support' || cat === 'customer_support') return '/customer-support';
+    if (cat === 'trade_signals' || cat === 'trade_signal') return '/trading-signal';
+    if (cat === 'ai_strategy' || cat === 'strategy') return '/my-bots';
+    if (cat === 'chart_scanner' || cat === 'scanner') return '/chart-scanner';
+    if (cat === 'live_scanner') return '/live-scanner';
+    if (cat === 'trade_advisor' || cat === 'trade_audit') return '/trade-advisor';
+    if (cat === 'market_assistant') return '/market-assistant';
+    if (cat === 'brokers' || cat === 'associated_brokers') return '/brokers';
+    if (cat === 'plans' || cat === 'subscription_plans') return '/subscription-plans';
+    if (cat === 'affiliate' || cat === 'affiliate_program') return '/affiliate';
     if (cat === 'profile' || cat === 'settings') return '/profile';
-    if (cat === 'tools' || cat === 'economic_calendar') return '/economic-calendar';
+    if (cat === 'tools' || cat === 'economic_calendar') return '/calendar';
+    if (cat === 'forex_calculator') return '/calculator';
 
     return '/dashboard';
 }

@@ -1,80 +1,40 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   compress: true,
-  poweredByHeader: false,
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 31536000,
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  httpAgentOptions: {
+    keepAlive: false,
   },
-  experimental: {
-    optimizePackageImports: [
-      'framer-motion',
-      'swiper',
-      '@supabase/supabase-js',
-      'firebase',
-      'react-markdown',
-      'rehype-raw',
-      'remark-gfm',
-      'lightweight-charts',
-      'apexcharts',
-      'technicalindicators',
-      'react-phone-number-input',
-    ],
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api', 'import'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'src')],
+  experimental: {
+    optimizePackageImports: [
+      'framer-motion',
+      'lightweight-charts',
+      'react-apexcharts',
+      'apexcharts',
+      'technicalindicators',
+      '@supabase/supabase-js',
+      'react-phone-number-input',
+    ],
   },
-  async headers() {
-    return [
-      {
-        source: '/assets/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/_next/image/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
+  images: {
+    formats: ['image/avif', 'image/webp'],
   },
   async rewrites() {
+    const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || 'https://thirsty-spoiler-cartel.ngrok-free.dev').replace(/\/+$/, '');
     return [
       {
         source: '/api/v1/chart/:path*',
-        destination: 'https://thirsty-spoiler-cartel.ngrok-free.dev/api/v1/chart/:path*',
+        destination: `${backendUrl}/api/v1/chart/:path`,
       },
     ];
   },
 };
 
 export default nextConfig;
+

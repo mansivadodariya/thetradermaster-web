@@ -29,7 +29,7 @@ export default function StudioComposerCard({
     const baseInputRef = useRef('');
     const [isExpanded, setIsExpanded] = useState(() => Boolean(input && input.trim()));
 
-    const { isListening, toggleListening } = useSpeechToText({
+    const { isListening, toggleListening, stopListening } = useSpeechToText({
         onStart: () => {
             setIsExpanded(true);
             baseInputRef.current = input ? `${input.trim()} ` : '';
@@ -37,31 +37,40 @@ export default function StudioComposerCard({
                 textareaRef.current.focus();
             }
         },
-        onResult: (transcript) => {
-            const nextText = `${baseInputRef.current}${transcript}`.slice(0, 500);
+        onResult: (spokenText) => {
+            if (typeof spokenText !== 'string') return;
+            const nextText = `${baseInputRef.current}${spokenText}`.slice(0, 500);
             setInput(nextText);
+            if (textareaRef?.current) {
+                textareaRef.current.value = nextText;
+                textareaRef.current.style.height = 'auto';
+                const scrollH = textareaRef.current.scrollHeight;
+                const newHeight = Math.min(Math.max(scrollH, 44), 115);
+                textareaRef.current.style.height = `${newHeight}px`;
+            }
         }
     });
 
     const handleVoiceClick = (e) => {
         if (e && e.stopPropagation) e.stopPropagation();
+        baseInputRef.current = input ? `${input.trim()} ` : '';
         if (!isExpanded) {
             handleExpand();
         }
         toggleListening();
     };
 
-    // Keep expanded if user has written text, collapse when reset
+    // Keep expanded if user has written text, collapse when reset unless actively listening
     useEffect(() => {
         if (input && input.trim()) {
             if (!isExpanded) setIsExpanded(true);
-        } else {
+        } else if (!isListening) {
             setIsExpanded(false);
             if (textareaRef.current) {
                 textareaRef.current.style.height = 'auto';
             }
         }
-    }, [input]);
+    }, [input, isListening]);
 
     // Auto-grow input up to 4-5 lines (~115px), then scroll
     useEffect(() => {
@@ -88,13 +97,13 @@ export default function StudioComposerCard({
 
     const handleCollapse = (e) => {
         if (e) e.stopPropagation();
-        if (isListening) toggleListening();
+        if (isListening) stopListening();
         setIsExpanded(false);
     };
 
     const handleSendAction = () => {
         if (loading || !input.trim()) return;
-        if (isListening) toggleListening();
+        if (isListening) stopListening();
         onSend(input);
         setIsExpanded(false);
         if (textareaRef.current) {

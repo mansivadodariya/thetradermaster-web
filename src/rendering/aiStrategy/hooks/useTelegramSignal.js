@@ -9,11 +9,13 @@ import {
     disconnectTelegram,
 } from '@/services/telegramSignalService';
 
+import { supabase } from '@/lib/supabaseClient';
+
 /**
  * useTelegramSignal
  *
  * Central hook that manages:
- *  - Global Telegram bot config (enabled, bot_username)
+ *  - Global Telegram bot config (enabled, bot_username, dynamic channel_url)
  *  - User connection status + subscribed symbols
  *  - Per-symbol toggle action (with auto-open-modal when not connected)
  *  - Connect modal state (deep_link, OTP, polling while waiting for bot /start)
@@ -52,9 +54,40 @@ export function useTelegramSignal() {
     // Polling interval ref (used while modal is open)
     const pollRef = useRef(null);
 
-    // ── Load config once ──────────────────────────────────────────────────────
+    // ── Load dynamic config and listen to Supabase updates ────────────────────
     useEffect(() => {
-        fetchTelegramConfig().then(setConfig);
+        let isMounted = true;
+        const loadConfig = async () => {
+            const cfg = await fetchTelegramConfig();
+            if (isMounted && cfg) {
+                setConfig(cfg);
+            }
+        };
+
+        loadConfig();
+
+        let channel = null;
+        if (supabase) {
+            try {
+                channel = supabase
+                    .channel('public:notify_me_telegram_config')
+                    .on(
+                        'postgres_changes',
+                        { event: '*', schema: 'public', table: 'social_links' },
+                        () => {
+                            loadConfig();
+                        }
+                    )
+                    .subscribe();
+            } catch (_) {}
+        }
+
+        return () => {
+            isMounted = false;
+            if (channel && supabase) {
+                supabase.removeChannel(channel);
+            }
+        };
     }, []);
 
     // ── Load status on mount ──────────────────────────────────────────────────

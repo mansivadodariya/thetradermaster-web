@@ -469,19 +469,47 @@ export const tradeSnapApi = {
 };
 
 export const neweraApi = {
-    linkAccount: async (user_id, email) => {
+    linkAccount: async (user_id, email, brokerName = 'tickmill') => {
         const cleanEmail = String(email || '').trim().toLowerCase();
-        const res = await request('/newera/credit', {
-            method: 'POST',
-            headers: getAuthHeaders(),
-            body: JSON.stringify({ email: cleanEmail }),
-        });
+        const cleanBrokerName = String(brokerName || 'tickmill')
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '');
 
-        return {
-            success: true,
-            message: res?.message || 'Newera account linked successfully!',
-            data: res?.data || res || {}
+        const payload = {
+            email: cleanEmail,
+            broker_name: cleanBrokerName || 'tickmill',
         };
+
+        try {
+            const res = await request('/broker/link-account', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify(payload),
+            });
+
+            return {
+                success: true,
+                message: res?.message || `${cleanBrokerName} account linked successfully!`,
+                data: res?.data || res || {}
+            };
+        } catch (error) {
+            if (error?.status === 404 || error?.status === 405) {
+                const legacyRes = await request('/newera/credit', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ email: cleanEmail, broker_name: cleanBrokerName || 'tickmill' }),
+                });
+
+                return {
+                    success: true,
+                    message: legacyRes?.message || `${cleanBrokerName} account linked successfully!`,
+                    data: legacyRes?.data || legacyRes || {}
+                };
+            }
+            throw error;
+        }
     }
 };
 

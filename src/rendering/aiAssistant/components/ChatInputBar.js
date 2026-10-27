@@ -42,21 +42,31 @@ export default function ChatInputBar({
 }) {
     const baseInputRef = useRef('');
 
-    const { isListening, toggleListening } = useSpeechToText({
+    const { isListening, toggleListening, stopListening } = useSpeechToText({
         onStart: () => {
-            baseInputRef.current = chatInput ? `${chatInput} ` : '';
+            baseInputRef.current = chatInput ? `${chatInput.trim()} ` : '';
             if (textareaRef?.current) {
                 textareaRef.current.focus();
             }
         },
-        onResult: (transcript, isFinal) => {
-            const nextText = `${baseInputRef.current}${transcript}`;
-            setChatInput(nextText);
-            if (isFinal) {
-                baseInputRef.current = `${nextText} `;
+        onResult: (spokenText) => {
+            if (typeof spokenText !== 'string') return;
+            const combined = `${baseInputRef.current}${spokenText}`.slice(0, 500);
+            setChatInput(combined);
+            if (textareaRef?.current) {
+                textareaRef.current.value = combined;
+                textareaRef.current.style.height = 'auto';
+                const scrollH = textareaRef.current.scrollHeight;
+                const newHeight = Math.min(Math.max(scrollH, 44), 115);
+                textareaRef.current.style.height = `${newHeight}px`;
             }
         }
     });
+
+    const handleVoiceClick = () => {
+        baseInputRef.current = chatInput ? `${chatInput.trim()} ` : '';
+        toggleListening();
+    };
 
     // Auto-grow input up to 4-5 lines (~115px), then scroll
     useEffect(() => {
@@ -112,6 +122,7 @@ export default function ChatInputBar({
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
+                        if (isListening) stopListening();
                         handleSendChatMessage();
                     }
                 }}
@@ -281,7 +292,7 @@ export default function ChatInputBar({
                     <button
                         type="button"
                         className={`${styles.voiceBtn} ${isListening ? styles.voiceBtnActive : ''}`}
-                        onClick={toggleListening}
+                        onClick={handleVoiceClick}
                         title={
                             isListening
                                 ? t('aiAssistant.stopListening', 'Listening... Click to stop')
@@ -310,7 +321,10 @@ export default function ChatInputBar({
                     {/* Send / Queue trigger */}
                     <button
                         className={`${styles.sendBtn} ${pendingRequest ? styles.sendBtnQueue : ''}`}
-                        onClick={handleSendChatMessage}
+                        onClick={() => {
+                            if (isListening) stopListening();
+                            handleSendChatMessage();
+                        }}
                         disabled={!chatInput.trim() && !attachmentDraft && !activeAnalysisMode}
                         title={pendingRequest ? t('aiAssistant.addToQueue', 'Queue message (will send after response)') : t('aiAssistant.send', 'Send message')}
                     >

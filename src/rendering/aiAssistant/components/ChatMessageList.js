@@ -14,6 +14,9 @@ import { WarningIcon, ChatIcon, AnalyticsIcon, DownloadIcon } from '@/icons/visi
 import { formatTechnicalProse, isTechnicalJsonPayload } from '@/utils/formatTechnicalProse';
 import { exportAssistantMessageToPdf } from '../utils/exportAssistantPdf';
 import { InteractiveErrorBubble, InteractiveErrorModal, categorizeChatError } from '@/components/interactiveError';
+import { TranslateResponseButton, TRANSLATE_OPTIONS } from '@/components/translateButton';
+import { useLanguage } from '@/context/LanguageContext';
+import { translateResponseText } from '@/lib/translateService';
 import styles from '../aiAssistant.module.scss';
 
 const getAnalyzingPhrases = (t) => [
@@ -40,8 +43,64 @@ const ChatMessageList = React.memo(function ChatMessageList({
     handleRetryMessage
 }) {
     const [selectedModalError, setSelectedModalError] = React.useState(null);
+    const [messageTranslations, setMessageTranslations] = React.useState({});
     const [phraseIndex, setPhraseIndex] = React.useState(0);
     const analyzingPhrases = React.useMemo(() => getAnalyzingPhrases(t), [t]);
+    const { language: appLanguage } = useLanguage();
+    const pendingAutoTranslationsRef = React.useRef(new Set());
+
+    const handleMessageTranslated = React.useCallback((key, text, lang, isTranslated, userReverted = false) => {
+        setMessageTranslations((prev) => ({
+            ...prev,
+            [key]: { text, lang, isTranslated, userReverted, targetLang: lang }
+        }));
+    }, []);
+
+    // Auto-translate assistant messages to active site language (e.g. Russian, Arabic, Spanish)
+    React.useEffect(() => {
+        if (!appLanguage || appLanguage === 'en') return;
+
+        chatMessages.forEach((msg, idx) => {
+            if (msg.role === 'user' || msg.role === 'error' || msg.isError) return;
+            if (msg.isNewlyGenerated || msg.isStreaming) return;
+
+            const key = msg.id || `msg_${idx}`;
+            const existing = messageTranslations[key];
+
+            // If user explicitly chose to revert/view English for this language, respect their choice
+            if (existing?.userReverted && existing?.targetLang === appLanguage) {
+                return;
+            }
+
+            // Already translated to this language
+            if (existing?.isTranslated && existing?.lang === appLanguage) {
+                return;
+            }
+
+            if (pendingAutoTranslationsRef.current.has(key)) {
+                return;
+            }
+
+            const parsed = parseChatMessage(msg.content, msg.fullReport);
+            const contentText = msg.display_text || msg.technical_prose || parsed.contentText || (typeof msg.content === 'string' ? msg.content : '');
+            const textToTranslate = msg.fullReport || contentText;
+
+            if (!textToTranslate || typeof textToTranslate !== 'string' || !textToTranslate.trim()) return;
+
+            pendingAutoTranslationsRef.current.add(key);
+
+            translateResponseText(textToTranslate, appLanguage)
+                .then((translated) => {
+                    handleMessageTranslated(key, translated, appLanguage, true, false);
+                })
+                .catch((err) => {
+                    console.warn(`[AutoTranslate] Error for message ${key}:`, err);
+                })
+                .finally(() => {
+                    pendingAutoTranslationsRef.current.delete(key);
+                });
+        });
+    }, [chatMessages, appLanguage, messageTranslations, handleMessageTranslated]);
 
     React.useEffect(() => {
         if (!pendingRequest) {
@@ -182,18 +241,24 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                     );
 
                                     if (sections && isVisionAnalysis) {
+                                        const originalVisionText = contentText || sections.overall_summary || '';
+                                        const visionTranslation = messageTranslations[msg.id || `msg_${index}`];
+                                        const displayVisionText = visionTranslation?.isTranslated && visionTranslation.text
+                                            ? visionTranslation.text
+                                            : (contentText || sections.overall_summary);
+
                                         return (
                                             <>
                                                 <VisionAnalysisAccordions
                                                     data={sections}
                                                     chartSections={sections}
-                                                    textSummary={contentText || sections.overall_summary}
+                                                    textSummary={displayVisionText}
                                                     imageWarning={msg.image_warning}
                                                     disclaimerHeader={disclaimerHeader}
                                                     disclaimerFooter={disclaimerFooter}
                                                 />
-                                                {/* DOWNLOAD OPTION FOR VISION ANALYSIS */}
-                                                <div className={styles.downloadReportRow} style={{ marginTop: 10 }}>
+                                                {/* DOWNLOAD & TRANSLATE OPTION FOR VISION ANALYSIS */}
+                                                <div className={styles.downloadReportRow} style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                                                     <button
                                                         type="button"
                                                         onClick={(e) => exportAssistantMessageToPdf(enrichedMsg, selectedPair, e.currentTarget.closest('.' + styles.chatMessageBubble) || e.currentTarget.closest('.' + styles.analysisCenterCard))}
@@ -203,15 +268,35 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                         <DownloadIcon size={14} />
                                                         <span style={{ color: '#FFFFFF' }}>Download Full Report (PDF)</span>
                                                     </button>
+                                                    <TranslateResponseButton
+                                                        originalText={originalVisionText}
+                                                        isTranslated={visionTranslation?.isTranslated}
+                                                        activeLang={visionTranslation?.lang}
+                                                        onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
+                                                            handleMessageTranslated(msg.id || `msg_${index}`, translatedText, langCode, isTranslated, userReverted);
+                                                        }}
+                                                    />
                                                 </div>
                                             </>
                                         );
                                     }
 
-                                    const displayContent = contentText || (typeof msg.content === 'string' && msg.content.trim().startsWith('{') ? formatTechnicalProse(msg.content, msg.detected_pair || selectedPair) : (msg.content || ''));
+                                    const baseDisplayContent = contentText || (typeof msg.content === 'string' && msg.content.trim().startsWith('{') ? formatTechnicalProse(msg.content, msg.detected_pair || selectedPair) : (msg.content || ''));
+                                    const currentMsgKey = msg.id || `msg_${index}`;
+                                    const currentTranslation = messageTranslations[currentMsgKey];
+
+                                    const displayContent = currentTranslation?.isTranslated && currentTranslation.text
+                                        ? currentTranslation.text
+                                        : baseDisplayContent;
+
+                                    const deepAnalysisReport = currentTranslation?.isTranslated && currentTranslation.text
+                                        ? currentTranslation.text
+                                        : msg.fullReport;
+
+                                    const isCurrentRTL = currentTranslation?.isTranslated && (currentTranslation.lang === 'ar' || currentTranslation.lang === 'ary');
 
                                     return (
-                                        <>
+                                        <div dir={isCurrentRTL ? 'rtl' : undefined} style={isCurrentRTL ? { textAlign: 'right' } : undefined}>
                                             {/* 1. Disclaimer Banner if present on plain message */}
                                             {disclaimerHeader && (
                                                 <div className={styles.visionWarningCard} style={{ marginBottom: 12 }}>
@@ -239,15 +324,15 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                         </div>
 
                                                         <RenderMarkdownWithWidgets
-                                                            content={msg.fullReport}
+                                                            content={deepAnalysisReport}
                                                             visualData={msg.visualData}
                                                             defaultSymbol={msg.detected_pair || selectedPair}
                                                             isStreaming={Boolean(msg.isNewlyGenerated)}
                                                             onComplete={() => { msg.isNewlyGenerated = false; }}
                                                         />
 
-                                                        {/* DOWNLOAD REPORT BUTTON */}
-                                                        <div className={styles.downloadReportRow}>
+                                                        {/* DOWNLOAD & TRANSLATE REPORT BUTTONS */}
+                                                        <div className={styles.downloadReportRow} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                                                             <button
                                                                 type="button"
                                                                 onClick={(e) => exportAssistantMessageToPdf(enrichedMsg, selectedPair, e.currentTarget.closest('.' + styles.chatMessageBubble) || e.currentTarget.closest('.' + styles.analysisCenterCard))}
@@ -257,6 +342,14 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                                 <DownloadIcon size={15} />
                                                                 <span style={{ color: '#FFFFFF' }}>{t ? t('aiAssistant.downloadFullReportPdf', 'Download Full Report (PDF)') : 'Download Full Report (PDF)'}</span>
                                                             </button>
+                                                            <TranslateResponseButton
+                                                                originalText={msg.fullReport}
+                                                                isTranslated={currentTranslation?.isTranslated}
+                                                                activeLang={currentTranslation?.lang}
+                                                                onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
+                                                                    handleMessageTranslated(currentMsgKey, translatedText, langCode, isTranslated, userReverted);
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -269,18 +362,26 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                         isStreaming={Boolean(msg.isNewlyGenerated)}
                                                         onComplete={() => { msg.isNewlyGenerated = false; }}
                                                     />
-                                                    {/* DOWNLOAD OPTION FOR STANDARD CHAT RESPONSES */}
+                                                    {/* DOWNLOAD & TRANSLATE OPTIONS FOR STANDARD CHAT RESPONSES */}
                                                     {displayContent && (
-                                                        <div className={styles.downloadReportRow} style={{ marginTop: 8 }}>
+                                                        <div className={styles.downloadReportRow} style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                                                             <button
                                                                 type="button"
                                                                 onClick={(e) => exportAssistantMessageToPdf(enrichedMsg, selectedPair, e.currentTarget.closest('.' + styles.chatMessageBubble) || e.currentTarget.closest('.' + styles.analysisCenterCard))}
                                                                 className={styles.downloadFullReportBtn}
-                                                                style={{ padding: '6px 12px', fontSize: '11.5px', color: '#FFFFFF' }}
+                                                                style={{ color: '#FFFFFF' }}
                                                             >
                                                                 <DownloadIcon size={13} />
                                                                 <span style={{ color: '#FFFFFF' }}>{t ? t('aiAssistant.downloadReportPdf', 'Download Report (PDF)') : 'Download Report (PDF)'}</span>
                                                             </button>
+                                                            <TranslateResponseButton
+                                                                originalText={baseDisplayContent}
+                                                                isTranslated={currentTranslation?.isTranslated}
+                                                                activeLang={currentTranslation?.lang}
+                                                                onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
+                                                                    handleMessageTranslated(currentMsgKey, translatedText, langCode, isTranslated, userReverted);
+                                                                }}
+                                                            />
                                                         </div>
                                                     )}
                                                 </>
@@ -300,7 +401,7 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                             {msg.response_format === "interactive_clarification" && (
                                                 <ClarificationOptionButtons onSelect={handleOptionClick} />
                                             )}
-                                        </>
+                                        </div>
                                     );
                                 })()}
 

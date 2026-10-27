@@ -69,8 +69,13 @@ export default function BackToTop() {
     const handleScroll = useCallback(() => {
         if (typeof window === 'undefined') return;
 
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const childrenWrapper = document.querySelector('.children-wrapper');
+        const childrenScrollTop = childrenWrapper ? childrenWrapper.scrollTop : 0;
+        const windowScrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const scrollTop = Math.max(windowScrollTop, childrenScrollTop);
+
+        const scrollHeight = (document.documentElement.scrollHeight - document.documentElement.clientHeight) ||
+            (childrenWrapper ? childrenWrapper.scrollHeight - childrenWrapper.clientHeight : 0);
 
         if (scrollHeight > 0 && circleRef.current) {
             const progress = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
@@ -96,7 +101,19 @@ export default function BackToTop() {
 
         handleScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
+        document.addEventListener('scroll', onScroll, { passive: true });
+        const childrenWrapper = document.querySelector('.children-wrapper');
+        if (childrenWrapper) {
+            childrenWrapper.addEventListener('scroll', onScroll, { passive: true });
+        }
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            document.removeEventListener('scroll', onScroll);
+            if (childrenWrapper) {
+                childrenWrapper.removeEventListener('scroll', onScroll);
+            }
+        };
     }, [handleScroll]);
 
     const [isNotifPopupOpen, setIsNotifPopupOpen] = useState(false);
@@ -113,12 +130,46 @@ export default function BackToTop() {
         if (typeof window === 'undefined') return;
 
         if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-            window.lenis.scrollTo(0, { immediate: false, duration: 1.0 });
-        } else {
+            try {
+                window.lenis.scrollTo(0, { immediate: false, duration: 0.8 });
+            } catch (err) {
+                console.warn('Lenis scroll error:', err);
+            }
+        }
+
+        try {
             window.scrollTo({
                 top: 0,
+                left: 0,
                 behavior: 'smooth'
             });
+        } catch (_) {
+            window.scrollTo(0, 0);
+        }
+
+        try {
+            document.documentElement.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        } catch (_) {}
+
+        try {
+            document.body.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        } catch (_) {}
+
+        const childrenWrapper = document.querySelector('.children-wrapper');
+        if (childrenWrapper && childrenWrapper.scrollTop > 0) {
+            try {
+                childrenWrapper.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } catch (_) {
+                childrenWrapper.scrollTop = 0;
+            }
         }
     };
 

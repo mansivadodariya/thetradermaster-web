@@ -1,20 +1,59 @@
 import { telegramSignalApi } from '@/lib/api';
+import { supabase } from '@/lib/supabaseClient';
+
+const DEFAULT_TELEGRAM_URL = 'https://t.me/TraderMaster_Signals';
 
 /**
  * Fetch the public Telegram bot config.
- * Returns { enabled, bot_username, channel_url } or safe defaults.
+ * Queries Supabase social_links first for dynamic admin configuration,
+ * then merges with backend Telegram bot config.
+ * Returns { enabled, bot_username, channel_url }.
  */
 export async function fetchTelegramConfig() {
+    let channelUrl = DEFAULT_TELEGRAM_URL;
+    let botUsername = 'TraderMasterSignalBot';
+    let enabled = true;
+
+    // 1. Fetch dynamic link from Supabase social_links table
+    if (supabase) {
+        try {
+            const { data } = await supabase
+                .from('social_links')
+                .select('platform, url, is_active')
+                .in('platform', ['telegram_signals', 'telegram_channel', 'telegram'])
+                .eq('is_active', true);
+
+            if (Array.isArray(data) && data.length > 0) {
+                // Priority: telegram_signals > telegram_channel > telegram
+                const match = data.find((r) => r.platform === 'telegram_signals') ||
+                              data.find((r) => r.platform === 'telegram_channel') ||
+                              data.find((r) => r.platform === 'telegram');
+                if (match?.url && typeof match.url === 'string') {
+                    channelUrl = match.url.trim();
+                }
+            }
+        } catch (err) {
+            console.warn('Failed to load Telegram channel URL from Supabase:', err);
+        }
+    }
+
+    // 2. Query bot API for runtime bot metadata
     try {
         const res = await telegramSignalApi.getConfig();
-        return {
-            enabled: res?.data?.enabled !== false,
-            bot_username: res?.data?.bot_username || 'TraderMasterSignalBot',
-            channel_url: res?.data?.channel_url || 'https://t.me/TraderMaster_Signals'
-        };
+        if (res?.data) {
+            enabled = res.data.enabled !== false;
+            if (res.data.bot_username) botUsername = res.data.bot_username;
+            if (res.data.channel_url) channelUrl = res.data.channel_url;
+        }
     } catch {
-        return { enabled: true, bot_username: 'TraderMasterSignalBot', channel_url: 'https://t.me/TraderMaster_Signals' };
+        // Fall back gracefully to Supabase / default values
     }
+
+    return {
+        enabled,
+        bot_username: botUsername,
+        channel_url: channelUrl
+    };
 }
 
 /**

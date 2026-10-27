@@ -35,25 +35,12 @@ export default function SmoothScrollProvider({ children }) {
 
     let animationFrameId = null;
     let isRunning = true;
-    let lastScrollTime = 0;
-    const SCROLL_TIMEOUT = 150; // Stop RAF after 150ms of no scroll
 
     function raf(time) {
       if (!isRunning) return;
-
-      // Only run Lenis RAF when actually scrolling to save CPU
-      const timeSinceScroll = time - lastScrollTime;
-      if (timeSinceScroll < SCROLL_TIMEOUT) {
-        lenis.raf(time);
-      }
-
+      lenis.raf(time);
       animationFrameId = requestAnimationFrame(raf);
     }
-
-    // Track scroll activity
-    const onScroll = () => {
-      lastScrollTime = performance.now();
-    };
 
     animationFrameId = requestAnimationFrame(raf);
 
@@ -72,10 +59,6 @@ export default function SmoothScrollProvider({ children }) {
       }
     };
 
-    // Listen for scroll to keep RAF alive only when needed
-    document.addEventListener('scroll', onScroll, { passive: true });
-    document.addEventListener('wheel', onScroll, { passive: true });
-    document.addEventListener('touchmove', onScroll, { passive: true });
     document.addEventListener('visibilitychange', handleVisibility);
 
     // Listen for reduced motion changes
@@ -94,9 +77,6 @@ export default function SmoothScrollProvider({ children }) {
 
     return () => {
       isRunning = false;
-      document.removeEventListener('scroll', onScroll);
-      document.removeEventListener('wheel', onScroll);
-      document.removeEventListener('touchmove', onScroll);
       document.removeEventListener('visibilitychange', handleVisibility);
       mediaQuery.removeEventListener('change', handleReducedMotionChange);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);

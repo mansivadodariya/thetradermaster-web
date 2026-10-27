@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { toast } from '@/components/toast';
+import { TranslateResponseButton } from '@/components/translateButton';
 import styles from '../tradeAnalysis.module.scss';
 import {
     SparklesIcon,
@@ -24,6 +25,7 @@ export default function TradeAuditModal({
     setSingleTradeActiveTab,
     onClose
 }) {
+    const [translation, setTranslation] = useState({ text: '', lang: null, isTranslated: false });
     if (!singleTradeModalData) return null;
 
     const res = singleTradeModalData.result || {};
@@ -317,46 +319,61 @@ export default function TradeAuditModal({
                         </div>
                     )}
 
-                    {singleTradeActiveTab === 'deepdive' && (
-                        <div className={styles.modalReportWrapper}>
-                            <div className={styles.reportHeaderActions}>
-                                <button
-                                    type="button"
-                                    className={styles.copyBtn}
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(markdownReport);
-                                        toast.success('Trade audit report copied!');
-                                    }}
-                                >
-                                    <CopyIcon />
-                                    <span>Copy Markdown Report</span>
-                                </button>
+                    {singleTradeActiveTab === 'deepdive' && (() => {
+                        const activeReport = translation.isTranslated && translation.text
+                            ? translation.text
+                            : markdownReport;
+                        const isRTL = translation.isTranslated && (translation.lang === 'ar' || translation.lang === 'ary');
+
+                        return (
+                            <div className={styles.modalReportWrapper}>
+                                <div className={styles.reportHeaderActions}>
+                                    <TranslateResponseButton
+                                        originalText={markdownReport}
+                                        isTranslated={translation.isTranslated}
+                                        activeLang={translation.lang}
+                                        onTranslated={(translatedText, langCode, isTranslated) => {
+                                            setTranslation({ text: translatedText, lang: langCode, isTranslated });
+                                        }}
+                                    />
+                                    <button
+                                        type="button"
+                                        className={styles.copyBtn}
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(activeReport);
+                                            toast.success('Trade audit report copied!');
+                                        }}
+                                    >
+                                        <CopyIcon />
+                                        <span>Copy Markdown Report</span>
+                                    </button>
+                                </div>
+                                <div className={styles.markdownReportWrapper} dir={isRTL ? 'rtl' : undefined} style={isRTL ? { textAlign: 'right' } : undefined}>
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                            h1: ({ node, ...props }) => <h3 className={styles.reportH3} {...props} />,
+                                            h2: ({ node, ...props }) => <h4 className={styles.reportH4} {...props} />,
+                                            h3: ({ node, ...props }) => <h5 className={styles.reportH4} {...props} />,
+                                            p: ({ node, ...props }) => <p className={styles.reportP} {...props} />,
+                                            strong: ({ node, ...props }) => <strong className={styles.reportStrong} {...props} />,
+                                            table: ({ node, ...props }) => (
+                                                <div className={styles.tableWrapper}>
+                                                    <table className={styles.reportTable} {...props} />
+                                                </div>
+                                            ),
+                                            th: ({ node, ...props }) => <th className={styles.reportTh} {...props} />,
+                                            td: ({ node, ...props }) => <td className={styles.reportTd} {...props} />,
+                                            ul: ({ node, ...props }) => <ul className={styles.reportUl} {...props} />,
+                                            li: ({ node, ...props }) => <li className={styles.reportLi} {...props} />,
+                                        }}
+                                    >
+                                        {activeReport || 'Detailed report generated.'}
+                                    </ReactMarkdown>
+                                </div>
                             </div>
-                            <div className={styles.markdownReportWrapper}>
-                                <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
-                                    components={{
-                                        h1: ({ node, ...props }) => <h3 className={styles.reportH3} {...props} />,
-                                        h2: ({ node, ...props }) => <h4 className={styles.reportH4} {...props} />,
-                                        h3: ({ node, ...props }) => <h5 className={styles.reportH4} {...props} />,
-                                        p: ({ node, ...props }) => <p className={styles.reportP} {...props} />,
-                                        strong: ({ node, ...props }) => <strong className={styles.reportStrong} {...props} />,
-                                        table: ({ node, ...props }) => (
-                                            <div className={styles.tableWrapper}>
-                                                <table className={styles.reportTable} {...props} />
-                                            </div>
-                                        ),
-                                        th: ({ node, ...props }) => <th className={styles.reportTh} {...props} />,
-                                        td: ({ node, ...props }) => <td className={styles.reportTd} {...props} />,
-                                        ul: ({ node, ...props }) => <ul className={styles.reportUl} {...props} />,
-                                        li: ({ node, ...props }) => <li className={styles.reportLi} {...props} />,
-                                    }}
-                                >
-                                    {markdownReport || 'Detailed report generated.'}
-                                </ReactMarkdown>
-                            </div>
-                        </div>
-                    )}
+                        );
+                    })()}
                 </div>
             </motion.div>
         </div>

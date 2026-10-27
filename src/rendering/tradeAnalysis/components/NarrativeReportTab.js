@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
+import { TranslateResponseButton } from '@/components/translateButton';
 import styles from '../tradeAnalysis.module.scss';
 import { SparklesIcon, CopyIcon } from '@/icons/tradeAnalysisIcons';
 
@@ -12,6 +13,12 @@ export default function NarrativeReportTab({
     dynamicReportMarkdown
 }) {
     const { t } = useLanguage();
+    const [translation, setTranslation] = useState({ text: '', lang: null, isTranslated: false });
+
+    const activeMarkdown = translation.isTranslated && translation.text
+        ? translation.text
+        : dynamicReportMarkdown;
+    const isRTL = translation.isTranslated && (translation.lang === 'ar' || translation.lang === 'ary');
 
     return (
         <div className={styles.dataTableCard}>
@@ -21,11 +28,19 @@ export default function NarrativeReportTab({
                     <span>{t('tradeAnalysis.narrativeReportTitle', 'AI Narrative Analysis Report')}</span>
                 </h3>
                 <div className={styles.actionButtons}>
+                    <TranslateResponseButton
+                        originalText={dynamicReportMarkdown}
+                        isTranslated={translation.isTranslated}
+                        activeLang={translation.lang}
+                        onTranslated={(translatedText, langCode, isTranslated) => {
+                            setTranslation({ text: translatedText, lang: langCode, isTranslated });
+                        }}
+                    />
                     <button
                         type="button"
                         className={styles.copyBtn}
                         onClick={() => {
-                            navigator.clipboard.writeText(dynamicReportMarkdown);
+                            navigator.clipboard.writeText(activeMarkdown);
                             toast.success(t('tradeAnalysis.copiedToClipboard', 'Report copied to clipboard!'));
                         }}
                     >
@@ -35,7 +50,7 @@ export default function NarrativeReportTab({
                 </div>
             </div>
 
-            <div className={styles.markdownReportWrapper}>
+            <div className={styles.markdownReportWrapper} dir={isRTL ? 'rtl' : undefined} style={isRTL ? { textAlign: 'right' } : undefined}>
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{

@@ -1,244 +1,157 @@
 import { supabase } from '@/lib/supabaseClient';
 
+let cachedBrokers = null;
+let fetchBrokersPromise = null;
+
 export const brokerList = [
     {
         id: 'avatrade',
-        isDarkLogo: true,
         name: 'AvaTrade',
-        subtitle: 'Global Multi-Asset Broker',
-        logo: 'https://www.avatrade.com/favicon.ico',
-        category: 'Brokers',
-        description: 'A regulated global broker offering Forex, CFDs, stocks, commodities, indices, cryptocurrencies and multiple trading platforms.',
-        features: [
-            'Forex and CFD trading',
-            'MT4 and MT5 platforms',
-            'WebTrader and mobile trading',
-            'Multiple global regulatory entities'
-        ],
-        highlights: [],
-        websiteUrl: 'https://www.avatrade.com/',
         name_ar: 'أفاتريد',
-        subtitle_ar: 'وسيط عالمي متعدد الأصول',
-        description_ar: 'وسيط عالمي منظم يوفر تداول الفوركس والعقود مقابل الفروقات والأسهم والسلع والمؤشرات والعملات المشفرة ومنصات تداول متعددة.',
-        features_ar: [
-            'تداول الفوركس والعقود مقابل الفروقات',
-            'منصات MT4 وMT5',
-            'التداول عبر الويب والهاتف المحمول',
-            'جهات تنظيمية عالمية متعددة'
-        ],
         name_ph: 'AvaTrade',
-        subtitle_ph: 'Global na Multi-Asset Broker',
-        description_ph: 'Isang pandaigdigang regulated broker na nag-aalok ng Forex, CFDs, stocks, commodities, indices, cryptocurrencies at maraming trading platforms.',
-        features_ph: [
-            'Forex at CFD trading',
-            'MT4 at MT5 platforms',
-            'WebTrader at mobile trading',
-            'Maramihang global regulatory entities'
-        ]
+        subtitle: 'Global Multi-Asset Trading',
+        subtitle_ar: 'تداول عالمي متعدد الأصول',
+        subtitle_ph: 'Global Multi-Asset Trading',
+        logo: '/assets/images/site-logo-20y-on-light.svg',
+        category: 'Brokers',
+        description: 'AvaTrade is a global multi-asset broker offering Forex, stocks, commodities, indices, cryptocurrencies and other CFD instruments with competitive pricing.',
+        description_ar: 'وسيط عالمي رائد، آمن للغاية ومنظم، يقدم أدوات تداول متنوعة ومنصات متقدمة وشروط تداول قوية لكل متداول.',
+        description_ph: 'AvaTrade ay isang pandaigdigang multi-asset broker na nag-aalok ng Forex, stocks, commodities, indices, cryptocurrencies at iba pang CFD instruments na may competitive pricing.',
+        features: [
+            'Forex & multi-asset trading',
+            '1,250+ trading instruments',
+            'MetaTrader 4, MetaTrader 5 & AvaTradeGO',
+            'Competitive spreads & transparent fees',
+            'Leverage up to 1:400',
+            'Standard & Professional accounts'
+        ],
+        features_ar: [
+            'تداول الفوركس والأصول المتعددة',
+            'أكثر من 1250 أداة تداول',
+            'منصات MetaTrader 4 و MetaTrader 5 و AvaTradeGO',
+            'فروق أسعار تنافسية ورسوم شفافة',
+            'رافعة مالية تصل إلى 1:400',
+            'حسابات Standard و Professional'
+        ],
+        highlights: [
+            { id: '1', type: 'link', title: 'Best Arbitrage Brokers', title_ar: 'أفضل وسطاء المراجحة', sub: 'Ultra-low latency arbitrage', sub_ar: 'تداول مراجحة بفترة كمون فائقة الانخفاض' },
+            { id: '2', type: 'server', title: 'Best IB Rewards', title_ar: 'أفضل مكافآت IB', sub: 'High volume rebate structure', sub_ar: 'هيكل عمولات حوافز أحجام تداول عالية' },
+            { id: '3', type: 'shield', title: 'Best Spreads', title_ar: 'أفضل فروق أسعار', sub: 'Raw ECN tightest spreads', sub_ar: 'أضيق فروق أسعار حسابات ECN المباشرة' }
+        ],
+        website_url: 'https://www.avatrade.com/?tag=226362',
+        websiteUrl: 'https://www.avatrade.com/?tag=226362'
     },
     {
-        id: 'tickmill',
+        id: 'forex__cfd_trading',
         name: 'Tickmill',
-        subtitle: 'Global Forex & CFD Broker',
-        logo: 'https://www.tickmill.com/favicon.ico',
-        category: 'Brokers',
-        description: 'Global online broker providing Forex and CFD trading with access to multiple financial markets and trading platforms.',
-        features: [
-            'Forex and CFD trading',
-            'MT4 and MT5 platforms',
-            'Competitive trading conditions',
-            'Multiple financial markets'
-        ],
-        highlights: [],
-        websiteUrl: 'https://www.tickmill.com/',
         name_ar: 'تيكميل',
-        subtitle_ar: 'وسيط عالمي للفوركس والعقود مقابل الفروقات',
-        description_ar: 'وسيط عالمي عبر الإنترنت يوفر تداول الفوركس والعقود مقابل الفروقات مع إمكانية الوصول إلى أسواق مالية متعددة ومنصات تداول مختلفة.',
-        features_ar: [
-            'تداول الفوركس والعقود مقابل الفروقات',
-            'منصات MT4 وMT5',
-            'شروط تداول تنافسية',
-            'أسواق مالية متعددة'
-        ],
         name_ph: 'Tickmill',
-        subtitle_ph: 'Global na Forex at CFD Broker',
-        description_ph: 'Isang global online broker na nagbibigay ng Forex at CFD trading na may access sa maraming financial markets at trading platforms.',
-        features_ph: [
-            'Forex at CFD trading',
-            'MT4 at MT5 platforms',
-            'Competitive trading conditions',
-            'Maramihang financial markets'
-        ]
-    },
-    {
-        id: 'multibank',
-        isDarkLogo: true,
-        name: 'MultiBank Group',
-        subtitle: 'Global Forex & CFD Broker',
-        logo: 'https://multibankfx.com/favicon.ico',
+        subtitle: 'Forex & CFD Trading',
+        subtitle_ar: 'تداول الفوركس والعقود مقابل الفروقات',
+        subtitle_ph: 'Forex at CFD Trading',
+        logo: '/assets/logo/tickmill-logo-dark-animated.webp',
         category: 'Brokers',
-        description: 'Global financial broker offering Forex and CFD trading across multiple markets with access to MT4 and MT5 platforms.',
+        description: 'Tickmill provides access to global Forex and CFD markets with competitive pricing, fast execution and a range of desktop, web and mobile trading platforms.',
+        description_ar: 'توفر تيكميل إمكانية الوصول إلى أسواق الفوركس والعقود مقابل الفروقات العالمية مع أسعار تنافسية وتنفيذ سريع ومجموعة من منصات التداول المكتبية والويب والهاتف المحمول.',
+        description_ph: 'Nagbibigay ang Tickmill ng access sa global Forex at CFD markets na may competitive pricing, mabilis na execution at maraming desktop, web at mobile trading platforms.',
         features: [
-            '55+ Forex currency pairs',
-            'Up to 1000:1 leverage',
-            'MT4 and MT5 platforms',
-            'Forex and CFD markets'
+            '60+ Forex currency pairs',
+            '0.15s average CFD execution',
+            'MT4, MT5, TradingView and Tickmill Trader'
         ],
-        highlights: [],
-        websiteUrl: 'https://multibankfx.com/en',
-        name_ar: 'مجموعة مالتي بنك',
-        subtitle_ar: 'وسيط عالمي للفوركس والعقود مقابل الفروقات',
-        description_ar: 'وسيط مالي عالمي يوفر تداول الفوركس والعقود مقابل الفروقات عبر أسواق متعددة مع إمكانية الوصول إلى منصات MT4 وMT5.',
         features_ar: [
-            'أكثر من 55 زوجاً من العملات',
-            'رافعة مالية تصل إلى 1:1000',
-            'منصات MT4 وMT5',
-            'أسواق الفوركس والعقود مقابل الفروقات'
+            'أكثر من 60 زوجاً من العملات',
+            'متوسط تنفيذ العقود مقابل الفروقات 0.15 ثانية',
+            'MT4 وMT5 وTradingView وTickmill Trader'
         ],
-        name_ph: 'MultiBank Group',
-        subtitle_ph: 'Global na Forex at CFD Broker',
-        description_ph: 'Isang pandaigdigang financial broker na nag-aalok ng Forex at CFD trading sa maraming markets na may access sa MT4 at MT5 platforms.',
         features_ph: [
-            '55+ Forex currency pairs',
-            'Hanggang 1:1000 leverage',
-            'MT4 at MT5 platforms',
-            'Forex at CFD markets'
-        ]
+            '60+ Forex currency pairs',
+            '0.15s average CFD execution',
+            'MT4, MT5, TradingView at Tickmill Trader'
+        ],
+        highlights: [
+            { id: '1', type: 'link', title: 'Best Arbitrage Brokers', title_ar: 'أفضل وسطاء المراجحة', sub: 'Ultra-low latency arbitrage', sub_ar: 'تداول مراجحة بفترة كمون فائقة الانخفاض' },
+            { id: '2', type: 'server', title: 'Best IB Rewards', title_ar: 'أفضل مكافآت IB', sub: 'High volume rebate structure', sub_ar: 'هيكل عمولات حوافز أحجام تداول عالية' },
+            { id: '3', type: 'shield', title: 'Best Spreads', title_ar: 'أفضل فروق أسعار', sub: 'Raw ECN tightest spreads', sub_ar: 'أضيق فروق أسعار حسابات ECN المباشرة' }
+        ],
+        website_url: 'https://my.tickmill.com?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&lp=https%3A%2F%2Fmy.tickmill.com%2Fen%2Fsign-up',
+        websiteUrl: 'https://my.tickmill.com?utm_campaign=ib_link&utm_content=IB46442482&utm_medium=Open+Account&utm_source=link&lp=https%3A%2F%2Fmy.tickmill.com%2Fen%2Fsign-up'
     },
-    {
-        id: 'blueberry',
-        isDarkLogo: true,
-        name: 'Blueberry Markets',
-        subtitle: 'Online Forex & CFD Broker',
-        logo: 'https://blueberrymarkets.com/favicon.ico',
-        category: 'Brokers',
-        description: 'Online broker offering Forex, indices, commodities, cryptocurrencies and stock CFDs through modern trading platforms.',
-        features: [
-            'Forex trading',
-            'Indices and commodities CFDs',
-            'Cryptocurrency and stock CFDs',
-            'MT4 and MT5 platforms'
-        ],
-        highlights: [],
-        websiteUrl: 'https://blueberrymarkets.com/',
-        name_ar: 'بلو بيري ماركتس',
-        isDarkLogo: true,
-        name: 'Blueberry Markets',
-        subtitle: 'Online Forex & CFD Broker',
-        logo: 'https://blueberrymarkets.com/favicon.ico',
-        category: 'Brokers',
-        description: 'Online broker offering Forex, indices, commodities, cryptocurrencies and stock CFDs through modern trading platforms.',
-        features: [
-            'Forex trading',
-            'Indices and commodities CFDs',
-            'Cryptocurrency and stock CFDs',
-            'MT4 and MT5 platforms'
-        ],
-        highlights: [],
-        websiteUrl: 'https://blueberrymarkets.com/',
-        name_ar: 'بلو بيري ماركتس',
-        subtitle_ar: 'وسيط للفوركس والعقود مقابل الفروقات',
-        description_ar: 'وسيط عبر الإنترنت يوفر تداول الفوركس والمؤشرات والسلع والعملات المشفرة وعقود الفروقات على الأسهم من خلال منصات تداول حديثة.',
-        features_ar: [
-            'تداول الفوركس',
-            'عقود الفروقات على المؤشرات والسلع',
-            'عقود الفروقات على العملات المشفرة والأسهم',
-            'منصات MT4 وMT5'
-        ],
-        name_ph: 'Blueberry Markets',
-        subtitle_ph: 'Online Forex at CFD Broker',
-        description_ph: 'Isang online broker na nag-aalok ng Forex, indices, commodities, cryptocurrencies at stock CFDs gamit ang modern trading platforms.',
-        features_ph: [
-            'Forex trading',
-            'Indices at commodities CFDs',
-            'Cryptocurrency at stock CFDs',
-            'MT4 at MT5 platforms'
-        ]
-    }
 ];
-
-function safeArrayParse(val) {
-    if (!val) return [];
-    if (Array.isArray(val)) return val;
-    if (typeof val === 'string') {
-        try {
-            const parsed = JSON.parse(val);
-            if (Array.isArray(parsed)) return parsed;
-        } catch (_) {
-            return val.split(',').map((s) => s.trim()).filter(Boolean);
-        }
-    }
-    return [];
-}
 
 export function formatBroker(item) {
     if (!item) return null;
+    let logoUrl = item.logo || '';
+    const isTickmill = (item.name || '').toLowerCase().includes('tickmill') || (item.name_ph || '').toLowerCase().includes('tickmill') || (item.website_url || '').toLowerCase().includes('tickmill') || (item.websiteUrl || '').toLowerCase().includes('tickmill');
+
+    if (isTickmill) {
+        logoUrl = '/assets/logo/tickmill-logo-dark-animated.webp';
+    } else if (logoUrl.includes('Img1.svg') || !logoUrl) {
+        logoUrl = '/assets/images/site-logo-20y-on-light.svg';
+    }
+
+    const brokerDisplayName = (item.name === 'Forex & CFD Trading' && (item.name_ph === 'Tickmill' || item.website_url?.includes('tickmill') || item.websiteUrl?.includes('tickmill')))
+        ? 'Tickmill'
+        : (item.name || 'Broker');
+
     return {
         id: item.id,
-        is_active: item.is_active !== undefined ? Boolean(item.is_active) : true,
-        name: item.name,
-        name_ar: item.name_ar || item.name,
-        name_ph: item.name_ph || item.name,
+        name: brokerDisplayName,
+        name_ar: item.name_ar || brokerDisplayName,
+        name_ph: item.name_ph || brokerDisplayName,
         subtitle: item.subtitle || '',
         subtitle_ar: item.subtitle_ar || item.subtitle || '',
         subtitle_ph: item.subtitle_ph || item.subtitle || '',
-        logo: item.logo || '',
-        isDarkLogo: Boolean(item.is_dark_logo || item.isDarkLogo || item.dark_logo || item.darkLogo || (item.id && ['avatrade', 'blueberry', 'blueberrymarkets', 'multibank', 'multibankfx'].includes(String(item.id).toLowerCase()))),
+        logo: logoUrl,
         category: item.category || 'Brokers',
         description: item.description || '',
         description_ar: item.description_ar || item.description || '',
         description_ph: item.description_ph || item.description || '',
-        features: safeArrayParse(item.features),
-        features_ar: safeArrayParse(item.features_ar || item.features),
-        features_ph: safeArrayParse(item.features_ph || item.features),
-        highlights: safeArrayParse(item.highlights),
-        websiteUrl: item.website_url || item.websiteUrl || '',
+        features: typeof item.features === 'string' ? JSON.parse(item.features) : (item.features || []),
+        features_ar: typeof item.features_ar === 'string' ? JSON.parse(item.features_ar) : (item.features_ar || item.features || []),
+        features_ph: typeof item.features_ph === 'string' ? JSON.parse(item.features_ph) : (item.features_ph || item.features || []),
+        highlights: typeof item.highlights === 'string' ? JSON.parse(item.highlights) : (item.highlights || []),
         website_url: item.website_url || item.websiteUrl || '',
-        createdAt: item.created_at || item.createdAt || '',
-        created_at: item.created_at || item.createdAt || ''
+        websiteUrl: item.website_url || item.websiteUrl || '',
+        is_active: item.is_active
     };
 }
 
-let cachedBrokers = null;
-let brokersFetchPromise = null;
-
-export async function fetchBrokers() {
-    if (cachedBrokers && cachedBrokers.length > 0) {
+export async function fetchBrokers(forceRefresh = false) {
+    if (!forceRefresh && cachedBrokers) {
         return cachedBrokers;
     }
-    if (brokersFetchPromise) {
-        return brokersFetchPromise;
+    if (!forceRefresh && fetchBrokersPromise) {
+        return fetchBrokersPromise;
     }
-
-    const fallback = brokerList.filter((b) => b.is_active !== false);
     if (!supabase) {
-        return fallback;
+        return brokerList;
     }
-
-    brokersFetchPromise = (async () => {
+    fetchBrokersPromise = (async () => {
         try {
             const { data, error } = await supabase
                 .from('brokers')
                 .select('*')
-                .eq('is_active', true)
                 .order('created_at', { ascending: true });
 
             if (error || !data || data.length === 0) {
-                cachedBrokers = fallback;
-                return fallback;
+                cachedBrokers = brokerList;
+                return brokerList;
             }
-            const formatted = data.map(formatBroker).filter((b) => b && b.is_active !== false);
-            cachedBrokers = formatted;
-            return formatted;
+            cachedBrokers = data
+                .filter(b => b && b.is_active !== false && b.is_active !== 'false')
+                .map(formatBroker)
+                .filter(b => b && b.id !== 'newera' && !b.name?.toLowerCase().includes('newera'));
+            return cachedBrokers.length > 0 ? cachedBrokers : brokerList;
         } catch (err) {
             console.error('Error fetching brokers from Supabase:', err);
-            return fallback;
+            return brokerList;
         } finally {
-            brokersFetchPromise = null;
+            fetchBrokersPromise = null;
         }
     })();
 
-    return brokersFetchPromise;
+    return fetchBrokersPromise;
 }
 
 export async function fetchBrokerById(id) {
@@ -251,26 +164,12 @@ export async function fetchBrokerById(id) {
             .from('brokers')
             .select('*')
             .eq('id', id)
-            .eq('is_active', true)
             .maybeSingle();
 
         if (error || !data) {
-            // Case-insensitive query fallback
-            const { data: dataIlike } = await supabase
-                .from('brokers')
-                .select('*')
-                .ilike('id', id)
-                .eq('is_active', true)
-                .maybeSingle();
-
-            if (dataIlike) {
-                const formatted = formatBroker(dataIlike);
-                return (formatted && formatted.is_active !== false) ? formatted : null;
-            }
             return getBrokerById(id);
         }
-        const formatted = formatBroker(data);
-        return (formatted && formatted.is_active !== false) ? formatted : null;
+        return formatBroker(data);
     } catch (err) {
         return getBrokerById(id);
     }
@@ -278,7 +177,8 @@ export async function fetchBrokerById(id) {
 
 export function getBrokerById(id) {
     if (!id) return null;
-    const item = brokerList.find((b) => b.id.toLowerCase() === String(id).toLowerCase());
-    if (!item || item.is_active === false) return null;
-    return formatBroker(item);
+    const lowerId = String(id).toLowerCase();
+    return brokerList.find((b) => b.id.toLowerCase() === lowerId || (lowerId === 'newera' && b.id === 'avatrade')) || brokerList[0] || null;
 }
+
+

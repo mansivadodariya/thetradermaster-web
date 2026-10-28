@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { interactiveCopilotApi, getInteractiveApiBase, categorizeChatError } from '../utils/strategyApi';
+import { notifyCreditsUpdated, openCreditsModal } from '@/lib/credits';
 
 const generateSessionId = () =>
     'sess_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -85,6 +86,10 @@ export default function useStrategyCopilot() {
 
                 if (!ok || !body?.success) {
                     const errorDetail = categorizeChatError(body, status);
+                    if (errorDetail?.errorType === 'credits') {
+                        notifyCreditsUpdated(0);
+                        setTimeout(() => openCreditsModal(), 400);
+                    }
                     setMessages((prev) => [
                         ...prev,
                         {
@@ -131,6 +136,10 @@ export default function useStrategyCopilot() {
             } catch (err) {
                 setBusy(false);
                 const errorDetail = categorizeChatError(err.message, 0);
+                if (errorDetail?.errorType === 'credits') {
+                    notifyCreditsUpdated(0);
+                    setTimeout(() => openCreditsModal(), 400);
+                }
                 setMessages((prev) => [
                     ...prev,
                     {

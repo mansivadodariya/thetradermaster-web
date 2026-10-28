@@ -159,6 +159,10 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
 
                 const isPhoneVerified = status.is_phone_verified === true || status.user?.is_phone_verified === true;
                 if (status.user && !isPhoneVerified) {
+                    if (typeof onPendingPhone === 'function') {
+                        onPendingPhone(status.user.id || uid, status.user.phone_number || '');
+                        return;
+                    }
                     setPhoneNumber(status.user.phone_number || '');
                     setShowPhoneModal(true);
                     return;

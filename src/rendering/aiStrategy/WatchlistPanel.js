@@ -360,27 +360,6 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
             <div className={styles.watchlistHeader}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <h3>{t('aiStrategy.watchlistTitle', 'Watchlist')}</h3>
-                    <span style={{
-                        fontSize: '0.68rem',
-                        fontWeight: 600,
-                        padding: '2px 8px',
-                        borderRadius: '12px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '5px',
-                        backgroundColor: wsStatus === 'connected' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)',
-                        color: wsStatus === 'connected' ? '#10b981' : '#f59e0b',
-                        border: `1px solid ${wsStatus === 'connected' ? 'rgba(16, 185, 129, 0.25)' : 'rgba(245, 158, 11, 0.25)'}`
-                    }}>
-                        <span style={{
-                            width: '6px',
-                            height: '6px',
-                            borderRadius: '50%',
-                            backgroundColor: wsStatus === 'connected' ? '#10b981' : '#f59e0b',
-                            boxShadow: wsStatus === 'connected' ? '0 0 6px #10b981' : '0 0 6px #f59e0b'
-                        }} />
-                        {wsStatus === 'connected' ? 'Live Stream' : 'DB Feed (3s Retry)'}
-                    </span>
                 </div>
             </div>
 

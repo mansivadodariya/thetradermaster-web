@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from '@/components/toast';
 import { fxApi } from '@/lib/api';
 import { getStoredUserId } from '@/lib/authSession';
-import { syncCreditsAfterAction, notifyCreditsUpdated } from '@/lib/credits';
+import { syncCreditsAfterAction, notifyCreditsUpdated, openCreditsModal } from '@/lib/credits';
 import { historyDeletes } from '@/lib/historyDeletes';
 import { ALL_PAIRS, normalizeSymbol } from '@/rendering/aiAssistant/TradingViewChartPane';
 import { parseAssistantResponse, buildAssistantMessage } from '@/rendering/aiAssistant/utils/chatResponseParser';
@@ -357,6 +357,10 @@ export function useCreateAiAssistantStore() {
         } catch (err) {
             console.error('AI Assistant request error:', err);
             const errorDetail = categorizeChatError(err, err?.status || 0);
+            if (errorDetail?.errorType === 'credits') {
+                notifyCreditsUpdated(0);
+                setTimeout(() => openCreditsModal(), 400);
+            }
             setChatMessages(prev => [
                 ...prev,
                 {

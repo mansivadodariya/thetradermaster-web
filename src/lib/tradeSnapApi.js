@@ -1,4 +1,4 @@
-import { extractAvailableCredits, notifyCreditsUpdated, refreshCreditsFromServer } from '@/lib/credits';
+import { extractAvailableCredits, notifyCreditsUpdated, refreshCreditsFromServer, openCreditsModal } from '@/lib/credits';
 import { tryRefreshToken, clearAuthAndRedirect, getActiveRefreshPromise } from '@/lib/api';
 
 function getAccessToken() {
@@ -440,6 +440,19 @@ export async function analyzeTradeScreenshots(fileBlobs, userId, _isRetry = fals
             const err = new Error('Session expired. Please log in again.');
             err.status = 401;
             throw err;
+        }
+
+        const isCreditError =
+            res.status === 402 ||
+            data?.detail?.error_code === 'INSUFFICIENT_CREDITS' ||
+            data?.error_code === 'INSUFFICIENT_CREDITS' ||
+            String(data?.message || data?.detail || '').toLowerCase().includes('insufficient credits') ||
+            String(data?.detail?.message || '').toLowerCase().includes('insufficient credits');
+        if (isCreditError) {
+            try {
+                notifyCreditsUpdated(0);
+                setTimeout(() => openCreditsModal(), 500);
+            } catch (_) {}
         }
 
         const err = new Error(data?.detail?.message || data?.message || data?.detail || 'Analysis request failed');

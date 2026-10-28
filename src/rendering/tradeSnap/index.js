@@ -7,7 +7,7 @@ import HistoryButton from '@/components/historyButton';
 import { analyzeTradeScreenshots, dataUrlToBlob, extractTradesFromPayload, notifyBrowserTradeSnapReady } from '@/lib/tradeSnapApi';
 import { getStoredUserId } from '@/lib/authSession';
 import { toast } from '@/components/toast';
-import { notifyCreditsUpdated } from '@/lib/credits';
+import { notifyCreditsUpdated, openCreditsModal } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import { MonitorIcon } from '@/icons/tradeSnapIcons';
 import TradeSnapMobileNotice from './components/TradeSnapMobileNotice';
@@ -281,10 +281,11 @@ export default function TradeSnap() {
             }
 
             if (err?.detail?.error_code === 'INSUFFICIENT_CREDITS' || err?.message?.toLowerCase().includes('insufficient credits')) {
-                const creditMsg = t('tradeSnap.insufficientCredits', 'Insufficient credits. Please upgrade your plan.');
+                const creditMsg = t('tradeSnap.insufficientCredits', 'Insufficient credits. Connect a broker to earn credits.');
                 setAnalysisError(creditMsg);
                 setError(creditMsg);
                 notifyCreditsUpdated(0);
+                setTimeout(() => openCreditsModal(), 400);
                 return;
             }
             if (err?.status === 401 || err?.message?.toLowerCase().includes('session expired') || err?.message?.toLowerCase().includes('log in')) {

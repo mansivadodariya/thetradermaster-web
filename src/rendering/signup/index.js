@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './signup.module.scss';
 import Input from '@/components/input';
 import PhoneInput from '@/components/phoneInput';
-import FirebasePhoneModal from '@/components/firebasePhoneModal';
 import PointerGlow from '@/components/pointerGlow';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
 import {
@@ -132,12 +131,11 @@ const Signup = () => {
         }
     }, []);
 
-    // States for phone step after Google Sign-in
+    // States for phone step after Google Sign-in / unverified phone
     const [pendingPhoneUserId, setPendingPhoneUserId] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [phoneError, setPhoneError] = useState('');
     const [savingPhone, setSavingPhone] = useState(false);
-    const [showOtpModal, setShowOtpModal] = useState(false);
     const onboardingCompletedRef = React.useRef(null);
 
     const resolvePostAuthTarget = (preferredTarget = redirectTo) => {
@@ -185,7 +183,6 @@ const Signup = () => {
                     if (status.user && !isPhoneVerified) {
                         setPendingPhoneUserId(status.user.id || uid);
                         setPhoneNumber(status.user.phone_number || '');
-                        setShowOtpModal(true);
                         return;
                     }
 
@@ -255,18 +252,12 @@ const Signup = () => {
         }
 
         setPhoneError('');
-        setShowOtpModal(true);
-    };
-
-    const handleOtpSuccess = async () => {
         setSavingPhone(true);
-        const activeUid = pendingPhoneUserId || getStoredUserId();
         try {
             let apiRes = null;
             try {
                 apiRes = await profileApi.updateProfile({
                     phone_number: phoneNumber,
-                    is_phone_verified: true
                 });
             } catch (apiErr) {
                 console.warn("profileApi.updateProfile fallback to direct update:", apiErr);
@@ -278,7 +269,6 @@ const Signup = () => {
                         .from('users')
                         .update({
                             phone_number: phoneNumber,
-                            is_phone_verified: true
                         })
                         .eq('id', activeUid);
                 } catch (dbErr) {
@@ -286,29 +276,19 @@ const Signup = () => {
                 }
             }
 
-            let isOnboardingDone = localStorage.getItem('has_completed_onboarding') === 'true';
             if (typeof window !== 'undefined') {
                 const parsed = JSON.parse(localStorage.getItem('user') || '{}');
                 parsed.phone_number = phoneNumber;
-                parsed.is_phone_verified = true;
-                if (parsed.onboarding_completed) isOnboardingDone = true;
                 localStorage.setItem('user', JSON.stringify(parsed));
                 document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                sessionStorage.removeItem('skipPhoneVerification');
                 window.dispatchEvent(new CustomEvent('user:updated'));
             }
 
-            toast.success(apiRes?.message || 'Phone number verified and saved!');
-            let destination = redirectTo;
-            if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
-                destination = '/dashboard';
-            }
-            if (!isOnboardingDone) {
-                window.location.assign('/onboarding');
-            } else {
-                window.location.assign(destination);
-            }
+            toast.success(apiRes?.message || 'Phone number saved!');
+            window.location.assign(resolvePostAuthTarget(redirectTo));
         } catch (err) {
-            console.error('Failed to save phone number after verification:', err);
+            console.error('Failed to save phone number:', err);
             const msg = String(err.message || '');
             let userFriendlyMsg = 'Failed to save phone number.';
             if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
@@ -320,7 +300,13 @@ const Signup = () => {
             toast.error(userFriendlyMsg);
         } finally {
             setSavingPhone(false);
-            setShowOtpModal(false);
+        }
+    };
+
+    const handleSkipPhone = () => {
+        if (typeof window !== 'undefined') {
+            sessionStorage.removeItem('skipPhoneVerification');
+            window.location.assign(resolvePostAuthTarget(redirectTo));
         }
     };
 
@@ -472,12 +458,7 @@ const Signup = () => {
                                             </button>
                                             <button
                                                 type="button"
-                                                onClick={() => {
-                                                    if (typeof window !== 'undefined') {
-                                                        sessionStorage.setItem('skipPhoneVerification', 'true');
-                                                        window.location.assign(resolvePostAuthTarget());
-                                                    }
-                                                }}
+                                                onClick={handleSkipPhone}
                                                 className={styles.skipBtn}
                                             >
                                                 {t('auth.skipForNow', 'Skip for now')}
@@ -620,7 +601,13 @@ const Signup = () => {
                                     {/* Social Login Button Row */}
                                     <div className={styles.socialRow}>
                                         <div className={styles.googleButtonWrapper}>
-                                            <ContinueWithGoogle redirectTo={redirectTo} onPendingPhone={setPendingPhoneUserId} />
+                                            <ContinueWithGoogle
+                                                redirectTo={redirectTo}
+                                                onPendingPhone={(uid, phone) => {
+                                                    setPendingPhoneUserId(uid);
+                                                    if (phone) setPhoneNumber(phone);
+                                                }}
+                                            />
                                         </div>
                                     </div>
 
@@ -636,26 +623,6 @@ const Signup = () => {
 
                 </div>
             </div>
-
-            <FirebasePhoneModal
-                isOpen={showOtpModal}
-                phoneNumber={phoneNumber}
-                onClose={() => {
-                    setShowOtpModal(false);
-                    if (typeof window !== 'undefined') {
-                        sessionStorage.setItem('skipPhoneVerification', 'true');
-                        window.location.assign(resolvePostAuthTarget());
-                    }
-                }}
-                onSkip={() => {
-                    setShowOtpModal(false);
-                    if (typeof window !== 'undefined') {
-                        sessionStorage.setItem('skipPhoneVerification', 'true');
-                        window.location.assign(resolvePostAuthTarget());
-                    }
-                }}
-                onSuccess={handleOtpSuccess}
-            />
         </div>
     );
 };

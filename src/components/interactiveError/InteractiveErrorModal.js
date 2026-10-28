@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { openCreditsModal } from '@/lib/credits';
 import styles from './interactiveError.module.scss';
 
 const CoinsCapitalIcon = ({ size = 18, color = 'currentColor' }) => (
@@ -66,7 +67,7 @@ export function InteractiveErrorModal({
     const handlePrimaryClick = () => {
         if (isCredits) {
             onClose?.();
-            router.push('/subscription-plans');
+            openCreditsModal();
         } else if (onRetry && error?.retryPayload) {
             onClose?.();
             onRetry(error.retryPayload);
@@ -169,10 +170,10 @@ export function InteractiveErrorModal({
                                 className={styles.errorSecondaryBtn}
                                 onClick={() => {
                                     onClose?.();
-                                    router.push('/profile');
+                                    router.push(error?.actionUrl || '/broker');
                                 }}
                             >
-                                Check Balance
+                                Associated Brokers
                             </button>
                             <button
                                 type="button"
@@ -180,7 +181,7 @@ export function InteractiveErrorModal({
                                 onClick={handlePrimaryClick}
                             >
                                 <SparklesMagicIcon size={14} color="#000000" />
-                                <span>Upgrade Plan &amp; AI Credits</span>
+                                <span>{error?.actionLabel || 'Connect Broker for Credits'}</span>
                             </button>
                         </>
                     ) : (

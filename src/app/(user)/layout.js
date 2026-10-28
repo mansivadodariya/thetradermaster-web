@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { ToolStateProvider } from '@/context/toolState';
 import { SubscriptionProvider } from '@/context/SubscriptionContext';
-import { extractAvailableCredits, CREDITS_UPDATED_EVENT, notifyCreditsUpdated, refreshCreditsFromServer } from '@/lib/credits';
+import { extractAvailableCredits, CREDITS_UPDATED_EVENT, OPEN_CREDITS_MODAL_EVENT, notifyCreditsUpdated, refreshCreditsFromServer } from '@/lib/credits';
 import { captureUtmParameters } from '@/lib/utm';
 import { getStoredUserId } from '@/lib/authSession';
 import { dashboardApi, neweraApi } from '@/lib/api';
@@ -254,24 +254,41 @@ const layout = ({ children }) => {
             syncUtmToDb();
 
             const checkPhoneStatus = async () => {
-                if (!supabase || !uid) return;
+                if (!uid) return;
                 try {
                     const hasSkipped = typeof window !== 'undefined' && sessionStorage.getItem('skipPhoneVerification') === 'true';
                     if (hasSkipped) {
                         return;
                     }
 
-                    const { data: dbUser } = await supabase
-                        .from('users')
-                        .select('phone_number, is_phone_verified')
-                        .eq('id', uid)
-                        .maybeSingle();
+                    let phoneNumber = '';
+                    let isVerified = false;
+                    let found = false;
 
-                    if (dbUser) {
-                        const isVerified = dbUser.is_phone_verified === true;
-                        setUserPhoneNumber(dbUser.phone_number || '');
-                        setShowPhoneVerifyModal(!isVerified);
+                    if (supabase) {
+                        const { data: dbUser } = await supabase
+                            .from('users')
+                            .select('phone_number, is_phone_verified')
+                            .eq('id', uid)
+                            .maybeSingle();
+
+                        if (dbUser) {
+                            found = true;
+                            isVerified = dbUser.is_phone_verified === true;
+                            phoneNumber = dbUser.phone_number || '';
+                        }
                     }
+
+                    if (!found && typeof window !== 'undefined') {
+                        try {
+                            const cached = JSON.parse(localStorage.getItem('user') || '{}');
+                            phoneNumber = cached.phone_number || '';
+                            isVerified = Boolean(cached.is_phone_verified);
+                        } catch (_) {}
+                    }
+
+                    setUserPhoneNumber(phoneNumber);
+                    setShowPhoneVerifyModal(!isVerified);
                 } catch (err) {
                     console.warn("Failed to check user phone verification:", err);
                 }
@@ -312,10 +329,19 @@ const layout = ({ children }) => {
             checkAndShowModalIfZero(currentCredits);
         };
 
+        const onOpenCreditsModal = () => {
+            const isBrokerPage = pathname === '/broker' || pathname === '/brokers';
+            if (!isBrokerPage) {
+                setShowCreditsModal(true);
+            }
+        };
+
         window.addEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+        window.addEventListener(OPEN_CREDITS_MODAL_EVENT, onOpenCreditsModal);
         document.addEventListener('visibilitychange', handleTabVisibilityChange);
         return () => {
             window.removeEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+            window.removeEventListener(OPEN_CREDITS_MODAL_EVENT, onOpenCreditsModal);
             document.removeEventListener('visibilitychange', handleTabVisibilityChange);
         };
     }, []);

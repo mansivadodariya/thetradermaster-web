@@ -147,9 +147,9 @@ export default function AiStrategy({ initialTab = 'live' }) {
         const unsubStatus = unifiedSocket.subscribeStatus((status) => {
             setWsStatus(status);
             if (status === 'connected') {
-                addStrategyLog('Connected successfully to Unified MT5 Live WebSocket!', true);
+                addStrategyLog('Connected successfully to Live Market WebSocket!', true);
             } else if (status === 'connecting') {
-                addStrategyLog('Connecting to Unified MT5 Live WebSocket...', true);
+                addStrategyLog('Connecting to Live Market WebSocket...', true);
             } else {
                 addStrategyLog('Connection lost. Reconnecting in 3 seconds...', true);
             }

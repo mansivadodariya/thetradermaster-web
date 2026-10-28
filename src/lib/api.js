@@ -1,4 +1,4 @@
-import { extractAvailableCredits, notifyCreditsUpdated } from '@/lib/credits';
+import { extractAvailableCredits, notifyCreditsUpdated, openCreditsModal } from '@/lib/credits';
 
 const BASE_URL = `${(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '')}/api/v1`;
 
@@ -184,6 +184,23 @@ async function executeRequest(path, options = {}, _isRetry = false) {
             ) {
                 errorMessage = 'Account is not active. Please contact admin.';
             }
+        }
+
+        const isCreditError =
+            res.status === 402 ||
+            data?.detail?.error_code === 'INSUFFICIENT_CREDITS' ||
+            data?.error_code === 'INSUFFICIENT_CREDITS' ||
+            (typeof errorMessage === 'string' && (
+                errorMessage.toLowerCase().includes('insufficient credits') ||
+                errorMessage.toLowerCase().includes('out of credits') ||
+                errorMessage.toLowerCase().includes('no credit')
+            ));
+
+        if (isCreditError) {
+            notifyCreditsUpdated(0);
+            setTimeout(() => {
+                openCreditsModal();
+            }, 500);
         }
 
         const err = new Error(errorMessage);

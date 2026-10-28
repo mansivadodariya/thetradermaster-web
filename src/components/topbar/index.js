@@ -4,7 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import styles from './topbar.module.scss';
 import { dashboardApi } from '@/lib/api';
 import { getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
-import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
+import { CREDITS_UPDATED_EVENT, openCreditsModal } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 import ThemeToggle from '@/components/themeToggle';
@@ -229,13 +229,15 @@ const Topbar = ({ onMenuClick }) => {
           <div
             className={styles.credits}
             onClick={() => {
-              if (hasPlansPermission) {
+              if (Number(credits) <= 0 || !hasPlansPermission) {
+                openCreditsModal();
+              } else {
                 router.push('/subscription-plans');
               }
             }}
             role="button"
             tabIndex={0}
-            title={hasPlansPermission ? t('topbar.clickToUpgrade', 'View subscription plans') : ''}
+            title={Number(credits) <= 0 ? 'Connect broker to earn credits' : (hasPlansPermission ? t('topbar.clickToUpgrade', 'View subscription plans') : 'Earn credits with broker')}
           >
             <CreditCardIcon />
             <span>{credits ?? 0} {t('topbar.credits', 'credits')}</span>

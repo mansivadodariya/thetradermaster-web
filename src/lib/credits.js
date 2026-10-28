@@ -1,6 +1,12 @@
 import { getStoredUserId } from '@/lib/authSession';
 
 export const CREDITS_UPDATED_EVENT = 'credits:updated';
+export const OPEN_CREDITS_MODAL_EVENT = 'credits:openModal';
+
+export function openCreditsModal() {
+    if (typeof window === 'undefined') return;
+    window.dispatchEvent(new CustomEvent(OPEN_CREDITS_MODAL_EVENT));
+}
 
 /**
  * Read available credits from common API response shapes.

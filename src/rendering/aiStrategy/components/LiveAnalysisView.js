@@ -23,19 +23,6 @@ export default function LiveAnalysisView({
 }) {
     return (
         <div className={styles.liveAnalysisLayout}>
-            {/* Real-time Feed Status & Latency Transparency Banner */}
-            <div className={styles.feedDisclosureBanner}>
-                <div className={styles.feedStatusPill}>
-                    <span className={styles.feedStatusDot} />
-                    <span className={styles.feedStatusLabel}>MT5 WEBSOCKET TICK STREAM</span>
-                </div>
-                <div className={styles.feedDisclosureText}>
-                    <span>
-                        Real-time AI algorithmic telemetry. Market quotes update via institutional WebSocket bridges (standard 15-minute indicative delay may apply during exchange settlement or low-liquidity sessions).
-                    </span>
-                </div>
-            </div>
-
             {/* Top Row: Watchlist + Chart Panels side-by-side */}
             <div className={styles.topPanelsRow}>
                 {/* Panel 1: Watchlist */}

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { openCreditsModal } from '@/lib/credits';
 import styles from './interactiveError.module.scss';
 
 const CoinsCapitalIcon = ({ size = 16, color = 'currentColor' }) => (
@@ -54,7 +55,7 @@ export function InteractiveErrorBubble({
 
     const handlePrimaryClick = () => {
         if (isCredits) {
-            router.push('/subscription-plans');
+            openCreditsModal();
         } else if (onRetry && error?.retryPayload) {
             onRetry(error.retryPayload);
         } else if (onRetry) {
@@ -108,14 +109,14 @@ export function InteractiveErrorBubble({
                             onClick={handlePrimaryClick}
                         >
                             <SparklesMagicIcon size={14} color="#000000" />
-                            <span>Upgrade Plan &amp; AI Credits</span>
+                            <span>{error?.actionLabel || 'Connect Broker for Credits'}</span>
                         </button>
                         <button
                             type="button"
                             className={styles.errorSecondaryBtn}
-                            onClick={() => router.push('/profile')}
+                            onClick={() => router.push(error?.actionUrl || '/broker')}
                         >
-                            <span>Check Balance</span>
+                            <span>Associated Brokers</span>
                         </button>
                     </>
                 ) : (

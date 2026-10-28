@@ -28,7 +28,7 @@ export default function EvidenceSection({
                 </div>
                 <span className={styles.evidenceVerifiedBadge}>
                     <span className={styles.verifiedDot} />
-                    MT5 Quantitative Validation
+                    Quantitative Validation
                 </span>
             </div>
 

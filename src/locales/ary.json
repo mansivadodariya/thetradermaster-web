@@ -45,7 +45,8 @@
     "landingPage": "الصفحة الرئيسية",
     "backtest": "الباكتيست",
     "strategySignal": "إشارة الاستراتيجية",
-    "signalTerminal": "محطة الإشارات"
+    "signalTerminal": "محطة الإشارات",
+    "customerSupport": "خدمة الزبناء"
   },
   "topbar": {
     "credits": "كريدي متبقي",
@@ -90,7 +91,8 @@
     "disclaimerP5": "جميع الرسوم البيانية التفاعلية ومؤشرات التحليل الفني مدعومة ببنية التحليلات المرئية لـ TraderMaster وتعتمد على تدفقات بيانات مؤسسية لأغراض البحث.",
     "disclaimerNotice": "هذا البيان بمثابة إشعار ملخص ولا يلغي إطارنا القانوني الكامل. للاطلاع على التفاصيل الكاملة، يرجى مراجعة",
     "whiteLabel": "حل الوايت ليبل للشركات",
-    "noRefundPolicy": "سياسة عدم استرجاع الأموال"
+    "noRefundPolicy": "سياسة عدم استرجاع الأموال",
+    "customerSupport": "خدمة الزبناء"
   },
   "common": {
     "language": "اللغة",
@@ -125,7 +127,8 @@
     "processing": "إعادة التوجيه...",
     "somethingWentWrong": "وقع شي مشكل. عاود حاول مرة أخرى.",
     "backToTop": "رجع للفوق",
-    "delete": "مسح"
+    "delete": "مسح",
+    "optional": "اختياري"
   },
   "home": {
     "lineText": "الذكاء الاصطناعي لمتداولي MT5",
@@ -988,7 +991,10 @@
     "starterPlan": "خطة البداية",
     "daysLeft": "د اليسار",
     "expiringToday": "تنتهي صلاحيته اليوم",
-    "cycle": "دورة"
+    "cycle": "دورة",
+    "installApp": "تثبيت التطبيق",
+    "installTraderMasterApp": "تثبيت تطبيق TraderMaster",
+    "daysActive": "أيام نشطة"
   },
   "profile": {
     "profileTab": "الملف الشخصي",
@@ -1436,7 +1442,8 @@
     "brokerSub": "ربط حسابات MT4/MT5 وبيانات اعتماد الوسيط",
     "creditHistorySub": "مراجعة استهلاك نقاط الذكاء الاصطناعي وسجلات المعاملات",
     "strategyStudioSub": "صانع استراتيجيات وروبوتات التريدينغ التفاعلي بالذكاء الاصطناعي",
-    "educationSub": "تعلم أساسيات التريدينغ والنفسية والمارشي ف Edufins"
+    "educationSub": "تعلم أساسيات التريدينغ والنفسية والمارشي ف Edufins",
+    "customerSupportSub": "طرح سؤال للمساعدة فالمنتوج ولا الحساب ديالك"
   },
   "homeSections": {
     "hero": {
@@ -2064,7 +2071,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "شنو باغي",
+    "welcomeTitleMid": "",
+    "welcomeTitleHighlight": "تحلل؟",
+    "welcomeSubtitle": "اختار نمط التحليل ولا سول أي سؤال على السوق باش تبدا",
+    "deepAnalysisSub": "الإشارات التقنية، المستويات المهمة وتحليل الاتجاه",
+    "generateFromImageSub": "حمل تصويرة الشارت للتشخيص بالذكاء الاصطناعي",
+    "macroNewsSub": "الأحداث الاقتصادية المهمة ومعنويات السوق",
+    "liveFeed": "بث مباشر",
+    "feedTooltip": "بث البيانات عبر WebSocket MT5",
+    "cameraActions": "إجراءات لقطة الشاشة",
+    "indicatorsLabel": "المؤشرات"
   },
   "news": {
     "subtitle": "تتبع المحفز الكلي المباشر والتحيز الاتجاهي متعدد الأصول ونمذجة سيناريو الذكاء الاصطناعي.",
@@ -3190,5 +3208,57 @@
     "tier2Support": "Dedicated partner support",
     "whyJoinBadge": "WHY JOIN",
     "whyJoinSubtitle": "Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network."
+  },
+  "technicalSupport": {
+    "badge": "خدمة الزبناء",
+    "title": "إرسال",
+    "titleAccent": "طلب دعم",
+    "subtitle": "عندك شي سؤال ولا لقيتي مشكل؟ عمر الاستمارة لتحت وفريقنا غادي يجاوبك دغيا.",
+    "infoCardTitle": "كيفاش خدام",
+    "infoCardDesc": "صيفط استفسار مع معلومات الاتصال ووصف المشكل. فريق خدمة الزبناء كيراجع كاع الطلبات وكيجاوب فالايميل فبضع ساعات فأيام العمل.",
+    "step1Title": "إرسال الاستفسار",
+    "step1Desc": "عطي تفاصيل المشكل وأرفق لقطات شاشة اختيارية.",
+    "step2Title": "مراجعة الفريق",
+    "step2Desc": "الفريق ديالنا كيحلل السجلات وكيحدد المشكل بدقة.",
+    "step3Title": "حل سريع",
+    "step3Desc": "توصل بتحديثات الحالة وحل كامل فالايميل.",
+    "deskOnline": "خدمة الزبناء نشطة · الجواب فبضع ساعات",
+    "featureFastLabel": "استجابة سريعة",
+    "featureFastDesc": "متوسط الرد قل من ساعتين",
+    "featureSecureLabel": "مشفر وآمن",
+    "featureSecureDesc": "خصوصية تامة للاستفسار",
+    "featureExpertLabel": "مهندسون خبراء",
+    "featureExpertDesc": "فريق تطوير كمي متخصص",
+    "featureTrackLabel": "تتبع الاستفسار",
+    "featureTrackDesc": "تحديثات كاملة للحالة فالايميل",
+    "formTitle": "إرسال الاستفسار ديالك",
+    "formSubtitle": "عمر التفاصيل لتحت. كاع الخانات لي فيها * ضرورية.",
+    "errImageType": "يرجى تحميل صورة بصيغة JPEG أو PNG أو WebP أو GIF.",
+    "errImageSize": "حجم الصورة خاصو يكون 5 ميغابايت ولا أقل.",
+    "errName": "يرجى إدخال الاسم الكامل ديالك.",
+    "errEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح.",
+    "errPhone": "يرجى إدخال رقم هاتف صحيح.",
+    "errDesc": "يرجى وصف المشكل بـ 10 حروف على الأقل.",
+    "toastSuccess": "تم إرسال الطلب. الفريق ديالنا غادي يتواصل معاك دغيا.",
+    "toastError": "فشل إرسال الطلب. عاود حاول مرة أخرى.",
+    "labelName": "الاسم الكامل",
+    "phName": "دخل الاسم الكامل ديالك",
+    "labelEmail": "البريد الإلكتروني",
+    "phEmail": "you@example.com",
+    "labelPhone": "رقم الهاتف",
+    "phPhone": "رقم الهاتف",
+    "labelDescription": "وصف المشكل",
+    "phDescription": "وصف المشكل، الخطوات باش وقع وأي رسائل خطأ…",
+    "labelImage": "لقطة شاشة / مرفق",
+    "previewAlt": "معاينة المرفق",
+    "uploadCta": "كليكي لتحميل لقطة شاشة",
+    "uploadHint": "JPEG، PNG، WebP ولا GIF · حد أقصى 5 ميغابايت",
+    "btnSending": "جاري الإرسال…",
+    "btnSubmit": "إرسال الاستفسار",
+    "helperNote": "فريق الدعم كيرد عادة فبضع ساعات فأيام العمل.",
+    "successTitle": "تم إرسال الاستفسار",
+    "thankYou": "شكراً ليك",
+    "successDesc": "توصلنا بالطلب ديالك وغادي نجاوبوك فـ",
+    "btnAnother": "إرسال استفسار آخر"
   }
 }

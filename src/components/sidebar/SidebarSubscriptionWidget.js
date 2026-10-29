@@ -88,7 +88,7 @@ export default function SidebarSubscriptionWidget({ isCollapsed, onNavigate }) {
         <div className={styles.footerRow}>
           <span className={styles.statusText}>
             <span className={styles.greenDot} />
-            {daysLeft > 1 ? `${daysLeft} Days Active` : t('sidebar.expiringToday', 'Expiring Today')}
+            {daysLeft > 1 ? `${daysLeft} ${t('sidebar.daysActive', 'Days Active')}` : t('sidebar.expiringToday', 'Expiring Today')}
           </span>
           <span className={styles.cycleText}>
             {progressPercent}% {t('sidebar.cycle', 'cycle')}
@@ -101,12 +101,12 @@ export default function SidebarSubscriptionWidget({ isCollapsed, onNavigate }) {
           href="/subscription-plans"
           className={styles.compactBtn}
           onClick={onNavigate}
-          aria-label={`${planDisplayName} (${daysLeft}d left)`}
+          aria-label={`${planDisplayName} (${daysLeft}${t('sidebar.daysLeft', 'd left')})`}
         >
           <span className={styles.compactPulseDot} />
           <CrownIcon />
           <span className={styles.tooltip}>
-            {`${planDisplayName} • ${daysLeft}d left`}
+            {`${planDisplayName} • ${daysLeft}${t('sidebar.daysLeft', 'd left')}`}
           </span>
         </Link>
       </div>

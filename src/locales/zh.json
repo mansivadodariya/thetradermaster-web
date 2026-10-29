@@ -45,7 +45,8 @@
     "landingPage": "首页",
     "backtest": "回测",
     "strategySignal": "策略信号",
-    "signalTerminal": "信号终端"
+    "signalTerminal": "信号终端",
+    "customerSupport": "客户支持"
   },
   "topbar": {
     "credits": "学分",
@@ -90,7 +91,8 @@
     "disclaimerP5": "平台上可访问的所有交互式蜡烛图、多时间框架模式识别叠加以及技术指标引擎均由 TraderMaster 专有的可视化分析架构提供支持。货币、数字资产和商品的市场遥测和价格数据来源于机构数据源，用于分析筛选。数据按“原样”提供用于技术研究，并应在做出交易决策之前进行独立验证。",
     "disclaimerNotice": "本声明作为摘要通知，并不取代我们完整的法律框架。有关我们的操作条款和风险警告的详尽详细信息，请查看我们的完整",
     "whiteLabel": "机构白标方案",
-    "noRefundPolicy": "不予退款政策"
+    "noRefundPolicy": "不予退款政策",
+    "customerSupport": "客户支持"
   },
   "common": {
     "language": "语言",
@@ -125,7 +127,8 @@
     "processing": "正在重定向...",
     "somethingWentWrong": "出了点问题，请重试。",
     "backToTop": "返回顶部",
-    "delete": "删除"
+    "delete": "删除",
+    "optional": "可选"
   },
   "home": {
     "lineText": "MT5 交易者的人工智能",
@@ -989,7 +992,10 @@
     "starterPlan": "入门计划",
     "daysLeft": "d 左",
     "expiringToday": "今天到期",
-    "cycle": "循环"
+    "cycle": "循环",
+    "installApp": "安装应用",
+    "installTraderMasterApp": "安装 TraderMaster 应用",
+    "daysActive": "天活跃"
   },
   "profile": {
     "profileTab": "简介",
@@ -1437,7 +1443,8 @@
     "brokerSub": "连接 MT4/MT5 账户、经纪商 API 和凭证",
     "creditHistorySub": "查看 AI 代币使用情况、积分和交易日志",
     "strategyStudioSub": "交互式 AI 策略与算法机器人构建器",
-    "educationSub": "在 Edufins 掌握交易基本面、心理学与市场逻辑"
+    "educationSub": "在 Edufins 掌握交易基本面、心理学与市场逻辑",
+    "customerSupportSub": "提交产品或账户求助查询"
   },
   "homeSections": {
     "hero": {
@@ -2065,7 +2072,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "您想",
+    "welcomeTitleMid": "进行",
+    "welcomeTitleHighlight": "分析？",
+    "welcomeSubtitle": "选择一种分析模式或提出任何市场问题以开始",
+    "deepAnalysisSub": "技术信号、关键位及趋势结构深度剖析",
+    "generateFromImageSub": "上传图表截图进行人工智能智能诊断",
+    "macroNewsSub": "高影响财经日历事件与宏观市场情绪",
+    "liveFeed": "实时数据流",
+    "feedTooltip": "通过 WebSocket MT5 网桥流式传输",
+    "cameraActions": "图表截图与操作",
+    "indicatorsLabel": "技术指标"
   },
   "news": {
     "subtitle": "实时宏观催化剂跟踪、多资产方向偏差和人工智能场景建模。",
@@ -3191,5 +3209,57 @@
     "tier2Support": "1对1专属合伙人支持团队",
     "whyJoinBadge": "为何加入我们",
     "whyJoinSubtitle": "无论您是资深交易员、导师、内容创作者还是社区主理人，TraderMaster 均为您提供完善的工具助您拓展网络。"
+  },
+  "technicalSupport": {
+    "badge": "客户支持",
+    "title": "提交",
+    "titleAccent": "支持工单",
+    "subtitle": "有问题或遇到故障？请填写下表，我们的团队将尽快与您联系。",
+    "infoCardTitle": "运作方式",
+    "infoCardDesc": "提交包含您的联系方式和问题描述的工单。我们专门的客户支持团队将审核每份提交，并在工作日的数小时内通过电子邮件回复。",
+    "step1Title": "提交工单",
+    "step1Desc": "提供详细问题描述并上传可选截图。",
+    "step2Title": "技术排查",
+    "step2Desc": "我们的量化与研发团队分析系统日志并定位故障根源。",
+    "step3Title": "高效解决",
+    "step3Desc": "通过电子邮件获取进度更新与完整的解决方案。",
+    "deskOnline": "客服服务在线 · 数小时内回复",
+    "featureFastLabel": "极速响应",
+    "featureFastDesc": "平均回复少于 2 小时",
+    "featureSecureLabel": "加密且安全",
+    "featureSecureDesc": "端到端隐私保护",
+    "featureExpertLabel": "资深工程师",
+    "featureExpertDesc": "专属量化研发团队支持",
+    "featureTrackLabel": "工单进度追踪",
+    "featureTrackDesc": "邮件全流程状态同步",
+    "formTitle": "提交您的咨询",
+    "formSubtitle": "请填写以下详细信息。标有 * 的字段均为必填项。",
+    "errImageType": "请上传 JPEG、PNG、WebP 或 GIF 格式的图片。",
+    "errImageSize": "图片大小必须不超过 5 MB。",
+    "errName": "请输入您的全名。",
+    "errEmail": "请输入有效的电子邮箱地址。",
+    "errPhone": "请输入有效的联系电话。",
+    "errDesc": "请至少输入 10 个字符描述该问题。",
+    "toastSuccess": "咨询已提交，我们的团队将尽快与您联系。",
+    "toastError": "提交咨询失败，请重试。",
+    "labelName": "全名",
+    "phName": "输入您的全名",
+    "labelEmail": "电子邮箱",
+    "phEmail": "you@example.com",
+    "labelPhone": "联系电话",
+    "phPhone": "手机或座机号码",
+    "labelDescription": "问题描述",
+    "phDescription": "描述问题、复现步骤及任何错误提示信息…",
+    "labelImage": "截图 / 附件",
+    "previewAlt": "附件预览",
+    "uploadCta": "点击上传截图",
+    "uploadHint": "JPEG、PNG、WebP 或 GIF · 最大 5 MB",
+    "btnSending": "正在提交…",
+    "btnSubmit": "提交咨询",
+    "helperNote": "我们的技术支持中心通常会在工作日几小时内给予回复。",
+    "successTitle": "咨询已提交",
+    "thankYou": "感谢您",
+    "successDesc": "我们已收到您的工单，将通过以下邮箱回复您：",
+    "btnAnother": "提交另一个工单"
   }
 }

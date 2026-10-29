@@ -172,12 +172,12 @@ export default function InsideChartControls({
                         closeAllDropdowns();
                         setIndicatorsModalOpen(true);
                     }}
-                    title="Indicators, Metrics & Strategies"
+                    title={t ? t('aiAssistant.indicatorsModalTitle', 'Indicators, Metrics & Strategies') : 'Indicators, Metrics & Strategies'}
                 >
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                     </svg>
-                    <span className={styles.pillTimeframeLabel}>Indicators</span>
+                    <span className={styles.pillTimeframeLabel}>{t ? t('aiAssistant.indicatorsTab', 'Indicators') : 'Indicators'}</span>
                 </button>
             </div>
 
@@ -187,7 +187,7 @@ export default function InsideChartControls({
             <button
                 type="button"
                 className={`${styles.pillIconBtn} ${settingsOpen ? styles.activeControl : ''}`}
-                title="Chart Settings"
+                title={t ? t('aiAssistant.chartSettings', 'Chart Settings') : 'Chart Settings'}
                 onClick={openSettingsModal}
             >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

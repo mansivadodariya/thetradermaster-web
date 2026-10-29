@@ -45,7 +45,8 @@
     "landingPage": "Halaman Utama",
     "backtest": "Backtest",
     "strategySignal": "Sinyal Strategi",
-    "signalTerminal": "Terminal Sinyal"
+    "signalTerminal": "Terminal Sinyal",
+    "customerSupport": "Dukungan Pelanggan"
   },
   "topbar": {
     "credits": "kredit",
@@ -90,7 +91,8 @@
     "disclaimerP5": "Semua grafik candlestick interaktif, overlay pengenalan pola multi-kerangka waktu, dan mesin indikator teknis yang dapat diakses di platform didukung oleh arsitektur analisis visual milik TraderMaster. Telemetri pasar dan data harga seluruh mata uang, aset digital, dan komoditas bersumber dari data institusi untuk penyaringan analitis. Data dikirimkan \"sebagaimana adanya\" untuk penelitian teknis dan harus divalidasi secara independen sebelum mengambil keputusan perdagangan.",
     "disclaimerNotice": "Pernyataan ini berfungsi sebagai pemberitahuan ringkasan dan tidak menggantikan kerangka hukum kami secara keseluruhan. Untuk detail lengkap tentang persyaratan pengoperasian dan peringatan risiko kami, harap tinjau",
     "whiteLabel": "Solusi Label Putih",
-    "noRefundPolicy": "Kebijakan Tanpa Pengembalian Dana"
+    "noRefundPolicy": "Kebijakan Tanpa Pengembalian Dana",
+    "customerSupport": "Dukungan Pelanggan"
   },
   "common": {
     "language": "kami secara lengkap Bahasa",
@@ -125,7 +127,8 @@
     "processing": "Mengarahkan...",
     "somethingWentWrong": "Terjadi kesalahan. Silakan coba lagi.",
     "backToTop": "Kembali ke atas",
-    "delete": "Hapus"
+    "delete": "Hapus",
+    "optional": "Opsional"
   },
   "home": {
     "lineText": "AI Untuk Trader MT5",
@@ -988,7 +991,10 @@
     "starterPlan": "Rencana Pemula",
     "daysLeft": "d kiri",
     "expiringToday": "Kedaluwarsa Hari Ini",
-    "cycle": "siklus"
+    "cycle": "siklus",
+    "installApp": "Instal Aplikasi",
+    "installTraderMasterApp": "Instal Aplikasi TraderMaster",
+    "daysActive": "Hari Aktif"
   },
   "profile": {
     "profileTab": "Profil",
@@ -1436,7 +1442,8 @@
     "brokerSub": "Hubungkan akun MT4/MT5, API broker & kredensial",
     "creditHistorySub": "Tinjau penggunaan token AI, kredit, dan log transaksi",
     "strategyStudioSub": "Pembangun strategi AI interaktif dan bot algoritmik",
-    "educationSub": "Kuasai dasar-dasar trading, psikologi & pasar di Edufins"
+    "educationSub": "Kuasai dasar-dasar trading, psikologi & pasar di Edufins",
+    "customerSupportSub": "Kirim pertanyaan untuk bantuan produk atau akun"
   },
   "homeSections": {
     "hero": {
@@ -2064,7 +2071,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "Apa yang ingin Anda",
+    "welcomeTitleMid": "",
+    "welcomeTitleHighlight": "analisis?",
+    "welcomeSubtitle": "Pilih mode analisis atau ajukan pertanyaan pasar apa pun untuk memulai",
+    "deepAnalysisSub": "Sinyal teknikal, level kunci & perincian tren",
+    "generateFromImageSub": "Unggah tangkapan layar grafik untuk diagnosis AI",
+    "macroNewsSub": "Katalis kalender berdampak tinggi & sentimen pasar",
+    "liveFeed": "SIARAN LANGSUNG",
+    "feedTooltip": "Streaming via WebSocket MT5 Bridge",
+    "cameraActions": "Tindakan Tangkapan Layar",
+    "indicatorsLabel": "Indikator"
   },
   "news": {
     "subtitle": "Pelacakan katalis makro langsung, bias arah multi-aset & pemodelan skenario AI.",
@@ -3190,5 +3208,57 @@
     "tier2Support": "Dedicated partner support",
     "whyJoinBadge": "WHY JOIN",
     "whyJoinSubtitle": "Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network."
+  },
+  "technicalSupport": {
+    "badge": "DUKUNGAN PELANGGAN",
+    "title": "Ajukan",
+    "titleAccent": "Pertanyaan Dukungan",
+    "subtitle": "Punya pertanyaan atau kendala? Isi formulir di bawah ini dan tim kami akan segera menghubungi Anda.",
+    "infoCardTitle": "Cara Kerja",
+    "infoCardDesc": "Kirim pertanyaan beserta detail kontak dan deskripsi masalah Anda. Tim dukungan kami meninjau setiap pengajuan dan merespons via email dalam beberapa jam pada hari kerja.",
+    "step1Title": "Kirim Pertanyaan",
+    "step1Desc": "Berikan detail masalah dan lampirkan tangkapan layar opsional.",
+    "step2Title": "Tinjauan Tim",
+    "step2Desc": "Tim pengembang kami menganalisis log dan mengisolasi masalah.",
+    "step3Title": "Resolusi Cepat",
+    "step3Desc": "Terima pembaruan status dan solusi lengkap melalui email.",
+    "deskOnline": "Meja Dukungan Aktif · Balasan dalam beberapa jam",
+    "featureFastLabel": "Respons Cepat",
+    "featureFastDesc": "Rata-rata balasan di bawah 2 jam",
+    "featureSecureLabel": "Terenkripsi & Aman",
+    "featureSecureDesc": "Privasi menyeluruh",
+    "featureExpertLabel": "Insinyur Ahli",
+    "featureExpertDesc": "Tim pengembang quant yang berdedikasi",
+    "featureTrackLabel": "Pelacakan Pertanyaan",
+    "featureTrackDesc": "Pembaruan status lengkap via email",
+    "formTitle": "Kirim Pertanyaan Anda",
+    "formSubtitle": "Isi detail di bawah ini. Semua bidang bertanda * wajib diisi.",
+    "errImageType": "Silakan unggah gambar JPEG, PNG, WebP, atau GIF.",
+    "errImageSize": "Ukuran gambar harus 5 MB atau lebih kecil.",
+    "errName": "Silakan masukkan nama lengkap Anda.",
+    "errEmail": "Silakan masukkan alamat email yang valid.",
+    "errPhone": "Silakan masukkan nomor kontak yang valid.",
+    "errDesc": "Silakan jelaskan masalah dengan setidaknya 10 karakter.",
+    "toastSuccess": "Pertanyaan dukungan telah dikirim. Tim kami akan segera menghubungi Anda.",
+    "toastError": "Gagal mengirim pertanyaan. Silakan coba lagi.",
+    "labelName": "Nama Lengkap",
+    "phName": "Masukkan nama lengkap Anda",
+    "labelEmail": "Email",
+    "phEmail": "you@example.com",
+    "labelPhone": "Nomor Kontak",
+    "phPhone": "Nomor telepon / seluler",
+    "labelDescription": "Deskripsi Masalah",
+    "phDescription": "Jelaskan masalah, langkah reproduksi, dan pesan kesalahan apa pun…",
+    "labelImage": "Tangkapan Layar / Lampiran",
+    "previewAlt": "Pratinjau lampiran",
+    "uploadCta": "Klik untuk mengunggah tangkapan layar",
+    "uploadHint": "JPEG, PNG, WebP atau GIF · maks 5 MB",
+    "btnSending": "Mengirim…",
+    "btnSubmit": "Kirim Pertanyaan",
+    "helperNote": "Meja teknis kami biasanya merespons dalam beberapa jam selama hari kerja.",
+    "successTitle": "Pertanyaan Terkirim",
+    "thankYou": "Terima kasih",
+    "successDesc": "Kami telah menerima pertanyaan Anda dan akan membalas di",
+    "btnAnother": "Kirim Pertanyaan Lain"
   }
 }

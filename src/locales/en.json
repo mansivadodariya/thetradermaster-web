@@ -45,7 +45,8 @@
     "landingPage": "Landing Page",
     "backtest": "Backtest",
     "strategySignal": "Strategy Signal",
-    "signalTerminal": "Signal Terminal"
+    "signalTerminal": "Signal Terminal",
+    "customerSupport": "Customer Support"
   },
   "topbar": {
     "credits": "credits",
@@ -90,7 +91,8 @@
     "disclaimerP5": "All interactive candlestick charts, multi-timeframe pattern recognition overlays, and technical indicator engines accessible on the platform are powered by TraderMaster’s proprietary visual analytics architecture. Market telemetry and price data across currencies, digital assets, and commodities are sourced from institutional data feeds for analytical screening. Data is delivered on an \"as-is\" basis for technical research and should be independently validated prior to making trading decisions.",
     "disclaimerNotice": "This statement serves as a summary notice and does not replace our complete legal framework. For exhaustive details on our operating terms and risk warnings, please review our full",
     "whiteLabel": "White Label",
-    "noRefundPolicy": "No Refund Policy"
+    "noRefundPolicy": "No Refund Policy",
+    "customerSupport": "Customer Support"
   },
   "common": {
     "language": "Language",
@@ -125,7 +127,8 @@
     "apply": "Apply",
     "processing": "Redirecting...",
     "somethingWentWrong": "Something went wrong. Please try again.",
-    "delete": "Delete Analysis"
+    "delete": "Delete Analysis",
+    "optional": "Optional"
   },
   "home": {
     "lineText": "AI For MT5 Traders",
@@ -985,7 +988,10 @@
     "starterPlan": "Starter Plan",
     "daysLeft": "d left",
     "expiringToday": "Expiring Today",
-    "cycle": "cycle"
+    "cycle": "cycle",
+    "installApp": "Install App",
+    "installTraderMasterApp": "Install TraderMaster App",
+    "daysActive": "Days Active"
   },
   "profile": {
     "profileTab": "Profile",
@@ -1435,7 +1441,8 @@
     "brokerSub": "Connect MT4/MT5 accounts, broker API & credentials",
     "creditHistorySub": "Review AI token usage, credits and transaction logs",
     "strategyStudioSub": "Interactive AI strategy and algorithmic bot builder",
-    "educationSub": "Master trading fundamentals, psychology & markets at Edufins"
+    "educationSub": "Master trading fundamentals, psychology & markets at Edufins",
+    "customerSupportSub": "Raise a query for product or account help"
   },
   "homeSections": {
     "hero": {
@@ -2063,7 +2070,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "What do you want",
+    "welcomeTitleMid": "to",
+    "welcomeTitleHighlight": "analyze?",
+    "welcomeSubtitle": "Select an analysis mode or ask any market question to start",
+    "deepAnalysisSub": "Technical signals, key levels & trend breakdown",
+    "generateFromImageSub": "Upload chart photo or snapshot for AI diagnosis",
+    "macroNewsSub": "High-impact calendar catalysts & market sentiment",
+    "liveFeed": "LIVE FEED",
+    "feedTooltip": "Streaming via WebSocket MT5 Bridge (standard 15m delay may apply during non-liquid or off-market hours)",
+    "cameraActions": "Camera Screenshot Actions",
+    "indicatorsLabel": "Indicators"
   },
   "news": {
     "subtitle": "Live macro catalyst tracking, multi-asset directional bias & AI scenario modeling.",
@@ -2489,13 +2507,10 @@
     "analyze": "Analyze",
     "analysisOverview": "Analysis Overview",
     "totalReports": "Total Reports",
-    "totalTrades": "Total Trades",
-    "winRate": "Win Rate",
     "totalPnl": "Total P&L",
     "avgRr": "Avg. R:R",
     "largestWin": "Largest Win",
     "largestLoss": "Largest Loss",
-    "profitFactor": "Profit Factor",
     "avgHolding": "Avg Holding",
     "basicStats": "Basic Trading Stats",
     "metric": "Metric",
@@ -3192,5 +3207,57 @@
     "tier2Support": "Dedicated partner support",
     "whyJoinBadge": "WHY JOIN",
     "whyJoinSubtitle": "Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network."
+  },
+  "technicalSupport": {
+    "badge": "CUSTOMER SUPPORT",
+    "title": "Raise a",
+    "titleAccent": "Support Query",
+    "subtitle": "Have a question or encounter an issue? Fill out the form below and our team will get back to you shortly.",
+    "infoCardTitle": "How It Works",
+    "infoCardDesc": "Submit a query with your contact details and a description of the issue. Our dedicated customer support team reviews every submission and responds via email within a few hours during business days.",
+    "step1Title": "Submit Query",
+    "step1Desc": "Provide problem details and attach optional screenshots.",
+    "step2Title": "Desk Review",
+    "step2Desc": "Our quant & dev team analyzes logs and isolates the issue.",
+    "step3Title": "Fast Resolution",
+    "step3Desc": "Receive status updates and a complete solution via email.",
+    "deskOnline": "Customer Desk Active · Reply within a few hours",
+    "featureFastLabel": "Fast Response",
+    "featureFastDesc": "Avg. reply under 2 hours",
+    "featureSecureLabel": "Encrypted & Secure",
+    "featureSecureDesc": "End-to-end query privacy",
+    "featureExpertLabel": "Expert Engineers",
+    "featureExpertDesc": "Dedicated quant dev team",
+    "featureTrackLabel": "Query Tracking",
+    "featureTrackDesc": "Full status updates via email",
+    "formTitle": "Submit Your Query",
+    "formSubtitle": "Fill in the details below. All fields marked with * are required.",
+    "errImageType": "Please upload a JPEG, PNG, WebP, or GIF image.",
+    "errImageSize": "Image must be 5 MB or smaller.",
+    "errName": "Please enter your full name.",
+    "errEmail": "Please enter a valid email address.",
+    "errPhone": "Please enter a valid contact number.",
+    "errDesc": "Please describe the issue with at least 10 characters.",
+    "toastSuccess": "Support query submitted. Our team will get back to you shortly.",
+    "toastError": "Failed to submit query. Please try again.",
+    "labelName": "Full Name",
+    "phName": "Enter your full name",
+    "labelEmail": "Email",
+    "phEmail": "you@example.com",
+    "labelPhone": "Contact Number",
+    "phPhone": "Phone / mobile number",
+    "labelDescription": "Issue Description",
+    "phDescription": "Describe the problem, steps to reproduce, and any error messages…",
+    "labelImage": "Screenshot / Attachment",
+    "previewAlt": "Attachment preview",
+    "uploadCta": "Click to upload a screenshot",
+    "uploadHint": "JPEG, PNG, WebP or GIF · max 5 MB",
+    "btnSending": "Submitting…",
+    "btnSubmit": "Submit Query",
+    "helperNote": "Our technical desk typically responds within a few hours during business days.",
+    "successTitle": "Query Submitted",
+    "thankYou": "Thank you",
+    "successDesc": "We received your query and will reply at",
+    "btnAnother": "Submit Another Query"
   }
 }

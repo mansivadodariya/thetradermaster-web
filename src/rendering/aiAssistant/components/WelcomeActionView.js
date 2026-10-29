@@ -13,9 +13,12 @@ export default function WelcomeActionView({
     return (
         <div className={styles.welcomeContainer}>
             <h2 className={styles.welcomeTitle}>
-                What do you want <br />to <span className={styles.titleGradient}>analyze?</span>
+                {t('aiAssistant.welcomeTitlePre', 'What do you want')} <br />{t('aiAssistant.welcomeTitleMid', 'to')}{' '}
+                <span className={styles.titleGradient}>{t('aiAssistant.welcomeTitleHighlight', 'analyze?')}</span>
             </h2>
-            <p className={styles.welcomeSubtitle}>Select an analysis mode or ask any market question to start</p>
+            <p className={styles.welcomeSubtitle}>
+                {t('aiAssistant.welcomeSubtitle', 'Select an analysis mode or ask any market question to start')}
+            </p>
             <div className={styles.welcomeActionCards}>
                 <button
                     type="button"
@@ -27,7 +30,9 @@ export default function WelcomeActionView({
                     </div>
                     <div className={styles.cardTextContent}>
                         <span className={styles.cardMainTitle}>{t('aiAssistant.deepMarketAnalysis', 'Deep Market Analysis')}</span>
-                        <span className={styles.cardSubTitle}>Technical signals, key levels &amp; trend breakdown</span>
+                        <span className={styles.cardSubTitle}>
+                            {t('aiAssistant.deepAnalysisSub', 'Technical signals, key levels & trend breakdown')}
+                        </span>
                     </div>
                     <div className={styles.cardArrow}>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -48,7 +53,9 @@ export default function WelcomeActionView({
                     </div>
                     <div className={styles.cardTextContent}>
                         <span className={styles.cardMainTitle}>{t('aiAssistant.generateFromImage', 'Generate From Image')}</span>
-                        <span className={styles.cardSubTitle}>Upload chart photo or snapshot for AI diagnosis</span>
+                        <span className={styles.cardSubTitle}>
+                            {t('aiAssistant.generateFromImageSub', 'Upload chart photo or snapshot for AI diagnosis')}
+                        </span>
                     </div>
                     <div className={styles.cardArrow}>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -71,7 +78,9 @@ export default function WelcomeActionView({
                     </div>
                     <div className={styles.cardTextContent}>
                         <span className={styles.cardMainTitle}>{t('aiAssistant.macroNews', 'Macro News & Economic Events')}</span>
-                        <span className={styles.cardSubTitle}>High-impact calendar catalysts &amp; market sentiment</span>
+                        <span className={styles.cardSubTitle}>
+                            {t('aiAssistant.macroNewsSub', 'High-impact calendar catalysts & market sentiment')}
+                        </span>
                     </div>
                     <div className={styles.cardArrow}>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

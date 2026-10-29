@@ -45,7 +45,8 @@
     "landingPage": "Trang chủ",
     "backtest": "Backtest",
     "strategySignal": "Tín hiệu chiến lược",
-    "signalTerminal": "Thiết bị đầu cuối tín hiệu"
+    "signalTerminal": "Thiết bị đầu cuối tín hiệu",
+    "customerSupport": "Hỗ trợ khách hàng"
   },
   "topbar": {
     "credits": "tín dụng",
@@ -90,7 +91,8 @@
     "disclaimerP5": "Tất cả các biểu đồ nến tương tác, lớp phủ nhận dạng mẫu đa khung thời gian và công cụ chỉ báo kỹ thuật có thể truy cập được trên nền tảng đều được hỗ trợ bởi kiến ​​trúc phân tích hình ảnh độc quyền của TraderMaster. Dữ liệu từ xa về thị trường và giá cả của các loại tiền tệ, tài sản kỹ thuật số và hàng hóa được lấy từ nguồn cấp dữ liệu của tổ chức để sàng lọc phân tích. Dữ liệu được cung cấp trên cơ sở \"nguyên trạng\" cho nghiên cứu kỹ thuật và phải được xác thực độc lập trước khi đưa ra quyết định giao dịch.",
     "disclaimerNotice": "Tuyên bố này đóng vai trò như một thông báo tóm tắt và không thay thế khuôn khổ pháp lý hoàn chỉnh của chúng tôi. Để biết chi tiết đầy đủ về các điều khoản hoạt động và cảnh báo rủi ro của chúng tôi, vui lòng xem lại",
     "whiteLabel": "Giải pháp Nhãn trắng",
-    "noRefundPolicy": "Chính sách không hoàn tiền"
+    "noRefundPolicy": "Chính sách không hoàn tiền",
+    "customerSupport": "Hỗ trợ khách hàng"
   },
   "common": {
     "language": "đầy đủ của chúng tôi Ngôn ngữ",
@@ -125,7 +127,8 @@
     "processing": "Đang chuyển hướng...",
     "somethingWentWrong": "Đã xảy ra sự cố. Vui lòng thử lại.",
     "backToTop": "Về đầu trang",
-    "delete": "Xóa"
+    "delete": "Xóa",
+    "optional": "Tùy chọn"
   },
   "home": {
     "lineText": "AI dành cho nhà giao dịch MT5",
@@ -988,7 +991,10 @@
     "starterPlan": "Kế hoạch khởi đầu",
     "daysLeft": "d còn lại",
     "expiringToday": "Hết hạn hôm nay",
-    "cycle": "chu kỳ"
+    "cycle": "chu kỳ",
+    "installApp": "Cài đặt ứng dụng",
+    "installTraderMasterApp": "Cài đặt ứng dụng TraderMaster",
+    "daysActive": "Ngày hoạt động"
   },
   "profile": {
     "profileTab": "Hồ sơ",
@@ -1436,7 +1442,8 @@
     "brokerSub": "Kết nối tài khoản MT4/MT5, API môi giới và thông tin đăng nhập",
     "creditHistorySub": "Xem lại việc sử dụng mã thông báo AI, tín dụng và nhật ký giao dịch",
     "strategyStudioSub": "Trình xây dựng chiến lược AI và bot thuật toán tương tác",
-    "educationSub": "Làm chủ nền tảng giao dịch, tâm lý và thị trường tại Edufins"
+    "educationSub": "Làm chủ nền tảng giao dịch, tâm lý và thị trường tại Edufins",
+    "customerSupportSub": "Gửi yêu cầu hỗ trợ về sản phẩm hoặc tài khoản"
   },
   "homeSections": {
     "hero": {
@@ -2064,7 +2071,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "Bạn muốn",
+    "welcomeTitleMid": "",
+    "welcomeTitleHighlight": "phân tích?",
+    "welcomeSubtitle": "Chọn một chế độ phân tích hoặc đặt bất kỳ câu hỏi thị trường nào để bắt đầu",
+    "deepAnalysisSub": "Tín hiệu kỹ thuật, các mức quan trọng & phân tích xu hướng",
+    "generateFromImageSub": "Tải lên ảnh chụp màn hình biểu đồ để chẩn đoán AI",
+    "macroNewsSub": "Các sự kiện kinh tế tác động mạnh & tâm lý thị trường",
+    "liveFeed": "TRỰC TIẾP",
+    "feedTooltip": "Phát trực tiếp qua WebSocket MT5 Bridge",
+    "cameraActions": "Hành động ảnh chụp màn hình",
+    "indicatorsLabel": "Chỉ báo"
   },
   "news": {
     "subtitle": "Theo dõi chất xúc tác vĩ mô trực tiếp, xu hướng định hư���ng đa nội dung và mô hình hóa kịch bản AI.",
@@ -3190,5 +3208,57 @@
     "tier2Support": "Dedicated partner support",
     "whyJoinBadge": "WHY JOIN",
     "whyJoinSubtitle": "Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network."
+  },
+  "technicalSupport": {
+    "badge": "HỖ TRỢ KHÁCH HÀNG",
+    "title": "Gửi",
+    "titleAccent": "Yêu cầu hỗ trợ",
+    "subtitle": "Bạn có câu hỏi hoặc gặp sự cố? Điền vào biểu mẫu dưới đây và nhóm của chúng tôi sẽ phản hồi sớm.",
+    "infoCardTitle": "Cách thức hoạt động",
+    "infoCardDesc": "Gửi yêu cầu kèm thông tin liên hệ và mô tả sự cố. Đội ngũ hỗ trợ của chúng tôi sẽ xem xét và phản hồi qua email trong vòng vài giờ vào các ngày làm việc.",
+    "step1Title": "Gửi yêu cầu",
+    "step1Desc": "Cung cấp chi tiết sự cố và đính kèm ảnh chụp màn hình tùy chọn.",
+    "step2Title": "Đánh giá kỹ thuật",
+    "step2Desc": "Nhóm của chúng tôi phân tích nhật ký và xác định nguyên nhân.",
+    "step3Title": "Giải quyết nhanh chóng",
+    "step3Desc": "Nhận cập nhật trạng thái và giải pháp hoàn chỉnh qua email.",
+    "deskOnline": "Bàn hỗ trợ hoạt động · Phản hồi trong vòng vài giờ",
+    "featureFastLabel": "Phản hồi nhanh",
+    "featureFastDesc": "Phản hồi trung bình dưới 2 giờ",
+    "featureSecureLabel": "Mã hóa & Bảo mật",
+    "featureSecureDesc": "Bảo mật từ đầu đến cuối",
+    "featureExpertLabel": "Kỹ sư chuyên gia",
+    "featureExpertDesc": "Nhóm phát triển định lượng tận tâm",
+    "featureTrackLabel": "Theo dõi yêu cầu",
+    "featureTrackDesc": "Cập nhật đầy đủ qua email",
+    "formTitle": "Gửi yêu cầu của bạn",
+    "formSubtitle": "Điền thông tin bên dưới. Tất cả các trường có dấu * là bắt buộc.",
+    "errImageType": "Vui lòng tải lên hình ảnh định dạng JPEG, PNG, WebP hoặc GIF.",
+    "errImageSize": "Hình ảnh phải từ 5 MB trở xuống.",
+    "errName": "Vui lòng nhập họ và tên của bạn.",
+    "errEmail": "Vui lòng nhập địa chỉ email hợp lệ.",
+    "errPhone": "Vui lòng nhập số điện thoại hợp lệ.",
+    "errDesc": "Vui lòng mô tả sự cố với ít nhất 10 ký tự.",
+    "toastSuccess": "Đã gửi yêu cầu hỗ trợ. Nhóm của chúng tôi sẽ liên hệ sớm.",
+    "toastError": "Gửi yêu cầu thất bại. Vui lòng thử lại.",
+    "labelName": "Họ và tên",
+    "phName": "Nhập họ và tên của bạn",
+    "labelEmail": "Email",
+    "phEmail": "you@example.com",
+    "labelPhone": "Số điện thoại",
+    "phPhone": "Số điện thoại di động",
+    "labelDescription": "Mô tả sự cố",
+    "phDescription": "Mô tả sự cố, các bước tái tạo và thông báo lỗi nếu có…",
+    "labelImage": "Ảnh chụp màn hình / Tệp đính kèm",
+    "previewAlt": "Xem trước tệp đính kèm",
+    "uploadCta": "Nhấp để tải lên ảnh chụp màn hình",
+    "uploadHint": "JPEG, PNG, WebP hoặc GIF · tối đa 5 MB",
+    "btnSending": "Đang gửi…",
+    "btnSubmit": "Gửi yêu cầu",
+    "helperNote": "Bàn kỹ thuật của chúng tôi thường phản hồi trong vòng vài giờ vào các ngày làm việc.",
+    "successTitle": "Đã gửi yêu cầu",
+    "thankYou": "Cảm ơn bạn",
+    "successDesc": "Chúng tôi đã nhận được yêu cầu và sẽ trả lời tại",
+    "btnAnother": "Gửi yêu cầu khác"
   }
 }

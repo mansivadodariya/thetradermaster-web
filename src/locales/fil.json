@@ -45,7 +45,8 @@
     "landingPage": "Pangunahing Pahina",
     "backtest": "Backtest",
     "strategySignal": "Sinyal ng Estratehiya",
-    "signalTerminal": "Terminal ng Sinyal"
+    "signalTerminal": "Terminal ng Sinyal",
+    "customerSupport": "Suporta sa Kostumer"
   },
   "topbar": {
     "credits": "mga kredito",
@@ -90,7 +91,8 @@
     "disclaimerP5": "Ang lahat ng interactive na candlestick chart at pattern recognition overlay ay pinapagana ng visual analytics architecture ng TraderMaster.",
     "disclaimerNotice": "Ang pahayag na ito ay nagsisilbing paunawa at hindi pumapalit sa aming buong legal na balangkas. Para sa kumpletong mga detalye, mangyaring suriin ang aming buong",
     "whiteLabel": "White Label Solusyon",
-    "noRefundPolicy": "Patakaran sa Walang Refund"
+    "noRefundPolicy": "Patakaran sa Walang Refund",
+    "customerSupport": "Suporta sa Kostumer"
   },
   "common": {
     "language": "Wika",
@@ -125,7 +127,8 @@
     "processing": "Nire-redirect...",
     "somethingWentWrong": "May naganap na error. Mangyaring subukan muli.",
     "backToTop": "Bumalik sa itaas",
-    "delete": "Burahin"
+    "delete": "Burahin",
+    "optional": "Opsyonal"
   },
   "home": {
     "lineText": "AI Para sa mga Mangangalakal ng MT5",
@@ -988,7 +991,10 @@
     "starterPlan": "Panimulang Plano",
     "daysLeft": "d umalis",
     "expiringToday": "Mag-e-expire Ngayon",
-    "cycle": "cycle"
+    "cycle": "cycle",
+    "installApp": "I-install ang App",
+    "installTraderMasterApp": "I-install ang TraderMaster App",
+    "daysActive": "Mga Araw na Aktibo"
   },
   "profile": {
     "profileTab": "Profile",
@@ -1436,7 +1442,8 @@
     "brokerSub": "Ikonekta ang mga MT4/MT5 account, broker API at kredensyal",
     "creditHistorySub": "Suriin ang paggamit ng token ng AI, mga kredito at transaksyon",
     "strategyStudioSub": "Interactive na AI strategy at algorithmic bot builder",
-    "educationSub": "Kabisaduhin ang mga pangunahing kaalaman sa pag-trade, sikolohiya at merkado sa Edufins"
+    "educationSub": "Kabisaduhin ang mga pangunahing kaalaman sa pag-trade, sikolohiya at merkado sa Edufins",
+    "customerSupportSub": "Magsumite ng tanong para sa tulong sa produkto o account"
   },
   "homeSections": {
     "hero": {
@@ -2064,7 +2071,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "Ano ang gusto mong",
+    "welcomeTitleMid": "",
+    "welcomeTitleHighlight": "suriin?",
+    "welcomeSubtitle": "Pumili ng mode ng pagsusuri o magtanong ng anumang tanong sa merkado upang magsimula",
+    "deepAnalysisSub": "Mga teknikal na signal, pangunahing antas at pagsusuri ng trend",
+    "generateFromImageSub": "Mag-upload ng screenshot ng chart para sa diagnosis ng AI",
+    "macroNewsSub": "Mataas na epekto ng mga kaganapan sa kalendaryo at damdamin sa merkado",
+    "liveFeed": "LIVE FEED",
+    "feedTooltip": "Streaming sa pamamagitan ng WebSocket MT5 Bridge",
+    "cameraActions": "Mga Pagkilos sa Screenshot ng Camera",
+    "indicatorsLabel": "Mga Indicator"
   },
   "news": {
     "subtitle": "Live na macro catalyst tracking, multi-asset directional bias, at AI scenario modelling.",
@@ -3190,5 +3208,57 @@
     "tier2Support": "Dedicated partner support",
     "whyJoinBadge": "WHY JOIN",
     "whyJoinSubtitle": "Whether you are a trader, educator, content creator, community manager, or partner, TraderMaster gives you the tools to build and manage your referral network."
+  },
+  "technicalSupport": {
+    "badge": "SUPORTA SA KOSTUMER",
+    "title": "Magsumite ng",
+    "titleAccent": "Query sa Suporta",
+    "subtitle": "May katanungan o nakatagpo ng isyu? Punan ang form sa ibaba at babalikan ka ng aming team sa lalong madaling panahon.",
+    "infoCardTitle": "Paano Ito Gumagana",
+    "infoCardDesc": "Magsumite ng query gamit ang iyong mga detalye sa pakikipag-ugnayan at paglalarawan ng isyu. Sinusuri ng aming customer support team ang bawat pagsusumite at tumutugon sa pamamagitan ng email sa loob ng ilang oras sa mga araw ng trabaho.",
+    "step1Title": "Magsumite ng Query",
+    "step1Desc": "Ibigay ang mga detalye ng problema at maglakip ng opsyonal na mga screenshot.",
+    "step2Title": "Pagsusuri ng Desk",
+    "step2Desc": "Sinusuri ng aming quant & dev team ang mga log at inaayos ang isyu.",
+    "step3Title": "Mabilis na Resolusyon",
+    "step3Desc": "Makatanggap ng mga update sa status at kumpletong solusyon sa pamamagitan ng email.",
+    "deskOnline": "Aktibo ang Customer Desk · Sumasagot sa loob ng ilang oras",
+    "featureFastLabel": "Mabilis na Tugon",
+    "featureFastDesc": "Karaniwang tugon sa ilalim ng 2 oras",
+    "featureSecureLabel": "Naka-encrypt at Secure",
+    "featureSecureDesc": "End-to-end na privacy ng query",
+    "featureExpertLabel": "Mga Ekspertong Inhinyero",
+    "featureExpertDesc": "Nakalaang pangkat ng quant dev",
+    "featureTrackLabel": "Pagsubaybay sa Query",
+    "featureTrackDesc": "Buong mga update sa status sa pamamagitan ng email",
+    "formTitle": "Isumite ang Iyong Query",
+    "formSubtitle": "Punan ang mga detalye sa ibaba. Ang lahat ng mga patlang na may markang * ay kinakailangan.",
+    "errImageType": "Mangyaring mag-upload ng larawang JPEG, PNG, WebP, o GIF.",
+    "errImageSize": "Ang larawan ay dapat na 5 MB o mas maliit.",
+    "errName": "Mangyaring ipasok ang iyong buong pangalan.",
+    "errEmail": "Mangyaring magpasok ng wastong email address.",
+    "errPhone": "Mangyaring magpasok ng wastong contact number.",
+    "errDesc": "Mangyaring ilarawan ang isyu nang may hindi bababa sa 10 character.",
+    "toastSuccess": "Naisumite ang suportang query. Makikipag-ugnayan ang aming team sa iyo sa lalong madaling panahon.",
+    "toastError": "Nabigong isumite ang query. Pakisubukang muli.",
+    "labelName": "Buong Pangalan",
+    "phName": "Ipasok ang iyong buong pangalan",
+    "labelEmail": "Email",
+    "phEmail": "you@example.com",
+    "labelPhone": "Numero ng Kontak",
+    "phPhone": "Numero ng telepono / mobile",
+    "labelDescription": "Paglalarawan ng Isyu",
+    "phDescription": "Ilarawan ang problema, mga hakbang upang kopyahin, at anumang mga mensahe ng error…",
+    "labelImage": "Screenshot / Attachment",
+    "previewAlt": "Preview ng attachment",
+    "uploadCta": "I-click para mag-upload ng screenshot",
+    "uploadHint": "JPEG, PNG, WebP o GIF · max 5 MB",
+    "btnSending": "Isinusumite…",
+    "btnSubmit": "Isumite ang Query",
+    "helperNote": "Ang aming technical desk ay karaniwang tumutugon sa loob ng ilang oras sa mga araw ng trabaho.",
+    "successTitle": "Naisumite ang Query",
+    "thankYou": "Salamat",
+    "successDesc": "Natanggap namin ang iyong query at sasagot sa",
+    "btnAnother": "Magsumite ng Isa Pang Query"
   }
 }

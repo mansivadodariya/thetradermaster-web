@@ -45,7 +45,8 @@
     "landingPage": "Página de Inicio",
     "backtest": "Backtesting",
     "strategySignal": "Señal de Estrategia",
-    "signalTerminal": "Terminal de Señales"
+    "signalTerminal": "Terminal de Señales",
+    "customerSupport": "Atención al cliente"
   },
   "topbar": {
     "credits": "créditos",
@@ -90,7 +91,8 @@
     "disclaimerP5": "Todos los gráficos de velas interactivos, las superposiciones de reconocimiento de patrones de múltiples períodos de tiempo y los motores de indicadores técnicos accesibles en la plataforma funcionan con la arquitectura de análisis visual patentada de TraderMaster. La telemetría del mercado y los datos de precios de monedas, activos digitales y productos básicos se obtienen de fuentes de datos institucionales para su análisis analítico. Los datos se entregan \"tal cual\" para la investigación técnica y deben validarse de forma independiente antes de tomar decisiones comerciales.",
     "disclaimerNotice": "Esta declaración sirve como aviso resumido y no reemplaza nuestro marco legal completo. Para obtener detalles exhaustivos sobre nuestros términos operativos y advertencias de riesgo, revise nuestra",
     "whiteLabel": "Marca Blanca Institucional",
-    "noRefundPolicy": "Política de No Reembolso"
+    "noRefundPolicy": "Política de No Reembolso",
+    "customerSupport": "Atención al cliente"
   },
   "common": {
     "language": "completa Idioma",
@@ -125,7 +127,8 @@
     "apply": "Aplicar",
     "processing": "Redirigiendo...",
     "somethingWentWrong": "Algo salió mal. Por favor, inténtelo de nuevo.",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "optional": "Opcional"
   },
   "home": {
     "lineText": "IA para comerciantes de MT5",
@@ -988,7 +991,10 @@
     "starterPlan": "Plan inicial",
     "daysLeft": "d izquierda",
     "expiringToday": "Vencen hoy",
-    "cycle": "ciclo"
+    "cycle": "ciclo",
+    "installApp": "Instalar aplicación",
+    "installTraderMasterApp": "Instalar la aplicación TraderMaster",
+    "daysActive": "Días activos"
   },
   "profile": {
     "profileTab": "Perfil",
@@ -1436,7 +1442,8 @@
     "brokerSub": "Conecte cuentas MT4/MT5, API de broker y credenciales",
     "creditHistorySub": "Revisar el uso de tokens de IA, créditos y registros de transacciones",
     "strategyStudioSub": "Constructor interactivo de estrategias y bots algorítmicos con IA",
-    "educationSub": "Domina los fundamentos del trading, la psicología y los mercados en Edufins"
+    "educationSub": "Domina los fundamentos del trading, la psicología y los mercados en Edufins",
+    "customerSupportSub": "Enviar una consulta sobre el producto o la cuenta"
   },
   "homeSections": {
     "hero": {
@@ -2064,7 +2071,18 @@
     "indicatorsModalSub": "Toggle active technical overlays and configure period parameters.",
     "saveSettings": "Save Settings",
     "resetDefaults": "Reset Defaults",
-    "activeOverlays": "Active Overlays"
+    "activeOverlays": "Active Overlays",
+    "welcomeTitlePre": "¿Qué deseas",
+    "welcomeTitleMid": "",
+    "welcomeTitleHighlight": "analizar?",
+    "welcomeSubtitle": "Seleccione un modo de análisis o haga cualquier pregunta sobre el mercado para comenzar",
+    "deepAnalysisSub": "Señales técnicas, niveles clave y desglose de tendencias",
+    "generateFromImageSub": "Sube una captura del gráfico para el diagnóstico por IA",
+    "macroNewsSub": "Catalizadores económicos de alto impacto y sentimiento de mercado",
+    "liveFeed": "EN VIVO",
+    "feedTooltip": "Transmisión vía WebSocket MT5 Bridge",
+    "cameraActions": "Acciones de captura de pantalla",
+    "indicatorsLabel": "Indicadores"
   },
   "news": {
     "subtitle": "Seguimiento de macrocatalizadores en vivo, sesgo direccional de múltiples activos y modelado de escenarios de IA.",
@@ -3242,5 +3260,57 @@
     "tier2Support": "Soporte dedicado para socios",
     "whyJoinBadge": "POR QUÉ UNIRSE",
     "whyJoinSubtitle": "Tanto si es trader, educador o creador de contenido, TraderMaster le brinda las herramientas necesarias."
+  },
+  "technicalSupport": {
+    "badge": "ATENCIÓN AL CLIENTE",
+    "title": "Enviar una",
+    "titleAccent": "Consulta de soporte",
+    "subtitle": "¿Tiene alguna pregunta o problema? Complete el siguiente formulario y nuestro equipo se comunicará pronto.",
+    "infoCardTitle": "Cómo funciona",
+    "infoCardDesc": "Envíe una consulta con sus datos de contacto y una descripción del problema. Nuestro equipo de soporte revisa cada envío y responde por correo electrónico en pocas horas durante días laborables.",
+    "step1Title": "Enviar consulta",
+    "step1Desc": "Proporcione detalles del problema y adjunte capturas de pantalla opcionales.",
+    "step2Title": "Revisión técnica",
+    "step2Desc": "Nuestro equipo analiza los registros y aísla el problema.",
+    "step3Title": "Resolución rápida",
+    "step3Desc": "Reciba actualizaciones de estado y una solución completa por correo.",
+    "deskOnline": "Atención al cliente activa · Respuesta en pocas horas",
+    "featureFastLabel": "Respuesta rápida",
+    "featureFastDesc": "Respuesta promedio en menos de 2 horas",
+    "featureSecureLabel": "Cifrado y seguro",
+    "featureSecureDesc": "Privacidad de extremo a extremo",
+    "featureExpertLabel": "Ingenieros expertos",
+    "featureExpertDesc": "Equipo dedicado de desarrollo cuantitativo",
+    "featureTrackLabel": "Seguimiento de consulta",
+    "featureTrackDesc": "Actualizaciones de estado por correo",
+    "formTitle": "Enviar su consulta",
+    "formSubtitle": "Complete los datos a continuación. Los campos marcados con * son obligatorios.",
+    "errImageType": "Cargue una imagen en formato JPEG, PNG, WebP o GIF.",
+    "errImageSize": "La imagen debe ser de 5 MB o menos.",
+    "errName": "Por favor, introduzca su nombre completo.",
+    "errEmail": "Por favor, introduzca una dirección de correo válida.",
+    "errPhone": "Por favor, introduzca un número de contacto válido.",
+    "errDesc": "Describa el problema con al menos 10 caracteres.",
+    "toastSuccess": "Consulta enviada. Nuestro equipo se pondrá en contacto en breve.",
+    "toastError": "Error al enviar la consulta. Por favor, inténtelo de nuevo.",
+    "labelName": "Nombre completo",
+    "phName": "Ingrese su nombre completo",
+    "labelEmail": "Correo electrónico",
+    "phEmail": "you@example.com",
+    "labelPhone": "Número de contacto",
+    "phPhone": "Número de teléfono",
+    "labelDescription": "Descripción del problema",
+    "phDescription": "Describa el problema, los pasos para reproducirlo y cualquier mensaje de error…",
+    "labelImage": "Captura / Adjunto",
+    "previewAlt": "Vista previa del adjunto",
+    "uploadCta": "Haga clic para subir una captura",
+    "uploadHint": "JPEG, PNG, WebP o GIF · máx. 5 MB",
+    "btnSending": "Enviando…",
+    "btnSubmit": "Enviar consulta",
+    "helperNote": "Nuestro servicio técnico suele responder en pocas horas en días laborables.",
+    "successTitle": "Consulta enviada",
+    "thankYou": "Gracias",
+    "successDesc": "Hemos recibido su consulta y le responderemos en",
+    "btnAnother": "Enviar otra consulta"
   }
 }

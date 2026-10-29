@@ -44,10 +44,10 @@ export default function ChartHeaderControls({
                         </span>
                         <div
                             className={styles.chartFeedBadge}
-                            title="Streaming via WebSocket MT5 Bridge (standard 15m delay may apply during non-liquid or off-market hours)"
+                            title={t ? t('aiAssistant.feedTooltip', 'Streaming via WebSocket MT5 Bridge (standard 15m delay may apply during non-liquid or off-market hours)') : 'Streaming via WebSocket MT5 Bridge (standard 15m delay may apply during non-liquid or off-market hours)'}
                         >
                             <span className={styles.chartFeedDot} />
-                            <span>LIVE FEED</span>
+                            <span>{t ? t('aiAssistant.liveFeed', 'LIVE FEED') : 'LIVE FEED'}</span>
                         </div>
                     </div>
                 )}
@@ -59,7 +59,7 @@ export default function ChartHeaderControls({
                     <button
                         type="button"
                         className={styles.iconControlBtn}
-                        title="Camera Screenshot Actions"
+                        title={t ? t('aiAssistant.cameraActions', 'Camera Screenshot Actions') : 'Camera Screenshot Actions'}
                         onClick={toggleCameraDropdown}
                     >
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

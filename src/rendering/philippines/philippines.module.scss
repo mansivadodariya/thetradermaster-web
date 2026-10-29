@@ -667,11 +667,14 @@ $danger: #FF5757;
         }
     }
 
-    :global(.swiper-pagination) {
-        bottom: 12px !important;
+    :global(.swiper-pagination),
+    :global(.swiper-pagination.swiper-pagination-bullets) {
+        bottom: 12px;
+        --swiper-pagination-bottom: 12px;
 
         @include respond-to('sm') {
-            bottom: 8px !important;
+            bottom: 8px;
+            --swiper-pagination-bottom: 8px;
         }
     }
 

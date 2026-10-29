@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import styles from './neweraCreditsModal.module.scss';
 import Input from '@/components/input';
 import { neweraApi } from '@/lib/api';
@@ -12,6 +12,7 @@ import { getBidiProps } from '@/lib/bidi';
 import { extractAvailableCredits, notifyCreditsUpdated, refreshCreditsFromServer } from '@/lib/credits';
 import { getStoredUserId } from '@/lib/authSession';
 import { brokerList } from '@/lib/brokersData';
+import { useLogoLuminance } from '@/lib/useLogoLuminance';
 
 const DEFAULT_BROKER = {
     id: 'forex__cfd_trading',
@@ -280,6 +281,13 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
         ? '/assets/logo/tickmill-logo-dark-animated.webp'
         : (selectedBroker?.logo || (theme === 'light' ? '/assets/images/site-logo-20y-on-light.svg' : '/assets/images/site-logo-20y-on-light.svg'));
 
+    const activeBrokerForDetection = useMemo(() => ({
+        ...(selectedBroker || DEFAULT_BROKER),
+        logo: brokerLogo,
+    }), [selectedBroker, brokerLogo]);
+    const isDarkLogo = useLogoLuminance(activeBrokerForDetection);
+    const isLightLogo = !isDarkLogo;
+
     // Manual sync credits request for Phase 2 or Phase 3
     const syncCredits = useCallback(async () => {
         const uid = activeUserId;
@@ -458,10 +466,20 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
 
             {/* Active Broker Logo Header */}
             {selectedBroker && (
-                <div className={styles.brandHeader}>
+                <div className={`${styles.brandHeader} ${isLightLogo ? styles.hasDarkHeader : styles.hasLightHeader}`}>
                     <div className={styles.logoWrapper}>
                         <img src={brokerLogo} alt={`${brokerName} Logo`} className={styles.logoImg} />
                     </div>
+                    {isLightLogo && (
+                        <svg className={styles.chartGraphic} viewBox="0 0 400 120" fill="none" preserveAspectRatio="none">
+                            <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(24,201,139,0.08)" strokeDasharray="3 3" />
+                            <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(24,201,139,0.08)" strokeDasharray="3 3" />
+                            <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(24,201,139,0.08)" strokeDasharray="3 3" />
+                            <rect x="220" y="50" width="4" height="25" fill="#10B981" opacity="0.6" />
+                            <line x1="222" y1="40" x2="222" y2="85" stroke="#10B981" strokeWidth="1.5" opacity="0.6" />
+                            <rect x="240" y="40" width="4" height="30" fill="#18C98B" opacity="0.7" />
+                        </svg>
+                    )}
                 </div>
             )}
 
@@ -719,7 +737,11 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess, isInlin
             </div>
 
             {!isInline && (
-                <button className={styles.closeBtn} onClick={onClose} aria-label="Close modal">✕</button>
+                <button
+                    className={`${styles.closeBtn} ${isLightLogo ? styles.closeBtnOnDark : ''}`}
+                    onClick={onClose}
+                    aria-label="Close modal"
+                >✕</button>
             )}
         </div>
     );

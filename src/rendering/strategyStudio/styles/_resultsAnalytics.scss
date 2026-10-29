@@ -458,16 +458,16 @@
     min-height: 360px;
     width: 100%;
     position: relative;
-    cursor: crosshair !important;
+    cursor: crosshair;
     user-select: none;
     touch-action: none;
 
     &.isPanning {
-        cursor: grabbing !important;
+        cursor: grabbing;
 
         :global(.apexcharts-canvas),
         :global(.apexcharts-canvas svg) {
-            cursor: grabbing !important;
+            cursor: grabbing;
         }
     }
 
@@ -475,7 +475,7 @@
     :global(.apexcharts-canvas svg),
     :global(.apexcharts-svg),
     :global(.apexcharts-inner) {
-        cursor: crosshair !important;
+        cursor: crosshair;
     }
 
     :global(.apexcharts-toolbar) {

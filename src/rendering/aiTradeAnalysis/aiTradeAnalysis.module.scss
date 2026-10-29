@@ -58,7 +58,7 @@
         }
 
         h2 {
-            font-family: var(--font-plus-jakarta) !important;
+            font-family: var(--font-plus-jakarta);
             font-size: 25px;
             font-weight: 800;
             margin: 0 0 8px;
@@ -117,7 +117,7 @@
             font-size: 18px;
             font-weight: 800;
             color: #94A3B8;
-            font-family: var(--font-plus-jakarta) !important;
+            font-family: var(--font-plus-jakarta);
             line-height: 1;
         }
 
@@ -205,7 +205,7 @@
     }
 
     h3 {
-        font-family: var(--font-plus-jakarta) !important;
+        font-family: var(--font-plus-jakarta);
         font-size: 20px;
         font-weight: 800;
         margin: 0 0 8px;
@@ -222,8 +222,8 @@
     }
 
     .chooseBtn {
-        background: #047857 !important;
-        color: #FFFFFF !important;
+        background: #047857;
+        color: #FFFFFF;
         border: none;
         padding: 12px 24px;
         border-radius: 12px;
@@ -238,7 +238,7 @@
         box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
 
         &:hover {
-            background: #059669 !important;
+            background: #059669;
             transform: translateY(-1px);
         }
 
@@ -317,7 +317,7 @@
         }
 
         h3 {
-            font-family: var(--font-plus-jakarta) !important;
+            font-family: var(--font-plus-jakarta);
             font-size: 24px;
             font-weight: 800;
             color: #0F172A;
@@ -652,9 +652,9 @@
         margin-bottom: 0;
 
         :global(.dark) & {
-            background: #03140C !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08) !important;
+            background: #03140C;
+            border-color: rgba(0, 255, 136, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08);
         }
 
         .overviewSection {
@@ -666,7 +666,7 @@
                 margin: 0 0 14px 0;
 
                 :global(.dark) & {
-                    color: #FFFFFF !important;
+                    color: #FFFFFF;
                 }
             }
 
@@ -695,12 +695,12 @@
                     }
 
                     :global(.dark) & {
-                        background: rgba(6, 29, 19, 0.9) !important;
-                        border-color: rgba(0, 255, 136, 0.18) !important;
+                        background: rgba(6, 29, 19, 0.9);
+                        border-color: rgba(0, 255, 136, 0.18);
 
                         &:hover {
-                            border-color: rgba(0, 255, 136, 0.4) !important;
-                            background: rgba(8, 38, 25, 0.95) !important;
+                            border-color: rgba(0, 255, 136, 0.4);
+                            background: rgba(8, 38, 25, 0.95);
                         }
                     }
 
@@ -712,7 +712,7 @@
                         text-transform: uppercase;
 
                         :global(.dark) & {
-                            color: rgba(255, 255, 255, 0.55) !important;
+                            color: rgba(255, 255, 255, 0.55);
                         }
                     }
 
@@ -724,22 +724,22 @@
                         line-height: 1.2;
 
                         :global(.dark) & {
-                            color: #FFFFFF !important;
+                            color: #FFFFFF;
                         }
 
                         &.positive {
-                            color: #059669 !important;
+                            color: #059669;
 
                             :global(.dark) & {
-                                color: #00FF88 !important;
+                                color: #00FF88;
                             }
                         }
 
                         &.negative {
-                            color: #DC2626 !important;
+                            color: #DC2626;
 
                             :global(.dark) & {
-                                color: #FF6B6B !important;
+                                color: #FF6B6B;
                             }
                         }
                     }
@@ -753,7 +753,7 @@
             border-top: 1px solid #E2E8F0;
 
             :global(.dark) & {
-                border-top-color: rgba(0, 255, 136, 0.18) !important;
+                border-top-color: rgba(0, 255, 136, 0.18);
             }
 
             .basicStatsHeader {
@@ -770,7 +770,7 @@
                     margin: 0;
 
                     :global(.dark) & {
-                        color: #FFFFFF !important;
+                        color: #FFFFFF;
                     }
                 }
             }
@@ -794,9 +794,9 @@
                     border-radius: 6px 6px 0 0;
 
                     :global(.dark) & {
-                        border-bottom-color: rgba(0, 255, 136, 0.25) !important;
-                        color: rgba(255, 255, 255, 0.5) !important;
-                        background: transparent !important;
+                        border-bottom-color: rgba(0, 255, 136, 0.25);
+                        color: rgba(255, 255, 255, 0.5);
+                        background: transparent;
                     }
                 }
 
@@ -821,11 +821,11 @@
                     }
 
                     :global(.dark) & {
-                        border-bottom-color: rgba(255, 255, 255, 0.07) !important;
-                        color: rgba(255, 255, 255, 0.88) !important;
+                        border-bottom-color: rgba(255, 255, 255, 0.07);
+                        color: rgba(255, 255, 255, 0.88);
 
                         &:hover {
-                            background: rgba(0, 255, 136, 0.05) !important;
+                            background: rgba(0, 255, 136, 0.05);
                         }
                     }
 
@@ -835,22 +835,22 @@
                         font-family: var(--font-plus-jakarta);
 
                         :global(.dark) & {
-                            color: #FFFFFF !important;
+                            color: #FFFFFF;
                         }
 
                         &.positive {
-                            color: #059669 !important;
+                            color: #059669;
 
                             :global(.dark) & {
-                                color: #00FF88 !important;
+                                color: #00FF88;
                             }
                         }
 
                         &.negative {
-                            color: #DC2626 !important;
+                            color: #DC2626;
 
                             :global(.dark) & {
-                                color: #FF6B6B !important;
+                                color: #FF6B6B;
                             }
                         }
                     }
@@ -890,7 +890,7 @@
             }
 
             .kpiValue {
-                font-family: var(--font-plus-jakarta) !important;
+                font-family: var(--font-plus-jakarta);
                 font-size: 24px;
                 font-weight: 800;
                 color: #0F172A;
@@ -1498,9 +1498,9 @@
         font-family: var(--font-plus-jakarta);
 
         :global(.dark) & {
-            background: #03140C !important;
-            border-color: rgba(0, 255, 136, 0.25) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08) !important;
+            background: #03140C;
+            border-color: rgba(0, 255, 136, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08);
         }
 
         .reportHeaderRow {
@@ -1512,7 +1512,7 @@
             margin-bottom: 24px;
 
             :global(.dark) & {
-                border-bottom-color: rgba(0, 255, 136, 0.2) !important;
+                border-bottom-color: rgba(0, 255, 136, 0.2);
             }
 
             h4 {
@@ -1522,7 +1522,7 @@
                 margin: 0;
 
                 :global(.dark) & {
-                    color: #FFFFFF !important;
+                    color: #FFFFFF;
                 }
             }
 
@@ -1536,9 +1536,9 @@
                 font-weight: 700;
 
                 :global(.dark) & {
-                    background: rgba(0, 255, 136, 0.12) !important;
-                    color: #00FF88 !important;
-                    border-color: rgba(0, 255, 136, 0.3) !important;
+                    background: rgba(0, 255, 136, 0.12);
+                    color: #00FF88;
+                    border-color: rgba(0, 255, 136, 0.3);
                 }
             }
         }
@@ -1549,7 +1549,7 @@
             line-height: 1.7;
 
             :global(.dark) & {
-                color: rgba(255, 255, 255, 0.88) !important;
+                color: rgba(255, 255, 255, 0.88);
             }
 
             h1,
@@ -1566,7 +1566,7 @@
                 line-height: 1.3;
 
                 :global(.dark) & {
-                    color: #FFFFFF !important;
+                    color: #FFFFFF;
                 }
             }
 
@@ -1586,7 +1586,7 @@
             }
 
             :global(.dark) & h3 {
-                color: #00FF88 !important;
+                color: #00FF88;
             }
 
             p {
@@ -1598,7 +1598,7 @@
                 font-weight: 700;
 
                 :global(.dark) & {
-                    color: #FFFFFF !important;
+                    color: #FFFFFF;
                 }
             }
 
@@ -1626,9 +1626,9 @@
                 font-style: italic;
 
                 :global(.dark) & {
-                    background: rgba(6, 29, 19, 0.8) !important;
-                    color: rgba(255, 255, 255, 0.8) !important;
-                    border-left-color: #00FF88 !important;
+                    background: rgba(6, 29, 19, 0.8);
+                    color: rgba(255, 255, 255, 0.8);
+                    border-left-color: #00FF88;
                 }
             }
 
@@ -1643,7 +1643,7 @@
                 overflow: hidden;
 
                 :global(.dark) & {
-                    border-color: rgba(0, 255, 136, 0.25) !important;
+                    border-color: rgba(0, 255, 136, 0.25);
                 }
 
                 th {
@@ -1658,9 +1658,9 @@
                     border-bottom: 1px solid #E2E8F0;
 
                     :global(.dark) & {
-                        background: rgba(6, 29, 19, 0.95) !important;
-                        color: rgba(255, 255, 255, 0.7) !important;
-                        border-bottom-color: rgba(0, 255, 136, 0.25) !important;
+                        background: rgba(6, 29, 19, 0.95);
+                        color: rgba(255, 255, 255, 0.7);
+                        border-bottom-color: rgba(0, 255, 136, 0.25);
                     }
                 }
 
@@ -1671,8 +1671,8 @@
                     color: #1E293B;
 
                     :global(.dark) & {
-                        border-bottom-color: rgba(255, 255, 255, 0.07) !important;
-                        color: rgba(255, 255, 255, 0.9) !important;
+                        border-bottom-color: rgba(255, 255, 255, 0.07);
+                        color: rgba(255, 255, 255, 0.9);
                     }
 
                     &:first-child {
@@ -1688,7 +1688,7 @@
                     background: #F8FAFC;
 
                     :global(.dark) & {
-                        background: rgba(0, 255, 136, 0.05) !important;
+                        background: rgba(0, 255, 136, 0.05);
                     }
                 }
             }
@@ -1699,7 +1699,7 @@
                 margin: 24px 0;
 
                 :global(.dark) & {
-                    border-top-color: rgba(0, 255, 136, 0.2) !important;
+                    border-top-color: rgba(0, 255, 136, 0.2);
                 }
             }
 
@@ -1712,8 +1712,8 @@
                 font-size: 13px;
 
                 :global(.dark) & {
-                    background: rgba(0, 255, 136, 0.12) !important;
-                    color: #00FF88 !important;
+                    background: rgba(0, 255, 136, 0.12);
+                    color: #00FF88;
                 }
             }
         }
@@ -1723,7 +1723,7 @@
 // Analyze Single Trade Button
 .analyzeSingleBtn {
     background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     border: none;
     padding: 6px 12px;
     border-radius: 8px;
@@ -1796,9 +1796,9 @@
     flex-direction: column;
 
     :global(.dark) & {
-        background: rgba(8, 24, 17, 0.95) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.15) !important;
+        background: rgba(8, 24, 17, 0.95);
+        border-color: rgba(0, 255, 136, 0.25);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 136, 0.15);
     }
 }
 
@@ -2036,8 +2036,8 @@
     gap: 14px;
 
     :global(.dark) & {
-        background: rgba(8, 24, 17, 0.85) !important;
-        border-color: rgba(0, 255, 136, 0.25) !important;
+        background: rgba(8, 24, 17, 0.85);
+        border-color: rgba(0, 255, 136, 0.25);
     }
 
     .scoreHeroTop {
@@ -2507,8 +2507,8 @@
 
         .auditBtn {
             flex: 1;
-            background: #10B981 !important;
-            color: #FFFFFF !important;
+            background: #10B981;
+            color: #FFFFFF;
             border: none;
             padding: 10px 16px;
             border-radius: 10px;
@@ -2521,7 +2521,7 @@
             gap: 8px;
 
             &:hover:not(:disabled) {
-                background: #059669 !important;
+                background: #059669;
             }
         }
 
@@ -2579,7 +2579,7 @@
         }
 
         h3 {
-            font-family: var(--font-plus-jakarta) !important;
+            font-family: var(--font-plus-jakarta);
             font-size: 18px;
             font-weight: 800;
             color: #0F172A;
@@ -2647,7 +2647,7 @@
         margin-bottom: 20px;
 
         h3 {
-            font-family: var(--font-plus-jakarta) !important;
+            font-family: var(--font-plus-jakarta);
             font-size: 20px;
             font-weight: 800;
             color: #0F172A;
@@ -2710,7 +2710,7 @@
             }
 
             h4 {
-                font-family: var(--font-plus-jakarta) !important;
+                font-family: var(--font-plus-jakarta);
                 font-size: 15px;
                 font-weight: 700;
                 color: #0F172A;
@@ -2736,190 +2736,190 @@
     .featuresPanel,
     .bottomSection,
     .resultDashboard {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     }
 
     .stepper {
-        border-top-color: rgba(0, 255, 136, 0.14) !important;
+        border-top-color: rgba(0, 255, 136, 0.14);
 
         .step {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .num {
-                color: rgba(255, 255, 255, 0.5) !important;
+                color: rgba(255, 255, 255, 0.5);
             }
 
             .text strong {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
 
             .text span {
-                color: rgba(255, 255, 255, 0.65) !important;
+                color: rgba(255, 255, 255, 0.65);
             }
 
             &.active {
-                background: rgba(0, 255, 136, 0.08) !important;
-                border-color: rgba(0, 255, 136, 0.3) !important;
+                background: rgba(0, 255, 136, 0.08);
+                border-color: rgba(0, 255, 136, 0.3);
 
                 .num {
-                    color: #00FF88 !important;
+                    color: #00FF88;
                 }
 
                 .text strong {
-                    color: #00FF88 !important;
+                    color: #00FF88;
                 }
             }
         }
     }
 
     .uploadCard {
-        border: 1px dashed rgba(0, 255, 136, 0.25) !important;
+        border: 1px dashed rgba(0, 255, 136, 0.25);
 
         &:hover,
         &.dragActive {
-            border-color: #00FF88 !important;
-            background: rgba(0, 255, 136, 0.05) !important;
+            border-color: #00FF88;
+            background: rgba(0, 255, 136, 0.05);
         }
 
         .uploadIcon {
-            background: rgba(0, 255, 136, 0.08) !important;
-            border: 1px solid rgba(0, 255, 136, 0.25) !important;
-            color: #00FF88 !important;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
         }
 
         .chooseBtn {
-            background: #047857 !important;
-            border: 1px solid #047857 !important;
-            color: #FFFFFF !important;
-            box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35) !important;
+            background: #047857;
+            border: 1px solid #047857;
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(4, 120, 87, 0.35);
 
             &:hover {
-                background: #059669 !important;
-                border-color: #059669 !important;
+                background: #059669;
+                border-color: #059669;
             }
         }
 
         .formats {
-            color: rgba(255, 255, 255, 0.65) !important;
+            color: rgba(255, 255, 255, 0.65);
         }
 
         .security {
-            background: rgba(0, 255, 136, 0.06) !important;
-            border: 1px solid rgba(0, 255, 136, 0.25) !important;
-            color: #00FF88 !important;
+            background: rgba(0, 255, 136, 0.06);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
 
             svg {
-                color: #00FF88 !important;
+                color: #00FF88;
             }
         }
     }
 
     .fileSelectedBox {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
 
         .fileDetails .fileName {
-            color: #FFFFFF !important;
+            color: #FFFFFF;
         }
 
         .fileDetails .fileSize {
-            color: #00FF88 !important;
+            color: #00FF88;
         }
     }
 
     .featuresHeader .iconBox {
-        background: rgba(0, 255, 136, 0.08) !important;
-        border: 1px solid rgba(0, 255, 136, 0.25) !important;
-        color: #00FF88 !important;
+        background: rgba(0, 255, 136, 0.08);
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        color: #00FF88;
     }
 
     .featuresGrid {
         .featureItem {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             span {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
 
             svg {
-                color: #00FF88 !important;
+                color: #00FF88;
             }
 
             &:hover {
-                background: rgba(0, 255, 136, 0.06) !important;
-                border-color: rgba(0, 255, 136, 0.35) !important;
+                background: rgba(0, 255, 136, 0.06);
+                border-color: rgba(0, 255, 136, 0.35);
             }
         }
     }
 
     .cardsGrid {
         .card {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .iconBox {
-                background: rgba(0, 255, 136, 0.08) !important;
-                border: 1px solid rgba(0, 255, 136, 0.25) !important;
-                color: #00FF88 !important;
+                background: rgba(0, 255, 136, 0.08);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+                color: #00FF88;
             }
 
             h4 {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
 
             p {
-                color: rgba(255, 255, 255, 0.7) !important;
+                color: rgba(255, 255, 255, 0.7);
             }
 
             &:hover {
-                background: rgba(0, 255, 136, 0.06) !important;
-                border-color: rgba(0, 255, 136, 0.35) !important;
+                background: rgba(0, 255, 136, 0.06);
+                border-color: rgba(0, 255, 136, 0.35);
             }
         }
     }
 
     .kpiCard {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
 
         .kpiLabel {
-            color: rgba(255, 255, 255, 0.65) !important;
+            color: rgba(255, 255, 255, 0.65);
         }
 
         .kpiValue {
-            color: #FFFFFF !important;
+            color: #FFFFFF;
 
             &.positive {
-                color: #00FF88 !important;
+                color: #00FF88;
             }
 
             &.negative {
-                color: #FF5555 !important;
+                color: #FF5555;
             }
         }
 
         .kpiSub {
-            color: rgba(255, 255, 255, 0.5) !important;
+            color: rgba(255, 255, 255, 0.5);
         }
     }
 
     .levelUpCard {
         .tipItem {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .tipNum {
-                background: rgba(0, 255, 136, 0.08) !important;
-                border: 1px solid rgba(0, 255, 136, 0.25) !important;
-                color: #00FF88 !important;
+                background: rgba(0, 255, 136, 0.08);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+                color: #00FF88;
             }
 
             p {
-                color: rgba(255, 255, 255, 0.85) !important;
+                color: rgba(255, 255, 255, 0.85);
             }
         }
     }
@@ -2940,7 +2940,7 @@
     .tradesHeader h4,
     .markdownReportBox h4,
     .tradesTable th {
-        color: #FFFFFF !important;
+        color: #FFFFFF;
     }
 
     .heroTop p,
@@ -2955,259 +2955,259 @@
     .tradesHeader p,
     .markdownReportBox .reportText,
     .tradesTable td {
-        color: rgba(255, 255, 255, 0.78) !important;
+        color: rgba(255, 255, 255, 0.78);
     }
 
     .insightsSection {
         .insightBox {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .insightHeader {
                 .insightIconWrap {
-                    background: rgba(0, 255, 136, 0.08) !important;
-                    border: 1px solid rgba(0, 255, 136, 0.25) !important;
+                    background: rgba(0, 255, 136, 0.08);
+                    border: 1px solid rgba(0, 255, 136, 0.25);
                 }
 
                 h4 {
-                    color: #FFFFFF !important;
+                    color: #FFFFFF;
                 }
 
                 .insightSubHeader {
-                    color: rgba(255, 255, 255, 0.6) !important;
+                    color: rgba(255, 255, 255, 0.6);
                 }
             }
 
             .insightMetricsGrid {
-                background: #070707 !important;
-                border: 1px solid rgba(0, 255, 136, 0.14) !important;
+                background: #070707;
+                border: 1px solid rgba(0, 255, 136, 0.14);
 
                 .metricItem {
                     .metricLabel {
-                        color: rgba(255, 255, 255, 0.6) !important;
+                        color: rgba(255, 255, 255, 0.6);
                     }
 
                     .metricVal {
-                        color: #00FF88 !important;
+                        color: #00FF88;
 
                         &.warningText {
-                            color: #FF5252 !important;
+                            color: #FF5252;
                         }
                     }
                 }
             }
 
             .boxDescWrap {
-                background: rgba(0, 255, 136, 0.06) !important;
-                border-left-color: #00FF88 !important;
+                background: rgba(0, 255, 136, 0.06);
+                border-left-color: #00FF88;
 
                 .boxDesc {
-                    color: rgba(255, 255, 255, 0.85) !important;
+                    color: rgba(255, 255, 255, 0.85);
                 }
             }
         }
     }
 
     .tabsBar {
-        border-bottom-color: rgba(0, 255, 136, 0.14) !important;
+        border-bottom-color: rgba(0, 255, 136, 0.14);
 
         .tabBtn {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
-            color: rgba(255, 255, 255, 0.8) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
+            color: rgba(255, 255, 255, 0.8);
 
             &:hover {
-                background: rgba(0, 255, 136, 0.08) !important;
-                border-color: rgba(0, 255, 136, 0.3) !important;
-                color: #00FF88 !important;
+                background: rgba(0, 255, 136, 0.08);
+                border-color: rgba(0, 255, 136, 0.3);
+                color: #00FF88;
             }
 
             &.activeTab {
-                background: #047857 !important;
-                border-color: #047857 !important;
-                color: #FFFFFF !important;
-                box-shadow: 0 2px 10px rgba(4, 120, 87, 0.35) !important;
+                background: #047857;
+                border-color: #047857;
+                color: #FFFFFF;
+                box-shadow: 0 2px 10px rgba(4, 120, 87, 0.35);
             }
         }
     }
 
     .scoreHeroCard {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
 
         .gradeBadge {
-            background: #047857 !important;
-            color: #FFFFFF !important;
+            background: #047857;
+            color: #FFFFFF;
         }
 
         .tierBadge {
-            background: rgba(0, 255, 136, 0.08) !important;
-            border: 1px solid rgba(0, 255, 136, 0.25) !important;
-            color: #00FF88 !important;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
         }
 
         .scoreRight .scoreProgressTrack {
-            background: rgba(255, 255, 255, 0.1) !important;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .miniPillar {
-            background: #070707 !important;
-            border: 1px solid rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border: 1px solid rgba(0, 255, 136, 0.14);
 
             .miniName {
-                color: rgba(255, 255, 255, 0.7) !important;
+                color: rgba(255, 255, 255, 0.7);
             }
 
             .miniScore {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
         }
     }
 
     .pillarCard {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
 
         .pillarGrade {
-            background: rgba(0, 255, 136, 0.08) !important;
-            border: 1px solid rgba(0, 255, 136, 0.25) !important;
-            color: #00FF88 !important;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
         }
 
         .pillarScoreRow {
             .pillarScoreNum {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
 
             .pillarScoreMax {
-                color: rgba(255, 255, 255, 0.5) !important;
+                color: rgba(255, 255, 255, 0.5);
             }
         }
 
         .highlightsList .highlightGood {
-            color: #00FF88 !important;
+            color: #00FF88;
         }
 
         .penaltiesList .penaltyBad {
-            color: #FF9933 !important;
+            color: #FF9933;
         }
     }
 
     .sideCard {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
 
         .sideRow {
-            color: rgba(255, 255, 255, 0.75) !important;
+            color: rgba(255, 255, 255, 0.75);
 
             strong {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
         }
     }
 
     .takeawayBanner {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.3) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.3);
 
         .takeawayHeader h4,
         .takeawayText,
         .takeawaySub {
-            color: #00FF88 !important;
+            color: #00FF88;
         }
     }
 
     .levelUpCard,
     .srCard,
     .markdownReportBox {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
     }
 
     .srCard {
         .goodTitle {
-            color: #00FF88 !important;
+            color: #00FF88;
         }
 
         .riskTitle {
-            color: #FF5555 !important;
+            color: #FF5555;
         }
 
         .srList li {
-            color: rgba(255, 255, 255, 0.8) !important;
+            color: rgba(255, 255, 255, 0.8);
         }
     }
 
     .cutoffBanner {
-        background: rgba(30, 8, 8, 0.85) !important;
-        border-color: rgba(239, 68, 68, 0.4) !important;
+        background: rgba(30, 8, 8, 0.85);
+        border-color: rgba(239, 68, 68, 0.4);
 
         .cutoffLeft h3 {
-            color: #FF6B6B !important;
+            color: #FF6B6B;
         }
 
         .cutoffLeft p {
-            color: rgba(255, 255, 255, 0.8) !important;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .statBox {
-            background: rgba(20, 4, 4, 0.9) !important;
-            border-color: rgba(239, 68, 68, 0.4) !important;
+            background: rgba(20, 4, 4, 0.9);
+            border-color: rgba(239, 68, 68, 0.4);
 
             .statVal {
-                color: #FF5555 !important;
+                color: #FF5555;
             }
 
             .statLbl {
-                color: rgba(255, 255, 255, 0.7) !important;
+                color: rgba(255, 255, 255, 0.7);
             }
         }
     }
 
     .tradesTableWrapper {
-        border-color: rgba(0, 255, 136, 0.14) !important;
+        border-color: rgba(0, 255, 136, 0.14);
     }
 
     .tradesTable {
         th {
-            background: #070707 !important;
-            border-bottom-color: rgba(0, 255, 136, 0.14) !important;
+            background: #070707;
+            border-bottom-color: rgba(0, 255, 136, 0.14);
         }
 
         td {
-            border-bottom-color: rgba(0, 255, 136, 0.1) !important;
+            border-bottom-color: rgba(0, 255, 136, 0.1);
         }
 
         .winRow {
-            background: rgba(0, 255, 136, 0.04) !important;
+            background: rgba(0, 255, 136, 0.04);
         }
 
         .lossRow {
-            background: rgba(255, 87, 87, 0.04) !important;
+            background: rgba(255, 87, 87, 0.04);
         }
 
         .timeCell strong {
-            color: #FFFFFF !important;
+            color: #FFFFFF;
         }
 
         .symbolTag {
-            color: #00FF88 !important;
+            color: #00FF88;
         }
 
         .expandBtn {
-            background: rgba(0, 255, 136, 0.06) !important;
-            border: 1px solid rgba(0, 255, 136, 0.25) !important;
-            color: #00FF88 !important;
+            background: rgba(0, 255, 136, 0.06);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00FF88;
 
             &:hover {
-                background: #047857 !important;
-                border-color: #047857 !important;
-                color: #ffffff !important;
+                background: #047857;
+                border-color: #047857;
+                color: #ffffff;
             }
         }
 
         .expandedRow td {
-            background: #070707 !important;
+            background: #070707;
         }
     }
 }
@@ -3256,9 +3256,9 @@
     font-family: var(--font-plus-jakarta), sans-serif;
 
     :global(.dark) & {
-        background: #070707 !important;
-        border: 1px solid rgba(0, 255, 136, 0.14) !important;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(4, 120, 87, 0.2) !important;
+        background: #070707;
+        border: 1px solid rgba(0, 255, 136, 0.14);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(4, 120, 87, 0.2);
     }
 
     @include respond-to('sm') {
@@ -3285,7 +3285,7 @@
     animation: spinDashed 12s linear infinite;
 
     :global(.dark) & {
-        border-color: rgba(16, 185, 129, 0.4) !important;
+        border-color: rgba(16, 185, 129, 0.4);
     }
 }
 
@@ -3298,8 +3298,8 @@
     animation: pulseRing 2s ease-in-out infinite;
 
     :global(.dark) & {
-        border-color: rgba(16, 185, 129, 0.6) !important;
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3) !important;
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
     }
 }
 
@@ -3318,10 +3318,10 @@
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 
     :global(.dark) & {
-        background: rgba(16, 185, 129, 0.12) !important;
-        border-color: #10B981 !important;
-        color: #10B981 !important;
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.35) !important;
+        background: rgba(16, 185, 129, 0.12);
+        border-color: #10B981;
+        color: #10B981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
     }
 
     svg {
@@ -3367,7 +3367,7 @@
         font-family: var(--font-plus-jakarta), sans-serif;
 
         :global(.dark) & {
-            color: #FFFFFF !important;
+            color: #FFFFFF;
         }
     }
 
@@ -3379,7 +3379,7 @@
         max-width: 420px;
 
         :global(.dark) & {
-            color: #94A3B8 !important;
+            color: #94A3B8;
         }
     }
 }
@@ -3395,8 +3395,8 @@
     margin-bottom: 24px;
 
     :global(.dark) & {
-        background: #0A0D0B !important;
-        border-color: rgba(0, 255, 136, 0.15) !important;
+        background: #0A0D0B;
+        border-color: rgba(0, 255, 136, 0.15);
     }
 
     svg {
@@ -3404,7 +3404,7 @@
         flex-shrink: 0;
 
         :global(.dark) & {
-            color: #10B981 !important;
+            color: #10B981;
         }
     }
 }
@@ -3419,7 +3419,7 @@
     text-overflow: ellipsis;
 
     :global(.dark) & {
-        color: #FFFFFF !important;
+        color: #FFFFFF;
     }
 }
 
@@ -3429,7 +3429,7 @@
     font-weight: 700;
 
     :global(.dark) & {
-        color: #10B981 !important;
+        color: #10B981;
     }
 }
 
@@ -3450,7 +3450,7 @@
     position: relative;
 
     :global(.dark) & {
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -3461,8 +3461,8 @@
     transition: width 0.3s ease;
 
     :global(.dark) & {
-        background: linear-gradient(90deg, #059669 0%, #10B981 100%) !important;
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5) !important;
+        background: linear-gradient(90deg, #059669 0%, #10B981 100%);
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 }
 
@@ -3475,7 +3475,7 @@
     font-family: var(--font-plus-jakarta), sans-serif;
 
     :global(.dark) & {
-        color: #10B981 !important;
+        color: #10B981;
     }
 }
 
@@ -3493,8 +3493,8 @@
     box-sizing: border-box;
 
     :global(.dark) & {
-        background: #0A0D0B !important;
-        border-color: rgba(0, 255, 136, 0.12) !important;
+        background: #0A0D0B;
+        border-color: rgba(0, 255, 136, 0.12);
     }
 }
 
@@ -3512,15 +3512,15 @@
         background: #ECFDF5;
 
         :global(.dark) & {
-            background: rgba(16, 185, 129, 0.06) !important;
-            border: 1px solid rgba(16, 185, 129, 0.15) !important;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.15);
         }
 
         .rowTextCell strong {
             color: #065F46;
 
             :global(.dark) & {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
         }
 
@@ -3528,7 +3528,7 @@
             color: #047857;
 
             :global(.dark) & {
-                color: rgba(255, 255, 255, 0.6) !important;
+                color: rgba(255, 255, 255, 0.6);
             }
         }
     }
@@ -3540,16 +3540,16 @@
         box-shadow: 0 2px 10px rgba(16, 185, 129, 0.12);
 
         :global(.dark) & {
-            background: #0E1511 !important;
-            border-color: #047857 !important;
-            box-shadow: 0 2px 12px rgba(4, 120, 87, 0.25) !important;
+            background: #0E1511;
+            border-color: #047857;
+            box-shadow: 0 2px 12px rgba(4, 120, 87, 0.25);
         }
 
         .rowTextCell strong {
             color: #0F172A;
 
             :global(.dark) & {
-                color: #FFFFFF !important;
+                color: #FFFFFF;
             }
         }
 
@@ -3557,7 +3557,7 @@
             color: #475569;
 
             :global(.dark) & {
-                color: rgba(255, 255, 255, 0.7) !important;
+                color: rgba(255, 255, 255, 0.7);
             }
         }
     }
@@ -3584,9 +3584,9 @@
         justify-content: center;
 
         :global(.dark) & {
-            background: #047857 !important;
-            border-color: #047857 !important;
-            color: #FFFFFF !important;
+            background: #047857;
+            border-color: #047857;
+            color: #FFFFFF;
         }
     }
 
@@ -3601,8 +3601,8 @@
         justify-content: center;
 
         :global(.dark) & {
-            background: rgba(16, 185, 129, 0.15) !important;
-            border-color: #10B981 !important;
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10B981;
         }
 
         .dotCore {
@@ -3614,8 +3614,8 @@
             animation: pulseDot 1.2s ease-in-out infinite;
 
             :global(.dark) & {
-                background: #10B981 !important;
-                box-shadow: 0 0 10px #10B981 !important;
+                background: #10B981;
+                box-shadow: 0 0 10px #10B981;
             }
         }
     }
@@ -3627,7 +3627,7 @@
         background: #CBD5E1;
 
         :global(.dark) & {
-            background: #475569 !important;
+            background: #475569;
         }
     }
 
@@ -3642,7 +3642,7 @@
             color: #64748B;
 
             :global(.dark) & {
-                color: rgba(255, 255, 255, 0.6) !important;
+                color: rgba(255, 255, 255, 0.6);
             }
         }
 
@@ -3652,7 +3652,7 @@
             line-height: 1.4;
 
             :global(.dark) & {
-                color: rgba(255, 255, 255, 0.4) !important;
+                color: rgba(255, 255, 255, 0.4);
             }
         }
     }
@@ -3682,14 +3682,14 @@
     font-weight: 600;
 
     :global(.dark) & {
-        color: rgba(255, 255, 255, 0.5) !important;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     svg {
         color: #059669;
 
         :global(.dark) & {
-            color: #10B981 !important;
+            color: #10B981;
         }
     }
 }

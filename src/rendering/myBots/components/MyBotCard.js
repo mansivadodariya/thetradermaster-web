@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { getMyBotsText } from '../utils/myBotsTranslations';
 import styles from '../myBots.module.scss';
 
 export default function MyBotCard({
@@ -11,7 +12,7 @@ export default function MyBotCard({
     onSelectDetail,
     onSelectDelete
 }) {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     return (
         <div className={styles.botCard}>
@@ -21,16 +22,16 @@ export default function MyBotCard({
                         <span className={styles.symbolBadge}>{bot.symbol || 'BTCUSD'}</span>
                         <span className={styles.timeframeBadge}>{bot.timeframe || '15m'}</span>
                         <span className={`${styles.directionBadge} ${bot.direction?.toLowerCase() === 'short' ? styles.shortBadge : styles.longBadge}`}>
-                            {bot.direction || 'Long'}
+                            {getMyBotsText(bot.direction || 'Long', language)}
                         </span>
                         <span className={`${styles.creationTypeBadge} ${bot.creationType === 'ai' ? styles.creationBadgeAi : styles.creationBadgeManual}`}>
                             {bot.creationType === 'ai' ? t('myBots.filterAi', 'AI Bots') : t('myBots.filterManual', 'Manual')}
                         </span>
-                        <span className={styles.typeBadge}>{bot.type || 'AI STRATEGY'}</span>
+                        <span className={styles.typeBadge}>{getMyBotsText(bot.type || 'MANUAL BACKTEST', language)}</span>
                     </div>
-                    <h3 className={styles.botName} title={bot.name}>{bot.name}</h3>
+                    <h3 className={styles.botName} title={bot.name}>{getMyBotsText(bot.name, language)}</h3>
                     {bot.pattern && (
-                        <p className={styles.botPatternText}>{bot.pattern}</p>
+                        <p className={styles.botPatternText}>{getMyBotsText(bot.pattern, language)}</p>
                     )}
                 </div>
                 <button
@@ -44,7 +45,7 @@ export default function MyBotCard({
             </div>
 
             {bot.description && (
-                <p className={styles.botDesc}>{bot.description}</p>
+                <p className={styles.botDesc}>{getMyBotsText(bot.description, language)}</p>
             )}
 
             <div className={styles.statsGrid}>

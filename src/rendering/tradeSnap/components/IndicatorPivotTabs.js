@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import styles from '../aiSnapDashboard.module.scss';
 import { ActivityIcon, ChevronDownIcon } from '@/icons/aiSnapIcons';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators, volatilityIndicators, pivotPoints }) {
+export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators, volatilityIndicators, pivotPoints, activeLang = 'en' }) {
     const [activeTab, setActiveTab] = useState('trend');
 
     const defaultTrend = trendIndicators || {
@@ -47,9 +48,9 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
                 <table className={styles.breakdownTable}>
                     <thead>
                         <tr>
-                            <th>Indicator / Metric</th>
-                            <th>Value</th>
-                            <th>Action / Condition</th>
+                            <th>{getTradeSnapText('Indicator / Metric', activeLang)}</th>
+                            <th>{getTradeSnapText('Value', activeLang)}</th>
+                            <th>{getTradeSnapText('Action / Condition', activeLang)}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +63,7 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
                                     <td className={styles.tableValCell}>{val}</td>
                                     <td>
                                         <span className={`${styles.actionTableBadge} ${getActionBadgeClass(act)}`}>
-                                            {act}
+                                            {getTradeSnapText(act, activeLang)}
                                         </span>
                                     </td>
                                 </tr>
@@ -83,10 +84,10 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
                 <table className={styles.breakdownTable}>
                     <thead>
                         <tr>
-                            <th>Pivot Formula</th>
+                            <th>{getTradeSnapText('Pivot Formula', activeLang)}</th>
                             <th>S2</th>
                             <th>S1</th>
-                            <th className={styles.pivotMainHeader}>P (Pivot)</th>
+                            <th className={styles.pivotMainHeader}>{getTradeSnapText('P (Pivot)', activeLang)}</th>
                             <th>R1</th>
                             <th>R2</th>
                         </tr>
@@ -116,7 +117,7 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
             <div className={styles.sectionHeaderRow}>
                 <div className={styles.sectionTitleWrap}>
                     <ActivityIcon size={18} className={styles.sectionTitleIcon} />
-                    <h3>Technical Indicators & Pivot Point Breakdown</h3>
+                    <h3>{getTradeSnapText('Technical Indicators & Pivot Point Breakdown', activeLang)}</h3>
                 </div>
             </div>
 
@@ -127,28 +128,28 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
                     className={`${styles.tabNavBtn} ${activeTab === 'trend' ? styles.tabNavActive : ''}`}
                     onClick={() => setActiveTab('trend')}
                 >
-                    Trend Indicators
+                    {getTradeSnapText('Trend Indicators', activeLang)}
                 </button>
                 <button
                     type="button"
                     className={`${styles.tabNavBtn} ${activeTab === 'momentum' ? styles.tabNavActive : ''}`}
                     onClick={() => setActiveTab('momentum')}
                 >
-                    Momentum
+                    {getTradeSnapText('Momentum', activeLang)}
                 </button>
                 <button
                     type="button"
                     className={`${styles.tabNavBtn} ${activeTab === 'volatility' ? styles.tabNavActive : ''}`}
                     onClick={() => setActiveTab('volatility')}
                 >
-                    Volatility
+                    {getTradeSnapText('Volatility', activeLang)}
                 </button>
                 <button
                     type="button"
                     className={`${styles.tabNavBtn} ${activeTab === 'pivots' ? styles.tabNavActive : ''}`}
                     onClick={() => setActiveTab('pivots')}
                 >
-                    Pivot Points
+                    {getTradeSnapText('Pivot Points', activeLang)}
                 </button>
             </div>
 
@@ -163,19 +164,19 @@ export default function IndicatorPivotTabs({ trendIndicators, momentumIndicators
             {/* PDF Full Breakdown (Shows all 4 indicator & pivot tables sequentially in PDF export) */}
             <div className={styles.pdfFullBreakdown}>
                 <div className={styles.pdfBreakdownBlock} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-                    <div className={styles.pdfSubHeading}>1. Trend Indicators</div>
+                    <div className={styles.pdfSubHeading}>1. {getTradeSnapText('Trend Indicators', activeLang)}</div>
                     <div className={styles.tabContentCard}>{renderIndicatorTable(defaultTrend)}</div>
                 </div>
                 <div className={styles.pdfBreakdownBlock} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-                    <div className={styles.pdfSubHeading}>2. Momentum Indicators</div>
+                    <div className={styles.pdfSubHeading}>2. {getTradeSnapText('Momentum', activeLang)}</div>
                     <div className={styles.tabContentCard}>{renderIndicatorTable(defaultMomentum)}</div>
                 </div>
                 <div className={styles.pdfBreakdownBlock} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-                    <div className={styles.pdfSubHeading}>3. Volatility Indicators</div>
+                    <div className={styles.pdfSubHeading}>3. {getTradeSnapText('Volatility', activeLang)}</div>
                     <div className={styles.tabContentCard}>{renderIndicatorTable(defaultVolatility)}</div>
                 </div>
                 <div className={styles.pdfBreakdownBlock} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-                    <div className={styles.pdfSubHeading}>4. Pivot Points Breakdown</div>
+                    <div className={styles.pdfSubHeading}>4. {getTradeSnapText('Pivot Points Breakdown', activeLang)}</div>
                     <div className={styles.tabContentCard}>{renderPivotTable(defaultPivots)}</div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   TRANSLATE RESPONSE BUTTON & CHRONOSX THEMED DROPDOWN
+   TRANSLATE RESPONSE BUTTON & TRADERMASTER THEMED DROPDOWN
    ══════════════════════════════════════════════════════════════ */
 
 .translateButtonGroup {
@@ -91,13 +91,16 @@
     opacity: 1;
 }
 
-/* Floating ChronosX-Themed Language Dropdown */
+/* Floating TraderMaster-Themed Language Dropdown */
 .languageMenu {
     position: absolute;
     bottom: calc(100% + 8px);
     left: 0;
     z-index: 9999;
-    min-width: 220px;
+    min-width: 250px;
+    max-width: 290px;
+    max-height: 285px;
+    overflow: hidden;
     background: #0C100E;
     border: 1px solid rgba(24, 201, 139, 0.32);
     border-radius: 14px;
@@ -110,10 +113,47 @@
     gap: 2px;
     animation: menuFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 
+    &.placementBottom {
+        top: calc(100% + 8px);
+        bottom: auto;
+    }
+
+    &.placementRight {
+        left: auto;
+        right: 0;
+    }
+
     :global(html.light) & {
         background: #FFFFFF;
         border-color: rgba(24, 201, 139, 0.45);
         box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12), 0 0 16px rgba(24, 201, 139, 0.15);
+    }
+}
+
+/* Scrollable container for available languages list */
+.langListScroll {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 185px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 3px;
+
+    /* Custom sleek TraderMaster emerald scrollbar */
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(24, 201, 139, 0.3);
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.6);
+        }
     }
 }
 
@@ -144,8 +184,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     width: 100%;
-    padding: 8px 12px;
+    padding: 7px 12px;
     border-radius: 8px;
     background: transparent;
     border: 1px solid transparent;
@@ -188,18 +229,50 @@
 .langLeftPart {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
-.langFlag {
-    font-size: 13px;
-    line-height: 1;
+.flagWrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+    line-height: 0;
+
+    .flagSvg {
+        display: block;
+        width: 18px;
+        height: 13px;
+        object-fit: cover;
+    }
+}
+
+.btnFlagWrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2.5px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    flex-shrink: 0;
+    line-height: 0;
+
+    .flagSvg {
+        display: block;
+        width: 15px;
+        height: 11px;
+        object-fit: cover;
+    }
 }
 
 .langNativeWrap {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .langNativeLabel {

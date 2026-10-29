@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import Modal from '../Modal';
 import Loader from '@/components/loader';
 import AnalysisResultItem from '../AnalysisResultItem';
 import AiSnapDashboard from './AiSnapDashboard';
 import { DownloadIcon } from '@/icons/aiSnapIcons';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTradeSnapExport } from '../hooks/useTradeSnapExport';
 import styles from '../tradeSnap.module.scss';
 
@@ -26,6 +27,17 @@ export default function TradeSnapModals({
 }) {
     const modalDashboardRef = useRef(null);
     const { exportToPdf, isExporting } = useTradeSnapExport();
+    const { language: appLanguage, t: ctxT } = useLanguage();
+    const translateFn = t || ctxT;
+    const activeLang = appLanguage || 'en';
+
+    const tradeTextToTranslate = useMemo(() => {
+        if (!selectedAnalysis) return '';
+        const activeTrade = selectedAnalysis?.analysis || selectedAnalysis?.data?.[0] || selectedAnalysis;
+        const verdict = activeTrade?.market_assessment?.verdict || activeTrade?.trade_call || '';
+        const rationale = activeTrade?.trade_decision?.rationale || activeTrade?.rationale || '';
+        return [verdict, rationale].filter(Boolean).join('\n\n') || 'AI Market Analysis';
+    }, [selectedAnalysis]);
 
     const handleDownloadModalPdf = () => {
         const analysis = selectedAnalysis?.analysis || selectedAnalysis || {};
@@ -40,8 +52,8 @@ export default function TradeSnapModals({
                 open={isDetailModalOpen}
                 onClose={() => setIsDetailModalOpen(false)}
                 size="large"
-                title="AI Snap Technical Analysis Dashboard"
-                description="State-of-the-art AI market diagnosis and trade signal setup"
+                title={translateFn('tradeSnap.aiSnapDashboard', 'AI Snap Technical Analysis Dashboard')}
+                description={translateFn('tradeSnap.aiSnapSub', 'State-of-the-art AI market diagnosis and trade signal setup')}
                 headerActions={
                     <button
                         type="button"
@@ -51,13 +63,17 @@ export default function TradeSnapModals({
                         title="Download Complete AI Analysis Report (PDF)"
                     >
                         <DownloadIcon size={14} />
-                        <span>{isExporting ? 'Exporting...' : 'Download PDF'}</span>
+                        <span>{isExporting ? translateFn('tradeSnap.exporting', 'Exporting...') : translateFn('tradeSnap.downloadPdf', 'Download PDF')}</span>
                     </button>
                 }
             >
                 {selectedAnalysis && (
                     <div ref={modalDashboardRef}>
-                        <AiSnapDashboard rawData={selectedAnalysis} />
+                        <AiSnapDashboard
+                            rawData={selectedAnalysis}
+                            translation={translation}
+                            activeLang={activeLang}
+                        />
                     </div>
                 )}
             </Modal>

@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from '../tradeAnalysis.module.scss';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTradeAnalysisLocalization } from '../hooks/useTradeAnalysisLocalization';
 import {
     CrosshairIcon,
     ClockIcon,
@@ -20,11 +21,11 @@ import {
 } from '@/icons/tradeAnalysisIcons';
 
 export default function OverviewAnalyticsTab({
-    entryAnalysis,
+    entryAnalysis: rawEntryAnalysis,
     summary = {},
     trades = [],
-    timeInsights = {},
-    quickAnalysis = {},
+    timeInsights: rawTimeInsights = {},
+    quickAnalysis: rawQuickAnalysis = {},
     winRateVal,
     netProfitVal,
     avgWinningTrade,
@@ -34,6 +35,15 @@ export default function OverviewAnalyticsTab({
     setActiveTab
 }) {
     const { t } = useLanguage();
+    const {
+        localizedQuickAnalysis: quickAnalysis,
+        localizedTimeInsights: timeInsights,
+        localizedEntryAnalysis: entryAnalysis,
+    } = useTradeAnalysisLocalization({
+        quickAnalysis: rawQuickAnalysis,
+        timeInsights: rawTimeInsights,
+        entryAnalysis: rawEntryAnalysis,
+    });
 
     return (
         <div className={styles.resultsTwoColumnGrid}>

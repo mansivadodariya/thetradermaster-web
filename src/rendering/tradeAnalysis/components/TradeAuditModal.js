@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { toast } from '@/components/toast';
-import { TranslateResponseButton } from '@/components/translateButton';
+import { useLanguage } from '@/context/LanguageContext';
+import { translateResponseText } from '@/lib/translateService';
 import styles from '../tradeAnalysis.module.scss';
 import {
     SparklesIcon,
@@ -25,7 +26,8 @@ export default function TradeAuditModal({
     setSingleTradeActiveTab,
     onClose
 }) {
-    const [translation, setTranslation] = useState({ text: '', lang: null, isTranslated: false });
+    const { language = 'en' } = useLanguage();
+    const [translatedReport, setTranslatedReport] = useState('');
     if (!singleTradeModalData) return null;
 
     const res = singleTradeModalData.result || {};
@@ -44,6 +46,24 @@ export default function TradeAuditModal({
     const scoreOutOf10 = Number(rawScore).toFixed(1);
     const ratingLabel = scores.rating_label || res.quality || res.quality_rating || (Number(tDetails.pnl) >= 0 ? 'High Quality Momentum Entry' : 'Early Noise / Breakout Risk');
     const tradePnl = tDetails.pnl !== undefined ? Number(tDetails.pnl) : Number(singleTradeModalData.trade.pnl || 0);
+
+    useEffect(() => {
+        if (!language || language === 'en' || !markdownReport || !markdownReport.trim()) {
+            setTranslatedReport('');
+            return;
+        }
+
+        let isSubscribed = true;
+        translateResponseText(markdownReport, language)
+            .then((res) => {
+                if (isSubscribed && res) setTranslatedReport(res);
+            })
+            .catch(() => {});
+
+        return () => {
+            isSubscribed = false;
+        };
+    }, [language, markdownReport]);
 
     return (
         <div className={styles.modalBackdrop} onClick={onClose} data-lenis-prevent="true">
@@ -320,22 +340,14 @@ export default function TradeAuditModal({
                     )}
 
                     {singleTradeActiveTab === 'deepdive' && (() => {
-                        const activeReport = translation.isTranslated && translation.text
-                            ? translation.text
+                        const activeReport = language !== 'en' && translatedReport
+                            ? translatedReport
                             : markdownReport;
-                        const isRTL = translation.isTranslated && (translation.lang === 'ar' || translation.lang === 'ary');
+                        const isRTL = language === 'ar' || language === 'ary';
 
                         return (
                             <div className={styles.modalReportWrapper}>
                                 <div className={styles.reportHeaderActions}>
-                                    <TranslateResponseButton
-                                        originalText={markdownReport}
-                                        isTranslated={translation.isTranslated}
-                                        activeLang={translation.lang}
-                                        onTranslated={(translatedText, langCode, isTranslated) => {
-                                            setTranslation({ text: translatedText, lang: langCode, isTranslated });
-                                        }}
-                                    />
                                     <button
                                         type="button"
                                         className={styles.copyBtn}
@@ -350,26 +362,26 @@ export default function TradeAuditModal({
                                 </div>
                                 <div className={styles.markdownReportWrapper} dir={isRTL ? 'rtl' : undefined} style={isRTL ? { textAlign: 'right' } : undefined}>
                                     <ReactMarkdown
-                                        remarkPlugins={[remarkGfm]}
-                                        components={{
-                                            h1: ({ node, ...props }) => <h3 className={styles.reportH3} {...props} />,
-                                            h2: ({ node, ...props }) => <h4 className={styles.reportH4} {...props} />,
-                                            h3: ({ node, ...props }) => <h5 className={styles.reportH4} {...props} />,
-                                            p: ({ node, ...props }) => <p className={styles.reportP} {...props} />,
-                                            strong: ({ node, ...props }) => <strong className={styles.reportStrong} {...props} />,
-                                            table: ({ node, ...props }) => (
-                                                <div className={styles.tableWrapper}>
-                                                    <table className={styles.reportTable} {...props} />
-                                                </div>
-                                            ),
-                                            th: ({ node, ...props }) => <th className={styles.reportTh} {...props} />,
-                                            td: ({ node, ...props }) => <td className={styles.reportTd} {...props} />,
-                                            ul: ({ node, ...props }) => <ul className={styles.reportUl} {...props} />,
-                                            li: ({ node, ...props }) => <li className={styles.reportLi} {...props} />,
-                                        }}
-                                    >
-                                        {activeReport || 'Detailed report generated.'}
-                                    </ReactMarkdown>
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                h1: ({ node, ...props }) => <h3 className={styles.reportH3} {...props} />,
+                                                h2: ({ node, ...props }) => <h4 className={styles.reportH4} {...props} />,
+                                                h3: ({ node, ...props }) => <h5 className={styles.reportH4} {...props} />,
+                                                p: ({ node, ...props }) => <p className={styles.reportP} {...props} />,
+                                                strong: ({ node, ...props }) => <strong className={styles.reportStrong} {...props} />,
+                                                table: ({ node, ...props }) => (
+                                                    <div className={styles.tableWrapper}>
+                                                        <table className={styles.reportTable} {...props} />
+                                                    </div>
+                                                ),
+                                                th: ({ node, ...props }) => <th className={styles.reportTh} {...props} />,
+                                                td: ({ node, ...props }) => <td className={styles.reportTd} {...props} />,
+                                                ul: ({ node, ...props }) => <ul className={styles.reportUl} {...props} />,
+                                                li: ({ node, ...props }) => <li className={styles.reportLi} {...props} />,
+                                            }}
+                                        >
+                                            {activeReport || 'Detailed report generated.'}
+                                        </ReactMarkdown>
                                 </div>
                             </div>
                         );

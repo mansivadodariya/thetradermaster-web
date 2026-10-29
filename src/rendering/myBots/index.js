@@ -29,7 +29,7 @@ let inFlightBotsFetch = null;
 
 export default function MyBots() {
     const router = useRouter();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [bots, setBots] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filterCreationType, setFilterCreationType] = useState('all');
@@ -346,7 +346,7 @@ export default function MyBots() {
                     onNavigate={handleNavigate}
                 />
             ) : (
-                <div className={styles.dashboardSection}>
+                <div className={styles.dashboardSection} key={`mybots-section-${language}`}>
                     <MyBotsStats
                         totalCount={bots.length}
                         aiCount={aiCount}

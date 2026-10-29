@@ -9,10 +9,11 @@ import styles from '../aiAssistant.module.scss';
 import { useTheme } from '@/context/ThemeContext';
 import { getBidiProps, bidiMarkdownComponents } from '@/lib/bidi';
 import { ATR } from 'technicalindicators';
+import { normalizeWidgetTags, normalizeFiguresAndTables } from '@/utils/translateHelpers';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const WIDGET_REGEX = /(\[WIDGET:[A-Z_]+(?::[A-Z0-9/_-]+)?\])/gi;
+const WIDGET_REGEX = /(\[WIDGET:[A-Z0-9_]+(?::[A-Z0-9/_-]+)?\])/gi;
 
 const normalizeAssetSymbol = (symbol = '') => String(symbol).replace('/', '').toUpperCase();
 
@@ -381,7 +382,8 @@ export const InlineSentimentRadarWidget = React.memo(function InlineSentimentRad
 // ─── Helper: Format & Clean Inline Markdown Linebreaks & Stray Asterisks ──────
 export function normalizeMarkdownParagraphs(text = '') {
     if (!text) return '';
-    let raw = String(text);
+    let raw = normalizeWidgetTags(String(text));
+    raw = normalizeFiguresAndTables(raw);
 
     // 1. Normalize 3+ asterisks to standard bold **
     raw = raw.replace(/\*{3,}/g, '**');
@@ -413,7 +415,7 @@ export function normalizeMarkdownParagraphs(text = '') {
         const trimmed = line.trim();
 
         // If markdown table row or separator, preserve as is
-        if ((trimmed.startsWith('|') && trimmed.endsWith('|')) || /^\|?[\s-:]+(\|[\s-:]+)+\|?$/.test(trimmed)) {
+        if ((trimmed.startsWith('|') && trimmed.endsWith('|')) || /^\|?[\s\-–—:]+(\|[\s\-–—:]+)+\|?$/.test(trimmed)) {
             processedLines.push(line);
             continue;
         }
@@ -539,12 +541,12 @@ const RenderMarkdownWithWidgets = React.memo(function RenderMarkdownWithWidgets(
     return (
         <div className={styles.chatMarkdown}>
             {parts.map((part, index) => {
-                const widgetMatch = part.match(/\[WIDGET:([A-Z_]+)(?::([A-Z0-9/_-]+))?\]/i);
+                const widgetMatch = part.match(/\[WIDGET:([A-Z0-9_]+)(?::([A-Z0-9/_-]+))?\]/i);
                 if (widgetMatch) {
                     const widgetType = widgetMatch[1].toUpperCase();
                     const symbol = widgetMatch[2] ? normalizeAssetSymbol(widgetMatch[2]) : normalizeAssetSymbol(defaultSymbol);
 
-                    if (widgetType === 'SENTIMENT_RADAR') {
+                    if (widgetType === 'SENTIMENT_RADAR' || widgetType === 'RADAR') {
                         return (
                             <div key={`widget-${index}-${symbol}`} className={`${styles.pdfSection} pdfSection`} data-pdf-section="widget">
                                 <InlineSentimentRadarWidget symbol={symbol} visualData={visualData} isDark={isDark} />

@@ -1,5 +1,12 @@
 'use client';
 
+import {
+    maskWidgets,
+    restoreWidgets,
+    normalizeFiguresAndTables,
+    ensureWidgetsRetained,
+} from '@/utils/translateHelpers';
+
 const clientTranslationCache = new Map();
 
 const GOOGLE_LANG_MAP = {
@@ -45,7 +52,7 @@ export async function translateResponseText(text, targetLang = 'es') {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: trimmed, targetLang: lang }),
-            signal: AbortSignal.timeout(6000),
+            signal: AbortSignal.timeout(15000),
         });
 
         if (res.ok) {
@@ -62,17 +69,48 @@ export async function translateResponseText(text, targetLang = 'es') {
     // 2. Client-side direct fallback to Google Translate GTX
     try {
         const tl = GOOGLE_LANG_MAP[lang] || lang || 'es';
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(trimmed.slice(0, 1500))}`;
-        const res = await fetch(url);
-        if (res.ok) {
-            const data = await res.json();
-            if (data && Array.isArray(data[0])) {
-                const translated = data[0].map((s) => s?.[0] || '').join('');
-                if (translated) {
-                    clientTranslationCache.set(cacheKey, translated);
-                    return translated;
+        const { maskedText, widgetTokens } = maskWidgets(trimmed);
+        let rawTranslated = '';
+
+        if (maskedText.length > 1400) {
+            const paragraphs = maskedText.split(/\n\n+/);
+            const chunks = [];
+            for (const p of paragraphs) {
+                if (!p.trim()) {
+                    chunks.push('');
+                    continue;
+                }
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(p.trim().slice(0, 1500))}`;
+                const res = await fetch(url);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Array.isArray(data[0])) {
+                        chunks.push(data[0].map((s) => s?.[0] || '').join(''));
+                    } else {
+                        chunks.push(p);
+                    }
+                } else {
+                    chunks.push(p);
                 }
             }
+            rawTranslated = chunks.join('\n\n');
+        } else {
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(maskedText)}`;
+            const res = await fetch(url);
+            if (res.ok) {
+                const data = await res.json();
+                if (data && Array.isArray(data[0])) {
+                    rawTranslated = data[0].map((s) => s?.[0] || '').join('');
+                }
+            }
+        }
+
+        if (rawTranslated && rawTranslated.trim()) {
+            const restored = restoreWidgets(rawTranslated, widgetTokens);
+            const normalized = normalizeFiguresAndTables(restored);
+            const translated = ensureWidgetsRetained(trimmed, normalized);
+            clientTranslationCache.set(cacheKey, translated);
+            return translated;
         }
     } catch (err) {
         console.warn('Client translation fallback notice:', err);

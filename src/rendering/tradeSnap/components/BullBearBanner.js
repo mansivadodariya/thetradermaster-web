@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import styles from '../aiSnapDashboard.module.scss';
 import { FlameIcon, ActivityIcon } from '@/icons/aiSnapIcons';
 import { useTheme } from '@/context/ThemeContext';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
 function ConvictionCircle({ value, color = '#10B981', trackColor = 'rgba(255, 255, 255, 0.08)' }) {
     const numericVal = parseInt(String(value).replace(/[^0-9]/g, '') || '80', 10);
@@ -49,7 +50,7 @@ function ConvictionCircle({ value, color = '#10B981', trackColor = 'rgba(255, 25
     );
 }
 
-export default function BullBearBanner({ tradeDecision, technicalScore, marketAssessment }) {
+export default function BullBearBanner({ tradeDecision, technicalScore, marketAssessment, activeLang = 'en' }) {
     const { theme } = useTheme();
     const isDark = theme === 'dark';
     const trackColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)';
@@ -85,28 +86,28 @@ export default function BullBearBanner({ tradeDecision, technicalScore, marketAs
                         <div className={styles.bannerTextCol}>
                             <div className={styles.bannerTagRow}>
                                 <span className={styles.pulseDot} />
-                                <span className={styles.bannerTagText}>BULLISH MOMENTUM RUNNING</span>
+                                <span className={styles.bannerTagText}>{getTradeSnapText('BULLISH MOMENTUM RUNNING', activeLang)}</span>
                             </div>
                             <h2 className={styles.bannerTitle}>
-                                Strong Buyer Volume & Structure Breakout
+                                {getTradeSnapText('Strong Buyer Volume & Structure Breakout', activeLang)}
                             </h2>
                             <p className={styles.bannerSubtitle}>
-                                {tradeDecision?.rationale || "Structural higher-highs sequence confirmed. Favorable risk-to-reward long setup."}
+                                {getTradeSnapText(tradeDecision?.rationale || "Structural higher-highs sequence confirmed. Favorable risk-to-reward long setup.", activeLang)}
                             </p>
                         </div>
                     </div>
 
                     <div className={styles.bannerRight}>
                         <div className={styles.bannerStatCard}>
-                            <span className={styles.bannerStatLabel}>CONVICTION</span>
+                            <span className={styles.bannerStatLabel}>{getTradeSnapText('CONVICTION', activeLang)}</span>
                             <div className={styles.convictionCircleRow}>
                                 <ConvictionCircle value={conviction} color="#10B981" trackColor={trackColor} />
                             </div>
                         </div>
                         <div className={styles.bannerStatCard}>
-                            <span className={styles.bannerStatLabel}>SIGNAL TYPE</span>
+                            <span className={styles.bannerStatLabel}>{getTradeSnapText('SIGNAL TYPE', activeLang)}</span>
                             <span className={styles.bannerStatBadge}>
-                                <FlameIcon size={14} /> {tradeDecision?.signal_type || 'STRONG BUY'}
+                                <FlameIcon size={14} /> {getTradeSnapText(tradeDecision?.signal_type || 'STRONG BUY', activeLang)}
                             </span>
                         </div>
                     </div>
@@ -139,28 +140,28 @@ export default function BullBearBanner({ tradeDecision, technicalScore, marketAs
                         <div className={styles.bannerTextCol}>
                             <div className={styles.bannerTagRowRed}>
                                 <span className={styles.pulseDotRed} />
-                                <span className={styles.bannerTagText}>BEARISH PRESSURE RUNNING</span>
+                                <span className={styles.bannerTagText}>{getTradeSnapText('BEARISH PRESSURE RUNNING', activeLang)}</span>
                             </div>
                             <h2 className={styles.bannerTitle}>
-                                Intense Seller Distribution & Resistance Rejection
+                                {getTradeSnapText('Intense Seller Distribution & Resistance Rejection', activeLang)}
                             </h2>
                             <p className={styles.bannerSubtitle}>
-                                {tradeDecision?.rationale || "Price action rejected repeatedly from key resistance levels with downward momentum."}
+                                {getTradeSnapText(tradeDecision?.rationale || "Price action rejected repeatedly from key resistance levels with downward momentum.", activeLang)}
                             </p>
                         </div>
                     </div>
 
                     <div className={styles.bannerRight}>
                         <div className={styles.bannerStatCardRed}>
-                            <span className={styles.bannerStatLabel}>CONVICTION</span>
+                            <span className={styles.bannerStatLabel}>{getTradeSnapText('CONVICTION', activeLang)}</span>
                             <div className={styles.convictionCircleRow}>
                                 <ConvictionCircle value={conviction} color="#EF4444" trackColor={trackColor} />
                             </div>
                         </div>
                         <div className={styles.bannerStatCardRed}>
-                            <span className={styles.bannerStatLabel}>SIGNAL TYPE</span>
+                            <span className={styles.bannerStatLabel}>{getTradeSnapText('SIGNAL TYPE', activeLang)}</span>
                             <span className={styles.bannerStatBadgeRed}>
-                                <ActivityIcon size={14} /> {tradeDecision?.signal_type || 'STRONG SELL'}
+                                <ActivityIcon size={14} /> {getTradeSnapText(tradeDecision?.signal_type || 'STRONG SELL', activeLang)}
                             </span>
                         </div>
                     </div>
@@ -193,26 +194,26 @@ export default function BullBearBanner({ tradeDecision, technicalScore, marketAs
                     <div className={styles.bannerTextCol}>
                         <div className={styles.bannerTagRowAmber}>
                             <span className={styles.pulseDotAmber} />
-                            <span className={styles.bannerTagText}>SIDEWAYS MARKET CONSOLIDATION</span>
+                            <span className={styles.bannerTagText}>{getTradeSnapText('SIDEWAYS MARKET CONSOLIDATION', activeLang)}</span>
                         </div>
-                        <h2 className={styles.bannerTitle}>No Clear Breakout Direction</h2>
+                        <h2 className={styles.bannerTitle}>{getTradeSnapText('No Clear Breakout Direction', activeLang)}</h2>
                         <p className={styles.bannerSubtitle}>
-                            Price is rangebound between key support and resistance boundaries. Await volatility expansion.
+                            {getTradeSnapText('Price is rangebound between key support and resistance boundaries. Await volatility expansion.', activeLang)}
                         </p>
                     </div>
                 </div>
 
                 <div className={styles.bannerRight}>
                     <div className={styles.bannerStatCardAmber}>
-                        <span className={styles.bannerStatLabel}>MARKET BIAS</span>
+                        <span className={styles.bannerStatLabel}>{getTradeSnapText('MARKET BIAS', activeLang)}</span>
                         <div className={styles.convictionCircleRow}>
                             <ConvictionCircle value={50} color="#38BDF8" trackColor={trackColor} />
                         </div>
                     </div>
                     <div className={styles.bannerStatCardAmber}>
-                        <span className={styles.bannerStatLabel}>SIGNAL TYPE</span>
+                        <span className={styles.bannerStatLabel}>{getTradeSnapText('SIGNAL TYPE', activeLang)}</span>
                         <span className={styles.bannerStatBadgeAmber}>
-                            <ActivityIcon size={14} /> NO_TRADE / WAIT
+                            <ActivityIcon size={14} /> {getTradeSnapText('NO_TRADE / WAIT', activeLang)}
                         </span>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ import { InteractiveErrorBubble, InteractiveErrorModal, categorizeChatError } fr
 import { TranslateResponseButton, TRANSLATE_OPTIONS } from '@/components/translateButton';
 import { useLanguage } from '@/context/LanguageContext';
 import { translateResponseText } from '@/lib/translateService';
+import { ensureWidgetsRetained } from '@/utils/translateHelpers';
 import styles from '../aiAssistant.module.scss';
 
 const getAnalyzingPhrases = (t) => [
@@ -52,7 +53,7 @@ const ChatMessageList = React.memo(function ChatMessageList({
     const handleMessageTranslated = React.useCallback((key, text, lang, isTranslated, userReverted = false) => {
         setMessageTranslations((prev) => ({
             ...prev,
-            [key]: { text, lang, isTranslated, userReverted, targetLang: lang }
+            [key]: { text, lang, isTranslated, userReverted, targetLang: lang, isTranslating: false }
         }));
     }, []);
 
@@ -82,7 +83,7 @@ const ChatMessageList = React.memo(function ChatMessageList({
             }
 
             const parsed = parseChatMessage(msg.content, msg.fullReport);
-            const contentText = msg.display_text || msg.technical_prose || parsed.contentText || (typeof msg.content === 'string' ? msg.content : '');
+            const contentText = msg.display_text || msg.technical_prose || parsed.fallbackText || (typeof msg.content === 'string' ? msg.content : '');
             const textToTranslate = msg.fullReport || contentText;
 
             if (!textToTranslate || typeof textToTranslate !== 'string' || !textToTranslate.trim()) return;
@@ -272,8 +273,22 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                         originalText={originalVisionText}
                                                         isTranslated={visionTranslation?.isTranslated}
                                                         activeLang={visionTranslation?.lang}
+                                                        onTranslationStart={(targetCode) => {
+                                                            const key = msg.id || `msg_${index}`;
+                                                            setMessageTranslations((prev) => ({
+                                                                ...prev,
+                                                                [key]: { ...(prev[key] || {}), isTranslating: true, targetLang: targetCode }
+                                                            }));
+                                                        }}
                                                         onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
                                                             handleMessageTranslated(msg.id || `msg_${index}`, translatedText, langCode, isTranslated, userReverted);
+                                                        }}
+                                                        onTranslationError={() => {
+                                                            const key = msg.id || `msg_${index}`;
+                                                            setMessageTranslations((prev) => ({
+                                                                ...prev,
+                                                                [key]: { ...(prev[key] || {}), isTranslating: false }
+                                                            }));
                                                         }}
                                                     />
                                                 </div>
@@ -286,11 +301,11 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                     const currentTranslation = messageTranslations[currentMsgKey];
 
                                     const displayContent = currentTranslation?.isTranslated && currentTranslation.text
-                                        ? currentTranslation.text
+                                        ? ensureWidgetsRetained(baseDisplayContent, currentTranslation.text)
                                         : baseDisplayContent;
 
                                     const deepAnalysisReport = currentTranslation?.isTranslated && currentTranslation.text
-                                        ? currentTranslation.text
+                                        ? ensureWidgetsRetained(msg.fullReport, currentTranslation.text)
                                         : msg.fullReport;
 
                                     const isCurrentRTL = currentTranslation?.isTranslated && (currentTranslation.lang === 'ar' || currentTranslation.lang === 'ary');
@@ -346,8 +361,20 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                                 originalText={msg.fullReport}
                                                                 isTranslated={currentTranslation?.isTranslated}
                                                                 activeLang={currentTranslation?.lang}
+                                                                onTranslationStart={(targetCode) => {
+                                                                    setMessageTranslations((prev) => ({
+                                                                        ...prev,
+                                                                        [currentMsgKey]: { ...(prev[currentMsgKey] || {}), isTranslating: true, targetLang: targetCode }
+                                                                    }));
+                                                                }}
                                                                 onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
                                                                     handleMessageTranslated(currentMsgKey, translatedText, langCode, isTranslated, userReverted);
+                                                                }}
+                                                                onTranslationError={() => {
+                                                                    setMessageTranslations((prev) => ({
+                                                                        ...prev,
+                                                                        [currentMsgKey]: { ...(prev[currentMsgKey] || {}), isTranslating: false }
+                                                                    }));
                                                                 }}
                                                             />
                                                         </div>
@@ -378,8 +405,20 @@ const ChatMessageList = React.memo(function ChatMessageList({
                                                                 originalText={baseDisplayContent}
                                                                 isTranslated={currentTranslation?.isTranslated}
                                                                 activeLang={currentTranslation?.lang}
+                                                                onTranslationStart={(targetCode) => {
+                                                                    setMessageTranslations((prev) => ({
+                                                                        ...prev,
+                                                                        [currentMsgKey]: { ...(prev[currentMsgKey] || {}), isTranslating: true, targetLang: targetCode }
+                                                                    }));
+                                                                }}
                                                                 onTranslated={(translatedText, langCode, isTranslated, userReverted) => {
                                                                     handleMessageTranslated(currentMsgKey, translatedText, langCode, isTranslated, userReverted);
+                                                                }}
+                                                                onTranslationError={() => {
+                                                                    setMessageTranslations((prev) => ({
+                                                                        ...prev,
+                                                                        [currentMsgKey]: { ...(prev[currentMsgKey] || {}), isTranslating: false }
+                                                                    }));
                                                                 }}
                                                             />
                                                         </div>

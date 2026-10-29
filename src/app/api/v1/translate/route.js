@@ -1,4 +1,10 @@
 import { NextResponse } from 'next/server';
+import {
+    maskWidgets,
+    restoreWidgets,
+    normalizeFiguresAndTables,
+    ensureWidgetsRetained,
+} from '@/utils/translateHelpers';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,7 +66,9 @@ async function translateChunk(text, targetLang, sourceLang = 'auto') {
 export async function POST(request) {
     try {
         const body = await request.json().catch(() => ({}));
-        const { text, targetLang = 'es', sourceLang = 'auto' } = body;
+        const text = body.text;
+        const targetLang = body.targetLang || body.target_lang || 'es';
+        const sourceLang = body.sourceLang || body.source_lang || 'auto';
 
         if (!text || typeof text !== 'string' || !text.trim()) {
             return NextResponse.json(
@@ -93,11 +101,14 @@ export async function POST(request) {
             );
         }
 
-        let translatedText = '';
+        // 1. Pre-mask graphs/widgets before sending to translation so tags stay 100% intact
+        const { maskedText, widgetTokens } = maskWidgets(trimmed);
+
+        let rawTranslated = '';
 
         // Chunking for long markdown texts (to stay within Google single-query URL length limit)
-        if (trimmed.length > 1400) {
-            const paragraphs = trimmed.split(/\n\n+/);
+        if (maskedText.length > 1400) {
+            const paragraphs = maskedText.split(/\n\n+/);
             const translatedParagraphs = [];
 
             // Translate in small batches to preserve memory and speed
@@ -120,10 +131,19 @@ export async function POST(request) {
                 }
             }
 
-            translatedText = translatedParagraphs.join('\n\n');
+            rawTranslated = translatedParagraphs.join('\n\n');
         } else {
-            translatedText = await translateChunk(trimmed, targetLocale, sourceLang);
+            rawTranslated = await translateChunk(maskedText, targetLocale, sourceLang);
         }
+
+        // 2. Restore widget tokens and re-inject any dropped graph widgets
+        const restored = restoreWidgets(rawTranslated, widgetTokens);
+
+        // 3. Normalize tables (dashes vs em-dashes) and numerical figures (decimals, percentages, ratios)
+        const normalized = normalizeFiguresAndTables(restored);
+
+        // 4. Guarantee all widgets from the original text are retained
+        const translatedText = ensureWidgetsRetained(trimmed, normalized);
 
         if (serverTranslationCache.size >= MAX_CACHE_SIZE) {
             const firstKey = serverTranslationCache.keys().next().value;

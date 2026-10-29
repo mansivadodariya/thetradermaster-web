@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import styles from '../aiSnapDashboard.module.scss';
 import { CopyIcon, BellIcon, FlameIcon } from '@/icons/aiSnapIcons';
 import { toast } from '@/components/toast';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function PatternsKeyLevelsCard({
- patternsDetected }) {
+export default function PatternsKeyLevelsCard({ patternsDetected, activeLang = 'en' }) {
     const [copiedLevel, setCopiedLevel] = useState(null);
 
     const supportLevels = (patternsDetected?.support_levels && patternsDetected.support_levels.length > 0)
@@ -32,8 +32,8 @@ export default function PatternsKeyLevelsCard({
     return (
         <div className={styles.patternsKeyLevelsCard}>
             <div className={styles.cardHeaderRow}>
-                <h3>Patterns & Key Levels Diagnosis</h3>
-                <span className={styles.patternCountBadge}>{chartPatterns.length} Patterns Detected</span>
+                <h3>{getTradeSnapText('Patterns & Key Levels Diagnosis', activeLang)}</h3>
+                <span className={styles.patternCountBadge}>{chartPatterns.length} {getTradeSnapText('Patterns Detected', activeLang)}</span>
             </div>
 
             <div className={styles.patternsLevelsGrid}>
@@ -43,7 +43,7 @@ export default function PatternsKeyLevelsCard({
                     <div className={styles.levelGroup}>
                         <div className={styles.levelGroupHeader}>
                             <span className={styles.supportDot} />
-                            <span>SUPPORT LEVELS (S1, S2, S3)</span>
+                            <span>{getTradeSnapText('SUPPORT LEVELS (S1, S2, S3)', activeLang)}</span>
                         </div>
                         <div className={styles.pillsList}>
                             {supportLevels.map((lvl, i) => (
@@ -67,7 +67,7 @@ export default function PatternsKeyLevelsCard({
                     <div className={styles.levelGroup}>
                         <div className={styles.levelGroupHeader}>
                             <span className={styles.resistanceDot} />
-                            <span>RESISTANCE LEVELS (R1, R2, R3)</span>
+                            <span>{getTradeSnapText('RESISTANCE LEVELS (R1, R2, R3)', activeLang)}</span>
                         </div>
                         <div className={styles.pillsList}>
                             {resistanceLevels.map((lvl, i) => (
@@ -92,7 +92,7 @@ export default function PatternsKeyLevelsCard({
                 <div className={styles.patternsColumn}>
                     <div className={styles.levelGroupHeader}>
                         <FlameIcon size={15} className={styles.flameIcon} />
-                        <span>CHART PATTERN MATCHES</span>
+                        <span>{getTradeSnapText('CHART PATTERN MATCHES', activeLang)}</span>
                     </div>
 
                     <div className={styles.patternsList}>
@@ -101,8 +101,8 @@ export default function PatternsKeyLevelsCard({
                             return (
                                 <div key={i} className={styles.patternItemCard}>
                                     <div className={styles.patternItemHeader}>
-                                        <span className={styles.patternName}>{pat.name}</span>
-                                        <strong className={styles.patternConfVal}>{conf}% Match</strong>
+                                        <span className={styles.patternName}>{getTradeSnapText(pat.name, activeLang)}</span>
+                                        <strong className={styles.patternConfVal}>{conf}% {getTradeSnapText('Match', activeLang)}</strong>
                                     </div>
                                     <div className={styles.patternTrack}>
                                         <motion.div

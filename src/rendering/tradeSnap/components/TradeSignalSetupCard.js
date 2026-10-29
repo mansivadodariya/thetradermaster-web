@@ -4,6 +4,7 @@ import styles from '../aiSnapDashboard.module.scss';
 import { TrendingUpIcon, TrendingDownIcon, CheckCircle2Icon, CopyIcon, InfoIcon } from '@/icons/aiSnapIcons';
 import { toast } from '@/components/toast';
 import StreamingText from '@/components/streamingText';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
 function safeVal(val) {
     if (val === null || val === undefined) return '—';
@@ -17,7 +18,7 @@ function safeVal(val) {
     return String(val);
 }
 
-export default function TradeSignalSetupCard({ tradeDecision }) {
+export default function TradeSignalSetupCard({ tradeDecision, activeLang = 'en' }) {
     const [copiedKey, setCopiedKey] = useState(null);
 
     const action = safeVal(tradeDecision?.action || 'BUY').toUpperCase();
@@ -62,12 +63,12 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
                 <div className={styles.actionBadgeWrap}>
                     <div className={`${styles.actionMainBadge} ${isBuy ? styles.actionBuy : isSell ? styles.actionSell : styles.actionNeutral}`}>
                         {isBuy ? <TrendingUpIcon size={18} /> : isSell ? <TrendingDownIcon size={18} /> : null}
-                        <span>{action.includes('SIGNAL') ? action : `${action} SIGNAL`}</span>
+                        <span>{getTradeSnapText(action.includes('SIGNAL') ? action : `${action} SIGNAL`, activeLang)}</span>
                     </div>
                 </div>
 
                 <div className={styles.rrBadge}>
-                    <span className={styles.rrLabel}>RISK : REWARD</span>
+                    <span className={styles.rrLabel}>{getTradeSnapText('RISK : REWARD', activeLang)}</span>
                     <strong className={styles.rrValue}>{rrRatio}</strong>
                 </div>
             </div>
@@ -77,7 +78,7 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
                 {/* Entry Zone Box */}
                 <div className={styles.setupBox}>
                     <div className={styles.boxTitleRow}>
-                        <span>ENTRY ZONE</span>
+                        <span>{getTradeSnapText('ENTRY ZONE', activeLang)}</span>
                         <button
                             type="button"
                             className={styles.copyBtn}
@@ -89,13 +90,13 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
                         </button>
                     </div>
                     <div className={styles.boxPrimaryValue}>{entryPrice}</div>
-                    <div className={styles.boxSubInfo}>{executionType}</div>
+                    <div className={styles.boxSubInfo}>{getTradeSnapText(executionType, activeLang)}</div>
                 </div>
 
                 {/* Stop Loss (SL) Box */}
                 <div className={`${styles.setupBox} ${styles.slBox}`}>
                     <div className={styles.boxTitleRow}>
-                        <span className={styles.slTextTitle}>STOP LOSS (SL)</span>
+                        <span className={styles.slTextTitle}>{getTradeSnapText('STOP LOSS (SL)', activeLang)}</span>
                         <button
                             type="button"
                             className={styles.copyBtn}
@@ -108,7 +109,7 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
                     </div>
                     <div className={styles.slPrimaryValue}>{stopLossPrice}</div>
                     <div className={styles.slReasonInfo}>
-                        <InfoIcon size={12} /> {invalidationReason}
+                        <InfoIcon size={12} /> {getTradeSnapText(invalidationReason, activeLang)}
                     </div>
                 </div>
             </div>
@@ -116,14 +117,14 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
             {/* Take Profit (TP) Targets Grid */}
             <div className={styles.tpSection}>
                 <div className={styles.tpSectionHeader}>
-                    <span>TAKE PROFIT TARGETS</span>
-                    <span className={styles.tpHintBadge}>Multiple Targets Setup</span>
+                    <span>{getTradeSnapText('TAKE PROFIT TARGETS', activeLang)}</span>
+                    <span className={styles.tpHintBadge}>{getTradeSnapText('Multiple Targets Setup', activeLang)}</span>
                 </div>
 
                 <div className={styles.tpGrid}>
                     <div className={styles.tpPillCard}>
                         <div className={styles.tpPillTop}>
-                            <span>TP 1 (Conservative)</span>
+                            <span>{getTradeSnapText('TP 1 (Conservative)', activeLang)}</span>
                             <CheckCircle2Icon size={14} className={styles.tpIcon} />
                         </div>
                         <div className={styles.tpPillVal}>{tp1}</div>
@@ -131,7 +132,7 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
 
                     <div className={styles.tpPillCard}>
                         <div className={styles.tpPillTop}>
-                            <span>TP 2 (Target)</span>
+                            <span>{getTradeSnapText('TP 2 (Target)', activeLang)}</span>
                             <CheckCircle2Icon size={14} className={styles.tpIcon} />
                         </div>
                         <div className={styles.tpPillVal}>{tp2}</div>
@@ -139,7 +140,7 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
 
                     <div className={styles.tpPillCard}>
                         <div className={styles.tpPillTop}>
-                            <span>TP 3 (Extended)</span>
+                            <span>{getTradeSnapText('TP 3 (Extended)', activeLang)}</span>
                             <CheckCircle2Icon size={14} className={styles.tpIcon} />
                         </div>
                         <div className={styles.tpPillVal}>{tp3}</div>
@@ -149,9 +150,9 @@ export default function TradeSignalSetupCard({ tradeDecision }) {
 
             {/* Trade Rationale Box */}
             <div className={styles.rationaleBox}>
-                <div className={styles.rationaleTitle}>TRADE RATIONALE & INSIGHTS</div>
+                <div className={styles.rationaleTitle}>{getTradeSnapText('TRADE RATIONALE & INSIGHTS', activeLang)}</div>
                 <p className={styles.rationaleText}>
-                    <StreamingText text={rationale} speed={16} />
+                    <StreamingText text={getTradeSnapText(rationale, activeLang)} speed={16} />
                 </p>
             </div>
         </div>

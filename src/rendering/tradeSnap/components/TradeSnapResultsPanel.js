@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClockIcon } from '@/icons/tradeSnapIcons';
 import { DownloadIcon } from '@/icons/aiSnapIcons';
+import { useLanguage } from '@/context/LanguageContext';
 import AiSnapDashboard from './AiSnapDashboard';
 import { useTradeSnapExport } from '../hooks/useTradeSnapExport';
 import styles from '../tradeSnap.module.scss';
@@ -16,6 +17,17 @@ export default function TradeSnapResultsPanel({
 }) {
     const resultsContainerRef = useRef(null);
     const { exportToPdf, isExporting } = useTradeSnapExport();
+    const { t, language } = useLanguage();
+    const activeLang = language || 'en';
+
+    const activeFirstTrade = allAnalyses?.[0]?.data?.[0];
+    const tradeTextToTranslate = useMemo(() => {
+        if (!activeFirstTrade) return '';
+        const trade = activeFirstTrade?.analysis || activeFirstTrade;
+        const verdict = trade?.market_assessment?.verdict || trade?.trade_call || '';
+        const rationale = trade?.trade_decision?.rationale || trade?.rationale || '';
+        return [verdict, rationale].filter(Boolean).join('\n\n') || 'AI Market Analysis';
+    }, [activeFirstTrade]);
 
     const handleDownloadPdf = () => {
         const firstTrade = allAnalyses?.[0]?.data?.[0];
@@ -33,12 +45,12 @@ export default function TradeSnapResultsPanel({
             <div className={styles.resultsPanel} data-lenis-prevent="true">
                 <div className={styles.resultsHeader}>
                     <div className={styles.resultsHeaderRow}>
-                        <h3>Analysis Results</h3>
+                        <h3>{t('tradeSnap.analysisResults', 'Analysis Results')}</h3>
                         <div className={styles.resultsHeaderActions}>
                             {isAnalyzing && (
                                 <div className={styles.liveEngineBadge}>
                                     <span className={styles.pulseDot} />
-                                    <span>AI QUANT ENGINE LIVE</span>
+                                    <span>{t('tradeSnap.quantEngineLive', 'AI QUANT ENGINE LIVE')}</span>
                                 </div>
                             )}
                             {!isAnalyzing && allAnalyses && allAnalyses.length > 0 && (
@@ -50,7 +62,7 @@ export default function TradeSnapResultsPanel({
                                     title="Download Complete AI Analysis Report (PDF)"
                                 >
                                     <DownloadIcon size={14} />
-                                    <span>{isExporting ? 'Exporting...' : 'Download PDF'}</span>
+                                    <span>{isExporting ? t('tradeSnap.exporting', 'Exporting...') : t('tradeSnap.downloadPdf', 'Download PDF')}</span>
                                 </button>
                             )}
                         </div>
@@ -107,7 +119,8 @@ export default function TradeSnapResultsPanel({
                                 className={styles.analysesListContainer}
                             >
                                 {allAnalyses.map((analysis, analysisIndex) => {
-                                    const formatted = new Date(analysis.timestamp).toLocaleString('en-US', {
+                                    const dateLocale = activeLang === 'zh' ? 'zh-CN' : activeLang === 'ru' ? 'ru-RU' : activeLang === 'es' ? 'es-ES' : activeLang === 'ar' || activeLang === 'ary' ? 'ar-EG' : activeLang === 'vi' ? 'vi-VN' : activeLang === 'id' ? 'id-ID' : activeLang === 'fil' ? 'fil-PH' : 'en-US';
+                                    const formatted = new Date(analysis.timestamp).toLocaleString(dateLocale, {
                                         year: 'numeric',
                                         month: 'short',
                                         day: 'numeric',
@@ -119,12 +132,14 @@ export default function TradeSnapResultsPanel({
                                         <div key={`history-${analysisIndex}`} className={styles.historyGroup}>
                                             <div className={styles.historyTime}>
                                                 <ClockIcon />
-                                                Analysis at {formatted}
+                                                {t('tradeSnap.analysisAt', 'Analysis at')} {formatted}
                                             </div>
                                             {analysis.data.map((trade, tradeIndex) => (
                                                 <AiSnapDashboard
                                                     key={`trade-${analysisIndex}-${tradeIndex}`}
                                                     rawData={trade}
+                                                    translation={translation}
+                                                    activeLang={activeLang}
                                                 />
                                             ))}
                                         </div>

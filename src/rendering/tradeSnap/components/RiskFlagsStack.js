@@ -2,15 +2,16 @@
 import React from 'react';
 import styles from '../aiSnapDashboard.module.scss';
 import { ShieldAlertIcon, InfoIcon } from '@/icons/aiSnapIcons';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function RiskFlagsStack({ riskFlags }) {
+export default function RiskFlagsStack({ riskFlags, activeLang = 'en' }) {
     if (!riskFlags || !Array.isArray(riskFlags) || riskFlags.length === 0) return null;
 
     return (
         <div className={styles.riskFlagsSection}>
             <div className={styles.riskSectionHeader}>
                 <ShieldAlertIcon size={18} className={styles.riskSectionIcon} />
-                <h3>Risk Flags & Divergence Warnings</h3>
+                <h3>{getTradeSnapText('Risk Flags & Divergence Warnings', activeLang)}</h3>
             </div>
 
             <div className={styles.riskStackList}>
@@ -33,7 +34,7 @@ export default function RiskFlagsStack({ riskFlags }) {
                                 <ShieldAlertIcon size={16} />
                             </div>
                             <div className={styles.riskMessageText}>
-                                <strong>[{level.toUpperCase()}]</strong> {flag.message || flag}
+                                <strong>[{level.toUpperCase()}]</strong> {getTradeSnapText(flag.message || flag, activeLang)}
                             </div>
                         </div>
                     );

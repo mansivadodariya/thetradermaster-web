@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from '../aiSnapDashboard.module.scss';
 import AnalysisSummaryHeader from './AnalysisSummaryHeader';
 import TechnicalScoreGauge from './TechnicalScoreGauge';
@@ -11,10 +12,12 @@ import RiskFlagsStack from './RiskFlagsStack';
 import IndicatorPivotTabs from './IndicatorPivotTabs';
 import TimeframeSelectionModal from './TimeframeSelectionModal';
 import { useTradeSnapExport } from '../hooks/useTradeSnapExport';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function AiSnapDashboard({ analysisData, rawData }) {
+export default function AiSnapDashboard({ analysisData, rawData, translation, activeLang }) {
     const dashboardRef = useRef(null);
     const { exportToPdf, isExporting } = useTradeSnapExport();
+    const { language: appLanguage } = useLanguage();
 
     // Support both new AI Snap schema (analysis) and legacy normalizeTradeRecord schema
     const rawPayload = analysisData || rawData;
@@ -59,25 +62,28 @@ export default function AiSnapDashboard({ analysisData, rawData }) {
         strength: 'Moderate'
     };
 
-    const tradeDecision = analysis.trade_decision || {
-        action: analysis.trade_call || rawPayload.trade_call || 'BUY',
-        signal_type: analysis.trade_call || rawPayload.trade_call || 'BUY',
-        conviction: analysis.confidence || rawPayload.confidence || '75%',
+    const currentLang = activeLang || translation?.lang || appLanguage || 'en';
+
+    const rawDecision = analysis.trade_decision || {};
+    const tradeDecision = {
+        action: rawDecision.action || analysis.trade_call || rawPayload.trade_call || 'BUY',
+        signal_type: rawDecision.signal_type || analysis.trade_call || rawPayload.trade_call || 'BUY',
+        conviction: rawDecision.conviction || analysis.confidence || rawPayload.confidence || '75%',
         entry_zone: {
-            entry_price: analysis.entry || rawPayload.entry || '—',
-            execution_type: 'Vision AI & Technical Confluence'
+            entry_price: getTradeSnapText(rawDecision.entry_zone?.entry_price || rawDecision.entry_zone || analysis.entry || rawPayload.entry || '—', currentLang),
+            execution_type: getTradeSnapText(rawDecision.entry_zone?.execution_type || 'Vision AI & Technical Confluence', currentLang)
         },
         stop_loss: {
-            price: analysis.stop_loss || rawPayload.stop_loss || '—',
-            invalidation_reason: 'Structure protection level'
+            price: rawDecision.stop_loss?.price || rawDecision.stop_loss || analysis.stop_loss || rawPayload.stop_loss || '—',
+            invalidation_reason: getTradeSnapText(rawDecision.stop_loss?.invalidation_reason || rawDecision.stop_loss?.reason || 'Structure protection level', currentLang)
         },
-        take_profit_targets: analysis.targets || rawPayload.targets || {
+        take_profit_targets: rawDecision.take_profit_targets || analysis.targets || rawPayload.targets || {
             tp1: '—',
             tp2: '—',
             tp3: '—'
         },
-        risk_reward_ratio: analysis.risk_reward || rawPayload.risk_reward || '1:2',
-        rationale: analysis.rationale || rawPayload.rationale || ''
+        risk_reward_ratio: rawDecision.risk_reward_ratio || analysis.risk_reward || rawPayload.risk_reward || '1:2',
+        rationale: (translation?.isTranslated && translation?.text) ? translation.text : getTradeSnapText(rawDecision.rationale || analysis.rationale || rawPayload.rationale || '', currentLang)
     };
 
     const liveIndicators = analysis.live_indicators || rawPayload.live_indicators;
@@ -136,10 +142,12 @@ export default function AiSnapDashboard({ analysisData, rawData }) {
                     onOpenTimeframeModal={() => setTimeframeModalOpen(true)}
                     onDownloadPdf={handleDownloadPdf}
                     isExporting={isExporting}
+                    activeLang={currentLang}
                 />
                 <TechnicalScoreGauge
                     technicalScore={technicalScore}
                     marketAssessment={marketAssessment}
+                    activeLang={currentLang}
                 />
             </div>
 
@@ -148,27 +156,32 @@ export default function AiSnapDashboard({ analysisData, rawData }) {
                 tradeDecision={tradeDecision}
                 technicalScore={technicalScore}
                 marketAssessment={marketAssessment}
+                activeLang={currentLang}
             />
 
             {/* Section C: Actionable Buy / Sell Trade Signal Setup Card */}
             <TradeSignalSetupCard
                 tradeDecision={tradeDecision}
+                activeLang={currentLang}
             />
 
             {/* Section E: Market Assessment & Live Indicators */}
             <LiveIndicatorsGrid
                 liveIndicators={liveIndicators}
                 marketAssessment={marketAssessment}
+                activeLang={currentLang}
             />
 
             {/* Section F: Patterns & Key Levels Card */}
             <PatternsKeyLevelsCard
                 patternsDetected={patternsDetected}
+                activeLang={currentLang}
             />
 
             {/* Section G: Risk Flags Warning Stack */}
             <RiskFlagsStack
                 riskFlags={riskFlags}
+                activeLang={currentLang}
             />
 
             {/* Section H: Multi-Indicator & Pivot Breakdown Accordion / Tabs */}
@@ -177,6 +190,7 @@ export default function AiSnapDashboard({ analysisData, rawData }) {
                 momentumIndicators={momentumIndicators}
                 volatilityIndicators={volatilityIndicators}
                 pivotPoints={pivotPoints}
+                activeLang={currentLang}
             />
 
             {/* Timeframe Selection Popup Modal (Triggered automatically when timeframe_detected === false) */}

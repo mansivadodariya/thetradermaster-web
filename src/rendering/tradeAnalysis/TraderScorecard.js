@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTradeAnalysisLocalization } from './hooks/useTradeAnalysisLocalization';
 import styles from './TraderScorecard.module.scss';
 
 
@@ -241,6 +242,7 @@ export default function TraderScorecard({
     onDeleteStatement
 }) {
     const { t } = useLanguage();
+    const { translateText } = useTradeAnalysisLocalization();
 
     // Normalize scorecard object from prop
     const scorecard = useMemo(() => {
@@ -252,8 +254,12 @@ export default function TraderScorecard({
             overall_score: sc.overall_score ?? 78.5,
             grade: sc.grade ?? 'B+',
             tier: sc.tier ?? 'ADVANCED',
-            description: sc.description || 'Your overall trading grade across all four categories.',
-            profitability: sc.profitability || {
+            description: sc.description ? translateText(sc.description) : t('tradeAnalysis.overallGradeDesc', 'Your overall trading grade across all four categories.'),
+            profitability: sc.profitability ? {
+                ...sc.profitability,
+                highlights: Array.isArray(sc.profitability.highlights) ? sc.profitability.highlights.map(translateText) : [],
+                penalties: Array.isArray(sc.profitability.penalties) ? sc.profitability.penalties.map(translateText) : [],
+            } : {
                 score: 84.5,
                 label: 'Profitability',
                 grade: 'A-',
@@ -262,45 +268,57 @@ export default function TraderScorecard({
                     'Favorable Payoff Ratio of 1.31:1',
                     'Positive trade expectancy of +$16.96 per execution',
                     'Net positive return across executions'
-                ],
+                ].map(translateText),
                 penalties: []
             },
-            risk_management: sc.risk_management || {
+            risk_management: sc.risk_management ? {
+                ...sc.risk_management,
+                highlights: Array.isArray(sc.risk_management.highlights) ? sc.risk_management.highlights.map(translateText) : [],
+                penalties: Array.isArray(sc.risk_management.penalties) ? sc.risk_management.penalties.map(translateText) : [],
+            } : {
                 score: 65,
                 label: 'Risk Management',
                 grade: 'B-',
                 highlights: [
                     'Consistent position sizing across executions',
                     'Worst loss kept well within standard loss parameters'
-                ],
+                ].map(translateText),
                 penalties: [
                     'Outlier loss concentration: Top losses account for large portion of drawdowns'
-                ]
+                ].map(translateText)
             },
-            consistency: sc.consistency || {
+            consistency: sc.consistency ? {
+                ...sc.consistency,
+                highlights: Array.isArray(sc.consistency.highlights) ? sc.consistency.highlights.map(translateText) : [],
+                penalties: Array.isArray(sc.consistency.penalties) ? sc.consistency.penalties.map(translateText) : [],
+            } : {
                 score: 84.2,
                 label: 'Consistency',
                 grade: 'A-',
                 highlights: [
                     'Two-way profitability across BUY and SELL positions',
                     'High session consistency across trading days'
-                ],
+                ].map(translateText),
                 penalties: [
                     'Directional win-rate divergence'
-                ]
+                ].map(translateText)
             },
-            discipline: sc.discipline || {
+            discipline: sc.discipline ? {
+                ...sc.discipline,
+                highlights: Array.isArray(sc.discipline.highlights) ? sc.discipline.highlights.map(translateText) : [],
+                penalties: Array.isArray(sc.discipline.penalties) ? sc.discipline.penalties.map(translateText) : [],
+            } : {
                 score: 84,
                 label: 'Discipline',
                 grade: 'A-',
                 highlights: [
                     'Zero revenge trading re-entries detected post-loss',
                     'Controlled trade frequency and execution pacing'
-                ],
+                ].map(translateText),
                 penalties: [
                     'FOMO / News chasing: impulsive entries detected',
                     'High late-entry rate after cutoff or late session'
-                ]
+                ].map(translateText)
             },
             radar_data: Array.isArray(sc.radar_data) && sc.radar_data.length > 0
                 ? sc.radar_data
@@ -310,14 +328,14 @@ export default function TraderScorecard({
                     { category: 'Consistency', score: sc.consistency?.score ?? 84.2, fullMark: 100 },
                     { category: 'Discipline', score: sc.discipline?.score ?? 84, fullMark: 100 }
                 ],
-            actionable_level_up_tips: Array.isArray(sc.actionable_level_up_tips) && sc.actionable_level_up_tips.length > 0
+            actionable_level_up_tips: (Array.isArray(sc.actionable_level_up_tips) && sc.actionable_level_up_tips.length > 0
                 ? sc.actionable_level_up_tips
                 : [
                     'Enforce strict per-trade risk ceilings to eliminate outlier losses.',
                     'Cease new executions after optimal session window to prevent late-session volatility leakage.'
-                ]
+                ]).map(translateText)
         };
-    }, [scorecardData]);
+    }, [scorecardData, translateText, t]);
 
     if (!scorecard) return null;
 

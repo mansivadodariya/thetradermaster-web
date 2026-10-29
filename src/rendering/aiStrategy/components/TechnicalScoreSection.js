@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 import styles from '../aiStrategy.module.scss';
 import SpeedometerGauge from './SpeedometerGauge';
 import { IndicatorIcon, getScoreColor } from '@/icons/analysisIcons';
+import { TranslateResponseButton } from '@/components/translateButton';
 
 export default function TechnicalScoreSection({
     technicalScore = {},
@@ -15,10 +16,20 @@ export default function TechnicalScoreSection({
     const isLight = theme === 'light';
     const scoreColor = getScoreColor(technicalScore.label);
     const breakdown = technicalScore.breakdown || {};
+    const [translation, setTranslation] = useState({ text: '', lang: null, isTranslated: false });
 
     const trendBreakdown = breakdown.trend || { score: 25, max: 25, label: 'Bullish' };
     const momentumBreakdown = breakdown.momentum || { score: 21, max: 25, label: 'Bullish' };
     const structureBreakdown = breakdown.structure || { score: 12, max: 25, label: 'Neutral' };
+
+    const summaryText = useMemo(() => {
+        return [
+            `${technicalScore.label || 'Technical Market Score'}: ${technicalScore.total || 68}/100 with ${technicalScore.confidence || '56%'} confidence.`,
+            `Trend: ${trendBreakdown.label || 'Bullish'} (${trendBreakdown.score || 25}/25)`,
+            `Momentum: ${momentumBreakdown.label || 'Bullish'} (${momentumBreakdown.score || 21}/25)`,
+            `Structure: ${structureBreakdown.label || 'Neutral'} (${structureBreakdown.score || 12}/25)`
+        ].join('\n');
+    }, [technicalScore, trendBreakdown, momentumBreakdown, structureBreakdown]);
 
     const trendPct = Math.round(((trendBreakdown.score || 25) / (trendBreakdown.max || 25)) * 100);
     const momentumPct = Math.round(((momentumBreakdown.score || 21) / (momentumBreakdown.max || 25)) * 100);
@@ -32,9 +43,21 @@ export default function TechnicalScoreSection({
                     <div className={styles.titleIconPulse} style={{ backgroundColor: scoreColor }} />
                     <span className={styles.headerMainTitle} style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>{t('aiStrategy.technicalScore', 'TECHNICAL SCORE')}</span>
                 </div>
-                <div className={styles.headerConfidencePill}>
-                    <span className={styles.confLabel} style={{ color: isLight ? '#64748B' : 'rgba(255, 255, 255, 0.5)' }}>{t('aiStrategy.confidence', 'CONFIDENCE')}</span>
-                    <span className={styles.confValText} style={{ color: isLight ? '#047857' : '#10B981' }}>{technicalScore.confidence || '56%'}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <TranslateResponseButton
+                        placement="bottom"
+                        align="right"
+                        originalText={summaryText}
+                        isTranslated={translation.isTranslated}
+                        activeLang={translation.lang}
+                        onTranslated={(translatedText, langCode, isTranslated) => {
+                            setTranslation({ text: translatedText, lang: langCode, isTranslated });
+                        }}
+                    />
+                    <div className={styles.headerConfidencePill}>
+                        <span className={styles.confLabel} style={{ color: isLight ? '#64748B' : 'rgba(255, 255, 255, 0.5)' }}>{t('aiStrategy.confidence', 'CONFIDENCE')}</span>
+                        <span className={styles.confValText} style={{ color: isLight ? '#047857' : '#10B981' }}>{technicalScore.confidence || '56%'}</span>
+                    </div>
                 </div>
             </div>
 

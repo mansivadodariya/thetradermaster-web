@@ -2,8 +2,9 @@
 import React from 'react';
 import styles from '../aiSnapDashboard.module.scss';
 import { ActivityIcon, TrendingUpIcon, TrendingDownIcon } from '@/icons/aiSnapIcons';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment }) {
+export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment, activeLang = 'en' }) {
     const rsi = liveIndicators?.rsi || { period: 14, label: 'Neutral', value: 38.73 };
     const macd = liveIndicators?.macd || { label: 'Bearish', value: -0.0021 };
     const atr = liveIndicators?.atr || { period: 14, label: 'Low Volatility', value: 0.0045 };
@@ -21,11 +22,11 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
             <div className={styles.sectionHeaderRow}>
                 <div className={styles.sectionTitleWrap}>
                     <ActivityIcon size={18} className={styles.sectionTitleIcon} />
-                    <h3>Live Indicators & Market Assessment</h3>
+                    <h3>{getTradeSnapText('Live Indicators & Market Assessment', activeLang)}</h3>
                 </div>
                 {marketAssessment?.strength && (
                     <span className={styles.strengthBadge}>
-                        Market Strength: <strong>{marketAssessment.strength}</strong> ({marketAssessment.momentum || 'Normal'} Momentum)
+                        {getTradeSnapText('Market Strength:', activeLang)} <strong>{getTradeSnapText(marketAssessment.strength, activeLang)}</strong> ({getTradeSnapText(marketAssessment.momentum || 'Normal', activeLang)} {getTradeSnapText('Momentum', activeLang)})
                     </span>
                 )}
             </div>
@@ -36,7 +37,7 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
                     <div className={styles.indicatorCardTop}>
                         <span className={styles.indicatorName}>RSI ({rsi.period || 14})</span>
                         <span className={`${styles.statusBadge} ${getIndicatorBadgeStyle(rsi.label)}`}>
-                            {rsi.label}
+                            {getTradeSnapText(rsi.label, activeLang)}
                         </span>
                     </div>
                     <div className={styles.indicatorValue}>{rsi.value}</div>
@@ -56,11 +57,11 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
                     <div className={styles.indicatorCardTop}>
                         <span className={styles.indicatorName}>MACD Histogram</span>
                         <span className={`${styles.statusBadge} ${getIndicatorBadgeStyle(macd.label)}`}>
-                            {macd.label}
+                            {getTradeSnapText(macd.label, activeLang)}
                         </span>
                     </div>
                     <div className={styles.indicatorValue}>{macd.value}</div>
-                    <div className={styles.indicatorSubLabel}>Signal Line Histogram Crossover</div>
+                    <div className={styles.indicatorSubLabel}>{getTradeSnapText('Signal Line Histogram Crossover', activeLang)}</div>
                 </div>
 
                 {/* ATR Card */}
@@ -68,11 +69,11 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
                     <div className={styles.indicatorCardTop}>
                         <span className={styles.indicatorName}>ATR ({atr.period || 14})</span>
                         <span className={`${styles.statusBadge} ${getIndicatorBadgeStyle(atr.label)}`}>
-                            {atr.label}
+                            {getTradeSnapText(atr.label, activeLang)}
                         </span>
                     </div>
                     <div className={styles.indicatorValue}>{atr.value}</div>
-                    <div className={styles.indicatorSubLabel}>Average True Range Volatility</div>
+                    <div className={styles.indicatorSubLabel}>{getTradeSnapText('Average True Range Volatility', activeLang)}</div>
                 </div>
 
                 {/* EMA Card */}
@@ -80,11 +81,11 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
                     <div className={styles.indicatorCardTop}>
                         <span className={styles.indicatorName}>EMA ({ema.period || 50})</span>
                         <span className={`${styles.statusBadge} ${getIndicatorBadgeStyle(ema.label)}`}>
-                            {ema.label}
+                            {getTradeSnapText(ema.label, activeLang)}
                         </span>
                     </div>
                     <div className={styles.indicatorValue}>{ema.value}</div>
-                    <div className={styles.indicatorSubLabel}>Exponential Moving Average</div>
+                    <div className={styles.indicatorSubLabel}>{getTradeSnapText('Exponential Moving Average', activeLang)}</div>
                 </div>
             </div>
         </div>

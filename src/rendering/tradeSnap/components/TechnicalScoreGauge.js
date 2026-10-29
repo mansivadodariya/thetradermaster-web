@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import styles from '../aiSnapDashboard.module.scss';
 import { GaugeIcon } from '@/icons/aiSnapIcons';
 import { useTheme } from '@/context/ThemeContext';
+import { getTradeSnapText } from '../utils/tradeSnapTranslations';
 
-export default function TechnicalScoreGauge({ technicalScore, marketAssessment }) {
+export default function TechnicalScoreGauge({ technicalScore, marketAssessment, activeLang = 'en' }) {
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
@@ -59,7 +60,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
         <div className={styles.scoreGaugeCard}>
             <div className={styles.cardHeaderSmall}>
                 <GaugeIcon size={16} className={styles.headerIcon} />
-                <span>Technical Score Speedometer</span>
+                <span>{getTradeSnapText('Technical Score Speedometer', activeLang)}</span>
             </div>
 
             <div className={styles.gaugeContainer}>
@@ -113,7 +114,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                         fontWeight={isStrongSell ? '700' : '500'}
                         textAnchor="end"
                     >
-                        Strong sell
+                        {getTradeSnapText('Strong sell', activeLang)}
                     </text>
 
                     {/* 2. Sell (25% / Top-Left) */}
@@ -125,7 +126,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                         fontWeight={isSell ? '700' : '500'}
                         textAnchor="middle"
                     >
-                        Sell
+                        {getTradeSnapText('Sell', activeLang)}
                     </text>
 
                     {/* 3. Neutral (50% / Top-Center) */}
@@ -137,7 +138,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                         fontWeight={isNeutral ? '700' : '500'}
                         textAnchor="middle"
                     >
-                        Neutral
+                        {getTradeSnapText('Neutral', activeLang)}
                     </text>
 
                     {/* 4. Buy (75% / Top-Right) */}
@@ -149,7 +150,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                         fontWeight={isBuy ? '700' : '500'}
                         textAnchor="middle"
                     >
-                        Buy
+                        {getTradeSnapText('Buy', activeLang)}
                     </text>
 
                     {/* 5. Strong buy (100% / Right - anchored to the right of the arc) */}
@@ -161,7 +162,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                         fontWeight={isStrongBuy ? '700' : '500'}
                         textAnchor="start"
                     >
-                        Strong buy
+                        {getTradeSnapText('Strong buy', activeLang)}
                     </text>
 
                     {/* Animated Needle with attached pivot pin - perfectly centered at (140, 118) */}
@@ -215,14 +216,14 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                 {/* Prominent Verdict & Score Display */}
                 <div className={styles.gaugeCenterText}>
                     <h3 className={styles.verdictBigTitle} style={{ color: verdictColor }}>
-                        {verdictText}
+                        {getTradeSnapText(verdictText, activeLang)}
                     </h3>
                     <div className={styles.scoreDetailRow}>
                         <span className={styles.bigScoreVal}>{score}</span>
                         <span className={styles.scoreDenom}>/ {max}</span>
                         {confidence && (
                             <span className={styles.confidenceMiniTag}>
-                                • Conf: <strong>{confidence}</strong>
+                                • {getTradeSnapText('Conf:', activeLang)} <strong>{confidence}</strong>
                             </span>
                         )}
                     </div>

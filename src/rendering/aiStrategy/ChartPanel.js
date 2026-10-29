@@ -126,7 +126,9 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
 
         if (candlesList.length === 0) {
             const anchor = unifiedSocket.getKnownPrice(cleanSymbol) || (livePriceInfo?.price ? Number(livePriceInfo.price) : null);
-            candlesList = generateFallbackCandles(cleanSymbol, timeframe, anchor);
+            if (anchor && !isNaN(anchor) && Number(anchor) > 0) {
+                candlesList = generateFallbackCandles(cleanSymbol, timeframe, anchor);
+            }
         }
 
         try {
@@ -176,6 +178,23 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     });
                 }
             });
+
+            // If real live price or scanner price is known, synchronize the forming candle with the active market price
+            const activeLivePrice = (livePriceInfo?.price && !isNaN(livePriceInfo.price) && Number(livePriceInfo.price) > 0)
+                ? Number(livePriceInfo.price)
+                : (unifiedSocket.getKnownPrice(cleanSymbol) || null);
+
+            if (activeLivePrice && candleData.length > 0) {
+                const last = candleData[candleData.length - 1];
+                const ratio = activeLivePrice / (last.close || activeLivePrice);
+                // Only synchronize forming candle if price is within safe 3% threshold of genuine historical close
+                if (ratio >= 0.97 && ratio <= 1.03) {
+                    last.close = activeLivePrice;
+                    last.high = Math.max(last.high, activeLivePrice);
+                    const safeLow = Math.min(last.low || last.open, activeLivePrice);
+                    last.low = safeLow > 0 ? safeLow : Math.min(last.open, activeLivePrice);
+                }
+            }
 
             // Set data into series
             applySymbolPrecision(series.candle, symbol);

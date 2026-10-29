@@ -78,23 +78,19 @@ export function getTimeframeInterval(tf) {
     }
 }
 
-// Get default realistic base price for symbols if API returns empty
+// Get default realistic base price for symbols dynamically from live socket singleton
 export function getDefaultSymbolBasePrice(symbolStr = 'XAUUSD', fallbackPrice = null) {
     if (fallbackPrice && !isNaN(fallbackPrice) && Number(fallbackPrice) > 0) {
         return Number(fallbackPrice);
     }
-    const s = (symbolStr || '').replace('/', '').toUpperCase();
-    if (s.includes('XAU') || s.includes('GOLD')) return 4160.00;
-    if (s.includes('BTC')) return 88500.00;
-    if (s.includes('ETH')) return 2650.00;
-    if (s.includes('JPY')) return 154.500;
-    if (s.includes('GBP')) return 1.29500;
-    if (s.includes('EUR')) return 1.08500;
-    if (s.includes('AUD')) return 0.65500;
-    if (s.includes('CAD')) return 1.38500;
-    if (s.includes('CHF')) return 0.88500;
-    if (s.includes('NZD')) return 0.58500;
-    return 100.00;
+    try {
+        const { unifiedSocket } = require('@/lib/unifiedSocket');
+        const known = unifiedSocket?.getKnownPrice ? unifiedSocket.getKnownPrice(symbolStr) : null;
+        if (known && !isNaN(known) && Number(known) > 0) {
+            return Number(known);
+        }
+    } catch (_) {}
+    return null;
 }
 
 // Generate realistic fallback candles anchored precisely to the live price at the latest candle
@@ -102,15 +98,20 @@ export function generateMockCandles(count = 600, basePrice = null, tf = '15m', s
     const finalBasePrice = (basePrice && !isNaN(basePrice) && Number(basePrice) > 0)
         ? Number(basePrice)
         : getDefaultSymbolBasePrice(symbolStr);
+
+    if (!finalBasePrice || finalBasePrice <= 0) {
+        return [];
+    }
     const candles = [];
     const now = Math.floor(Date.now() / 1000);
     const interval = getTimeframeInterval(tf);
+    const bucketedNow = Math.floor(now / interval) * interval;
     const { precision } = getSymbolPrecision(symbolStr);
 
     let currentPrice = finalBasePrice;
     // Walk backwards from current time so latest candle's close is EXACTLY finalBasePrice
     for (let i = 0; i <= count; i++) {
-        const time = now - i * interval;
+        const time = bucketedNow - i * interval;
         const volatility = finalBasePrice * 0.0006;
         const change = (Math.random() - 0.5) * volatility;
         const close = currentPrice;

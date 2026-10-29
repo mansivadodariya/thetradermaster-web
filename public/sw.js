@@ -37,6 +37,13 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Listen for skip waiting signal from client
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 // Fetch Event: Network-first for dynamic routes/APIs, stale-while-revalidate for static assets
 self.addEventListener('fetch', (event) => {
   const { request } = event;
@@ -46,15 +53,16 @@ self.addEventListener('fetch', (event) => {
   if (
     request.method !== 'GET' ||
     url.pathname.startsWith('/api/') ||
+    url.pathname.startsWith('/_next/') ||
     url.pathname.includes('/auth/') ||
     url.protocol.startsWith('ws')
   ) {
     return;
   }
 
-  // Static assets (images, fonts, scripts) -> Stale While Revalidate
+  // Static assets (images, fonts, media) -> Stale While Revalidate
   if (
-    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|woff|woff2|ttf|css|js)$/) ||
+    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|woff|woff2|ttf)$/) ||
     url.pathname.startsWith('/icons/') ||
     url.pathname.startsWith('/assets/')
   ) {

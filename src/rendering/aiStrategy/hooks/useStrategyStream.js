@@ -493,7 +493,7 @@ export function useStrategyStream() {
             window.addEventListener('liveCandleUpdate', onLiveCandleEvent);
         }
 
-        unifiedSocket.ensureConnected('strategy');
+        unifiedSocket.ensureConnected();
 
         return () => {
             isUnmountingRef.current = true;

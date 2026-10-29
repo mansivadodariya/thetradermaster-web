@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { serverFetch } from '@/lib/serverFetch';
 
-// In-memory cache for 15 seconds
+// In-memory cache for 2 seconds (near real-time)
 let cacheData = null;
 let lastFetchTime = 0;
-const CACHE_TTL_MS = 15000;
+const CACHE_TTL_MS = 2000;
 
 async function fetchScannerSafe(url, symbols, signal) {
     try {
@@ -124,10 +124,10 @@ export async function GET(request) {
                     signal
                 };
 
-                if (cleanKey === 'GOLD') {
+                if (cleanKey === 'GOLD' && !resultMap['XAUUSD']) {
                     resultMap['XAUUSD'] = resultMap['GOLD'];
                 }
-                if (cleanKey === 'SILVER') {
+                if (cleanKey === 'SILVER' && !resultMap['XAGUSD']) {
                     resultMap['XAGUSD'] = resultMap['SILVER'];
                 }
             });

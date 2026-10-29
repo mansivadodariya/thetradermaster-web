@@ -199,7 +199,7 @@ export async function GET(request) {
                         return NextResponse.json(liveData, {
                             headers: {
                                 'Access-Control-Allow-Origin': '*',
-                                'Cache-Control': 'public, max-age=10, stale-while-revalidate=30'
+                                'Cache-Control': 'no-cache, no-store, must-revalidate'
                             }
                         });
                     }

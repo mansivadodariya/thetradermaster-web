@@ -320,6 +320,12 @@ export default function InteractiveQuestionWizard({
         if ((stepKey === 'period' || stepKey === 'duration') && strat?.from_date && strat?.to_date) {
             return [];
         }
+        if ((stepKey === 'entry_rules' || stepKey === 'strategy' || stepKey === 'rules' || stepKey === 'direction') && (strat?.entry_conditions?.rules?.length || 0) > 0) {
+            return [];
+        }
+        if ((stepKey === 'exit' || stepKey === 'exits' || stepKey === 'tp' || stepKey === 'sl') && (strat?.exit_conditions?.target != null || strat?.exit_conditions?.stoploss != null || (strat?.exit_conditions?.rules?.length || 0) > 0)) {
+            return [];
+        }
 
         let raw = [];
 

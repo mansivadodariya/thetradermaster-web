@@ -463,12 +463,6 @@ export default function CustomBotBuilderView() {
                             <StepReview
                                 data={formData}
                                 onEditStep={(step) => setCurrentStep(step)}
-                                onRunBacktest={handleRunBacktest}
-                                onDeployBot={handleDeployBot}
-                                isDeploying={isDeploying}
-                                isSimulating={isSimulating}
-                                simulationResult={simulationResult}
-                                onOpenBacktest={handleOpenBacktest}
                             />
                         )}
                     </motion.div>

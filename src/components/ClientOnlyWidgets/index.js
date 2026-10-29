@@ -7,6 +7,7 @@ import WhatsappButton from '@/components/whatsappButton';
 import MaintenanceGuard from '@/components/maintenanceGuard';
 import NotificationPopup from '@/components/notificationPopup';
 import PwaInstaller from '@/components/pwa/PwaInstaller';
+import AutoDeployRefresher from '@/components/AutoDeployRefresher';
 import { useTabPermission } from '@/lib/useTabPermission';
 
 import styles from './ClientOnlyWidgets.module.scss';
@@ -94,6 +95,7 @@ export default function ClientOnlyWidgets() {
 
     return (
         <>
+            <AutoDeployRefresher />
             <MaintenanceGuard />
             <PageLoader />
             <BackToTop />

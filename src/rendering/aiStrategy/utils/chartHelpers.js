@@ -29,40 +29,13 @@ export function formatPairCurrency(val, symbol) {
 }
 
 export function generateFallbackCandles(symbol = 'XAUUSD', timeframe = '1H', anchorPrice = null) {
-    const candlesList = [];
-    const symUpper = (symbol || '').toUpperCase().replace('/', '').replace(' ', '');
-
-    let basePrice = 4163.90;
-    let step = 1.5;
-
-    if (anchorPrice && !isNaN(anchorPrice) && Number(anchorPrice) > 0) {
-        basePrice = Number(anchorPrice);
-        step = Math.max(0.0001, basePrice * 0.0006);
-    } else if (symUpper.endsWith('JPY')) {
-        basePrice = 158.30;
-        step = 0.15;
-    } else if (symUpper.includes('EUR') || symUpper === 'EURUSD') {
-        basePrice = 1.1215;
-        step = 0.0004;
-    } else if (symUpper.includes('GBP') || symUpper === 'GBPUSD') {
-        basePrice = 1.3320;
-        step = 0.0005;
-    } else if (symUpper.includes('USDCAD')) {
-        basePrice = 1.3850;
-        step = 0.0004;
-    } else if (symUpper.includes('BTC')) {
-        basePrice = 82500.00;
-        step = 45.0;
-    } else if (symUpper.includes('ETH')) {
-        basePrice = 2425.00;
-        step = 6.0;
-    } else if (symUpper.includes('NIFTY')) {
-        basePrice = 23500.00;
-        step = 12.0;
-    } else if (symUpper.includes('XAU') || symUpper.includes('GOLD')) {
-        basePrice = 4163.90;
-        step = 2.5;
+    if (!anchorPrice || isNaN(anchorPrice) || Number(anchorPrice) <= 0) {
+        return [];
     }
+
+    const candlesList = [];
+    const basePrice = Number(anchorPrice);
+    const step = Math.max(0.0001, basePrice * 0.0006);
 
     const now = Math.floor(Date.now() / 1000);
     const count = 120;
@@ -140,11 +113,11 @@ export function calculateLiveCandleUpdate(candles, newPrice, timeframe, meta = {
 
     const lastCandle = candles[candles.length - 1];
 
-    // Sanity check: prevent artificial multi-hundred-dollar plunge/spike artifacts.
-    // If incoming price deviates by > 1.2% from last candle close, flag need for resync
-    // and do not mutate the existing candle into an unrealistic stretched needle.
+    const tfSec = getTimeframeSeconds(timeframe);
+
+    // Sanity check: prevent artificial plunge/spike artifacts if price deviation > 5%
     const deviation = Math.abs(newPrice - lastCandle.close) / (lastCandle.close || 1);
-    if (deviation > 0.012) {
+    if (deviation > 0.05) {
         return {
             updatedBar: null,
             needsResync: true,
@@ -154,33 +127,41 @@ export function calculateLiveCandleUpdate(candles, newPrice, timeframe, meta = {
         };
     }
 
-    const tfSec = getTimeframeSeconds(timeframe);
-    const nowSec = Math.floor(Date.now() / 1000);
-
-    const isSameCandle = nowSec < (lastCandle.time + tfSec);
+    const eventTime = meta.time ? (typeof meta.time === 'number' ? meta.time : Math.floor(new Date(meta.time).getTime() / 1000)) : null;
+    const isSameCandle = eventTime ? eventTime < (lastCandle.time + tfSec) : true;
     let updatedBar;
 
-    const highVal = meta.high !== undefined && !isNaN(meta.high) ? Math.max(newPrice, parseFloat(meta.high)) : newPrice;
-    const lowVal = meta.low !== undefined && !isNaN(meta.low) ? Math.min(newPrice, parseFloat(meta.low)) : newPrice;
+    const rawHigh = meta.high !== undefined ? parseFloat(meta.high) : newPrice;
+    const highVal = (!isNaN(rawHigh) && rawHigh > 0) ? Math.max(newPrice, rawHigh) : newPrice;
+
+    const rawLow = meta.low !== undefined ? parseFloat(meta.low) : newPrice;
+    const lowVal = (!isNaN(rawLow) && rawLow > 0) ? Math.min(newPrice, rawLow) : newPrice;
 
     if (isSameCandle) {
+        const rawCandleLow = Math.min(lastCandle.low || lastCandle.open, lowVal);
+        const safeLow = rawCandleLow > 0 ? rawCandleLow : Math.min(lastCandle.open, newPrice);
         updatedBar = {
             time: lastCandle.time,
             open: lastCandle.open,
             high: Math.max(lastCandle.high, highVal),
-            low: Math.min(lastCandle.low, lowVal),
+            low: safeLow,
             close: newPrice,
             tick_volume: (lastCandle.tick_volume || 1500) + 1,
         };
         candles[candles.length - 1] = updatedBar;
     } else {
-        const bucketTime = nowSec - (nowSec % tfSec);
-        const newTime = bucketTime > lastCandle.time ? bucketTime : lastCandle.time + tfSec;
+        const newTime = lastCandle.time + tfSec;
+        // Start the new candle cleanly from newPrice. Never stretch artificially back to lastCandle.close if it diverges!
+        const isNear = Math.abs(newPrice - lastCandle.close) / (lastCandle.close || 1) < 0.002;
+        const candleOpen = isNear ? lastCandle.close : newPrice;
+        const validHigh = Math.max(candleOpen, newPrice, highVal);
+        const rawCandleLow = Math.min(candleOpen, newPrice, lowVal);
+        const validLow = rawCandleLow > 0 ? rawCandleLow : Math.min(candleOpen, newPrice);
         updatedBar = {
             time: newTime,
-            open: lastCandle.close,
-            high: Math.max(lastCandle.close, highVal),
-            low: Math.min(lastCandle.close, lowVal),
+            open: candleOpen,
+            high: validHigh,
+            low: validLow,
             close: newPrice,
             tick_volume: 15,
         };

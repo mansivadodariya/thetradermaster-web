@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import { getWsCandidateUrls, cleanPairSymbol } from '@/lib/unifiedSocket';
+import { unifiedSocket, cleanPairSymbol } from '@/lib/unifiedSocket';
 import InstrumentIcon from './InstrumentIcon';
 import styles from '../dashboard.module.scss';
 
@@ -242,38 +242,6 @@ function formatPrice(val) {
     return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 5 });
 }
 
-function getRealisticDelta(symbol, currentPrice) {
-    const sym = cleanPairSymbol(symbol);
-    const direction = Math.random() > 0.49 ? 1 : -1;
-    if (sym === 'BTCUSD') {
-        const delta = (Math.random() * 12.5 + 2.5) * direction;
-        return Number((currentPrice + delta).toFixed(2));
-    }
-    if (sym === 'ETHUSD') {
-        const delta = (Math.random() * 1.2 + 0.15) * direction;
-        return Number((currentPrice + delta).toFixed(2));
-    }
-    if (sym === 'SOLUSD' || sym === 'BNBUSD') {
-        const delta = (Math.random() * 0.18 + 0.03) * direction;
-        return Number((currentPrice + delta).toFixed(2));
-    }
-    if (sym === 'XAUUSD') {
-        const delta = (Math.random() * 0.42 + 0.08) * direction;
-        return Number((currentPrice + delta).toFixed(2));
-    }
-    if (sym === 'XAGUSD') {
-        const delta = (Math.random() * 0.02 + 0.003) * direction;
-        return Number((currentPrice + delta).toFixed(2));
-    }
-    if (sym.includes('JPY')) {
-        const delta = (Math.random() * 0.022 + 0.003) * direction;
-        return Number((currentPrice + delta).toFixed(3));
-    }
-    // Standard 5-decimal Forex pairs (EUR/USD, GBP/USD, AUD/USD, USD/CAD, USD/CHF)
-    const delta = (Math.random() * 0.00010 + 0.00002) * direction;
-    return Number((currentPrice + delta).toFixed(5));
-}
-
 export default function DashboardMarketOverview({ initialItems = [], userId = '' }) {
     const { t } = useLanguage();
     const [activeTab, setActiveTab] = useState('Forex');
@@ -286,7 +254,6 @@ export default function DashboardMarketOverview({ initialItems = [], userId = ''
     });
 
     const [priceFlashMap, setPriceFlashMap] = useState({});
-    const wsRef = useRef(null);
     const flashTimersRef = useRef({});
     const itemsRef = useRef(items);
     itemsRef.current = items;
@@ -351,83 +318,64 @@ export default function DashboardMarketOverview({ initialItems = [], userId = ''
     // WebSocket Live Updates + Multi-Pair Dynamic Stream
     useEffect(() => {
         let isMounted = true;
-        const candidates = getWsCandidateUrls('XAUUSD', 'H1', 'default');
-        let currentCandidateIdx = 0;
 
-        const connectSocket = () => {
-            if (!isMounted) return;
-            const wsUrl = candidates[currentCandidateIdx % candidates.length];
-
-            try {
-                const ws = new WebSocket(wsUrl);
-                wsRef.current = ws;
-
-                ws.onopen = () => {
-                    if (!isMounted) return;
-                    try {
-                        ws.send(JSON.stringify({ action: 'get_market_overview' }));
-                    } catch (_) {}
-                };
-
-                ws.onmessage = (event) => {
-                    if (!isMounted) return;
-                    try {
-                        const payload = JSON.parse(event.data);
-
-                        // 1. Bulk market overview update
-                        if (payload.type === 'market_overview_update' && (payload.data?.all || Array.isArray(payload.data))) {
-                            const newOverview = payload.data.all || payload.data;
-                            if (Array.isArray(newOverview) && newOverview.length > 0) {
-                                setItems((prev) => {
-                                    const updateMap = new Map(newOverview.map(item => [cleanPairSymbol(item.symbol), item]));
-                                    return prev.map(oldItem => {
-                                        const found = updateMap.get(cleanPairSymbol(oldItem.symbol));
-                                        if (found) {
-                                            const newTrend = (Array.isArray(found.trend) && found.trend.length > 0)
-                                                ? found.trend
-                                                : ((Array.isArray(found.sparkline) && found.sparkline.length > 0) ? found.sparkline : oldItem.trend);
-                                            return {
-                                                ...oldItem,
-                                                ...found,
-                                                trend: newTrend
-                                            };
-                                        }
-                                        return oldItem;
-                                    });
-                                });
+        fetch('/api/v1/market/tickers')
+            .then(res => res.json())
+            .then(json => {
+                if (json?.success && json?.data && isMounted) {
+                    const live = json.data;
+                    setItems(prev => prev.map(item => {
+                        const sym = cleanPairSymbol(item.symbol);
+                        const match = live[sym];
+                        if (match) {
+                            const raw = typeof match.rawPrice === 'number' ? match.rawPrice : parseFloat(String(match.price).replace(/,/g, ''));
+                            if (!isNaN(raw) && raw > 0) {
+                                return {
+                                    ...item,
+                                    price: raw,
+                                    change_24h_display: match.change || item.change_24h_display
+                                };
                             }
                         }
-
-                        // 2. Individual live price ticks from WebSocket
-                        if ((payload.type === 'price_update' || payload.type === 'tick') && payload.symbol) {
-                            applyPriceTick(payload.symbol, payload.price, payload.change_percent ?? payload.change_24h);
-                        }
-                    } catch (err) {
-                        // ignore JSON parse errors
-                    }
-                };
-
-                ws.onerror = () => {
-                    try { ws.close(); } catch (_) {}
-                };
-
-                ws.onclose = () => {
-                    if (!isMounted) return;
-                    currentCandidateIdx++;
-                    setTimeout(connectSocket, 4000);
-                };
-            } catch (e) {
-                if (isMounted) {
-                    currentCandidateIdx++;
-                    setTimeout(connectSocket, 4000);
+                        return item;
+                    }));
                 }
+            })
+            .catch(() => {});
+
+        // Ensure shared unified socket singleton is running
+        unifiedSocket.ensureConnected();
+
+        // 1. Bulk market overview update listener
+        const handleMarketOverview = (e) => {
+            if (!isMounted) return;
+            const data = e?.detail;
+            const newOverview = data?.all || (Array.isArray(data) ? data : null);
+            if (Array.isArray(newOverview) && newOverview.length > 0) {
+                setItems((prev) => {
+                    const updateMap = new Map(newOverview.map(item => [cleanPairSymbol(item.symbol), item]));
+                    return prev.map(oldItem => {
+                        const found = updateMap.get(cleanPairSymbol(oldItem.symbol));
+                        if (found) {
+                            const newTrend = (Array.isArray(found.trend) && found.trend.length > 0)
+                                ? found.trend
+                                : ((Array.isArray(found.sparkline) && found.sparkline.length > 0) ? found.sparkline : oldItem.trend);
+                            return {
+                                ...oldItem,
+                                ...found,
+                                trend: newTrend
+                            };
+                        }
+                        return oldItem;
+                    });
+                });
             }
         };
+        window.addEventListener('liveMarketOverviewUpdate', handleMarketOverview);
 
-        connectSocket();
-
-        // 3. Global window livePriceUpdate listener
+        // 2. Global window livePriceUpdate listener for real MT5 ticks
         const handleGlobalPrice = (e) => {
+            if (!isMounted) return;
             const detail = e?.detail;
             if (detail?.symbol && detail?.price !== undefined) {
                 applyPriceTick(detail.symbol, detail.price, detail.change_percent ?? detail.changePercent);
@@ -435,43 +383,10 @@ export default function DashboardMarketOverview({ initialItems = [], userId = ''
         };
         window.addEventListener('livePriceUpdate', handleGlobalPrice);
 
-        // 4. Live Multi-Instrument Tick Stream Engine
-        // Periodically updates active instruments with realistic pip movements so all pairs stay dynamic & alive
-        const tickInterval = setInterval(() => {
-            if (!isMounted) return;
-            const currentItems = itemsRef.current;
-            if (!Array.isArray(currentItems) || currentItems.length === 0) return;
-
-            // Pick 1 to 2 random instruments per cycle to update
-            const updateCount = Math.floor(Math.random() * 2) + 1;
-            const shuffled = [...currentItems].sort(() => 0.5 - Math.random());
-            const targets = shuffled.slice(0, updateCount);
-
-            targets.forEach((target) => {
-                const nextPrice = getRealisticDelta(target.symbol, target.price);
-                applyPriceTick(target.symbol, nextPrice);
-            });
-        }, 2100);
-
         return () => {
             isMounted = false;
-            clearInterval(tickInterval);
+            window.removeEventListener('liveMarketOverviewUpdate', handleMarketOverview);
             window.removeEventListener('livePriceUpdate', handleGlobalPrice);
-            if (wsRef.current) {
-                const ws = wsRef.current;
-                wsRef.current = null;
-                try {
-                    if (ws.readyState === WebSocket.OPEN) {
-                        ws.close();
-                    } else if (ws.readyState === WebSocket.CONNECTING) {
-                        ws.onopen = () => {
-                            try { ws.close(); } catch (_) {}
-                        };
-                        ws.onmessage = null;
-                        ws.onerror = null;
-                    }
-                } catch (_) {}
-            }
             Object.values(flashTimersRef.current).forEach(t => clearTimeout(t));
         };
     }, []);

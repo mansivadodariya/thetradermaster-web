@@ -231,20 +231,24 @@ export default function AiCockpitLiveChart({ livePrice = 4308.18, isPositiveChan
         const time = normalizeTime(
           candleData.time || candleData.t || fullPayload?.timestamp
         );
-        const open = parseFloat(candleData.open || candleData.o);
-        const high = parseFloat(candleData.high || candleData.h);
-        const low = parseFloat(candleData.low || candleData.l);
-        const close = parseFloat(candleData.close || candleData.c);
-        const volume = parseFloat(candleData.volume || candleData.v || candleData.tick_volume || 0);
+        const rawOpen = parseFloat(candleData.open || candleData.o);
+        const rawClose = parseFloat(candleData.close || candleData.c);
+        if (isNaN(rawOpen) || isNaN(rawClose) || isNaN(time) || rawOpen <= 0 || rawClose <= 0) return;
 
-        if (isNaN(open) || isNaN(close) || isNaN(time)) return;
+        const rawHigh = parseFloat(candleData.high || candleData.h);
+        const safeHigh = (!isNaN(rawHigh) && rawHigh > 0) ? Math.max(rawOpen, rawClose, rawHigh) : Math.max(rawOpen, rawClose);
+
+        const rawLow = parseFloat(candleData.low || candleData.l);
+        const safeLow = (!isNaN(rawLow) && rawLow > 0) ? Math.min(rawOpen, rawClose, rawLow) : Math.min(rawOpen, rawClose);
+
+        const volume = parseFloat(candleData.volume || candleData.v || candleData.tick_volume || 0);
 
         const updatedCandle = {
           time,
-          open: Number(open.toFixed(2)),
-          high: Number(high.toFixed(2)),
-          low: Number(low.toFixed(2)),
-          close: Number(close.toFixed(2)),
+          open: Number(rawOpen.toFixed(2)),
+          high: Number(safeHigh.toFixed(2)),
+          low: Number(safeLow.toFixed(2)),
+          close: Number(rawClose.toFixed(2)),
         };
 
         try {
@@ -256,7 +260,7 @@ export default function AiCockpitLiveChart({ livePrice = 4308.18, isPositiveChan
             volumeSeriesRef.current.update({
               time,
               value: volume || 1000,
-              color: close >= open
+              color: updatedCandle.close >= updatedCandle.open
                 ? 'rgba(16, 185, 129, 0.35)'
                 : 'rgba(244, 63, 94, 0.35)',
             });

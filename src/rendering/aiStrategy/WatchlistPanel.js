@@ -71,20 +71,12 @@ function getBidAskPrices(candle, symbol) {
     };
 }
 
-const WATCHLIST_BASE_PRICES = {
-    XAUUSD: { price: 4015.09, changePct: 0.37 },
-    EURUSD: { price: 1.12111, changePct: 0.02 },
-    GBPUSD: { price: 1.33483, changePct: -0.18 },
-    GBPJPY: { price: 209.939, changePct: 0.06 },
-    EURJPY: { price: 176.323, changePct: 0.27 },
-    USDCAD: { price: 1.40110, changePct: -0.03 },
-};
-
 function getInitialPairCandles(pair) {
     const sym = cleanPairSymbol(pair);
     const known = unifiedSocket.getKnownPrice(sym);
-    const info = WATCHLIST_BASE_PRICES[sym] || { price: 1.0000, changePct: 0.00 };
-    const price = known || info.price;
+    if (!known || isNaN(known) || Number(known) <= 0) return null;
+
+    const price = Number(known);
     const nowSec = Math.floor(Date.now() / 1000);
     const durations = ["5m", "15m", "1h", "1d"];
     const map = {};
@@ -96,7 +88,7 @@ function getInitialPairCandles(pair) {
             low: price,
             close: price,
             tick_volume: 100,
-            changePct: info.changePct
+            changePct: 0
         };
     });
     return map;
@@ -342,9 +334,43 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
     const [searchQuery, setSearchQuery] = useState('');
     const [wsStatus, setWsStatus] = useState(unifiedSocket.getStatus());
 
-    // Listen to real-time socket connection & fallback status
+    // Listen to real-time socket connection & fallback status, and calibrate with live scanner
     useEffect(() => {
         unifiedSocket.ensureConnected();
+
+        fetch('/api/v1/market/tickers')
+            .then(res => res.json())
+            .then(json => {
+                if (json?.success && json?.data) {
+                    const live = json.data;
+                    PAIRS.forEach(p => {
+                        const sym = cleanPairSymbol(p);
+                        const item = live[sym];
+                        if (item) {
+                            const raw = typeof item.rawPrice === 'number' ? item.rawPrice : parseFloat(String(item.price).replace(/,/g, ''));
+                            if (!isNaN(raw) && raw > 0) {
+                                unifiedSocket.setKnownPrice(sym, raw);
+                                const chg = parseFloat(String(item.change || '0').replace('%', '')) || 0;
+                                if (typeof window !== 'undefined') {
+                                    window.dispatchEvent(new CustomEvent('livePriceUpdate', {
+                                        detail: {
+                                            symbol: sym,
+                                            price: raw,
+                                            bid: raw,
+                                            ask: raw,
+                                            last: raw,
+                                            change_percent: chg,
+                                            timestamp: Math.floor(Date.now() / 1000)
+                                        }
+                                    }));
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(() => {});
+
         return unifiedSocket.subscribeStatus((status) => {
             setWsStatus(status);
         });
@@ -360,6 +386,27 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
             <div className={styles.watchlistHeader}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <h3>{t('aiStrategy.watchlistTitle', 'Watchlist')}</h3>
+                    <span style={{
+                        fontSize: '0.68rem',
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: wsStatus === 'connected' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)',
+                        color: wsStatus === 'connected' ? '#10b981' : '#f59e0b',
+                        border: `1px solid ${wsStatus === 'connected' ? 'rgba(16, 185, 129, 0.25)' : 'rgba(245, 158, 11, 0.25)'}`
+                    }}>
+                        <span style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            backgroundColor: wsStatus === 'connected' ? '#10b981' : '#f59e0b',
+                            boxShadow: wsStatus === 'connected' ? '0 0 6px #10b981' : '0 0 6px #f59e0b'
+                        }} />
+                        {wsStatus === 'connected' ? 'Live Stream' : 'Live Backup (Reconnecting...)'}
+                    </span>
                 </div>
             </div>
 

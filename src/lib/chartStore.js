@@ -60,30 +60,28 @@ export async function fetchChartCandlesOnce(symbol, timeframe = '15m', strategyI
 
         // 1. Configured Backend URL from ENV
         const envBackend = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
+        const ts = Date.now();
         if (envBackend) {
-            candidateEndpoints.push(`${envBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}`);
+            candidateEndpoints.push(`${envBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}&_t=${ts}`);
         }
 
         // 2. Internal Next.js API route (Proxies to Backend / Supabase)
         if (typeof window !== 'undefined') {
-            candidateEndpoints.push(`/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}`);
-        }
-
-        // 3. Guaranteed Production Endpoint
-        const prodBackend = 'https://api.thetradermaster.com';
-        if (!candidateEndpoints.some(u => u.startsWith(prodBackend))) {
-            candidateEndpoints.push(`${prodBackend}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}`);
+            candidateEndpoints.push(`/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${strategyId}&_t=${ts}`);
         }
 
         // Try candidates sequentially
         for (const url of candidateEndpoints) {
             try {
                 const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-                const timeoutId = controller ? setTimeout(() => controller.abort(), 3500) : null;
+                const timeoutId = controller ? setTimeout(() => controller.abort(), 7000) : null;
 
                 const res = await fetch(url, {
+                    cache: 'no-store',
                     headers: {
                         'accept': 'application/json',
+                        'cache-control': 'no-cache, no-store, must-revalidate',
+                        'pragma': 'no-cache',
                         'ngrok-skip-browser-warning': 'true'
                     },
                     signal: controller ? controller.signal : undefined
@@ -108,7 +106,7 @@ export async function fetchChartCandlesOnce(symbol, timeframe = '15m', strategyI
     .then((data) => {
         setTimeout(() => {
             activeFetches.delete(key);
-        }, 4000);
+        }, 500);
         return data;
     })
     .catch((err) => {
